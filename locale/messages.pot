@@ -1,0 +1,66 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-06-13 11:01+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: extension.js:85 extension.js:224
+msgid "Start recording"
+msgstr ""
+
+#: extension.js:99
+msgid "Delay recording"
+msgstr ""
+
+#: extension.js:114
+msgid "Delay Time"
+msgstr ""
+
+#: extension.js:117 extension.js:120
+msgid " Sec"
+msgstr ""
+
+#: extension.js:133
+msgid "Options"
+msgstr ""
+
+#: extension.js:165
+msgid "Start Recording"
+msgstr ""
+
+#: extension.js:217
+msgid "Stop recording"
+msgstr ""
+
+#: extension.js:232
+msgid "EasyScreenCast -> Finish Recording"
+msgstr ""
+
+#: extension.js:233
+msgid "total Seconds : "
+msgstr ""
+
+#: extension.js:236
+msgid "EasyScreenCast -> Seconds passed : "
+msgstr ""
+
+#: extension.js:237
+msgid "Recording in progress"
+msgstr ""
+
+#: prefs.js:70
+msgid "Could not load the preferences UI file"
+msgstr ""

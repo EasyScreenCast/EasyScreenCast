@@ -1,0 +1,24 @@
+<schemalist >
+   <schema id="org.gnome.shell.extensions.EasyScreenCast" path="/org/gnome/shell/extensions/EasyScreenCast/">
+        <key name="show-timer-rec" type="b">
+            <default>false</default>
+            <summary>Enable show timer of recording into notify</summary>
+            <description>Enable show timer of recording into notify</description>
+        </key>
+        <key name="delay-time" type="i">
+            <default>0</default>
+            <summary>Time in seconds fot delay recording</summary>
+            <description>Time in seconds fot delay recording</description>
+        </key>
+        <key name="active-delay-time" type="b">
+            <default>false</default>
+            <summary>Active delay before recording</summary>
+            <description>Active delay before recording</description>
+        </key>
+        <key name="verbose-debug" type="b">
+            <default>false</default>
+            <summary>Enable verbose debug</summary>
+            <description>Enable verbose debug</description>
+        </key>
+    </schema>
+</schemalist>

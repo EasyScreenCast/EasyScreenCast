@@ -1,0 +1,8 @@
+{
+    "shell-version": ["3.6","3.8"], 
+    "uuid": "EasyScreenCast@iacopodeenosee.gmail.com", 
+    "url": "http://iacopodeenosee.wordpress.com/",
+    "name": "EasyScreenCast", 
+    "version":"0.9.1",
+    "description": "extensions can simple use of screencast"
+}
