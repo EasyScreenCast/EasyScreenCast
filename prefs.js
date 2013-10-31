@@ -36,15 +36,24 @@ const ACTIVE_DELAY_SETTING_KEY = "active-delay-time";
 const TIME_DELAY_SETTING_KEY = "delay-time";
 const SHOW_TIMER_REC_SETTING_KEY = "show-timer-rec";
 const VERBOSE_DEBUG_SETTING_KEY = "verbose-debug";
+const PIPELINE_REC_SETTING_KEY = "pipeline";
+const FPS_SETTING_KEY = "fps";
+const SHOW_INDICATOR_SETTING_KEY = "show-indicator";
+const X_POS_SETTING_KEY = "x-pos";
+const Y_POS_SETTING_KEY = "y-pos";
+const WIDTH_SETTING_KEY = "width-rec";
+const HEIGHT_SETTING_KEY = "height-rec";
+const DRAW_CURSOR_SETTING_KEY = "draw-cursor";
+const FULL_SCREEN_SETTING_KEY = "full-screen";
 // setting key - recorder
-const FILE_EXTENSION_SETTING_KEY = "file-extension";
-const FPS_SETTING_KEY = "framerate";
-const COMMAND_LINE_REC_SETTING_KEY = "pipeline";
+//const FILE_EXTENSION_SETTING_KEY = "file-extension";
+const MAX_DURATION_SETTING_KEY = "max-screencast-length";
+
 
 let settings=null;
 
 function init() {
-	Lib.initTranslations('EasyScreenCast@iacopodeenosee.gmail.com');
+    Lib.initTranslations('EasyScreenCast@iacopodeenosee.gmail.com');
 }
 
 const EasyScreenCastSettingsWidget = new GObject.Class({
@@ -59,15 +68,13 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         this.spacign = 0;
 
         // creates the settings
-        if(settings===null){
-            settings = Lib.getSettings("org.gnome.shell.extensions.EasyScreenCast");
-        }
-        this.RecorderSettings = new Gio.Settings({ schema: 'org.gnome.shell.recorder' });
+        checkSettings();
+        this.RecorderSettings = new Gio.Settings({ schema: 'org.gnome.settings-daemon.plugins.media-keys' });
 
         // creates the ui builder and add the main resource file
         let uiFilePath = Me.path + "/EasyScreenCast.gtkbuilder";
         let builder = new Gtk.Builder();
-        builder.set_translation_domain('EasyScreenCast@iacopodeenosee.gmail.comUI');
+        //builder.set_translation_domain('EasyScreenCast@iacopodeenosee.gmail.comUI');
 
         if (builder.add_from_file(uiFilePath) == 0) {
             Lib.TalkativeLog("ESC > could not load the ui file: %s".format(uiFilePath));
@@ -88,36 +95,76 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
 
             
             //implements show timer option
-            let Ref_switch_ShowTimerRec = builder.get_object("swt_ShowTimerRec");
-            settings.bind(SHOW_TIMER_REC_SETTING_KEY, Ref_switch_ShowTimerRec, "active", Gio.SettingsBindFlags.DEFAULT);
+            this.Ref_switch_ShowTimerRec = builder.get_object("swt_ShowTimerRec");
+            settings.bind(SHOW_TIMER_REC_SETTING_KEY, this.Ref_switch_ShowTimerRec, "active", Gio.SettingsBindFlags.DEFAULT);
             
+            //implements show indicator option
+            this.Ref_switch_ShowIndicatorRec = builder.get_object("swt_ShowIndicatorRec");
+            settings.bind(SHOW_INDICATOR_SETTING_KEY, this.Ref_switch_ShowIndicatorRec, "active", Gio.SettingsBindFlags.DEFAULT);
+            
+            //implements draw cursor option
+            this.Ref_switch_DrawCursorRec = builder.get_object("swt_DrawCursorRec");
+            settings.bind(DRAW_CURSOR_SETTING_KEY, this.Ref_switch_DrawCursorRec, "active", Gio.SettingsBindFlags.DEFAULT);
+            
+            //implements full screen option
+            this.Ref_radiobutton_FullScreenRec = builder.get_object("rdb_FullScreenRec");
+            settings.bind(FULL_SCREEN_SETTING_KEY, this.Ref_radiobutton_FullScreenRec, "active", Gio.SettingsBindFlags.DEFAULT);
+            this.Ref_radiobutton_SpecificRec = builder.get_object("rdb_SpecificRec");
+            this.Ref_radiobutton_SpecificRec.connect ("activate",  Lang.bind(this, function(){
+                    settings.set_boolean(FULL_SCREEN_SETTING_KEY, false);
+                }));
             
             //implements FPS option
-            let Ref_spinner_FrameRateRec = builder.get_object("spb_FrameRateRec");
+            this.Ref_spinner_FrameRateRec = builder.get_object("spb_FrameRateRec");
             // Create an adjustment to use for the second spinbutton
-            let adjustment = new Gtk.Adjustment ({value: 30,lower: 1,upper: 666,
+            let adjustment1 = new Gtk.Adjustment ({value: 30,lower: 1,upper: 666,
                 step_increment: 1,page_increment: 10 });
-            Ref_spinner_FrameRateRec.configure(adjustment,10,0);
-            this.RecorderSettings.bind(FPS_SETTING_KEY, Ref_spinner_FrameRateRec, "value", Gio.SettingsBindFlags.DEFAULT);
+            this.Ref_spinner_FrameRateRec.configure(adjustment1,10,0);
+            settings.bind(FPS_SETTING_KEY, this.Ref_spinner_FrameRateRec, "value", Gio.SettingsBindFlags.DEFAULT);
             
+            //implements max duration option
+            this.Ref_spinner_MaxDurationRec = builder.get_object("spb_MaxDurationRec");
+            // Create an adjustment to use for the second spinbutton
+            let adjustment2 = new Gtk.Adjustment ({value: 0,lower: 0,upper: 3600,
+                step_increment: 1,page_increment: 10 });
+            this.Ref_spinner_MaxDurationRec.configure(adjustment2,10,0);
+            this.RecorderSettings.bind(MAX_DURATION_SETTING_KEY, this.Ref_spinner_MaxDurationRec, "value", Gio.SettingsBindFlags.DEFAULT);
             
-            //implements file extension rec option
-            let Ref_textedit_FileExtension = builder.get_object("txe_FileExtensionRec");
-            this.RecorderSettings.bind(FILE_EXTENSION_SETTING_KEY, Ref_textedit_FileExtension, "text", Gio.SettingsBindFlags.DEFAULT);
-            
+            //implements specific area options [ X , Y , width , height]
+            this.Ref_spinner_X = builder.get_object("spb_XposRec");
+            this.Ref_spinner_Y = builder.get_object("spb_YposRec");
+            this.Ref_spinner_Width = builder.get_object("spb_WidthRec");
+            this.Ref_spinner_Height = builder.get_object("spb_HeigthRec");
+            // Create an adjustment to use for the second spinbutton
+            let adjustment3 = new Gtk.Adjustment ({value: 0,lower: 0,upper:20000,
+                step_increment: 1,page_increment: 10 });
+            this.Ref_spinner_X.configure(adjustment3,10,0);
+            let adjustment4 = new Gtk.Adjustment ({value: 0,lower: 0,upper:20000,
+                step_increment: 1,page_increment: 10 });            
+            this.Ref_spinner_Y.configure(adjustment4,10,0);
+            let adjustment6 = new Gtk.Adjustment ({value: 600,lower: 0,upper:20000,
+                step_increment: 1,page_increment: 10 });
+            this.Ref_spinner_Width.configure(adjustment6,10,0);
+            let adjustment5 = new Gtk.Adjustment ({value: 400,lower: 0,upper:20000,
+                step_increment: 1,page_increment: 10 });
+            this.Ref_spinner_Height.configure(adjustment5,10,0);
+            settings.bind(X_POS_SETTING_KEY, this.Ref_spinner_X, "value", Gio.SettingsBindFlags.DEFAULT);
+            settings.bind(Y_POS_SETTING_KEY, this.Ref_spinner_Y, "value", Gio.SettingsBindFlags.DEFAULT);
+            settings.bind(WIDTH_SETTING_KEY, this.Ref_spinner_Width, "value", Gio.SettingsBindFlags.DEFAULT);
+            settings.bind(HEIGHT_SETTING_KEY, this.Ref_spinner_Height, "value", Gio.SettingsBindFlags.DEFAULT);
             
             //implements command string rec option
-            let Ref_textedit_CommandStringRec = builder.get_object("txe_CommandStringRec");
-            this.RecorderSettings.bind(COMMAND_LINE_REC_SETTING_KEY, Ref_textedit_CommandStringRec, "text", Gio.SettingsBindFlags.DEFAULT);
+            this.Ref_textedit_Pipeline = builder.get_object("txe_CommandStringRec");
+            settings.bind(PIPELINE_REC_SETTING_KEY, this.Ref_textedit_Pipeline, "text", Gio.SettingsBindFlags.DEFAULT);
             
             
             //implements default button action
-            let Ref_button_SetDeafaultSettings = builder.get_object("btn_DefaultOption");
-            Ref_button_SetDeafaultSettings.connect ("clicked", Lang.bind(this, this._setDefaultsettings));
+            this.Ref_button_SetDeafaultSettings = builder.get_object("btn_DefaultOption");
+            this.Ref_button_SetDeafaultSettings.connect ("clicked", Lang.bind(this, this._setDefaultsettings));
             
             //implements verbose debug option
-            let Ref_checkboxbutton_VerboseDebug = builder.get_object("ckb_VerboseDebug");
-            settings.bind(VERBOSE_DEBUG_SETTING_KEY,Ref_checkboxbutton_VerboseDebug, "active", Gio.SettingsBindFlags.DEFAULT);
+            this.Ref_checkboxbutton_VerboseDebug = builder.get_object("ckb_VerboseDebug");
+            settings.bind(VERBOSE_DEBUG_SETTING_KEY,this.Ref_checkboxbutton_VerboseDebug, "active", Gio.SettingsBindFlags.DEFAULT);
             
         }
     },
@@ -125,56 +172,102 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
     //function to restore default value of the settings
     _setDefaultsettings: function () {
             
-        Ref_switch_ShowTimerRec.set_active(false);
-        Ref_spinner_FrameRateRec.set_value(30);
-        Ref_textedit_FileExtension.set_text("webm");
-        Ref_textedit_CommandString.set_text("vp8enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T ! queue ! webmmux");
+        this.Ref_switch_ShowTimerRec.set_active(false);
+        this.Ref_switch_ShowIndicatorRec.set_active(true);
+        this.Ref_switch_DrawCursorRec.set_active(true);
+        this.Ref_radiobutton_FullScreenRec.set_active(true);
+        
+        this.Ref_spinner_FrameRateRec.set_value(30);
+        this.Ref_spinner_MaxDurationRec.set_value(0);
+
+        this.Ref_spinner_X.set_value(0);
+        this.Ref_spinner_Y.set_value(0);
+        this.Ref_spinner_Width.set_value(600);
+        this.Ref_spinner_Height.set_value(400);
+
+        this.Ref_textedit_Pipeline.set_text("vp8enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T ! queue ! webmmux");
     }
 });
 
+//all getter option
 function getVerboseDebug(){
-    if(settings===null){
-         settings = Lib.getSettings("org.gnome.shell.extensions.EasyScreenCast");
-    }
+    checkSettings();
     return settings.get_boolean(VERBOSE_DEBUG_SETTING_KEY);
 };
 
 function getShowTimerRec(){
-    if(settings===null){
-         settings = Lib.getSettings("org.gnome.shell.extensions.EasyScreenCast");
-    }
+    checkSettings();
     return settings.get_boolean(SHOW_TIMER_REC_SETTING_KEY);
 };
 
+function getShowIndicatorRec(){
+    checkSettings();
+    return settings.get_boolean(SHOW_INDICATOR_SETTING_KEY);
+};
 
+function getFullScreenRec(){
+    checkSettings();
+    return settings.get_boolean(FULL_SCREEN_SETTING_KEY);
+};
+
+function getDrawCursorRec(){
+    checkSettings();
+    return settings.get_boolean(DRAW_CURSOR_SETTING_KEY);
+};
+
+function getPipelineRec(){
+    checkSettings();
+    return settings.get_string(PIPELINE_REC_SETTING_KEY);
+};
+
+function getFPSRec(){
+    checkSettings();
+    return settings.get_int(FPS_SETTING_KEY);
+};
+
+function getXRec(){
+    checkSettings();
+    return settings.get_int(X_POS_SETTING_KEY);
+};
+function getYRec(){
+    checkSettings();
+    return settings.get_int(Y_POS_SETTING_KEY);
+};
+function getWidthRec(){
+    checkSettings();
+    return settings.get_int(WIDTH_SETTING_KEY);
+};
+function getHeightRec(){
+    checkSettings();
+    return settings.get_int(HEIGHT_SETTING_KEY);
+};
+
+//all getter/setter option
 function getActiveDelay(){
-    if(settings===null){
-         settings = Lib.getSettings("org.gnome.shell.extensions.EasyScreenCast");
-    }
+    checkSettings();
     return settings.get_boolean(ACTIVE_DELAY_SETTING_KEY);
 };
 
 function getTimeDelay(){
-    if(settings===null){
-         settings = Lib.getSettings("org.gnome.shell.extensions.EasyScreenCast");
-    }
+    checkSettings();
     return settings.get_int(TIME_DELAY_SETTING_KEY);
 };
 
 function setActiveDelay(temp){
-    if(settings===null){
-         settings = Lib.getSettings("org.gnome.shell.extensions.EasyScreenCast");
-    }
+    checkSettings();
     settings.set_boolean(ACTIVE_DELAY_SETTING_KEY, temp);
 };
 
 function setTimeDelay(temp){
-    if(settings===null){
-         settings = Lib.getSettings("org.gnome.shell.extensions.EasyScreenCast");
-    }
+    checkSettings();
     settings.set_int(TIME_DELAY_SETTING_KEY, temp);
 };
 
+function checkSettings(){
+    if(settings===null){
+        settings = Lib.getSettings("org.gnome.shell.extensions.EasyScreenCast");
+    }
+}
 
 function buildPrefsWidget() {
     Lib.TalkativeLog('ESC > Init pref widget');

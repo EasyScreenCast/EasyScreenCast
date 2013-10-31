@@ -20,5 +20,50 @@
             <summary>Enable verbose debug</summary>
             <description>Enable verbose debug</description>
         </key>
+        <key name="x-pos" type="i">
+            <default>0</default>
+            <summary>X position of screencasting</summary>
+            <description>X position of screencasting</description>
+        </key>
+        <key name="y-pos" type="i">
+            <default>0</default>
+            <summary>Y position of screencasting</summary>
+            <description>Y position of screencasting</description>
+        </key>
+        <key name="width-rec" type="i">
+            <default>600</default>
+            <summary>width of screencasting</summary>
+            <description>width of screencasting</description>
+        </key>
+        <key name="height-rec" type="i">
+            <default>400</default>
+            <summary>height of screencasting</summary>
+            <description>height of screencasting</description>
+        </key>
+        <key name="show-indicator" type="b">
+            <default>true</default>
+            <summary>show the indicator status into a menu</summary>
+            <description>show the indicator status into a menu</description>
+        </key>
+        <key name="draw-cursor" type="b">
+            <default>true</default>
+            <summary>draw the cursor into screencast</summary>
+            <description>draw the cursor into screencast</description>
+        </key>
+        <key name="fps" type="i">
+            <default>30</default>
+            <summary>fps of screencasting</summary>
+            <description>fps of screencasting</description>
+        </key>
+        <key name="pipeline" type="s">
+            <default>'vp8enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T ! queue ! webmmux'</default>
+            <summary>gstreamer pipeline of screencasting</summary>
+            <description>gstreamer pipeline of screencasting</description>
+        </key>
+        <key name="full-screen" type="b">
+            <default>true</default>
+            <summary>select area of screencast</summary>
+            <description>select area of screencast</description>
+        </key>
     </schema>
 </schemalist>

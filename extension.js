@@ -19,6 +19,7 @@
 */
 
 const Gio = imports.gi.Gio;
+const GLib = imports.gi.GLib;
 const St = imports.gi.St;
 const Meta = imports.gi.Meta;
 const Shell = imports.gi.Shell;
@@ -27,8 +28,9 @@ const PanelMenu = imports.ui.panelMenu;
 const Panel = imports.ui.panel;
 const PopupMenu = imports.ui.popupMenu;
 const MessageTray = imports.ui.messageTray;
+const Slider = imports.ui.slider;
 const Main = imports.ui.main;
-const LibRecorder = imports.ui.components.recorder;
+const LibRecorder = imports.ui.screencast;
 
 
 const Gettext = imports.gettext.domain('EasyScreenCast@iacopodeenosee.gmail.com');
@@ -43,120 +45,177 @@ const Time = Me.imports.timer;
 let Indicator;
 let timerD=null;
 let timerC=null;
-let ScreenVideo = new LibRecorder.Recorder();
+
 let isActive = false;
-let isFocus=false;
+
+
+const ScreenCastProxy = Gio.DBusProxy.makeProxyWrapper(LibRecorder.ScreencastIface);
 
 
 const EasyScreenCast_Indicator = new Lang.Class({
     Name: 'EasyScreenCast.indicator',
-    Extends: PanelMenu.SystemStatusButton,
+    Extends: PanelMenu.Button,
 
     _init: function() {
-	    this.parent(null, "EasyScreenCast-indicator"); 
-	    
-        //add enter/leave event
-        this.actor.connect('enter-event', Lang.bind(this, function(){
-            Lib.TalkativeLog('ESC > enter indicator');
-            isFocus=true;
-            refreshIndicator();
-        }));
-        this.actor.connect('leave-event', Lang.bind(this, function(){
-            Lib.TalkativeLog('ESC > leave indicator');
-            isFocus=false;
-            refreshIndicator();
-        }));
-
-	    //prepare setting var
-	    this.isDelayActive=Pref.getActiveDelay();
-	    this.isShowNotify=Pref.getShowTimerRec();
-	    
-	    //add icon
-        this.setGIcon(Lib.ESCoffGIcon);
+        this.parent(null, "EasyScreenCast-indicator"); 
         
-        this.DelayTimeSlider=null;
+        //add enter/leave event
+        this.actor.connect('enter-event', Lang.bind(this,this.refreshIndicator,true));
+        this.actor.connect('leave-event', Lang.bind(this,this.refreshIndicator,false));
+
+        //prepare setting var
+        this.isDelayActive=Pref.getActiveDelay();
+        this.isShowNotify=Pref.getShowTimerRec();
+        
+        //add icon
+        this.indicatorBox = new St.BoxLayout;
+        this.indicatorIcon =new St.Icon({ gicon: Lib.ESCoffGIcon, icon_size: 16});
+
+        this.indicatorBox.add_actor (this.indicatorIcon);
+        
+        this.actor.add_actor(this.indicatorBox);
+        
+        this.TimeSlider=null;
         this.notifyCounting;
         
         //add start/stop menu entry
-	    this.imRecordAction = new PopupMenu.PopupBaseMenuItem();
-	    this.RecordingLabel = new St.Label({ text: _("Start recording"),
-	                                        style_class: 'RecordAction-label' });
-	    this.imRecordAction.addActor(this.RecordingLabel, 
-	                                { align: St.Align.START });
-	    this.menu.addMenuItem(this.imRecordAction);
-	    this.imRecordAction.connect('activate', Lang.bind(this, function(){
+        this.imRecordAction = new PopupMenu.PopupBaseMenuItem;
+        this.RecordingLabel = new St.Label({ text: _("Start recording"),
+                                            style_class: 'RecordAction-label' });
+        this.imRecordAction.actor.add_child(this.RecordingLabel, 
+                                    { align: St.Align.START });
+        this.menu.addMenuItem(this.imRecordAction);
+        this.imRecordAction.connect('activate', Lang.bind(this, function(){
             this.isShowNotify=Pref.getShowTimerRec();
-            this._doDelayAction();
-        }));
-	    
-        //add separetor menu
-        this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
-
-        //add delay menu entry
-	    this.imDelayRec = new PopupMenu.PopupSwitchMenuItem(_("Delay recording"),
-	                        Pref.getActiveDelay(),
-                            { style_class: 'popup-subtitle-menu-item' });
-	    this.imDelayRec.connect("toggled", Lang.bind(this, function(item){
-            if (item.state) {
-			    this.isDelayActive=true;
-		    } else {
-			    this.isDelayActive=false;
-		    }
-		    Pref.setActiveDelay(item.state);
+            this._doDelayAction;
         }));
         
-	    this.menu.addMenuItem(this.imDelayRec);
+        //add separetor menu
+        this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem);
 
-	    
-	    this.DelayTimeTitle = new PopupMenu.PopupMenuItem(_("Delay Time"),
-	                             { reactive: false });
+        //add delay menu entry
+        this.imDelayRec = new PopupMenu.PopupSwitchMenuItem(_("Delay recording"),
+                            Pref.getActiveDelay(),
+                            { style_class: 'popup-subtitle-menu-item' });
+        this.imDelayRec.connect("toggled", Lang.bind(this, function(item){
+            if (item.state) {
+                this.isDelayActive=true;
+                  
+                this.DelayTimeTitle.actor.show;
+                this.TimeSlider.actor.show;
+            } else {
+                this.isDelayActive=false;
+                
+                this.DelayTimeTitle.actor.hide;
+                this.TimeSlider.actor.hide;
+            }
+            Pref.setActiveDelay(item.state);
+        }));
+        
+        this.menu.addMenuItem(this.imDelayRec);
+        
+        this.DelayTimeTitle = new PopupMenu.PopupMenuItem(_("Delay Time"),
+                                 { reactive: false });
         this.DelayTimeLabel = new St.Label({ text: Math.floor(Pref.getTimeDelay()).toString()
                                                     +_(" Sec") });
-        this.DelayTimeSlider = new PopupMenu.PopupSliderMenuItem(Pref.getTimeDelay()/100);
-        this.DelayTimeSlider.connect('value-changed', Lang.bind(this, function(item) {
+        this.DelayTimeTitle.actor.add_child(this.DelayTimeLabel, { align: St.Align.END });
+        
+        this.imSliderDelay = new PopupMenu.PopupBaseMenuItem({ activate: false });
+        this.TimeSlider = new Slider.Slider(Pref.getTimeDelay()/100);
+        this.TimeSlider.connect('value-changed', Lang.bind(this, function(item) {
             this.DelayTimeLabel.set_text(Math.floor(item.value*100).toString()+_(" Sec"));
         }));
         
-        this.DelayTimeSlider.connect('drag-end', Lang.bind(this, this._onDelayTimeChanged));
-        this.DelayTimeSlider.actor.connect('scroll-event', 
+        this.TimeSlider.connect('drag-end', Lang.bind(this, this._onDelayTimeChanged));
+        this.TimeSlider.actor.connect('scroll-event', 
                                 Lang.bind(this, this._onDelayTimeChanged));
-        this.DelayTimeTitle.addActor(this.DelayTimeLabel, { align: St.Align.END });
+
+        this.imSliderDelay.actor.add(this.TimeSlider.actor, { expand: true });
+        
         this.menu.addMenuItem(this.DelayTimeTitle);
-        this.menu.addMenuItem(this.DelayTimeSlider);
+        this.menu.addMenuItem(this.imSliderDelay);
         
         //add separetor menu
-        this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
+        this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem);
         //add option menu entry
-	    this.imOptions = new PopupMenu.PopupMenuItem(_("Options"));
-	    this.menu.addMenuItem(this.imOptions);
-	    this.imOptions.connect('activate', Lang.bind(this, this._doExtensionPreferences));
-	   
+        this.imOptions = new PopupMenu.PopupMenuItem(_("Options"));
+        this.menu.addMenuItem(this.imOptions);
+        this.imOptions.connect('activate', Lang.bind(this, this._doExtensionPreferences));
+        
+        
+        if(!this.isDelayActive){
+            this.DelayTimeTitle.actor.hide;
+            this.TimeSlider.actor.hide;
+        }
+       
+        this.ScreenCastService = new ScreenCastProxy(Gio.DBus.session, 'org.gnome.Shell.Screencast',
+            '/org/gnome/Shell/Screencast', Lang.bind(this, function(proxy, error) {
+            if (error) {
+                Lib.TalkativeLog('ESC > ERROR(d-bus proxy connected) - '+error.message);
+                return;
+            } else 
+                Lib.TalkativeLog('ESC > d-bus proxy connected');
+        }));
     },
     
     _doDelayAction: function() {
         if(this.isDelayActive  && !isActive){
-            Lib.TalkativeLog('ESC > delay recording called | delay= ' + this.DelayTimeSlider.value);
-       	    timerD = new Time.TimerDelay((Math.floor(this.DelayTimeSlider.value*100)),this._doRecording,this);
-       	    timerD.begin();
+            Lib.TalkativeLog('ESC > delay recording called | delay= ' + this.TimeSlider.value);
+            timerD = new Time.TimerDelay((Math.floor(this.TimeSlider.value*100)),this._doRecording,this);
+            timerD.begin;
         } else {
             Lib.TalkativeLog('ESC > instant recording called');
-            this._doRecording();
+            this._doRecording;
         }
     },
 
-	_doRecording: function() {
+    _doRecording: function() {
         
         //start/stop record screen
-        ScreenVideo._toggleRecorder();
         
         if(isActive===false){
             Lib.TalkativeLog('ESC > start recording');
             isActive=true;
+            
+            var fileRec = 'test_proxy_ %d_ %t.webm';
+            var optionsRec = {'draw-cursor': new GLib.Variant('b', Pref.getDrawCursorRec()),
+                'framerate': new GLib.Variant('i', Pref.getFPSRec()),
+                'pipeline': new GLib.Variant('s', Pref.getPipelineRec())};
+            
+            if(Pref.getFullScreenRec()){
+                //call d-bus remote method screencats
+                this.ScreenCastService.ScreencastRemote(fileRec, optionsRec,
+                    Lang.bind(this, function(result, error) {
+                        if (error) {
+                            Lib.TalkativeLog('ESC > ERROR(screencast execute) - '
+                                +error.message);
+                            return;
+                        } else 
+                            Lib.TalkativeLog('ESC > screencast execute - '+result[0]
+                                +' - '+result[1]);
+                    }));
+            } else {
+                //call d-bus remote method screencatsarea
+                this.ScreenCastService.ScreencastAreaRemote(Pref.getXRec(), 
+                    Pref.getYRec(), Pref.getWidthRec(), Pref.getHeightRec(),
+                    fileRec, optionsRec,
+                    Lang.bind(this, function(result, error) {
+                        if (error) {
+                            Lib.TalkativeLog('ESC > ERROR(screencast execute) - '
+                                +error.message);
+                            return;
+                        } else 
+                            Lib.TalkativeLog('ESC > screencast execute - '+result[0]
+                                +' - '+result[1]);
+                    }));
+            }
+
+
 
             if(this.isShowNotify){
                 Lib.TalkativeLog('ESC > show notify');
                 //create notify
-                var source = new MessageTray.SystemNotificationSource();
+                var source = new MessageTray.SystemNotificationSource;
                 
                 this.notifyCounting  = new MessageTray.Notification(source, 
                                         _("Start Recording"),
@@ -164,28 +223,47 @@ const EasyScreenCast_Indicator = new Lang.Class({
                                         { gicon: Lib.ESConGIcon });
                 this.notifyCounting.setTransient(false);
                 this.notifyCounting.setResident(true);
-        
+                
+                this.notifyCounting.addButton('open',_("Open in the filesystem"));
+                this.notifyCounting.connect('action-invoked', Lang.bind(this, function(self, action) {
+                    switch (action) {
+                        case 'open':
+                            Lib.TalkativeLog('ESC > button notification pressed');
+                            Main.Util.trySpawnCommandLine("xdg-open \` xdg-user-dir VIDEOS \`");
+                        break;
+                    }
+                    this.notifyCounting.destroy;
+                }));
+                
                 Main.messageTray.add(source);
                 source.notify(this.notifyCounting);
                 
                 //start counting rec
                 timerC = new Time.TimerCounting(refreshNotify,this);
-                timerC.begin();
+                timerC.begin;
             }
         } else {
             Lib.TalkativeLog('ESC > stop recording');
             isActive=false;
             
+            this.ScreenCastService.StopScreencastRemote(Lang.bind(this, function(result, error) {
+                if (error) {
+                    Lib.TalkativeLog('ESC > ERROR(screencast stop) - '+error.message);
+                    return;
+                } else 
+                    Lib.TalkativeLog('ESC > screencast stop - '+result[0]);
+            }));
+            
             if(timerC!==null){
                 //stop counting rec
-                timerC.halt();
+                timerC.halt;
                 timerC=null;
             }
 
         }
         
-        refreshIndicator();
-	},
+        Indicator.refreshIndicator(false);
+    },
 
     _doExtensionPreferences: function() {
         Lib.TalkativeLog('ESC > open preferences');
@@ -193,46 +271,48 @@ const EasyScreenCast_Indicator = new Lang.Class({
     },
 
     _onDelayTimeChanged: function() {
-        Pref.setTimeDelay(Math.floor(this.DelayTimeSlider.value*100));
+        Pref.setTimeDelay(Math.floor(this.TimeSlider.value*100));
+    },
+
+    refreshIndicator: function(param1, param2, focus){
+        Lib.TalkativeLog('ESC > refresh indicator -A '+isActive+" -F "+focus);
+        if(Indicator!==null){
+            if(isActive===true){
+                if(focus===true){
+                    Indicator.indicatorIcon.set_gicon(Lib.ESConGIconSel);
+                } else {
+                    Indicator.indicatorIcon.set_gicon(Lib.ESConGIcon);
+                }
+
+                Indicator.RecordingLabel.set_text(_("Stop recording"));
+            } else {
+                if(focus===true){
+                    Indicator.indicatorIcon.set_gicon(Lib.ESCoffGIconSel);
+                } else {
+                    Indicator.indicatorIcon.set_gicon(Lib.ESCoffGIcon);
+                }
+                Indicator.RecordingLabel.set_text(_("Start recording"));
+            }
+        }
     },
 
     destroy: function() {
-        this.parent();
+        this.parent;
     }
 });
-
-function refreshIndicator() {
-    Lib.TalkativeLog('ESC > refresh indicator');
-    if(Indicator!==null){
-        if(isActive===true){
-            if(isFocus===true){
-                Indicator.setGIcon(Lib.ESConGIconSel);
-            } else {
-                Indicator.setGIcon(Lib.ESConGIcon);
-            }
-
-            Indicator.RecordingLabel.set_text(_("Stop recording"));
-        } else {
-            if(isFocus===true){
-                Indicator.setGIcon(Lib.ESCoffGIconSel);
-            } else {
-                Indicator.setGIcon(Lib.ESCoffGIcon);
-            }
-            Indicator.RecordingLabel.set_text(_("Start recording"));
-        }
-    }
-}
 
 function refreshNotify(sec,alertEnd){
     if(Indicator.notifyCounting!==null || Indicator.notifyCounting === undefined){
         if(alertEnd){
-            Indicator.notifyCounting.update(_("EasyScreenCast -> Finish Recording"),
-                                            _("total Seconds : "+ sec),
+            Indicator.notifyCounting.update(_("EasyScreenCast -> Finish Recording / Seconds : "+ sec),
+                                            null,
                                             { gicon: Lib.ESCoffGIcon });
+            Indicator.notifyCounting.setButtonSensitive('open',true);
         } else {
-            Indicator.notifyCounting.update(_("EasyScreenCast -> Seconds passed : ") + sec,
-                                            _("Recording in progress"),
+            Indicator.notifyCounting.update(_("EasyScreenCast -> Recording in progress / Seconds passed : ") + sec,
+                                            null,
                                             { gicon: Lib.ESConGIcon });
+            Indicator.notifyCounting.setButtonSensitive('open',false);
         }
     }
 }
@@ -241,40 +321,30 @@ function refreshNotify(sec,alertEnd){
 
 
 function init(meta) {
-	Lib.TalkativeLog('ESC > initExtension called');
-	
-	Lib.initTranslations('EasyScreenCast@iacopodeenosee.gmail.com');
+    Lib.TalkativeLog('ESC > initExtension called');
+    
+    Lib.initTranslations('EasyScreenCast@iacopodeenosee.gmail.com');
 }
 
 
 function enable() {
-	Lib.TalkativeLog('ESC > enableExtension called');
-	
-	if(Indicator===null || Indicator===undefined){
-	    Indicator = new EasyScreenCast_Indicator;
+    Lib.TalkativeLog('ESC > enableExtension called');
+    
+    if(Indicator===null || Indicator===undefined){
+        Indicator = new EasyScreenCast_Indicator;
         Main.panel.addToStatusArea('EasyScreenCast-indicator', Indicator);
-        
-        //binding keys
-        var BindKeys = new Gio.Settings({ schema: 'org.gnome.shell.keybindings' });
-        Main.wm.addKeybinding('toggle-recording',
-            BindKeys,
-            Meta.KeyBindingFlags.NONE,
-            Shell.KeyBindingMode.ALL,
-            Lang.bind(this, refreshIndicator));
-	}
-
+    }
 }
 
 function disable() {
-	Lib.TalkativeLog('ESC > disableExtension called');
+    Lib.TalkativeLog('ESC > disableExtension called');
     
     if(timerD!==null){
-        timerD.stop();
+        timerD.stop;
     }
     
-    Main.wm.removeKeybinding('toggle-recording');
     if(Indicator){
-        Indicator.destroy();
+        Indicator.destroy;
     }
     Indicator=null;
 }
