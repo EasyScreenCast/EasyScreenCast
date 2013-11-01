@@ -60,10 +60,20 @@
             <summary>gstreamer pipeline of screencasting</summary>
             <description>gstreamer pipeline of screencasting</description>
         </key>
-        <key name="full-screen" type="b">
-            <default>true</default>
+        <key name="area-screen" type="i">
+            <default>0</default>
             <summary>select area of screencast</summary>
             <description>select area of screencast</description>
+        </key>
+        <key name="file-name" type="s">
+            <default>'Screencast da %d %t.webm'</default>
+            <summary>file name template of screencast</summary>
+            <description>file name template of screencast</description>
+        </key>
+        <key name="file-folder" type="s">
+            <default>''</default>
+            <summary>file folder of screencast</summary>
+            <description>file folder of screencast</description>
         </key>
     </schema>
 </schemalist>

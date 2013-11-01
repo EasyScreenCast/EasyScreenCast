@@ -87,7 +87,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.menu.addMenuItem(this.imRecordAction);
         this.imRecordAction.connect('activate', Lang.bind(this, function(){
             this.isShowNotify=Pref.getShowTimerRec();
-            this._doDelayAction;
+            this._doDelayAction();
         }));
         
         //add separetor menu
@@ -161,11 +161,11 @@ const EasyScreenCast_Indicator = new Lang.Class({
     _doDelayAction: function() {
         if(this.isDelayActive  && !isActive){
             Lib.TalkativeLog('ESC > delay recording called | delay= ' + this.TimeSlider.value);
-            timerD = new Time.TimerDelay((Math.floor(this.TimeSlider.value*100)),this._doRecording,this);
-            timerD.begin;
+            timerD = new Time.TimerDelay((Math.floor(this.TimeSlider.value*100)), this._doRecording, this);
+            timerD.begin();
         } else {
             Lib.TalkativeLog('ESC > instant recording called');
-            this._doRecording;
+            this._doRecording();
         }
     },
 
@@ -182,7 +182,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
                 'framerate': new GLib.Variant('i', Pref.getFPSRec()),
                 'pipeline': new GLib.Variant('s', Pref.getPipelineRec())};
             
-            if(Pref.getFullScreenRec()){
+            if(Pref.getAreaScreenRec()===0){
                 //call d-bus remote method screencats
                 this.ScreenCastService.ScreencastRemote(fileRec, optionsRec,
                     Lang.bind(this, function(result, error) {
@@ -331,7 +331,7 @@ function enable() {
     Lib.TalkativeLog('ESC > enableExtension called');
     
     if(Indicator===null || Indicator===undefined){
-        Indicator = new EasyScreenCast_Indicator;
+        Indicator = new EasyScreenCast_Indicator();
         Main.panel.addToStatusArea('EasyScreenCast-indicator', Indicator);
     }
 }
@@ -340,11 +340,11 @@ function disable() {
     Lib.TalkativeLog('ESC > disableExtension called');
     
     if(timerD!==null){
-        timerD.stop;
+        timerD.stop();
     }
     
     if(Indicator){
-        Indicator.destroy;
+        Indicator.destroy();
     }
     Indicator=null;
 }

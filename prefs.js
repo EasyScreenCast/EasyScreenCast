@@ -44,7 +44,9 @@ const Y_POS_SETTING_KEY = "y-pos";
 const WIDTH_SETTING_KEY = "width-rec";
 const HEIGHT_SETTING_KEY = "height-rec";
 const DRAW_CURSOR_SETTING_KEY = "draw-cursor";
-const FULL_SCREEN_SETTING_KEY = "full-screen";
+const AREA_SCREEN_SETTING_KEY = "area-screen";
+const FILE_NAME_SETTING_KEY = "file-name";
+const FILE_FOLDER_SETTING_KEY = "file-folder";
 // setting key - recorder
 //const FILE_EXTENSION_SETTING_KEY = "file-extension";
 const MAX_DURATION_SETTING_KEY = "max-screencast-length";
@@ -105,14 +107,14 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             //implements draw cursor option
             this.Ref_switch_DrawCursorRec = builder.get_object("swt_DrawCursorRec");
             settings.bind(DRAW_CURSOR_SETTING_KEY, this.Ref_switch_DrawCursorRec, "active", Gio.SettingsBindFlags.DEFAULT);
+        
+            //implements area recording option
+            this.Ref_ComboBox_AreaRec = builder.get_object("cbt_arearec");
+            settings.bind(AREA_SCREEN_SETTING_KEY, this.Ref_ComboBox_AreaRec, "active", Gio.SettingsBindFlags.DEFAULT);
             
-            //implements full screen option
-            this.Ref_radiobutton_FullScreenRec = builder.get_object("rdb_FullScreenRec");
-            settings.bind(FULL_SCREEN_SETTING_KEY, this.Ref_radiobutton_FullScreenRec, "active", Gio.SettingsBindFlags.DEFAULT);
-            this.Ref_radiobutton_SpecificRec = builder.get_object("rdb_SpecificRec");
-            this.Ref_radiobutton_SpecificRec.connect ("activate",  Lang.bind(this, function(){
-                    settings.set_boolean(FULL_SCREEN_SETTING_KEY, false);
-                }));
+            //implements image of screen
+            this.Ref_Image_Screen = builder.get_object("img_screen");
+            this.Ref_Image_Screen.set_from_file(Lib.ESCimgScreen);
             
             //implements FPS option
             this.Ref_spinner_FrameRateRec = builder.get_object("spb_FrameRateRec");
@@ -205,9 +207,9 @@ function getShowIndicatorRec(){
     return settings.get_boolean(SHOW_INDICATOR_SETTING_KEY);
 };
 
-function getFullScreenRec(){
+function getAreaScreenRec(){
     checkSettings();
-    return settings.get_boolean(FULL_SCREEN_SETTING_KEY);
+    return settings.get_int(AREA_SCREEN_SETTING_KEY);
 };
 
 function getDrawCursorRec(){

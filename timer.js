@@ -39,11 +39,12 @@ const TimerDelay = new Lang.Class({
      * Create a new timer
      */
     _init: function(delay,callback,scope){
-        Lib.TalkativeLog('ESC > init TimerDelay called');
-        
+
         if(isNaN(delay)){
             Lib.TalkativeLog('ESC > delay is NOT a number :' + delay);
         } else {
+            Lib.TalkativeLog('ESC > init TimerDelay called - sec : '+delay);
+        
             DelaySec = delay;
             ElapsedSec = 1;
         
