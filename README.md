@@ -18,7 +18,7 @@ How to install
 	there are a few thing to do, open a terminal and enter:
 
 	1-extract the file from tar.gz
-		tar -xvfz EasyScreenCast-0.9.1.tar.gz
+		tar -xvfz EasyScreenCast-0.9.2.tar.gz
 
 	2-move the entire directory to gnome shell extension home
 		mv EasyScreenCast@iacopodeenosee.gmail.com ~/.local/share/gnome-shell/extensions/EasyScreenCast@iacopodeenosee.gmail.com
