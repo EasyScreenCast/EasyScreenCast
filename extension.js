@@ -19,6 +19,7 @@
 */
 
 const Gio = imports.gi.Gio;
+const Gtk = imports.gi.Gtk;
 const GLib = imports.gi.GLib;
 const St = imports.gi.St;
 const Meta = imports.gi.Meta;
@@ -57,15 +58,14 @@ const EasyScreenCast_Indicator = new Lang.Class({
     Extends: PanelMenu.Button,
 
     _init: function() {
-        this.parent(null, "EasyScreenCast-indicator"); 
+        this.parent(null, 'EasyScreenCast-indicator'); 
         
         //add enter/leave event
         this.actor.connect('enter-event', Lang.bind(this,this.refreshIndicator,true));
         this.actor.connect('leave-event', Lang.bind(this,this.refreshIndicator,false));
 
         //prepare setting var
-        this.isDelayActive=Pref.getActiveDelay();
-        this.isShowNotify=Pref.getShowTimerRec();
+        this.isDelayActive=Pref.getOption('b',Pref.ACTIVE_DELAY_SETTING_KEY);
         
         //add icon
         this.indicatorBox = new St.BoxLayout;
@@ -80,13 +80,13 @@ const EasyScreenCast_Indicator = new Lang.Class({
         
         //add start/stop menu entry
         this.imRecordAction = new PopupMenu.PopupBaseMenuItem;
-        this.RecordingLabel = new St.Label({ text: _("Start recording"),
+        this.RecordingLabel = new St.Label({ text: _('Start recording'),
                                             style_class: 'RecordAction-label' });
         this.imRecordAction.actor.add_child(this.RecordingLabel, 
                                     { align: St.Align.START });
         this.menu.addMenuItem(this.imRecordAction);
         this.imRecordAction.connect('activate', Lang.bind(this, function(){
-            this.isShowNotify=Pref.getShowTimerRec();
+            this.isShowNotify=Pref.getOption('b',Pref.SHOW_TIMER_REC_SETTING_KEY);
             this._doDelayAction();
         }));
         
@@ -94,10 +94,10 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem);
 
         //add delay menu entry
-        this.imDelayRec = new PopupMenu.PopupSwitchMenuItem(_("Delay recording"),
-                            Pref.getActiveDelay(),
+        this.imDelayRec = new PopupMenu.PopupSwitchMenuItem(_('Delay recording'),
+                            this.isDelayActive,
                             { style_class: 'popup-subtitle-menu-item' });
-        this.imDelayRec.connect("toggled", Lang.bind(this, function(item){
+        this.imDelayRec.connect('toggled', Lang.bind(this, function(item){
             if (item.state) {
                 this.isDelayActive=true;
                   
@@ -109,21 +109,21 @@ const EasyScreenCast_Indicator = new Lang.Class({
                 this.DelayTimeTitle.actor.hide;
                 this.TimeSlider.actor.hide;
             }
-            Pref.setActiveDelay(item.state);
+            Pref.setOption(Pref.ACTIVE_DELAY_SETTING_KEY, item.state);
         }));
         
         this.menu.addMenuItem(this.imDelayRec);
         
-        this.DelayTimeTitle = new PopupMenu.PopupMenuItem(_("Delay Time"),
+        this.DelayTimeTitle = new PopupMenu.PopupMenuItem(_('Delay Time'),
                                  { reactive: false });
-        this.DelayTimeLabel = new St.Label({ text: Math.floor(Pref.getTimeDelay()).toString()
-                                                    +_(" Sec") });
+        this.DelayTimeLabel = new St.Label({ text: Math.floor(Pref.getOption('i',
+            Pref.TIME_DELAY_SETTING_KEY)).toString() + _(' Sec') });
         this.DelayTimeTitle.actor.add_child(this.DelayTimeLabel, { align: St.Align.END });
         
         this.imSliderDelay = new PopupMenu.PopupBaseMenuItem({ activate: false });
-        this.TimeSlider = new Slider.Slider(Pref.getTimeDelay()/100);
+        this.TimeSlider = new Slider.Slider(Pref.getOption('i', Pref.TIME_DELAY_SETTING_KEY)/100);
         this.TimeSlider.connect('value-changed', Lang.bind(this, function(item) {
-            this.DelayTimeLabel.set_text(Math.floor(item.value*100).toString()+_(" Sec"));
+            this.DelayTimeLabel.set_text(Math.floor(item.value*100).toString()+_(' Sec'));
         }));
         
         this.TimeSlider.connect('drag-end', Lang.bind(this, this._onDelayTimeChanged));
@@ -138,7 +138,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         //add separetor menu
         this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem);
         //add option menu entry
-        this.imOptions = new PopupMenu.PopupMenuItem(_("Options"));
+        this.imOptions = new PopupMenu.PopupMenuItem(_('Options'));
         this.menu.addMenuItem(this.imOptions);
         this.imOptions.connect('activate', Lang.bind(this, this._doExtensionPreferences));
         
@@ -148,6 +148,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
             this.TimeSlider.actor.hide;
         }
        
+       //connect to d-bus service
         this.ScreenCastService = new ScreenCastProxy(Gio.DBus.session, 'org.gnome.Shell.Screencast',
             '/org/gnome/Shell/Screencast', Lang.bind(this, function(proxy, error) {
             if (error) {
@@ -171,20 +172,28 @@ const EasyScreenCast_Indicator = new Lang.Class({
 
     _doRecording: function() {
         
-        //start/stop record screen
+        //active/deactive standar indicatorBox
+        this._replaceIndicator(Pref.getOption('b',Pref.REPLACE_INDICATOR_SETTING_KEY));
         
+        //start/stop record screen
         if(isActive===false){
             Lib.TalkativeLog('ESC > start recording');
             isActive=true;
             
-            var fileRec = 'test_proxy_ %d_ %t.webm';
-            var optionsRec = {'draw-cursor': new GLib.Variant('b', Pref.getDrawCursorRec()),
-                'framerate': new GLib.Variant('i', Pref.getFPSRec()),
-                'pipeline': new GLib.Variant('s', Pref.getPipelineRec())};
+            //prepare variable for screencast
+            this.fileRec = Pref.getOption('s', Pref.FILE_NAME_SETTING_KEY);
+            if(Pref.getOption('s', Pref.FILE_FOLDER_SETTING_KEY)!=='')
+                this.fileRec = Pref.getOption('s', Pref.FILE_FOLDER_SETTING_KEY)+'/' + this.fileRec;
+            Lib.TalkativeLog('ESC > path/file template : '+this.fileRec);
             
-            if(Pref.getAreaScreenRec()===0){
+            var optionsRec = {'draw-cursor': new GLib.Variant('b', Pref.getOption('b', Pref.DRAW_CURSOR_SETTING_KEY)),
+                'framerate': new GLib.Variant('i', Pref.getOption('i', Pref.FPS_SETTING_KEY)),
+                'pipeline': new GLib.Variant('s', Pref.getOption('s', Pref.PIPELINE_REC_SETTING_KEY))};
+            
+            if(Pref.getOption('i', Pref.AREA_SCREEN_SETTING_KEY)===0){
+                Lib.TalkativeLog('ESC > record full screen area');
                 //call d-bus remote method screencats
-                this.ScreenCastService.ScreencastRemote(fileRec, optionsRec,
+                this.ScreenCastService.ScreencastRemote(this.fileRec, optionsRec,
                     Lang.bind(this, function(result, error) {
                         if (error) {
                             Lib.TalkativeLog('ESC > ERROR(screencast execute) - '
@@ -195,10 +204,12 @@ const EasyScreenCast_Indicator = new Lang.Class({
                                 +' - '+result[1]);
                     }));
             } else {
+                Lib.TalkativeLog('ESC > record specific screen area');
                 //call d-bus remote method screencatsarea
-                this.ScreenCastService.ScreencastAreaRemote(Pref.getXRec(), 
-                    Pref.getYRec(), Pref.getWidthRec(), Pref.getHeightRec(),
-                    fileRec, optionsRec,
+                this.ScreenCastService.ScreencastAreaRemote(Pref.getOption('i', Pref.X_POS_SETTING_KEY), 
+                    Pref.getOption('i', Pref.Y_POS_SETTING_KEY), Pref.getOption('i', 
+                    Pref.WIDTH_SETTING_KEY), Pref.getOption('i', Pref.HEIGHT_SETTING_KEY),
+                    this.fileRec, optionsRec,
                     Lang.bind(this, function(result, error) {
                         if (error) {
                             Lib.TalkativeLog('ESC > ERROR(screencast execute) - '
@@ -210,37 +221,14 @@ const EasyScreenCast_Indicator = new Lang.Class({
                     }));
             }
 
-
-
             if(this.isShowNotify){
                 Lib.TalkativeLog('ESC > show notify');
                 //create notify
-                var source = new MessageTray.SystemNotificationSource;
-                
-                this.notifyCounting  = new MessageTray.Notification(source, 
-                                        _("Start Recording"),
-                                        null,
-                                        { gicon: Lib.ESConGIcon });
-                this.notifyCounting.setTransient(false);
-                this.notifyCounting.setResident(true);
-                
-                this.notifyCounting.addButton('open',_("Open in the filesystem"));
-                this.notifyCounting.connect('action-invoked', Lang.bind(this, function(self, action) {
-                    switch (action) {
-                        case 'open':
-                            Lib.TalkativeLog('ESC > button notification pressed');
-                            Main.Util.trySpawnCommandLine("xdg-open \` xdg-user-dir VIDEOS \`");
-                        break;
-                    }
-                    this.notifyCounting.destroy;
-                }));
-                
-                Main.messageTray.add(source);
-                source.notify(this.notifyCounting);
+                this._createNotify();
                 
                 //start counting rec
                 timerC = new Time.TimerCounting(refreshNotify,this);
-                timerC.begin;
+                timerC.begin();
             }
         } else {
             Lib.TalkativeLog('ESC > stop recording');
@@ -256,7 +244,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
             
             if(timerC!==null){
                 //stop counting rec
-                timerC.halt;
+                timerC.halt();
                 timerC=null;
             }
 
@@ -271,11 +259,61 @@ const EasyScreenCast_Indicator = new Lang.Class({
     },
 
     _onDelayTimeChanged: function() {
-        Pref.setTimeDelay(Math.floor(this.TimeSlider.value*100));
+        Pref.setOption(Pref.TIME_DELAY_SETTING_KEY,Math.floor(this.TimeSlider.value*100));
+    },
+    
+    _createNotify: function(){
+        var source = new MessageTray.SystemNotificationSource();
+
+        this.notifyCounting  = new MessageTray.Notification(source, 
+                            _('Start Recording'),
+                            null,
+                            { gicon: Lib.ESConGIcon});
+
+        this.notifyCounting.setTransient(false);
+        this.notifyCounting.setResident(true);
+
+        this.notifyCounting.addButton('open',_('Open in the filesystem'));
+        this.notifyCounting.connect('action-invoked', Lang.bind(this, function(self, action) {
+        switch (action) {
+            case 'open':
+                Lib.TalkativeLog('ESC > button notification pressed');
+                Main.Util.trySpawnCommandLine('xdg-open '+this.fileRec);
+            break;
+        }
+            this.notifyCounting.destroy();
+        }));
+
+        Main.messageTray.add(source);
+        source.notify(this.notifyCounting);
+    },
+    
+    _replaceIndicator: function(temp){
+        if(temp){
+            Lib.TalkativeLog('ESC > replace indicator');
+            Panel.AggregateMenu._screencast=new Lang.Class({
+                Name: 'ScreencastIndicator',
+                Extends: PanelMenu.SystemIndicator,
+                
+                _init: function() {
+                    this.parent();
+
+                    this._indicator = this._addIndicator();
+                    this._indicator.icon_name = 'media-record-symbolic';
+                    this._indicator.add_style_class_name('screencast-indicator');
+                    this._sync();
+
+                    this._indicator.visible = false;
+                },
+            });
+        }else{
+            Lib.TalkativeLog('ESC > use standard indicator');
+            Panel.AggregateMenu._screencast=new imports.ui.status.screencast.Indicator();
+        }
     },
 
     refreshIndicator: function(param1, param2, focus){
-        Lib.TalkativeLog('ESC > refresh indicator -A '+isActive+" -F "+focus);
+        Lib.TalkativeLog('ESC > refresh indicator -A '+isActive+' -F '+focus);
         if(Indicator!==null){
             if(isActive===true){
                 if(focus===true){
@@ -284,14 +322,14 @@ const EasyScreenCast_Indicator = new Lang.Class({
                     Indicator.indicatorIcon.set_gicon(Lib.ESConGIcon);
                 }
 
-                Indicator.RecordingLabel.set_text(_("Stop recording"));
+                Indicator.RecordingLabel.set_text(_('Stop recording'));
             } else {
                 if(focus===true){
                     Indicator.indicatorIcon.set_gicon(Lib.ESCoffGIconSel);
                 } else {
                     Indicator.indicatorIcon.set_gicon(Lib.ESCoffGIcon);
                 }
-                Indicator.RecordingLabel.set_text(_("Start recording"));
+                Indicator.RecordingLabel.set_text(_('Start recording'));
             }
         }
     },
@@ -304,12 +342,12 @@ const EasyScreenCast_Indicator = new Lang.Class({
 function refreshNotify(sec,alertEnd){
     if(Indicator.notifyCounting!==null || Indicator.notifyCounting === undefined){
         if(alertEnd){
-            Indicator.notifyCounting.update(_("EasyScreenCast -> Finish Recording / Seconds : "+ sec),
+            Indicator.notifyCounting.update(_('EasyScreenCast -> Finish Recording / Seconds : '+ sec),
                                             null,
                                             { gicon: Lib.ESCoffGIcon });
             Indicator.notifyCounting.setButtonSensitive('open',true);
         } else {
-            Indicator.notifyCounting.update(_("EasyScreenCast -> Recording in progress / Seconds passed : ") + sec,
+            Indicator.notifyCounting.update(_('EasyScreenCast -> Recording in progress / Seconds passed : ') + sec,
                                             null,
                                             { gicon: Lib.ESConGIcon });
             Indicator.notifyCounting.setButtonSensitive('open',false);

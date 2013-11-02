@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.16.0 on Fri Nov  1 11:29:13 2013 -->
+<!-- Generated with glade 3.16.0 on Sat Nov  2 15:31:42 2013 -->
 <interface>
   <!-- interface-requires gtk+ 3.10 -->
   <object class="GtkNotebook" id="Main_Container">
@@ -33,7 +33,7 @@
                       <object class="GtkLabel" id="label5">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">Show standard indicator on status menu</property>
+                        <property name="label" translatable="yes">Replace standard indicator on status menu</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -97,6 +97,44 @@
                   </packing>
                 </child>
                 <child>
+                  <object class="GtkBox" id="box13">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="tooltip_text" translatable="yes">This option enable more debug message, to view these run this command into a terminal:
+$ journalctl /usr/bin/gnome-session -a  | grep js 
+$ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
+                    <child>
+                      <object class="GtkLabel" id="label9">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">Enable verbose debug</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSwitch" id="swt_VerboseDebug">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="pack_type">end</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
+                <child>
                   <object class="GtkSeparator" id="separator1">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
@@ -107,7 +145,7 @@
                     <property name="expand">False</property>
                     <property name="fill">True</property>
                     <property name="padding">10</property>
-                    <property name="position">2</property>
+                    <property name="position">3</property>
                   </packing>
                 </child>
                 <child>
@@ -117,31 +155,11 @@
                     <property name="margin_left">15</property>
                     <property name="margin_right">15</property>
                     <child>
-                      <object class="GtkCheckButton" id="ckb_VerboseDebug">
-                        <property name="label" translatable="yes">Verbose debug</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="receives_default">False</property>
-                        <property name="has_tooltip">True</property>
-                        <property name="tooltip_text" translatable="yes">This option enable more dubug message, to view these run this command into a terminal:
-# journalctl -a | grep "JS LOG:"</property>
-                        <property name="opacity">0.94117647058823528</property>
-                        <property name="margin_right">25</property>
-                        <property name="hexpand">True</property>
-                        <property name="use_underline">True</property>
-                        <property name="xalign">0</property>
-                        <property name="image_position">top</property>
-                        <property name="draw_indicator">True</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">0</property>
-                      </packing>
+                      <placeholder/>
                     </child>
                     <child>
                       <object class="GtkButton" id="btn_DefaultOption">
-                        <property name="label" translatable="yes">Restore default settings</property>
+                        <property name="label" translatable="yes">Restore default option</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
@@ -149,6 +167,7 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">False</property>
+                        <property name="pack_type">end</property>
                         <property name="position">1</property>
                       </packing>
                     </child>
@@ -156,7 +175,7 @@
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
-                    <property name="position">3</property>
+                    <property name="position">4</property>
                   </packing>
                 </child>
               </object>
@@ -244,6 +263,18 @@
                   </packing>
                 </child>
                 <child>
+                  <object class="GtkLabel" id="label8">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">Coordinates for the specific area</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
                   <object class="GtkGrid" id="grid1">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
@@ -272,7 +303,7 @@
                           <object class="GtkLabel" id="label22">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">Width</property>
+                            <property name="label" translatable="yes">Width  </property>
                           </object>
                           <packing>
                             <property name="expand">True</property>
@@ -307,11 +338,12 @@
                       <object class="GtkBox" id="box24">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="valign">center</property>
                         <child>
                           <object class="GtkLabel" id="label23">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">Height</property>
+                            <property name="label" translatable="yes">Height  </property>
                           </object>
                           <packing>
                             <property name="expand">True</property>
@@ -346,11 +378,12 @@
                       <object class="GtkBox" id="box22">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="halign">start</property>
                         <child>
                           <object class="GtkLabel" id="label21">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">Y</property>
+                            <property name="label" translatable="yes">Y  </property>
                           </object>
                           <packing>
                             <property name="expand">True</property>
@@ -385,11 +418,13 @@
                       <object class="GtkBox" id="box21">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="halign">end</property>
+                        <property name="valign">start</property>
                         <child>
                           <object class="GtkLabel" id="label20">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">X</property>
+                            <property name="label" translatable="yes">X  </property>
                           </object>
                           <packing>
                             <property name="expand">True</property>
@@ -436,7 +471,7 @@
                   <packing>
                     <property name="expand">True</property>
                     <property name="fill">True</property>
-                    <property name="position">1</property>
+                    <property name="position">2</property>
                   </packing>
                 </child>
               </object>
@@ -567,7 +602,7 @@
                       <object class="GtkLabel" id="label13">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">Comand line screencast  </property>
+                        <property name="label" translatable="yes">GStreamer Pipeline  </property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -704,6 +739,9 @@ https://bugzilla.gnome.org/show_bug.cgi?id=708660</property>
                       <object class="GtkEntry" id="txe_FileNameRec">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
+                        <property name="can_default">True</property>
+                        <property name="has_default">True</property>
+                        <property name="receives_default">True</property>
                         <property name="tooltip_text" translatable="yes">the filename which may contain some escape sequences - %d and %t will be replaced by the start date and time of the recording.</property>
                       </object>
                       <packing>
@@ -721,16 +759,57 @@ https://bugzilla.gnome.org/show_bug.cgi?id=708660</property>
                   </packing>
                 </child>
                 <child>
+                  <object class="GtkBox" id="box12">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="tooltip_text" translatable="yes">Select the folder where the file is saved, if not specific a folder  the file will be saved in the $XDG_VIDEOS_DIR if it exists, or the home directory otherwise.</property>
+                    <child>
+                      <object class="GtkLabel" id="lbl_kjkhkhhkhjk">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">The file is saved in the path : </property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="lbl_FileFolderRec">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <attributes>
+                          <attribute name="weight" value="bold"/>
+                        </attributes>
+                      </object>
+                      <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
                   <object class="GtkFileChooserWidget" id="fcs_FilePathRec">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="tooltip_text" translatable="yes">Select the folder where the file is saved, if not specific a folder  the file will be saved in the $XDG_VIDEOS_DIR if it exists, or the home directory otherwise.</property>
                     <property name="action">select-folder</property>
+                    <property name="do_overwrite_confirmation">True</property>
+                    <property name="preview_widget_active">False</property>
+                    <property name="use_preview_label">False</property>
                   </object>
                   <packing>
                     <property name="expand">True</property>
                     <property name="fill">True</property>
-                    <property name="position">1</property>
+                    <property name="position">2</property>
                   </packing>
                 </child>
               </object>

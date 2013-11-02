@@ -1,7 +1,7 @@
 <schemalist >
    <schema id="org.gnome.shell.extensions.EasyScreenCast" path="/org/gnome/shell/extensions/EasyScreenCast/">
         <key name="show-timer-rec" type="b">
-            <default>false</default>
+            <default>true</default>
             <summary>Enable show timer of recording into notify</summary>
             <description>Enable show timer of recording into notify</description>
         </key>
@@ -40,10 +40,10 @@
             <summary>height of screencasting</summary>
             <description>height of screencasting</description>
         </key>
-        <key name="show-indicator" type="b">
-            <default>true</default>
-            <summary>show the indicator status into a menu</summary>
-            <description>show the indicator status into a menu</description>
+        <key name="replace-indicator" type="b">
+            <default>false</default>
+            <summary>replace the indicator into a status menu</summary>
+            <description>replace the indicator into a status menu</description>
         </key>
         <key name="draw-cursor" type="b">
             <default>true</default>
@@ -66,7 +66,7 @@
             <description>select area of screencast</description>
         </key>
         <key name="file-name" type="s">
-            <default>'Screencast da %d %t.webm'</default>
+            <default>'Screencast_%d_%t.webm'</default>
             <summary>file name template of screencast</summary>
             <description>file name template of screencast</description>
         </key>
