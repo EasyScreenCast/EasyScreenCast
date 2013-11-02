@@ -4,5 +4,5 @@
     "url": "http://iacopodeenosee.wordpress.com/",
     "name": "EasyScreenCast", 
     "version":"0.9.2",
-    "description": "extensions can simple use of screencast"
+    "description": "This extension simplifies the use of the video recording function integrated in gnome shell, allows quickly to change the various settings of the desktop recording."
 }
