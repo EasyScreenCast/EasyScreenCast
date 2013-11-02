@@ -1,0 +1,150 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-11-02 15:38+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: EasyScreenCast.gtkbuilder:36
+msgid "Replace standard indicator on status menu"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:71
+msgid "Show time recording into notification bar"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:103
+msgid ""
+"This option enable more debug message, to view these run this command into a "
+"terminal:\n"
+"$ journalctl /usr/bin/gnome-session -a  | grep js \n"
+"$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:110
+msgid "Enable verbose debug"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:162
+msgid "Restore default option"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:202
+msgid "<b>Options</b>"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:235
+msgid "Select area of screencast : "
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:248
+msgid "Full screen area"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:249
+msgid "Specific screen area"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:269
+msgid "Coordinates for the specific area"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:281
+msgid "Values ​​expressed in pixels"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:306
+msgid "Width  "
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:319 EasyScreenCast.gtkbuilder:359
+#: EasyScreenCast.gtkbuilder:399 EasyScreenCast.gtkbuilder:440
+#: EasyScreenCast.gtkbuilder:545 EasyScreenCast.gtkbuilder:657
+msgid "0"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:346
+msgid "Height  "
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:386
+msgid "Y  "
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:427
+msgid "X  "
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:498
+msgid "<b>Screencast area</b>"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:532
+msgid "Frames Per Second"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:570
+msgid "Draw cursor on screencast"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:605
+msgid "GStreamer Pipeline  "
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:617
+msgid ""
+"the GStreamer pipeline used to encode recordings in gst-launch format; if "
+"not specified, the recorder will produce vp8 (webm) video (unset)"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:642
+msgid "Maximum duration screencast"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:654
+msgid ""
+"This option not work in gnome shell 3.10 because the limit of 30 seconds is "
+"hardcoded:\n"
+"https://bugzilla.gnome.org/show_bug.cgi?id=708660"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:695
+msgid "<b>Screencast options</b>"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:730
+msgid "File name template : "
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:745
+msgid ""
+"the filename which may contain some escape sequences - %d and %t will be "
+"replaced by the start date and time of the recording."
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:765 EasyScreenCast.gtkbuilder:803
+msgid ""
+"Select the folder where the file is saved, if not specific a folder  the "
+"file will be saved in the $XDG_VIDEOS_DIR if it exists, or the home "
+"directory otherwise."
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:770
+msgid "The file is saved in the path : "
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:835
+msgid "<b>Screencast file</b>"
+msgstr ""
