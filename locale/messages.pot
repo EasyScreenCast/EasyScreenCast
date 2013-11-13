@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-02 14:50+0100\n"
+"POT-Creation-Date: 2013-11-13 18:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,46 +17,50 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: extension.js:83 extension.js:332
+#: extension.js:76 extension.js:284
 msgid "Start recording"
 msgstr ""
 
-#: extension.js:97
+#: extension.js:90
 msgid "Delay recording"
 msgstr ""
 
-#: extension.js:117
+#: extension.js:110
 msgid "Delay Time"
 msgstr ""
 
-#: extension.js:120 extension.js:126
+#: extension.js:113 extension.js:120
 msgid " Sec"
 msgstr ""
 
-#: extension.js:141
+#: extension.js:135
 msgid "Options"
 msgstr ""
 
-#: extension.js:269
+#: extension.js:231
 msgid "Start Recording"
 msgstr ""
 
-#: extension.js:276
+#: extension.js:238
 msgid "Open in the filesystem"
 msgstr ""
 
-#: extension.js:325
+#: extension.js:256
+msgid "ERROR RECORDER - See logs form more info"
+msgstr ""
+
+#: extension.js:277
 msgid "Stop recording"
 msgstr ""
 
-#: extension.js:345
+#: extension.js:297
 msgid "EasyScreenCast -> Finish Recording / Seconds : "
 msgstr ""
 
-#: extension.js:350
+#: extension.js:302
 msgid "EasyScreenCast -> Recording in progress / Seconds passed : "
 msgstr ""
 
-#: prefs.js:84
+#: prefs.js:78
 msgid "Could not load the preferences UI file"
 msgstr ""

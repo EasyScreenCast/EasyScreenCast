@@ -10,12 +10,6 @@
     any later version.  The code is distributed WITHOUT ANY WARRANTY;
     without even the implied warranty of MERCHANTABILITY or FITNESS
     FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
-
-    As additional permission under GNU GPL version 3 section 7, you
-    may distribute non-source (e.g., minimized or compacted) forms of
-    that code without the copy of the GNU GPL normally required by
-    section 4, provided you include this license notice and a URL
-    through which recipients can access the Corresponding Source.
 */
 
 const Gio = imports.gi.Gio;
@@ -42,15 +36,13 @@ const Me = ExtensionUtils.getCurrentExtension();
 const Lib = Me.imports.convenience;
 const Pref = Me.imports.prefs;
 const Time = Me.imports.timer;
+const UtilRecorder = Me.imports.utilrecorder;
 
 let Indicator;
 let timerD=null;
 let timerC=null;
 
 let isActive = false;
-
-
-const ScreenCastProxy = Gio.DBusProxy.makeProxyWrapper(LibRecorder.ScreencastIface);
 
 
 const EasyScreenCast_Indicator = new Lang.Class({
@@ -72,9 +64,10 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.indicatorIcon =new St.Icon({ gicon: Lib.ESCoffGIcon, icon_size: 16});
 
         this.indicatorBox.add_actor (this.indicatorIcon);
-        
         this.actor.add_actor(this.indicatorBox);
         
+        //init var
+        this.recorder = new UtilRecorder.CaptureVideo();
         this.TimeSlider=null;
         this.notifyCounting;
         
@@ -121,7 +114,8 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.DelayTimeTitle.actor.add_child(this.DelayTimeLabel, { align: St.Align.END });
         
         this.imSliderDelay = new PopupMenu.PopupBaseMenuItem({ activate: false });
-        this.TimeSlider = new Slider.Slider(Pref.getOption('i', Pref.TIME_DELAY_SETTING_KEY)/100);
+        this.TimeSlider = new Slider.Slider(Pref.getOption('i',
+            Pref.TIME_DELAY_SETTING_KEY)/100);
         this.TimeSlider.connect('value-changed', Lang.bind(this, function(item) {
             this.DelayTimeLabel.set_text(Math.floor(item.value*100).toString()+_(' Sec'));
         }));
@@ -147,22 +141,13 @@ const EasyScreenCast_Indicator = new Lang.Class({
             this.DelayTimeTitle.actor.hide;
             this.TimeSlider.actor.hide;
         }
-       
-       //connect to d-bus service
-        this.ScreenCastService = new ScreenCastProxy(Gio.DBus.session, 'org.gnome.Shell.Screencast',
-            '/org/gnome/Shell/Screencast', Lang.bind(this, function(proxy, error) {
-            if (error) {
-                Lib.TalkativeLog('ESC > ERROR(d-bus proxy connected) - '+error.message);
-                return;
-            } else 
-                Lib.TalkativeLog('ESC > d-bus proxy connected');
-        }));
     },
     
     _doDelayAction: function() {
         if(this.isDelayActive  && !isActive){
             Lib.TalkativeLog('ESC > delay recording called | delay= ' + this.TimeSlider.value);
-            timerD = new Time.TimerDelay((Math.floor(this.TimeSlider.value*100)), this._doRecording, this);
+            timerD = new Time.TimerDelay((Math.floor(this.TimeSlider.value*100)), 
+                this._doRecording, this);
             timerD.begin();
         } else {
             Lib.TalkativeLog('ESC > instant recording called');
@@ -172,75 +157,52 @@ const EasyScreenCast_Indicator = new Lang.Class({
 
     _doRecording: function() {
         
-        //active/deactive standar indicatorBox
-        this._replaceIndicator(Pref.getOption('b',Pref.REPLACE_INDICATOR_SETTING_KEY));
-        
         //start/stop record screen
         if(isActive===false){
             Lib.TalkativeLog('ESC > start recording');
-            isActive=true;
             
             //prepare variable for screencast
             this.fileRec = Pref.getOption('s', Pref.FILE_NAME_SETTING_KEY);
             if(Pref.getOption('s', Pref.FILE_FOLDER_SETTING_KEY)!=='')
-                this.fileRec = Pref.getOption('s', Pref.FILE_FOLDER_SETTING_KEY)+'/' + this.fileRec;
+                this.fileRec = Pref.getOption('s', Pref.FILE_FOLDER_SETTING_KEY)+
+                    '/' + this.fileRec;
             Lib.TalkativeLog('ESC > path/file template : '+this.fileRec);
             
-            var optionsRec = {'draw-cursor': new GLib.Variant('b', Pref.getOption('b', Pref.DRAW_CURSOR_SETTING_KEY)),
-                'framerate': new GLib.Variant('i', Pref.getOption('i', Pref.FPS_SETTING_KEY)),
-                'pipeline': new GLib.Variant('s', Pref.getOption('s', Pref.PIPELINE_REC_SETTING_KEY))};
+            this.recorder.setOption(this.fileRec, 
+                Pref.getOption('i', Pref.FPS_SETTING_KEY),
+                Pref.getOption('s', Pref.PIPELINE_REC_SETTING_KEY), 
+                Pref.getOption('b', Pref.DRAW_CURSOR_SETTING_KEY));
             
-            if(Pref.getOption('i', Pref.AREA_SCREEN_SETTING_KEY)===0){
-                Lib.TalkativeLog('ESC > record full screen area');
-                //call d-bus remote method screencats
-                this.ScreenCastService.ScreencastRemote(this.fileRec, optionsRec,
-                    Lang.bind(this, function(result, error) {
-                        if (error) {
-                            Lib.TalkativeLog('ESC > ERROR(screencast execute) - '
-                                +error.message);
-                            return;
-                        } else 
-                            Lib.TalkativeLog('ESC > screencast execute - '+result[0]
-                                +' - '+result[1]);
-                    }));
-            } else {
+            if(Pref.getOption('i', Pref.AREA_SCREEN_SETTING_KEY)!==0){
                 Lib.TalkativeLog('ESC > record specific screen area');
-                //call d-bus remote method screencatsarea
-                this.ScreenCastService.ScreencastAreaRemote(Pref.getOption('i', Pref.X_POS_SETTING_KEY), 
-                    Pref.getOption('i', Pref.Y_POS_SETTING_KEY), Pref.getOption('i', 
-                    Pref.WIDTH_SETTING_KEY), Pref.getOption('i', Pref.HEIGHT_SETTING_KEY),
-                    this.fileRec, optionsRec,
-                    Lang.bind(this, function(result, error) {
-                        if (error) {
-                            Lib.TalkativeLog('ESC > ERROR(screencast execute) - '
-                                +error.message);
-                            return;
-                        } else 
-                            Lib.TalkativeLog('ESC > screencast execute - '+result[0]
-                                +' - '+result[1]);
-                    }));
+                //set area to recorder
+                this.recorder.setArea(Pref.getOption('i', Pref.X_POS_SETTING_KEY), 
+                    Pref.getOption('i', Pref.Y_POS_SETTING_KEY), Pref.getOption('i',
+                    Pref.WIDTH_SETTING_KEY), Pref.getOption('i', Pref.HEIGHT_SETTING_KEY))
             }
-
-            if(this.isShowNotify){
-                Lib.TalkativeLog('ESC > show notify');
-                //create notify
-                this._createNotify();
-                
-                //start counting rec
-                timerC = new Time.TimerCounting(refreshNotify,this);
-                timerC.begin();
+            
+            //start recording
+            if(this.recorder.start()){
+                isActive=true;
+            
+                if(this.isShowNotify){
+                    Lib.TalkativeLog('ESC > show notify');
+                    //create counting notify
+                    this._createNotify();
+                    
+                    //start counting rec
+                    timerC = new Time.TimerCounting(refreshNotify,this);
+                    timerC.begin();
+                }
+            } else {
+                //create alert notify
+                this._createAlertNotify();
             }
         } else {
             Lib.TalkativeLog('ESC > stop recording');
             isActive=false;
             
-            this.ScreenCastService.StopScreencastRemote(Lang.bind(this, function(result, error) {
-                if (error) {
-                    Lib.TalkativeLog('ESC > ERROR(screencast stop) - '+error.message);
-                    return;
-                } else 
-                    Lib.TalkativeLog('ESC > screencast stop - '+result[0]);
-            }));
+            this.recorder.stop();
             
             if(timerC!==null){
                 //stop counting rec
@@ -281,37 +243,27 @@ const EasyScreenCast_Indicator = new Lang.Class({
                 Main.Util.trySpawnCommandLine('xdg-open '+this.fileRec);
             break;
         }
-            this.notifyCounting.destroy();
         }));
 
         Main.messageTray.add(source);
         source.notify(this.notifyCounting);
     },
     
-    _replaceIndicator: function(temp){
-        if(temp){
-            Lib.TalkativeLog('ESC > replace indicator');
-            Panel.AggregateMenu._screencast=new Lang.Class({
-                Name: 'ScreencastIndicator',
-                Extends: PanelMenu.SystemIndicator,
-                
-                _init: function() {
-                    this.parent();
+    _createAlertNotify: function(){
+        var source = new MessageTray.SystemNotificationSource();
 
-                    this._indicator = this._addIndicator();
-                    this._indicator.icon_name = 'media-record-symbolic';
-                    this._indicator.add_style_class_name('screencast-indicator');
-                    this._sync();
+        this.notifyAlert  = new MessageTray.Notification(source, 
+                            _('ERROR RECORDER - See logs form more info'),
+                            null,
+                            { gicon: Lib.ESCoffGIcon});
 
-                    this._indicator.visible = false;
-                },
-            });
-        }else{
-            Lib.TalkativeLog('ESC > use standard indicator');
-            Panel.AggregateMenu._screencast=new imports.ui.status.screencast.Indicator();
-        }
+        this.notifyAlert.setTransient(false);
+        this.notifyAlert.setResident(true);
+
+        Main.messageTray.add(source);
+        source.notify(this.notifyAlert);
     },
-
+    
     refreshIndicator: function(param1, param2, focus){
         Lib.TalkativeLog('ESC > refresh indicator -A '+isActive+' -F '+focus);
         if(Indicator!==null){
@@ -340,7 +292,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
 });
 
 function refreshNotify(sec,alertEnd){
-    if(Indicator.notifyCounting!==null || Indicator.notifyCounting === undefined){
+    if(Indicator.notifyCounting!==null || Indicator.notifyCounting !== undefined){
         if(alertEnd){
             Indicator.notifyCounting.update(_('EasyScreenCast -> Finish Recording / Seconds : '+ sec),
                                             null,

@@ -10,12 +10,6 @@
     any later version.  The code is distributed WITHOUT ANY WARRANTY;
     without even the implied warranty of MERCHANTABILITY or FITNESS
     FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
-
-    As additional permission under GNU GPL version 3 section 7, you
-    may distribute non-source (e.g., minimized or compacted) forms of
-    that code without the copy of the GNU GPL normally required by
-    section 4, provided you include this license notice and a URL
-    through which recipients can access the Corresponding Source.
 */
 
 const GLib = imports.gi.GLib;
@@ -97,19 +91,23 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             
             //implements show timer option
             this.Ref_switch_ShowTimerRec = builder.get_object('swt_ShowTimerRec');
-            settings.bind(SHOW_TIMER_REC_SETTING_KEY, this.Ref_switch_ShowTimerRec, 'active', Gio.SettingsBindFlags.DEFAULT);
+            settings.bind(SHOW_TIMER_REC_SETTING_KEY, this.Ref_switch_ShowTimerRec, 
+                'active', Gio.SettingsBindFlags.DEFAULT);
             
             //implements show indicator option
             this.Ref_switch_ShowIndicatorRec = builder.get_object('swt_ShowIndicatorRec');
-            settings.bind(REPLACE_INDICATOR_SETTING_KEY, this.Ref_switch_ShowIndicatorRec, 'active', Gio.SettingsBindFlags.DEFAULT);
+            settings.bind(REPLACE_INDICATOR_SETTING_KEY, this.Ref_switch_ShowIndicatorRec, 
+                'active', Gio.SettingsBindFlags.DEFAULT);
             
             //implements draw cursor option
             this.Ref_switch_DrawCursorRec = builder.get_object('swt_DrawCursorRec');
-            settings.bind(DRAW_CURSOR_SETTING_KEY, this.Ref_switch_DrawCursorRec, 'active', Gio.SettingsBindFlags.DEFAULT);
+            settings.bind(DRAW_CURSOR_SETTING_KEY, this.Ref_switch_DrawCursorRec, 
+                'active', Gio.SettingsBindFlags.DEFAULT);
         
             //implements area recording option
             this.Ref_ComboBox_AreaRec = builder.get_object('cbt_arearec');
-            settings.bind(AREA_SCREEN_SETTING_KEY, this.Ref_ComboBox_AreaRec, 'active', Gio.SettingsBindFlags.DEFAULT);
+            settings.bind(AREA_SCREEN_SETTING_KEY, this.Ref_ComboBox_AreaRec, 
+                'active', Gio.SettingsBindFlags.DEFAULT);
             
             //implements image of screen
             this.Ref_Image_Screen = builder.get_object('img_screen');
@@ -121,7 +119,8 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             let adjustment1 = new Gtk.Adjustment ({value: 30,lower: 1,upper: 666,
                 step_increment: 1,page_increment: 10 });
             this.Ref_spinner_FrameRateRec.configure(adjustment1,10,0);
-            settings.bind(FPS_SETTING_KEY, this.Ref_spinner_FrameRateRec, 'value', Gio.SettingsBindFlags.DEFAULT);
+            settings.bind(FPS_SETTING_KEY, this.Ref_spinner_FrameRateRec, 'value', 
+                Gio.SettingsBindFlags.DEFAULT);
             
             //implements max duration option
             this.Ref_spinner_MaxDurationRec = builder.get_object('spb_MaxDurationRec');
@@ -129,7 +128,8 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             let adjustment2 = new Gtk.Adjustment ({value: 0,lower: 0,upper: 3600,
                 step_increment: 1,page_increment: 10 });
             this.Ref_spinner_MaxDurationRec.configure(adjustment2,10,0);
-            this.RecorderSettings.bind(MAX_DURATION_SETTING_KEY, this.Ref_spinner_MaxDurationRec, 'value', Gio.SettingsBindFlags.DEFAULT);
+            this.RecorderSettings.bind(MAX_DURATION_SETTING_KEY, this.Ref_spinner_MaxDurationRec, 
+                'value', Gio.SettingsBindFlags.DEFAULT);
             
             //implements specific area options [ X , Y , width , height]
             this.Ref_spinner_X = builder.get_object('spb_XposRec');
@@ -149,39 +149,49 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             let adjustment5 = new Gtk.Adjustment ({value: 400,lower: 0,upper:20000,
                 step_increment: 1,page_increment: 10 });
             this.Ref_spinner_Height.configure(adjustment5,10,0);
-            settings.bind(X_POS_SETTING_KEY, this.Ref_spinner_X, 'value', Gio.SettingsBindFlags.DEFAULT);
-            settings.bind(Y_POS_SETTING_KEY, this.Ref_spinner_Y, 'value', Gio.SettingsBindFlags.DEFAULT);
-            settings.bind(WIDTH_SETTING_KEY, this.Ref_spinner_Width, 'value', Gio.SettingsBindFlags.DEFAULT);
-            settings.bind(HEIGHT_SETTING_KEY, this.Ref_spinner_Height, 'value', Gio.SettingsBindFlags.DEFAULT);
+            settings.bind(X_POS_SETTING_KEY, this.Ref_spinner_X, 'value', 
+                Gio.SettingsBindFlags.DEFAULT);
+            settings.bind(Y_POS_SETTING_KEY, this.Ref_spinner_Y, 'value', 
+                Gio.SettingsBindFlags.DEFAULT);
+            settings.bind(WIDTH_SETTING_KEY, this.Ref_spinner_Width, 'value', 
+                Gio.SettingsBindFlags.DEFAULT);
+            settings.bind(HEIGHT_SETTING_KEY, this.Ref_spinner_Height, 'value', 
+                Gio.SettingsBindFlags.DEFAULT);
             
             //implements command string rec option
             this.Ref_textedit_Pipeline = builder.get_object('txe_CommandStringRec');
-            settings.bind(PIPELINE_REC_SETTING_KEY, this.Ref_textedit_Pipeline, 'text', Gio.SettingsBindFlags.DEFAULT);
+            settings.bind(PIPELINE_REC_SETTING_KEY, this.Ref_textedit_Pipeline, 'text', 
+                Gio.SettingsBindFlags.DEFAULT);
             
             //implements file name string rec option
             this.Ref_textedit_FileName = builder.get_object('txe_FileNameRec');
-            settings.bind(FILE_NAME_SETTING_KEY, this.Ref_textedit_FileName, 'text', Gio.SettingsBindFlags.DEFAULT);
+            settings.bind(FILE_NAME_SETTING_KEY, this.Ref_textedit_FileName, 'text', 
+                Gio.SettingsBindFlags.DEFAULT);
             
             //implements file folder option
             this.Ref_label_FileFolderRec = builder.get_object('lbl_FileFolderRec');
-            settings.bind(FILE_FOLDER_SETTING_KEY, this.Ref_label_FileFolderRec, 'label', Gio.SettingsBindFlags.DEFAULT);
+            settings.bind(FILE_FOLDER_SETTING_KEY, this.Ref_label_FileFolderRec, 'label', 
+                Gio.SettingsBindFlags.DEFAULT);
 
             //implements file folder string rec option
             this.Ref_filechooser_FileFolder = builder.get_object('fcs_FilePathRec');
             this.Ref_filechooser_FileFolder.set_can_focus(false);
-            this.Ref_filechooser_FileFolder.connect('selection_changed', Lang.bind(this, function(self){
-                Lib.TalkativeLog('ESC > file path get from widget : '+self.get_filename());
-                if(self.get_filename()!==null)
-                    setOption(FILE_FOLDER_SETTING_KEY, self.get_filename());
+            this.Ref_filechooser_FileFolder.connect('selection_changed', Lang.bind(this, 
+                function(self){
+                    Lib.TalkativeLog('ESC > file path get from widget : '+self.get_filename());
+                    if(self.get_filename()!==null)
+                        setOption(FILE_FOLDER_SETTING_KEY, self.get_filename());
             }));
             
             //implements default button action
             this.Ref_button_SetDeafaultSettings = builder.get_object('btn_DefaultOption');
-            this.Ref_button_SetDeafaultSettings.connect ('clicked', Lang.bind(this, this._setDefaultsettings));
+            this.Ref_button_SetDeafaultSettings.connect ('clicked', Lang.bind(this, 
+                this._setDefaultsettings));
             
             //implements verbose debug option
             this.Ref_switch_VerboseDebug = builder.get_object('swt_VerboseDebug');
-            settings.bind(VERBOSE_DEBUG_SETTING_KEY,this.Ref_switch_VerboseDebug, 'active', Gio.SettingsBindFlags.DEFAULT);
+            settings.bind(VERBOSE_DEBUG_SETTING_KEY,this.Ref_switch_VerboseDebug, 'active', 
+                Gio.SettingsBindFlags.DEFAULT);
             
         }
     },
@@ -236,15 +246,15 @@ function setOption(key,option){
     
     switch (typeof(option)) {
         case 'boolean':
-            return settings.set_boolean(key, option);
+            settings.set_boolean(key, option);
         break;
 
         case 'number':
-            return settings.set_int(key, option);
+            settings.set_int(key, option);
         break;
 
         case 'string':
-            return settings.set_string(key, option);
+            settings.set_string(key, option);
         break;
 
         default:

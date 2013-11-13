@@ -10,12 +10,6 @@
     any later version.  The code is distributed WITHOUT ANY WARRANTY;
     without even the implied warranty of MERCHANTABILITY or FITNESS
     FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
-
-    As additional permission under GNU GPL version 3 section 7, you
-    may distribute non-source (e.g., minimized or compacted) forms of
-    that code without the copy of the GNU GPL normally required by
-    section 4, provided you include this license notice and a URL
-    through which recipients can access the Corresponding Source.
 */
 
 const Lang = imports.lang;
@@ -106,7 +100,8 @@ const TimerDelay = new Lang.Class({
      * @private
      */
     _callbackInternal: function(){
-        Lib.TalkativeLog('ESC > internalFunction TimerDelay called | Sec = ' + ElapsedSec + ' Sec delay = ' + DelaySec);        
+        Lib.TalkativeLog('ESC > internalFunction TimerDelay called | Sec = ' + 
+            ElapsedSec + ' Sec delay = ' + DelaySec);        
         if(ElapsedSec>=DelaySec){
             CallbackFuncDelay.apply(this.Scope,[]);
             ElapsedSec = 1;
