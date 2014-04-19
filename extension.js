@@ -161,43 +161,8 @@ const EasyScreenCast_Indicator = new Lang.Class({
         if(isActive===false){
             Lib.TalkativeLog('ESC > start recording');
             
-            //prepare variable for screencast
-            this.fileRec = Pref.getOption('s', Pref.FILE_NAME_SETTING_KEY);
-            if(Pref.getOption('s', Pref.FILE_FOLDER_SETTING_KEY)!=='')
-                this.fileRec = Pref.getOption('s', Pref.FILE_FOLDER_SETTING_KEY)+
-                    '/' + this.fileRec;
-            Lib.TalkativeLog('ESC > path/file template : '+this.fileRec);
-            
-            this.recorder.setOption(this.fileRec, 
-                Pref.getOption('i', Pref.FPS_SETTING_KEY),
-                Pref.getOption('s', Pref.PIPELINE_REC_SETTING_KEY), 
-                Pref.getOption('b', Pref.DRAW_CURSOR_SETTING_KEY));
-            
-            if(Pref.getOption('i', Pref.AREA_SCREEN_SETTING_KEY)!==0){
-                Lib.TalkativeLog('ESC > record specific screen area');
-                //set area to recorder
-                this.recorder.setArea(Pref.getOption('i', Pref.X_POS_SETTING_KEY), 
-                    Pref.getOption('i', Pref.Y_POS_SETTING_KEY), Pref.getOption('i',
-                    Pref.WIDTH_SETTING_KEY), Pref.getOption('i', Pref.HEIGHT_SETTING_KEY))
-            }
-            
             //start recording
-            if(this.recorder.start()){
-                isActive=true;
-            
-                if(this.isShowNotify){
-                    Lib.TalkativeLog('ESC > show notify');
-                    //create counting notify
-                    this._createNotify();
-                    
-                    //start counting rec
-                    timerC = new Time.TimerCounting(refreshNotify,this);
-                    timerC.begin();
-                }
-            } else {
-                //create alert notify
-                this._createAlertNotify();
-            }
+            this.recorder.start();
         } else {
             Lib.TalkativeLog('ESC > stop recording');
             isActive=false;
@@ -212,6 +177,29 @@ const EasyScreenCast_Indicator = new Lang.Class({
 
         }
         
+        Indicator.refreshIndicator(false);
+    },
+    
+    doRecResult: function(result) {
+        if(result){
+            isActive=true;
+
+            Lib.TalkativeLog('ESC > record OK');
+
+            if(this.isShowNotify){
+                Lib.TalkativeLog('ESC > show notify');
+                //create counting notify
+                this._createNotify();
+
+                //start counting rec
+                timerC = new Time.TimerCounting(refreshNotify,this);
+                timerC.begin();
+            }
+        }else{
+            Lib.TalkativeLog('ESC > record ERROR');
+
+            this._createAlertNotify();
+        }
         Indicator.refreshIndicator(false);
     },
 
@@ -235,16 +223,6 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.notifyCounting.setTransient(false);
         this.notifyCounting.setResident(true);
 
-        this.notifyCounting.addButton('open',_('Open in the filesystem'));
-        this.notifyCounting.connect('action-invoked', Lang.bind(this, function(self, action) {
-        switch (action) {
-            case 'open':
-                Lib.TalkativeLog('ESC > button notification pressed');
-                Main.Util.trySpawnCommandLine('xdg-open '+this.fileRec);
-            break;
-        }
-        }));
-
         Main.messageTray.add(source);
         source.notify(this.notifyCounting);
     },
@@ -259,6 +237,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
 
         this.notifyAlert.setTransient(false);
         this.notifyAlert.setResident(true);
+        this.notifyAlert.playSound();
 
         Main.messageTray.add(source);
         source.notify(this.notifyAlert);
@@ -287,7 +266,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
     },
 
     destroy: function() {
-        this.parent;
+        this.destroy();
     }
 });
 
@@ -297,12 +276,24 @@ function refreshNotify(sec,alertEnd){
             Indicator.notifyCounting.update(_('EasyScreenCast -> Finish Recording / Seconds : '+ sec),
                                             null,
                                             { gicon: Lib.ESCoffGIcon });
-            Indicator.notifyCounting.setButtonSensitive('open',true);
+            
+            Indicator.notifyCounting.addAction(_('Open in the filesystem'),
+                Lang.bind(this, function(self, action) {
+                    Lib.TalkativeLog('ESC > button notification pressed');
+                    pathFile=Pref.getOption('s', Pref.FILE_FOLDER_SETTING_KEY)
+                    if(pathFile===""){
+                        Main.Util.trySpawnCommandLine('xdg-open "$(xdg-user-dir VIDEOS)"');
+                    }else{
+                        Main.Util.trySpawnCommandLine('xdg-open '+pathFile);
+                    }
+            }));
+            
+            Indicator.notifyCounting.playSound();
+
         } else {
             Indicator.notifyCounting.update(_('EasyScreenCast -> Recording in progress / Seconds passed : ') + sec,
                                             null,
                                             { gicon: Lib.ESConGIcon });
-            Indicator.notifyCounting.setButtonSensitive('open',false);
         }
     }
 }

@@ -15,11 +15,17 @@
 const Lang = imports.lang;
 const Shell = imports.gi.Shell;
 const Main = imports.ui.main;
+const Gio = imports.gi.Gio;
+const GLib = imports.gi.GLib;
+const LibRecorder = imports.ui.screencast;
 
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Lib = Me.imports.convenience;
 const Pref = Me.imports.prefs;
+const Ext=Me.imports.extension;
+
+const ScreenCastProxy = Gio.DBusProxy.makeProxyWrapper(LibRecorder.ScreencastIface);
 
 const CaptureVideo = new Lang.Class({
     Name: "RecordVideo",
@@ -29,22 +35,62 @@ const CaptureVideo = new Lang.Class({
     _init: function(){
         Lib.TalkativeLog('ESC > init recorder');
         
-        this.recorder = new Shell.Recorder({ stage: global.stage,
-            screen: global.screen });
+        //connect to d-bus service
+        this.ScreenCastService = new ScreenCastProxy(Gio.DBus.session, 'org.gnome.Shell.Screencast',
+            '/org/gnome/Shell/Screencast', Lang.bind(this, function(proxy, error) {
+            if (error) {
+                Lib.TalkativeLog('ESC > ERROR(d-bus proxy connected) - '+error.message);
+                return;
+            } else 
+                Lib.TalkativeLog('ESC > d-bus proxy connected');
+        }));
     },
     /*
      * start recording
      */
     start: function(){
         Lib.TalkativeLog('ESC > start video recording');
+        this.recordingActive=false;
         
-        let [success, fileName] = this.recorder.record();
-        if (success) {
-            Lib.TalkativeLog('ESC > RECORDING OK');
-        } else{
-            Lib.TalkativeLog('ESC > ERROR RECORDING');
+        //prepare variable for screencast
+        var fileRec = Pref.getOption('s', Pref.FILE_NAME_SETTING_KEY);
+        if(Pref.getOption('s', Pref.FILE_FOLDER_SETTING_KEY)!=='')
+            fileRec = Pref.getOption('s', Pref.FILE_FOLDER_SETTING_KEY)+
+                '/' + fileRec;
+        Lib.TalkativeLog('ESC > path/file template : '+fileRec);
+        
+        var optionsRec = {'draw-cursor': new GLib.Variant('b', Pref.getOption('b', Pref.DRAW_CURSOR_SETTING_KEY)),
+            'framerate': new GLib.Variant('i', Pref.getOption('i', Pref.FPS_SETTING_KEY)),
+            'pipeline': new GLib.Variant('s', Pref.getOption('s', Pref.PIPELINE_REC_SETTING_KEY))};
+        
+        if(Pref.getOption('i', Pref.AREA_SCREEN_SETTING_KEY)===0){
+             this.ScreenCastService.ScreencastRemote(fileRec, optionsRec,
+                    Lang.bind(this, function(result, error) {
+                        if (error) {
+                            Lib.TalkativeLog('ESC > ERROR(screencast execute) - '
+                                +error.message);
+                            Ext.Indicator.doRecResult(false);
+                        } else 
+                            Lib.TalkativeLog('ESC > screencast execute - '+result[0]
+                                +' - '+result[1]);
+                            Ext.Indicator.doRecResult(result[0]);
+                    }));
+        } else {
+             this.ScreenCastService.ScreencastAreaRemote(Pref.getOption('i', Pref.X_POS_SETTING_KEY), 
+                    Pref.getOption('i', Pref.Y_POS_SETTING_KEY), Pref.getOption('i', 
+                    Pref.WIDTH_SETTING_KEY), Pref.getOption('i', Pref.HEIGHT_SETTING_KEY),
+                    fileRec, optionsRec,
+                    Lang.bind(this, function(result, error) {
+                        if (error) {
+                            Lib.TalkativeLog('ESC > ERROR(screencast execute) - '
+                                +error.message);
+                            Ext.Indicator.doRecResult(false);
+                        } else 
+                            Lib.TalkativeLog('ESC > screencast execute - '+result[0]
+                                +' - '+result[1]);
+                            Ext.Indicator.doRecResult(result[0]);
+                    }));
         }
-        return success;
     },
     /*
      * Stop recording
@@ -52,29 +98,13 @@ const CaptureVideo = new Lang.Class({
     stop: function(){
         Lib.TalkativeLog('ESC > stop video recording');
         
-        this.recorder.close();
-    },
-    /**
-     * Set option
-     */
-    setOption: function(file, fps, pipeline, drawcursor){
-        Lib.TalkativeLog('ESC > set option : file- '+file+' fps- '+fps+
-            ' pipeline- '+pipeline+' dc- '+drawcursor);
-            
-        this.recorder.set_file_template(file);
-        this.recorder.set_framerate(fps);
-        this.recorder.set_pipeline(pipeline);
-        this.recorder.set_draw_cursor(drawcursor);
-    },
-    
-    /**
-     * Set area
-     */
-    setArea: function(x, y, width, height){
-        Lib.TalkativeLog('ESC > set area : x- '+x+' y- '+y+' w- '+width+' h- '+
-            height);
-
-        this.recorder.set_area(x, y, width, height);
+         this.ScreenCastService.StopScreencastRemote(Lang.bind(this, function(result, error) {
+                if (error) {
+                    Lib.TalkativeLog('ESC > ERROR(screencast stop) - '+error.message);
+                    return false;
+                } else 
+                    Lib.TalkativeLog('ESC > screencast stop - '+result[0]);
+                    return true;
+            }));
     }
 });
-
