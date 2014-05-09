@@ -324,7 +324,8 @@ function disable() {
         timerD.stop();
     }
     
-    if(Indicator){
+    if(Indicator!==null){
+        Indicator.disable();
         Indicator.destroy();
     }
     Indicator=null;
