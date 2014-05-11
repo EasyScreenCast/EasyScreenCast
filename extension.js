@@ -65,7 +65,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
 
         this.indicatorBox.add_actor (this.indicatorIcon);
         this.actor.add_actor(this.indicatorBox);
-        
+                
         //init var
         this.recorder = new UtilRecorder.CaptureVideo();
         this.TimeSlider=null;
@@ -141,6 +141,14 @@ const EasyScreenCast_Indicator = new Lang.Class({
             this.DelayTimeTitle.actor.hide;
             this.TimeSlider.actor.hide;
         }
+    },
+    
+    _enable: function() {
+        this.actor.add_actor(this.indicatorBox);
+    },
+    
+    _disable: function() {
+        this.actor.remove_actor(this.indicatorBox);
     },
     
     _doDelayAction: function() {
@@ -266,7 +274,9 @@ const EasyScreenCast_Indicator = new Lang.Class({
     },
 
     destroy: function() {
-        this.destroy();
+        Lib.TalkativeLog('ESC > destroy indicator called');
+
+        this.parent();
     }
 });
 
@@ -280,7 +290,7 @@ function refreshNotify(sec,alertEnd){
             Indicator.notifyCounting.addAction(_('Open in the filesystem'),
                 Lang.bind(this, function(self, action) {
                     Lib.TalkativeLog('ESC > button notification pressed');
-                    pathFile=Pref.getOption('s', Pref.FILE_FOLDER_SETTING_KEY)
+                    var pathFile=Pref.getOption('s', Pref.FILE_FOLDER_SETTING_KEY)
                     if(pathFile===""){
                         Main.Util.trySpawnCommandLine('xdg-open "$(xdg-user-dir VIDEOS)"');
                     }else{
@@ -315,18 +325,23 @@ function enable() {
         Indicator = new EasyScreenCast_Indicator();
         Main.panel.addToStatusArea('EasyScreenCast-indicator', Indicator);
     }
+    
+    Indicator._enable();
 }
 
 function disable() {
     Lib.TalkativeLog('ESC > disableExtension called');
     
     if(timerD!==null){
+        Lib.TalkativeLog('ESC > timerD stoped');
         timerD.stop();
     }
     
     if(Indicator!==null){
-        Indicator.disable();
+        Lib.TalkativeLog('ESC > indicator call destroy');
+        
+        Indicator._disable();
         Indicator.destroy();
+        Indicator=null;
     }
-    Indicator=null;
 }
