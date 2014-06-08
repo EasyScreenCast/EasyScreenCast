@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-02 15:38+0100\n"
+"POT-Creation-Date: 2014-06-08 10:37+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,7 +46,7 @@ msgid "<b>Options</b>"
 msgstr ""
 
 #: EasyScreenCast.gtkbuilder:235
-msgid "Select area of screencast : "
+msgid "Area of screencast : "
 msgstr ""
 
 #: EasyScreenCast.gtkbuilder:248
@@ -57,94 +57,106 @@ msgstr ""
 msgid "Specific screen area"
 msgstr ""
 
-#: EasyScreenCast.gtkbuilder:269
-msgid "Coordinates for the specific area"
+#: EasyScreenCast.gtkbuilder:250
+msgid "Select specific area"
 msgstr ""
 
-#: EasyScreenCast.gtkbuilder:281
+#: EasyScreenCast.gtkbuilder:251
+msgid "Select specific window"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:252
+msgid "Select specific desktop"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:272
+msgid "The registration covers the entire area"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:294
 msgid "Values ​​expressed in pixels"
 msgstr ""
 
-#: EasyScreenCast.gtkbuilder:306
+#: EasyScreenCast.gtkbuilder:317
 msgid "Width  "
 msgstr ""
 
-#: EasyScreenCast.gtkbuilder:319 EasyScreenCast.gtkbuilder:359
-#: EasyScreenCast.gtkbuilder:399 EasyScreenCast.gtkbuilder:440
-#: EasyScreenCast.gtkbuilder:545 EasyScreenCast.gtkbuilder:657
+#: EasyScreenCast.gtkbuilder:330 EasyScreenCast.gtkbuilder:368
+#: EasyScreenCast.gtkbuilder:406 EasyScreenCast.gtkbuilder:445
+#: EasyScreenCast.gtkbuilder:548 EasyScreenCast.gtkbuilder:660
 msgid "0"
 msgstr ""
 
-#: EasyScreenCast.gtkbuilder:346
+#: EasyScreenCast.gtkbuilder:355
 msgid "Height  "
 msgstr ""
 
-#: EasyScreenCast.gtkbuilder:386
+#: EasyScreenCast.gtkbuilder:393
 msgid "Y  "
 msgstr ""
 
-#: EasyScreenCast.gtkbuilder:427
+#: EasyScreenCast.gtkbuilder:432
 msgid "X  "
 msgstr ""
 
-#: EasyScreenCast.gtkbuilder:498
+#: EasyScreenCast.gtkbuilder:501
 msgid "<b>Screencast area</b>"
 msgstr ""
 
-#: EasyScreenCast.gtkbuilder:532
+#: EasyScreenCast.gtkbuilder:535
 msgid "Frames Per Second"
 msgstr ""
 
-#: EasyScreenCast.gtkbuilder:570
+#: EasyScreenCast.gtkbuilder:573
 msgid "Draw cursor on screencast"
 msgstr ""
 
-#: EasyScreenCast.gtkbuilder:605
+#: EasyScreenCast.gtkbuilder:608
 msgid "GStreamer Pipeline  "
 msgstr ""
 
-#: EasyScreenCast.gtkbuilder:617
+#: EasyScreenCast.gtkbuilder:620
 msgid ""
 "the GStreamer pipeline used to encode recordings in gst-launch format; if "
 "not specified, the recorder will produce vp8 (webm) video (unset)"
 msgstr ""
 
-#: EasyScreenCast.gtkbuilder:642
+#: EasyScreenCast.gtkbuilder:645
 msgid "Maximum duration screencast"
 msgstr ""
 
-#: EasyScreenCast.gtkbuilder:654
+#: EasyScreenCast.gtkbuilder:657
 msgid ""
 "This option not work in gnome shell 3.10 because the limit of 30 seconds is "
 "hardcoded:\n"
 "https://bugzilla.gnome.org/show_bug.cgi?id=708660"
 msgstr ""
 
-#: EasyScreenCast.gtkbuilder:695
+#: EasyScreenCast.gtkbuilder:698
 msgid "<b>Screencast options</b>"
 msgstr ""
 
-#: EasyScreenCast.gtkbuilder:730
+#: EasyScreenCast.gtkbuilder:733
 msgid "File name template : "
 msgstr ""
 
-#: EasyScreenCast.gtkbuilder:745
+#: EasyScreenCast.gtkbuilder:748
 msgid ""
 "the filename which may contain some escape sequences - %d and %t will be "
 "replaced by the start date and time of the recording."
 msgstr ""
 
-#: EasyScreenCast.gtkbuilder:765 EasyScreenCast.gtkbuilder:803
+#: EasyScreenCast.gtkbuilder:768 EasyScreenCast.gtkbuilder:806
 msgid ""
 "Select the folder where the file is saved, if not specific a folder  the "
 "file will be saved in the $XDG_VIDEOS_DIR if it exists, or the home "
 "directory otherwise."
 msgstr ""
 
-#: EasyScreenCast.gtkbuilder:770
+#: EasyScreenCast.gtkbuilder:773
 msgid "The file is saved in the path : "
 msgstr ""
 
-#: EasyScreenCast.gtkbuilder:835
+#: EasyScreenCast.gtkbuilder:838
 msgid "<b>Screencast file</b>"
 msgstr ""

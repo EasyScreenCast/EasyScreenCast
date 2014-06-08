@@ -69,6 +69,8 @@ const CaptureVideo = new Lang.Class({
                         if (error) {
                             Lib.TalkativeLog('ESC > ERROR(screencast execute) - '
                                 +error.message);
+
+                            this.stop();
                             Ext.Indicator.doRecResult(false);
                         } else 
                             Lib.TalkativeLog('ESC > screencast execute - '+result[0]
@@ -84,6 +86,8 @@ const CaptureVideo = new Lang.Class({
                         if (error) {
                             Lib.TalkativeLog('ESC > ERROR(screencast execute) - '
                                 +error.message);
+
+                            this.stop();
                             Ext.Indicator.doRecResult(false);
                         } else 
                             Lib.TalkativeLog('ESC > screencast execute - '+result[0]

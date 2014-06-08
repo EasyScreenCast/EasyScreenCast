@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.16.0 on Sat Nov  2 15:31:42 2013 -->
+<!-- Generated with glade 3.18.3 -->
 <interface>
-  <!-- interface-requires gtk+ 3.10 -->
+  <requires lib="gtk+" version="3.10"/>
   <object class="GtkNotebook" id="Main_Container">
     <property name="visible">True</property>
     <property name="can_focus">True</property>
@@ -232,7 +232,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                       <object class="GtkLabel" id="label19">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">Select area of screencast : </property>
+                        <property name="label" translatable="yes">Area of screencast : </property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -247,6 +247,9 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                         <items>
                           <item id="0" translatable="yes">Full screen area</item>
                           <item id="1" translatable="yes">Specific screen area</item>
+                          <item id="2" translatable="yes">Select specific area</item>
+                          <item id="3" translatable="yes">Select specific window</item>
+                          <item id="4" translatable="yes">Select specific desktop</item>
                         </items>
                       </object>
                       <packing>
@@ -263,19 +266,29 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkLabel" id="label8">
+                  <object class="GtkLabel" id="lbl_infoarearec">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Coordinates for the specific area</property>
+                    <property name="label" translatable="yes">The registration covers the entire area</property>
+                    <attributes>
+                      <attribute name="style" value="normal"/>
+                      <attribute name="weight" value="bold"/>
+                      <attribute name="variant" value="normal"/>
+                      <attribute name="stretch" value="normal"/>
+                      <attribute name="underline" value="True"/>
+                      <attribute name="foreground" value="#000000000000"/>
+                      <attribute name="underline-color" value="#efef29292929"/>
+                    </attributes>
                   </object>
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
+                    <property name="padding">10</property>
                     <property name="position">1</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkGrid" id="grid1">
+                  <object class="GtkGrid" id="grd_coordinatearea">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="tooltip_text" translatable="yes">Values ​​expressed in pixels</property>
@@ -291,8 +304,6 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                       <packing>
                         <property name="left_attach">1</property>
                         <property name="top_attach">1</property>
-                        <property name="width">1</property>
-                        <property name="height">1</property>
                       </packing>
                     </child>
                     <child>
@@ -330,8 +341,6 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                       <packing>
                         <property name="left_attach">1</property>
                         <property name="top_attach">2</property>
-                        <property name="width">1</property>
-                        <property name="height">1</property>
                       </packing>
                     </child>
                     <child>
@@ -370,8 +379,6 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                       <packing>
                         <property name="left_attach">2</property>
                         <property name="top_attach">1</property>
-                        <property name="width">1</property>
-                        <property name="height">1</property>
                       </packing>
                     </child>
                     <child>
@@ -410,8 +417,6 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                       <packing>
                         <property name="left_attach">1</property>
                         <property name="top_attach">0</property>
-                        <property name="width">1</property>
-                        <property name="height">1</property>
                       </packing>
                     </child>
                     <child>
@@ -451,8 +456,6 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                       <packing>
                         <property name="left_attach">0</property>
                         <property name="top_attach">1</property>
-                        <property name="width">1</property>
-                        <property name="height">1</property>
                       </packing>
                     </child>
                     <child>
