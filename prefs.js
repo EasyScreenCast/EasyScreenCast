@@ -29,6 +29,7 @@ const Lib = Me.imports.convenience;
 const ACTIVE_DELAY_SETTING_KEY = 'active-delay-time';
 const TIME_DELAY_SETTING_KEY = 'delay-time';
 const SHOW_TIMER_REC_SETTING_KEY = 'show-timer-rec';
+const SHOW_AREA_REC_SETTING_KEY = 'show-area-rec';
 const VERBOSE_DEBUG_SETTING_KEY = 'verbose-debug';
 const PIPELINE_REC_SETTING_KEY = 'pipeline';
 const FPS_SETTING_KEY = 'fps';
@@ -98,6 +99,11 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             this.Ref_switch_ShowTimerRec = builder.get_object('swt_ShowTimerRec');
             settings.bind(SHOW_TIMER_REC_SETTING_KEY, this.Ref_switch_ShowTimerRec,
                 'active', Gio.SettingsBindFlags.DEFAULT);
+
+            //implements show area option
+            this.Ref_switch_ShowAreaRec = builder.get_object('swt_ShowAreaRec');
+            settings.bind(SHOW_AREA_REC_SETTING_KEY, this.Ref_switch_ShowAreaRec,
+                          'active', Gio.SettingsBindFlags.DEFAULT);
 
             //implements show indicator option
             this.Ref_switch_ShowIndicatorRec = builder.get_object('swt_ShowIndicatorRec');
@@ -281,6 +287,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         Lib.TalkativeLog('ESC > restore default option');
 
         setOption(SHOW_TIMER_REC_SETTING_KEY, true);
+        setOption(SHOW_AREA_REC_SETTING_KEY, false);
         setOption(REPLACE_INDICATOR_SETTING_KEY, false);
         setOption(DRAW_CURSOR_SETTING_KEY, true);
         setOption(VERBOSE_DEBUG_SETTING_KEY, false);

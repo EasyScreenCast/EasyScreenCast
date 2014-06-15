@@ -55,7 +55,7 @@ const Capture = new Lang.Class({
 
         this._mouseDown = false;
 
-        this._container = new Shell.GenericContainer({
+        this._areaSelection = new Shell.GenericContainer({
             name: 'area-selection',
             style_class: 'area-selection',
             visible: 'true',
@@ -64,9 +64,9 @@ const Capture = new Lang.Class({
             y: -10
         });
 
-        Main.uiGroup.add_actor(this._container);
+        Main.uiGroup.add_actor(this._areaSelection);
 
-        if (Main.pushModal(this._container)) {
+        if (Main.pushModal(this._areaSelection)) {
             this._signalCapturedEvent = global.stage.connect(
                 'captured-event', this._onCaptureEvent.bind(this)
             );
@@ -95,15 +95,15 @@ const Capture = new Lang.Class({
         this.emit("captured-event", event);
     },
 
-    drawContainer: function ({
+    drawSelection: function ({
         x, y, w, h
     }) {
-        this._container.set_position(x, y);
-        this._container.set_size(w, h);
+        this._areaSelection.set_position(x, y);
+        this._areaSelection.set_size(w, h);
     },
 
-    clearContainer: function () {
-        this.drawContainer({
+    clearSelection: function () {
+        this.drawSelection({
             x: -10,
             y: -10,
             w: 0,
@@ -116,9 +116,9 @@ const Capture = new Lang.Class({
 
         global.stage.disconnect(this._signalCapturedEvent);
         this._setDefaultCursor();
-        Main.uiGroup.remove_actor(this._container);
-        Main.popModal(this._container);
-        this._container.destroy();
+        Main.uiGroup.remove_actor(this._areaSelection);
+        Main.popModal(this._areaSelection);
+        this._areaSelection.destroy();
         this.emit("stop");
         this.disconnectAll();
     },
@@ -183,7 +183,7 @@ const SelectionArea = new Lang.Class({
         } else if (this._mouseDown) {
             let rect = getRectangle(this._startX, this._startY, x, y);
             if (type === Clutter.EventType.MOTION) {
-                this._capture.drawContainer(rect);
+                this._capture.drawSelection(rect);
             } else if (type === Clutter.EventType.BUTTON_RELEASE) {
                 this._capture._stop();
 
@@ -238,11 +238,11 @@ const SelectionWindow = new Lang.Class({
     },
 
     _highlightWindow: function (win) {
-        this._capture.drawContainer(getWindowRectangle(win));
+        this._capture.drawSelection(getWindowRectangle(win));
     },
 
     _clearHighlight: function () {
-        this._capture.clearContainer();
+        this._capture.clearSelection();
     }
 });
 
@@ -281,6 +281,52 @@ const SelectionDesktop = new Lang.Class({
 });
 
 Signals.addSignalMethods(SelectionDesktop.prototype);
+
+
+const AreaRecording = new Lang.Class({
+    Name: "EasyScreenCast.AreaRecording",
+
+    _init: function () {
+        Lib.TalkativeLog('ESC > area recording init');
+
+        this._areaRecording = new Shell.GenericContainer({
+            name: 'area-recording',
+            style_class: 'area-recording',
+            visible: 'true',
+            reactive: 'true',
+            x: -10,
+            y: -10
+        });
+
+        Main.uiGroup.add_actor(this._areaRecording);
+
+        this.drawArea(Pref.getOption('i',Pref.X_POS_SETTING_KEY)-2,
+                      Pref.getOption('i',Pref.Y_POS_SETTING_KEY)-2,
+                      Pref.getOption('i',Pref.WIDTH_SETTING_KEY)+4,
+                      Pref.getOption('i',Pref.HEIGHT_SETTING_KEY)+4);
+    },
+
+    drawArea: function (x, y, w, h) {
+        Lib.TalkativeLog('ESC > draw area recording');
+
+        this._visible=true;
+
+        this._areaRecording.set_position(x, y);
+        this._areaRecording.set_size(w, h);
+    },
+
+    clearArea: function () {
+        Lib.TalkativeLog('ESC > hide area recording');
+
+        this._visible=false;
+
+        this.drawArea(-10,-10,0,0);
+    },
+
+    isVisible: function(){
+        return this._visible;
+    }
+});
 
 
 const getRectangle = function (x1, y1, x2, y2) {

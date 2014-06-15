@@ -5,6 +5,11 @@
             <summary>Enable show timer of recording into notify</summary>
             <description>Enable show timer of recording into notify</description>
         </key>
+        <key name="show-area-rec" type="b">
+            <default>false</default>
+            <summary>Enable show area screencast during recording</summary>
+            <description>Enable show area screencast during recording</description>
+        </key>
         <key name="delay-time" type="i">
             <default>0</default>
             <summary>Time in seconds fot delay recording</summary>

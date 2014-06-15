@@ -9,8 +9,13 @@
     border: 2px solid rgba(255, 0, 0, 1);
 }
 
+.area-recording {
+    border-style: dashed;
+    border: 2px rgba(255, 0, 0, 1);
+}
+
 .alert-msg {
-    font-size: 50px;
+    font-size: 40px;
     font-weight: bold;
     color: #ffffff;
     background-color: rgba(10,10,10,0.7);

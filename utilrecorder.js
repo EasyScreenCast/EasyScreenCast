@@ -23,6 +23,7 @@ const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Lib = Me.imports.convenience;
 const Pref = Me.imports.prefs;
+const Selection = Me.imports.selection;
 const Ext=Me.imports.extension;
 
 const ScreenCastProxy = Gio.DBusProxy.makeProxyWrapper(LibRecorder.ScreencastIface);
@@ -75,6 +76,12 @@ const CaptureVideo = new Lang.Class({
                         } else 
                             Lib.TalkativeLog('ESC > screencast execute - '+result[0]
                                 +' - '+result[1]);
+
+                            //draw area recording
+                            if(Pref.getOption('b',Pref.SHOW_AREA_REC_SETTING_KEY)){
+                                this.AreaSelected = new Selection.AreaRecording();
+                            }
+
                             Ext.Indicator.doRecResult(result[0]);
                     }));
         } else {
@@ -92,6 +99,12 @@ const CaptureVideo = new Lang.Class({
                         } else 
                             Lib.TalkativeLog('ESC > screencast execute - '+result[0]
                                 +' - '+result[1]);
+
+                            //draw area recording
+                            if(Pref.getOption('b',Pref.SHOW_AREA_REC_SETTING_KEY)){
+                                this.AreaSelected = new Selection.AreaRecording();
+                            }
+
                             Ext.Indicator.doRecResult(result[0]);
                     }));
         }
@@ -108,6 +121,12 @@ const CaptureVideo = new Lang.Class({
                     return false;
                 } else 
                     Lib.TalkativeLog('ESC > screencast stop - '+result[0]);
+
+                     //clear area recording
+                     if(this.AreaSelected!==null && this.AreaSelected.isVisible()){
+                         this.AreaSelected.clearArea();
+                     }
+
                     return true;
             }));
     }
