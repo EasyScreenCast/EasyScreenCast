@@ -8,15 +8,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ESC\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-08 10:22+0200\n"
-"PO-Revision-Date: 2014-06-08 10:33+0100\n"
+"POT-Creation-Date: 2014-06-18 10:32+0200\n"
+"PO-Revision-Date: 2014-06-18 10:36+0100\n"
 "Last-Translator: idn <iacopodeenosee@gmail.com>\n"
 "Language-Team: IDN <iacopodeenosee@gmail.com>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.4\n"
+"X-Generator: Poedit 1.6.5\n"
 
 #: extension.js:81 extension.js:309
 msgid "Start recording"
@@ -62,45 +62,45 @@ msgstr "Apri nel filesystem"
 msgid "EasyScreenCast -> Recording in progress / Seconds passed : "
 msgstr "EasyScreenCast -> Registrazione in corso / Secondi passati : "
 
-#: prefs.js:80
+#: prefs.js:81
 msgid "Could not load the preferences UI file"
 msgstr "Non  possibile caricare il file UI delle preferenze"
 
-#: prefs.js:248
+#: prefs.js:254
 msgid "The registration covers the entire area"
 msgstr "La registrazione copre l'intera area dello schermo"
 
-#: prefs.js:254
+#: prefs.js:260
 msgid "Fill box below with the values of the coordinates in pixels"
 msgstr "Inserisci nei box qui sotto con i valori in pixel delle coordinate"
 
-#: prefs.js:260
+#: prefs.js:266
 msgid "At the start of the recording you can select the recording area"
 msgstr ""
 "All'inizio della registrazione sarà possibile selezionare l'area interessata"
 
-#: prefs.js:266
+#: prefs.js:272
 msgid ""
 "At the start of the recording you can select the window you want to record"
 msgstr ""
 "All'inizio della registrazione sarà possibile selezionare la finestra "
 "interessata"
 
-#: prefs.js:272
+#: prefs.js:278
 msgid ""
 "At the start of the recording you can select the desktop you want to record"
 msgstr ""
 "All'inizio della registrazione sarà possibile selezionare il desktop "
 "interessato"
 
-#: selection.js:173
+#: selection.js:179
 msgid "Select a area for recording or press [ESC] to abort"
 msgstr "Seleziona l'area da registrare o premi [ESC] per annulare"
 
-#: selection.js:213
+#: selection.js:219
 msgid "Select a window for recording or press [ESC] to abort"
 msgstr "Seleziona la finestra da registrare o premi [ESC] per annulare"
 
-#: selection.js:266
+#: selection.js:272
 msgid "Select a desktop for recording or press [ESC] to abort"
 msgstr "Seleziona il desktop da registrare o premi [ESC] per annulare"

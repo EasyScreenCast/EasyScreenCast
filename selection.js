@@ -125,7 +125,7 @@ const Capture = new Lang.Class({
 
     _saveRect: function (x, y, h, w) {
         Lib.TalkativeLog('ESC > selection x:' + x + ' y:' + y +
-                         ' height:' + h + ' width:' + w);
+            ' height:' + h + ' width:' + w);
 
         Pref.setOption(Pref.X_POS_SETTING_KEY, x);
         Pref.setOption(Pref.Y_POS_SETTING_KEY, y);
@@ -135,21 +135,27 @@ const Capture = new Lang.Class({
         Ext.Indicator._doDelayAction();
     },
 
-    _showAlert: function(msg) {
-        var text = new St.Label({ style_class: 'alert-msg', text: msg });
+    _showAlert: function (msg) {
+        var text = new St.Label({
+            style_class: 'alert-msg',
+            text: msg
+        });
         text.opacity = 255;
         Main.uiGroup.add_actor(text);
 
         let monitor = Main.layoutManager.focusMonitor;
         text.set_position(Math.floor(monitor.width / 2 - text.width / 2),
-                          Math.floor(monitor.height / 2 - text.height / 2));
+            Math.floor(monitor.height / 2 - text.height / 2));
 
-        Tweener.addTween(text,{ opacity: 0,time: 4,transition: 'easeOutQuad',
-                          onComplete:  Lang.bind(this, function () {
-                              Main.uiGroup.remove_actor(text);
-                              text = null;
-                          })
-                        });
+        Tweener.addTween(text, {
+            opacity: 0,
+            time: 4,
+            transition: 'easeOutQuad',
+            onComplete: Lang.bind(this, function () {
+                Main.uiGroup.remove_actor(text);
+                text = null;
+            })
+        });
     }
 });
 
@@ -274,7 +280,7 @@ const SelectionDesktop = new Lang.Class({
 
             //let monitor = new Layout.LayoutManager().currentMonitor()
 
-            var monitor =Main.layoutManager.focusMonitor;
+            var monitor = Main.layoutManager.focusMonitor;
             this._capture._saveRect(monitor.x, monitor.y, monitor.height, monitor.width);
         }
     }
@@ -300,17 +306,16 @@ const AreaRecording = new Lang.Class({
 
         Main.uiGroup.add_actor(this._areaRecording);
 
-        this.drawArea(Pref.getOption('i',Pref.X_POS_SETTING_KEY)-2,
-                      Pref.getOption('i',Pref.Y_POS_SETTING_KEY)-2,
-                      Pref.getOption('i',Pref.WIDTH_SETTING_KEY)+4,
-                      Pref.getOption('i',Pref.HEIGHT_SETTING_KEY)+4);
+        this.drawArea(Pref.getOption('i', Pref.X_POS_SETTING_KEY) - 2,
+            Pref.getOption('i', Pref.Y_POS_SETTING_KEY) - 2,
+            Pref.getOption('i', Pref.WIDTH_SETTING_KEY) + 4,
+            Pref.getOption('i', Pref.HEIGHT_SETTING_KEY) + 4);
     },
 
     drawArea: function (x, y, w, h) {
         Lib.TalkativeLog('ESC > draw area recording');
 
-        this._visible=true;
-
+        this._visible = true;
         this._areaRecording.set_position(x, y);
         this._areaRecording.set_size(w, h);
     },
@@ -318,12 +323,11 @@ const AreaRecording = new Lang.Class({
     clearArea: function () {
         Lib.TalkativeLog('ESC > hide area recording');
 
-        this._visible=false;
-
-        this.drawArea(-10,-10,0,0);
+        this._visible = false;
+        this.drawArea(-10, -10, 0, 0);
     },
 
-    isVisible: function(){
+    isVisible: function () {
         return this._visible;
     }
 });

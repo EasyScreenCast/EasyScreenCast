@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-08 10:22+0200\n"
+"POT-Creation-Date: 2014-06-18 10:32+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -61,40 +61,40 @@ msgstr ""
 msgid "EasyScreenCast -> Recording in progress / Seconds passed : "
 msgstr ""
 
-#: prefs.js:80
+#: prefs.js:81
 msgid "Could not load the preferences UI file"
 msgstr ""
 
-#: prefs.js:248
+#: prefs.js:254
 msgid "The registration covers the entire area"
 msgstr ""
 
-#: prefs.js:254
+#: prefs.js:260
 msgid "Fill box below with the values of the coordinates in pixels"
 msgstr ""
 
-#: prefs.js:260
-msgid "At the start of the recording you can select the recording area"
-msgstr ""
-
 #: prefs.js:266
-msgid ""
-"At the start of the recording you can select the window you want to record"
+msgid "At the start of the recording you can select the recording area"
 msgstr ""
 
 #: prefs.js:272
 msgid ""
+"At the start of the recording you can select the window you want to record"
+msgstr ""
+
+#: prefs.js:278
+msgid ""
 "At the start of the recording you can select the desktop you want to record"
 msgstr ""
 
-#: selection.js:173
+#: selection.js:179
 msgid "Select a area for recording or press [ESC] to abort"
 msgstr ""
 
-#: selection.js:213
+#: selection.js:219
 msgid "Select a window for recording or press [ESC] to abort"
 msgstr ""
 
-#: selection.js:266
+#: selection.js:272
 msgid "Select a desktop for recording or press [ESC] to abort"
 msgstr ""
