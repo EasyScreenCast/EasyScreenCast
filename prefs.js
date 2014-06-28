@@ -103,7 +103,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             //implements show area option
             this.Ref_switch_ShowAreaRec = builder.get_object('swt_ShowAreaRec');
             settings.bind(SHOW_AREA_REC_SETTING_KEY, this.Ref_switch_ShowAreaRec,
-                          'active', Gio.SettingsBindFlags.DEFAULT);
+                'active', Gio.SettingsBindFlags.DEFAULT);
 
             //implements show indicator option
             this.Ref_switch_ShowIndicatorRec = builder.get_object('swt_ShowIndicatorRec');
@@ -300,6 +300,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         setOption(HEIGHT_SETTING_KEY, 400);
 
         setOption(PIPELINE_REC_SETTING_KEY, 'vp8enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T ! queue ! webmmux');
+        //TO-DO queue ! videorate ! vp8enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T ! queue ! mux. pulsesrc ! queue ! audioconvert ! vorbisenc ! queue ! mux. webmmux name=mux pacmd list-source-outputs
         setOption(FILE_NAME_SETTING_KEY, 'Screencast_%d_%t.webm');
         setOption(FILE_FOLDER_SETTING_KEY, '');
     }

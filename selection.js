@@ -46,6 +46,7 @@ const Lib = Me.imports.convenience;
 const Pref = Me.imports.prefs;
 const Ext = Me.imports.extension;
 
+const Monitor = Main.layoutManager.focusMonitor;
 
 const Capture = new Lang.Class({
     Name: "EasyScreenCast.Capture",
@@ -66,6 +67,15 @@ const Capture = new Lang.Class({
 
         Main.uiGroup.add_actor(this._areaSelection);
 
+        this._areaResolution = new St.Label({
+            style_class: 'area-resolution',
+            text: ""
+        });
+        this._areaResolution.opacity = 255;
+        this._areaResolution.set_position(0, 0);
+
+        Main.uiGroup.add_actor(this._areaResolution);
+
         if (Main.pushModal(this._areaSelection)) {
             this._signalCapturedEvent = global.stage.connect(
                 'captured-event', this._onCaptureEvent.bind(this)
@@ -73,7 +83,7 @@ const Capture = new Lang.Class({
 
             this._setCaptureCursor();
         } else {
-            log("Main.pushModal() === false");
+            Lib.TalkativeLog("Main.pushModal() === false");
         }
     },
 
@@ -97,9 +107,20 @@ const Capture = new Lang.Class({
 
     drawSelection: function ({
         x, y, w, h
-    }) {
+    }, showResolution) {
         this._areaSelection.set_position(x, y);
         this._areaSelection.set_size(w, h);
+
+        if (showResolution && w > 100 && h > 50) {
+            this._areaResolution.set_text(w + " X " + h);
+            this._areaResolution.set_position(x + (w / 2 - this._areaResolution.width / 2),
+                y + (h / 2 - this._areaResolution.height / 2));
+        } else {
+            this._areaResolution.set_position(0, 0);
+            this._areaResolution.set_text("");
+        }
+
+
     },
 
     clearSelection: function () {
@@ -108,7 +129,7 @@ const Capture = new Lang.Class({
             y: -10,
             w: 0,
             h: 0
-        });
+        }, false);
     },
 
     _stop: function () {
@@ -118,6 +139,7 @@ const Capture = new Lang.Class({
         this._setDefaultCursor();
         Main.uiGroup.remove_actor(this._areaSelection);
         Main.popModal(this._areaSelection);
+        Main.uiGroup.remove_actor(this._areaResolution);
         this._areaSelection.destroy();
         this.emit("stop");
         this.disconnectAll();
@@ -143,9 +165,8 @@ const Capture = new Lang.Class({
         text.opacity = 255;
         Main.uiGroup.add_actor(text);
 
-        let monitor = Main.layoutManager.focusMonitor;
-        text.set_position(Math.floor(monitor.width / 2 - text.width / 2),
-            Math.floor(monitor.height / 2 - text.height / 2));
+        text.set_position(Math.floor(Monitor.width / 2 - text.width / 2),
+            Math.floor(Monitor.height / 2 - text.height / 2));
 
         Tweener.addTween(text, {
             opacity: 0,
@@ -189,7 +210,7 @@ const SelectionArea = new Lang.Class({
         } else if (this._mouseDown) {
             let rect = getRectangle(this._startX, this._startY, x, y);
             if (type === Clutter.EventType.MOTION) {
-                this._capture.drawSelection(rect);
+                this._capture.drawSelection(rect, true);
             } else if (type === Clutter.EventType.BUTTON_RELEASE) {
                 this._capture._stop();
 
@@ -238,13 +259,20 @@ const SelectionWindow = new Lang.Class({
                 var [w, h] = this._selectedWindow.get_size();
                 var [wx, wy] = this._selectedWindow.get_position();
 
+                if (wx + w > Monitor.width) {
+                    w -= Math.abs((wx + w) - Monitor.width);
+                }
+                if (wy + h > Monitor.height) {
+                    h -= Math.abs((wy + h) - Monitor.height);
+                }
+
                 this._capture._saveRect(wx, wy, h, w);
             }
         }
     },
 
     _highlightWindow: function (win) {
-        this._capture.drawSelection(getWindowRectangle(win));
+        this._capture.drawSelection(getWindowRectangle(win), false);
     },
 
     _clearHighlight: function () {
@@ -278,10 +306,7 @@ const SelectionDesktop = new Lang.Class({
         if (type === Clutter.EventType.BUTTON_PRESS) {
             this._capture._stop();
 
-            //let monitor = new Layout.LayoutManager().currentMonitor()
-
-            var monitor = Main.layoutManager.focusMonitor;
-            this._capture._saveRect(monitor.x, monitor.y, monitor.height, monitor.width);
+            this._capture._saveRect(Monitor.x, Monitor.y, Monitor.height, Monitor.width);
         }
     }
 });
