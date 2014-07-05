@@ -46,8 +46,6 @@ const Lib = Me.imports.convenience;
 const Pref = Me.imports.prefs;
 const Ext = Me.imports.extension;
 
-const Monitor = Main.layoutManager.focusMonitor;
-
 const Capture = new Lang.Class({
     Name: "EasyScreenCast.Capture",
 
@@ -55,6 +53,8 @@ const Capture = new Lang.Class({
         Lib.TalkativeLog('ESC > capture selection init');
 
         this._mouseDown = false;
+
+        this.monitor = Main.layoutManager.focusMonitor;
 
         this._areaSelection = new Shell.GenericContainer({
             name: 'area-selection',
@@ -165,8 +165,8 @@ const Capture = new Lang.Class({
         text.opacity = 255;
         Main.uiGroup.add_actor(text);
 
-        text.set_position(Math.floor(Monitor.width / 2 - text.width / 2),
-            Math.floor(Monitor.height / 2 - text.height / 2));
+        text.set_position(Math.floor(this.monitor.width / 2 - text.width / 2),
+            Math.floor(this.monitor.height / 2 - text.height / 2));
 
         Tweener.addTween(text, {
             opacity: 0,
@@ -259,11 +259,11 @@ const SelectionWindow = new Lang.Class({
                 var [w, h] = this._selectedWindow.get_size();
                 var [wx, wy] = this._selectedWindow.get_position();
 
-                if (wx + w > Monitor.width) {
-                    w -= Math.abs((wx + w) - Monitor.width);
+                if (wx + w > this._capture.monitor.width) {
+                    w -= Math.abs((wx + w) - this._capture.monitor.width);
                 }
-                if (wy + h > Monitor.height) {
-                    h -= Math.abs((wy + h) - Monitor.height);
+                if (wy + h > this._capture.monitor.height) {
+                    h -= Math.abs((wy + h) - this._capture.monitor.height);
                 }
 
                 this._capture._saveRect(wx, wy, h, w);
@@ -306,7 +306,8 @@ const SelectionDesktop = new Lang.Class({
         if (type === Clutter.EventType.BUTTON_PRESS) {
             this._capture._stop();
 
-            this._capture._saveRect(Monitor.x, Monitor.y, Monitor.height, Monitor.width);
+            this._capture._saveRect(this._capture.monitor.x, this._capture.monitor.y,
+                this._capture.monitor.height, this._capture.monitor.width);
         }
     }
 });
