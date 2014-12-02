@@ -34,7 +34,7 @@ const CaptureVideo = new Lang.Class({
      * Create a video recorder
      */
     _init: function () {
-        Lib.TalkativeLog('ESC > init recorder');
+        Lib.TalkativeLog('init recorder');
 
         this.AreaSelected = null;
 
@@ -42,17 +42,17 @@ const CaptureVideo = new Lang.Class({
         this.ScreenCastService = new ScreenCastProxy(Gio.DBus.session, 'org.gnome.Shell.Screencast',
             '/org/gnome/Shell/Screencast', Lang.bind(this, function (proxy, error) {
                 if (error) {
-                    Lib.TalkativeLog('ESC > ERROR(d-bus proxy connected) - ' + error.message);
+                    Lib.TalkativeLog('ERROR(d-bus proxy connected) - ' + error.message);
                     return;
                 } else
-                    Lib.TalkativeLog('ESC > d-bus proxy connected');
+                    Lib.TalkativeLog('d-bus proxy connected');
             }));
     },
     /*
      * start recording
      */
     start: function () {
-        Lib.TalkativeLog('ESC > start video recording');
+        Lib.TalkativeLog('start video recording');
         this.recordingActive = false;
 
         //prepare variable for screencast
@@ -60,7 +60,7 @@ const CaptureVideo = new Lang.Class({
         if (Pref.getOption('s', Pref.FILE_FOLDER_SETTING_KEY) !== '')
             fileRec = Pref.getOption('s', Pref.FILE_FOLDER_SETTING_KEY) +
             '/' + fileRec;
-        Lib.TalkativeLog('ESC > path/file template : ' + fileRec);
+        Lib.TalkativeLog('path/file template : ' + fileRec);
 
         var optionsRec = {
             'draw-cursor': new GLib.Variant('b', Pref.getOption('b', Pref.DRAW_CURSOR_SETTING_KEY)),
@@ -72,12 +72,12 @@ const CaptureVideo = new Lang.Class({
             this.ScreenCastService.ScreencastRemote(fileRec, optionsRec,
                 Lang.bind(this, function (result, error) {
                     if (error) {
-                        Lib.TalkativeLog('ESC > ERROR(screencast execute) - ' + error.message);
+                        Lib.TalkativeLog('ERROR(screencast execute) - ' + error.message);
 
                         this.stop();
                         Ext.Indicator.doRecResult(false);
                     } else
-                        Lib.TalkativeLog('ESC > screencast execute - ' + result[0] + ' - ' + result[1]);
+                        Lib.TalkativeLog('screencast execute - ' + result[0] + ' - ' + result[1]);
 
                     //draw area recording
                     if (Pref.getOption('b', Pref.SHOW_AREA_REC_SETTING_KEY)) {
@@ -93,12 +93,12 @@ const CaptureVideo = new Lang.Class({
                 fileRec, optionsRec,
                 Lang.bind(this, function (result, error) {
                     if (error) {
-                        Lib.TalkativeLog('ESC > ERROR(screencast execute) - ' + error.message);
+                        Lib.TalkativeLog('ERROR(screencast execute) - ' + error.message);
 
                         this.stop();
                         Ext.Indicator.doRecResult(false);
                     } else {
-                        Lib.TalkativeLog('ESC > screencast execute - ' + result[0] + ' - ' + result[1]);
+                        Lib.TalkativeLog('screencast execute - ' + result[0] + ' - ' + result[1]);
 
                         //draw area recording
                         if (Pref.getOption('b', Pref.SHOW_AREA_REC_SETTING_KEY)) {
@@ -114,14 +114,14 @@ const CaptureVideo = new Lang.Class({
      * Stop recording
      */
     stop: function () {
-        Lib.TalkativeLog('ESC > stop video recording');
+        Lib.TalkativeLog('stop video recording');
 
         this.ScreenCastService.StopScreencastRemote(Lang.bind(this, function (result, error) {
             if (error) {
-                Lib.TalkativeLog('ESC > ERROR(screencast stop) - ' + error.message);
+                Lib.TalkativeLog('ERROR(screencast stop) - ' + error.message);
                 return false;
             } else
-                Lib.TalkativeLog('ESC > screencast stop - ' + result[0]);
+                Lib.TalkativeLog('screencast stop - ' + result[0]);
 
             //clear area recording
             if (this.AreaSelected !== null && this.AreaSelected.isVisible()) {
