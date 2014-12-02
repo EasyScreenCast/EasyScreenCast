@@ -28,7 +28,6 @@
 const Gettext = imports.gettext;
 const Gio = imports.gi.Gio;
 
-
 const Config = imports.misc.config;
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
@@ -92,27 +91,27 @@ function getSettings(schema) {
     let schemaDir = Me.dir.get_child('schemas');
     let schemaSource;
     if (schemaDir.query_exists(null))
-        schemaSource = GioSSS.new_from_directory(schemaDir.get_path(),GioSSS.get_default(),false);
+        schemaSource = GioSSS.new_from_directory(schemaDir.get_path(), GioSSS.get_default(), false);
     else
         schemaSource = GioSSS.get_default();
 
     let schemaObj = schemaSource.lookup(schema, true);
     if (!schemaObj)
-        throw new Error('Schema ' + schema + ' could not be found for extension '
-                        + Me.metadata.uuid + '. Please check your installation.');
+        throw new Error('Schema ' + schema + ' could not be found for extension ' + Me.metadata.uuid + '. Please check your installation.');
 
-    return new Gio.Settings({ settings_schema: schemaObj });
+    return new Gio.Settings({
+        settings_schema: schemaObj
+    });
 }
 
 /*
 ////////////////////////////////////////////////////////////////////////////////
 */
-function TalkativeLog(msg){
-    if(Pref.getOption('b', Pref.VERBOSE_DEBUG_SETTING_KEY)){
-        global.log(msg);
+function TalkativeLog(msg) {
+    if (Pref.getOption('b', Pref.VERBOSE_DEBUG_SETTING_KEY)) {
+        global.log('ESC > '+msg);
     }
 };
-
 
 const ESConGIcon = new Gio.FileIcon({
     file: Gio.File.new_for_path(Me.dir.get_child('images/icon_recording.svg').get_path())
@@ -131,5 +130,3 @@ const ESCoffGIconSel = new Gio.FileIcon({
 });
 
 const ESCimgScreen = Me.dir.get_child('images/screen.svg').get_path();
-
-
