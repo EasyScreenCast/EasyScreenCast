@@ -50,7 +50,7 @@ const Capture = new Lang.Class({
     Name: "EasyScreenCast.Capture",
 
     _init: function () {
-        Lib.TalkativeLog('ESC > capture selection init');
+        Lib.TalkativeLog('capture selection init');
 
         this._mouseDown = false;
 
@@ -119,8 +119,6 @@ const Capture = new Lang.Class({
             this._areaResolution.set_position(0, 0);
             this._areaResolution.set_text("");
         }
-
-
     },
 
     clearSelection: function () {
@@ -133,7 +131,7 @@ const Capture = new Lang.Class({
     },
 
     _stop: function () {
-        Lib.TalkativeLog('ESC > capture selection stop');
+        Lib.TalkativeLog('capture selection stop');
 
         global.stage.disconnect(this._signalCapturedEvent);
         this._setDefaultCursor();
@@ -146,7 +144,7 @@ const Capture = new Lang.Class({
     },
 
     _saveRect: function (x, y, h, w) {
-        Lib.TalkativeLog('ESC > selection x:' + x + ' y:' + y +
+        Lib.TalkativeLog('selection x:' + x + ' y:' + y +
             ' height:' + h + ' width:' + w);
 
         Pref.setOption(Pref.X_POS_SETTING_KEY, x);
@@ -182,15 +180,11 @@ const Capture = new Lang.Class({
 
 Signals.addSignalMethods(Capture.prototype);
 
-
-
-
-
 const SelectionArea = new Lang.Class({
     Name: "EasyScreenCast.SelectionArea",
 
     _init: function () {
-        Lib.TalkativeLog('ESC > area selection init');
+        Lib.TalkativeLog('area selection init');
 
         this._mouseDown = false;
         this._capture = new Capture();
@@ -222,15 +216,11 @@ const SelectionArea = new Lang.Class({
 
 Signals.addSignalMethods(SelectionArea.prototype);
 
-
-
-
-
 const SelectionWindow = new Lang.Class({
     Name: "EasyScreenCast.SelectionWindow",
 
     _init: function () {
-        Lib.TalkativeLog('ESC > window selection init');
+        Lib.TalkativeLog('window selection init');
 
         this._windows = global.get_window_actors();
         this._capture = new Capture();
@@ -282,15 +272,11 @@ const SelectionWindow = new Lang.Class({
 
 Signals.addSignalMethods(SelectionWindow.prototype);
 
-
-
-
-
 const SelectionDesktop = new Lang.Class({
     Name: "EasyScreenCast.SelectionDesktop",
 
     _init: function () {
-        Lib.TalkativeLog('ESC > desktop selection init');
+        Lib.TalkativeLog('desktop selection init');
 
         this._windows = global.get_window_actors();
         this._capture = new Capture();
@@ -314,12 +300,11 @@ const SelectionDesktop = new Lang.Class({
 
 Signals.addSignalMethods(SelectionDesktop.prototype);
 
-
 const AreaRecording = new Lang.Class({
     Name: "EasyScreenCast.AreaRecording",
 
     _init: function () {
-        Lib.TalkativeLog('ESC > area recording init');
+        Lib.TalkativeLog('area recording init');
 
         this._areaRecording = new Shell.GenericContainer({
             name: 'area-recording',
@@ -339,7 +324,7 @@ const AreaRecording = new Lang.Class({
     },
 
     drawArea: function (x, y, w, h) {
-        Lib.TalkativeLog('ESC > draw area recording');
+        Lib.TalkativeLog('draw area recording');
 
         this._visible = true;
         this._areaRecording.set_position(x, y);
@@ -347,7 +332,7 @@ const AreaRecording = new Lang.Class({
     },
 
     clearArea: function () {
-        Lib.TalkativeLog('ESC > hide area recording');
+        Lib.TalkativeLog('hide area recording');
 
         this._visible = false;
         this.drawArea(-10, -10, 0, 0);
