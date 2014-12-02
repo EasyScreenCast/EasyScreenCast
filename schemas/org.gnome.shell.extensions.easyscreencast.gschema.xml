@@ -1,5 +1,5 @@
-<schemalist >
-   <schema id="org.gnome.shell.extensions.EasyScreenCast" path="/org/gnome/shell/extensions/EasyScreenCast/">
+<schemalist>
+    <schema id="org.gnome.shell.extensions.EasyScreenCast" path="/org/gnome/shell/extensions/EasyScreenCast/">
         <key name="show-timer-rec" type="b">
             <default>true</default>
             <summary>Enable show timer of recording into notify</summary>
@@ -9,6 +9,21 @@
             <default>false</default>
             <summary>Enable show area screencast during recording</summary>
             <description>Enable show area screencast during recording</description>
+        </key>
+        <key name="active-audio-rec" type="b">
+            <default>false</default>
+            <summary>Active audio recording</summary>
+            <description>Active audio recording</description>
+        </key>
+        <key name="input-audio-source" type="i">
+            <default>-1</default>
+            <summary>select input audio source</summary>
+            <description>select input audio source</description>
+        </key>
+        <key name="active-custom-gsp" type="b">
+            <default>false</default>
+            <summary>Active custom GStreamer Pipeline</summary>
+            <description>Active custom GStreamer Pipeline</description>
         </key>
         <key name="delay-time" type="i">
             <default>0</default>
