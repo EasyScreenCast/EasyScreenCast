@@ -1,4 +1,4 @@
-EasyScreenCast is a simple extension of a gnome 3 shel DE 
+EasyScreenCast is a simple extension of a gnome 3 shell DE 
 
 Copyright (C) 2013-2014 Borsato Ivano.
 
@@ -14,11 +14,13 @@ read > COPYING < for more infomation about license.
 there are a few thing to do, open a terminal and enter:
 
 1-download from github last version
+
     ```sh
     git clone https://github.com/iacopodeenosee/EasyScreenCast
     ```
     
 2-move the entire directory to gnome shell extension home
+
     ```sh
     mv EasyScreenCast@iacopodeenosee.gmail.com ~/.local/share/gnome-shell/extensions/EasyScreenCast@iacopodeenosee.gmail.com
     ```
