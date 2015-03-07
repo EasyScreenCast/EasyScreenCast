@@ -52,7 +52,9 @@ const TimerDelay = new Lang.Class({
     setCallback: function (callback) {
         Lib.TalkativeLog('setcallback TimerDelay called');
 
-        if (callback === undefined || callback === null || typeof callback !== "function") {
+        if (callback === undefined || callback === null ||
+            typeof callback !== "function") {
+
             throw TypeError("'callback' needs to be a function.");
         }
         CallbackFuncDelay = callback;
@@ -141,7 +143,9 @@ const TimerCounting = new Lang.Class({
     setCallback: function (callback) {
         Lib.TalkativeLog('setcallback TimerCounting called');
 
-        if (callback === undefined || callback === null || typeof callback !== "function") {
+        if (callback === undefined || callback === null ||
+            typeof callback !== "function") {
+
             throw TypeError("'callback' needs to be a function.");
         }
         CallbackFuncCounting = callback;

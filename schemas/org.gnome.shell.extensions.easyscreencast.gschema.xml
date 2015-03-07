@@ -95,5 +95,20 @@
             <summary>file folder of screencast</summary>
             <description>file folder of screencast</description>
         </key>
+        <key name="list-input-audio" type="as">
+            <default>[ '' ]</default>
+            <summary>list input source</summary>
+            <description>list input source</description>
+        </key>
+        <key name="shortcut-key" type="as">
+            <default>
+                <![CDATA[['<Super>E']]]>
+            </default>
+        </key>
+        <key name="active-shortcut" type="b">
+            <default>false</default>
+            <summary>Enable keyboard shortcut</summary>
+            <description>Enable keyboard shortcut</description>
+        </key>
     </schema>
 </schemalist>

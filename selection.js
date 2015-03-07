@@ -37,7 +37,8 @@ const Layout = imports.ui.layout;
 
 const Main = imports.ui.main;
 
-const Gettext = imports.gettext.domain('EasyScreenCast@iacopodeenosee.gmail.com');
+const Gettext = imports.gettext.domain(
+    'EasyScreenCast@iacopodeenosee.gmail.com');
 const _ = Gettext.gettext;
 
 const ExtensionUtils = imports.misc.extensionUtils;
@@ -85,6 +86,12 @@ const Capture = new Lang.Class({
         } else {
             Lib.TalkativeLog("Main.pushModal() === false");
         }
+
+        Main.sessionMode.connect('updated', Lang.bind(this, this._updateDraw));
+    },
+
+    _updateDraw: function () {
+        Lib.TalkativeLog('update draw capture');
     },
 
     _setDefaultCursor: function () {
@@ -113,7 +120,8 @@ const Capture = new Lang.Class({
 
         if (showResolution && w > 100 && h > 50) {
             this._areaResolution.set_text(w + " X " + h);
-            this._areaResolution.set_position(x + (w / 2 - this._areaResolution.width / 2),
+            this._areaResolution.set_position(
+                x + (w / 2 - this._areaResolution.width / 2),
                 y + (h / 2 - this._areaResolution.height / 2));
         } else {
             this._areaResolution.set_position(0, 0);
@@ -208,6 +216,8 @@ const SelectionArea = new Lang.Class({
             } else if (type === Clutter.EventType.BUTTON_RELEASE) {
                 this._capture._stop();
 
+                Lib.TalkativeLog('area x: ' + rect.x + ' y: ' + rect.y + ' height: ' + rect.h + 'width: ' + rect.w);
+
                 this._capture._saveRect(rect.x, rect.y, rect.h, rect.w);
             }
         }
@@ -249,12 +259,16 @@ const SelectionWindow = new Lang.Class({
                 var [w, h] = this._selectedWindow.get_size();
                 var [wx, wy] = this._selectedWindow.get_position();
 
+                Lib.TalkativeLog('windows pre wx: ' + wx + ' wy: ' + wy + ' height: ' + h + 'width: ' + w);
+
                 if (wx + w > this._capture.monitor.width) {
                     w -= Math.abs((wx + w) - this._capture.monitor.width);
                 }
                 if (wy + h > this._capture.monitor.height) {
                     h -= Math.abs((wy + h) - this._capture.monitor.height);
                 }
+
+                Lib.TalkativeLog('windows post wx: ' + wx + ' wy: ' + wy + ' height: ' + h + 'width: ' + w);
 
                 this._capture._saveRect(wx, wy, h, w);
             }
@@ -278,7 +292,6 @@ const SelectionDesktop = new Lang.Class({
     _init: function () {
         Lib.TalkativeLog('desktop selection init');
 
-        this._windows = global.get_window_actors();
         this._capture = new Capture();
         this._capture.connect('captured-event', this._onEvent.bind(this));
         this._capture.connect('stop', this.emit.bind(this, 'stop'));
@@ -292,8 +305,13 @@ const SelectionDesktop = new Lang.Class({
         if (type === Clutter.EventType.BUTTON_PRESS) {
             this._capture._stop();
 
-            this._capture._saveRect(this._capture.monitor.x, this._capture.monitor.y,
-                this._capture.monitor.height, this._capture.monitor.width);
+            var x = this._capture.monitor.x;
+            var y = this._capture.monitor.y;
+            var height = this._capture.monitor.height;
+            var width = this._capture.monitor.width;
+            Lib.TalkativeLog('desktop x: ' + x + ' y: ' + y + ' height: ' + height + 'width: ' + width);
+
+            this._capture._saveRect(x, y, height, width);
         }
     }
 });
@@ -310,7 +328,7 @@ const AreaRecording = new Lang.Class({
             name: 'area-recording',
             style_class: 'area-recording',
             visible: 'true',
-            reactive: 'true',
+            reactive: 'false',
             x: -10,
             y: -10
         });
@@ -321,6 +339,24 @@ const AreaRecording = new Lang.Class({
             Pref.getOption('i', Pref.Y_POS_SETTING_KEY) - 2,
             Pref.getOption('i', Pref.WIDTH_SETTING_KEY) + 4,
             Pref.getOption('i', Pref.HEIGHT_SETTING_KEY) + 4);
+
+        //        if (Main.pushModal(this._areaRecording)) {
+        //            this._signalCapturedEvent = global.stage.connect(
+        //                'captured-event', this._onCaptureEvent.bind(this)
+        //            );
+        //        } else {
+        //            Lib.TalkativeLog("Main.pushModal() === false");
+        //        }
+        //    },
+        //
+        //    _onCaptureEvent: function (actor, event) {
+        //        if (event.type() === Clutter.EventType.KEY_PRESS) {
+        //            if (event.get_key_symbol() === Clutter.Escape) {
+        //                this._stop();
+        //            }
+        //        }
+        //
+        //        this.emit("captured-event", event);
     },
 
     drawArea: function (x, y, w, h) {
@@ -342,6 +378,8 @@ const AreaRecording = new Lang.Class({
         return this._visible;
     }
 });
+
+Signals.addSignalMethods(AreaRecording.prototype);
 
 
 const getRectangle = function (x1, y1, x2, y2) {
@@ -368,7 +406,8 @@ const getWindowRectangle = function (win) {
 
 const selectWindow = function (windows, x, y) {
     let filtered = windows.filter(function (win) {
-        if ((win !== undefined) && win.visible && (typeof win.get_meta_window === 'function')) {
+        if ((win !== undefined) && win.visible &&
+            (typeof win.get_meta_window === 'function')) {
 
             let [w, h] = win.get_size();
             let [wx, wy] = win.get_position();

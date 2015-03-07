@@ -2,7 +2,6 @@
 <!-- Generated with glade 3.18.3 -->
 <interface>
   <requires lib="gtk+" version="3.10"/>
-  <object class="GtkAction" id="action1"/>
   <object class="GtkNotebook" id="Main_Container">
     <property name="visible">True</property>
     <property name="can_focus">True</property>
@@ -112,11 +111,50 @@
                       </packing>
                     </child>
                     <child>
+                      <object class="GtkLabel" id="label10">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="halign">end</property>
+                        <property name="hexpand">False</property>
+                        <property name="label" translatable="yes">Enable keyboard shortcut</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">0</property>
+                        <property name="top_attach">3</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSwitch" id="swt_KeyShortcut">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="halign">start</property>
+                        <property name="hexpand">True</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">1</property>
+                        <property name="top_attach">3</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label12">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="tooltip_text" translatable="yes">To activate the change of the shortcut restart the extension</property>
+                        <property name="halign">end</property>
+                        <property name="hexpand">False</property>
+                        <property name="label" translatable="yes">Shortcut combination</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">0</property>
+                        <property name="top_attach">4</property>
+                      </packing>
+                    </child>
+                    <child>
                       <object class="GtkLabel" id="label9">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="tooltip_text" translatable="yes">This option enable more debug message, to view these run this command into a terminal:
-$ journalctl /usr/bin/gnome-session --since=today | grep js
+$ journalctl /usr/bin/gnome-session --since=today --no-pager | grep js
 $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                         <property name="halign">end</property>
                         <property name="hexpand">False</property>
@@ -124,7 +162,30 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                       </object>
                       <packing>
                         <property name="left_attach">0</property>
-                        <property name="top_attach">3</property>
+                        <property name="top_attach">5</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkViewport" id="viewport_KeyShortcut">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="tooltip_text" translatable="yes">To activate the change of the shortcut restart the extension</property>
+                        <child>
+                          <object class="GtkTreeView" id="treeview_KeyShortcut">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="model">liststore_KeyShortcut</property>
+                            <property name="headers_visible">False</property>
+                            <property name="search_column">0</property>
+                            <child internal-child="selection">
+                              <object class="GtkTreeSelection" id="treeview-selection"/>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="left_attach">1</property>
+                        <property name="top_attach">4</property>
                       </packing>
                     </child>
                     <child>
@@ -139,7 +200,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
-                        <property name="top_attach">3</property>
+                        <property name="top_attach">5</property>
                       </packing>
                     </child>
                   </object>
@@ -724,6 +785,10 @@ https://bugzilla.gnome.org/show_bug.cgi?id=708660</property>
                           <object class="GtkTextView" id="txe_CommandStringRec">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
+                            <property name="margin_left">5</property>
+                            <property name="margin_right">5</property>
+                            <property name="margin_top">5</property>
+                            <property name="margin_bottom">5</property>
                             <property name="wrap_mode">word-char</property>
                             <property name="accepts_tab">False</property>
                           </object>
@@ -868,19 +933,40 @@ https://bugzilla.gnome.org/show_bug.cgi?id=708660</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkFileChooserWidget" id="fcs_FilePathRec">
+                  <object class="GtkFrame" id="frame7">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="tooltip_text" translatable="yes">Select the folder where the file is saved, if not specific a folder  the file will be saved in the $XDG_VIDEOS_DIR if it exists, or the home directory otherwise.</property>
-                    <property name="action">select-folder</property>
-                    <property name="do_overwrite_confirmation">True</property>
-                    <property name="preview_widget_active">False</property>
-                    <property name="use_preview_label">False</property>
+                    <property name="label_xalign">0.10000000149011612</property>
+                    <property name="shadow_type">out</property>
+                    <child>
+                      <object class="GtkAlignment" id="alignment7">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <child>
+                          <object class="GtkFileChooserWidget" id="fcs_FilePathRec">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="tooltip_text" translatable="yes">Select the folder where the file is saved, if not specific a folder  the file will be saved in the $XDG_VIDEOS_DIR if it exists, or the home directory otherwise.</property>
+                            <property name="action">select-folder</property>
+                            <property name="do_overwrite_confirmation">True</property>
+                            <property name="preview_widget_active">False</property>
+                            <property name="use_preview_label">False</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child type="label">
+                      <object class="GtkLabel" id="label8">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">Choose a directory</property>
+                      </object>
+                    </child>
                   </object>
                   <packing>
-                    <property name="expand">True</property>
+                    <property name="expand">False</property>
                     <property name="fill">True</property>
-                    <property name="position">1</property>
+                    <property name="position">2</property>
                   </packing>
                 </child>
               </object>
@@ -911,5 +997,13 @@ https://bugzilla.gnome.org/show_bug.cgi?id=708660</property>
         <property name="tab_fill">False</property>
       </packing>
     </child>
+  </object>
+  <object class="GtkListStore" id="liststore_KeyShortcut">
+    <columns>
+      <!-- column-name key -->
+      <column type="gint"/>
+      <!-- column-name mods -->
+      <column type="gint"/>
+    </columns>
   </object>
 </interface>
