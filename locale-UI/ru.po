@@ -10,30 +10,30 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-03-08 14:11+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Last-Translator: Ivan Burmin <zirrald@yandex.ru>\n"
+"Language-Team: Русский <>\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 #: EasyScreenCast.gtkbuilder:42
 msgid "Replace standard indicator on status menu"
-msgstr ""
+msgstr "Заменить стандартный индикатор в меню состояния"
 #: EasyScreenCast.gtkbuilder:68
 msgid "Show time recording into notification bar"
-msgstr ""
+msgstr "Показывать время записи в панели уведомлений"
 #: EasyScreenCast.gtkbuilder:94
 msgid "Show area screencast during recording"
-msgstr ""
+msgstr "Показывать область захвата во время записи"
 #: EasyScreenCast.gtkbuilder:119
 msgid "Enable keyboard shortcut"
-msgstr ""
+msgstr "Включить сочетания клавиш"
 #: EasyScreenCast.gtkbuilder:142 EasyScreenCast.gtkbuilder:172
 msgid "To activate the change of the shortcut restart the extension"
-msgstr ""
+msgstr "Перезапустите расширение, чтобы изменения сочетаний клавиш вступили в силу"
 #: EasyScreenCast.gtkbuilder:145
 msgid "Shortcut combination"
-msgstr ""
+msgstr "Сочетание клавиш"
 #: EasyScreenCast.gtkbuilder:156
 msgid ""
 "This option enable more debug message, to view these run this command into a "
@@ -41,9 +41,13 @@ msgid ""
 "$ journalctl /usr/bin/gnome-session --since=today --no-pager | grep js\n"
 "$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
 msgstr ""
+"Этот параметр включает больше отладочных сообщений. Для их просмотра введите в "
+"терминале:\n"
+"$ journalctl /usr/bin/gnome-session --since=today --no-pager | grep js\n"
+"$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
 #: EasyScreenCast.gtkbuilder:161
 msgid "Enable verbose debug"
-msgstr ""
+msgstr "Включить подробную отладку"
 #: EasyScreenCast.gtkbuilder:195
 msgid ""
 "This option enable more debug message, to view these run this command into a "
@@ -51,91 +55,100 @@ msgid ""
 "$ journalctl /usr/bin/gnome-session --since=today | grep js\n"
 "$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
 msgstr ""
+"Этот параметр включает больше отладочных сообщений. Для их просмотра введите в "
+"терминале:\n"
+"$ journalctl /usr/bin/gnome-session --since=today | grep js\n"
+"$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
 #: EasyScreenCast.gtkbuilder:238
 msgid "Restore default option"
-msgstr ""
+msgstr "Сбросить настройки"
 #: EasyScreenCast.gtkbuilder:278
 msgid "<b>Options</b>"
-msgstr ""
+msgstr "<b>Настройки</b>"
 #: EasyScreenCast.gtkbuilder:315
 msgid "Area of screencast : "
-msgstr ""
+msgstr "Область записи : "
 #: EasyScreenCast.gtkbuilder:329
 msgid "Full screen area"
-msgstr ""
+msgstr "Весь экран"
 #: EasyScreenCast.gtkbuilder:330
 msgid "Specific screen area"
-msgstr ""
+msgstr "Заданная область"
 #: EasyScreenCast.gtkbuilder:331
 msgid "Select specific area"
-msgstr ""
+msgstr "Выбранная область"
 #: EasyScreenCast.gtkbuilder:332
 msgid "Select specific window"
-msgstr ""
+msgstr "Выбранное окно"
 #: EasyScreenCast.gtkbuilder:333
 msgid "Select specific desktop"
-msgstr ""
+msgstr "Выбранный рабочий стол"
 #: EasyScreenCast.gtkbuilder:352
 msgid "The registration covers the entire area"
-msgstr ""
+msgstr "Регистрируется вся область экрана"
 #: EasyScreenCast.gtkbuilder:374
 msgid "Values ​​expressed in pixels"
-msgstr ""
+msgstr "Значения в пикселях"
 #: EasyScreenCast.gtkbuilder:397
 msgid "Width "
-msgstr ""
+msgstr "Ширина "
 #: EasyScreenCast.gtkbuilder:411 EasyScreenCast.gtkbuilder:450
 #: EasyScreenCast.gtkbuilder:489 EasyScreenCast.gtkbuilder:529
 #: EasyScreenCast.gtkbuilder:665 EasyScreenCast.gtkbuilder:694
 msgid "0"
-msgstr ""
+msgstr "0"
 #: EasyScreenCast.gtkbuilder:436
 msgid "Height "
-msgstr ""
+msgstr "Высота "
 #: EasyScreenCast.gtkbuilder:475
 msgid "Y "
-msgstr ""
+msgstr "Y "
 #: EasyScreenCast.gtkbuilder:515
 msgid "X "
-msgstr ""
+msgstr "X "
 #: EasyScreenCast.gtkbuilder:585
 msgid "<b>Screencast area</b>"
-msgstr ""
+msgstr "<b>Область записи</b>"
 #: EasyScreenCast.gtkbuilder:623
 msgid "Frames Per Second"
-msgstr ""
+msgstr "Кадров в секунду"
 #: EasyScreenCast.gtkbuilder:636
 msgid "Draw cursor on screencast"
-msgstr ""
+msgstr "Отрисовывать курсор на записи"
 #: EasyScreenCast.gtkbuilder:647 EasyScreenCast.gtkbuilder:689
 msgid ""
 "This option not work in gnome shell 3.10 because the limit of 30 seconds is "
 "hardcoded:\n"
 "https://bugzilla.gnome.org/show_bug.cgi?id=708660"
 msgstr ""
+"Этот параметр не работает в оболочке Gnome 3.10, т.к. лимит в 30 секунд жёстко "
+"закодирован:\n"
+"https://bugzilla.gnome.org/show_bug.cgi?id=708660"
 #: EasyScreenCast.gtkbuilder:651
 msgid "Maximum duration screencast"
-msgstr ""
+msgstr "Максимальная продолжительность записи"
 #: EasyScreenCast.gtkbuilder:733
 msgid "Input source device"
-msgstr ""
+msgstr "Входное устройство"
 #: EasyScreenCast.gtkbuilder:760
 msgid "Audio options"
-msgstr ""
+msgstr "Параметры звука"
 #: EasyScreenCast.gtkbuilder:800
 msgid "Custom GStreamer Pipeline"
-msgstr ""
+msgstr "Польз. Streamer Pipeline"
 #: EasyScreenCast.gtkbuilder:836
 msgid "<b>Screencast options</b>"
-msgstr ""
+msgstr "<b>Параметры записи</b>"
 #: EasyScreenCast.gtkbuilder:873 EasyScreenCast.gtkbuilder:904
 msgid ""
 "the filename which may contain some escape sequences - %d and %t will be "
 "replaced by the start date and time of the recording."
 msgstr ""
+"Имя файла может содержать некоторые переменные - %d и %t будут "
+"заменены на дату и время начала записи."
 #: EasyScreenCast.gtkbuilder:876
 msgid "File name template : "
-msgstr ""
+msgstr "Шаблон имени файла : "
 #: EasyScreenCast.gtkbuilder:887 EasyScreenCast.gtkbuilder:916
 #: EasyScreenCast.gtkbuilder:949
 msgid ""
@@ -143,12 +156,15 @@ msgid ""
 "file will be saved in the $XDG_VIDEOS_DIR if it exists, or the home "
 "directory otherwise."
 msgstr ""
+"Выберите папку, куда будет сохранен файл. Если папка не выбрана, файл будет "
+"сохранён в директории $XDG_VIDEOS_DIR если такая существует, иначе "
+"файл будет сохранен в домашней директории."
 #: EasyScreenCast.gtkbuilder:890
 msgid "The file is saved in the path : "
-msgstr ""
+msgstr "Файл будет сохранён в : "
 #: EasyScreenCast.gtkbuilder:962
 msgid "Choose a directory"
-msgstr ""
+msgstr "Выбрать папку"
 #: EasyScreenCast.gtkbuilder:992
 msgid "<b>Screencast file</b>"
-msgstr ""
+msgstr "<b>Файл записи</b>"
