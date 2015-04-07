@@ -30,7 +30,7 @@ msgid "Delay recording"
 msgstr "Задержка записи"
 #: extension.js:190
 msgid "Delay Time"
-msgstr "Время звдержки"
+msgstr "Время задержки"
 #: extension.js:196 extension.js:210
 msgid " Sec"
 msgstr " сек"
