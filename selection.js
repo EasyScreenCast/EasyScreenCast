@@ -256,19 +256,21 @@ const SelectionWindow = new Lang.Class({
             if (this._selectedWindow) {
                 this._capture._stop();
 
+                let tmpM = Main.layoutManager.currentMonitor;
+
                 var [w, h] = this._selectedWindow.get_size();
                 var [wx, wy] = this._selectedWindow.get_position();
 
-                Lib.TalkativeLog('windows pre wx: ' + wx + ' wy: ' + wy + ' height: ' + h + 'width: ' + w);
+                Lib.TalkativeLog('windows pre wx: ' + wx + ' wy: ' + wy + ' height: ' + h + '  width: ' + w);
 
-                if (wx + w > this._capture.monitor.width) {
-                    w -= Math.abs((wx + w) - this._capture.monitor.width);
+                if (wx + w > tmpM.width) {
+                    w -= Math.abs((wx + w) - tmpM.width);
                 }
-                if (wy + h > this._capture.monitor.height) {
-                    h -= Math.abs((wy + h) - this._capture.monitor.height);
+                if (wy + h > tmpM.height) {
+                    h -= Math.abs((wy + h) - tmpM.height);
                 }
 
-                Lib.TalkativeLog('windows post wx: ' + wx + ' wy: ' + wy + ' height: ' + h + 'width: ' + w);
+                Lib.TalkativeLog('windows post wx: ' + wx + ' wy: ' + wy + ' height: ' + h + ' width: ' + w);
 
                 this._capture._saveRect(wx, wy, h, w);
             }
