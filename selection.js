@@ -292,6 +292,14 @@ const SelectionDesktop = new Lang.Class({
     _init: function () {
         Lib.TalkativeLog('desktop selection init');
 
+        this._nMonitors = global.screen.get_n_monitors();
+        Lib.TalkativeLog('Number of monitor ' + this._nMonitors);
+        for (var i = 0; i < this._nMonitors; i++) {
+            var tmpM = new Layout.Monitor(i,
+                global.screen.get_monitor_geometry(i));
+            Lib.TalkativeLog('monitor geometry x=' + tmpM.x + ' y=' + tmpM.y + ' w=' + tmpM.width + ' h=' + tmpM.height);
+        }
+
         this._capture = new Capture();
         this._capture.connect('captured-event', this._onEvent.bind(this));
         this._capture.connect('stop', this.emit.bind(this, 'stop'));
@@ -305,10 +313,12 @@ const SelectionDesktop = new Lang.Class({
         if (type === Clutter.EventType.BUTTON_PRESS) {
             this._capture._stop();
 
-            var x = this._capture.monitor.x;
-            var y = this._capture.monitor.y;
-            var height = this._capture.monitor.height;
-            var width = this._capture.monitor.width;
+            let tmpM = Main.layoutManager.currentMonitor;
+
+            var x = tmpM.x;
+            var y = tmpM.y;
+            var height = tmpM.height;
+            var width = tmpM.width;
             Lib.TalkativeLog('desktop x: ' + x + ' y: ' + y + ' height: ' + height + 'width: ' + width);
 
             this._capture._saveRect(x, y, height, width);
