@@ -333,30 +333,57 @@ const AreaRecording = new Lang.Class({
             y: -10
         });
 
+
+        var recX = Pref.getOption('i', Pref.X_POS_SETTING_KEY);
+        var recY = Pref.getOption('i', Pref.Y_POS_SETTING_KEY);
+        var recW = Pref.getOption('i', Pref.WIDTH_SETTING_KEY);
+        var recH = Pref.getOption('i', Pref.HEIGHT_SETTING_KEY);
+
+        var tmpH = Main.layoutManager.currentMonitor.height;
+        var tmpW = Main.layoutManager.currentMonitor.width;
+
         Main.uiGroup.add_actor(this._areaRecording);
 
-        this.drawArea(Pref.getOption('i', Pref.X_POS_SETTING_KEY) - 2,
-            Pref.getOption('i', Pref.Y_POS_SETTING_KEY) - 2,
-            Pref.getOption('i', Pref.WIDTH_SETTING_KEY) + 4,
-            Pref.getOption('i', Pref.HEIGHT_SETTING_KEY) + 4);
+        Main.overview.connect('showing', Lang.bind(this, function () {
+            Lib.TalkativeLog('overview opening');
 
-        //        if (Main.pushModal(this._areaRecording)) {
-        //            this._signalCapturedEvent = global.stage.connect(
-        //                'captured-event', this._onCaptureEvent.bind(this)
-        //            );
-        //        } else {
-        //            Lib.TalkativeLog("Main.pushModal() === false");
-        //        }
-        //    },
+            Main.uiGroup.remove_actor(this._areaRecording);
+        }));
+
+        Main.overview.connect('hidden', Lang.bind(this, function () {
+            Lib.TalkativeLog('overview closed');
+
+            Main.uiGroup.add_actor(this._areaRecording);
+        }));
+
+        if ((recX + recW <= tmpW - 5) && (recY + recH <= tmpH - 5)) {
+            this.drawArea(recX - 2, recY - 2, recW + 4, recH + 4);
+        }
+
+        //        this._areaRecording.connect('button-press-event',
+        //            Lang.bind(this, this._onButtonPress));
+        //        this._areaRecording.connect('button-release-event',
+        //            Lang.bind(this, this._onButtonRelease));
+        //        this._areaRecording.connect('motion-event',
+        //            Lang.bind(this, this._onMotionEvent));
+
+        //        _onMotionEvent: function (actor, event) {
+        //            Lib.TalkativeLog('motion event');
         //
-        //    _onCaptureEvent: function (actor, event) {
-        //        if (event.type() === Clutter.EventType.KEY_PRESS) {
-        //            if (event.get_key_symbol() === Clutter.Escape) {
-        //                this._stop();
-        //            }
-        //        }
+        //            return Clutter.EVENT_PROPAGATE;
+        //        },
         //
-        //        this.emit("captured-event", event);
+        //        _onButtonPress: function (actor, event) {
+        //            Lib.TalkativeLog('btn press event');
+        //
+        //            return Clutter.EVENT_PROPAGATE;
+        //        },
+        //
+        //        _onButtonRelease: function (actor, event) {
+        //            Lib.TalkativeLog('btn release event');
+        //
+        //            return Clutter.EVENT_PROPAGATE;
+        //        }
     },
 
     drawArea: function (x, y, w, h) {
