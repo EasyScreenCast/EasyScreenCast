@@ -100,6 +100,16 @@
             <summary>list input source</summary>
             <description>list input source</description>
         </key>
+        <key name="execute-post-cmd" type="b">
+            <default>false</default>
+            <summary>enable execute post command</summary>
+            <description>enable execute post command</description>
+        </key>
+        <key name="post-cmd" type="s">
+            <default>'xdg-open $AbsFilePath'</default>
+            <summary>command to execute</summary>
+            <description>command to execute</description>
+        </key>
         <key name="shortcut-key" type="as">
             <default>
                 <![CDATA[['<Super>E']]]>
