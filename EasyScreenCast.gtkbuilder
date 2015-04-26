@@ -738,7 +738,7 @@ https://bugzilla.gnome.org/show_bug.cgi?id=708660</property>
                         <property name="can_focus">False</property>
                         <property name="halign">end</property>
                         <property name="hexpand">True</property>
-                        <property name="label" translatable="yes">Execute post command</property>
+                        <property name="label" translatable="yes">Execute command after recording</property>
                       </object>
                       <packing>
                         <property name="left_attach">0</property>
@@ -749,9 +749,10 @@ https://bugzilla.gnome.org/show_bug.cgi?id=708660</property>
                       <object class="GtkLabel" id="label18">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="tooltip_text" translatable="yes">The word $AbsFilePath will replace by the absolute path of the screencast video file.</property>
                         <property name="halign">end</property>
                         <property name="hexpand">True</property>
-                        <property name="label" translatable="yes">Post command</property>
+                        <property name="label" translatable="yes">Command post-recording</property>
                       </object>
                       <packing>
                         <property name="left_attach">0</property>
@@ -759,7 +760,7 @@ https://bugzilla.gnome.org/show_bug.cgi?id=708660</property>
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkSwitch" id="switch1">
+                      <object class="GtkSwitch" id="swt_executepostcmd">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="halign">start</property>
@@ -771,9 +772,10 @@ https://bugzilla.gnome.org/show_bug.cgi?id=708660</property>
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkEntry" id="entry1">
+                      <object class="GtkEntry" id="txe_postcmd">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
+                        <property name="tooltip_text" translatable="yes">The word $AbsFilePath will replace by the absolute path of the screencast video file.</property>
                         <property name="hexpand">True</property>
                       </object>
                       <packing>
