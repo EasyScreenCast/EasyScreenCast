@@ -31,6 +31,8 @@ const ACTIVE_DELAY_SETTING_KEY = 'active-delay-time';
 const ACTIVE_AUDIO_REC_SETTING_KEY = 'active-audio-rec';
 const INPUT_AUDIO_SOURCE_SETTING_KEY = 'input-audio-source';
 const LIST_INPUT_AUDIO_SETTING_KEY = 'list-input-audio';
+const ACTIVE_POST_CMD_SETTING_KEY = 'execute-post-cmd';
+const POST_CMD_SETTING_KEY = 'post-cmd';
 const ACTIVE_CUSTOM_GSP_SETTING_KEY = 'active-custom-gsp';
 const ACTIVE_SHORTCUT_SETTING_KEY = 'active-shortcut';
 const SHORTCUT_KEY_SETTING_KEY = 'shortcut-key';
@@ -285,13 +287,13 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                 Gio.SettingsBindFlags.DEFAULT);
 
             //implements custom GSPipeline option
-            this.Ref_checkbox_CustomGSP = builder.get_object(
-                'ckb_EnableCustomGSP');
+            this.Ref_switch_CustomGSP = builder.get_object(
+                'swt_EnableCustomGSP');
             settings.bind(
-                ACTIVE_CUSTOM_GSP_SETTING_KEY, this.Ref_checkbox_CustomGSP,
+                ACTIVE_CUSTOM_GSP_SETTING_KEY, this.Ref_switch_CustomGSP,
                 'active', Gio.SettingsBindFlags.DEFAULT);
-            this.Ref_checkbox_CustomGSP.connect(
-                'clicked', Lang.bind(this, function () {
+            this.Ref_switch_CustomGSP.connect(
+                'state_changed', Lang.bind(this, function () {
                     //update GSP text area
                     this._setStateGSP();
                 }));
@@ -301,11 +303,19 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             settings.bind(
                 INPUT_AUDIO_SOURCE_SETTING_KEY, this.Ref_ComboBox_InputAudio,
                 'active', Gio.SettingsBindFlags.DEFAULT);
-            this.Ref_ComboBox_InputAudio.connect(
-                'changed', Lang.bind(this, function () {
-                    this._setLabelGridsettings(
-                        this.Ref_ComboBox_InputAudio.get_active());
-                }));
+
+            //implements post execute command
+            this.Ref_switch_ExecutePostCMD = builder.get_object(
+                'swt_executepostcmd');
+            settings.bind(
+                ACTIVE_POST_CMD_SETTING_KEY, this.Ref_switch_ExecutePostCMD,
+                'active', Gio.SettingsBindFlags.DEFAULT);
+
+            this.Ref_textedit_PostCMD = builder.get_object(
+                'txe_postcmd');
+            settings.bind(
+                POST_CMD_SETTING_KEY, this.Ref_textedit_PostCMD,
+                'text', Gio.SettingsBindFlags.DEFAULT);
 
             //implements file name string rec option
             this.Ref_textedit_FileName = builder.get_object('txe_FileNameRec');
@@ -329,7 +339,8 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                     function (self) {
                         Lib.TalkativeLog('file path get from widget : ' + self.get_filename());
                         if (self.get_filename() !== null)
-                            setOption(FILE_FOLDER_SETTING_KEY, self.get_filename());
+                            setOption(FILE_FOLDER_SETTING_KEY,
+                                self.get_filename());
                     }));
 
             //update GSP text area and input source
@@ -416,6 +427,10 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         for (var x in inputaudio) {
             this.Ref_ComboBox_InputAudio.append_text(inputaudio[x]);
         };
+
+        var sourceaudio = getOption('i', INPUT_AUDIO_SOURCE_SETTING_KEY);
+        Lib.TalkativeLog('from settings input audio: ' + sourceaudio);
+        this.Ref_ComboBox_InputAudio.set_active(sourceaudio);
     },
 
     _setStateGSP: function () {
@@ -451,6 +466,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         setOption(REPLACE_INDICATOR_SETTING_KEY, false);
         setOption(DRAW_CURSOR_SETTING_KEY, true);
         setOption(VERBOSE_DEBUG_SETTING_KEY, false);
+        setOption(ACTIVE_CUSTOM_GSP_SETTING_KEY, false);
 
         setOption(FPS_SETTING_KEY, 30);
         this.RecorderSettings.set_int(MAX_DURATION_SETTING_KEY, 0);
@@ -459,18 +475,16 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         setOption(WIDTH_SETTING_KEY, 600);
         setOption(HEIGHT_SETTING_KEY, 400);
 
-        setOption(PIPELINE_REC_SETTING_KEY, 'vp8enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T ! queue ! webmmux');
-        //TO-DO queue ! videorate ! vp8enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T ! queue ! mux. pulsesrc ! queue ! audioconvert ! vorbisenc ! queue ! mux. webmmux name=mux
-        //pacmd list-source-outputs
-        //pacmd list-sources | grep name:
-        //pacmd list-sources | grep index:
-        //pacmd list-sink-inputs
-        //pacmd list-source-outputs
-        //pacmd move-sink-input 206 1
-        // 206 = index sink input - 1 = index source out
+        if (getOption('b', ACTIVE_AUDIO_REC_SETTING_KEY)) {
+            setOption(PIPELINE_REC_SETTING_KEY, 'queue ! videorate ! vp8enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T ! queue ! mux. pulsesrc ! queue ! audioconvert ! vorbisenc ! queue ! mux. webmmux name=mux');
+        } else {
+            setOption(PIPELINE_REC_SETTING_KEY, 'vp8enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T ! queue ! webmmux');
+        }
 
         setOption(FILE_NAME_SETTING_KEY, 'Screencast_%d_%t.webm');
         setOption(FILE_FOLDER_SETTING_KEY, '');
+        setOption(ACTIVE_POST_CMD_SETTING_KEY, false);
+        setOption(POST_CMD_SETTING_KEY, 'xdg-open AbsFilePath &');
     }
 });
 
