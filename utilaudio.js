@@ -271,7 +271,7 @@ const MixerAudio = new Lang.Class({
         }
     },
 
-    checkPulseAudio: function () {
+    checkAudio: function () {
         Lib.TalkativeLog('check pulseaudio lib presence: ' + isConnected);
 
         return isConnected;

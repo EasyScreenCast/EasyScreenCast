@@ -66,7 +66,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
 
         //prepare setting var
         this.isDelayActive = Pref.getOption('b', Pref.ACTIVE_DELAY_SETTING_KEY);
-        this.isRecAudioActive = (this.CtrlAudio.checkPulseAudio() &&
+        this.isRecAudioActive = (this.CtrlAudio.checkAudio() &&
             !Pref.getOption('b', Pref.ACTIVE_CUSTOM_GSP_SETTING_KEY) &&
             Pref.getOption('b', Pref.ACTIVE_AUDIO_REC_SETTING_KEY));
 
@@ -146,7 +146,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
             });
 
         this.imAudioRec.connect('toggled', Lang.bind(this, function (item) {
-            if (isPulseAudioPresent) {
+            if (this.CtrlAudio.checkAudio()) {
                 Lib.TalkativeLog('normal state audio recording');
 
                 Pref.setOption(Pref.ACTIVE_AUDIO_REC_SETTING_KEY, item.state);
