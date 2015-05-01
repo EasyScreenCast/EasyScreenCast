@@ -8,21 +8,21 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ESC\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-08 14:12+0100\n"
-"PO-Revision-Date: 2015-03-08 14:15+0100\n"
+"POT-Creation-Date: 2015-05-01 11:06+0200\n"
+"PO-Revision-Date: 2015-05-01 11:13+0100\n"
 "Last-Translator: idn <iacopodeenosee@gmail.com>\n"
 "Language-Team: IDN <iacopodeenosee@gmail.com>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.7.4\n"
+"X-Generator: Poedit 1.7.5\n"
 
 #: extension.js:108
 msgid "Options"
 msgstr "Opzioni"
 
-#: extension.js:125 extension.js:375
+#: extension.js:125 extension.js:394
 msgid "Start recording"
 msgstr "Inizia Registrazione"
 
@@ -30,67 +30,67 @@ msgstr "Inizia Registrazione"
 msgid "Record audio"
 msgstr "Registra Audio"
 
-#: extension.js:167
+#: extension.js:177
 msgid "Delay recording"
 msgstr "Ritarda registrazione"
 
-#: extension.js:190
+#: extension.js:200
 msgid "Delay Time"
 msgstr "Tempo ritardo"
 
-#: extension.js:196 extension.js:210
+#: extension.js:206 extension.js:220
 msgid " Sec"
 msgstr " Sec"
 
-#: extension.js:329
+#: extension.js:348
 msgid "Start Recording"
 msgstr "Inizia Registrazione"
 
-#: extension.js:345
+#: extension.js:364
 msgid "ERROR RECORDER - See logs form more info"
 msgstr "ERRORE RECORDER - visiona i logs per maggiori info"
 
-#: extension.js:368
+#: extension.js:387
 msgid "Stop recording"
 msgstr "Ferma Registrazione"
 
-#: extension.js:430
+#: extension.js:449
 msgid "EasyScreenCast -> Finish Recording / Seconds : "
 msgstr "EasyScreenCast -> Registrazione Terminata / Secondi : "
 
-#: extension.js:435
+#: extension.js:454
 msgid "Open in the filesystem"
 msgstr "Apri nel filesystem"
 
-#: extension.js:450
+#: extension.js:481
 msgid "EasyScreenCast -> Recording in progress / Seconds passed : "
 msgstr "EasyScreenCast -> Registrazione in corso / Secondi passati : "
 
-#: prefs.js:90
+#: prefs.js:92
 msgid "Could not load the preferences UI file"
 msgstr "Non  possibile caricare il file UI delle preferenze"
 
-#: prefs.js:380
+#: prefs.js:391
 msgid "The registration covers the entire area"
 msgstr "La registrazione copre l'intera area dello schermo"
 
-#: prefs.js:386
+#: prefs.js:397
 msgid "Fill box below with the values of the coordinates in pixels"
 msgstr "Inserisci nei box qui sotto con i valori in pixel delle coordinate"
 
-#: prefs.js:392
+#: prefs.js:403
 msgid "At the start of the recording you can select the recording area"
 msgstr ""
 "All'inizio della registrazione sarà possibile selezionare l'area interessata"
 
-#: prefs.js:398
+#: prefs.js:409
 msgid ""
 "At the start of the recording you can select the window you want to record"
 msgstr ""
 "All'inizio della registrazione sarà possibile selezionare la finestra "
 "interessata"
 
-#: prefs.js:404
+#: prefs.js:415
 msgid ""
 "At the start of the recording you can select the desktop you want to record"
 msgstr ""
@@ -105,6 +105,6 @@ msgstr "Seleziona l'area da registrare o premi [ESC] per annulare"
 msgid "Select a window for recording or press [ESC] to abort"
 msgstr "Seleziona la finestra da registrare o premi [ESC] per annulare"
 
-#: selection.js:299
+#: selection.js:309
 msgid "Select a desktop for recording or press [ESC] to abort"
 msgstr "Seleziona il desktop da registrare o premi [ESC] per annulare"
