@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-08 14:12+0100\n"
+"POT-Creation-Date: 2015-05-01 11:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,7 +21,7 @@ msgstr ""
 msgid "Options"
 msgstr ""
 
-#: extension.js:125 extension.js:375
+#: extension.js:125 extension.js:394
 msgid "Start recording"
 msgstr ""
 
@@ -29,64 +29,64 @@ msgstr ""
 msgid "Record audio"
 msgstr ""
 
-#: extension.js:167
+#: extension.js:177
 msgid "Delay recording"
 msgstr ""
 
-#: extension.js:190
+#: extension.js:200
 msgid "Delay Time"
 msgstr ""
 
-#: extension.js:196 extension.js:210
+#: extension.js:206 extension.js:220
 msgid " Sec"
 msgstr ""
 
-#: extension.js:329
+#: extension.js:348
 msgid "Start Recording"
 msgstr ""
 
-#: extension.js:345
+#: extension.js:364
 msgid "ERROR RECORDER - See logs form more info"
 msgstr ""
 
-#: extension.js:368
+#: extension.js:387
 msgid "Stop recording"
 msgstr ""
 
-#: extension.js:430
+#: extension.js:449
 msgid "EasyScreenCast -> Finish Recording / Seconds : "
 msgstr ""
 
-#: extension.js:435
+#: extension.js:454
 msgid "Open in the filesystem"
 msgstr ""
 
-#: extension.js:450
+#: extension.js:481
 msgid "EasyScreenCast -> Recording in progress / Seconds passed : "
 msgstr ""
 
-#: prefs.js:90
+#: prefs.js:92
 msgid "Could not load the preferences UI file"
 msgstr ""
 
-#: prefs.js:380
+#: prefs.js:391
 msgid "The registration covers the entire area"
 msgstr ""
 
-#: prefs.js:386
+#: prefs.js:397
 msgid "Fill box below with the values of the coordinates in pixels"
 msgstr ""
 
-#: prefs.js:392
+#: prefs.js:403
 msgid "At the start of the recording you can select the recording area"
 msgstr ""
 
-#: prefs.js:398
+#: prefs.js:409
 msgid ""
 "At the start of the recording you can select the window you want to record"
 msgstr ""
 
-#: prefs.js:404
+#: prefs.js:415
 msgid ""
 "At the start of the recording you can select the desktop you want to record"
 msgstr ""
@@ -99,6 +99,6 @@ msgstr ""
 msgid "Select a window for recording or press [ESC] to abort"
 msgstr ""
 
-#: selection.js:299
+#: selection.js:309
 msgid "Select a desktop for recording or press [ESC] to abort"
 msgstr ""
