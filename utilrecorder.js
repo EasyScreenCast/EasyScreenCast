@@ -24,6 +24,7 @@ const Me = ExtensionUtils.getCurrentExtension();
 const Lib = Me.imports.convenience;
 const Pref = Me.imports.prefs;
 const Selection = Me.imports.selection;
+const UtilAudio = Me.imports.utilaudio;
 const Ext = Me.imports.extension;
 
 const ScreenCastProxy = Gio.DBusProxy.makeProxyWrapper(
@@ -39,6 +40,8 @@ const CaptureVideo = new Lang.Class({
         Lib.TalkativeLog('init recorder');
 
         this.AreaSelected = null;
+
+        this.CtrlAudio = new UtilAudio.MixerAudio();
 
         //connect to d-bus service
         ScreenCastService = new ScreenCastProxy(
@@ -65,6 +68,9 @@ const CaptureVideo = new Lang.Class({
             fileRec = Pref.getOption('s', Pref.FILE_FOLDER_SETTING_KEY) +
             '/' + fileRec;
 
+        var pipelineRec = this.updateGSP(Pref.getOption(
+            's', Pref.PIPELINE_REC_SETTING_KEY));
+
         Lib.TalkativeLog('path/file template : ' + fileRec);
 
         var optionsRec = {
@@ -73,7 +79,7 @@ const CaptureVideo = new Lang.Class({
             'framerate': new GLib.Variant(
                 'i', Pref.getOption('i', Pref.FPS_SETTING_KEY)),
             'pipeline': new GLib.Variant(
-                's', Pref.getOption('s', Pref.PIPELINE_REC_SETTING_KEY))
+                's', pipelineRec)
         };
 
         if (Pref.getOption('i', Pref.AREA_SCREEN_SETTING_KEY) === 0) {
@@ -87,7 +93,7 @@ const CaptureVideo = new Lang.Class({
                     } else
                         Lib.TalkativeLog('screencast execute - ' + result[0] + ' - ' + result[1]);
 
-                    Ext.Indicator.doRecResult(result[0]);
+                    Ext.Indicator.doRecResult(result[0], result[1]);
                 }));
         } else {
             ScreenCastService.ScreencastAreaRemote(Pref.getOption(
@@ -111,7 +117,7 @@ const CaptureVideo = new Lang.Class({
                             this.AreaSelected = new Selection.AreaRecording();
                         }
 
-                        Ext.Indicator.doRecResult(result[0]);
+                        Ext.Indicator.doRecResult(result[0], result[1]);
                     }
                 }));
         }
@@ -139,5 +145,32 @@ const CaptureVideo = new Lang.Class({
 
                 return true;
             }));
+    },
+
+    updateGSP: function (tmpGSP) {
+        Lib.TalkativeLog('update gstreamer pipeline for audio/webcam support');
+
+        if (Pref.getOption(
+                'b', Pref.ACTIVE_AUDIO_REC_SETTING_KEY) && !Pref.getOption(
+                'b', Pref.ACTIVE_CUSTOM_GSP_SETTING_KEY)) {
+
+            //change device source
+            var re = /pulsesrc/gi;
+            var audiosource = this.CtrlAudio.getAudioSource();
+            if (audiosource.indexOf('output') !== -1) {
+                audiosource += '.monitor';
+            }
+            var strReplace = 'pulsesrc device="' + audiosource + '"';
+
+            Lib.TalkativeLog('pipeline pre-audio:' + tmpGSP);
+
+            var audioPipeline = tmpGSP.replace(re, strReplace);
+            Lib.TalkativeLog('pipeline post-audio:' + audioPipeline);
+
+            return audioPipeline;
+        } else {
+            return tmpGSP;
+        }
+
     }
 });
