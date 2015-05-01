@@ -169,8 +169,8 @@ const MixerAudio = new Lang.Class({
         Lib.TalkativeLog('get source audio choosen');
 
         var arrtmp = this.getListInputAudio();
-        var index = Pref.getOption(Pref.INPUT_AUDIO_SOURCE_SETTING_KEY);
-        return arrtmp[arrtmp[index]].name;
+        var index = Pref.getOption('i', Pref.INPUT_AUDIO_SOURCE_SETTING_KEY);
+        return arrtmp[index].name;
     },
 
 
