@@ -152,7 +152,8 @@ const CaptureVideo = new Lang.Class({
 
         if (Pref.getOption(
                 'b', Pref.ACTIVE_AUDIO_REC_SETTING_KEY) && !Pref.getOption(
-                'b', Pref.ACTIVE_CUSTOM_GSP_SETTING_KEY)) {
+                'b', Pref.ACTIVE_CUSTOM_GSP_SETTING_KEY) && Pref.getOption(
+                'i', Pref.INPUT_AUDIO_SOURCE_SETTING_KEY) !== -1) {
 
             //change device source
             var re = /pulsesrc/gi;
