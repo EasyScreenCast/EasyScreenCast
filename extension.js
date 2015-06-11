@@ -415,9 +415,10 @@ const EasyScreenCast_Indicator = new Lang.Class({
                 Pref.SHORTCUT_KEY_SETTING_KEY,
                 Pref.settings,
                 Meta.KeyBindingFlags.NONE,
-                Shell.KeyBindingMode.NORMAL |
-                Shell.KeyBindingMode.MESSAGE_TRAY |
-                Shell.KeyBindingMode.OVERVIEW,
+                Shell.ActionMode.NORMAL |
+                Shell.ActionMode.MESSAGE_TRAY |
+                Shell.ActionMode.OVERVIEW |
+                Shell.ActionMode.POPUP,
                 Lang.bind(this, function () {
                     Lib.TalkativeLog('intercept key combination');
                     this._doRecording();
