@@ -167,16 +167,6 @@ msgstr "Entrée audio"
 msgid "Execute command after recording"
 msgstr "Exécuter une commande après l'enregistrement"
 
-#: EasyScreenCast.gtkbuilder:752 EasyScreenCast.gtkbuilder:778
-msgid ""
-"This option not work in gnome shell 3.10 because the limit of 30 seconds is "
-"hardcoded:\n"
-"https://bugzilla.gnome.org/show_bug.cgi?id=708660"
-msgstr ""
-"Questa opzione non funziona nella shell 3.10 perchè il limite massimo di 30 "
-"secondi è inserito direttamento nel codice.https://bugzilla.gnome.org/"
-"show_bug.cgi?id=708660"
-
 #: EasyScreenCast.gtkbuilder:755
 msgid "Command post-recording"
 msgstr "Commandes de post-enregistrement"
