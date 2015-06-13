@@ -10,119 +10,164 @@ msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-02 15:38+0100\n"
-"PO-Revision-Date: 2014-05-09 12:05+0200\n"
-"Last-Translator: Max <farnsworth@free.fr>\n"
+"PO-Revision-Date: 2015-09-06 21:28+0200\n"
+"Last-Translator: maboiteaspam <https://github.com/maboiteaspam>\n"
 "Language-Team: français <>\n"
-"Language: it\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Gtranslator 2.91.6\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: EasyScreenCast.gtkbuilder:36
+#: EasyScreenCast.gtkbuilder:50
 msgid "Replace standard indicator on status menu"
 msgstr "Remplacer l'indicateur standard dans le menu de statut"
 
-#: EasyScreenCast.gtkbuilder:71
+#: EasyScreenCast.gtkbuilder:76
 msgid "Show time recording into notification bar"
 msgstr "Afficher le compteur d'enregistrement dans la barre de notification"
 
-#: EasyScreenCast.gtkbuilder:103
+#: EasyScreenCast.gtkbuilder:102
+msgid "Show area screencast during recording"
+msgstr "Afficher la zone d'enregistrement"
+
+#: EasyScreenCast.gtkbuilder:127
+msgid "Enable keyboard shortcut"
+msgstr "Activer le racourci clavier"
+
+#: EasyScreenCast.gtkbuilder:150 EasyScreenCast.gtkbuilder:180
+msgid "To activate the change of the shortcut restart the extension"
+msgstr "Redémarrer l'extension pour activer le changement de raccourci"
+
+#: EasyScreenCast.gtkbuilder:153
+msgid "Shortcut combination"
+msgstr "Raccourci clavier"
+
+#: EasyScreenCast.gtkbuilder:164
 msgid ""
 "This option enable more debug message, to view these run this command into a "
 "terminal:\n"
-"$ journalctl /usr/bin/gnome-session -a  | grep js \n"
+"$ journalctl /usr/bin/gnome-session --since=today --no-pager | grep js\n"
 "$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
 msgstr ""
 "Cette option permet d'augmenter le niveau de débogage, pour voir les logs "
 "lancer cette commande dans un terminal:\n"
-"$ journalctl /usr/bin/gnome-session -a  | grep js \n"
+"$ journalctl /usr/bin/gnome-session --since=today --no-pager | grep js\n"
 "$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
 
-#: EasyScreenCast.gtkbuilder:110
+#: EasyScreenCast.gtkbuilder:169
 msgid "Enable verbose debug"
 msgstr "Augmenter le niveau de débogage"
 
-#: EasyScreenCast.gtkbuilder:162
+#: EasyScreenCast.gtkbuilder:203
+msgid ""
+"This option enable more debug message, to view these run this command into a "
+"terminal:\n"
+"$ journalctl /usr/bin/gnome-session --since=today | grep js\n"
+"$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
+msgstr ""
+"Cette option permet d'augmenter le niveau de débogage, pour voir les logs "
+"lancer cette commande dans un terminal:\n"
+"$ journalctl /usr/bin/gnome-session --since=today --no-pager | grep js\n"
+"$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
+
+#: EasyScreenCast.gtkbuilder:246
 msgid "Restore default option"
 msgstr "Restaurer les options par défaut"
 
-#: EasyScreenCast.gtkbuilder:202
+#: EasyScreenCast.gtkbuilder:286
 msgid "<b>Options</b>"
-msgstr "<b>Options</b>"
+msgstr ""
 
-#: EasyScreenCast.gtkbuilder:235
-msgid "Select area of screencast : "
-msgstr "Sélectionner l'aire de capture :"
+#: EasyScreenCast.gtkbuilder:323
+msgid "Area of screencast : "
+msgstr "Aire de capture"
 
-#: EasyScreenCast.gtkbuilder:248
+#: EasyScreenCast.gtkbuilder:337
 msgid "Full screen area"
 msgstr "Plein écran"
 
-#: EasyScreenCast.gtkbuilder:249
+#: EasyScreenCast.gtkbuilder:338
 msgid "Specific screen area"
 msgstr "Personnalisé"
 
-#: EasyScreenCast.gtkbuilder:269
-msgid "Coordinates for the specific area"
-msgstr "Coordonnées de l'aire personnalisée"
+#: EasyScreenCast.gtkbuilder:339
+msgid "Select specific area"
+msgstr "Sélectionner une zone de capture"
 
-#: EasyScreenCast.gtkbuilder:281
+#: EasyScreenCast.gtkbuilder:340
+msgid "Select specific window"
+msgstr "Sélectionner une fenêtre"
+
+#: EasyScreenCast.gtkbuilder:341
+msgid "Select specific desktop"
+msgstr "Sélectionner un bureau"
+
+#: EasyScreenCast.gtkbuilder:360
+msgid "The registration covers the entire area"
+msgstr "Capture de l'écran au complet"
+
+#: EasyScreenCast.gtkbuilder:382
 msgid "Values ​​expressed in pixels"
-msgstr "valeur en pixels"
+msgstr "Valeurs en pixels"
 
-#: EasyScreenCast.gtkbuilder:306
+#: EasyScreenCast.gtkbuilder:405
 msgid "Width  "
 msgstr "Largeur"
 
-#: EasyScreenCast.gtkbuilder:319 EasyScreenCast.gtkbuilder:359
-#: EasyScreenCast.gtkbuilder:399 EasyScreenCast.gtkbuilder:440
-#: EasyScreenCast.gtkbuilder:545 EasyScreenCast.gtkbuilder:657
+#: EasyScreenCast.gtkbuilder:419 EasyScreenCast.gtkbuilder:458
+#: EasyScreenCast.gtkbuilder:497 EasyScreenCast.gtkbuilder:537
+#: EasyScreenCast.gtkbuilder:673 EasyScreenCast.gtkbuilder:702
 msgid "0"
 msgstr "0"
 
-#: EasyScreenCast.gtkbuilder:346
+#: EasyScreenCast.gtkbuilder:444
 msgid "Height  "
 msgstr "Hauteur"
 
-#: EasyScreenCast.gtkbuilder:386
+#: EasyScreenCast.gtkbuilder:483
 msgid "Y  "
 msgstr "Y"
 
-#: EasyScreenCast.gtkbuilder:427
+#: EasyScreenCast.gtkbuilder:523
 msgid "X  "
 msgstr "X"
 
-#: EasyScreenCast.gtkbuilder:498
+#: EasyScreenCast.gtkbuilder:593
 msgid "<b>Screencast area</b>"
 msgstr "<b>Aire de capture</b>"
 
-#: EasyScreenCast.gtkbuilder:532
+#: EasyScreenCast.gtkbuilder:631
 msgid "Frames Per Second"
 msgstr "Images par seconde"
 
-#: EasyScreenCast.gtkbuilder:570
+#: EasyScreenCast.gtkbuilder:644
 msgid "Draw cursor on screencast"
 msgstr "Capturer le curseur"
 
-#: EasyScreenCast.gtkbuilder:605
-msgid "GStreamer Pipeline  "
-msgstr "GStreamer Pipeline  "
-
-#: EasyScreenCast.gtkbuilder:617
+#: EasyScreenCast.gtkbuilder:655 EasyScreenCast.gtkbuilder:697
 msgid ""
-"the GStreamer pipeline used to encode recordings in gst-launch format; if "
-"not specified, the recorder will produce vp8 (webm) video (unset)"
-msgstr ""
-"Flux GStreamer utilisé pour encoder l'enregistrement au format gst-launch; "
-"si non spécifié l'enregistrement se fera au format vp8 (webm) video (unset)"
+"This option not work in gnome shell 3.10 because the limit of 30 seconds is "
+"hardcoded:\n"
+"https://bugzilla.gnome.org/show_bug.cgi?id=708660"
+msgstr "Cette otion ne fonctionne pas avec gnome shell 3.10, car la limite de 30 secondes"
+"est écrite en dure, veuillez vous reporter vers:"
+"https://bugzilla.gnome.org/show_bug.cgi?id=708660"
 
-#: EasyScreenCast.gtkbuilder:642
+#: EasyScreenCast.gtkbuilder:659
 msgid "Maximum duration screencast"
 msgstr "Durée d'enregistrement maximale"
 
-#: EasyScreenCast.gtkbuilder:654
+#: EasyScreenCast.gtkbuilder:716
+msgid "Input source Audio"
+msgstr "Entrée audio"
+
+#: EasyScreenCast.gtkbuilder:741
+msgid "Execute command after recording"
+msgstr "Exécuter une commande après l'enregistrement"
+
+#: EasyScreenCast.gtkbuilder:752 EasyScreenCast.gtkbuilder:778
 msgid ""
 "This option not work in gnome shell 3.10 because the limit of 30 seconds is "
 "hardcoded:\n"
@@ -132,15 +177,15 @@ msgstr ""
 "secondi è inserito direttamento nel codice.https://bugzilla.gnome.org/"
 "show_bug.cgi?id=708660"
 
-#: EasyScreenCast.gtkbuilder:695
+#: EasyScreenCast.gtkbuilder:755
+msgid "Command post-recording"
+msgstr "Commandes de post-enregistrement"
+
+#: EasyScreenCast.gtkbuilder:814
 msgid "<b>Screencast options</b>"
 msgstr "<b>Options du screencast</b>"
 
-#: EasyScreenCast.gtkbuilder:730
-msgid "File name template : "
-msgstr "Modèle de nom du fichier :"
-
-#: EasyScreenCast.gtkbuilder:745
+#: EasyScreenCast.gtkbuilder:851 EasyScreenCast.gtkbuilder:882
 msgid ""
 "the filename which may contain some escape sequences - %d and %t will be "
 "replaced by the start date and time of the recording."
@@ -148,7 +193,12 @@ msgstr ""
 "Le nom du fichier peut contenir des caractères spéciaux, %d et %t seront "
 "respectivement remplacés par la date de début d'enregistrement et la durée."
 
-#: EasyScreenCast.gtkbuilder:765 EasyScreenCast.gtkbuilder:803
+#: EasyScreenCast.gtkbuilder:854
+msgid "File name template : "
+msgstr "Nom du fichier modèle"
+
+#: EasyScreenCast.gtkbuilder:865 EasyScreenCast.gtkbuilder:894
+#: EasyScreenCast.gtkbuilder:927
 msgid ""
 "Select the folder where the file is saved, if not specific a folder  the "
 "file will be saved in the $XDG_VIDEOS_DIR if it exists, or the home "
@@ -158,10 +208,53 @@ msgstr ""
 "spécifié le fichier sera enregistré sous $XDG_VIDEOS_DIR s'il existe, sinon "
 "dans votre home."
 
-#: EasyScreenCast.gtkbuilder:770
+#: EasyScreenCast.gtkbuilder:868
 msgid "The file is saved in the path : "
 msgstr "Le fichier sera enregistré dans : "
 
-#: EasyScreenCast.gtkbuilder:835
-msgid "<b>Screencast file</b>"
-msgstr "<b>Fichier de screencast</b>"
+#: EasyScreenCast.gtkbuilder:940
+msgid "Choose a directory"
+msgstr "Choisissez un répertoire"
+
+#: EasyScreenCast.gtkbuilder:970
+msgid "<b>File screencast</b>"
+msgstr "Fichier vidéo"
+
+#: EasyScreenCast.gtkbuilder:1008
+msgid "Custom GStreamer Pipeline"
+msgstr "Pipeline GStreamer personnalisé"
+
+#: EasyScreenCast.gtkbuilder:1044
+msgid ""
+"The extension handles audio and webcam support  only if is NOT used a custom "
+"gstreamer pipeline .\n"
+"GStreamer is a pipeline-based multimedia allows a programmer to create a "
+"variety of media-handling components, including simple audio playback, audio "
+"and video playback, recording, streaming and editing.Below some useful links."
+msgstr ""
+"Cette extension supporte ne prend en charge votre webcam et son audio que si "
+"vous n'utilisez pas un pipeline  gstreamer personnalié.\n"
+"GStreamer est un cadriciel basé sur les pipelines pour permettre au prgrammeur de créer "
+"de mutiples composants multimédia, lecture audio, lecture audio et vidéo "
+"enregistrement, émission de flux vidéo et édition."
+" Vous trouverez ci-dessous quelques liens utiles."
+
+#: EasyScreenCast.gtkbuilder:1060
+msgid "Official doc"
+msgstr "Documentation"
+
+#: EasyScreenCast.gtkbuilder:1076
+msgid "Wiki #1"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:1091
+msgid "Wiki #2"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:1150
+msgid "GStreamer Pipeline"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:1181
+msgid "<b>GStreamer Pipeline</b>"
+msgstr ""
