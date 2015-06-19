@@ -68,8 +68,14 @@ const CaptureVideo = new Lang.Class({
             fileRec = Pref.getOption('s', Pref.FILE_FOLDER_SETTING_KEY) +
             '/' + fileRec;
 
-        var pipelineRec = this.updateGSP(Pref.getOption(
-            's', Pref.PIPELINE_REC_SETTING_KEY));
+        var pipelineRec
+
+        if (Pref.getOption('b', Pref.ACTIVE_CUSTOM_GSP_SETTING_KEY)) {
+            pipelineRec = Pref.getOption('s', Pref.PIPELINE_REC_SETTING_KEY);
+        } else {
+            pipelineRec = this.updateGSP(Pref.getOption(
+                's', Pref.PIPELINE_REC_SETTING_KEY));
+        }
 
         Lib.TalkativeLog('path/file template : ' + fileRec);
 
@@ -151,8 +157,7 @@ const CaptureVideo = new Lang.Class({
         Lib.TalkativeLog('update gstreamer pipeline for audio/webcam support');
 
         if (Pref.getOption(
-                'b', Pref.ACTIVE_AUDIO_REC_SETTING_KEY) && !Pref.getOption(
-                'b', Pref.ACTIVE_CUSTOM_GSP_SETTING_KEY) && Pref.getOption(
+                'b', Pref.ACTIVE_AUDIO_REC_SETTING_KEY) && Pref.getOption(
                 'i', Pref.INPUT_AUDIO_SOURCE_SETTING_KEY) !== -1) {
 
             //change device source
@@ -170,7 +175,7 @@ const CaptureVideo = new Lang.Class({
 
             return audioPipeline;
         } else {
-            return tmpGSP;
+            return 'vp8enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T ! queue ! webmmux';
         }
 
     }
