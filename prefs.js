@@ -51,8 +51,6 @@ const DRAW_CURSOR_SETTING_KEY = 'draw-cursor';
 const AREA_SCREEN_SETTING_KEY = 'area-screen';
 const FILE_NAME_SETTING_KEY = 'file-name';
 const FILE_FOLDER_SETTING_KEY = 'file-folder';
-// setting key - recorder
-const MAX_DURATION_SETTING_KEY = 'max-screencast-length';
 
 // shortcut tree view columns
 const SHORTCUT_COLUMN_KEY = 0;
@@ -75,9 +73,6 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
 
         // creates the settings
         checkSettings();
-        this.RecorderSettings = new Gio.Settings({
-            schema: 'org.gnome.settings-daemon.plugins.media-keys'
-        });
 
         // creates the ui builder and add the main resource file
         let uiFilePath = Me.path + '/EasyScreenCast.gtkbuilder';
@@ -214,22 +209,6 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             settings.bind(
                 FPS_SETTING_KEY, this.Ref_spinner_FrameRateRec, 'value',
                 Gio.SettingsBindFlags.DEFAULT);
-
-            //implements max duration option
-            this.Ref_spinner_MaxDurationRec = builder.get_object(
-                'spb_MaxDurationRec');
-            // Create an adjustment to use for the second spinbutton
-            let adjustment2 = new Gtk.Adjustment({
-                value: 0,
-                lower: 0,
-                upper: 3600,
-                step_increment: 1,
-                page_increment: 10
-            });
-            this.Ref_spinner_MaxDurationRec.configure(adjustment2, 10, 0);
-            this.RecorderSettings.bind(
-                MAX_DURATION_SETTING_KEY, this.Ref_spinner_MaxDurationRec,
-                'value', Gio.SettingsBindFlags.DEFAULT);
 
             //implements specific area options [ X , Y , width , height]
             this.Ref_spinner_X = builder.get_object('spb_XposRec');
@@ -469,7 +448,6 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         setOption(ACTIVE_CUSTOM_GSP_SETTING_KEY, false);
 
         setOption(FPS_SETTING_KEY, 30);
-        this.RecorderSettings.set_int(MAX_DURATION_SETTING_KEY, 0);
         setOption(X_POS_SETTING_KEY, 0);
         setOption(Y_POS_SETTING_KEY, 0);
         setOption(WIDTH_SETTING_KEY, 600);
