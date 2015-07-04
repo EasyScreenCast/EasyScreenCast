@@ -225,8 +225,8 @@ msgstr ""
 "Cette extension ne prend en charge votre webcam et son audio que si "
 "vous n'utilisez pas un pipeline gstreamer personnalié.\n"
 "GStreamer est un cadriciel fondé sur les pipelines pour permettre au programmeur de créer "
-"des composants multimédia afin de permettre la lecture, l'enregistrement, l'émission"
-"l'édition de flux audio vidéo."
+"des composants multimédia afin de permettre la lecture, l'enregistrement, l'émission "
+"et l'édition de flux audio et/ou vidéo."
 "Vous trouverez ci-dessous quelques liens intéressants  ce sujet."
 
 #: EasyScreenCast.gtkbuilder:1060
