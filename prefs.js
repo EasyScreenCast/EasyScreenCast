@@ -26,7 +26,7 @@ const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Lib = Me.imports.convenience;
 
-// setting keys - own
+// setting keys
 const ACTIVE_DELAY_SETTING_KEY = 'active-delay-time';
 const ACTIVE_AUDIO_REC_SETTING_KEY = 'active-audio-rec';
 const INPUT_AUDIO_SOURCE_SETTING_KEY = 'input-audio-source';
@@ -428,11 +428,9 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             this.Ref_textedit_Pipeline.set_cursor_visible(false);
             this.Ref_textedit_Pipeline.set_sensitive(false);
 
-            if (getOption('b', ACTIVE_AUDIO_REC_SETTING_KEY)) {
-                setOption(PIPELINE_REC_SETTING_KEY, 'queue ! videorate ! vp8enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T ! queue ! mux. pulsesrc ! queue ! audioconvert ! vorbisenc ! queue ! mux. webmmux name=mux ');
-            } else {
-                setOption(PIPELINE_REC_SETTING_KEY, 'vp8enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T ! queue ! webmmux');
-            }
+            setOption(PIPELINE_REC_SETTING_KEY,
+                getGSPstd(getOption('b', ACTIVE_AUDIO_REC_SETTING_KEY)));
+
         }
     },
 
@@ -453,11 +451,9 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         setOption(WIDTH_SETTING_KEY, 600);
         setOption(HEIGHT_SETTING_KEY, 400);
 
-        if (getOption('b', ACTIVE_AUDIO_REC_SETTING_KEY)) {
-            setOption(PIPELINE_REC_SETTING_KEY, 'queue ! videorate ! vp8enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T ! queue ! mux. pulsesrc ! queue ! audioconvert ! vorbisenc ! queue ! mux. webmmux name=mux');
-        } else {
-            setOption(PIPELINE_REC_SETTING_KEY, 'vp8enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T ! queue ! webmmux');
-        }
+        setOption(PIPELINE_REC_SETTING_KEY,
+            getGSPstd(getOption('b', ACTIVE_AUDIO_REC_SETTING_KEY)));
+
 
         setOption(FILE_NAME_SETTING_KEY, 'Screencast_%d_%t.webm');
         setOption(FILE_FOLDER_SETTING_KEY, '');
@@ -492,6 +488,15 @@ function getOption(type, key) {
         return 'ERROR';
     };
     return '';
+}
+
+//getter option
+function getGSPstd(audio) {
+    if (audio) {
+        return 'queue ! videorate ! vp9enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T ! queue ! mux. pulsesrc ! queue ! audioconvert ! vorbisenc ! queue ! mux. webmmux name=mux ';
+    } else {
+        return 'vp9enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T ! queue ! webmmux';
+    }
 }
 
 //setter option

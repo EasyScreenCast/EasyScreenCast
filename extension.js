@@ -152,9 +152,11 @@ const EasyScreenCast_Indicator = new Lang.Class({
                 Pref.setOption(Pref.ACTIVE_AUDIO_REC_SETTING_KEY, item.state);
 
                 if (item.state) {
-                    Pref.setOption(Pref.ACTIVE_CUSTOM_GSP_SETTING_KEY, 'queue ! videorate ! vp8enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T ! queue ! mux. pulsesrc ! queue ! audioconvert ! vorbisenc ! queue ! mux. webmmux name=mux');
+                    Pref.setOption(Pref.ACTIVE_CUSTOM_GSP_SETTING_KEY,
+                        Pref.getGSPstd(true));
                 } else {
-                    Pref.setOption(Pref.ACTIVE_CUSTOM_GSP_SETTING_KEY, 'vp8enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T ! queue ! webmmux');
+                    Pref.setOption(Pref.ACTIVE_CUSTOM_GSP_SETTING_KEY,
+                        Pref.getGSPstd(false));
                 }
 
 
@@ -163,7 +165,8 @@ const EasyScreenCast_Indicator = new Lang.Class({
 
                 Pref.setOption(Pref.ACTIVE_AUDIO_REC_SETTING_KEY, false);
 
-                Pref.setOption(Pref.ACTIVE_CUSTOM_GSP_SETTING_KEY, 'vp8enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T ! queue ! webmmux');
+                Pref.setOption(Pref.ACTIVE_CUSTOM_GSP_SETTING_KEY,
+                    Pref.getGSPstd(false));
 
                 item.setToggleState(false);
             }

@@ -76,7 +76,7 @@
             <description>fps of screencasting</description>
         </key>
         <key name="pipeline" type="s">
-            <default>'vp8enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T ! queue ! webmmux'</default>
+            <default>'vp9enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T ! queue ! webmmux'</default>
             <summary>gstreamer pipeline of screencasting</summary>
             <description>gstreamer pipeline of screencasting</description>
         </key>

@@ -68,7 +68,7 @@ const CaptureVideo = new Lang.Class({
             fileRec = Pref.getOption('s', Pref.FILE_FOLDER_SETTING_KEY) +
             '/' + fileRec;
 
-        var pipelineRec
+        let pipelineRec = '';
 
         if (Pref.getOption('b', Pref.ACTIVE_CUSTOM_GSP_SETTING_KEY)) {
             pipelineRec = Pref.getOption('s', Pref.PIPELINE_REC_SETTING_KEY);
@@ -175,7 +175,7 @@ const CaptureVideo = new Lang.Class({
 
             return audioPipeline;
         } else {
-            return 'vp8enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T ! queue ! webmmux';
+            return Pref.getGSPstd(false);
         }
 
     }
