@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ESC\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-13 18:48+0100\n"
-"PO-Revision-Date: 2015-09-06 21:28+0200\n"
+"PO-Revision-Date: 2015-07-04 15:00+0200\n"
 "Last-Translator: maboiteaspam <https://github.com/maboiteaspam>\n"
 "Language-Team: français <>\n"
 "Language: fr\n"
@@ -29,7 +29,7 @@ msgstr "Démarrer l'enregistrement"
 
 #: extension.js:143
 msgid "Record audio"
-msgstr ""
+msgstr "Enregistrer l'audio"
 
 #: extension.js:177
 msgid "Delay recording"
@@ -49,7 +49,7 @@ msgstr "Démarrer l'enregistrement"
 
 #: extension.js:364
 msgid "ERROR RECORDER - See logs form more info"
-msgstr "ERREUR D'ENREGISTREMENT - Lisez les logs pour plus de détails"
+msgstr "ERREUR D'ENREGISTREMENT - Consultez les logs pour plus de détails"
 
 #: extension.js:387
 msgid "Stop recording"
@@ -69,7 +69,7 @@ msgstr "EasyScreenCast -> Enregistrement en cours / Secondes écoulées : "
 
 #: prefs.js:92
 msgid "Could not load the preferences UI file"
-msgstr "Impossible de charger le fichier des préférences de l'UI"
+msgstr "Impossible de charger le fichier de préférences de l'extension"
 
 #: prefs.js:391
 msgid "The registration covers the entire area"
