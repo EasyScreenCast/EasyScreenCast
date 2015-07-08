@@ -432,13 +432,14 @@ const getRectangle = function (x1, y1, x2, y2) {
 
 
 const getWindowRectangle = function (win) {
-    let rect = win.get_meta_window().get_outer_rect();
+    let tmpSize = win.get_size();
+    let tmpPosition = win.get_position();
 
     return {
-        x: rect.x,
-        y: rect.y,
-        w: rect.width,
-        h: rect.height
+        x: tmpPosition.x,
+        y: tmpPosition.y,
+        w: tmpSize.width,
+        h: tmpSize.height
     };
 };
 
