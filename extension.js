@@ -296,6 +296,30 @@ const EasyScreenCast_Indicator = new Lang.Class({
                 timerC.halt();
                 timerC = null;
             }
+
+            //execute post-command
+            if (Pref.getOption('b', Pref.ACTIVE_POST_CMD_SETTING_KEY)) {
+                Lib.TalkativeLog('execute post command');
+
+                //launch cmd after registration
+                var tmpCmd = Pref.getOption('s', Pref.POST_CMD_SETTING_KEY);
+
+                var mapObj = {
+                    _fpath: pathFile,
+                    _dirpath: pathFile.substr(0, pathFile.lastIndexOf('/')),
+                    _fname: pathFile.substr(pathFile.lastIndexOf('/') + 1,
+                        pathFile.length)
+                };
+
+                var Cmd = tmpCmd.replace(/_fpath|_dirpath|_fname/gi,
+                    function (match) {
+                        return mapObj[match];
+                    });
+
+                Lib.TalkativeLog('post command:' + Cmd);
+
+                Main.Util.trySpawnCommandLine(Cmd);
+            }
         }
 
         this.refreshIndicator(false);
@@ -466,18 +490,6 @@ function refreshNotify(sec, alertEnd) {
                         Main.Util.trySpawnCommandLine('xdg-open ' + pathFolder);
                     }
                 }));
-
-            if (Pref.getOption('b', Pref.ACTIVE_POST_CMD_SETTING_KEY)) {
-                Lib.TalkativeLog('execute post command');
-
-                //launch cmd after registration
-                var re = /AbsFilePath/gi;
-                var tmpCmd = Pref.getOption('s', Pref.POST_CMD_SETTING_KEY);
-                var Cmd = tmpCmd.replace(re, pathFile);
-                Lib.TalkativeLog('post command:' + Cmd);
-
-                Main.Util.trySpawnCommandLine(Cmd);
-            }
 
             Indicator.notifyCounting.playSound();
 
