@@ -95,11 +95,14 @@ const EasyScreenCast_Indicator = new Lang.Class({
         //add separetor menu
         this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem);
 
-        //add delay menu entry
-        this._addMIDelayRec();
+        //add sub menu area recording
+        this._addSubMenuAreaRec();
 
-        //add info delay menu entry
-        this._addMIInfoDelayRec();
+        //add separetor menu
+        this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem);
+
+        //add sub menu delay recording
+        this._addSubMenuDelayRec();
 
         //add separetor menu
         this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem);
@@ -175,7 +178,70 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.menu.addMenuItem(this.imAudioRec);
     },
 
-    _addMIDelayRec: function () {
+    _addSubMenuAreaRec: function () {
+        this.smAreaRec = new PopupMenu.PopupSubMenuMenuItem(_("Recording area"), true);
+        this.smAreaRec.icon.icon_name = 'view-fullscreen-symbolic';
+
+        var arrMI = this._createMIAreaRec();
+        for (var ele in arrMI) {
+            this.smAreaRec.menu.addMenuItem(arrMI[ele]);
+        }
+
+        this.smAreaRec.status.text =
+            this.AreaType[Pref.getOption('i', Pref.AREA_SCREEN_SETTING_KEY)];
+
+        this.menu.addMenuItem(this.smAreaRec);
+    },
+
+    _addSubMenuDelayRec: function () {
+        this.smDelayRec = new PopupMenu.PopupSubMenuMenuItem(_("Delay recording"),
+            true);
+        this.smDelayRec.icon.icon_name = 'alarm-symbolic';
+
+        this.smDelayRec.menu.addMenuItem(this._createMIDelayRec());
+
+        var arrMI = this._createMIInfoDelayRec();
+        for (ele in arrMI) {
+            this.smDelayRec.menu.addMenuItem(arrMI[ele]);
+        }
+
+        this.menu.addMenuItem(this.smDelayRec);
+    },
+
+    _createMIAreaRec: function () {
+
+        this.AreaType = new Array(_('All desktop'), _('Select monitor'),
+            _('Select window'), _('Select area'));
+
+        this.AreaMenuItem = new Array(this.AreaType.length);
+
+        for (var i = 0; i < this.AreaMenuItem.length; i++) {
+            this.AreaMenuItem[i] =
+                new PopupMenu.PopupMenuItem(this.AreaType[i], {
+                    reactive: true,
+                    activate: true,
+                    hover: true,
+                    can_focus: true
+                });
+
+            (function (i, arr, label) {
+                this.connectMI = function () {
+                    this.connect('activate',
+                        Lang.bind(this, function () {
+                            Lib.TalkativeLog('set area recording to ' + i + ' ' + arr[i]);
+                            Pref.setOption(Pref.AREA_SCREEN_SETTING_KEY, i);
+
+                            label.status.text = arr[i];
+                        }));
+                }
+                this.connectMI();
+            }).call(this.AreaMenuItem[i], i, this.AreaType, this.smAreaRec);
+        }
+
+        return this.AreaMenuItem;
+    },
+
+    _createMIDelayRec: function () {
         this.imDelayRec = new PopupMenu.PopupSwitchMenuItem(
             _('Delay recording'),
             this.isDelayActive, {
@@ -196,10 +262,10 @@ const EasyScreenCast_Indicator = new Lang.Class({
             Pref.setOption(Pref.ACTIVE_DELAY_SETTING_KEY, item.state);
         }));
 
-        this.menu.addMenuItem(this.imDelayRec);
+        return this.imDelayRec;
     },
 
-    _addMIInfoDelayRec: function () {
+    _createMIInfoDelayRec: function () {
         this.DelayTimeTitle = new PopupMenu.PopupMenuItem(_('Delay Time'), {
             reactive: false
         });
@@ -232,8 +298,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
             expand: true
         });
 
-        this.menu.addMenuItem(this.DelayTimeTitle);
-        this.menu.addMenuItem(this.imSliderDelay);
+        return [this.DelayTimeTitle, this.imSliderDelay];
     },
 
     _enable: function () {
@@ -268,21 +333,21 @@ const EasyScreenCast_Indicator = new Lang.Class({
 
             //get selected area
             var optArea = (Pref.getOption('i', Pref.AREA_SCREEN_SETTING_KEY));
-            if (optArea > 1) {
+            if (optArea > 0) {
                 Lib.TalkativeLog('type of selection of the area to record: ' + optArea);
                 switch (optArea) {
-                case 2:
+                case 3:
                     new Selection.SelectionArea();
                     break;
-                case 3:
+                case 2:
                     new Selection.SelectionWindow();
                     break;
-                case 4:
+                case 1:
                     new Selection.SelectionDesktop();
                     break;
                 }
             } else {
-                Lib.TalkativeLog('recording full area/specific area');
+                Lib.TalkativeLog('recording full area');
                 this._doDelayAction();
             }
         } else {
