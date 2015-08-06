@@ -27,7 +27,6 @@ const Me = ExtensionUtils.getCurrentExtension();
 const Lib = Me.imports.convenience;
 
 // setting keys
-const ACTIVE_DELAY_SETTING_KEY = 'active-delay-time';
 const ACTIVE_AUDIO_REC_SETTING_KEY = 'active-audio-rec';
 const INPUT_AUDIO_SOURCE_SETTING_KEY = 'input-audio-source';
 const LIST_INPUT_AUDIO_SETTING_KEY = 'list-input-audio';
@@ -96,11 +95,6 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             let Ref_box_MainContainer = builder.get_object('Main_Container');
             // packs the main table
             this.pack_start(Ref_box_MainContainer, true, true, 0);
-
-            //disable grid coordinates
-            this.Ref_GridArea_AreaRec = builder.get_object(
-                'grd_coordinatearea');
-            this.Ref_GridArea_AreaRec.set_sensitive(false);
 
             //implements show timer option
             this.Ref_switch_ShowTimerRec = builder.get_object(
@@ -178,22 +172,6 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
 
             this.Ref_treeview_Shortcut.append_column(column);
 
-            //implements area recording option
-            this.Ref_LabelInfo_AreaRec = builder.get_object('lbl_infoarearec');
-            this.Ref_ComboBox_AreaRec = builder.get_object('cbt_arearec');
-            settings.bind(
-                AREA_SCREEN_SETTING_KEY, this.Ref_ComboBox_AreaRec, 'active',
-                Gio.SettingsBindFlags.DEFAULT);
-            this.Ref_ComboBox_AreaRec.connect(
-                'changed', Lang.bind(this, function () {
-                    this._setLabelGridsettings(
-                        this.Ref_ComboBox_AreaRec.get_active());
-                }));
-
-            //implements image of screen
-            this.Ref_Image_Screen = builder.get_object('img_screen');
-            this.Ref_Image_Screen.set_from_file(Lib.ESCimgScreen);
-
             //implements FPS option
             this.Ref_spinner_FrameRateRec = builder.get_object(
                 'spb_FrameRateRec');
@@ -208,53 +186,6 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             this.Ref_spinner_FrameRateRec.configure(adjustment1, 10, 0);
             settings.bind(
                 FPS_SETTING_KEY, this.Ref_spinner_FrameRateRec, 'value',
-                Gio.SettingsBindFlags.DEFAULT);
-
-            //implements specific area options [ X , Y , width , height]
-            this.Ref_spinner_X = builder.get_object('spb_XposRec');
-            this.Ref_spinner_Y = builder.get_object('spb_YposRec');
-            this.Ref_spinner_Width = builder.get_object('spb_WidthRec');
-            this.Ref_spinner_Height = builder.get_object('spb_HeigthRec');
-            // Create an adjustment to use for the second spinbutton
-            let adjustment3 = new Gtk.Adjustment({
-                value: 0,
-                lower: 0,
-                upper: 20000,
-                step_increment: 1,
-                page_increment: 10
-            });
-            this.Ref_spinner_X.configure(adjustment3, 10, 0);
-            let adjustment4 = new Gtk.Adjustment({
-                value: 0,
-                lower: 0,
-                upper: 20000,
-                step_increment: 1,
-                page_increment: 10
-            });
-            this.Ref_spinner_Y.configure(adjustment4, 10, 0);
-            let adjustment6 = new Gtk.Adjustment({
-                value: 600,
-                lower: 0,
-                upper: 20000,
-                step_increment: 1,
-                page_increment: 10
-            });
-            this.Ref_spinner_Width.configure(adjustment6, 10, 0);
-            let adjustment5 = new Gtk.Adjustment({
-                value: 400,
-                lower: 0,
-                upper: 20000,
-                step_increment: 1,
-                page_increment: 10
-            });
-            this.Ref_spinner_Height.configure(adjustment5, 10, 0);
-            settings.bind(X_POS_SETTING_KEY, this.Ref_spinner_X, 'value',
-                Gio.SettingsBindFlags.DEFAULT);
-            settings.bind(Y_POS_SETTING_KEY, this.Ref_spinner_Y, 'value',
-                Gio.SettingsBindFlags.DEFAULT);
-            settings.bind(WIDTH_SETTING_KEY, this.Ref_spinner_Width, 'value',
-                Gio.SettingsBindFlags.DEFAULT);
-            settings.bind(HEIGHT_SETTING_KEY, this.Ref_spinner_Height, 'value',
                 Gio.SettingsBindFlags.DEFAULT);
 
             //implements command string rec option
@@ -326,9 +257,6 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             this._setStateGSP();
             this._refreshInputAudio();
 
-            //update label and grid
-            this._setLabelGridsettings(getOption('i', AREA_SCREEN_SETTING_KEY));
-
             //implements default button action
             this.Ref_button_SetDeafaultSettings = builder.get_object(
                 'btn_DefaultOption');
@@ -358,43 +286,6 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         Lib.TalkativeLog('key ' + key + ' mods ' + mods);
         this.Ref_liststore_Shortcut.set(
             this.Iter_ShortcutRow, [SHORTCUT_COLUMN_KEY, SHORTCUT_COLUMN_MODS], [key, mods]);
-    },
-
-    //set label and grid enable
-    _setLabelGridsettings: function (choice) {
-        Lib.TalkativeLog('set label and grid enable');
-        switch (choice) {
-        case 0:
-            Lib.TalkativeLog('select all area');
-            this.Ref_LabelInfo_AreaRec.set_label(
-                _('The registration covers the entire area'));
-            this.Ref_GridArea_AreaRec.set_sensitive(false);
-            break;
-        case 1:
-            Lib.TalkativeLog('select specific area from coordinates');
-            this.Ref_LabelInfo_AreaRec.set_label(
-                _('Fill box below with the values of the coordinates in pixels'));
-            this.Ref_GridArea_AreaRec.set_sensitive(true);
-            break;
-        case 2:
-            Lib.TalkativeLog('select specific area');
-            this.Ref_LabelInfo_AreaRec.set_label(
-                _('At the start of the recording you can select the recording area'));
-            this.Ref_GridArea_AreaRec.set_sensitive(false);
-            break;
-        case 3:
-            Lib.TalkativeLog('select specific window');
-            this.Ref_LabelInfo_AreaRec.set_label(
-                _('At the start of the recording you can select the window you want to record'));
-            this.Ref_GridArea_AreaRec.set_sensitive(false);
-            break;
-        case 4:
-            Lib.TalkativeLog('select specific desktop');
-            this.Ref_LabelInfo_AreaRec.set_label(
-                _('At the start of the recording you can select the desktop you want to record'));
-            this.Ref_GridArea_AreaRec.set_sensitive(false);
-            break;
-        }
     },
 
     _refreshInputAudio: function () {
