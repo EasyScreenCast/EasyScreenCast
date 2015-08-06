@@ -65,7 +65,12 @@ const EasyScreenCast_Indicator = new Lang.Class({
             'leave-event', Lang.bind(this, this.refreshIndicator, false));
 
         //prepare setting var
-        this.isDelayActive = Pref.getOption('b', Pref.ACTIVE_DELAY_SETTING_KEY);
+        if (Pref.getOption('i', Pref.TIME_DELAY_SETTING_KEY) > 0) {
+            this.isDelayActive = true;
+        } else {
+            this.isDelayActive = false;
+        }
+
         this.isRecAudioActive = (this.CtrlAudio.checkAudio() &&
             !Pref.getOption('b', Pref.ACTIVE_CUSTOM_GSP_SETTING_KEY) &&
             Pref.getOption('b', Pref.ACTIVE_AUDIO_REC_SETTING_KEY));
@@ -115,11 +120,6 @@ const EasyScreenCast_Indicator = new Lang.Class({
 
         //enable key binding
         this._enableKeybindings();
-
-        if (!this.isDelayActive) {
-            this.DelayTimeTitle.actor.hide;
-            this.TimeSlider.actor.hide;
-        }
     },
 
     _addMIRecording: function () {
@@ -198,11 +198,16 @@ const EasyScreenCast_Indicator = new Lang.Class({
             true);
         this.smDelayRec.icon.icon_name = 'alarm-symbolic';
 
-        this.smDelayRec.menu.addMenuItem(this._createMIDelayRec());
-
         var arrMI = this._createMIInfoDelayRec();
-        for (ele in arrMI) {
+        for (var ele in arrMI) {
             this.smDelayRec.menu.addMenuItem(arrMI[ele]);
+        }
+
+        var secDelay = Pref.getOption('i', Pref.TIME_DELAY_SETTING_KEY);
+        if (secDelay > 0) {
+            this.smDelayRec.status.text = secDelay + _(' sec');
+        } else {
+            this.smDelayRec.status.text = _('off');
         }
 
         this.menu.addMenuItem(this.smDelayRec);
@@ -239,30 +244,6 @@ const EasyScreenCast_Indicator = new Lang.Class({
         }
 
         return this.AreaMenuItem;
-    },
-
-    _createMIDelayRec: function () {
-        this.imDelayRec = new PopupMenu.PopupSwitchMenuItem(
-            _('Delay recording'),
-            this.isDelayActive, {
-                style_class: 'popup-subtitle-menu-item'
-            });
-        this.imDelayRec.connect('toggled', Lang.bind(this, function (item) {
-            if (item.state) {
-                this.isDelayActive = true;
-
-                this.DelayTimeTitle.actor.show;
-                this.TimeSlider.actor.show;
-            } else {
-                this.isDelayActive = false;
-
-                this.DelayTimeTitle.actor.hide;
-                this.TimeSlider.actor.hide;
-            }
-            Pref.setOption(Pref.ACTIVE_DELAY_SETTING_KEY, item.state);
-        }));
-
-        return this.imDelayRec;
     },
 
     _createMIInfoDelayRec: function () {
@@ -310,7 +291,6 @@ const EasyScreenCast_Indicator = new Lang.Class({
     },
 
     _doDelayAction: function () {
-
         if (this.isDelayActive) {
             Lib.TalkativeLog('delay recording called | delay= ' + this.TimeSlider.value);
             timerD = new Time.TimerDelay((
@@ -430,7 +410,17 @@ const EasyScreenCast_Indicator = new Lang.Class({
     },
 
     _onDelayTimeChanged: function () {
-        Pref.setOption(Pref.TIME_DELAY_SETTING_KEY, Math.floor(this.TimeSlider.value * 100));
+
+        var secDelay = Math.floor(this.TimeSlider.value * 100)
+        Pref.setOption(Pref.TIME_DELAY_SETTING_KEY, secDelay);
+
+        if (secDelay > 0) {
+            this.smDelayRec.status.text = secDelay + _(' sec');
+            this.isDelayActive = true;
+        } else {
+            this.smDelayRec.status.text = _('off');
+            this.isDelayActive = false;
+        }
     },
 
     _createNotify: function () {
