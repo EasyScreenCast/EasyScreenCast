@@ -30,11 +30,6 @@
             <summary>Time in seconds fot delay recording</summary>
             <description>Time in seconds fot delay recording</description>
         </key>
-        <key name="active-delay-time" type="b">
-            <default>false</default>
-            <summary>Active delay before recording</summary>
-            <description>Active delay before recording</description>
-        </key>
         <key name="verbose-debug" type="b">
             <default>false</default>
             <summary>Enable verbose debug</summary>
