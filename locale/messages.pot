@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-01 11:06+0200\n"
+"POT-Creation-Date: 2015-08-04 12:08+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,78 +17,84 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: extension.js:108
+#: extension.js:116
 msgid "Options"
 msgstr ""
 
-#: extension.js:125 extension.js:394
+#: extension.js:128 extension.js:476
 msgid "Start recording"
 msgstr ""
 
-#: extension.js:143
+#: extension.js:146
 msgid "Record audio"
 msgstr ""
 
-#: extension.js:177
+#: extension.js:182
+msgid "Recording area"
+msgstr ""
+
+#: extension.js:197
 msgid "Delay recording"
 msgstr ""
 
-#: extension.js:200
+#: extension.js:208 extension.js:418
+msgid " sec"
+msgstr ""
+
+#: extension.js:210 extension.js:421
+msgid "off"
+msgstr ""
+
+#: extension.js:218
+msgid "All desktop"
+msgstr ""
+
+#: extension.js:218
+msgid "Select monitor"
+msgstr ""
+
+#: extension.js:219
+msgid "Select window"
+msgstr ""
+
+#: extension.js:219
+msgid "Select area"
+msgstr ""
+
+#: extension.js:250
 msgid "Delay Time"
 msgstr ""
 
-#: extension.js:206 extension.js:220
+#: extension.js:256 extension.js:270
 msgid " Sec"
 msgstr ""
 
-#: extension.js:348
+#: extension.js:430
 msgid "Start Recording"
 msgstr ""
 
-#: extension.js:364
+#: extension.js:446
 msgid "ERROR RECORDER - See logs form more info"
 msgstr ""
 
-#: extension.js:387
+#: extension.js:469
 msgid "Stop recording"
 msgstr ""
 
-#: extension.js:449
+#: extension.js:532
 msgid "EasyScreenCast -> Finish Recording / Seconds : "
 msgstr ""
 
-#: extension.js:454
+#: extension.js:537
 msgid "Open in the filesystem"
 msgstr ""
 
-#: extension.js:481
+#: extension.js:552
 msgid "EasyScreenCast -> Recording in progress / Seconds passed : "
 msgstr ""
 
-#: prefs.js:92
+#: prefs.js:86
 msgid "Could not load the preferences UI file"
-msgstr ""
-
-#: prefs.js:391
-msgid "The registration covers the entire area"
-msgstr ""
-
-#: prefs.js:397
-msgid "Fill box below with the values of the coordinates in pixels"
-msgstr ""
-
-#: prefs.js:403
-msgid "At the start of the recording you can select the recording area"
-msgstr ""
-
-#: prefs.js:409
-msgid ""
-"At the start of the recording you can select the window you want to record"
-msgstr ""
-
-#: prefs.js:415
-msgid ""
-"At the start of the recording you can select the desktop you want to record"
 msgstr ""
 
 #: selection.js:202
