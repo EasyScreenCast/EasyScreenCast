@@ -303,21 +303,6 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkLabel" id="label7">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="tooltip_text" translatable="yes">This option not work in gnome shell 3.10 because the limit of 30 seconds is hardcoded:
-https://bugzilla.gnome.org/show_bug.cgi?id=708660</property>
-                            <property name="halign">end</property>
-                            <property name="hexpand">True</property>
-                            <property name="label" translatable="yes">Maximum duration screencast</property>
-                          </object>
-                          <packing>
-                            <property name="left_attach">0</property>
-                            <property name="top_attach">2</property>
-                          </packing>
-                        </child>
-                        <child>
                           <object class="GtkSpinButton" id="spb_FrameRateRec">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
@@ -345,23 +330,6 @@ https://bugzilla.gnome.org/show_bug.cgi?id=708660</property>
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkSpinButton" id="spb_MaxDurationRec">
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="tooltip_text" translatable="yes">This option not work in gnome shell 3.10 because the limit of 30 seconds is hardcoded:
-https://bugzilla.gnome.org/show_bug.cgi?id=708660</property>
-                            <property name="halign">start</property>
-                            <property name="hexpand">True</property>
-                            <property name="invisible_char">●</property>
-                            <property name="text" translatable="yes">0</property>
-                            <property name="climb_rate">1</property>
-                          </object>
-                          <packing>
-                            <property name="left_attach">1</property>
-                            <property name="top_attach">2</property>
-                          </packing>
-                        </child>
-                        <child>
                           <object class="GtkLabel" id="label11">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
@@ -371,7 +339,7 @@ https://bugzilla.gnome.org/show_bug.cgi?id=708660</property>
                           </object>
                           <packing>
                             <property name="left_attach">0</property>
-                            <property name="top_attach">3</property>
+                            <property name="top_attach">2</property>
                           </packing>
                         </child>
                         <child>
@@ -383,7 +351,7 @@ https://bugzilla.gnome.org/show_bug.cgi?id=708660</property>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
-                            <property name="top_attach">3</property>
+                            <property name="top_attach">2</property>
                           </packing>
                         </child>
                         <child>
@@ -396,7 +364,19 @@ https://bugzilla.gnome.org/show_bug.cgi?id=708660</property>
                           </object>
                           <packing>
                             <property name="left_attach">0</property>
-                            <property name="top_attach">4</property>
+                            <property name="top_attach">3</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkSwitch" id="swt_executepostcmd">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="halign">start</property>
+                            <property name="hexpand">False</property>
+                          </object>
+                          <packing>
+                            <property name="left_attach">1</property>
+                            <property name="top_attach">3</property>
                           </packing>
                         </child>
                         <child>
@@ -410,18 +390,6 @@ https://bugzilla.gnome.org/show_bug.cgi?id=708660</property>
                           </object>
                           <packing>
                             <property name="left_attach">0</property>
-                            <property name="top_attach">5</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkSwitch" id="swt_executepostcmd">
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="halign">start</property>
-                            <property name="hexpand">False</property>
-                          </object>
-                          <packing>
-                            <property name="left_attach">1</property>
                             <property name="top_attach">4</property>
                           </packing>
                         </child>
@@ -434,7 +402,7 @@ https://bugzilla.gnome.org/show_bug.cgi?id=708660</property>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
-                            <property name="top_attach">5</property>
+                            <property name="top_attach">4</property>
                           </packing>
                         </child>
                       </object>
