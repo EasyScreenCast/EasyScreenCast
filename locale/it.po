@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ESC\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-16 12:21+0200\n"
-"PO-Revision-Date: 2015-08-16 12:24+0200\n"
+"PO-Revision-Date: 2015-08-16 12:38+0200\n"
 "Last-Translator: idn <iacopodeenosee@gmail.com>\n"
 "Language-Team: IDN <iacopodeenosee@gmail.com>\n"
 "Language: it\n"
@@ -31,18 +31,16 @@ msgid "Record audio"
 msgstr "Registra Audio"
 
 #: extension.js:182
-#, fuzzy
 msgid "Recording area"
-msgstr "Inizia Registrazione"
+msgstr "Area di Registrazione"
 
 #: extension.js:197
 msgid "Delay recording"
 msgstr "Ritarda registrazione"
 
 #: extension.js:208 extension.js:418
-#, fuzzy
 msgid " sec"
-msgstr " Sec"
+msgstr " sec"
 
 #: extension.js:210 extension.js:421
 msgid "off"
