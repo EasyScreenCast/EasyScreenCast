@@ -73,8 +73,29 @@ const CaptureVideo = new Lang.Class({
         if (Pref.getOption('b', Pref.ACTIVE_CUSTOM_GSP_SETTING_KEY)) {
             pipelineRec = Pref.getOption('s', Pref.PIPELINE_REC_SETTING_KEY);
         } else {
-            pipelineRec = this.updateGSP(Pref.getOption(
-                's', Pref.PIPELINE_REC_SETTING_KEY));
+            if (Pref.getOption(
+                    'b', Pref.ACTIVE_AUDIO_REC_SETTING_KEY) && Pref.getOption(
+                    'i', Pref.INPUT_AUDIO_SOURCE_SETTING_KEY) !== -1) {
+
+                var tmpGSP = Pref.getGSPstd(true);
+
+                //change device source
+                var re = /pulsesrc/gi;
+                var audiosource = this.CtrlAudio.getAudioSource();
+                if (audiosource.indexOf('output') !== -1) {
+                    audiosource += '.monitor';
+                }
+                var strReplace = 'pulsesrc device="' + audiosource + '"';
+
+                Lib.TalkativeLog('pipeline pre-audio:' + tmpGSP);
+
+                var audioPipeline = tmpGSP.replace(re, strReplace);
+                Lib.TalkativeLog('pipeline post-audio:' + audioPipeline);
+
+                pipelineRec = audioPipeline;
+            } else {
+                pipelineRec = Pref.getGSPstd(false);
+            }
         }
 
         Lib.TalkativeLog('path/file template : ' + fileRec);
@@ -151,32 +172,5 @@ const CaptureVideo = new Lang.Class({
 
                 return true;
             }));
-    },
-
-    updateGSP: function (tmpGSP) {
-        Lib.TalkativeLog('update gstreamer pipeline for audio/webcam support');
-
-        if (Pref.getOption(
-                'b', Pref.ACTIVE_AUDIO_REC_SETTING_KEY) && Pref.getOption(
-                'i', Pref.INPUT_AUDIO_SOURCE_SETTING_KEY) !== -1) {
-
-            //change device source
-            var re = /pulsesrc/gi;
-            var audiosource = this.CtrlAudio.getAudioSource();
-            if (audiosource.indexOf('output') !== -1) {
-                audiosource += '.monitor';
-            }
-            var strReplace = 'pulsesrc device="' + audiosource + '"';
-
-            Lib.TalkativeLog('pipeline pre-audio:' + tmpGSP);
-
-            var audioPipeline = tmpGSP.replace(re, strReplace);
-            Lib.TalkativeLog('pipeline post-audio:' + audioPipeline);
-
-            return audioPipeline;
-        } else {
-            return Pref.getGSPstd(false);
-        }
-
     }
 });
