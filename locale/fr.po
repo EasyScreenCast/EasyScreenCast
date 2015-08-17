@@ -3,95 +3,100 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: ESC\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-13 18:48+0100\n"
-"PO-Revision-Date: 2015-07-04 15:00+0200\n"
-"Last-Translator: maboiteaspam <https://github.com/maboiteaspam>\n"
+"POT-Creation-Date: 2015-08-17 11:47+0200\n"
+"PO-Revision-Date: 2015-08-17 11:49+0200\n"
+"Last-Translator: Raphael Rochet <raphael@rri.fr>\n"
 "Language-Team: français <>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Gtranslator 2.91.6\n"
+"X-Generator: Poedit 1.8.4\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: extension.js:108
+#: extension.js:116
 msgid "Options"
-msgstr ""
+msgstr "Options"
 
-#: extension.js:125 extension.js:394
+#: extension.js:128 extension.js:476
 msgid "Start recording"
 msgstr "Démarrer l'enregistrement"
 
-#: extension.js:143
+#: extension.js:146
 msgid "Record audio"
 msgstr "Enregistrer l'audio"
 
-#: extension.js:177
+#: extension.js:182
+msgid "Recording area"
+msgstr "Zone d'enregistrement"
+
+#: extension.js:197
 msgid "Delay recording"
 msgstr "Retarder le démarrage"
 
-#: extension.js:200
+#: extension.js:208 extension.js:418
+msgid " sec"
+msgstr " sec"
+
+#: extension.js:210 extension.js:421
+msgid "off"
+msgstr "Off"
+
+#: extension.js:218
+msgid "All desktop"
+msgstr "Tout le bureau"
+
+#: extension.js:218
+msgid "Select monitor"
+msgstr "Sélectionner l'écran"
+
+#: extension.js:219
+msgid "Select window"
+msgstr "Sélectionner la fenêtre"
+
+#: extension.js:219
+msgid "Select area"
+msgstr "Sélectionner la zone"
+
+#: extension.js:250
 msgid "Delay Time"
 msgstr "Délai"
 
-#: extension.js:206 extension.js:220
+#: extension.js:256 extension.js:270
 msgid " Sec"
 msgstr " secondes"
 
-#: extension.js:348
+#: extension.js:430
 msgid "Start Recording"
 msgstr "Démarrer l'enregistrement"
 
-#: extension.js:364
+#: extension.js:446
 msgid "ERROR RECORDER - See logs form more info"
 msgstr "ERREUR D'ENREGISTREMENT - Consultez les logs pour plus de détails"
 
-#: extension.js:387
+#: extension.js:469
 msgid "Stop recording"
 msgstr "Arréter l'enregistrement"
 
-#: extension.js:449
+#: extension.js:532
 msgid "EasyScreenCast -> Finish Recording / Seconds : "
 msgstr "EasyScreenCast -> Enregistrement terminé / Durée en secondes : "
 
-#: extension.js:454
+#: extension.js:537
 msgid "Open in the filesystem"
 msgstr "Ouvrir le système de fichier"
 
-#: extension.js:481
+#: extension.js:552
 msgid "EasyScreenCast -> Recording in progress / Seconds passed : "
 msgstr "EasyScreenCast -> Enregistrement en cours / Secondes écoulées : "
 
-#: prefs.js:92
+#: prefs.js:86
 msgid "Could not load the preferences UI file"
 msgstr "Impossible de charger le fichier de préférences de l'extension"
-
-#: prefs.js:391
-msgid "The registration covers the entire area"
-msgstr "L'enregistrement couvre toute la zone"
-
-#: prefs.js:397
-msgid "Fill box below with the values of the coordinates in pixels"
-msgstr "Saisissez les coordonnées en pixels"
-
-#: prefs.js:403
-msgid "At the start of the recording you can select the recording area"
-msgstr "Au démarrage de l'enregistrement vous serez invité à sélectionner l'aire de capture"
-
-#: prefs.js:409
-msgid ""
-"At the start of the recording you can select the window you want to record"
-msgstr "Au démarrage de l'enregistrement vous serez invité à sélectionner la fenêtre de capture"
-
-#: prefs.js:415
-msgid ""
-"At the start of the recording you can select the desktop you want to record"
-msgstr "Au démarrage de l'enregistrement vous serez invité à sélectionner le bureau de capture"
 
 #: selection.js:202
 msgid "Select a area for recording or press [ESC] to abort"
@@ -104,3 +109,18 @@ msgstr "Sélectionner une fenêtre de capture ou appuyer sur [ESC] pour annuler"
 #: selection.js:309
 msgid "Select a desktop for recording or press [ESC] to abort"
 msgstr "Sélectionner un bureau de capture ou appuyer sur [ESC] pour annuler"
+
+#~ msgid "The registration covers the entire area"
+#~ msgstr "L'enregistrement couvre toute la zone"
+
+#~ msgid "Fill box below with the values of the coordinates in pixels"
+#~ msgstr "Saisissez les coordonnées en pixels"
+
+#~ msgid "At the start of the recording you can select the recording area"
+#~ msgstr "Au démarrage de l'enregistrement vous serez invité à sélectionner l'aire de capture"
+
+#~ msgid "At the start of the recording you can select the window you want to record"
+#~ msgstr "Au démarrage de l'enregistrement vous serez invité à sélectionner la fenêtre de capture"
+
+#~ msgid "At the start of the recording you can select the desktop you want to record"
+#~ msgstr "Au démarrage de l'enregistrement vous serez invité à sélectionner le bureau de capture"
