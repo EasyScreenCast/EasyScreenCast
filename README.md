@@ -1,6 +1,6 @@
 EasyScreenCast is a simple extension of a gnome 3 shell DE 
 
-Copyright (C) 2013-2014 Borsato Ivano.
+Copyright (C) 2013-14-15 Borsato Ivano.
 
 * [Web Page](http://iacopodeenosee.wordpress.com/)
 * [GNOME Shell Extensions Page](https://extensions.gnome.org/extension/690/easyscreencast/)
@@ -30,11 +30,10 @@ If you want to help with translation in your language, just follow these simple 
 
     mkdir -p locale/$lang/LC_MESSAGES
 
-2 - Translate the string with the program Poedit by using a .pot files (locale/messages.pot locale-UI/messagesUI.pot)
+2 - Translate the string with the program Poedit by using a .pot files (locale/messages.pot)
 
-3 - Save these files in the same directory of .pot files, use the code language for the name of them (locale/it.po locale-UI/it.po) 
+3 - Save these files in the same directory of .pot files, use the code language for the name of them (locale/$lang.po) 
 
 4 - Convert in binary these .po files, where $lang is a code language, with these command:
 
     msgfmt /locale/$lang.po -o locale/$lang/LC_MESSAGES/EasyScreenCast@iacopodeenosee.gmail.com.mo
-    msgfmt /locale-UI/$lang.po -o locale-UI/$lang/LC_MESSAGES/EasyScreenCast@iacopodeenosee.gmail.com.mo
