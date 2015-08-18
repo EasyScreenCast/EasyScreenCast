@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-04 12:08+0200\n"
+"POT-Creation-Date: 2015-08-18 13:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -107,4 +107,157 @@ msgstr ""
 
 #: selection.js:309
 msgid "Select a desktop for recording or press [ESC] to abort"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:55
+msgid "Replace standard indicator on status menu"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:81
+msgid "Show time recording into notification bar"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:108
+msgid "Show a border around the area being recorded"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:133
+msgid "Enable keyboard shortcut"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:156 EasyScreenCast.gtkbuilder:186
+msgid "To activate the change of the shortcut restart the extension"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:159
+msgid "Shortcut combination"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:170
+msgid ""
+"This option enable more debug message, to view these run this command into a "
+"terminal:\n"
+"$ journalctl /usr/bin/gnome-session --since=today --no-pager | grep js\n"
+"$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:175
+msgid "Enable verbose debug"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:209
+msgid ""
+"This option enable more debug message, to view these run this command into a "
+"terminal:\n"
+"$ journalctl /usr/bin/gnome-session --since=today | grep js\n"
+"$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:248
+msgid "<b>Options</b>"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:285
+msgid "Frames Per Second"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:298
+msgid "Draw cursor on screencast"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:312
+msgid "0"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:338
+msgid "Input source Audio"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:363
+msgid "Execute command after recording"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:386 EasyScreenCast.gtkbuilder:400
+msgid ""
+"The word $AbsFilePath will replace by the absolute path of the screencast "
+"video file."
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:389
+msgid "Command post-recording"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:436
+msgid "<b>Screencast options</b>"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:473 EasyScreenCast.gtkbuilder:504
+msgid ""
+"the filename which may contain some escape sequences - %d and %t will be "
+"replaced by the start date and time of the recording."
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:476
+msgid "File name template : "
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:487 EasyScreenCast.gtkbuilder:516
+#: EasyScreenCast.gtkbuilder:549
+msgid ""
+"Select the folder where the file is saved, if not specific a folder  the "
+"file will be saved in the $XDG_VIDEOS_DIR if it exists, or the home "
+"directory otherwise."
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:490
+msgid "The file is saved in the path : "
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:562
+msgid "Choose a directory"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:593
+msgid "<b>File screencast</b>"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:631
+msgid "Custom GStreamer Pipeline"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:667
+msgid ""
+"The extension handles audio and webcam support  only if is NOT used a custom "
+"gstreamer pipeline .\n"
+"GStreamer is a pipeline-based multimedia allows a programmer to create a "
+"variety of media-handling components, including simple audio playback, audio "
+"and video playback, recording, streaming and editing.Below some useful links."
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:683
+msgid "Official doc"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:699
+msgid "Wiki #1"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:714
+msgid "Wiki #2"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:771
+msgid "GStreamer Pipeline"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:801
+msgid "<b>GStreamer Pipeline</b>"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:840
+msgid "Report [ Bugs / Feature Request / Issue ] here"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:855
+msgid "Restore default options"
 msgstr ""

@@ -59,7 +59,7 @@ const SHORTCUT_COLUMN_MODS = 1;
 let settings = null;
 
 function init() {
-    Lib.initTranslationsGtkBuilder('EasyScreenCast@iacopodeenosee.gmail.com');
+    Lib.initTranslations('EasyScreenCast@iacopodeenosee.gmail.com');
 }
 
 const EasyScreenCastSettingsWidget = new GObject.Class({

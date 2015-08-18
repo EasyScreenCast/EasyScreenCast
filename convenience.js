@@ -56,21 +56,6 @@ function initTranslations(domain) {
 }
 
 /**
- * initTranslationsGtkBuilder:
- * @domain: (optional): the gettext domain to use
- */
-function initTranslationsGtkBuilder(domain) {
-
-    domain = domain || Me.metadata['gettext-domain'];
-
-    let localeDir = Me.dir.get_child('locale-UI');
-    if (localeDir.query_exists(null))
-        Gettext.bindtextdomain(domain, localeDir.get_path());
-    else
-        Gettext.bindtextdomain(domain, Config.LOCALEDIR);
-}
-
-/**
  * getSettings:
  * @schema: (optional): the GSettings schema id
  *
@@ -109,7 +94,7 @@ function getSettings(schema) {
 */
 function TalkativeLog(msg) {
     if (Pref.getOption('b', Pref.VERBOSE_DEBUG_SETTING_KEY)) {
-        global.log('ESC > '+msg);
+        global.log('ESC > ' + msg);
     }
 };
 
