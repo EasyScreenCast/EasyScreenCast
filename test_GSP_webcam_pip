@@ -1,0 +1,227 @@
+#################
+
+gst init & res
+
+#################
+
+//links
+https://developer.gnome.org/gstreamer/stable/
+https://developer.gnome.org/gst-plugins-libs/stable/
+https://developer.gnome.org/gstreamer-libs/stable/
+http://www.roojs.org/seed/gir-1.2-gtk-3.0/seed/Gst.html
+http://www.roojs.org/seed/gir-1.2-gtk-3.0/seed/GstVideo.html
+
+
+
+//videotest patner
+gst-launch-1.0 videotestsrc pattern=snow ! ximagesink
+gst-launch-1.0 videotestsrc ! ximagesink
+gst-launch-1.0 -v videotestsrc pattern=snow ! video/x-raw,width=1280,height=720 ! autovideosink
+gst-launch-1.0 -v videotestsrc  ! video/x-raw,width=820,height=640 ! ximagesink
+gst-launch-1.0 -v videotestsrc ! video/x-raw,format=BGRx,width=640, height=360 ! ximagesink
+
+
+
+
+
+//list of video input
+for VIDEO_DEVICE in /dev/video* ; do echo ; echo ; echo $VIDEO_DEVICE ; echo ; v4l2-ctl --device=$VIDEO_DEVICE --list-inputs ; done
+
+
+//list of setting of video of webcam
+gst-launch-0.10 --gst-debug=v4l2src:3 v4l2src device=/dev/video0 ! fakesink 2>&1 | grep 'probed caps:'
+
+
+
+//list caps webcam
+probed caps: video/x-raw-yuv, format=(fourcc)YUY2, width=(int)1600, height=(int)1200, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 5/1 }; 
+video/x-raw-yuv, format=(fourcc)YUY2, width=(int)1280, height=(int)1024, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 15/2 }; 
+video/x-raw-yuv, format=(fourcc)YUY2, width=(int)1024, height=(int)768, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 12/1 }; 
+video/x-raw-yuv, format=(fourcc)YUY2, width=(int)800, height=(int)600, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 15/1 }; 
+video/x-raw-yuv, format=(fourcc)YUY2, width=(int)640, height=(int)480, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 }; 
+video/x-raw-yuv, format=(fourcc)YUY2, width=(int)352, height=(int)288, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 }; 
+video/x-raw-yuv, format=(fourcc)YUY2, width=(int)320, height=(int)240, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 }; 
+video/x-raw-yuv, format=(fourcc)YUY2, width=(int)176, height=(int)144, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 }; 
+video/x-raw-yuv, format=(fourcc)YUY2, width=(int)160, height=(int)120, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 }; 
+image/jpeg, width=(int)1600, height=(int)1200, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 12/1 }; 
+image/jpeg, width=(int)1280, height=(int)1024, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 15/1 }; 
+image/jpeg, width=(int)1024, height=(int)768, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 15/1 }; 
+image/jpeg, width=(int)800, height=(int)600, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 15/1 }; 
+image/jpeg, width=(int)640, height=(int)480, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 }; 
+image/jpeg, width=(int)352, height=(int)288, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 }; 
+image/jpeg, width=(int)320, height=(int)240, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 }; 
+image/jpeg, width=(int)176, height=(int)144, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 }; 
+image/jpeg, width=(int)160, height=(int)120, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 }; 
+video/x-raw-yuv, format=(fourcc)I420, width=(int)1600, height=(int)1200, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 12/1 }; 
+video/x-raw-yuv, format=(fourcc)I420, width=(int)1280, height=(int)1024, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 15/1 }; 
+video/x-raw-yuv, format=(fourcc)I420, width=(int)1024, height=(int)768, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 15/1 }; 
+video/x-raw-yuv, format=(fourcc)I420, width=(int)800, height=(int)600, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 15/1 }; 
+video/x-raw-yuv, format=(fourcc)I420, width=(int)640, height=(int)480, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 }; 
+video/x-raw-yuv, format=(fourcc)I420, width=(int)352, height=(int)288, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 }; 
+video/x-raw-yuv, format=(fourcc)I420, width=(int)320, height=(int)240, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 }; 
+video/x-raw-yuv, format=(fourcc)I420, width=(int)176, height=(int)144, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 }; 
+video/x-raw-yuv, format=(fourcc)I420, width=(int)160, height=(int)120, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 }; 
+video/x-raw-yuv, format=(fourcc)YV12, width=(int)1600, height=(int)1200, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 12/1 }; 
+video/x-raw-yuv, format=(fourcc)YV12, width=(int)1280, height=(int)1024, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 15/1 }; 
+video/x-raw-yuv, format=(fourcc)YV12, width=(int)1024, height=(int)768, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 15/1 }; 
+video/x-raw-yuv, format=(fourcc)YV12, width=(int)800, height=(int)600, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 15/1 }; 
+video/x-raw-yuv, format=(fourcc)YV12, width=(int)640, height=(int)480, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 }; 
+video/x-raw-yuv, format=(fourcc)YV12, width=(int)352, height=(int)288, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 }; 
+video/x-raw-yuv, format=(fourcc)YV12, width=(int)320, height=(int)240, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 }; 
+video/x-raw-yuv, format=(fourcc)YV12, width=(int)176, height=(int)144, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 }; 
+video/x-raw-yuv, format=(fourcc)YV12, width=(int)160, height=(int)120, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 }; 
+video/x-raw-rgb, bpp=(int)24, depth=(int)24, red_mask=(int)255, green_mask=(int)65280, blue_mask=(int)16711680, endianness=(int)4321, width=(int)1600, height=(int)1200, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 12/1 }; 
+video/x-raw-rgb, bpp=(int)24, depth=(int)24, red_mask=(int)255, green_mask=(int)65280, blue_mask=(int)16711680, endianness=(int)4321, width=(int)1280, height=(int)1024, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 15/1 }; 
+video/x-raw-rgb, bpp=(int)24, depth=(int)24, red_mask=(int)255, green_mask=(int)65280, blue_mask=(int)16711680, endianness=(int)4321, width=(int)1024, height=(int)768, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 15/1 }; 
+video/x-raw-rgb, bpp=(int)24, depth=(int)24, red_mask=(int)255, green_mask=(int)65280, blue_mask=(int)16711680, endianness=(int)4321, width=(int)800, height=(int)600, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 15/1 }; 
+video/x-raw-rgb, bpp=(int)24, depth=(int)24, red_mask=(int)255, green_mask=(int)65280, blue_mask=(int)16711680, endianness=(int)4321, width=(int)640, height=(int)480, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 }; 
+video/x-raw-rgb, bpp=(int)24, depth=(int)24, red_mask=(int)255, green_mask=(int)65280, blue_mask=(int)16711680, endianness=(int)4321, width=(int)352, height=(int)288, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 }; 
+video/x-raw-rgb, bpp=(int)24, depth=(int)24, red_mask=(int)255, green_mask=(int)65280, blue_mask=(int)16711680, endianness=(int)4321, width=(int)320, height=(int)240, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 }; 
+video/x-raw-rgb, bpp=(int)24, depth=(int)24, red_mask=(int)255, green_mask=(int)65280, blue_mask=(int)16711680, endianness=(int)4321, width=(int)176, height=(int)144, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 }; 
+video/x-raw-rgb, bpp=(int)24, depth=(int)24, red_mask=(int)255, green_mask=(int)65280, blue_mask=(int)16711680, endianness=(int)4321, width=(int)160, height=(int)120, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 }; 
+video/x-raw-rgb, bpp=(int)24, depth=(int)24, red_mask=(int)16711680, green_mask=(int)65280, blue_mask=(int)255, endianness=(int)4321, width=(int)1600, height=(int)1200, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 12/1 }; 
+video/x-raw-rgb, bpp=(int)24, depth=(int)24, red_mask=(int)16711680, green_mask=(int)65280, blue_mask=(int)255, endianness=(int)4321, width=(int)1280, height=(int)1024, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 15/1 }; 
+video/x-raw-rgb, bpp=(int)24, depth=(int)24, red_mask=(int)16711680, green_mask=(int)65280, blue_mask=(int)255, endianness=(int)4321, width=(int)1024, height=(int)768, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 15/1 }; 
+video/x-raw-rgb, bpp=(int)24, depth=(int)24, red_mask=(int)16711680, green_mask=(int)65280, blue_mask=(int)255, endianness=(int)4321, width=(int)800, height=(int)600, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 15/1 }; 
+video/x-raw-rgb, bpp=(int)24, depth=(int)24, red_mask=(int)16711680, green_mask=(int)65280, blue_mask=(int)255, endianness=(int)4321, width=(int)640, height=(int)480, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 }; 
+video/x-raw-rgb, bpp=(int)24, depth=(int)24, red_mask=(int)16711680, green_mask=(int)65280, blue_mask=(int)255, endianness=(int)4321, width=(int)352, height=(int)288, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 }; 
+video/x-raw-rgb, bpp=(int)24, depth=(int)24, red_mask=(int)16711680, green_mask=(int)65280, blue_mask=(int)255, endianness=(int)4321, width=(int)320, height=(int)240, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 }; 
+video/x-raw-rgb, bpp=(int)24, depth=(int)24, red_mask=(int)16711680, green_mask=(int)65280, blue_mask=(int)255, endianness=(int)4321, width=(int)176, height=(int)144, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 }; 
+video/x-raw-rgb, bpp=(int)24, depth=(int)24, red_mask=(int)16711680, green_mask=(int)65280, blue_mask=(int)255, endianness=(int)4321, width=(int)160, height=(int)120, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 }
+
+
+
+
+
+
+
+#################
+
+gst 1.0
+
+#################
+
+//test
+gst-launch-1.0 -v videotestsrc pattern="snow"  ! video/x-raw,format=YUY2 ! videoconvert ! autovideosink
+
+
+//pip
+gst-launch-1.0  videotestsrc ! video/x-raw,format=AYUV,framerate=5/1,width=320,height=240 ! videomixer name=mix sink_0::alpha=0.7 sink_1::alpha=0.5 ! videoconvert ! xvimagesink videotestsrc pattern=2 ! video/x-raw,format=AYUV,framerate=\(fraction\)10/1,width=100,height=100 ! videobox border-alpha=0 top=-70  bottom=-70 right=-220 ! mix.
+
+
+//pip2
+gst-launch-1.0 videotestsrc pattern=1 ! video/x-raw, framerate=10/1, width=200, height=200 ! videomixer name=mix ! videoconvert ! ximagesink videotestsrc ! video/x-raw, framerate=5/1, width=100, height=100 ! mix.
+
+
+//pip3
+gst-launch-1.0  videotestsrc ! video/x-raw,format=I420, framerate=5/1, width=320, height=240 ! videomixer name=mix ! videoconvert ! ximagesink videotestsrc pattern=1 ! video/x-raw,format =I420, framerate=10/1, width=100, height=100 ! mix.
+
+
+//pip 4
+gst-launch-1.0 videomixer name=mixer sink_1::alpha=0.5 sink_1::xpos=50 sink_1::ypos=50 ! videoconvert ! ximagesink videotestsrc pattern=smpte ! "video/x-raw,format=AYUV,width=800,height=600,framerate=10/1" ! timeoverlay ! queue2 ! mixer. videotestsrc pattern=snow timestamp-offset=3000000000 ! "video/x-raw,format=AYUV,width=640,height=480,framerate=30/1" ! timeoverlay ! queue2 ! mixer. 
+
+
+
+
+
+//timestamp
+gst-launch-1.0 videotestsrc ! timeoverlay font-desc=60px ! xvimagesink
+
+
+
+
+// webcam
+gst-launch-1.0 -v v4l2src  ! video/x-raw,format=YUY2,width=640, height=480, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 ! videoconvert ! xvimagesink
+
+
+
+
+//webcam into test pattern
+gst-launch-1.0 -v videotestsrc ! video/x-raw, format=YUY2, framerate=10/1, width=940, height=600 ! videoconvert ! videomixer name=mix !  xvimagesink  v4l2src ! video/x-raw,format=YUY2,width=640, height=480, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 ! videoconvert ! mix.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#################
+
+gst 0.1
+
+#################
+
+
+//test video
+gst-launch-0.10 videotestsrc ! video/x-raw-rgb, framerate=25/1, width=640, height=360 ! ximagesink
+
+//test pip
+gst-launch-0.10 -e videotestsrc pattern="snow" ! video/x-raw-yuv, framerate=10/1, width=200, height=150 ! videomixer name=mix ! ffmpegcolorspace ! xvimagesink videotestsrc ! video/x-raw-yuv, framerate=10/1, width=640, height=360 ! mix.
+
+//test pip2
+gst-launch-0.10 videotestsrc pattern="snow" ! video/x-raw-yuv, framerate=10/1, width=200, height=150 ! videomixer name=mix sink_1::xpos=20 sink_1::ypos=20 sink_1::alpha=0.5 sink_1::zorder=3 sink_2::xpos=100 sink_2::ypos=100 sink_2::zorder=2 ! ffmpegcolorspace ! xvimagesink videotestsrc pattern=13 ! video/x-raw-yuv, framerate=10/1, width=200, height=150 ! mix. videotestsrc ! video/x-raw-yuv, framerate=10/1, width=640, height=360 ! mix.
+
+//test pip3
+gst-launch-0.10 videomixer name=mix sink_1::xpos=20 sink_1::ypos=20 sink_1::alpha=0.5 sink_1::zorder=3 sink_2::xpos=100 sink_2::ypos=100 sink_2::zorder=2 ! ffmpegcolorspace ! xvimagesink videotestsrc ! video/x-raw-yuv, framerate=10/1, width=640, height=360 ! mix.sink_0 videotestsrc pattern="snow" ! video/x-raw-yuv, framerate=10/1, width=200, height=150 ! mix.sink_1 videotestsrc pattern=13 ! video/x-raw-yuv, framerate=10/1, width=200, height=150 ! mix.sink_2
+
+//test videobox border
+gst-launch-0.10 -e videotestsrc pattern="snow" ! video/x-raw-yuv, framerate=10/1, width=200, height=150 ! videobox border-alpha=0 top=-20 left=-25 ! videomixer name=mix ! ffmpegcolorspace ! xvimagesink videotestsrc ! video/x-raw-yuv, framerate=10/1, width=640, height=360 ! mix.
+
+//test videobox 2 content semitrasparent
+gst-launch-0.10 -e videotestsrc pattern="snow" ! video/x-raw-yuv, framerate=10/1, width=200, height=150 ! videobox border-alpha=0 alpha=0.6 top=-20 left=-25 ! videomixer name=mix ! ffmpegcolorspace ! xvimagesink videotestsrc ! video/x-raw-yuv, framerate=10/1, width=640, height=360 ! mix.
+
+//test video box 3 border with border
+gst-launch-0.10 -e videotestsrc pattern="snow" ! video/x-raw-yuv, framerate=10/1, width=200, height=150 ! videobox border-alpha=1.0 top=-2 bottom=-2 left=-2 right=-2 ! videobox border-alpha=0 alpha=0.6 top=-20 left=-25 ! videomixer name=mix ! ffmpegcolorspace ! xvimagesink videotestsrc ! video/x-raw-yuv, framerate=10/1, width=640, height=360 ! mix.
+
+//test 4 five streams
+gst-launch-0.10 -e videomixer name=mix ! ffmpegcolorspace ! xvimagesink videotestsrc pattern=1 ! video/x-raw-yuv, framerate=5/1, width=320, height=180 ! videobox border-alpha=0 top=0 left=0 ! mix. videotestsrc pattern=15 ! video/x-raw-yuv, framerate=5/1, width=320, height=180 ! videobox border-alpha=0 top=0 left=-320 ! mix. videotestsrc pattern=13 ! video/x-raw-yuv, framerate=5/1, width=320, height=180 ! videobox border-alpha=0 top=-180 left=0 ! mix. videotestsrc pattern=0 ! video/x-raw-yuv, framerate=5/1, width=320, height=180 ! videobox border-alpha=0 top=-180 left=-320 ! mix. videotestsrc pattern=3 ! video/x-raw-yuv, framerate=5/1, width=640, height=360 ! mix.
+
+
+
+//text overlay
+gst-launch-0.10 videotestsrc ! timeoverlay ! xvimagesink
+
+//text overlay 2
+gst-launch-0.10 -v videotestsrc ! video/x-raw-yuv, framerate=25/1, width=640, height=360 ! timeoverlay halign=left valign=bottom text="Stream time:" shaded-background=true ! xvimagesink
+
+//text overlay 3
+gst-launch-0.10 videotestsrc ! clockoverlay ! xvimagesink
+
+//text overlay 4
+gst-launch-0.10 videotestsrc ! clockoverlay halign=right valign=bottom shaded-background=true time-format="%Y.%m.%D" ! ffmpegcolorspace ! ximagesink
+
+
+
+
+//webcam 
+gst-launch-0.10 v4l2src ! xvimagesink
+
+//webcam 2
+gst-launch-0.10 v4l2src ! videorate ! video/x-raw-yuv,width=320,height=240,framerate=20/1 ! xvimagesink
+
+//webcam 3
+gst-launch-0.10 v4l2src ! videorate ! video/x-raw-yuv, format=\(fourcc\)YUY2, width=160, height=120, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 ! xvimagesink
+
+//webcam 4
+gst-launch-0.10 v4l2src ! videorate ! video/x-raw-yuv,width=320,height=240,framerate=20/1 ! aspectratiocrop aspect-ratio=16/9 ! ffmpegcolorspace ! xvimagesink
+
+//webcam 5
+gst-launch-0.10 v4l2src ! video/x-raw-yuv, format=\(fourcc\)YUY2, width=160, height=120, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 ! aspectratiocrop aspect-ratio=16/9 ! ffmpegcolorspace ! xvimagesink
+
+
+
+//webcam into test pattern
+gst-launch-0.10 -e v4l2src ! videorate ! video/x-raw-yuv, format=\(fourcc\)YUY2, width=160, height=120, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 ! ffmpegcolorspace ! videomixer name=mix ! xvimagesink videotestsrc ! video/x-raw-yuv, framerate=10/1, width=640, height=360 ! mix.
