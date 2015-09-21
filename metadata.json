@@ -3,7 +3,6 @@
     "uuid": "EasyScreenCast@iacopodeenosee.gmail.com",
     "url": "http://iacopodeenosee.wordpress.com/projects/easyscreencast/",
     "name": "EasyScreenCast",
-    "gettext-domain": "easyscreencast",
     "version": "0.9.8",
     "description": "This extension simplifies the use of the video recording function integrated in gnome shell, allows quickly to change the various settings of the desktop recording."
 }
