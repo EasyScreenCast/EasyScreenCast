@@ -179,7 +179,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
     },
 
     _addSubMenuAreaRec: function () {
-        this.smAreaRec = new PopupMenu.PopupSubMenuMenuItem(_("Recording area"), true);
+        this.smAreaRec = new PopupMenu.PopupSubMenuMenuItem('', true);
         this.smAreaRec.icon.icon_name = 'view-fullscreen-symbolic';
 
         var arrMI = this._createMIAreaRec();
@@ -187,15 +187,14 @@ const EasyScreenCast_Indicator = new Lang.Class({
             this.smAreaRec.menu.addMenuItem(arrMI[ele]);
         }
 
-        this.smAreaRec.status.text =
+        this.smAreaRec.label.text =
             this.AreaType[Pref.getOption('i', Pref.AREA_SCREEN_SETTING_KEY)];
 
         this.menu.addMenuItem(this.smAreaRec);
     },
 
     _addSubMenuDelayRec: function () {
-        this.smDelayRec = new PopupMenu.PopupSubMenuMenuItem(_("Delay recording"),
-            true);
+        this.smDelayRec = new PopupMenu.PopupSubMenuMenuItem('', true);
         this.smDelayRec.icon.icon_name = 'alarm-symbolic';
 
         var arrMI = this._createMIInfoDelayRec();
@@ -204,10 +203,12 @@ const EasyScreenCast_Indicator = new Lang.Class({
         }
 
         var secDelay = Pref.getOption('i', Pref.TIME_DELAY_SETTING_KEY);
-        if (secDelay > 0) {
-            this.smDelayRec.status.text = secDelay + _(' sec');
+        if (secDelay > 1) {
+            this.smDelayRec.label.text = secDelay + _(' seconds of delay in registration');
+        } else if (secDelay === 1) {
+            this.smDelayRec.label.text = secDelay + _(' second of delay in registration');
         } else {
-            this.smDelayRec.status.text = _('off');
+            this.smDelayRec.label.text = _('No delay in the registration');
         }
 
         this.menu.addMenuItem(this.smDelayRec);
@@ -215,8 +216,9 @@ const EasyScreenCast_Indicator = new Lang.Class({
 
     _createMIAreaRec: function () {
 
-        this.AreaType = new Array(_('All desktop'), _('Select monitor'),
-            _('Select window'), _('Select area'));
+        this.AreaType = new Array(_('Record all desktop'),
+            _('Record a selected monitor'), _('Record a selected window'),
+            _('Record a selected area'));
 
         this.AreaMenuItem = new Array(this.AreaType.length);
 
@@ -229,14 +231,14 @@ const EasyScreenCast_Indicator = new Lang.Class({
                     can_focus: true
                 });
 
-            (function (i, arr, label) {
+            (function (i, arr, item) {
                 this.connectMI = function () {
                     this.connect('activate',
                         Lang.bind(this, function () {
                             Lib.TalkativeLog('set area recording to ' + i + ' ' + arr[i]);
                             Pref.setOption(Pref.AREA_SCREEN_SETTING_KEY, i);
 
-                            label.status.text = arr[i];
+                            item.label.text = arr[i];
                         }));
                 }
                 this.connectMI();
@@ -415,11 +417,17 @@ const EasyScreenCast_Indicator = new Lang.Class({
         Pref.setOption(Pref.TIME_DELAY_SETTING_KEY, secDelay);
 
         if (secDelay > 0) {
-            this.smDelayRec.status.text = secDelay + _(' sec');
             this.isDelayActive = true;
+
+            if (secDelay > 1) {
+                this.smDelayRec.label.text = secDelay + _(' seconds of delay in registration');
+            } else {
+                this.smDelayRec.label.text = secDelay + _(' second of delay in registration');
+            }
         } else {
-            this.smDelayRec.status.text = _('off');
             this.isDelayActive = false;
+
+            this.smDelayRec.label.text = _('No delay in the registration');
         }
     },
 
