@@ -1,5 +1,5 @@
 {
-    "shell-version": ["3.16"],
+    "shell-version": ["3.16", "3.18"],
     "uuid": "EasyScreenCast@iacopodeenosee.gmail.com",
     "url": "http://iacopodeenosee.wordpress.com/projects/easyscreencast/",
     "name": "EasyScreenCast",
