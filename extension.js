@@ -12,14 +12,12 @@
     FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
 */
 
-const Gio = imports.gi.Gio;
-const Gtk = imports.gi.Gtk;
-const GLib = imports.gi.GLib;
 const St = imports.gi.St;
 const Meta = imports.gi.Meta;
 const Shell = imports.gi.Shell;
 const Lang = imports.lang;
 const PanelMenu = imports.ui.panelMenu;
+const Clutter = imports.gi.Clutter;
 const Panel = imports.ui.panel;
 const PopupMenu = imports.ui.popupMenu;
 const MessageTray = imports.ui.messageTray;
@@ -58,11 +56,22 @@ const EasyScreenCast_Indicator = new Lang.Class({
 
         this.CtrlAudio = new UtilAudio.MixerAudio();
 
-        //add enter/leave event
+        //check audio
+        if (!this.CtrlAudio.checkAudio()) {
+            Lib.TalkativeLog('disable audio recording');
+            Pref.setOption(Pref.INPUT_AUDIO_SOURCE_SETTING_KEY, 0);
+            Pref.setOption(Pref.ACTIVE_CUSTOM_GSP_SETTING_KEY,
+                Pref.getGSPstd(false));
+        }
+
+        //add enter/leave/click event
         this.actor.connect(
-            'enter-event', Lang.bind(this, this.refreshIndicator, true));
+            'enter_event', Lang.bind(this, this.refreshIndicator, true));
         this.actor.connect(
-            'leave-event', Lang.bind(this, this.refreshIndicator, false));
+            'leave_event', Lang.bind(this, this.refreshIndicator, false));
+        this.actor.connect(
+            'button_press_event', Lang.bind(this,
+                this._addSubMenuAudioRec, false));
 
         //prepare setting var
         if (Pref.getOption('i', Pref.TIME_DELAY_SETTING_KEY) > 0) {
@@ -70,10 +79,6 @@ const EasyScreenCast_Indicator = new Lang.Class({
         } else {
             this.isDelayActive = false;
         }
-
-        this.isRecAudioActive = (this.CtrlAudio.checkAudio() &&
-            !Pref.getOption('b', Pref.ACTIVE_CUSTOM_GSP_SETTING_KEY) &&
-            Pref.getOption('b', Pref.ACTIVE_AUDIO_REC_SETTING_KEY));
 
         //add icon
         this.indicatorBox = new St.BoxLayout;
@@ -94,17 +99,14 @@ const EasyScreenCast_Indicator = new Lang.Class({
         //add start/stop menu entry
         this._addMIRecording();
 
-        //add audio option menu entry
-        this._addMIAudioRec();
-
         //add separetor menu
         this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem);
+
+        //add sub menu audio recording
+        this._addSubMenuAudioRec();
 
         //add sub menu area recording
         this._addSubMenuAreaRec();
-
-        //add separetor menu
-        this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem);
 
         //add sub menu delay recording
         this._addSubMenuDelayRec();
@@ -114,6 +116,10 @@ const EasyScreenCast_Indicator = new Lang.Class({
 
         //add option menu entry
         this.imOptions = new PopupMenu.PopupMenuItem(_('Options'));
+        this.imOptions.actor.insert_child_at_index(new St.Icon({
+            style_class: 'popup-menu-icon',
+            icon_name: 'preferences-other-symbolic'
+        }), 1);
         this.menu.addMenuItem(this.imOptions);
         this.imOptions.connect(
             'activate', Lang.bind(this, this._doExtensionPreferences));
@@ -126,10 +132,15 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.imRecordAction = new PopupMenu.PopupBaseMenuItem;
         this.RecordingLabel = new St.Label({
             text: _('Start recording'),
-            style_class: 'RecordAction-label'
+            style_class: 'RecordAction-label',
+            content_gravity: Clutter.ContentGravity.CENTER,
+            x_expand: true,
+            x_align: Clutter.ActorAlign.CENTER,
         });
         this.imRecordAction.actor.add_child(this.RecordingLabel, {
-            align: St.Align.START
+            x_expand: true,
+            x_fill: true,
+            x_align: Clutter.ActorAlign.CENTER,
         });
 
         this.imRecordAction.connect('activate', Lang.bind(this, function () {
@@ -142,40 +153,24 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.menu.addMenuItem(this.imRecordAction);
     },
 
-    _addMIAudioRec: function () {
-        this.imAudioRec = new PopupMenu.PopupSwitchMenuItem(_('Record audio'),
-            this.isRecAudioActive, {
-                style_class: 'popup-subtitle-menu-item'
-            });
+    _addSubMenuAudioRec: function () {
+        if (this.smAudioRec === null || this.smAudioRec === undefined) {
+            Lib.TalkativeLog('create new sub menu audio');
+            this.smAudioRec = new PopupMenu.PopupSubMenuMenuItem(
+                _('No audio source'), true);
+            this.smAudioRec.icon.icon_name = 'audio-input-microphone-symbolic';
+        } else {
+            Lib.TalkativeLog('reset the sub menu audio');
+            //remove old menu item
+            this.smAudioRec.menu.removeAll();
+        }
 
-        this.imAudioRec.connect('toggled', Lang.bind(this, function (item) {
-            if (this.CtrlAudio.checkAudio()) {
-                Lib.TalkativeLog('normal state audio recording');
+        var arrMI = this._createMIAudioRec();
+        for (var ele in arrMI) {
+            this.smAudioRec.menu.addMenuItem(arrMI[ele]);
+        }
 
-                Pref.setOption(Pref.ACTIVE_AUDIO_REC_SETTING_KEY, item.state);
-
-                if (item.state) {
-                    Pref.setOption(Pref.ACTIVE_CUSTOM_GSP_SETTING_KEY,
-                        Pref.getGSPstd(true));
-                } else {
-                    Pref.setOption(Pref.ACTIVE_CUSTOM_GSP_SETTING_KEY,
-                        Pref.getGSPstd(false));
-                }
-
-
-            } else {
-                Lib.TalkativeLog('disable audio recording');
-
-                Pref.setOption(Pref.ACTIVE_AUDIO_REC_SETTING_KEY, false);
-
-                Pref.setOption(Pref.ACTIVE_CUSTOM_GSP_SETTING_KEY,
-                    Pref.getGSPstd(false));
-
-                item.setToggleState(false);
-            }
-        }));
-
-        this.menu.addMenuItem(this.imAudioRec);
+        this.menu.addMenuItem(this.smAudioRec);
     },
 
     _addSubMenuAreaRec: function () {
@@ -206,7 +201,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         if (secDelay > 1) {
             this.smDelayRec.label.text = secDelay + _(' seconds of delay in registration');
         } else if (secDelay === 1) {
-            this.smDelayRec.label.text = secDelay + _(' second of delay in registration');
+            this.smDelayRec.label.text = _('1 second of delay in registration');
         } else {
             this.smDelayRec.label.text = _('No delay in the registration');
         }
@@ -215,7 +210,6 @@ const EasyScreenCast_Indicator = new Lang.Class({
     },
 
     _createMIAreaRec: function () {
-
         this.AreaType = new Array(_('Record all desktop'),
             _('Record a selected monitor'), _('Record a selected window'),
             _('Record a selected area'));
@@ -246,6 +240,74 @@ const EasyScreenCast_Indicator = new Lang.Class({
         }
 
         return this.AreaMenuItem;
+    },
+
+    _createMIAudioRec: function () {
+        //add std menu item
+        this.AudioChoice = new Array({
+            desc: _('No audio source'),
+            name: 'N/A',
+            port: 'N/A',
+            sortable: true,
+            resizeable: true
+        }, {
+            desc: _('Default audio source'),
+            name: 'N/A',
+            port: 'N/A',
+            sortable: true,
+            resizeable: true
+        });
+        //add menu item audio source from PA
+        var audioList = this.CtrlAudio.getListInputAudio();
+        for (var index in audioList) {
+            this.AudioChoice.push(audioList[index]);
+        }
+
+        this.AudioMenuItem = new Array(this.AudioChoice.length);
+
+        for (var i = 0; i < this.AudioChoice.length; i++) {
+            //create label menu
+            let labelMenu = this.AudioChoice[i].desc + _('\n - Port: ') +
+                this.AudioChoice[i].port + _('\n - Name: ') +
+                this.AudioChoice[i].name;
+            //create submenu
+            this.AudioMenuItem[i] =
+                new PopupMenu.PopupMenuItem(labelMenu, {
+                    reactive: true,
+                    activate: true,
+                    hover: true,
+                    can_focus: true,
+                });
+            //add icon on submenu
+            this.AudioMenuItem[i].actor.insert_child_at_index(new St.Icon({
+                style_class: 'popup-menu-icon',
+                icon_name: 'audio-card-symbolic'
+            }), 1);
+
+            //update choice audio from pref
+            if (i === Pref.getOption(
+                    'i', Pref.INPUT_AUDIO_SOURCE_SETTING_KEY)) {
+                Lib.TalkativeLog('get audio choice from pref ' + i);
+                this.smAudioRec.label.text = this.AudioChoice[i].desc;
+            }
+
+            //add action on menu item
+            (function (i, arr, item) {
+                this.connectMI = function () {
+                    this.connect('activate',
+                        Lang.bind(this, function () {
+                            Lib.TalkativeLog('set audio choice to ' + i);
+                            Pref.setOption(
+                                Pref.INPUT_AUDIO_SOURCE_SETTING_KEY, i);
+
+                            item.label.text = arr[i].desc;
+                        }));
+                }
+                this.connectMI();
+            }).call(this.AudioMenuItem[i], i,
+                this.AudioChoice, this.smAudioRec);
+        }
+        return this.AudioMenuItem;
     },
 
     _createMIInfoDelayRec: function () {
