@@ -97,14 +97,6 @@ const MixerAudio = new Lang.Class({
                 this._getInfoPA();
             }
 
-            var arrSource = this.getListInputAudio();
-            var arrName = [];
-            for (let i in arrSource) {
-                arrName.push(arrSource[i].port);
-            }
-            Lib.TalkativeLog('arr source audio:' + arrName);
-            Pref.setOption(Pref.LIST_INPUT_AUDIO_SETTING_KEY, arrName);
-
             break;
         default:
             Lib.TalkativeLog('mixer UNK');
