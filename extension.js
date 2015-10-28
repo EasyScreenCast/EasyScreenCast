@@ -36,6 +36,7 @@ const Pref = Me.imports.prefs;
 const Time = Me.imports.timer;
 const UtilRecorder = Me.imports.utilrecorder;
 const UtilAudio = Me.imports.utilaudio;
+const UtilWebcam = Me.imports.utilwebcam;
 const Selection = Me.imports.selection;
 
 
@@ -55,6 +56,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.parent(null, 'EasyScreenCast-indicator');
 
         this.CtrlAudio = new UtilAudio.MixerAudio();
+        this.CtrlWebcam = new UtilWebcam.HelperWebcam();
 
         //check audio
         if (!this.CtrlAudio.checkAudio()) {
@@ -126,6 +128,8 @@ const EasyScreenCast_Indicator = new Lang.Class({
 
         //enable key binding
         this._enableKeybindings();
+        //start monitoring inputvideo
+        this.CtrlWebcam.start();
     },
 
     _addMIRecording: function () {
@@ -660,6 +664,9 @@ function disable() {
 
     if (Indicator !== null) {
         Lib.TalkativeLog('indicator call destroy');
+
+        //stop monitoring inputvideo
+        Indicator.CtrlWebcam.stop();
 
         Indicator._disable();
         Indicator.destroy();
