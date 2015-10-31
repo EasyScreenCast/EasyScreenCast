@@ -129,7 +129,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         //enable key binding
         this._enableKeybindings();
         //start monitoring inputvideo
-        this.CtrlWebcam.start();
+        this.CtrlWebcam.startMonitor();
     },
 
     _addMIRecording: function () {
@@ -666,7 +666,7 @@ function disable() {
         Lib.TalkativeLog('indicator call destroy');
 
         //stop monitoring inputvideo
-        Indicator.CtrlWebcam.stop();
+        Indicator.CtrlWebcam.stopMonitor();
 
         Indicator._disable();
         Indicator.destroy();

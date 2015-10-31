@@ -24,6 +24,7 @@ const Me = ExtensionUtils.getCurrentExtension();
 const Lib = Me.imports.convenience;
 const Pref = Me.imports.prefs;
 
+Gst.init(null);
 
 const HelperWebcam = new Lang.Class({
     Name: "HelperWebcam",
@@ -31,29 +32,34 @@ const HelperWebcam = new Lang.Class({
      * Create a device monitor inputvideo
      */
     _init: function () {
-        Lib.TalkativeLog('init webcam');
-        this.deviceMonitor = Gst.DeviceMonitor.new();
+        Lib.TalkativeLog('-@@@-init webcam');
+
+        //this.deviceMonitor = Gst.DeviceMonitor.new(); COREDUMP ???
+        this.deviceMonitor = new Gst.DeviceMonitor({
+            show_all: true
+        });
 
         if (this.deviceMonitor !== null && this.deviceMonitor !== undefined) {
-            Lib.TalkativeLog('device monitor created');
+            Lib.TalkativeLog('-@@@-device monitor created');
             this.dmBus = this.deviceMonitor.get_bus();
             if (this.dmBus !== null && this.dmBus !== undefined) {
-                Lib.TalkativeLog('dbus created');
-                dmBus.add_watch(GLib.PRIORITY_DEFAULT, this._getMsg);
+                Lib.TalkativeLog('-@@@-dbus created');
+                this.dmBus.add_watch(GLib.PRIORITY_DEFAULT, this._getMsg);
                 let caps = Gst.Caps.new_empty_simple('video/x-raw');
                 this.deviceMonitor.add_filter('Video/Source', caps);
+                this.getAllInputVideo();
             } else {
-                Lib.TalkativeLog('ERROR dbus creation');
+                Lib.TalkativeLog('-@@@-ERROR dbus creation');
             }
         } else {
-            Lib.TalkativeLog('ERROR device monitor creation');
+            Lib.TalkativeLog('-@@@-ERROR device monitor creation');
         }
     },
     /*
      * connect to msg bus
      */
     _getMsg: function (bus, message) {
-
+        Lib.TalkativeLog('-@@@-event getmsg');
         switch (message.type) {
         case Gst.MessageType.DEVICE_ADDED:
             Lib.TalkativeLog('Device added');
@@ -74,30 +80,42 @@ const HelperWebcam = new Lang.Class({
      * get all device
      */
     getAllInputVideo: function () {
-        Lib.TalkativeLog('get all video input');
+        Lib.TalkativeLog('-@@@-get all video input');
 
         var list = this.deviceMonitor.get_devices();
-        Lib.TalkativeLog('list: ' + list);
+        Lib.TalkativeLog('device number: ' + list.length);
+
+        for (var index in list) {
+            Lib.TalkativeLog('device N°: ' + index + ' class: ' + list[index].device_class + ' name:  ' + list[index].display_name);
+            this.getCapsForIV(list[index].caps);
+            Lib.TalkativeLog('proprieties N°: ' + list[index].properties);
+            for (var jndex in list[index].properties) {
+                Lib.TalkativeLog('proprieties : ' + list[index].properties[jndex]);
+            }
+        }
     },
     /*
      * get caps from device
      */
-    getCapsForIV: function () {
-        Lib.TalkativeLog('get alla caps from a input video');
-
+    getCapsForIV: function (tmpCaps) {
+        Lib.TalkativeLog('-@@@-get all caps from a input video');
+        Lib.TalkativeLog('caps avaiable N°: ' + tmpCaps.get_size());
+        for (var i = 0; i < tmpCaps.get_size(); i++) {
+            Lib.TalkativeLog('cap ' + i + ' : ' + tmpCaps.get_structure(i).to_string());
+        }
     },
     /*
      * start listening
      */
     startMonitor: function () {
-        Lib.TalkativeLog('start video devicemonitor');
+        Lib.TalkativeLog('-@@@-start video devicemonitor');
         this.deviceMonitor.start();
     },
     /*
      * Stop listening
      */
     stopMonitor: function () {
-        Lib.TalkativeLog('stop video devicemonitor');
+        Lib.TalkativeLog('-@@@-stop video devicemonitor');
         this.disconnectSourceBus();
         this.deviceMonitor.stop();
     },
