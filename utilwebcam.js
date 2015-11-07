@@ -100,8 +100,13 @@ const HelperWebcam = new Lang.Class({
     getCapsForIV: function (tmpCaps) {
         Lib.TalkativeLog('-@@@-get all caps from a input video');
         Lib.TalkativeLog('caps avaiable N°: ' + tmpCaps.get_size());
+
         for (var i = 0; i < tmpCaps.get_size(); i++) {
-            Lib.TalkativeLog('cap ' + i + ' : ' + tmpCaps.get_structure(i).to_string());
+            //cleaned cap
+            var cleanCap =
+                tmpCaps.get_structure(i).to_string().replace(/\(.*?\)/gi, '');
+            Lib.TalkativeLog('cap : ' + i + ' : ' + cleanCap);
+
         }
     },
     /*
