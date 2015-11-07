@@ -90,8 +90,17 @@ video/x-raw-rgb, bpp=(int)24, depth=(int)24, red_mask=(int)16711680, green_mask=
 video/x-raw-rgb, bpp=(int)24, depth=(int)24, red_mask=(int)16711680, green_mask=(int)65280, blue_mask=(int)255, endianness=(int)4321, width=(int)160, height=(int)120, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 }
 
 
-
-
+@@@ extesion pipeline @@@
+queue \
+! videorate \
+! vp9enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T \
+! queue \
+! mux. pulsesrc \
+! queue \
+! audioconvert \
+! vorbisenc \
+! queue \
+! mux. webmmux name=mux 
 
 
 
@@ -133,19 +142,86 @@ gst-launch-1.0 videotestsrc ! timeoverlay font-desc=60px ! xvimagesink
 // webcam
 gst-launch-1.0 -v v4l2src  ! video/x-raw,format=YUY2,width=640, height=480, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 ! videoconvert ! xvimagesink
 
-
-
-
 //webcam into test pattern
 gst-launch-1.0 -v videotestsrc ! video/x-raw, format=YUY2, framerate=10/1, width=940, height=600 ! videoconvert ! videomixer name=mix !  xvimagesink  v4l2src ! video/x-raw,format=YUY2,width=640, height=480, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 ! videoconvert ! mix.
 
 
+// webcam to file AVI
+gst-launch-1.0 v4l2src do-timestamp=true ! video/x-raw,format=YUY2,width=640, height=480, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 ! avimux ! filesink location=test-webcam.avi
+
+// webcam to file WEBM
+gst-launch-1.0 --gst-debug=3 \
+v4l2src do-timestamp=true ! video/x-raw,format=YUY2,width=640, height=480, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 \
+! videoconvert ! queue ! videorate ! vp8enc  min_quantizer=10 max_quantizer=10 cpu-used=2 deadline=1000000  threads=2 \
+! queue ! mux. pulsesrc \
+! queue ! audioconvert ! vorbisenc \
+! queue ! mux. webmmux name=mux \
+! filesink location=screencast.webm
+
+// test pattern SNOW to file WEBM
+gst-launch-1.0 -v videotestsrc pattern="snow"  ! video/x-raw,format=YUY2 !  videoconvert ! queue ! videorate ! vp8enc  min_quantizer=10 max_quantizer=10 cpu-used=2 deadline=1000000  threads=2 ! queue ! mux. pulsesrc ! queue !  audioconvert ! vorbisenc ! queue ! mux. webmmux name=mux ! filesink location=screencastSNOW.webm
+
+// webcam into test pattern to file WEBM
+gst-launch-1.0  --gst-debug=3 \
+videotestsrc \
+! video/x-raw,format=AYUV,framerate=5/1,width=920,height=640 \
+! videomixer name=mix \
+! videoconvert \
+! queue \
+! videorate \
+! vp8enc  min_quantizer=10 max_quantizer=10 cpu-used=2 deadline=1000000  threads=2 \
+! queue \
+! mux. pulsesrc \
+! queue \
+! audioconvert \
+! vorbisenc \
+! queue \
+! mux. webmmux name=mux \
+! filesink location=screencast.webm v4l2src do-timestamp=true \
+! video/x-raw,format=YUY2,width=640, height=480, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 \
+! mix.
 
 
+// webcam into test pattern to file WEBM [fixed position] <- BAD 
+gst-launch-1.0  --gst-debug=3 \
+videomixer name=mix \
+! videoconvert \
+! queue \
+! videorate \
+! vp8enc  min_quantizer=10 max_quantizer=10 cpu-used=2 deadline=1000000  threads=2 \
+! queue \
+! mux. pulsesrc \
+! queue \
+! audioconvert \
+! vorbisenc \
+! queue \
+! mux. webmmux name=mux \
+! filesink location=screencast.webm videotestsrc \
+! video/x-raw,format=AYUV,framerate=5/1,width=920,height=640 \
+! mix. v4l2src do-timestamp=true \
+! video/x-raw,format=YUY2,width=640, height=480, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 \
+! videobox border-alpha=0 top=-20 left=-25 \
+! mix.
 
-
-
-
+// webcam into screencast to file WEBM [fixed position] <- BAD
+gst-launch-1.0  --gst-debug=3 \
+videomixer name=mix \
+! videoconvert \
+! queue \
+! videorate \
+! vp8enc  min_quantizer=10 max_quantizer=10 cpu-used=2 deadline=1000000  threads=2 \
+! queue \
+! mux. pulsesrc \
+! queue \
+! audioconvert \
+! vorbisenc \
+! queue \
+! mux. webmmux name=mux \
+! filesink location=screencast.webm ximagesrc \
+! mix. v4l2src do-timestamp=true \
+! video/x-raw,format=YUY2,width=640, height=480, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 \
+! videobox border-alpha=0 top=-20 left=-25 \
+! mix.
 
 
 
