@@ -2,6 +2,14 @@
 <!-- Generated with glade 3.19.0 -->
 <interface>
   <requires lib="gtk+" version="3.10"/>
+  <object class="GtkListStore" id="liststore_KeyShortcut">
+    <columns>
+      <!-- column-name key -->
+      <column type="gint"/>
+      <!-- column-name mods -->
+      <column type="gint"/>
+    </columns>
+  </object>
   <object class="GtkBox" id="Main_Container">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -354,6 +362,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
           </object>
           <packing>
             <property name="tab_expand">True</property>
+            <property name="tab_fill">False</property>
           </packing>
         </child>
         <child>
@@ -393,6 +402,34 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                                 <property name="row_spacing">18</property>
                                 <property name="column_spacing">15</property>
                                 <child>
+                                  <object class="GtkLabel" id="label7">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="halign">end</property>
+                                    <property name="hexpand">True</property>
+                                    <property name="label" translatable="yes">Frames Per Second</property>
+                                  </object>
+                                  <packing>
+                                    <property name="left_attach">0</property>
+                                    <property name="top_attach">0</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkSpinButton" id="spb_FrameRateRec">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="halign">start</property>
+                                    <property name="hexpand">True</property>
+                                    <property name="invisible_char">●</property>
+                                    <property name="text" translatable="yes">0</property>
+                                    <property name="climb_rate">1</property>
+                                  </object>
+                                  <packing>
+                                    <property name="left_attach">1</property>
+                                    <property name="top_attach">0</property>
+                                  </packing>
+                                </child>
+                                <child>
                                   <object class="GtkLabel" id="textentry26">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
@@ -402,7 +439,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                                   </object>
                                   <packing>
                                     <property name="left_attach">0</property>
-                                    <property name="top_attach">0</property>
+                                    <property name="top_attach">1</property>
                                   </packing>
                                 </child>
                                 <child>
@@ -414,7 +451,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                                   </object>
                                   <packing>
                                     <property name="left_attach">1</property>
-                                    <property name="top_attach">0</property>
+                                    <property name="top_attach">1</property>
                                   </packing>
                                 </child>
                               </object>
@@ -689,13 +726,5 @@ GStreamer is a pipeline-based multimedia allows a programmer to create a variety
         <property name="position">2</property>
       </packing>
     </child>
-  </object>
-  <object class="GtkListStore" id="liststore_KeyShortcut">
-    <columns>
-      <!-- column-name key -->
-      <column type="gint"/>
-      <!-- column-name mods -->
-      <column type="gint"/>
-    </columns>
   </object>
 </interface>
