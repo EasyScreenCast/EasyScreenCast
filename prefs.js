@@ -208,12 +208,6 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                     this._setStateGSP();
                 }));
 
-            //implements audio input option
-            this.Ref_ComboBox_InputAudio = builder.get_object('cbt_inputaudio');
-            settings.bind(
-                INPUT_AUDIO_SOURCE_SETTING_KEY, this.Ref_ComboBox_InputAudio,
-                'active', Gio.SettingsBindFlags.DEFAULT);
-
             //implements post execute command
             this.Ref_switch_ExecutePostCMD = builder.get_object(
                 'swt_executepostcmd');
