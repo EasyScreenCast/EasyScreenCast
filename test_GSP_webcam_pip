@@ -10,6 +10,9 @@ https://developer.gnome.org/gst-plugins-libs/stable/
 https://developer.gnome.org/gstreamer-libs/stable/
 http://www.roojs.org/seed/gir-1.2-gtk-3.0/seed/Gst.html
 http://www.roojs.org/seed/gir-1.2-gtk-3.0/seed/GstVideo.html
+http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer-plugins/html/gstreamer-plugins-queue2.html
+http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer-plugins/html/gstreamer-plugins-queue.html
+http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer-plugins/html/gstreamer-plugins-tee.html
 
 
 
@@ -203,9 +206,9 @@ videomixer name=mix \
 ! videobox border-alpha=0 top=-20 left=-25 \
 ! mix.
 
-// webcam into screencast to file WEBM [fixed position] <- BAD
+// webcam into screencast to file WEBM [fixed position] <- BAD PERFORMANCE
 gst-launch-1.0  --gst-debug=3 \
-videomixer name=mix \
+videomixer name=mix sink_0::alpha=0.7 sink_1::alpha=0.5\
 ! videoconvert \
 ! queue \
 ! videorate \
@@ -222,6 +225,96 @@ videomixer name=mix \
 ! video/x-raw,format=YUY2,width=640, height=480, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 \
 ! videobox border-alpha=0 top=-20 left=-25 \
 ! mix.
+
+
+
+// webcam into screencast to file WEBM [fixed position] <- BAD PERFORMANCE
+gst-launch-1.0  --gst-debug=3 \
+videomixer name=mix sink_1::alpha=0.5 sink_1::xpos=50 sink_1::ypos=50 \
+! videoconvert \
+! queue \
+! videorate \
+! vp8enc  min_quantizer=10 max_quantizer=10 cpu-used=2 deadline=1000000  threads=2 \
+! queue \
+! mux. pulsesrc \
+! queue \
+! audioconvert \
+! vorbisenc \
+! queue \
+! mux. webmmux name=mux \
+! filesink location=screencast.webm ximagesrc \
+! mix. v4l2src do-timestamp=true \
+! video/x-raw,format=YUY2,width=640, height=480, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 \
+! videobox border-alpha=0 top=-20 left=-25 \
+! mix.
+
+
+// webcam into screencast to file WEBM [fixed position] <- COMPOSITOR better performance
+gst-launch-1.0  --gst-debug=3 \
+compositor name=comp sink_1::alpha=0.5 sink_1::xpos=50 sink_1::ypos=50 \
+! videoconvert \
+! queue \
+! videorate \
+! vp8enc  min_quantizer=10 max_quantizer=10 cpu-used=2 deadline=1000000  threads=2 \
+! queue \
+! mux. pulsesrc \
+! queue \
+! audioconvert \
+! vorbisenc \
+! queue \
+! mux. webmmux name=mux \
+! filesink location=screencast.webm ximagesrc \
+! queue \
+! comp. v4l2src \
+! queue \
+! video/x-raw,format=YUY2,width=160, height=120, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 \
+! videobox border-alpha=0 top=-20 left=-25 \
+! comp.
+
+
+// webcam into screencast to file WEBM <- COMPOSITOR
+gst-launch-1.0  --gst-debug=3 \
+compositor name=comp \
+! videoconvert \
+! queue min-threshold-time=10000000000 max-size-time=30000000000 \
+! videorate \
+! vp8enc  min_quantizer=10 max_quantizer=10 cpu-used=2 deadline=1000000  threads=2 \
+! queue min-threshold-time=10000000000 max-size-time=30000000000 \
+! mux. pulsesrc \
+! queue min-threshold-time=10000000000 max-size-time=30000000000 \
+! audioconvert \
+! vorbisenc \
+! queue min-threshold-time=10000000000 max-size-time=30000000000 \
+! mux. webmmux name=mux \
+! filesink location=screencast.webm ximagesrc \
+! queue min-threshold-time=10000000000 max-size-time=30000000000 \
+! comp. v4l2src \
+! queue min-threshold-time=10000000000 max-size-time=30000000000 \
+! video/x-raw,format=YUY2,width=640, height=480, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 \
+! comp.
+
+
+// webcam into screencast to file WEBM <- COMPOSITOR & queue2
+gst-launch-1.0  --gst-debug=3 \
+compositor name=comp \
+! videoconvert \
+! queue2 \
+! videorate \
+! vp8enc  min_quantizer=10 max_quantizer=10 cpu-used=2 deadline=1000000  threads=2 \
+! queue2 \
+! mux. pulsesrc \
+! queue2 \
+! audioconvert \
+! vorbisenc \
+! queue2 \
+! mux. webmmux name=mux \
+! filesink location=screencast.webm ximagesrc \
+! queue2 \
+! comp. v4l2src \
+! queue2 \
+! video/x-raw,format=YUY2,width=640, height=480, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 \
+! comp.
+
 
 
 
