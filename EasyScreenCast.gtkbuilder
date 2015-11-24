@@ -165,7 +165,7 @@
                           <object class="GtkLabel" id="label9">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="tooltip_text" translatable="yes">This option enable more debug message, to view these run this command into a terminal:
+                            <property name="tooltip_text" translatable="yes">This option enables more debug messages, to view these run this command in a terminal:
 $ journalctl /usr/bin/gnome-session --since=today --no-pager | grep js
 $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                             <property name="halign">end</property>
@@ -204,7 +204,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                           <object class="GtkSwitch" id="swt_VerboseDebug">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
-                            <property name="tooltip_text" translatable="yes">This option enable more debug message, to view these run this command into a terminal:
+                            <property name="tooltip_text" translatable="yes">This option enables more debug messages, to view these run this command in a terminal:
 $ journalctl /usr/bin/gnome-session --since=today | grep js
 $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                             <property name="halign">start</property>
@@ -356,7 +356,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                           <object class="GtkLabel" id="label18">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="tooltip_text" translatable="yes">The word $AbsFilePath will replace by the absolute path of the screencast video file.</property>
+                            <property name="tooltip_text" translatable="yes">The word $AbsFilePath will be replaced by the absolute path of the screencast video file.</property>
                             <property name="halign">end</property>
                             <property name="hexpand">True</property>
                             <property name="label" translatable="yes">Command post-recording</property>
@@ -370,7 +370,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                           <object class="GtkEntry" id="txe_postcmd">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
-                            <property name="tooltip_text" translatable="yes">The word $AbsFilePath will replace by the absolute path of the screencast video file.</property>
+                            <property name="tooltip_text" translatable="yes">The word $AbsFilePath will be replaced by the absolute path of the screencast video file.</property>
                             <property name="hexpand">True</property>
                           </object>
                           <packing>
@@ -457,7 +457,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                           <object class="GtkLabel" id="lbl_kjkhkhhkhjk">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="tooltip_text" translatable="yes">Select the folder where the file is saved, if not specific a folder  the file will be saved in the $XDG_VIDEOS_DIR if it exists, or the home directory otherwise.</property>
+                            <property name="tooltip_text" translatable="yes">If you do not specify the destination folder, the file will be saved in the path if it exists or, alternatively, in the home of the user.</property>
                             <property name="halign">end</property>
                             <property name="hexpand">True</property>
                             <property name="label" translatable="yes">The file is saved in the path : </property>
@@ -563,7 +563,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
           <object class="GtkLabel" id="label2">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">&lt;b&gt;File screencast&lt;/b&gt;</property>
+            <property name="label" translatable="yes">&lt;b&gt;Screencast file&lt;/b&gt;</property>
             <property name="use_markup">True</property>
           </object>
           <packing>
@@ -637,7 +637,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="halign">start</property>
-                            <property name="label" translatable="yes">The extension handles audio and webcam support  only if is NOT used a custom gstreamer pipeline .
+                            <property name="label" translatable="yes">The extension handles audio and webcam support only if a custom GStreamer pipeline is NOT used.
 GStreamer is a pipeline-based multimedia allows a programmer to create a variety of media-handling components, including simple audio playback, audio and video playback, recording, streaming and editing.Below some useful links.</property>
                             <property name="wrap">True</property>
                           </object>
