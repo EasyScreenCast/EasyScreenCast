@@ -326,6 +326,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         setOption(ACTIVE_POST_CMD_SETTING_KEY, false);
         setOption(POST_CMD_SETTING_KEY, 'xdg-open AbsFilePath &');
         setOption(INPUT_AUDIO_SOURCE_SETTING_KEY, -1);
+        setOption(AREA_SCREEN_SETTING_KEY, 0);
     }
 });
 
