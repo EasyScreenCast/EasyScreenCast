@@ -429,6 +429,34 @@ gst-launch-1.0 v4l2src \
 
 
 
+
+
+
+
+
+gst-launch-1.0  --gst-debug=3 \
+ximagesrc \
+! videoconvert \
+! videorate \
+! vp8enc  min_quantizer=10 max_quantizer=10 cpu-used=2 deadline=1000000  threads=2 \
+! tee name=desktopTee \
+pulsesrc \
+! audioconvert \
+! vorbisenc \
+! tee name=audioTee \
+v4l2src \
+! videoscale \
+! videorate \
+! video/x-raw,format=YUY2,width=640, height=480, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 \
+! tee name=webcamTee \
+! compositor name=comp \
+! webcamTee. ! queue ! comp. \
+desktopTee. ! queue ! comp. \
+! webmmux name=mux ! filesink location=screencast.webm \
+audioTee. ! queue ! mux. \
+comp. ! queue ! mux.
+
+
 gst-launch -vv \
 v4l2src device=/dev/video0 name=upper_right_video \
 ! videoscale \
