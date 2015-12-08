@@ -590,6 +590,10 @@ const EasyScreenCast_Indicator = new Lang.Class({
     destroy: function () {
         Lib.TalkativeLog('destroy indicator called');
 
+        if (isActive) {
+            isActive = false;
+        }
+
         this._removeKeybindings();
         this.parent();
     }
