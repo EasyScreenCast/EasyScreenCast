@@ -267,9 +267,12 @@ const EasyScreenCast_Indicator = new Lang.Class({
 
         for (var i = 0; i < this.AudioChoice.length; i++) {
             //create label menu
-            let labelMenu = this.AudioChoice[i].desc + _('\n - Port: ') +
-                this.AudioChoice[i].port + _('\n - Name: ') +
-                this.AudioChoice[i].name;
+            let labelMenu = this.AudioChoice[i].desc;
+            if (i >= 2) {
+                labelMenu += _('\n - Port: ') + this.AudioChoice[i].port +
+                    _('\n - Name: ') + this.AudioChoice[i].name;
+            }
+
             //create submenu
             this.AudioMenuItem[i] =
                 new PopupMenu.PopupMenuItem(labelMenu, {
