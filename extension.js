@@ -70,8 +70,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.actor.connect(
             'leave_event', Lang.bind(this, this.refreshIndicator, false));
         this.actor.connect(
-            'button_press_event', Lang.bind(this,
-                this._addSubMenuAudioRec, false));
+            'button_press_event', Lang.bind(this, this._onButtonPress, false));
 
         //prepare setting var
         if (Pref.getOption('i', Pref.TIME_DELAY_SETTING_KEY) > 0) {
@@ -126,6 +125,25 @@ const EasyScreenCast_Indicator = new Lang.Class({
 
         //enable key binding
         this._enableKeybindings();
+    },
+
+    _onButtonPress: function (actor, event) {
+        let button = event.get_button();
+
+        if (button === 1) {
+            Lib.TalkativeLog('left click indicator');
+
+            this._addSubMenuAudioRec();
+        } else {
+            Lib.TalkativeLog('right click indicator');
+
+            if (this.menu.isOpen) {
+                this.menu.close();
+            }
+            this.isShowNotify = Pref.getOption(
+                'b', Pref.SHOW_TIMER_REC_SETTING_KEY);
+            this._doRecording();
+        }
     },
 
     _addMIRecording: function () {
