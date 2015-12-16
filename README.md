@@ -6,6 +6,8 @@ Copyright (C) 2013-14-15 Borsato Ivano.
 * [GNOME Shell Extensions Page](https://extensions.gnome.org/extension/690/easyscreencast/)
 
 ##License Info
+
+[![Join the chat at https://gitter.im/iacopodeenosee/EasyScreenCast](https://badges.gitter.im/iacopodeenosee/EasyScreenCast.svg)](https://gitter.im/iacopodeenosee/EasyScreenCast?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 EasyScreenCast is free software distributed under the GNU GPL.
 All files are under GPL v3.
 read > COPYING < for more infomation about license.
