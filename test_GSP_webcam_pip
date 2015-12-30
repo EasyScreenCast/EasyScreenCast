@@ -17,7 +17,7 @@ http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gst-plugins-bad-plugins
 
 
 
-//videotest patner
+//videotest pattern
 gst-launch-1.0 videotestsrc pattern=snow ! ximagesink
 gst-launch-1.0 videotestsrc ! ximagesink
 gst-launch-1.0 -v videotestsrc pattern=snow ! video/x-raw,width=1280,height=720 ! autovideosink
@@ -93,20 +93,39 @@ video/x-raw-rgb, bpp=(int)24, depth=(int)24, red_mask=(int)16711680, green_mask=
 video/x-raw-rgb, bpp=(int)24, depth=(int)24, red_mask=(int)16711680, green_mask=(int)65280, blue_mask=(int)255, endianness=(int)4321, width=(int)176, height=(int)144, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 }; 
 video/x-raw-rgb, bpp=(int)24, depth=(int)24, red_mask=(int)16711680, green_mask=(int)65280, blue_mask=(int)255, endianness=(int)4321, width=(int)160, height=(int)120, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 }
 
+-------------------------------------------------------------------------------
 
-@@@ extesion pipeline @@@
-queue \
+@@@ extesion pipeline NO SOUND @@@
+vp9enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! webmmux
+
+@@@ extesion pipeline WITH SOUND@@@
+queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 \
 ! videorate \
-! vp9enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T \
-! queue \
+! vp8enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T \
+! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 \
 ! mux. pulsesrc \
-! queue \
 ! audioconvert \
 ! vorbisenc \
-! queue \
+! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0  \
 ! mux. webmmux name=mux 
 
+@@@ extesion pipeline WITH SOUND AND WEBCAM @@@
+queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 \
+! videomixer name=mix \
+! videoconvert \
+! videorate \
+! vp8enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T \
+! mux. pulsesrc \
+! audioconvert \
+! vorbisenc \
+! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 \
+! mux. webmmux name=mux \
+! filesink location=screencast.webm v4l2src do-timestamp=true \
+! video/x-raw,format=YUY2,width=640, height=480, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 \
+! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 \
+! mix.
 
+-------------------------------------------------------------------------------
 
 #################
 
@@ -132,14 +151,6 @@ gst-launch-1.0  videotestsrc ! video/x-raw,format=I420, framerate=5/1, width=320
 
 //pip 4
 gst-launch-1.0 videomixer name=mixer sink_1::alpha=0.5 sink_1::xpos=50 sink_1::ypos=50 ! videoconvert ! ximagesink videotestsrc pattern=smpte ! "video/x-raw,format=AYUV,width=800,height=600,framerate=10/1" ! timeoverlay ! queue2 ! mixer. videotestsrc pattern=snow timestamp-offset=3000000000 ! "video/x-raw,format=AYUV,width=640,height=480,framerate=30/1" ! timeoverlay ! queue2 ! mixer. 
-
-
-
-
-
-//timestamp
-gst-launch-1.0 videotestsrc ! timeoverlay font-desc=60px ! xvimagesink
-
 
 
 
@@ -332,37 +343,18 @@ compositor name=comp \
 ! comp.
 
 
+//GOOD incemption -> screencast into screencast into screencast into sc....
+gst-launch-1.0  --gst-debug=3 ximagesrc \
+! videoscale \
+! video/x-raw,width=640,height=480,framerate=10/1 \
+! videoconvert \
+! xvimagesink
 
 
 
-! videoscale ! video/x-raw-rgb,width=640,height=480,framerate=10/1 !
-
-
-gst-launch-0.10 v4l2src ! videorate ! videoscale ! x264enc ! tee name=videoTee \
-pulsesrc ! ffenc_aac ! tee name=audioTee \
-flvmux name=flvMux ! filesink location=/tmp/foo.flv \
-matroskamux name=mkvMux ! filesink location=/tmp/foo.mkv \
-audioTee. ! queue ! flvMux. \
-audioTee. ! queue ! mkvMux. \
-videoTee. ! queue ! flvMux. \
-videoTee. ! queue ! mkvMux.
-
-
-Grab the X video image (the desktop)
-Automatically convert the video to an acceptable format
-Spawn a background thread [t1] to continue video processing
-[t1] Encode the video (either to vp8 or theora)
-[t1] Prep for merging the video into the video shell (webm or ogg)
-Grab the audio input as raw (the microphone)
-Spawn a background thread [t2] to continue audio processing
-[t2] Automatically convert the audio to an acceptable format
-[t2] Encode the audio to vorbis
-[t2] Prep for merging the audio into the video shell (webm or ogg)
-Write encoded audio and video into the video file
 
 
 
-gst-launch-1.0 v4l2src device=/dev/video1 ! videorate  ! 'image/jpeg,framerate=30/1,width=1920,height=1080' ! jpegparse ! avimux name=muxer ! filesink location=/home/sina/Desktop/Recordings/video.avi v4l2src device=/dev/video0 ! 'video/x-raw, framerate=24/1, width=1024, height=768' ! x264enc ! mpegtsmux ! filesink location=/home/sina/Desktop/Recordings/Screen.ts  -v
 
 
 
@@ -376,136 +368,43 @@ ximagesrc \
 ! filesink location=screencast.webm
 
 
-//ONLY DESKTOP RECORDING WITH WEBCAM - no sound
+//ONLY WEBCAM RECORDING
 gst-launch-1.0  --gst-debug=3 \
-ximagesrc \
-! compositor name=comp \
-! videoconvert \
-! videorate \
-! vp8enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=5  \
-! queue min-threshold-time=500000000 \
- v4l2src do-timestamp=true \
+v4l2src do-timestamp=true \
 ! video/x-raw,format=YUY2,width=160, height=120, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 \
-! queue min-threshold-time=500000000 \
-! comp.  webmmux name=mux \
+! videoconvert \
+! vp8enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=5  \
+! webmmux name=mux \
 ! filesink location=screencast.webm
 
 
+! queue max-size-bytes=100000000 max-size-time=0 \
+! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 \
 
 
-
-
-//versus GOOD
+//DESKTOP RECORDING WITH WEBCAM WITH SOUND
 gst-launch-1.0  --gst-debug=3 \
 ximagesrc \
-! videoconvert \
-! videorate \
-! vp8enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=5  \
-! queue ! mux. pulsesrc \
-! audioconvert \
-! vorbisenc \
-! webmmux name=mux \
-! filesink location=screencast.webm \
-compositor name=comp v4l2src \
-! videoconvert \
-! videoscale \
-! video/x-raw,format=YUY2,width=640, height=480, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 \
-! comp.
-
-
-
-//good example tee usage
-gst-launch-1.0 v4l2src \
-! videorate \
-! videoscale \
-! x264enc \
-! tee name=videoTee     pulsesrc \
-!  tee name=audioTee     flvmux name=flvMux \
-! filesink location=/tmp/foo.flv     matroskamux name=mkvMux \
-! filesink location=/tmp/foo.mkv     audioTee. \
-! queue \
-! flvMux.     audioTee. \
-! queue \
-! mkvMux.     videoTee. \
-! queue \
-! flvMux.     videoTee. \
-! queue \
-! mkvMux.
-
-
-
-//good webcam
-gst-launch-1.0 v4l2src ! video/x-raw,format=YUY2,width=160, height=120, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 ! queue min-threshold-time=500000000 ! xvimagesink
-
-
-
-
-gst-launch-1.0  --gst-debug=3 \
-ximagesrc \
+! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 \
+! videomixer name=mix \
 ! videoconvert \
 ! videorate \
 ! vp8enc  min_quantizer=10 max_quantizer=10 cpu-used=2 deadline=1000000  threads=2 \
-! tee name=desktopTee \
-pulsesrc \
+! mux. pulsesrc \
 ! audioconvert \
 ! vorbisenc \
-! tee name=audioTee \
-v4l2src \
-! videoscale \
-! videorate \
+! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 \
+! mux. webmmux name=mux \
+! filesink location=screencast.webm v4l2src do-timestamp=true \
 ! video/x-raw,format=YUY2,width=640, height=480, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 \
-! tee name=webcamTee \
-! compositor name=comp \
-! webcamTee. ! queue ! comp. \
-desktopTee. ! queue ! comp. \
-! webmmux name=mux ! filesink location=screencast.webm \
-audioTee. ! queue ! mux. \
-comp. ! queue ! mux.
+! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 \
+! mix.
 
-
-gst-launch -vv \
-v4l2src device=/dev/video0 name=upper_right_video \
-! videoscale \
-! ffmpegcolorspace \
-! videomixer.mymix.sink_0. \
-v4l2src device=/dev/video1 name=upper_left_video \
-! videoscale \
-! ffmpegcolorspace \
-! videomixer.mymix.sink_1. \
-videomixer name=mymix \
-sink_0::xpos=1 sink_0::ypos=0 sink_0::zorder=0 \
-sink_1::xpos=640 sink_1::ypos=0 sink_1::zorder=1 \
-! ffmpegcolorspace \
-! videoscale \
-! xvimagesink mymix.
+//convert to esc
+queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! videomixer name=mix ! videoconvert ! videorate ! vp8enc  min_quantizer=10 max_quantizer=10 cpu-used=2 deadline=1000000  threads=2 ! mux. pulsesrc ! audioconvert ! vorbisenc ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mux. webmmux name=mux ! filesink location=screencast.webm v4l2src do-timestamp=true ! video/x-raw,format=YUY2,width=640, height=480, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mix.
 
 
 
-
-gst-launch -v filesrc location=ch2.avi ! decodebin ! videoscale ! video/x-raw-yuv,width=720,height=480 ! videobox left=-720 top=-480 border-alpha=0 ! videomixer name=right ! videomixer name=three ! videomixer name=all ! alpha ! ffmpegcolorspace ! theoraenc ! oggmux ! filesink location=all.ogv filesrc location=ch1.avi ! decodebin ! videoscale ! video/x-raw-yuv,width=720,height=480 ! videobox border-alpha=0.0 left=-720 ! alpha ! ffmpegcolorspace ! all. filesrc location=ch4.avi ! decodebin ! videoscale ! video/x-raw-yuv,width=720,height=480 ! videobox border-alpha=0.0 top=-480 ! alpha ! ffmpegcolorspace ! three. filesrc location=ch3.avi ! decodebin ! videoscale ! video/x-raw-yuv,width=720,height=480 ! alpha ! ffmpegcolorspace ! right.
-
-
-
-
-gst-launch -v \
-filesrc location=video1.avi ! avidemux name=demux1 \
-filesrc location=video2.avi ! avidemux name=demux2 \
-videomixer name=mix \
-sink_0::xpos=0   sink_0::ypos=0 sink_0::alpha=0 \
-sink_1::xpos=0   sink_1::ypos=0 \
-sink_2::xpos=320 sink_2::ypos=0 \
-! xvimagesink \
-videotestsrc pattern="black" \
-! video/x-raw-yuv,width=640,height=240 \
-! mix.sink_0 \
-demux1.video_00 \
-! queue ! decodebin ! ffmpegcolorspace ! videoscale \
-! video/x-raw-yuv,width=320,height=240 \
-! mix.sink_1 \
-demux2.video_00 \
-! queue ! decodebin ! ffmpegcolorspace ! videoscale \
-! video/x-raw-yuv,width=320,height=240 \
-! mix.sink_2 \
 
 
 
