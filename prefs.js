@@ -27,9 +27,7 @@ const Me = ExtensionUtils.getCurrentExtension();
 const Lib = Me.imports.convenience;
 
 // setting keys
-const ACTIVE_AUDIO_REC_SETTING_KEY = 'active-audio-rec';
 const INPUT_AUDIO_SOURCE_SETTING_KEY = 'input-audio-source';
-const LIST_INPUT_AUDIO_SETTING_KEY = 'list-input-audio';
 const ACTIVE_POST_CMD_SETTING_KEY = 'execute-post-cmd';
 const POST_CMD_SETTING_KEY = 'post-cmd';
 const ACTIVE_CUSTOM_GSP_SETTING_KEY = 'active-custom-gsp';
@@ -249,7 +247,6 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
 
             //update GSP text area and input source
             this._setStateGSP();
-            this._refreshInputAudio();
 
             //implements default button action
             this.Ref_button_SetDeafaultSettings = builder.get_object(
@@ -282,21 +279,6 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             this.Iter_ShortcutRow, [SHORTCUT_COLUMN_KEY, SHORTCUT_COLUMN_MODS], [key, mods]);
     },
 
-    _refreshInputAudio: function () {
-        //setup list of input audio
-        Lib.TalkativeLog('create list of input audio');
-
-        var inputaudio = getOption('as', LIST_INPUT_AUDIO_SETTING_KEY);
-        Lib.TalkativeLog('from settings audio: ' + inputaudio);
-        for (var x in inputaudio) {
-            this.Ref_ComboBox_InputAudio.append_text(inputaudio[x]);
-        };
-
-        var sourceaudio = getOption('i', INPUT_AUDIO_SOURCE_SETTING_KEY);
-        Lib.TalkativeLog('from settings input audio: ' + sourceaudio);
-        this.Ref_ComboBox_InputAudio.set_active(sourceaudio);
-    },
-
     _setStateGSP: function () {
         //update GSP text area
         if (getOption('b', ACTIVE_CUSTOM_GSP_SETTING_KEY)) {
@@ -313,8 +295,11 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             this.Ref_textedit_Pipeline.set_cursor_visible(false);
             this.Ref_textedit_Pipeline.set_sensitive(false);
 
-            setOption(PIPELINE_REC_SETTING_KEY,
-                getGSPstd(getOption('b', ACTIVE_AUDIO_REC_SETTING_KEY)));
+            var audio = false;
+            if (getOption('i', INPUT_AUDIO_SOURCE_SETTING_KEY) > 0) {
+                audio = true;
+            }
+            setOption(PIPELINE_REC_SETTING_KEY, getGSPstd(audio));
 
         }
     },
@@ -335,10 +320,6 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         setOption(Y_POS_SETTING_KEY, 0);
         setOption(WIDTH_SETTING_KEY, 600);
         setOption(HEIGHT_SETTING_KEY, 400);
-
-        setOption(PIPELINE_REC_SETTING_KEY,
-            getGSPstd(getOption('b', ACTIVE_AUDIO_REC_SETTING_KEY)));
-
 
         setOption(FILE_NAME_SETTING_KEY, 'Screencast_%d_%t.webm');
         setOption(FILE_FOLDER_SETTING_KEY, '');
@@ -378,7 +359,7 @@ function getOption(type, key) {
 //getter option
 function getGSPstd(audio) {
     if (audio) {
-        return 'queue ! videorate ! vp9enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T ! queue ! mux. pulsesrc ! queue ! audioconvert ! vorbisenc ! queue ! mux. webmmux name=mux ';
+        return 'queue ! videorate ! vp8enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T ! queue ! mux. pulsesrc ! queue ! audioconvert ! vorbisenc ! queue ! mux. webmmux name=mux ';
     } else {
         return 'vp9enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T ! queue ! webmmux';
     }

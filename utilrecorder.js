@@ -73,10 +73,10 @@ const CaptureVideo = new Lang.Class({
         if (Pref.getOption('b', Pref.ACTIVE_CUSTOM_GSP_SETTING_KEY)) {
             pipelineRec = Pref.getOption('s', Pref.PIPELINE_REC_SETTING_KEY);
         } else {
-            if (Pref.getOption(
-                    'b', Pref.ACTIVE_AUDIO_REC_SETTING_KEY) && Pref.getOption(
-                    'i', Pref.INPUT_AUDIO_SOURCE_SETTING_KEY) !== -1) {
-
+            let audioChoice = Pref.getOption(
+                'i', Pref.INPUT_AUDIO_SOURCE_SETTING_KEY);
+            if (audioChoice > 1) {
+                //custom audio source
                 var tmpGSP = Pref.getGSPstd(true);
 
                 //change device source
@@ -93,7 +93,11 @@ const CaptureVideo = new Lang.Class({
                 Lib.TalkativeLog('pipeline post-audio:' + audioPipeline);
 
                 pipelineRec = audioPipeline;
+            } else if (audioChoice === 1) {
+                //default audio source
+                pipelineRec = Pref.getGSPstd(true);
             } else {
+                //no audio source
                 pipelineRec = Pref.getGSPstd(false);
             }
         }

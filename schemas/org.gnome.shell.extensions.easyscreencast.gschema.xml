@@ -10,11 +10,6 @@
             <summary>Enable show area screencast during recording</summary>
             <description>Enable show area screencast during recording</description>
         </key>
-        <key name="active-audio-rec" type="b">
-            <default>false</default>
-            <summary>Active audio recording</summary>
-            <description>Active audio recording</description>
-        </key>
         <key name="input-audio-source" type="i">
             <default>-1</default>
             <summary>select input audio source</summary>
@@ -89,11 +84,6 @@
             <default>''</default>
             <summary>file folder of screencast</summary>
             <description>file folder of screencast</description>
-        </key>
-        <key name="list-input-audio" type="as">
-            <default>[ '' ]</default>
-            <summary>list input source</summary>
-            <description>list input source</description>
         </key>
         <key name="execute-post-cmd" type="b">
             <default>false</default>

@@ -26,7 +26,7 @@ const MixerAudio = new Lang.Class({
     Name: 'MixerAudio',
 
     _init: function () {
-        Lib.TalkativeLog('mixer _init');
+        Lib.TalkativeLog('-###-mixer _init');
 
         MixerControl = this._getMixerControl();
 
@@ -47,18 +47,18 @@ const MixerAudio = new Lang.Class({
                     }));
             }
         } else {
-            Lib.TalkativeLog('Error lib pulse NOT present or NOT respond');
+            Lib.TalkativeLog('-###-Error lib pulse NOT present or NOT respond');
         }
     },
 
     _getMixerControl: function () {
         var _mixerTmp;
         if (MixerControl) {
-            Lib.TalkativeLog('mixer exist -> ' + MixerControl + ' state -> ' + MixerControl.get_state());
+            Lib.TalkativeLog('-###-mixer exist -> ' + MixerControl + ' state -> ' + MixerControl.get_state());
 
             return MixerControl;
         } else {
-            Lib.TalkativeLog('mixer create');
+            Lib.TalkativeLog('-###-mixer create');
 
             _mixerTmp = new Gvc.MixerControl({
                 name: 'ESC Mixer Control'
@@ -70,25 +70,25 @@ const MixerAudio = new Lang.Class({
     },
 
     _onChangeStatePAC: function () {
-        Lib.TalkativeLog('mixer state changed');
+        Lib.TalkativeLog('-###-mixer state changed');
 
         switch (MixerControl.get_state()) {
         case Gvc.MixerControlState.CLOSED:
-            Lib.TalkativeLog('mixer close');
+            Lib.TalkativeLog('Mixer close');
 
             isConnected = false;
             break;
         case Gvc.MixerControlState.CONNECTING:
-            Lib.TalkativeLog('mixer connecting');
+            Lib.TalkativeLog('Mixer connecting');
             isConnected = false;
             break;
         case Gvc.MixerControlState.FAILED:
-            Lib.TalkativeLog('mixer failed');
+            Lib.TalkativeLog('Mixer failed');
 
             isConnected = false;
             break;
         case Gvc.MixerControlState.READY:
-            Lib.TalkativeLog('mixer ready');
+            Lib.TalkativeLog('Mixer ready');
 
             isConnected = true;
 
@@ -97,17 +97,9 @@ const MixerAudio = new Lang.Class({
                 this._getInfoPA();
             }
 
-            var arrSource = this.getListInputAudio();
-            var arrName = [];
-            for (let i in arrSource) {
-                arrName.push(arrSource[i].port);
-            }
-            Lib.TalkativeLog('arr source audio:' + arrName);
-            Pref.setOption(Pref.LIST_INPUT_AUDIO_SETTING_KEY, arrName);
-
             break;
         default:
-            Lib.TalkativeLog('mixer UNK');
+            Lib.TalkativeLog('Mixer UNK');
 
             isConnected = false;
             break;
@@ -115,14 +107,14 @@ const MixerAudio = new Lang.Class({
     },
 
     getListInputAudio: function () {
-        Lib.TalkativeLog('get list input audio');
+        Lib.TalkativeLog('-###-get list input audio');
 
         if (isConnected) {
             var tmp = MixerControl.get_sources();
             var arrayTmp = new Array();
 
             var tmpSinks = MixerControl.get_sinks();
-            Lib.TalkativeLog('-###- mixer sink -> ' + tmpSinks.length);
+            Lib.TalkativeLog('Mixer sink -> ' + tmpSinks.length);
             for (let x in tmpSinks) {
                 Lib.TalkativeLog('_sink index: ' + tmpSinks[x].index);
                 Lib.TalkativeLog('_sink name: ' + tmpSinks[x].name);
@@ -139,7 +131,7 @@ const MixerAudio = new Lang.Class({
             }
 
             var tmpSources = MixerControl.get_sources();
-            Lib.TalkativeLog('-###- mixer sources -> ' + tmpSources.length);
+            Lib.TalkativeLog('Mixer sources -> ' + tmpSources.length);
             for (let x in tmpSources) {
                 Lib.TalkativeLog('_source index: ' + tmpSources[x].index);
                 Lib.TalkativeLog('_source name: ' + tmpSources[x].name);
@@ -155,27 +147,28 @@ const MixerAudio = new Lang.Class({
                 });
             }
 
-            Lib.TalkativeLog('MIXER SOURCE TOT -> ' + arrayTmp.length);
+            Lib.TalkativeLog('-###-MIXER SOURCE TOT -> ' + arrayTmp.length);
 
             return arrayTmp;
         } else {
-            Lib.TalkativeLog('Error lib pulse NOT present or NOT respond');
+            Lib.TalkativeLog('-###-Error lib pulse NOT present or NOT respond');
         }
 
         return false;
     },
 
     getAudioSource: function () {
-        Lib.TalkativeLog('get source audio choosen');
+        Lib.TalkativeLog('-###-get source audio choosen');
 
         var arrtmp = this.getListInputAudio();
-        var index = Pref.getOption('i', Pref.INPUT_AUDIO_SOURCE_SETTING_KEY);
+        var index = Pref.getOption(
+            'i', Pref.INPUT_AUDIO_SOURCE_SETTING_KEY) - 2;
         return arrtmp[index].name;
     },
 
 
     _onStreamAdd: function (control, id) {
-        Lib.TalkativeLog('mixer stream add - ID: ' + id);
+        Lib.TalkativeLog('-###-mixer stream add - ID: ' + id);
         var streamTmp = control.lookup_stream_id(id);
 
         if (streamTmp.name === 'GNOME Shell' && streamTmp.description === 'Record Stream') {
@@ -192,7 +185,7 @@ const MixerAudio = new Lang.Class({
     },
 
     _onStreamRemove: function (control, id) {
-        Lib.TalkativeLog('mixer stream remove - ID: ' + id);
+        Lib.TalkativeLog('-###-mixer stream remove - ID: ' + id);
         var streamTmp = control.lookup_stream_id(id);
 
     },
@@ -272,7 +265,7 @@ const MixerAudio = new Lang.Class({
     },
 
     checkAudio: function () {
-        Lib.TalkativeLog('check pulseaudio lib presence: ' + isConnected);
+        Lib.TalkativeLog('-###-check GVC lib presence: ' + isConnected);
 
         return isConnected;
     },
