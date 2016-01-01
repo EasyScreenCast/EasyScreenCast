@@ -9,7 +9,7 @@
       <!-- column-name mods -->
       <column type="gint"/>
     </columns>
-  </object>sh
+  </object>
   <object class="GtkBox" id="Main_Container">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
