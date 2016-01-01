@@ -225,25 +225,18 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                 FILE_NAME_SETTING_KEY, this.Ref_textedit_FileName, 'text',
                 Gio.SettingsBindFlags.DEFAULT);
 
-            //implements file folder option
-            this.Ref_label_FileFolderRec = builder.get_object(
-                'lbl_FileFolderRec');
-            settings.bind(
-                FILE_FOLDER_SETTING_KEY, this.Ref_label_FileFolderRec, 'label',
-                Gio.SettingsBindFlags.DEFAULT);
-
             //implements file folder string rec option
-            this.Ref_filechooser_FileFolder = builder.get_object(
-                'fcs_FilePathRec');
-            this.Ref_filechooser_FileFolder.set_can_focus(false);
-            this.Ref_filechooser_FileFolder.connect(
-                'selection_changed', Lang.bind(this,
-                    function (self) {
-                        Lib.TalkativeLog('file path get from widget : ' + self.get_filename());
-                        if (self.get_filename() !== null)
-                            setOption(FILE_FOLDER_SETTING_KEY,
-                                self.get_filename());
-                    }));
+//            this.Ref_filechooser_FileFolder = builder.get_object(
+//                'fcs_FilePathRec');
+//            this.Ref_filechooser_FileFolder.set_can_focus(false);
+//            this.Ref_filechooser_FileFolder.connect(
+//                'selection_changed', Lang.bind(this,
+//                    function (self) {
+//                        Lib.TalkativeLog('file path get from widget : ' + self.get_filename());
+//                        if (self.get_filename() !== null)
+//                            setOption(FILE_FOLDER_SETTING_KEY,
+//                                self.get_filename());
+//                    }));
 
             //update GSP text area and input source
             this._setStateGSP();
