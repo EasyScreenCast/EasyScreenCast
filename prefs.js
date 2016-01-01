@@ -48,6 +48,9 @@ const DRAW_CURSOR_SETTING_KEY = 'draw-cursor';
 const AREA_SCREEN_SETTING_KEY = 'area-screen';
 const FILE_NAME_SETTING_KEY = 'file-name';
 const FILE_FOLDER_SETTING_KEY = 'file-folder';
+const FILE_CONTAINER_SETTING_KEY = 'file-container';
+const FILE_RESOLUTION_SETTING_KEY = 'file-resolution';
+
 
 // shortcut tree view columns
 const SHORTCUT_COLUMN_KEY = 0;
@@ -220,23 +223,38 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                 'text', Gio.SettingsBindFlags.DEFAULT);
 
             //implements file name string rec option
-            this.Ref_textedit_FileName = builder.get_object('txe_FileNameRec');
+            this.Ref_textedit_FileName = builder.get_object(
+                'txe_FileNameRec');
             settings.bind(
                 FILE_NAME_SETTING_KEY, this.Ref_textedit_FileName, 'text',
                 Gio.SettingsBindFlags.DEFAULT);
 
+            //implements file container option
+            this.Ref_ComboBox_Container = builder.get_object(
+                'cbt_container');
+            settings.bind(
+                FILE_CONTAINER_SETTING_KEY, this.Ref_ComboBox_Container,
+                'active', Gio.SettingsBindFlags.DEFAULT);
+
+            //implements file container option
+            this.Ref_ComboBox_Resolution = builder.get_object(
+                'cbt_resolution');
+            settings.bind(
+                FILE_RESOLUTION_SETTING_KEY, this.Ref_ComboBox_Resolution,
+                'active', Gio.SettingsBindFlags.DEFAULT);
+
             //implements file folder string rec option
-//            this.Ref_filechooser_FileFolder = builder.get_object(
-//                'fcs_FilePathRec');
-//            this.Ref_filechooser_FileFolder.set_can_focus(false);
-//            this.Ref_filechooser_FileFolder.connect(
-//                'selection_changed', Lang.bind(this,
-//                    function (self) {
-//                        Lib.TalkativeLog('file path get from widget : ' + self.get_filename());
-//                        if (self.get_filename() !== null)
-//                            setOption(FILE_FOLDER_SETTING_KEY,
-//                                self.get_filename());
-//                    }));
+            //            this.Ref_filechooser_FileFolder = builder.get_object(
+            //                'fcs_FilePathRec');
+            //            this.Ref_filechooser_FileFolder.set_can_focus(false);
+            //            this.Ref_filechooser_FileFolder.connect(
+            //                'selection_changed', Lang.bind(this,
+            //                    function (self) {
+            //                        Lib.TalkativeLog('file path get from widget : ' + self.get_filename());
+            //                        if (self.get_filename() !== null)
+            //                            setOption(FILE_FOLDER_SETTING_KEY,
+            //                                self.get_filename());
+            //                    }));
 
             //update GSP text area and input source
             this._setStateGSP();

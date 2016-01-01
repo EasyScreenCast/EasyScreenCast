@@ -105,5 +105,15 @@
             <summary>Enable keyboard shortcut</summary>
             <description>Enable keyboard shortcut</description>
         </key>
+        <key name="file-container" type="i">
+            <default>0</default>
+            <summary>file screencast container</summary>
+            <description>file screencast container</description>
+        </key>
+        <key name="file-resolution" type="i">
+            <default>0</default>
+            <summary>file screencast resolution</summary>
+            <description>file screencast resolution</description>
+        </key>
     </schema>
 </schemalist>

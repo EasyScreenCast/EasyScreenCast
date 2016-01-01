@@ -717,7 +717,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkComboBoxText" id="comboboxtext1">
+                      <object class="GtkComboBoxText" id="cbt_container">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <items>
@@ -731,7 +731,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkComboBoxText" id="comboboxtext2">
+                      <object class="GtkComboBoxText" id="cbt_resolution">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <items>
