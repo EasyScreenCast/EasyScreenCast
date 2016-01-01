@@ -30,6 +30,7 @@
               <object class="GtkAlignment" id="alignment1">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="bottom_padding">15</property>
                 <property name="left_padding">15</property>
                 <property name="right_padding">15</property>
                 <child>
@@ -322,6 +323,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
               <object class="GtkAlignment" id="alignment2">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="bottom_padding">15</property>
                 <property name="left_padding">15</property>
                 <property name="right_padding">15</property>
                 <child>
@@ -419,7 +421,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                                     <property name="can_focus">False</property>
                                     <property name="halign">start</property>
                                     <property name="label" translatable="yes">The extension handles audio and webcam support  only if is NOT used a custom gstreamer pipeline .
-GStreamer is a pipeline-based multimedia allows a programmer to create a variety of media-handling components, including simple audio playback, audio and video playback, recording, streaming and editing.Below some useful links.</property>
+</property>
                                     <property name="wrap">True</property>
                                   </object>
                                   <packing>
@@ -581,6 +583,7 @@ GStreamer is a pipeline-based multimedia allows a programmer to create a variety
               <object class="GtkAlignment" id="alignment3">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="bottom_padding">15</property>
                 <property name="left_padding">15</property>
                 <property name="right_padding">15</property>
                 <child>
@@ -623,6 +626,7 @@ GStreamer is a pipeline-based multimedia allows a programmer to create a variety
               <object class="GtkAlignment" id="alignment5">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="bottom_padding">15</property>
                 <property name="left_padding">15</property>
                 <property name="right_padding">15</property>
                 <child>
@@ -716,6 +720,10 @@ GStreamer is a pipeline-based multimedia allows a programmer to create a variety
                       <object class="GtkComboBoxText" id="comboboxtext1">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <items>
+                          <item id="0">WebM</item>
+                          <item id="1">Mp4</item>
+                        </items>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
@@ -726,6 +734,13 @@ GStreamer is a pipeline-based multimedia allows a programmer to create a variety
                       <object class="GtkComboBoxText" id="comboboxtext2">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <items>
+                          <item id="0" translatable="yes">Real area screen resolution</item>
+                          <item id="1" translatable="yes">SD (480p)</item>
+                          <item id="2" translatable="yes">HD (720p)</item>
+                          <item id="3" translatable="yes">Full HD (1080p)</item>
+                          <item id="4" translatable="yes">UHD - 4K (2160p)</item>
+                        </items>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
