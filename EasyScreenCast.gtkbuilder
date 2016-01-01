@@ -9,7 +9,7 @@
       <!-- column-name mods -->
       <column type="gint"/>
     </columns>
-  </object>
+  </object>sh
   <object class="GtkBox" id="Main_Container">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -52,7 +52,7 @@
                             <property name="halign">end</property>
                             <property name="margin_top">4</property>
                             <property name="hexpand">True</property>
-                            <property name="label" translatable="yes">Replace standard indicator on status menu</property>
+                            <property name="label" translatable="yes">Replace the standard recording indicator on the status bar</property>
                             <property name="justify">right</property>
                           </object>
                           <packing>
@@ -78,7 +78,7 @@
                             <property name="can_focus">False</property>
                             <property name="halign">end</property>
                             <property name="hexpand">True</property>
-                            <property name="label" translatable="yes">Show time recording into notification bar</property>
+                            <property name="label" translatable="yes">Show recording time in the notification drawer</property>
                           </object>
                           <packing>
                             <property name="left_attach">0</property>
@@ -280,7 +280,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                             <property name="can_focus">False</property>
                             <property name="halign">end</property>
                             <property name="hexpand">True</property>
-                            <property name="label" translatable="yes">Frames Per Second</property>
+                            <property name="label" translatable="yes">Frames per second (FPS)</property>
                           </object>
                           <packing>
                             <property name="left_attach">0</property>
@@ -293,7 +293,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                             <property name="can_focus">False</property>
                             <property name="halign">end</property>
                             <property name="hexpand">True</property>
-                            <property name="label" translatable="yes">Draw cursor on screencast</property>
+                            <property name="label" translatable="yes">Include the mouse pointer in recordings</property>
                           </object>
                           <packing>
                             <property name="left_attach">0</property>
@@ -356,7 +356,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                           <object class="GtkLabel" id="label18">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="tooltip_text" translatable="yes">The word $AbsFilePath will be replaced by the absolute path of the screencast video file.</property>
+                            <property name="tooltip_text" translatable="yes">The word $AbsFilePath will be replaced by the absolute path to the saved video file.</property>
                             <property name="halign">end</property>
                             <property name="hexpand">True</property>
                             <property name="label" translatable="yes">Command post-recording</property>
@@ -443,10 +443,10 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                           <object class="GtkLabel" id="label17">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="tooltip_text" translatable="yes">the filename which may contain some escape sequences - %d and %t will be replaced by the start date and time of the recording.</property>
+                            <property name="tooltip_text" translatable="yes">%d and %t will be replaced by the start date and time of the recording.</property>
                             <property name="halign">end</property>
                             <property name="hexpand">True</property>
-                            <property name="label" translatable="yes">File name template : </property>
+                            <property name="label" translatable="yes">File name template: </property>
                           </object>
                           <packing>
                             <property name="left_attach">0</property>
@@ -457,10 +457,10 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                           <object class="GtkLabel" id="lbl_kjkhkhhkhjk">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="tooltip_text" translatable="yes">If you do not specify the destination folder, the file will be saved in the path if it exists or, alternatively, in the home of the user.</property>
+                            <property name="tooltip_text" translatable="yes">If you do not specify the destination folder, the file will be saved in the folder if it exists or, in the user home folder.</property>
                             <property name="halign">end</property>
                             <property name="hexpand">True</property>
-                            <property name="label" translatable="yes">The file is saved in the path : </property>
+                            <property name="label" translatable="yes">The file will be saved in the following folder: </property>
                           </object>
                           <packing>
                             <property name="left_attach">0</property>
@@ -486,7 +486,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                           <object class="GtkLabel" id="lbl_FileFolderRec">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="tooltip_text" translatable="yes">Select the folder where the file is saved, if not specific a folder  the file will be saved in the $XDG_VIDEOS_DIR if it exists, or the home directory otherwise.</property>
+                            <property name="tooltip_text" translatable="yes">Select the folder where the screen recording will be saved. If you don’t set a folder, the file will be saved in the $XDG_VIDEOS_DIR if it exists, or in the home folder.</property>
                             <property name="halign">start</property>
                             <property name="hexpand">True</property>
                             <attributes>
@@ -519,7 +519,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                               <object class="GtkFileChooserWidget" id="fcs_FilePathRec">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="tooltip_text" translatable="yes">Select the folder where the file is saved, if not specific a folder  the file will be saved in the $XDG_VIDEOS_DIR if it exists, or the home directory otherwise.</property>
+                                <property name="tooltip_text" translatable="yes">Select the folder where the screen recording will be saved. If you don’t set a folder, the file will be saved in the $XDG_VIDEOS_DIR if it exists, or in the home folder.</property>
                                 <property name="action">select-folder</property>
                                 <property name="do_overwrite_confirmation">True</property>
                                 <property name="preview_widget_active">False</property>
@@ -532,7 +532,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                           <object class="GtkLabel" id="label8">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">Choose a directory</property>
+                            <property name="label" translatable="yes">Choose a folder</property>
                           </object>
                         </child>
                       </object>
@@ -810,7 +810,7 @@ GStreamer is a pipeline-based multimedia allows a programmer to create a variety
         <property name="margin_bottom">5</property>
         <child>
           <object class="GtkLinkButton" id="btnlink_github">
-            <property name="label" translatable="yes">Report [ Bugs / Feature Request / Issue ] here</property>
+            <property name="label" translatable="yes">Report Bugs and Feature Request</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
@@ -825,7 +825,7 @@ GStreamer is a pipeline-based multimedia allows a programmer to create a variety
         </child>
         <child>
           <object class="GtkButton" id="btn_DefaultOption">
-            <property name="label" translatable="yes">Restore default options</property>
+            <property name="label" translatable="yes">Restore defaults</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
