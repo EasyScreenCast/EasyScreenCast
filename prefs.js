@@ -231,30 +231,35 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
 
             //implements file container option
             this.Ref_ComboBox_Container = builder.get_object(
-                'cbt_container');
+                'cbt_FileContainer');
             settings.bind(
                 FILE_CONTAINER_SETTING_KEY, this.Ref_ComboBox_Container,
                 'active', Gio.SettingsBindFlags.DEFAULT);
 
             //implements file container option
             this.Ref_ComboBox_Resolution = builder.get_object(
-                'cbt_resolution');
+                'cbt_FileResolution');
             settings.bind(
                 FILE_RESOLUTION_SETTING_KEY, this.Ref_ComboBox_Resolution,
                 'active', Gio.SettingsBindFlags.DEFAULT);
 
             //implements file folder string rec option
-            //            this.Ref_filechooser_FileFolder = builder.get_object(
-            //                'fcs_FilePathRec');
-            //            this.Ref_filechooser_FileFolder.set_can_focus(false);
-            //            this.Ref_filechooser_FileFolder.connect(
-            //                'selection_changed', Lang.bind(this,
-            //                    function (self) {
-            //                        Lib.TalkativeLog('file path get from widget : ' + self.get_filename());
-            //                        if (self.get_filename() !== null)
-            //                            setOption(FILE_FOLDER_SETTING_KEY,
-            //                                self.get_filename());
-            //                    }));
+            this.Ref_filechooser_FileFolder = builder.get_object(
+                'fcb_FilePathRec');
+            this.Ref_filechooser_FileFolder.set_current_folder(
+                getOption('s', FILE_FOLDER_SETTING_KEY));
+
+            this.Ref_filechooser_FileFolder.connect(
+                'file_set', Lang.bind(this,
+                    function (self) {
+                        var tmpPathFolder = self.get_filename();
+                        Lib.TalkativeLog('file path get from widget : ' + tmpPathFolder);
+                        if (tmpPathFolder !== null)
+                            setOption(FILE_FOLDER_SETTING_KEY, tmpPathFolder);
+                    })
+            );
+
+
 
             //update GSP text area and input source
             this._setStateGSP();
@@ -335,7 +340,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         setOption(FILE_NAME_SETTING_KEY, 'Screencast_%d_%t.webm');
         setOption(FILE_FOLDER_SETTING_KEY, '');
         setOption(ACTIVE_POST_CMD_SETTING_KEY, false);
-        setOption(POST_CMD_SETTING_KEY, 'xdg-open AbsFilePath &');
+        setOption(POST_CMD_SETTING_KEY, 'xdg-open _fpath &');
         setOption(INPUT_AUDIO_SOURCE_SETTING_KEY, -1);
     }
 });
