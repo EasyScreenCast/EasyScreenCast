@@ -233,7 +233,10 @@
                       <object class="GtkLabel" id="label18">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="tooltip_text" translatable="yes">The word $AbsFilePath will replace by the absolute path of the screencast video file.</property>
+                        <property name="tooltip_text" translatable="yes">These words will be replaced
+ _fpath = the absolute path of the screencast video file.
+_dirpath = the absolute path of destination folder for the screencast video file.
+_fname = the name of the screencast video file.</property>
                         <property name="halign">end</property>
                         <property name="hexpand">True</property>
                         <property name="label" translatable="yes">Command post-recording</property>
@@ -247,7 +250,10 @@
                       <object class="GtkEntry" id="txe_postcmd">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="tooltip_text" translatable="yes">The word $AbsFilePath will replace by the absolute path of the screencast video file.</property>
+                        <property name="tooltip_text" translatable="yes">These words will be replaced
+ _fpath = the absolute path of the screencast video file.
+_dirpath = the absolute path of destination folder for the screencast video file.
+_fname = the name of the screencast video file.</property>
                         <property name="hexpand">True</property>
                       </object>
                       <packing>
@@ -345,6 +351,9 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                             <property name="orientation">vertical</property>
                             <property name="spacing">10</property>
                             <child>
+                              <placeholder/>
+                            </child>
+                            <child>
                               <object class="GtkGrid" id="grid66">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
@@ -407,7 +416,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                               <packing>
                                 <property name="expand">False</property>
                                 <property name="fill">True</property>
-                                <property name="position">0</property>
+                                <property name="position">1</property>
                               </packing>
                             </child>
                             <child>
@@ -679,9 +688,11 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkFileChooserButton" id="filechooserbutton1">
+                      <object class="GtkFileChooserButton" id="fcb_FilePathRec">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="action">select-folder</property>
+                        <property name="title" translatable="yes">Select the destination folder</property>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
@@ -717,12 +728,13 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkComboBoxText" id="cbt_container">
+                      <object class="GtkComboBoxText" id="cbt_FileContainer">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <items>
                           <item id="0">WebM</item>
                           <item id="1">Mp4</item>
+                          <item id="2" translatable="yes">Mkv</item>
                         </items>
                       </object>
                       <packing>
@@ -731,15 +743,15 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkComboBoxText" id="cbt_resolution">
+                      <object class="GtkComboBoxText" id="cbt_FileResolution">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <items>
                           <item id="0" translatable="yes">Real area screen resolution</item>
-                          <item id="1" translatable="yes">SD (480p)</item>
-                          <item id="2" translatable="yes">HD (720p)</item>
-                          <item id="3" translatable="yes">Full HD (1080p)</item>
-                          <item id="4" translatable="yes">UHD - 4K (2160p)</item>
+                          <item id="1" translatable="yes">SD  (480p)  [768x480]</item>
+                          <item id="2" translatable="yes">HD  (720p)  [1280x720]</item>
+                          <item id="3" translatable="yes">Full HD  (1080p)  [1920x1080]</item>
+                          <item id="4" translatable="yes">UHD - 4K  (2160p)  [3840x2160]</item>
                         </items>
                       </object>
                       <packing>
