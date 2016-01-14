@@ -50,6 +50,7 @@ const FILE_NAME_SETTING_KEY = 'file-name';
 const FILE_FOLDER_SETTING_KEY = 'file-folder';
 const FILE_CONTAINER_SETTING_KEY = 'file-container';
 const FILE_RESOLUTION_SETTING_KEY = 'file-resolution';
+const QUALITY_SETTING_KEY = 'quality-index';
 
 
 // shortcut tree view columns
@@ -75,7 +76,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         checkSettings();
 
         // creates the ui builder and add the main resource file
-        let uiFilePath = Me.path + '/EasyScreenCast.gtkbuilder';
+        let uiFilePath = Me.path + '/EasyScreenCast1.gtkbuilder';
         let builder = new Gtk.Builder();
         builder.set_translation_domain(
             'EasyScreenCast@iacopodeenosee.gmail.com');
@@ -130,8 +131,6 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             settings.bind(
                 ACTIVE_SHORTCUT_SETTING_KEY, this.Ref_switch_EnableShortcut,
                 'active', Gio.SettingsBindFlags.DEFAULT);
-
-
 
             //implements selecting alternative key combo
             this.Ref_treeview_Shortcut = builder.get_object(
@@ -197,6 +196,51 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                 PIPELINE_REC_SETTING_KEY, this.Ref_buffer_Pipeline, 'text',
                 Gio.SettingsBindFlags.DEFAULT);
 
+            //implements quality scale option
+            this.Ref_scale_Quality = builder.get_object(
+                'scl_Quality');
+            settings.bind(
+                QUALITY_SETTING_KEY, this.Ref_scale_Quality,
+                'digits', Gio.SettingsBindFlags.DEFAULT);
+            this.Ref_scale_Quality.set_valign(Gtk.Align.START);
+            let adjustment2 = new Gtk.Adjustment({
+                value: 2,
+                lower: 0,
+                upper: 3,
+                step_increment: 1,
+                page_increment: 1
+            });
+            this.Ref_scale_Quality.set_adjustment(adjustment2);
+            this.Ref_scale_Quality.set_digits(1);
+            let ind = 0;
+            for (; ind < 4; ind++) {
+                this.Ref_scale_Quality.add_mark(ind, Gtk.PositionType.BOTTOM, '');
+            }
+            this.Ref_scale_Quality.set_value(getOption(
+                'i', QUALITY_SETTING_KEY));
+            this.Ref_scale_Quality.connect(
+                'value-changed', Lang.bind(this, function (self) {
+                    Lib.TalkativeLog('value quality changed : ' + self.get_value());
+
+                    setOption(QUALITY_SETTING_KEY,
+                        self.get_value());
+                })
+            );
+
+            //implements image for scale widget
+            this.Ref_image_Performance = builder.get_object(
+                'img_Performance');
+            //this.Ref_image_Performance.set_from_file(Lib.ESCimgPerformance);
+            this.Ref_image_Performance.set_from_gicon(
+                Lib.ESCimgPerformance, 20);
+            this.Ref_image_Quality = builder.get_object(
+                'img_Quality');
+            //this.Ref_image_Quality.set_from_file(Lib.ESCimgQuality);
+            this.Ref_image_Quality.set_from_gicon(
+                Lib.ESCimgQuality, 20);
+
+
+
             //implements custom GSPipeline option
             this.Ref_switch_CustomGSP = builder.get_object(
                 'swt_EnableCustomGSP');
@@ -204,10 +248,13 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                 ACTIVE_CUSTOM_GSP_SETTING_KEY, this.Ref_switch_CustomGSP,
                 'active', Gio.SettingsBindFlags.DEFAULT);
             this.Ref_switch_CustomGSP.connect(
-                'state_changed', Lang.bind(this, function () {
+                'button_press_event', Lang.bind(this, function (self) {
                     //update GSP text area
-                    this._setStateGSP();
+                    this._setStateGSP(getOption(
+                        'b', ACTIVE_CUSTOM_GSP_SETTING_KEY));
                 }));
+
+            this.Ref_stack_Quality = builder.get_object('stk_Quality');
 
             //implements post execute command
             this.Ref_switch_ExecutePostCMD = builder.get_object(
@@ -261,8 +308,8 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
 
 
 
-            //update GSP text area and input source
-            this._setStateGSP();
+            //update GSP area
+            this._setStateGSP(!getOption('b', ACTIVE_CUSTOM_GSP_SETTING_KEY));
 
             //implements default button action
             this.Ref_button_SetDeafaultSettings = builder.get_object(
@@ -295,21 +342,17 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             this.Iter_ShortcutRow, [SHORTCUT_COLUMN_KEY, SHORTCUT_COLUMN_MODS], [key, mods]);
     },
 
-    _setStateGSP: function () {
+    _setStateGSP: function (active) {
         //update GSP text area
-        if (getOption('b', ACTIVE_CUSTOM_GSP_SETTING_KEY)) {
+        if (!active) {
             Lib.TalkativeLog('custom GSP');
 
-            this.Ref_textedit_Pipeline.set_editable(true);
-            this.Ref_textedit_Pipeline.set_cursor_visible(true);
-            this.Ref_textedit_Pipeline.set_sensitive(true);
+            this.Ref_stack_Quality.set_visible_child_name('pg_Custom');
 
         } else {
             Lib.TalkativeLog('NOT custom GSP');
 
-            this.Ref_textedit_Pipeline.set_editable(false);
-            this.Ref_textedit_Pipeline.set_cursor_visible(false);
-            this.Ref_textedit_Pipeline.set_sensitive(false);
+            this.Ref_stack_Quality.set_visible_child_name('pg_Preset');
 
             var audio = false;
             if (getOption('i', INPUT_AUDIO_SOURCE_SETTING_KEY) > 0) {
