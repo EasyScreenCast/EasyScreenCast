@@ -96,11 +96,12 @@ video/x-raw-rgb, bpp=(int)24, depth=(int)24, red_mask=(int)16711680, green_mask=
 -------------------------------------------------------------------------------
 
 @@@ extesion pipeline NO SOUND @@@
-vp9enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! webmmux
+videoscale ! video/x-raw, width=1920, height=1080, framerate=30/1 , add-borders=true ! vp9enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! webmmux
 
 @@@ extesion pipeline WITH SOUND@@@
 queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 \
-! videorate \
+! videoscale \
+! video/x-raw, width=1920, height=1080, framerate=30/1 , add-borders=true  \
 ! vp8enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T \
 ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 \
 ! mux. pulsesrc \
@@ -113,7 +114,8 @@ queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 \
 queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 \
 ! videomixer name=mix \
 ! videoconvert \
-! videorate \
+! videoscale \
+! video/x-raw, width=1920, height=1080, framerate=30/1 , add-borders=true  \
 ! vp8enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T \
 ! mux. v4l2src do-timestamp=true \
 ! video/x-raw,format=YUY2,width=320, height=240, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 \
@@ -362,7 +364,8 @@ gst-launch-1.0  --gst-debug=3 ximagesrc \
 gst-launch-1.0  --gst-debug=3 \
 ximagesrc \
 ! videoconvert \
-! videorate \
+! videoscale \
+! video/x-raw, width=1920, height=1080, framerate=30/1 , add-borders=true \
 ! vp8enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=5  \
 ! webmmux name=mux \
 ! filesink location=screencast.webm
@@ -373,13 +376,12 @@ gst-launch-1.0  --gst-debug=3 \
 v4l2src do-timestamp=true \
 ! video/x-raw,format=YUY2,width=160, height=120, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 \
 ! videoconvert \
+! videoscale \
+! video/x-raw, width=1920, height=1080, framerate=30/1 , add-borders=true \
 ! vp8enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=5  \
 ! webmmux name=mux \
 ! filesink location=screencast.webm
 
-
-! queue max-size-bytes=100000000 max-size-time=0 \
-! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 \
 
 
 //DESKTOP RECORDING WITH WEBCAM WITH SOUND
@@ -410,7 +412,8 @@ ximagesrc \
 ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 \
 ! videomixer name=mix \
 ! videoconvert \
-! videorate \
+! videoscale \
+! video/x-raw, width=1920, height=1080, framerate=30/1 , add-borders=true \
 ! vp8enc  min_quantizer=10 max_quantizer=10 cpu-used=2 deadline=1000000  threads=2 \
 ! mux. v4l2src do-timestamp=true \
 ! video/x-raw,format=YUY2,width=640, height=480, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 \
@@ -419,11 +422,13 @@ ximagesrc \
 ! audioconvert \
 ! vorbisenc \
 ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 \
-! mux. webmmux name=mux
+! mux. webmmux name=mux \
+! filesink location=screencast.webm
+
 
 
 //convert to esc
-queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! videomixer name=mix ! videoconvert ! videorate ! vp8enc  min_quantizer=10 max_quantizer=10 cpu-used=2 deadline=1000000  threads=2 ! mux. v4l2src do-timestamp=true ! video/x-raw,format=YUY2,width=640, height=480, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mix. pulsesrc ! audioconvert ! vorbisenc ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mux. webmmux name=mux
+queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! videomixer name=mix  ! videoconvert ! videoscale ! video/x-raw, width=1920, height=1080, framerate=30/1 , add-borders=true ! vp8enc  min_quantizer=10 max_quantizer=10 cpu-used=2 deadline=1000000  threads=2 ! mux. v4l2src do-timestamp=true !  video/x-raw,format=YUY2,width=640, height=480, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mix. pulsesrc ! audioconvert ! vorbisenc ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mux. webmmux name=mux
 
 
 //DESKTOP RECORDING WITH WEBCAM NO SOUND
@@ -432,7 +437,8 @@ ximagesrc \
 ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 \
 ! videomixer name=mix \
 ! videoconvert \
-! videorate \
+! videoscale \
+! video/x-raw, width=1920, height=1080, framerate=30/1 , add-borders=true \
 ! vp8enc  min_quantizer=10 max_quantizer=10 cpu-used=2 deadline=1000000  threads=2 \
 ! mux. v4l2src do-timestamp=true \
 ! video/x-raw,format=YUY2,width=640, height=480, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 \
@@ -441,7 +447,7 @@ ximagesrc \
 
 
 //convert to esc
-queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! videomixer name=mix ! videoconvert ! videorate ! vp8enc  min_quantizer=10 max_quantizer=10 cpu-used=2 deadline=1000000  threads=2 ! mux. v4l2src do-timestamp=true ! video/x-raw,format=YUY2,width=640, height=480, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mix. webmmux name=mux
+queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! videomixer name=mix  ! videoconvert ! videoscale ! video/x-raw, width=1920, height=1080, framerate=30/1 , add-borders=true ! vp8enc  min_quantizer=10 max_quantizer=10 cpu-used=2 deadline=1000000  threads=2 ! mux. v4l2src do-timestamp=true ! video/x-raw,format=YUY2,width=640, height=480, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mix. webmmux name=mux
 
 
 #################
