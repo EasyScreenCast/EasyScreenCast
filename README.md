@@ -1,6 +1,6 @@
 EasyScreenCast is a simple extension of a gnome 3 shell DE 
 
-Copyright (C) 2013-14-15 Borsato Ivano.
+Copyright (C) 2013-14-15-16 Borsato Ivano.
 
 * [Web Page](http://iacopodeenosee.wordpress.com/)
 * [GNOME Shell Extensions Page](https://extensions.gnome.org/extension/690/easyscreencast/)
