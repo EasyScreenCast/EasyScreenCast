@@ -343,57 +343,35 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                         <property name="can_focus">False</property>
                         <property name="orientation">vertical</property>
                         <child>
-                          <object class="GtkFrame" id="frame4">
+                          <object class="GtkGrid" id="grid3">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label_xalign">0</property>
-                            <property name="shadow_type">none</property>
+                            <property name="row_spacing">18</property>
+                            <property name="column_spacing">15</property>
                             <child>
-                              <object class="GtkAlignment" id="alignment4">
+                              <object class="GtkLabel" id="textentry26">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="left_padding">15</property>
-                                <property name="right_padding">15</property>
-                                <child>
-                                  <object class="GtkGrid" id="grid3">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="row_spacing">18</property>
-                                    <property name="column_spacing">15</property>
-                                    <child>
-                                      <object class="GtkLabel" id="textentry26">
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="halign">end</property>
-                                        <property name="hexpand">True</property>
-                                        <property name="label" translatable="yes">Custom GStreamer Pipeline</property>
-                                      </object>
-                                      <packing>
-                                        <property name="left_attach">0</property>
-                                        <property name="top_attach">0</property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <object class="GtkSwitch" id="swt_EnableCustomGSP">
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">True</property>
-                                        <property name="halign">start</property>
-                                        <property name="hexpand">True</property>
-                                      </object>
-                                      <packing>
-                                        <property name="left_attach">1</property>
-                                        <property name="top_attach">0</property>
-                                      </packing>
-                                    </child>
-                                  </object>
-                                </child>
+                                <property name="halign">end</property>
+                                <property name="hexpand">True</property>
+                                <property name="label" translatable="yes">Custom GStreamer Pipeline</property>
                               </object>
+                              <packing>
+                                <property name="left_attach">0</property>
+                                <property name="top_attach">0</property>
+                              </packing>
                             </child>
-                            <child type="label">
-                              <object class="GtkLabel" id="label16">
+                            <child>
+                              <object class="GtkSwitch" id="swt_EnableCustomGSP">
                                 <property name="visible">True</property>
-                                <property name="can_focus">False</property>
+                                <property name="can_focus">True</property>
+                                <property name="halign">start</property>
+                                <property name="hexpand">True</property>
                               </object>
+                              <packing>
+                                <property name="left_attach">1</property>
+                                <property name="top_attach">0</property>
+                              </packing>
                             </child>
                           </object>
                           <packing>
@@ -744,7 +722,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkSwitch" id="switch1">
+                              <object class="GtkSwitch" id="swt_RecWebCam">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="halign">start</property>
@@ -813,7 +791,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                                 <property name="can_focus">False</property>
                                 <property name="halign">end</property>
                                 <property name="hexpand">True</property>
-                                <property name="label" translatable="yes">Corner</property>
+                                <property name="label" translatable="yes">Put the webcam in the corner</property>
                               </object>
                               <packing>
                                 <property name="left_attach">0</property>
@@ -834,7 +812,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkComboBoxText" id="comboboxtext1">
+                              <object class="GtkComboBoxText" id="cbt_WebCamDevice">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="halign">start</property>
@@ -846,7 +824,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkComboBoxText" id="comboboxtext2">
+                              <object class="GtkComboBoxText" id="cbt_WebCamCap">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="halign">start</property>
@@ -897,7 +875,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkSwitch" id="switch2">
+                              <object class="GtkSwitch" id="swt_WebCamShowBorder">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="halign">start</property>
@@ -909,11 +887,17 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkComboBoxText" id="comboboxtext3">
+                              <object class="GtkComboBoxText" id="cbt_WebCamCorner">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="halign">start</property>
                                 <property name="hexpand">True</property>
+                                <items>
+                                  <item id="0" translatable="yes">Left-Top</item>
+                                  <item id="1" translatable="yes">Right-Top</item>
+                                  <item id="2" translatable="yes">Left-Bottom</item>
+                                  <item id="3" translatable="yes">Right-Bottom</item>
+                                </items>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -921,7 +905,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkSpinButton" id="spinbutton1">
+                              <object class="GtkSpinButton" id="spb_WebCamMarginX">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="halign">start</property>
@@ -933,7 +917,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkSpinButton" id="spinbutton2">
+                              <object class="GtkSpinButton" id="spb_WebCamMarginY">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="halign">start</property>
@@ -945,7 +929,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkSpinButton" id="spinbutton3">
+                              <object class="GtkSpinButton" id="spb_WebCamApha">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="halign">start</property>

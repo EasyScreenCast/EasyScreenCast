@@ -51,6 +51,10 @@ const FILE_FOLDER_SETTING_KEY = 'file-folder';
 const FILE_CONTAINER_SETTING_KEY = 'file-container';
 const FILE_RESOLUTION_SETTING_KEY = 'file-resolution';
 const QUALITY_SETTING_KEY = 'quality-index';
+const REC_WEBCAM_SETTING_KEY = 'rec-webcam';
+const DEVICE_WEBCAM_SETTING_KEY = 'device-webcam';
+const QUALITY_WEBCAM_SETTING_KEY = 'quality-webcam';
+
 
 
 // shortcut tree view columns
@@ -152,8 +156,9 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
 
                         this._updateRowShortcut(accel);
                         setOption(SHORTCUT_KEY_SETTING_KEY, [accel]);
-                    }));
-
+                    }
+                )
+            );
 
             renderer.connect(
                 "accel-cleared", Lang.bind(this,
@@ -163,7 +168,8 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                         this._updateRowShortcut(null);
                         setOption(SHORTCUT_KEY_SETTING_KEY, []);
                     }
-                ));
+                )
+            );
 
             let column = new Gtk.TreeViewColumn();
             column.pack_start(renderer, true);
@@ -214,7 +220,8 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             this.Ref_scale_Quality.set_digits(1);
             let ind = 0;
             for (; ind < 4; ind++) {
-                this.Ref_scale_Quality.add_mark(ind, Gtk.PositionType.BOTTOM, '');
+                this.Ref_scale_Quality.add_mark(ind,
+                    Gtk.PositionType.BOTTOM, '');
             }
             this.Ref_scale_Quality.set_value(getOption(
                 'i', QUALITY_SETTING_KEY));
@@ -239,8 +246,6 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             this.Ref_image_Quality.set_from_gicon(
                 Lib.ESCimgQuality, 20);
 
-
-
             //implements custom GSPipeline option
             this.Ref_switch_CustomGSP = builder.get_object(
                 'swt_EnableCustomGSP');
@@ -252,7 +257,8 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                     //update GSP text area
                     this._setStateGSP(getOption(
                         'b', ACTIVE_CUSTOM_GSP_SETTING_KEY));
-                }));
+                })
+            );
 
             this.Ref_stack_Quality = builder.get_object('stk_Quality');
 
@@ -306,6 +312,26 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                     })
             );
 
+            //implements webcam recording option
+            this.Ref_switch_RecWebCam = builder.get_object(
+                'swt_RecWebCam');
+            settings.bind(
+                REC_WEBCAM_SETTING_KEY, this.Ref_switch_RecWebCam,
+                'active', Gio.SettingsBindFlags.DEFAULT);
+
+            //implements webcam device option
+            this.Ref_ComboBox_DeviceWebCam = builder.get_object(
+                'cbt_WebCamDevice');
+            settings.bind(
+                FILE_RESOLUTION_SETTING_KEY, this.Ref_ComboBox_DeviceWebCam,
+                'active', Gio.SettingsBindFlags.DEFAULT);
+
+            //implements webcam quality option
+            this.Ref_ComboBox_QualityWebCam = builder.get_object(
+                'cbt_WebCamCap');
+            settings.bind(
+                FILE_RESOLUTION_SETTING_KEY, this.Ref_ComboBox_QualityWebCam,
+                'active', Gio.SettingsBindFlags.DEFAULT);
 
 
             //update GSP area
