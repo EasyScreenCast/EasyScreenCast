@@ -800,7 +800,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                                 <property name="can_focus">False</property>
                                 <property name="halign">end</property>
                                 <property name="hexpand">False</property>
-                                <property name="label" translatable="yes">Resolution</property>
+                                <property name="label" translatable="yes">Quality</property>
                               </object>
                               <packing>
                                 <property name="left_attach">0</property>
@@ -1089,7 +1089,8 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                             <items>
                               <item id="0">WebM</item>
                               <item id="1">Mp4</item>
-                              <item id="2" translatable="yes">Mkv</item>
+                              <item id="2">Mkv</item>
+                              <item id="3">Ogg</item>
                             </items>
                           </object>
                           <packing>
@@ -1102,11 +1103,11 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <items>
-                              <item id="0" translatable="yes">Real area screen resolution</item>
-                              <item id="1" translatable="yes">SD  (480p)  [768x480]</item>
-                              <item id="2" translatable="yes">HD  (720p)  [1280x720]</item>
-                              <item id="3" translatable="yes">Full HD  (1080p)  [1920x1080]</item>
-                              <item id="4" translatable="yes">UHD - 4K  (2160p)  [3840x2160]</item>
+                              <item id="0" translatable="yes">Native area screen resolution</item>
+                              <item id="1">SD  (480p)  [768x480]</item>
+                              <item id="2">HD  (720p)  [1280x720]</item>
+                              <item id="3">Full HD  (1080p)  [1920x1080]</item>
+                              <item id="4">Ultra HD  (2160p)  [3840x2160]</item>
                             </items>
                           </object>
                           <packing>
