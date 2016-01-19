@@ -99,19 +99,23 @@ function TalkativeLog(msg) {
 };
 
 const ESConGIcon = new Gio.FileIcon({
-    file: Gio.File.new_for_path(Me.dir.get_child('images/icon_recording.svg').get_path())
+    file: Gio.File.new_for_path(Me.dir.get_child(
+        'images/icon_recording.svg').get_path())
 });
 
 const ESCoffGIcon = new Gio.FileIcon({
-    file: Gio.File.new_for_path(Me.dir.get_child('images/icon_default.svg').get_path())
+    file: Gio.File.new_for_path(Me.dir.get_child(
+        'images/icon_default.svg').get_path())
 });
 
 const ESConGIconSel = new Gio.FileIcon({
-    file: Gio.File.new_for_path(Me.dir.get_child('images/icon_recordingSel.svg').get_path())
+    file: Gio.File.new_for_path(Me.dir.get_child(
+        'images/icon_recordingSel.svg').get_path())
 });
 
 const ESCoffGIconSel = new Gio.FileIcon({
-    file: Gio.File.new_for_path(Me.dir.get_child('images/icon_defaultSel.svg').get_path())
+    file: Gio.File.new_for_path(Me.dir.get_child(
+        'images/icon_defaultSel.svg').get_path())
 });
 
 const ESCimgPerformance = new Gio.FileIcon({
