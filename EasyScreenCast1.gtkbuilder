@@ -703,41 +703,15 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                         <property name="can_focus">False</property>
                         <property name="orientation">vertical</property>
                         <child>
-                          <object class="GtkBox" id="box6">
+                          <object class="GtkLabel" id="lbl_webcam">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="spacing">15</property>
-                            <child>
-                              <object class="GtkLabel" id="label19">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="halign">end</property>
-                                <property name="hexpand">False</property>
-                                <property name="label" translatable="yes">enable webcam</property>
-                              </object>
-                              <packing>
-                                <property name="expand">True</property>
-                                <property name="fill">True</property>
-                                <property name="position">0</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkSwitch" id="swt_RecWebCam">
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="halign">start</property>
-                                <property name="hexpand">True</property>
-                              </object>
-                              <packing>
-                                <property name="expand">True</property>
-                                <property name="fill">True</property>
-                                <property name="position">1</property>
-                              </packing>
-                            </child>
+                            <property name="label" translatable="yes">No webcam device selected</property>
+                            <property name="justify">center</property>
                           </object>
                           <packing>
                             <property name="expand">False</property>
-                            <property name="fill">True</property>
+                            <property name="fill">False</property>
                             <property name="position">0</property>
                           </packing>
                         </child>
@@ -760,19 +734,6 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                             <property name="row_spacing">18</property>
                             <property name="column_spacing">15</property>
                             <child>
-                              <object class="GtkLabel" id="label2">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="halign">end</property>
-                                <property name="hexpand">True</property>
-                                <property name="label" translatable="yes">WebCam</property>
-                              </object>
-                              <packing>
-                                <property name="left_attach">0</property>
-                                <property name="top_attach">0</property>
-                              </packing>
-                            </child>
-                            <child>
                               <object class="GtkLabel" id="label3">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
@@ -782,44 +743,6 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                               </object>
                               <packing>
                                 <property name="left_attach">0</property>
-                                <property name="top_attach">1</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkLabel" id="label20">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="halign">end</property>
-                                <property name="hexpand">True</property>
-                                <property name="label" translatable="yes">Put the webcam in the corner</property>
-                              </object>
-                              <packing>
-                                <property name="left_attach">0</property>
-                                <property name="top_attach">2</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkLabel" id="label21">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="halign">end</property>
-                                <property name="hexpand">True</property>
-                                <property name="label" translatable="yes">Margin X</property>
-                              </object>
-                              <packing>
-                                <property name="left_attach">0</property>
-                                <property name="top_attach">3</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkComboBoxText" id="cbt_WebCamDevice">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="halign">start</property>
-                                <property name="hexpand">True</property>
-                              </object>
-                              <packing>
-                                <property name="left_attach">1</property>
                                 <property name="top_attach">0</property>
                               </packing>
                             </child>
@@ -832,58 +755,20 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
+                                <property name="top_attach">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="label20">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="halign">end</property>
+                                <property name="hexpand">True</property>
+                                <property name="label" translatable="yes">Put the webcam in the corner</property>
+                              </object>
+                              <packing>
+                                <property name="left_attach">0</property>
                                 <property name="top_attach">1</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkLabel" id="label22">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="halign">end</property>
-                                <property name="hexpand">True</property>
-                                <property name="label" translatable="yes">Margin Y</property>
-                              </object>
-                              <packing>
-                                <property name="left_attach">0</property>
-                                <property name="top_attach">4</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkLabel" id="label23">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="halign">end</property>
-                                <property name="hexpand">True</property>
-                                <property name="label" translatable="yes">Alpha channel</property>
-                              </object>
-                              <packing>
-                                <property name="left_attach">0</property>
-                                <property name="top_attach">5</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkLabel" id="label26">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="halign">end</property>
-                                <property name="hexpand">True</property>
-                                <property name="label" translatable="yes">Show border</property>
-                              </object>
-                              <packing>
-                                <property name="left_attach">0</property>
-                                <property name="top_attach">6</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkSwitch" id="swt_WebCamShowBorder">
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="halign">start</property>
-                                <property name="hexpand">True</property>
-                              </object>
-                              <packing>
-                                <property name="left_attach">1</property>
-                                <property name="top_attach">6</property>
                               </packing>
                             </child>
                             <child>
@@ -901,6 +786,19 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
+                                <property name="top_attach">1</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="label21">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="halign">end</property>
+                                <property name="hexpand">True</property>
+                                <property name="label" translatable="yes">Margin X</property>
+                              </object>
+                              <packing>
+                                <property name="left_attach">0</property>
                                 <property name="top_attach">2</property>
                               </packing>
                             </child>
@@ -913,6 +811,19 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
+                                <property name="top_attach">2</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="label22">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="halign">end</property>
+                                <property name="hexpand">True</property>
+                                <property name="label" translatable="yes">Margin Y</property>
+                              </object>
+                              <packing>
+                                <property name="left_attach">0</property>
                                 <property name="top_attach">3</property>
                               </packing>
                             </child>
@@ -925,11 +836,49 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
+                                <property name="top_attach">3</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="label23">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="halign">end</property>
+                                <property name="hexpand">True</property>
+                                <property name="label" translatable="yes">Alpha channel</property>
+                              </object>
+                              <packing>
+                                <property name="left_attach">0</property>
                                 <property name="top_attach">4</property>
                               </packing>
                             </child>
                             <child>
                               <object class="GtkSpinButton" id="spb_WebCamApha">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="halign">start</property>
+                                <property name="hexpand">True</property>
+                              </object>
+                              <packing>
+                                <property name="left_attach">1</property>
+                                <property name="top_attach">4</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="label26">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="halign">end</property>
+                                <property name="hexpand">True</property>
+                                <property name="label" translatable="yes">Show border</property>
+                              </object>
+                              <packing>
+                                <property name="left_attach">0</property>
+                                <property name="top_attach">5</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkSwitch" id="swt_WebCamShowBorder">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="halign">start</property>
