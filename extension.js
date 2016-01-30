@@ -107,6 +107,9 @@ const EasyScreenCast_Indicator = new Lang.Class({
         //add sub menu audio recording
         this._addSubMenuAudioRec();
 
+        //add sub menu webcam recording
+        this._addSubMenuWebCam();
+
         //add sub menu area recording
         this._addSubMenuAreaRec();
 
@@ -177,6 +180,21 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.menu.addMenuItem(this.smAudioRec);
     },
 
+    _addSubMenuWebCam: function () {
+        this.smWebCam = new PopupMenu.PopupSubMenuMenuItem('', true);
+        this.smWebCam.icon.icon_name = 'camera-web-symbolic';
+        var arrMI = this._createMIWebCam();
+        for (var ele in arrMI) {
+            this.smWebCam.menu.addMenuItem(arrMI[ele]);
+        }
+
+        this.smWebCam.label.text =
+            this.WebCamDevice[Pref.getOption(
+                'i', Pref.DEVICE_WEBCAM_SETTING_KEY)];
+
+        this.menu.addMenuItem(this.smWebCam);
+    },
+
     _addSubMenuAreaRec: function () {
         this.smAreaRec = new PopupMenu.PopupSubMenuMenuItem('', true);
         this.smAreaRec.icon.icon_name = 'view-fullscreen-symbolic';
@@ -241,6 +259,39 @@ const EasyScreenCast_Indicator = new Lang.Class({
                 }
                 this.connectMI();
             }).call(this.AreaMenuItem[i], i, this.AreaType, this.smAreaRec);
+        }
+
+        return this.AreaMenuItem;
+    },
+
+    _createMIWebCam: function () {
+        this.WebCamDevice = new Array(_('No WebCam recording'));
+        //add menu item webcam device from GST
+        this.WebCamDevice.push((this.CtrlWebcam.getNameDevices().join()));
+        Lib.TalkativeLog('webcam list: ' + this.WebCamDevice);
+        this.AreaMenuItem = new Array(this.WebCamDevice.length);
+
+        for (var i = 0; i < this.AreaMenuItem.length; i++) {
+            this.AreaMenuItem[i] =
+                new PopupMenu.PopupMenuItem(this.WebCamDevice[i], {
+                    reactive: true,
+                    activate: true,
+                    hover: true,
+                    can_focus: true
+                });
+            Lib.TalkativeLog('.4');
+            (function (i, arr, item) {
+                this.connectMI = function () {
+                    this.connect('activate',
+                        Lang.bind(this, function () {
+                            Lib.TalkativeLog('set webcam device to ' + i + ' ' + arr[i]);
+                            Pref.setOption(Pref.DEVICE_WEBCAM_SETTING_KEY, i);
+
+                            item.label.text = arr[i];
+                        }));
+                }
+                this.connectMI();
+            }).call(this.AreaMenuItem[i], i, this.WebCamDevice, this.smWebCam);
         }
 
         return this.AreaMenuItem;
