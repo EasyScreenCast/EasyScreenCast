@@ -279,7 +279,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
                     hover: true,
                     can_focus: true
                 });
-            Lib.TalkativeLog('.4');
+
             (function (i, arr, item) {
                 this.connectMI = function () {
                     this.connect('activate',
