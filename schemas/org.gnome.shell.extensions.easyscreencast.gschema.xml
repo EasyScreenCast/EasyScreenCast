@@ -130,8 +130,8 @@
             <summary>select webcam device</summary>
             <description>select webcam device</description>
         </key>
-        <key name="quality-webcam" type="i">
-            <default>0</default>
+        <key name="quality-webcam" type="s">
+            <default>""</default>
             <summary>select webcam quality</summary>
             <description>select webcam quality</description>
         </key>

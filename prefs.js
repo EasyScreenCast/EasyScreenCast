@@ -25,6 +25,7 @@ const _ = Gettext.gettext;
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Lib = Me.imports.convenience;
+const UtilWebcam = Me.imports.utilwebcam;
 
 // setting keys
 const INPUT_AUDIO_SOURCE_SETTING_KEY = 'input-audio-source';
@@ -56,7 +57,6 @@ const DEVICE_WEBCAM_SETTING_KEY = 'device-webcam';
 const QUALITY_WEBCAM_SETTING_KEY = 'quality-webcam';
 
 
-
 // shortcut tree view columns
 const SHORTCUT_COLUMN_KEY = 0;
 const SHORTCUT_COLUMN_MODS = 1;
@@ -78,6 +78,8 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
 
         // creates the settings
         checkSettings();
+
+        this.CtrlWebcam = new UtilWebcam.HelperWebcam();
 
         // creates the ui builder and add the main resource file
         let uiFilePath = Me.path + '/EasyScreenCast1.gtkbuilder';
@@ -312,27 +314,54 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                     })
             );
 
-            //implements webcam recording option
-            this.Ref_switch_RecWebCam = builder.get_object(
-                'swt_RecWebCam');
-            settings.bind(
-                REC_WEBCAM_SETTING_KEY, this.Ref_switch_RecWebCam,
-                'active', Gio.SettingsBindFlags.DEFAULT);
-
-            //implements webcam device option
-            this.Ref_ComboBox_DeviceWebCam = builder.get_object(
-                'cbt_WebCamDevice');
-            settings.bind(
-                FILE_RESOLUTION_SETTING_KEY, this.Ref_ComboBox_DeviceWebCam,
-                'active', Gio.SettingsBindFlags.DEFAULT);
-
             //implements webcam quality option
-            this.Ref_ComboBox_QualityWebCam = builder.get_object(
-                'cbt_WebCamCap');
-            settings.bind(
-                FILE_RESOLUTION_SETTING_KEY, this.Ref_ComboBox_QualityWebCam,
-                'active', Gio.SettingsBindFlags.DEFAULT);
+            this.Ref_ListStore_QualityWebCam = builder.get_object(
+                'liststore_QualityWebCam');
+            this.Ref_TreeView_QualityWebCam = builder.get_object(
+                'treeview_QualityWebam');
+            //create column data
+            let CapsColumn = new Gtk.TreeViewColumn({
+                title: _('WebCam Caps')
+            });
+            let normalColumn = new Gtk.CellRendererText();
+            CapsColumn.pack_start(normalColumn, true);
+            CapsColumn.add_attribute(normalColumn, "text", 0);
 
+            // insert caps column into treeview
+            this.Ref_TreeView_QualityWebCam.insert_column(CapsColumn, 0);
+
+            //setup selection liststore
+            let CapsSelection = this.Ref_TreeView_QualityWebCam.get_selection();
+
+            // connect selection signal
+            CapsSelection.connect('changed', Lang.bind(this, function (self) {
+                let [isSelected, model, iter] =
+                self.get_selected();
+                if (isSelected) {
+                    let Caps = this.Ref_ListStore_QualityWebCam.get_value(iter, 0);
+                    Lib.TalkativeLog('treeview row selected : ' + Caps);
+
+                    setOption(QUALITY_WEBCAM_SETTING_KEY, Caps);
+                }
+            }));
+
+
+            //fill combobox with quality option webcam
+            this._updateWebCamCaps(getOption('i', DEVICE_WEBCAM_SETTING_KEY));
+
+
+            this.Ref_ComboBox_CornerWebCam = builder.get_object(
+                'cbt_WebCamCorner');
+            this.Ref_Spinner_MarginXWebCam = builder.get_object(
+                'spb_WebCamMarginX');
+            this.Ref_Spinner_MarginYWebCam = builder.get_object(
+                'spb_WebCamMarginY');
+            this.Ref_Spinner_AlphaWebCam = builder.get_object(
+                'spb_WebCamAlpha');
+            this.Ref_switch_AlphaWebCam = builder.get_object(
+                'swt_WebCamShowBorder');
+
+            //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
             //update GSP area
             this._setStateGSP(!getOption('b', ACTIVE_CUSTOM_GSP_SETTING_KEY));
@@ -354,6 +383,50 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             this._updateRowShortcut(
                 getOption('as', SHORTCUT_KEY_SETTING_KEY)[0]);
 
+
+            //connect keywebcam signal
+            settings.connect('changed::' + DEVICE_WEBCAM_SETTING_KEY,
+                Lang.bind(this, function () {
+                    Lib.TalkativeLog('webcam device changed');
+                    var tmpDev = getOption('i', DEVICE_WEBCAM_SETTING_KEY);
+                    this._updateWebCamCaps(tmpDev);
+                    if (tmpDev > 0) {
+                        //webcam recording show widget
+                        this._setStateWebcamOption(true);
+                    } else {
+                        //webcam NOT recording hide widget
+                        this._setStateWebcamOption(false);
+                    }
+                })
+            );
+        }
+    },
+
+    _updateWebCamCaps: function (device) {
+        if (device > 0) {
+            Lib.TalkativeLog('webcam device: ' + device);
+
+            var listCaps = this.CtrlWebcam.getListCapsDevice(device - 1);
+            Lib.TalkativeLog('webcam caps: ' + listCaps.length);
+            if (listCaps !== null && listCaps !== undefined) {
+                for (var index in listCaps) {
+                    //                    this.Ref_ComboBox_QualityWebCam.append_text(
+                    //                        listCaps[index].slice(0, 45));
+
+
+                    this.Ref_ListStore_QualityWebCam.set(
+                        this.Ref_ListStore_QualityWebCam.append(), [0], [listCaps[index]]);
+
+                }
+            } else {
+                Lib.TalkativeLog('NO List Caps Webcam');
+                //this.Ref_ComboBox_QualityWebCamremove_all();
+                setOption(QUALITY_WEBCAM_SETTING_KEY, -1);
+            }
+        } else {
+            Lib.TalkativeLog('NO Webcam recording');
+            //this.Ref_ComboBox_QualityWebCam.remove_all();
+            setOption(QUALITY_WEBCAM_SETTING_KEY, -1);
         }
     },
 
@@ -389,6 +462,10 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         }
     },
 
+    _setStateWebcamOption: function (active) {
+
+    },
+
     //function to restore default value of the settings
     _setDefaultsettings: function () {
         Lib.TalkativeLog('restore default option');
@@ -411,6 +488,9 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         setOption(ACTIVE_POST_CMD_SETTING_KEY, false);
         setOption(POST_CMD_SETTING_KEY, 'xdg-open _fpath &');
         setOption(INPUT_AUDIO_SOURCE_SETTING_KEY, -1);
+        setOption(DEVICE_WEBCAM_SETTING_KEY, 0);
+
+        // TO-DO update default option
     }
 });
 
@@ -443,6 +523,8 @@ function getOption(type, key) {
 
 //getter option
 function getGSPstd(audio) {
+
+    //TO-DO update gsp
     if (audio) {
         return 'queue ! videorate ! vp8enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T ! queue ! mux. pulsesrc ! queue ! audioconvert ! vorbisenc ! queue ! mux. webmmux name=mux ';
     } else {
