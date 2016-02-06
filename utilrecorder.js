@@ -25,6 +25,7 @@ const Lib = Me.imports.convenience;
 const Pref = Me.imports.prefs;
 const Selection = Me.imports.selection;
 const UtilAudio = Me.imports.utilaudio;
+const UtilGSP = Me.imports.utilgsp;
 const Ext = Me.imports.extension;
 
 const ScreenCastProxy = Gio.DBusProxy.makeProxyWrapper(
@@ -53,7 +54,8 @@ const CaptureVideo = new Lang.Class({
                     return;
                 } else
                     Lib.TalkativeLog('d-bus proxy connected');
-            }));
+            })
+        );
     },
     /*
      * start recording
@@ -69,6 +71,10 @@ const CaptureVideo = new Lang.Class({
             '/' + fileRec;
 
         let pipelineRec = '';
+
+        //compose GSP
+        pipelineRec = UtilGSP.composeGSP();
+
 
         if (Pref.getOption('b', Pref.ACTIVE_CUSTOM_GSP_SETTING_KEY)) {
             pipelineRec = Pref.getOption('s', Pref.PIPELINE_REC_SETTING_KEY);
@@ -125,7 +131,8 @@ const CaptureVideo = new Lang.Class({
                         Lib.TalkativeLog('screencast execute - ' + result[0] + ' - ' + result[1]);
 
                     Ext.Indicator.doRecResult(result[0], result[1]);
-                }));
+                })
+            );
         } else {
             ScreenCastService.ScreencastAreaRemote(Pref.getOption(
                     'i', Pref.X_POS_SETTING_KEY), Pref.getOption(
@@ -150,7 +157,8 @@ const CaptureVideo = new Lang.Class({
 
                         Ext.Indicator.doRecResult(result[0], result[1]);
                     }
-                }));
+                })
+            );
         }
     },
     /*
@@ -175,6 +183,7 @@ const CaptureVideo = new Lang.Class({
                 }
 
                 return true;
-            }));
+            }
+        ));
     }
 });
