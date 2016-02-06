@@ -410,23 +410,19 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             Lib.TalkativeLog('webcam caps: ' + listCaps.length);
             if (listCaps !== null && listCaps !== undefined) {
                 for (var index in listCaps) {
-                    //                    this.Ref_ComboBox_QualityWebCam.append_text(
-                    //                        listCaps[index].slice(0, 45));
-
-
                     this.Ref_ListStore_QualityWebCam.set(
                         this.Ref_ListStore_QualityWebCam.append(), [0], [listCaps[index]]);
 
                 }
             } else {
                 Lib.TalkativeLog('NO List Caps Webcam');
-                //this.Ref_ComboBox_QualityWebCamremove_all();
-                setOption(QUALITY_WEBCAM_SETTING_KEY, -1);
+                this.Ref_ListStore_QualityWebCam.clear();
+                setOption(QUALITY_WEBCAM_SETTING_KEY, '');
             }
         } else {
             Lib.TalkativeLog('NO Webcam recording');
-            //this.Ref_ComboBox_QualityWebCam.remove_all();
-            setOption(QUALITY_WEBCAM_SETTING_KEY, -1);
+            this.Ref_ListStore_QualityWebCam.clear();
+            setOption(QUALITY_WEBCAM_SETTING_KEY, '');
         }
     },
 
