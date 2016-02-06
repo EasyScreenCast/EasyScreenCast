@@ -13,9 +13,6 @@
 */
 
 const Lang = imports.lang;
-const Shell = imports.gi.Shell;
-const Main = imports.ui.main;
-const Gio = imports.gi.Gio;
 const GLib = imports.gi.GLib;
 const Gst = imports.gi.Gst;
 
@@ -26,6 +23,9 @@ const Pref = Me.imports.prefs;
 
 Gst.init(null);
 
+let ListDevices = null;
+let ListCaps = null;
+
 const HelperWebcam = new Lang.Class({
     Name: "HelperWebcam",
     /*
@@ -34,7 +34,6 @@ const HelperWebcam = new Lang.Class({
     _init: function () {
         Lib.TalkativeLog('-@@@-init webcam');
 
-        //this.deviceMonitor = Gst.DeviceMonitor.new(); COREDUMP ???
         this.deviceMonitor = new Gst.DeviceMonitor({
             show_all: true
         });
@@ -45,9 +44,11 @@ const HelperWebcam = new Lang.Class({
             if (this.dmBus !== null && this.dmBus !== undefined) {
                 Lib.TalkativeLog('-@@@-dbus created');
                 this.dmBus.add_watch(GLib.PRIORITY_DEFAULT, this._getMsg);
-                let caps = Gst.Caps.new_empty_simple('video/x-raw');
+                let caps = Gst.Caps.new_empty_simple('video/x-raw', null);
                 this.deviceMonitor.add_filter('Video/Source', caps);
-                this.getAllInputVideo();
+
+                //update device and caps
+                this.refreshAllInputVideo();
             } else {
                 Lib.TalkativeLog('-@@@-ERROR dbus creation');
             }
@@ -63,11 +64,15 @@ const HelperWebcam = new Lang.Class({
         switch (message.type) {
         case Gst.MessageType.DEVICE_ADDED:
             Lib.TalkativeLog('Device added');
-            this.getAllInputVideo();
+
+            //update device and caps
+            this.refreshAllInputVideo();
             break;
         case Gst.MessageType.DEVICE_REMOVED:
             Lib.TalkativeLog('Device removed');
 
+            //update device and caps
+            this.refreshAllInputVideo();
             break;
         default:
             Lib.TalkativeLog('Device UNK');
@@ -77,21 +82,22 @@ const HelperWebcam = new Lang.Class({
         return GLib.SOURCE_CONTINUE;
     },
     /*
-     * get all device
+     * refresh all devices info
      */
-    getAllInputVideo: function () {
-        Lib.TalkativeLog('-@@@-get all video input');
+    refreshAllInputVideo: function () {
+        Lib.TalkativeLog('-@@@-refresh all video input');
 
-        var list = this.deviceMonitor.get_devices();
-        Lib.TalkativeLog('device number: ' + list.length);
+        ListDevices = this.getDevicesIV();
 
-        for (var index in list) {
-            Lib.TalkativeLog('device N°: ' + index + ' class: ' + list[index].device_class + ' name:  ' + list[index].display_name);
-            this.getCapsForIV(list[index].caps);
-            Lib.TalkativeLog('proprieties N°: ' + list[index].properties);
-            for (var jndex in list[index].properties) {
-                Lib.TalkativeLog('proprieties : ' + list[index].properties[jndex]);
-            }
+        //compose devices array
+        ListCaps = new Array();
+        for (var index in ListDevices) {
+            ListCaps[index] =
+                this.getCapsForIV(ListDevices[index].caps);
+
+            Lib.TalkativeLog('-@@@-webcam /dev/video' + index + ' name: ' + ListDevices[index].display_name);
+            Lib.TalkativeLog('-@@@-caps avaiable N°: ' + ListCaps[index].length);
+            Lib.TalkativeLog('-@@@-ListCaps[' + index + ']' + ': ' + ListCaps[index]);
         }
     },
     /*
@@ -99,15 +105,52 @@ const HelperWebcam = new Lang.Class({
      */
     getCapsForIV: function (tmpCaps) {
         Lib.TalkativeLog('-@@@-get all caps from a input video');
-        Lib.TalkativeLog('caps avaiable N°: ' + tmpCaps.get_size());
+        Lib.TalkativeLog('-@@@-caps avaiable N°: ' + tmpCaps.get_size());
 
+        var cleanCaps = new Array();
         for (var i = 0; i < tmpCaps.get_size(); i++) {
             //cleaned cap
-            var cleanCap =
-                tmpCaps.get_structure(i).to_string().replace(/\(.*?\)/gi, '');
-            Lib.TalkativeLog('cap : ' + i + ' : ' + cleanCap);
+            cleanCaps[i] = tmpCaps.get_structure(i).to_string()
+                .replace(/\(.*?\)/gi, '');
 
+            Lib.TalkativeLog('-@@@-cap : ' + i + ' : ' + cleanCaps[i]);
         }
+        return cleanCaps;
+    },
+    /*
+     * get devices IV
+     */
+    getDevicesIV: function () {
+        Lib.TalkativeLog('-@@@-get devices');
+
+        var list = this.deviceMonitor.get_devices();
+        Lib.TalkativeLog('devices number: ' + list.length);
+
+        return list;
+    },
+    /*
+     * get array name devices IV
+     */
+    getNameDevices: function () {
+        Lib.TalkativeLog('-@@@-get name devices');
+
+        var tmpArray = new Array();
+        for (var index in ListDevices) {
+            tmpArray.push(ListDevices[index].display_name);
+        }
+
+        Lib.TalkativeLog('-@@@-list devices name: ' + tmpArray);
+        return tmpArray;
+    },
+    /*
+     * get array caps
+     */
+    getListCapsDevice: function (device) {
+        var tmpArray = new Array();
+        tmpArray = ListCaps[device];
+        Lib.TalkativeLog('-@@@-list caps of device: ' + tmpArray);
+
+        return tmpArray;
     },
     /*
      * start listening
