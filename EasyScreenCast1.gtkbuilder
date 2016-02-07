@@ -757,42 +757,120 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                             <property name="transition_duration">800</property>
                             <property name="transition_type">slide-up-down</property>
                             <child>
-                              <object class="GtkBox" id="box2">
+                              <object class="GtkScrolledWindow" id="scrolledwindow1">
                                 <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="hexpand">True</property>
-                                <property name="vexpand">True</property>
-                                <property name="orientation">vertical</property>
+                                <property name="can_focus">True</property>
+                                <property name="shadow_type">in</property>
                                 <child>
-                                  <object class="GtkScrolledWindow" id="scrolledwindow1">
+                                  <object class="GtkTreeView" id="treeview_QualityWebam">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
-                                    <property name="shadow_type">in</property>
-                                    <child>
-                                      <object class="GtkTreeView" id="treeview_QualityWebam">
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">True</property>
-                                        <property name="hexpand">True</property>
-                                        <property name="vexpand">True</property>
-                                        <property name="model">liststore_QualityWebCam</property>
-                                        <property name="search_column">1</property>
-                                        <property name="enable_grid_lines">horizontal</property>
-                                        <child internal-child="selection">
-                                          <object class="GtkTreeSelection" id="treeview-selection3"/>
-                                        </child>
-                                      </object>
+                                    <property name="hexpand">True</property>
+                                    <property name="vexpand">True</property>
+                                    <property name="model">liststore_QualityWebCam</property>
+                                    <property name="search_column">1</property>
+                                    <property name="enable_grid_lines">horizontal</property>
+                                    <child internal-child="selection">
+                                      <object class="GtkTreeSelection" id="treeview-selection"/>
                                     </child>
                                   </object>
-                                  <packing>
-                                    <property name="expand">True</property>
-                                    <property name="fill">True</property>
-                                    <property name="position">0</property>
-                                  </packing>
                                 </child>
                               </object>
                               <packing>
                                 <property name="name">pg_quality_webcam</property>
                                 <property name="title" translatable="yes">Quality</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkGrid" id="grid5">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="row_spacing">18</property>
+                                <property name="column_spacing">15</property>
+                                <child>
+                                  <object class="GtkLabel" id="label2">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="halign">end</property>
+                                    <property name="hexpand">True</property>
+                                    <property name="label" translatable="yes">Type of unit of measure</property>
+                                  </object>
+                                  <packing>
+                                    <property name="left_attach">0</property>
+                                    <property name="top_attach">0</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkLabel" id="label3">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="halign">end</property>
+                                    <property name="hexpand">True</property>
+                                    <property name="label" translatable="yes">Width</property>
+                                  </object>
+                                  <packing>
+                                    <property name="left_attach">0</property>
+                                    <property name="top_attach">1</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkLabel" id="label16">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="halign">end</property>
+                                    <property name="hexpand">True</property>
+                                    <property name="label" translatable="yes">Height</property>
+                                  </object>
+                                  <packing>
+                                    <property name="left_attach">0</property>
+                                    <property name="top_attach">2</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkSpinButton" id="spb_WebCamWidth">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="halign">start</property>
+                                    <property name="hexpand">True</property>
+                                  </object>
+                                  <packing>
+                                    <property name="left_attach">1</property>
+                                    <property name="top_attach">1</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkSpinButton" id="spb_WebCamHeight">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="halign">start</property>
+                                    <property name="hexpand">True</property>
+                                  </object>
+                                  <packing>
+                                    <property name="left_attach">1</property>
+                                    <property name="top_attach">2</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkComboBoxText" id="cbt_WebCamUnitMeasure">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="halign">start</property>
+                                    <property name="hexpand">True</property>
+                                    <items>
+                                      <item id="0" translatable="yes">Percentage</item>
+                                      <item id="1" translatable="yes">Pixel</item>
+                                    </items>
+                                  </object>
+                                  <packing>
+                                    <property name="left_attach">1</property>
+                                    <property name="top_attach">0</property>
+                                  </packing>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="name">pg_size_webcam</property>
+                                <property name="title" translatable="yes">Size</property>
+                                <property name="position">1</property>
                               </packing>
                             </child>
                             <child>
@@ -821,10 +899,10 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                                     <property name="halign">start</property>
                                     <property name="hexpand">True</property>
                                     <items>
-                                      <item id="0" translatable="yes">Left-Top</item>
-                                      <item id="1" translatable="yes">Right-Top</item>
-                                      <item id="2" translatable="yes">Left-Bottom</item>
-                                      <item id="3" translatable="yes">Right-Bottom</item>
+                                      <item id="0" translatable="yes">Right-Bottom</item>
+                                      <item id="1" translatable="yes">Left-Bottom</item>
+                                      <item id="2" translatable="yes">Right-Top</item>
+                                      <item id="3" translatable="yes">Left-Top</item>
                                     </items>
                                   </object>
                                   <packing>
@@ -896,7 +974,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkSpinButton" id="spb_WebCamApha">
+                                  <object class="GtkSpinButton" id="spb_WebCamAlpha">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="halign">start</property>
@@ -934,9 +1012,9 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                                 </child>
                               </object>
                               <packing>
-                                <property name="name">pg_position_quality</property>
+                                <property name="name">pg_position_webcam</property>
                                 <property name="title" translatable="yes">Position</property>
-                                <property name="position">1</property>
+                                <property name="position">2</property>
                               </packing>
                             </child>
                           </object>
