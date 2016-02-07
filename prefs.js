@@ -456,6 +456,17 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                 'value',
                 Gio.SettingsBindFlags.DEFAULT);
 
+            //implements webcam stack menu chooser
+            this.Ref_StackSwitcher_WebCam = builder.get_object(
+                'sts_Webcam');
+            //implements webcam stack obj
+            this.Ref_StackObj_WebCam = builder.get_object(
+                'stk_Webcam');
+            //implements webcam stack menu chooser
+            this.Ref_Label_WebCam = builder.get_object(
+                'lbl_Webcam');
+
+
             //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
             //update GSP area
@@ -478,20 +489,15 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             this._updateRowShortcut(
                 getOption('as', SHORTCUT_KEY_SETTING_KEY)[0]);
 
+            //update webcam widget state
+            this._updateStateWebcamOptions();
 
             //connect keywebcam signal
             settings.connect('changed::' + DEVICE_WEBCAM_SETTING_KEY,
                 Lang.bind(this, function () {
                     Lib.TalkativeLog('webcam device changed');
-                    var tmpDev = getOption('i', DEVICE_WEBCAM_SETTING_KEY);
-                    this._updateWebCamCaps(tmpDev);
-                    if (tmpDev > 0) {
-                        //webcam recording show widget
-                        this._setStateWebcamOption(true);
-                    } else {
-                        //webcam NOT recording hide widget
-                        this._setStateWebcamOption(false);
-                    }
+
+                    this._updateStateWebcamOptions();
                 })
             );
         }
@@ -507,7 +513,6 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                 for (var index in listCaps) {
                     this.Ref_ListStore_QualityWebCam.set(
                         this.Ref_ListStore_QualityWebCam.append(), [0], [listCaps[index]]);
-
                 }
             } else {
                 Lib.TalkativeLog('NO List Caps Webcam');
@@ -553,8 +558,24 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         }
     },
 
-    _setStateWebcamOption: function (active) {
+    _updateStateWebcamOptions: function () {
+        Lib.TalkativeLog('update webcam option widgets');
 
+        var tmpDev = getOption('i', DEVICE_WEBCAM_SETTING_KEY);
+        this._updateWebCamCaps(tmpDev);
+        if (tmpDev > 0) {
+            var arrDev = this.CtrlWebcam.getNameDevices();
+            this.Ref_Label_WebCam.set_text(arrDev[tmpDev - 1]);
+            //webcam recording show widget
+            this.Ref_StackSwitcher_WebCam.set_sensitive(true);
+            this.Ref_StackObj_WebCam.set_sensitive(true);
+        } else {
+            this.Ref_Label_WebCam.set_text(
+                _('No webcam device selected'));
+            //webcam NOT recording hide widget
+            this.Ref_StackSwitcher_WebCam.set_sensitive(false);
+            this.Ref_StackObj_WebCam.set_sensitive(false);
+        }
     },
 
     //function to restore default value of the settings

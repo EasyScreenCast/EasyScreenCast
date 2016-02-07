@@ -709,7 +709,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                         <property name="can_focus">False</property>
                         <property name="orientation">vertical</property>
                         <child>
-                          <object class="GtkLabel" id="lbl_webcam">
+                          <object class="GtkLabel" id="lbl_Webcam">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="label" translatable="yes">No webcam device selected</property>
