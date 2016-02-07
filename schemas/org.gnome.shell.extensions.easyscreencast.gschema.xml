@@ -120,11 +120,6 @@
             <summary>store the quality index option</summary>
             <description>store the quality index option</description>
         </key>
-        <key name="rec-webcam" type="b">
-            <default>false</default>
-            <summary>Enable webcam recording</summary>
-            <description>Enable webcam recording</description>
-        </key>
         <key name="device-webcam" type="i">
             <default>0</default>
             <summary>select webcam device</summary>
@@ -134,6 +129,46 @@
             <default>""</default>
             <summary>select webcam quality</summary>
             <description>select webcam quality</description>
+        </key>
+        <key name="width-webcam" type="i">
+            <default>20</default>
+            <summary>width webcam</summary>
+            <description>width webcam</description>
+        </key>
+        <key name="height-webcam" type="i">
+            <default>10</default>
+            <summary>height webcam</summary>
+            <description>height webcam</description>
+        </key>
+        <key name="type-unit-webcam" type="i">
+            <default>0</default>
+            <summary>type of unit of measure webcam</summary>
+            <description>type of unit of measure</description>
+        </key>
+        <key name="show-border-webcam" type="b">
+            <default>false</default>
+            <summary>show border webcam</summary>
+            <description>show border webcam</description>
+        </key>
+        <key name="margin-x-webcam" type="i">
+            <default>0</default>
+            <summary>margin x from border webcam</summary>
+            <description>margin x webcam</description>
+        </key>
+        <key name="margin-y-webcam" type="i">
+            <default>0</default>
+            <summary>margin y from border webcam</summary>
+            <description>margin y from border webcam</description>
+        </key>
+        <key name="alpha-channel-webcam" type="i">
+            <default>0</default>
+            <summary>alpha channel webcam</summary>
+            <description>aplha channel webcam</description>
+        </key>
+        <key name="corner-position-webcam" type="i">
+            <default>0</default>
+            <summary>the corner position of webcam</summary>
+            <description>the corner position of webcam</description>
         </key>
     </schema>
 </schemalist>

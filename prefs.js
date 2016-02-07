@@ -52,10 +52,16 @@ const FILE_FOLDER_SETTING_KEY = 'file-folder';
 const FILE_CONTAINER_SETTING_KEY = 'file-container';
 const FILE_RESOLUTION_SETTING_KEY = 'file-resolution';
 const QUALITY_SETTING_KEY = 'quality-index';
-const REC_WEBCAM_SETTING_KEY = 'rec-webcam';
 const DEVICE_WEBCAM_SETTING_KEY = 'device-webcam';
 const QUALITY_WEBCAM_SETTING_KEY = 'quality-webcam';
-
+const WIDTH_WEBCAM_SETTING_KEY = 'width-webcam';
+const HEIGHT_WEBCAM_SETTING_KEY = 'height-webcam';
+const TYPE_UNIT_WEBCAM_SETTING_KEY = 'type-unit-webcam';
+const SHOW_BORDER_WEBCAM_SETTING_KEY = 'show-border-webcam';
+const MARGIN_X_WEBCAM_SETTING_KEY = 'margin-x-webcam';
+const MARGIN_Y_WEBCAM_SETTING_KEY = 'margin-y-webcam';
+const ALPHA_CHANNEL_WEBCAM_SETTING_KEY = 'alpha-channel-webcam';
+const CORNER_POSITION_WEBCAM_SETTING_KEY = 'corner-position-webcam';
 
 // shortcut tree view columns
 const SHORTCUT_COLUMN_KEY = 0;
@@ -349,17 +355,106 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             //fill combobox with quality option webcam
             this._updateWebCamCaps(getOption('i', DEVICE_WEBCAM_SETTING_KEY));
 
-
+            //implements webcam corner position option
             this.Ref_ComboBox_CornerWebCam = builder.get_object(
                 'cbt_WebCamCorner');
+            settings.bind(
+                CORNER_POSITION_WEBCAM_SETTING_KEY, this.Ref_ComboBox_CornerWebCam,
+                'active', Gio.SettingsBindFlags.DEFAULT);
+
+            //implements webcam margin x position option
             this.Ref_Spinner_MarginXWebCam = builder.get_object(
                 'spb_WebCamMarginX');
+            let adjustmentMarginX = new Gtk.Adjustment({
+                value: 0,
+                lower: 0,
+                upper: 10000,
+                step_increment: 1,
+                page_increment: 10
+            });
+            this.Ref_Spinner_MarginXWebCam.configure(adjustmentMarginX, 10, 0);
+            settings.bind(
+                MARGIN_X_WEBCAM_SETTING_KEY, this.Ref_Spinner_MarginXWebCam,
+                'value',
+                Gio.SettingsBindFlags.DEFAULT);
+
+            //implements webcam margin y position option
             this.Ref_Spinner_MarginYWebCam = builder.get_object(
                 'spb_WebCamMarginY');
+            let adjustmentMarginY = new Gtk.Adjustment({
+                value: 0,
+                lower: 0,
+                upper: 10000,
+                step_increment: 1,
+                page_increment: 10
+            });
+            this.Ref_Spinner_MarginYWebCam.configure(adjustmentMarginY, 10, 0);
+            settings.bind(
+                MARGIN_Y_WEBCAM_SETTING_KEY, this.Ref_Spinner_MarginYWebCam,
+                'value',
+                Gio.SettingsBindFlags.DEFAULT);
+
+            //implements webcam aplha channel option
             this.Ref_Spinner_AlphaWebCam = builder.get_object(
                 'spb_WebCamAlpha');
-            this.Ref_switch_AlphaWebCam = builder.get_object(
+            let adjustmentAlpha = new Gtk.Adjustment({
+                value: 0,
+                lower: 0,
+                upper: 100,
+                step_increment: 1,
+                page_increment: 10
+            });
+            this.Ref_Spinner_AlphaWebCam.configure(adjustmentAlpha, 10, 0);
+            settings.bind(
+                ALPHA_CHANNEL_WEBCAM_SETTING_KEY, this.Ref_Spinner_AlphaWebCam,
+                'value',
+                Gio.SettingsBindFlags.DEFAULT);
+
+            //implements webcam show border option
+            this.Ref_switch_ShowBorder = builder.get_object(
                 'swt_WebCamShowBorder');
+            settings.bind(
+                SHOW_BORDER_WEBCAM_SETTING_KEY, this.Ref_switch_ShowBorder,
+                'active', Gio.SettingsBindFlags.DEFAULT);
+
+            //implements webcam type unit dimension option
+            this.Ref_ComboBox_TypeUnitWebCam = builder.get_object(
+                'cbt_WebCamUnitMeasure');
+            settings.bind(
+                TYPE_UNIT_WEBCAM_SETTING_KEY, this.Ref_ComboBox_TypeUnitWebCam,
+                'active', Gio.SettingsBindFlags.DEFAULT);
+
+            //implements webcam width option
+            this.Ref_Spinner_WidthWebCam = builder.get_object(
+                'spb_WebCamWidth');
+            let adjustmentWidth = new Gtk.Adjustment({
+                value: 20,
+                lower: 0,
+                upper: 10000,
+                step_increment: 1,
+                page_increment: 10
+            });
+            this.Ref_Spinner_WidthWebCam.configure(adjustmentWidth, 10, 0);
+            settings.bind(
+                WIDTH_WEBCAM_SETTING_KEY, this.Ref_Spinner_WidthWebCam,
+                'value',
+                Gio.SettingsBindFlags.DEFAULT);
+
+            //implements webcam heigth option
+            this.Ref_Spinner_HeightWebCam = builder.get_object(
+                'spb_WebCamHeight');
+            let adjustmentHeight = new Gtk.Adjustment({
+                value: 10,
+                lower: 0,
+                upper: 10000,
+                step_increment: 1,
+                page_increment: 10
+            });
+            this.Ref_Spinner_HeightWebCam.configure(adjustmentHeight, 10, 0);
+            settings.bind(
+                HEIGHT_WEBCAM_SETTING_KEY, this.Ref_Spinner_HeightWebCam,
+                'value',
+                Gio.SettingsBindFlags.DEFAULT);
 
             //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
