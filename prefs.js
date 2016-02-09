@@ -245,14 +245,11 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             //implements image for scale widget
             this.Ref_image_Performance = builder.get_object(
                 'img_Performance');
-            //this.Ref_image_Performance.set_from_file(Lib.ESCimgPerformance);
-            this.Ref_image_Performance.set_from_gicon(
-                Lib.ESCimgPerformance, 20);
+            this.Ref_image_Performance.set_from_file(Lib.ESCimgPerformance);
+
             this.Ref_image_Quality = builder.get_object(
                 'img_Quality');
-            //this.Ref_image_Quality.set_from_file(Lib.ESCimgQuality);
-            this.Ref_image_Quality.set_from_gicon(
-                Lib.ESCimgQuality, 20);
+            this.Ref_image_Quality.set_from_file(Lib.ESCimgQuality);
 
             //implements custom GSPipeline option
             this.Ref_switch_CustomGSP = builder.get_object(
