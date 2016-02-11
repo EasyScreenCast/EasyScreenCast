@@ -35,9 +35,9 @@ const TimerDelay = new Lang.Class({
     _init: function (delay, callback, scope) {
 
         if (isNaN(delay)) {
-            Lib.TalkativeLog('delay is NOT a number :' + delay);
+            Lib.TalkativeLog('-%-delay is NOT a number :' + delay);
         } else {
-            Lib.TalkativeLog('init TimerDelay called - sec : ' + delay);
+            Lib.TalkativeLog('-%-init TimerDelay called - sec : ' + delay);
 
             DelaySec = delay;
             ElapsedSec = 1;
@@ -50,7 +50,7 @@ const TimerDelay = new Lang.Class({
      * Set the callback-function
      */
     setCallback: function (callback) {
-        Lib.TalkativeLog('setcallback TimerDelay called');
+        Lib.TalkativeLog('-%-setcallback TimerDelay called');
 
         if (callback === undefined || callback === null ||
             typeof callback !== "function") {
@@ -63,7 +63,7 @@ const TimerDelay = new Lang.Class({
      * Set the delay time
      */
     setDelay: function (delay) {
-        Lib.TalkativeLog('setdelay TimerDelay called');
+        Lib.TalkativeLog('-%-setdelay TimerDelay called');
 
         DelaySec = delay;
     },
@@ -71,7 +71,7 @@ const TimerDelay = new Lang.Class({
      * Start or restart a new timer
      */
     begin: function () {
-        Lib.TalkativeLog('start TimerDelay called');
+        Lib.TalkativeLog('-%-start TimerDelay called');
         this.stop();
 
         ID_TimerDelay = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 1000,
@@ -81,7 +81,7 @@ const TimerDelay = new Lang.Class({
      * Stop the current timer
      */
     stop: function () {
-        Lib.TalkativeLog('stop TimerDelay called');
+        Lib.TalkativeLog('-%-stop TimerDelay called');
         if (ID_TimerDelay !== null) {
             if (GLib.source_remove(ID_TimerDelay)) {
                 ID_TimerDelay = null;
@@ -102,7 +102,7 @@ const TimerDelay = new Lang.Class({
      * @private
      */
     _callbackInternal: function () {
-        Lib.TalkativeLog('internalFunction TimerDelay called | Sec = ' +
+        Lib.TalkativeLog('-%-internalFunction TimerDelay called | Sec = ' +
             ElapsedSec + ' Sec delay = ' + DelaySec);
         if (ElapsedSec >= DelaySec) {
             CallbackFuncDelay.apply(this.Scope, []);
@@ -131,7 +131,7 @@ const TimerCounting = new Lang.Class({
      * Create a new timer
      */
     _init: function (callback, scope) {
-        Lib.TalkativeLog('init TimerCounting called');
+        Lib.TalkativeLog('-%-init TimerCounting called');
 
         this.setCallback(callback);
         secpassed = 0;
@@ -141,7 +141,7 @@ const TimerCounting = new Lang.Class({
      * Set the callback-function
      */
     setCallback: function (callback) {
-        Lib.TalkativeLog('setcallback TimerCounting called');
+        Lib.TalkativeLog('-%-setcallback TimerCounting called');
 
         if (callback === undefined || callback === null ||
             typeof callback !== "function") {
@@ -154,7 +154,7 @@ const TimerCounting = new Lang.Class({
      * Start or restart a new timer
      */
     begin: function () {
-        Lib.TalkativeLog('start TimerCounting called');
+        Lib.TalkativeLog('-%-start TimerCounting called');
 
         if (isRunning) {
             this.stop();
@@ -168,7 +168,7 @@ const TimerCounting = new Lang.Class({
      * Stop the current timer
      */
     stop: function () {
-        Lib.TalkativeLog('stop TimerCounting called');
+        Lib.TalkativeLog('-%-stop TimerCounting called');
 
         isRunning = false;
 
@@ -190,7 +190,7 @@ const TimerCounting = new Lang.Class({
     _callbackInternal: function () {
 
         if (isRunning === false) {
-            Lib.TalkativeLog('finish TimerCounting ');
+            Lib.TalkativeLog('-%-finish TimerCounting ');
 
             CallbackFuncCounting.apply(this.Scope, [secpassed, true]);
             secpassed = 0;
@@ -201,7 +201,7 @@ const TimerCounting = new Lang.Class({
         } else {
             secpassed++;
 
-            Lib.TalkativeLog('continued TimerCounting | sec: ' + secpassed);
+            Lib.TalkativeLog('-%-continued TimerCounting | sec: ' + secpassed);
 
             CallbackFuncCounting.apply(this.Scope, [secpassed, false]);
 

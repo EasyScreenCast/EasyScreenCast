@@ -38,7 +38,7 @@ const CaptureVideo = new Lang.Class({
      * Create a video recorder
      */
     _init: function () {
-        Lib.TalkativeLog('init recorder');
+        Lib.TalkativeLog('-&-init recorder');
 
         this.AreaSelected = null;
 
@@ -50,10 +50,10 @@ const CaptureVideo = new Lang.Class({
             '/org/gnome/Shell/Screencast',
             Lang.bind(this, function (proxy, error) {
                 if (error) {
-                    Lib.TalkativeLog('ERROR(d-bus proxy connected) - ' + error.message);
+                    Lib.TalkativeLog('-&-ERROR(d-bus proxy connected) - ' + error.message);
                     return;
                 } else
-                    Lib.TalkativeLog('d-bus proxy connected');
+                    Lib.TalkativeLog('-&-d-bus proxy connected');
             })
         );
     },
@@ -61,7 +61,7 @@ const CaptureVideo = new Lang.Class({
      * start recording
      */
     start: function () {
-        Lib.TalkativeLog('start video recording');
+        Lib.TalkativeLog('-&-start video recording');
         this.recordingActive = false;
 
         //prepare variable for screencast
@@ -93,10 +93,10 @@ const CaptureVideo = new Lang.Class({
                 }
                 var strReplace = 'pulsesrc device="' + audiosource + '"';
 
-                Lib.TalkativeLog('pipeline pre-audio:' + tmpGSP);
+                Lib.TalkativeLog('-&-pipeline pre-audio:' + tmpGSP);
 
                 var audioPipeline = tmpGSP.replace(re, strReplace);
-                Lib.TalkativeLog('pipeline post-audio:' + audioPipeline);
+                Lib.TalkativeLog('-&-pipeline post-audio:' + audioPipeline);
 
                 pipelineRec = audioPipeline;
             } else if (audioChoice === 1) {
@@ -108,7 +108,7 @@ const CaptureVideo = new Lang.Class({
             }
         }
 
-        Lib.TalkativeLog('path/file template : ' + fileRec);
+        Lib.TalkativeLog('-&-path/file template : ' + fileRec);
 
         var optionsRec = {
             'draw-cursor': new GLib.Variant(
@@ -123,12 +123,12 @@ const CaptureVideo = new Lang.Class({
             ScreenCastService.ScreencastRemote(fileRec, optionsRec,
                 Lang.bind(this, function (result, error) {
                     if (error) {
-                        Lib.TalkativeLog('ERROR(screencast execute) - ' + error.message);
+                        Lib.TalkativeLog('-&-ERROR(screencast execute) - ' + error.message);
 
                         this.stop();
                         Ext.Indicator.doRecResult(false);
                     } else
-                        Lib.TalkativeLog('screencast execute - ' + result[0] + ' - ' + result[1]);
+                        Lib.TalkativeLog('-&-screencast execute - ' + result[0] + ' - ' + result[1]);
 
                     Ext.Indicator.doRecResult(result[0], result[1]);
                 })
@@ -142,12 +142,12 @@ const CaptureVideo = new Lang.Class({
                 fileRec, optionsRec,
                 Lang.bind(this, function (result, error) {
                     if (error) {
-                        Lib.TalkativeLog('ERROR(screencast execute) - ' + error.message);
+                        Lib.TalkativeLog('-&-ERROR(screencast execute) - ' + error.message);
 
                         this.stop();
                         Ext.Indicator.doRecResult(false);
                     } else {
-                        Lib.TalkativeLog('screencast execute - ' + result[0] + ' - ' + result[1]);
+                        Lib.TalkativeLog('-&-screencast execute - ' + result[0] + ' - ' + result[1]);
 
                         //draw area recording
                         if (Pref.getOption(
@@ -165,16 +165,16 @@ const CaptureVideo = new Lang.Class({
      * Stop recording
      */
     stop: function () {
-        Lib.TalkativeLog('stop video recording');
+        Lib.TalkativeLog('-&-stop video recording');
 
         ScreenCastService.StopScreencastRemote(Lang.bind(
             this,
             function (result, error) {
                 if (error) {
-                    Lib.TalkativeLog('ERROR(screencast stop) - ' + error.message);
+                    Lib.TalkativeLog('-&-ERROR(screencast stop) - ' + error.message);
                     return false;
                 } else
-                    Lib.TalkativeLog('screencast stop - ' + result[0]);
+                    Lib.TalkativeLog('-&-screencast stop - ' + result[0]);
 
                 //clear area recording
                 if (this.AreaSelected !== null &&

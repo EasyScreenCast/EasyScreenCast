@@ -94,7 +94,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             'EasyScreenCast@iacopodeenosee.gmail.com');
 
         if (builder.add_from_file(uiFilePath) == 0) {
-            Lib.TalkativeLog('could not load the ui file: ' + format(uiFilePath));
+            Lib.TalkativeLog('-^-could not load the ui file: ' + format(uiFilePath));
 
             let label = new Gtk.Label({
                 label: _('Could not load the preferences UI file'),
@@ -103,7 +103,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
 
             this.pack_start(label, true, true, 0);
         } else {
-            Lib.TalkativeLog('UI file receive and load: ' + uiFilePath);
+            Lib.TalkativeLog('-^-UI file receive and load: ' + uiFilePath);
 
             // gets the interesting builder objects
             let Ref_box_MainContainer = builder.get_object('Main_Container');
@@ -158,7 +158,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             renderer.connect(
                 "accel-edited", Lang.bind(this,
                     function (renderer, path, key, mods, hwCode) {
-                        Lib.TalkativeLog('edited key accel');
+                        Lib.TalkativeLog('-^-edited key accel');
 
                         let accel = Gtk.accelerator_name(key, mods);
 
@@ -171,7 +171,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             renderer.connect(
                 "accel-cleared", Lang.bind(this,
                     function (renderer, path) {
-                        Lib.TalkativeLog('cleared key accel');
+                        Lib.TalkativeLog('-^-cleared key accel');
 
                         this._updateRowShortcut(null);
                         setOption(SHORTCUT_KEY_SETTING_KEY, []);
@@ -235,7 +235,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                 'i', QUALITY_SETTING_KEY));
             this.Ref_scale_Quality.connect(
                 'value-changed', Lang.bind(this, function (self) {
-                    Lib.TalkativeLog('value quality changed : ' + self.get_value());
+                    Lib.TalkativeLog('-^-value quality changed : ' + self.get_value());
 
                     setOption(QUALITY_SETTING_KEY,
                         self.get_value());
@@ -311,7 +311,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                 'file_set', Lang.bind(this,
                     function (self) {
                         var tmpPathFolder = self.get_filename();
-                        Lib.TalkativeLog('file path get from widget : ' + tmpPathFolder);
+                        Lib.TalkativeLog('-^-file path get from widget : ' + tmpPathFolder);
                         if (tmpPathFolder !== null)
                             setOption(FILE_FOLDER_SETTING_KEY, tmpPathFolder);
                     })
@@ -342,7 +342,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                 self.get_selected();
                 if (isSelected) {
                     let Caps = this.Ref_ListStore_QualityWebCam.get_value(iter, 0);
-                    Lib.TalkativeLog('treeview row selected : ' + Caps);
+                    Lib.TalkativeLog('-^-treeview row selected : ' + Caps);
 
                     setOption(QUALITY_WEBCAM_SETTING_KEY, Caps);
                 }
@@ -492,7 +492,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             //connect keywebcam signal
             settings.connect('changed::' + DEVICE_WEBCAM_SETTING_KEY,
                 Lang.bind(this, function () {
-                    Lib.TalkativeLog('webcam device changed');
+                    Lib.TalkativeLog('-^-webcam device changed');
 
                     this._updateStateWebcamOptions();
                 })
@@ -502,34 +502,34 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
 
     _updateWebCamCaps: function (device) {
         if (device > 0) {
-            Lib.TalkativeLog('webcam device: ' + device);
+            Lib.TalkativeLog('-^-webcam device: ' + device);
 
             var listCaps = this.CtrlWebcam.getListCapsDevice(device - 1);
-            Lib.TalkativeLog('webcam caps: ' + listCaps.length);
+            Lib.TalkativeLog('-^-webcam caps: ' + listCaps.length);
             if (listCaps !== null && listCaps !== undefined) {
                 for (var index in listCaps) {
                     this.Ref_ListStore_QualityWebCam.set(
                         this.Ref_ListStore_QualityWebCam.append(), [0], [listCaps[index]]);
                 }
             } else {
-                Lib.TalkativeLog('NO List Caps Webcam');
+                Lib.TalkativeLog('-^-NO List Caps Webcam');
                 this.Ref_ListStore_QualityWebCam.clear();
                 setOption(QUALITY_WEBCAM_SETTING_KEY, '');
             }
         } else {
-            Lib.TalkativeLog('NO Webcam recording');
+            Lib.TalkativeLog('-^-NO Webcam recording');
             this.Ref_ListStore_QualityWebCam.clear();
             setOption(QUALITY_WEBCAM_SETTING_KEY, '');
         }
     },
 
     _updateRowShortcut: function (accel) {
-        Lib.TalkativeLog('update row combo key accel');
+        Lib.TalkativeLog('-^-update row combo key accel');
 
         let [key, mods] =
         (accel !== null) ? Gtk.accelerator_parse(accel): [0, 0];
 
-        Lib.TalkativeLog('key ' + key + ' mods ' + mods);
+        Lib.TalkativeLog('-^-key ' + key + ' mods ' + mods);
         this.Ref_liststore_Shortcut.set(
             this.Iter_ShortcutRow, [SHORTCUT_COLUMN_KEY, SHORTCUT_COLUMN_MODS], [key, mods]);
     },
@@ -537,12 +537,12 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
     _setStateGSP: function (active) {
         //update GSP text area
         if (!active) {
-            Lib.TalkativeLog('custom GSP');
+            Lib.TalkativeLog('-^-custom GSP');
 
             this.Ref_stack_Quality.set_visible_child_name('pg_Custom');
 
         } else {
-            Lib.TalkativeLog('NOT custom GSP');
+            Lib.TalkativeLog('-^-NOT custom GSP');
 
             this.Ref_stack_Quality.set_visible_child_name('pg_Preset');
 
@@ -556,7 +556,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
     },
 
     _updateStateWebcamOptions: function () {
-        Lib.TalkativeLog('update webcam option widgets');
+        Lib.TalkativeLog('-^-update webcam option widgets');
 
         var tmpDev = getOption('i', DEVICE_WEBCAM_SETTING_KEY);
         this._updateWebCamCaps(tmpDev);
@@ -577,7 +577,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
 
     //function to restore default value of the settings
     _setDefaultsettings: function () {
-        Lib.TalkativeLog('restore default option');
+        Lib.TalkativeLog('-^-restore default option');
 
         setOption(SHOW_TIMER_REC_SETTING_KEY, true);
         setOption(SHOW_AREA_REC_SETTING_KEY, false);
@@ -676,7 +676,7 @@ function checkSettings() {
 }
 
 function buildPrefsWidget() {
-    Lib.TalkativeLog('Init pref widget');
+    Lib.TalkativeLog('-^-Init pref widget');
 
     var widget = new EasyScreenCastSettingsWidget();
 
