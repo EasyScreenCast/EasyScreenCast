@@ -133,10 +133,10 @@ const MixerAudio = new Lang.Class({
             var tmpSources = MixerControl.get_sources();
             Lib.TalkativeLog('Mixer sources -> ' + tmpSources.length);
             for (let x in tmpSources) {
-                Lib.TalkativeLog('_source index: ' + tmpSources[x].index);
-                Lib.TalkativeLog('_source name: ' + tmpSources[x].name);
-                Lib.TalkativeLog('_source description: ' + tmpSources[x].description);
-                Lib.TalkativeLog('_source port: ' + tmpSources[x].port);
+                Lib.TalkativeLog('-#-source index: ' + tmpSources[x].index);
+                Lib.TalkativeLog('-#-source name: ' + tmpSources[x].name);
+                Lib.TalkativeLog('-#-source description: ' + tmpSources[x].description);
+                Lib.TalkativeLog('-#-source port: ' + tmpSources[x].port);
 
                 arrayTmp.push({
                     desc: tmpSources[x].description,
@@ -174,13 +174,13 @@ const MixerAudio = new Lang.Class({
         if (streamTmp.name === 'GNOME Shell' && streamTmp.description === 'Record Stream') {
             Lib.TalkativeLog('stream gnome recorder captured');
 
-            Lib.TalkativeLog('_stream index: ' + streamTmp.index);
-            Lib.TalkativeLog('_stream card index: ' + streamTmp.card_index);
-            Lib.TalkativeLog('_application_ID: ' + streamTmp.application_id);
-            Lib.TalkativeLog('_stream name: ' + streamTmp.name);
-            Lib.TalkativeLog('_stream icon: ' + streamTmp.icon_name);
-            Lib.TalkativeLog('_stream description: ' + streamTmp.description);
-            Lib.TalkativeLog('_stream port: ' + streamTmp.port);
+            Lib.TalkativeLog('-#-stream index: ' + streamTmp.index);
+            Lib.TalkativeLog('-#-stream card index: ' + streamTmp.card_index);
+            Lib.TalkativeLog('-#-application_ID: ' + streamTmp.application_id);
+            Lib.TalkativeLog('-#-stream name: ' + streamTmp.name);
+            Lib.TalkativeLog('-#-stream icon: ' + streamTmp.icon_name);
+            Lib.TalkativeLog('-#-stream description: ' + streamTmp.description);
+            Lib.TalkativeLog('-#-stream port: ' + streamTmp.port);
         }
     },
 
@@ -194,72 +194,72 @@ const MixerAudio = new Lang.Class({
         var tmp = MixerControl.get_cards();
         Lib.TalkativeLog('#-# mixer cards -> ' + tmp.length);
         for (let x in tmp) {
-            Lib.TalkativeLog('_card index: ' + tmp[x].index);
-            Lib.TalkativeLog('_card name: ' + tmp[x].name);
-            Lib.TalkativeLog('_card icon: ' + tmp[x].icon_name);
-            Lib.TalkativeLog('_card profile: ' + tmp[x].profile);
-            Lib.TalkativeLog('_card human profile: ' + tmp[x].human_profile);
+            Lib.TalkativeLog('-#-card index: ' + tmp[x].index);
+            Lib.TalkativeLog('-#-card name: ' + tmp[x].name);
+            Lib.TalkativeLog('-#-card icon: ' + tmp[x].icon_name);
+            Lib.TalkativeLog('-#-card profile: ' + tmp[x].profile);
+            Lib.TalkativeLog('-#-card human profile: ' + tmp[x].human_profile);
         }
 
         tmp = MixerControl.get_sources();
         Lib.TalkativeLog('#-# mixer sources -> ' + tmp.length);
         for (let x in tmp) {
-            Lib.TalkativeLog('_source index: ' + tmp[x].index);
-            Lib.TalkativeLog('_application_ID: ' + tmp[x].application_id);
-            Lib.TalkativeLog('_source name: ' + tmp[x].name);
-            Lib.TalkativeLog('_source icon: ' + tmp[x].icon_name);
-            Lib.TalkativeLog('_source description: ' + tmp[x].description);
-            Lib.TalkativeLog('_source port: ' + tmp[x].port);
+            Lib.TalkativeLog('-#-source index: ' + tmp[x].index);
+            Lib.TalkativeLog('-#-application_ID: ' + tmp[x].application_id);
+            Lib.TalkativeLog('-#-source name: ' + tmp[x].name);
+            Lib.TalkativeLog('-#-source icon: ' + tmp[x].icon_name);
+            Lib.TalkativeLog('-#-source description: ' + tmp[x].description);
+            Lib.TalkativeLog('-#-source port: ' + tmp[x].port);
         }
 
         tmp = MixerControl.get_source_outputs();
         Lib.TalkativeLog('#-# mixer source output -> ' + tmp.length);
         for (let x in tmp) {
-            Lib.TalkativeLog('_sourceouput index: ' + tmp[x].index);
-            Lib.TalkativeLog('_application_ID: ' + tmp[x].application_id);
-            Lib.TalkativeLog('_sourceouput name: ' + tmp[x].name);
-            Lib.TalkativeLog('_sourceoutput icon: ' + tmp[x].icon_name);
-            Lib.TalkativeLog('_sourceoutput description: ' + tmp[x].description);
-            Lib.TalkativeLog('_sourceoutput port: ' + tmp[x].port);
+            Lib.TalkativeLog('-#-sourceouput index: ' + tmp[x].index);
+            Lib.TalkativeLog('-#-application_ID: ' + tmp[x].application_id);
+            Lib.TalkativeLog('-#-sourceouput name: ' + tmp[x].name);
+            Lib.TalkativeLog('-#-sourceoutput icon: ' + tmp[x].icon_name);
+            Lib.TalkativeLog('-#-sourceoutput description: ' + tmp[x].description);
+            Lib.TalkativeLog('-#-sourceoutput port: ' + tmp[x].port);
         }
 
         tmp = MixerControl.get_sinks();
         Lib.TalkativeLog('#-# mixer sink -> ' + tmp.length);
         for (let x in tmp) {
-            Lib.TalkativeLog('_sink index: ' + tmp[x].index);
-            Lib.TalkativeLog('_application_ID: ' + tmp[x].application_id);
-            Lib.TalkativeLog('_sink name: ' + tmp[x].name);
-            Lib.TalkativeLog('_sink icon: ' + tmp[x].icon_name);
-            Lib.TalkativeLog('_sink description: ' + tmp[x].description);
-            Lib.TalkativeLog('_sink port: ' + tmp[x].port);
+            Lib.TalkativeLog('-#-sink index: ' + tmp[x].index);
+            Lib.TalkativeLog('-#-application_ID: ' + tmp[x].application_id);
+            Lib.TalkativeLog('-#-sink name: ' + tmp[x].name);
+            Lib.TalkativeLog('-#-sink icon: ' + tmp[x].icon_name);
+            Lib.TalkativeLog('-#-sink description: ' + tmp[x].description);
+            Lib.TalkativeLog('-#-sink port: ' + tmp[x].port);
         }
 
         tmp = MixerControl.get_sink_inputs();
         Lib.TalkativeLog('#-# mixer sink input -> ' + tmp.length);
         for (let x in tmp) {
-            Lib.TalkativeLog('_sink input index: ' + tmp[x].index);
-            Lib.TalkativeLog('_application_ID: ' + tmp[x].application_id);
-            Lib.TalkativeLog('_sink input name: ' + tmp[x].name);
-            Lib.TalkativeLog('_sink input icon: ' + tmp[x].icon_name);
-            Lib.TalkativeLog('_sink input description: ' + tmp[x].description);
-            Lib.TalkativeLog('_sink input port: ' + tmp[x].port);
+            Lib.TalkativeLog('-#-sink input index: ' + tmp[x].index);
+            Lib.TalkativeLog('-#-application_ID: ' + tmp[x].application_id);
+            Lib.TalkativeLog('-#-sink input name: ' + tmp[x].name);
+            Lib.TalkativeLog('-#-sink input icon: ' + tmp[x].icon_name);
+            Lib.TalkativeLog('-#-sink input description: ' + tmp[x].description);
+            Lib.TalkativeLog('-#-sink input port: ' + tmp[x].port);
         }
 
         tmp = MixerControl.get_streams();
         Lib.TalkativeLog('#-# mixer stream -> ' + tmp.length);
         for (let x in tmp) {
             Lib.TalkativeLog('STREAM index: ' + tmp[x].index);
-            Lib.TalkativeLog('_application_ID: ' + tmp[x].application_id);
-            Lib.TalkativeLog('_stream name: ' + tmp[x].name);
-            Lib.TalkativeLog('_stream icon: ' + tmp[x].icon_name);
-            Lib.TalkativeLog('_stream description: ' + tmp[x].description);
+            Lib.TalkativeLog('-#-application_ID: ' + tmp[x].application_id);
+            Lib.TalkativeLog('-#-stream name: ' + tmp[x].name);
+            Lib.TalkativeLog('-#-stream icon: ' + tmp[x].icon_name);
+            Lib.TalkativeLog('-#-stream description: ' + tmp[x].description);
 
             var tmp1 = tmp[x].get_ports();
             for (let y in tmp1) {
-                Lib.TalkativeLog('__stream port number: ' + y);
-                Lib.TalkativeLog('__stream port name: ' + tmp1[y].port);
-                Lib.TalkativeLog('__stream port human name: ' + tmp1[y].human_port);
-                Lib.TalkativeLog('__stream port priority: ' + tmp1[y].priority);
+                Lib.TalkativeLog('-##-stream port number: ' + y);
+                Lib.TalkativeLog('-##-stream port name: ' + tmp1[y].port);
+                Lib.TalkativeLog('-##-stream port human name: ' + tmp1[y].human_port);
+                Lib.TalkativeLog('-##-stream port priority: ' + tmp1[y].priority);
             }
         }
     },
