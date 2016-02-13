@@ -51,7 +51,7 @@
             <description>height of screencasting</description>
         </key>
         <key name="replace-indicator" type="b">
-            <default>false</default>
+            <default>true</default>
             <summary>replace the indicator into a status menu</summary>
             <description>replace the indicator into a status menu</description>
         </key>
