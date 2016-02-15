@@ -72,8 +72,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.actor.connect(
             'leave_event', Lang.bind(this, this.refreshIndicator, false));
         this.actor.connect(
-            'button_press_event', Lang.bind(this,
-                this._addSubMenuAudioRec, false));
+            'button_press_event', Lang.bind(this, this._onButtonPress, false));
 
         //prepare setting var
         if (Pref.getOption('i', Pref.TIME_DELAY_SETTING_KEY) > 0) {
@@ -133,6 +132,25 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this._enableKeybindings();
         //start monitoring inputvideo
         this.CtrlWebcam.startMonitor();
+    },
+
+    _onButtonPress: function (actor, event) {
+        let button = event.get_button();
+
+        if (button === 1) {
+            Lib.TalkativeLog('left click indicator');
+
+            this._addSubMenuAudioRec();
+        } else {
+            Lib.TalkativeLog('right click indicator');
+
+            if (this.menu.isOpen) {
+                this.menu.close();
+            }
+            this.isShowNotify = Pref.getOption(
+                'b', Pref.SHOW_TIMER_REC_SETTING_KEY);
+            this._doRecording();
+        }
     },
 
     _addMIRecording: function () {
@@ -220,12 +238,10 @@ const EasyScreenCast_Indicator = new Lang.Class({
         }
 
         var secDelay = Pref.getOption('i', Pref.TIME_DELAY_SETTING_KEY);
-        if (secDelay > 1) {
-            this.smDelayRec.label.text = secDelay + _(' seconds of delay in registration');
-        } else if (secDelay === 1) {
-            this.smDelayRec.label.text = _('1 second of delay in registration');
+        if (secDelay > 0) {
+            this.smDelayRec.label.text = secDelay + _(' sec. delay before recording');
         } else {
-            this.smDelayRec.label.text = _('No delay in the registration');
+            this.smDelayRec.label.text = _('Start recording immediately');
         }
 
         this.menu.addMenuItem(this.smDelayRec);
@@ -322,9 +338,11 @@ const EasyScreenCast_Indicator = new Lang.Class({
 
         for (var i = 0; i < this.AudioChoice.length; i++) {
             //create label menu
-            let labelMenu = this.AudioChoice[i].desc + _('\n - Port: ') +
-                this.AudioChoice[i].port + _('\n - Name: ') +
-                this.AudioChoice[i].name;
+            let labelMenu = this.AudioChoice[i].desc;
+            if (i >= 2) {
+                labelMenu += _('\n - Port: ') + this.AudioChoice[i].port +
+                    _('\n - Name: ') + this.AudioChoice[i].name;
+            }
             //create submenu
             this.AudioMenuItem[i] =
                 new PopupMenu.PopupMenuItem(labelMenu, {
@@ -644,6 +662,10 @@ const EasyScreenCast_Indicator = new Lang.Class({
 
     destroy: function () {
         Lib.TalkativeLog('-*-destroy indicator called');
+
+        if (isActive) {
+            isActive = false;
+        }
 
         this._removeKeybindings();
         this.parent();
