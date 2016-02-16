@@ -24,7 +24,6 @@ const Me = ExtensionUtils.getCurrentExtension();
 const Lib = Me.imports.convenience;
 const Pref = Me.imports.prefs;
 const Selection = Me.imports.selection;
-const UtilAudio = Me.imports.utilaudio;
 const UtilGSP = Me.imports.utilgsp;
 const Ext = Me.imports.extension;
 
@@ -41,8 +40,6 @@ const CaptureVideo = new Lang.Class({
         Lib.TalkativeLog('-&-init recorder');
 
         this.AreaSelected = null;
-
-        this.CtrlAudio = new UtilAudio.MixerAudio();
 
         //connect to d-bus service
         ScreenCastService = new ScreenCastProxy(
@@ -72,40 +69,12 @@ const CaptureVideo = new Lang.Class({
 
         let pipelineRec = '';
 
-        //compose GSP
-        pipelineRec = UtilGSP.composeGSP();
-
-
         if (Pref.getOption('b', Pref.ACTIVE_CUSTOM_GSP_SETTING_KEY)) {
-            pipelineRec = Pref.getOption('s', Pref.PIPELINE_REC_SETTING_KEY);
+            pipelineRec = Pref.getOption('s',
+                Pref.PIPELINE_REC_SETTING_KEY);
         } else {
-            let audioChoice = Pref.getOption(
-                'i', Pref.INPUT_AUDIO_SOURCE_SETTING_KEY);
-            if (audioChoice > 1) {
-                //custom audio source
-                var tmpGSP = Pref.getGSPstd(true);
-
-                //change device source
-                var re = /pulsesrc/gi;
-                var audiosource = this.CtrlAudio.getAudioSource();
-                if (audiosource.indexOf('output') !== -1) {
-                    audiosource += '.monitor';
-                }
-                var strReplace = 'pulsesrc device="' + audiosource + '"';
-
-                Lib.TalkativeLog('-&-pipeline pre-audio:' + tmpGSP);
-
-                var audioPipeline = tmpGSP.replace(re, strReplace);
-                Lib.TalkativeLog('-&-pipeline post-audio:' + audioPipeline);
-
-                pipelineRec = audioPipeline;
-            } else if (audioChoice === 1) {
-                //default audio source
-                pipelineRec = Pref.getGSPstd(true);
-            } else {
-                //no audio source
-                pipelineRec = Pref.getGSPstd(false);
-            }
+            //compose GSP
+            pipelineRec = UtilGSP.composeGSP();
         }
 
         Lib.TalkativeLog('-&-path/file template : ' + fileRec);
