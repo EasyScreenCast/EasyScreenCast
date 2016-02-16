@@ -138,11 +138,11 @@ const EasyScreenCast_Indicator = new Lang.Class({
         let button = event.get_button();
 
         if (button === 1) {
-            Lib.TalkativeLog('left click indicator');
+            Lib.TalkativeLog('-*-left click indicator');
 
             this._addSubMenuAudioRec();
         } else {
-            Lib.TalkativeLog('right click indicator');
+            Lib.TalkativeLog('-*-right click indicator');
 
             if (this.menu.isOpen) {
                 this.menu.close();

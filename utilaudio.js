@@ -74,22 +74,19 @@ const MixerAudio = new Lang.Class({
 
         switch (MixerControl.get_state()) {
         case Gvc.MixerControlState.CLOSED:
-            Lib.TalkativeLog('Mixer close');
-
+            Lib.TalkativeLog('-#-Mixer close');
             isConnected = false;
             break;
         case Gvc.MixerControlState.CONNECTING:
-            Lib.TalkativeLog('Mixer connecting');
+            Lib.TalkativeLog('-#-Mixer connecting');
             isConnected = false;
             break;
         case Gvc.MixerControlState.FAILED:
-            Lib.TalkativeLog('Mixer failed');
-
+            Lib.TalkativeLog('-#-Mixer failed');
             isConnected = false;
             break;
         case Gvc.MixerControlState.READY:
-            Lib.TalkativeLog('Mixer ready');
-
+            Lib.TalkativeLog('-#-Mixer ready');
             isConnected = true;
 
             //more log for debug
@@ -99,8 +96,7 @@ const MixerAudio = new Lang.Class({
 
             break;
         default:
-            Lib.TalkativeLog('Mixer UNK');
-
+            Lib.TalkativeLog('-#-Mixer UNK');
             isConnected = false;
             break;
         }
@@ -114,12 +110,12 @@ const MixerAudio = new Lang.Class({
             var arrayTmp = new Array();
 
             var tmpSinks = MixerControl.get_sinks();
-            Lib.TalkativeLog('Mixer sink -> ' + tmpSinks.length);
+            Lib.TalkativeLog('-#-Mixer sink -> ' + tmpSinks.length);
             for (let x in tmpSinks) {
-                Lib.TalkativeLog('_sink index: ' + tmpSinks[x].index);
-                Lib.TalkativeLog('_sink name: ' + tmpSinks[x].name);
-                Lib.TalkativeLog('_sink description: ' + tmpSinks[x].description);
-                Lib.TalkativeLog('_sink port: ' + tmpSinks[x].port);
+                Lib.TalkativeLog('-#-sink index: ' + tmpSinks[x].index);
+                Lib.TalkativeLog('-#-sink name: ' + tmpSinks[x].name);
+                Lib.TalkativeLog('-#-sink description: ' + tmpSinks[x].description);
+                Lib.TalkativeLog('-#-sink port: ' + tmpSinks[x].port);
 
                 arrayTmp.push({
                     desc: tmpSinks[x].description,
@@ -131,7 +127,7 @@ const MixerAudio = new Lang.Class({
             }
 
             var tmpSources = MixerControl.get_sources();
-            Lib.TalkativeLog('Mixer sources -> ' + tmpSources.length);
+            Lib.TalkativeLog('-#-Mixer sources -> ' + tmpSources.length);
             for (let x in tmpSources) {
                 Lib.TalkativeLog('-#-source index: ' + tmpSources[x].index);
                 Lib.TalkativeLog('-#-source name: ' + tmpSources[x].name);
