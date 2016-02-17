@@ -41,14 +41,14 @@ const webm = {
             fps: 15,
             vq: 'vp9enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T',
             aq: 'vorbisenc',
-            descr: 'FPS: 15 | VP9 Encoder | blabla'
+            descr: 'FPS: 15 \nVideo -> VP9 Encoder | blabla \nAudio -> Vorbis Encoder'
         },
         {
             //quality level 1
             fps: 30,
             vq: 'vp9enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T',
             aq: 'vorbisenc',
-            descr: 'FPS: 30 | VP9 Encoder | blabla'
+            descr: 'FPS: 30 \nVideo -> VP9 Encoder | blabla \nAudio -> Vorbis Encoder'
 
         },
         {
@@ -56,14 +56,14 @@ const webm = {
             fps: 30,
             vq: 'vp9enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T',
             aq: 'vorbisenc',
-            descr: 'FPS: 30 | VP9 Encoder | blabla'
+            descr: 'FPS: 30 \nVideo -> VP9 Encoder | blabla \nAudio -> Vorbis Encoder'
         },
         {
             //quality level 3
             fps: 60,
             vq: 'vp9enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T',
             aq: 'vorbisenc',
-            descr: 'FPS: 60 | VP9 Encoder | blabla'
+            descr: 'FPS: 60 \nVideo -> VP9 Encoder | blabla \nAudio -> Vorbis Encoder'
         },
     ]
 };
@@ -75,30 +75,30 @@ const mp4 = {
         {
             //quality level 0
             fps: 15,
-            vq: '',
-            aq: 'vorbisenc',
-            descr: 'FPS: 15 | VP9 Encoder | blabla'
+            vq: 'mpeg2enc',
+            aq: 'lamemp3enc',
+            descr: 'FPS: 15 \nVideo -> Mpeg2 Encoder | blabla \nAudio -> Mp3 Encoder'
         },
         {
             //quality level 1
             fps: 30,
-            vq: '',
-            aq: 'vorbisenc',
-            descr: 'FPS: 30 | VP9 Encoder | blabla'
+            vq: 'mpeg2enc',
+            aq: 'lamemp3enc',
+            descr: 'FPS: 30 \nVideo -> Mpeg2 Encoder | blabla \nAudio -> Mp3 Encoder'
         },
         {
             //quality level 2
             fps: 30,
-            vq: '',
-            aq: 'vorbisenc',
-            descr: 'FPS: 30 | VP9 Encoder | blabla'
+            vq: 'mpeg2enc',
+            aq: 'lamemp3enc',
+            descr: 'FPS: 30 \nVideo -> Mpeg2 Encoder | blabla \nAudio -> Mp3 Encoder'
         },
         {
             //quality level 3
             fps: 60,
-            vq: '',
-            aq: 'vorbisenc',
-            descr: 'FPS: 60 | VP9 Encoder | blabla'
+            vq: 'mpeg2enc',
+            aq: 'lamemp3enc',
+            descr: 'FPS: 60 \nVideo -> Mpeg2 Encoder | blabla \nAudio -> Mp3 Encoder'
         },
     ]
 };
@@ -110,30 +110,30 @@ const mkv = {
         {
             //quality level 0
             fps: 15,
-            vq: '',
-            aq: 'vorbisenc',
-            descr: 'FPS: 15 | VP9 Encoder | blabla'
+            vq: 'x264enc',
+            aq: 'flacenc',
+            descr: 'FPS: 15 \nVideo -> x264 Encoder | blabla \nAudio -> Flac Encoder'
         },
         {
             //quality level 1
             fps: 30,
-            vq: '',
-            aq: 'vorbisenc',
-            descr: 'FPS: 30 | VP9 Encoder | blabla'
+            vq: 'x264enc',
+            aq: 'flacenc',
+            descr: 'FPS: 30 \nVideo -> x264 Encoder | blabla \nAudio -> Flac Encoder'
         },
         {
             //quality level 2
             fps: 30,
-            vq: '',
-            aq: 'vorbisenc',
-            descr: 'FPS: 30 | VP9 Encoder | blabla'
+            vq: 'x264enc',
+            aq: 'flacenc',
+            descr: 'FPS: 30 \nVideo -> x264 Encoder | blabla \nAudio -> Flac Encoder'
         },
         {
             //quality level 3
             fps: 60,
-            vq: '',
-            aq: 'vorbisenc',
-            descr: 'FPS: 60 | VP9 Encoder | blabla'
+            vq: 'x264enc',
+            aq: 'flacenc',
+            descr: 'FPS: 60 \nVideo -> x264 Encoder | blabla \nAudio -> Flac Encoder'
         },
     ]
 };
@@ -145,30 +145,30 @@ const ogg = {
         {
             //quality level 0
             fps: 15,
-            vq: '',
-            aq: 'vorbisenc',
-            descr: 'FPS: 15 | VP9 Encoder | blabla'
+            vq: 'theoraenc',
+            aq: 'opusenc',
+            descr: 'FPS: 15 \nVideo -> Theora Encoder | blabla \nAudio -> Opus Encoder'
         },
         {
             //quality level 1
             fps: 30,
-            vq: '',
-            aq: 'vorbisenc',
-            descr: 'FPS: 30 | VP9 Encoder | blabla'
+            vq: 'theoraenc',
+            aq: 'opusenc',
+            descr: 'FPS: 30 \nVideo -> Theora Encoder | blabla \nAudio -> Opus Encoder'
         },
         {
             //quality level 2
             fps: 30,
-            vq: '',
-            aq: 'vorbisenc',
-            descr: 'FPS: 30 | VP9 Encoder | blabla'
+            vq: 'theoraenc',
+            aq: 'opusenc',
+            descr: 'FPS: 30 \nVideo -> Theora Encoder | blabla \nAudio -> Opus Encoder'
         },
         {
             //quality level 3
             fps: 60,
-            vq: '',
-            aq: 'vorbisenc',
-            descr: 'FPS: 60 | VP9 Encoder | blabla'
+            vq: 'theoraenc',
+            aq: 'opusenc',
+            descr: 'FPS: 60 \nVideo -> Theora Encoder | blabla \nAudio -> Opus Encoder'
         },
     ]
 };
