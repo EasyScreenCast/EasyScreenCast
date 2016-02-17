@@ -168,7 +168,7 @@ const MixerAudio = new Lang.Class({
         var streamTmp = control.lookup_stream_id(id);
 
         if (streamTmp.name === 'GNOME Shell' && streamTmp.description === 'Record Stream') {
-            Lib.TalkativeLog('stream gnome recorder captured');
+            Lib.TalkativeLog('-#-stream gnome recorder captured');
 
             Lib.TalkativeLog('-#-stream index: ' + streamTmp.index);
             Lib.TalkativeLog('-#-stream card index: ' + streamTmp.card_index);
@@ -244,7 +244,7 @@ const MixerAudio = new Lang.Class({
         tmp = MixerControl.get_streams();
         Lib.TalkativeLog('#-# mixer stream -> ' + tmp.length);
         for (let x in tmp) {
-            Lib.TalkativeLog('STREAM index: ' + tmp[x].index);
+            Lib.TalkativeLog('-#-STREAM index: ' + tmp[x].index);
             Lib.TalkativeLog('-#-application_ID: ' + tmp[x].application_id);
             Lib.TalkativeLog('-#-stream name: ' + tmp[x].name);
             Lib.TalkativeLog('-#-stream icon: ' + tmp[x].icon_name);
