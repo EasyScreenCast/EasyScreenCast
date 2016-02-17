@@ -19,16 +19,16 @@ const Pref = Me.imports.prefs;
 const UtilAudio = Me.imports.utilaudio;
 
 // CONST GSP - base
-const SCREEN = 'videoscale ! _SCREENCAST_RES_ ! _ENCODER_VIDEO_ ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! _CONTAINER_';
+const SCREEN = '_SCREENCAST_RES__ENCODER_VIDEO_ ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! _CONTAINER_';
 
 // CONST GSP - base plus sound
-const SCREEN_SOUND = 'queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! videoscale ! _SCREENCAST_RES_ ! _ENCODER_VIDEO_ ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mux. pulsesrc ! audioconvert ! _ENCODER_AUDIO_ ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mux. _CONTAINER_ name=mux ';
+const SCREEN_SOUND = 'queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! _SCREENCAST_RES__ENCODER_VIDEO_ ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mux. pulsesrc ! audioconvert ! _ENCODER_AUDIO_ ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mux. _CONTAINER_ name=mux ';
 
 // CONST GSP - base plus webcam
-const SCREEN_WEBCAM = 'queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! videomixer name=mix ! videoconvert ! videoscale ! _SCREENCAST_RES_ ! _ENCODER_VIDEO_ ! mux. v4l2src _WEBCAM_DEV_ ! _WEBCAM_CAP_ ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mix. _CONTAINER_ name=mux';
+const SCREEN_WEBCAM = 'queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! videomixer name=mix ! videoconvert ! _SCREENCAST_RES__ENCODER_VIDEO_ ! mux. v4l2src _WEBCAM_DEV_ ! _WEBCAM_CAP_ ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mix. _CONTAINER_ name=mux';
 
 // CONST GSP - base plus sound and webcam stream
-const SCREEN_WEBCAM_SOUND = 'queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! videomixer name=mix ! videoconvert ! videoscale ! _SCREENCAST_RES_ ! _ENCODER_VIDEO_ ! mux. v4l2src _WEBCAM_DEV_ ! _WEBCAM_CAP_ ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mix. pulsesrc ! audioconvert ! _ENCODER_AUDIO_ ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mux. _CONTAINER_ name=mux';
+const SCREEN_WEBCAM_SOUND = 'queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! videomixer name=mix ! videoconvert ! _SCREENCAST_RES__ENCODER_VIDEO_ ! mux. v4l2src _WEBCAM_DEV_ ! _WEBCAM_CAP_ ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mix. pulsesrc ! audioconvert ! _ENCODER_AUDIO_ ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mux. _CONTAINER_ name=mux';
 
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
@@ -177,14 +177,16 @@ const ogg = {
 
 // CONST RESOLUTION
 const RESOLUTION = [
+    // NATIVE SCREENCAST RESOLUTION
+    '',
     // SD - 480
-    'video/x-raw, width=768, height=480, framerate=30/1 , add-borders=true',
+    'videoscale ! video/x-raw, width=768, height=480, framerate=30/1 , add-borders=true ! ',
     // HD - 720
-    'video/x-raw, width=1280, height=720, framerate=30/1 , add-borders=true',
+    'videoscale ! video/x-raw, width=1280, height=720, framerate=30/1 , add-borders=true ! ',
     // FHD - 1080
-    'video/x-raw, width=1920, height=1080, framerate=30/1 , add-borders=true',
+    'videoscale ! video/x-raw, width=1920, height=1080, framerate=30/1 , add-borders=true ! ',
     // UHD - 2160
-    'video/x-raw, width=3840, height=2160, framerate=30/1 , add-borders=true'
+    'videoscale ! video/x-raw, width=3840, height=2160, framerate=30/1 , add-borders=true ! '
 ];
 
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -230,7 +232,8 @@ function composeGSP() {
             this.tmpGSP = replaceWebcam(
                 this.tmpGSP,
                 Device_Webcam,
-                QualityWebcam);
+                QualityWebcam
+            );
 
             break;
         case 1:
@@ -244,7 +247,9 @@ function composeGSP() {
                     this.tmpGSP,
                     Device_Webcam,
                     QualityWebcam),
-                true);
+                true,
+                Container,
+                QualityGSP);
 
             break;
         default:
@@ -258,7 +263,9 @@ function composeGSP() {
                     this.tmpGSP,
                     Device_Webcam,
                     QualityWebcam),
-                false);
+                false,
+                Container,
+                QualityGSP);
         }
     } else {
         switch (Device_Audio) {
@@ -276,7 +283,9 @@ function composeGSP() {
             //replace ENCODER-AUDIO
             this.tmpGSP = replaceAudio(
                 this.tmpGSP,
-                true);
+                true,
+                Container,
+                QualityGSP);
 
             break;
         default:
@@ -287,7 +296,9 @@ function composeGSP() {
             //replace ENCODER-AUDIO/AUDIO_DEVICE
             this.tmpGSP = replaceAudio(
                 this.tmpGSP,
-                false);
+                false,
+                Container,
+                QualityGSP);
         }
     }
 
@@ -314,16 +325,14 @@ function composeGSP() {
 /*
  * replace audio
  */
-function replaceAudio(gsp, defaultAudio) {
-    Lib.TalkativeLog('-§-replace audio -> ' + device);
+function replaceAudio(gsp, defaultAudio, ConTMP, QGSPtmp) {
+    Lib.TalkativeLog('-§-replace audio default->' + defaultAudio);
     //replace device/encoder
-
-
     Lib.TalkativeLog('-§-pipeline pre-audio:' + gsp);
 
     if (defaultAudio) {
         var audioPipeline = gsp.replace(/_ENCODER_AUDIO_/gi,
-            CONTAINER[Container].quality[QualityGSP].aq);
+            CONTAINER[ConTMP].quality[QGSPtmp].aq);
     } else {
         var audiosource = this.CtrlAudio.getAudioSource();
         if (audiosource.indexOf('output') !== -1) {
@@ -333,7 +342,7 @@ function replaceAudio(gsp, defaultAudio) {
 
         var mapObj = {
             pulsesrc: reDev,
-            _ENCODER_VIDEO_: CONTAINER[Container].quality[QualityGSP].aq
+            _ENCODER_VIDEO_: CONTAINER[ConTMP].quality[QGSPtmp].aq
         };
 
         var audioPipeline = gsp.replace(/pulsesrc|_ENCODER_AUDIO_/gi,
