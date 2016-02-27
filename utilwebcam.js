@@ -124,7 +124,7 @@ const HelperWebcam = new Lang.Class({
         Lib.TalkativeLog('-@-get devices');
 
         var list = this.deviceMonitor.get_devices();
-        Lib.TalkativeLog('devices number: ' + list.length);
+        Lib.TalkativeLog('-@-devices number: ' + list.length);
 
         return list;
     },
