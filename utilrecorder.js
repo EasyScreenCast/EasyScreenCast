@@ -36,7 +36,7 @@ const CaptureVideo = new Lang.Class({
     /*
      * Create a video recorder
      */
-    _init: function () {
+    _init: function() {
         Lib.TalkativeLog('-&-init recorder');
 
         this.AreaSelected = null;
@@ -45,7 +45,7 @@ const CaptureVideo = new Lang.Class({
         ScreenCastService = new ScreenCastProxy(
             Gio.DBus.session, 'org.gnome.Shell.Screencast',
             '/org/gnome/Shell/Screencast',
-            Lang.bind(this, function (proxy, error) {
+            Lang.bind(this, function(proxy, error) {
                 if (error) {
                     Lib.TalkativeLog('-&-ERROR(d-bus proxy connected) - ' + error.message);
                     return;
@@ -57,7 +57,7 @@ const CaptureVideo = new Lang.Class({
     /*
      * start recording
      */
-    start: function () {
+    start: function() {
         Lib.TalkativeLog('-&-start video recording');
         this.recordingActive = false;
 
@@ -90,7 +90,7 @@ const CaptureVideo = new Lang.Class({
 
         if (Pref.getOption('i', Pref.AREA_SCREEN_SETTING_KEY) === 0) {
             ScreenCastService.ScreencastRemote(fileRec, optionsRec,
-                Lang.bind(this, function (result, error) {
+                Lang.bind(this, function(result, error) {
                     if (error) {
                         Lib.TalkativeLog('-&-ERROR(screencast execute) - ' + error.message);
 
@@ -109,7 +109,7 @@ const CaptureVideo = new Lang.Class({
                     'i', Pref.WIDTH_SETTING_KEY), Pref.getOption(
                     'i', Pref.HEIGHT_SETTING_KEY),
                 fileRec, optionsRec,
-                Lang.bind(this, function (result, error) {
+                Lang.bind(this, function(result, error) {
                     if (error) {
                         Lib.TalkativeLog('-&-ERROR(screencast execute) - ' + error.message);
 
@@ -133,12 +133,12 @@ const CaptureVideo = new Lang.Class({
     /*
      * Stop recording
      */
-    stop: function () {
+    stop: function() {
         Lib.TalkativeLog('-&-stop video recording');
 
         ScreenCastService.StopScreencastRemote(Lang.bind(
             this,
-            function (result, error) {
+            function(result, error) {
                 if (error) {
                     Lib.TalkativeLog('-&-ERROR(screencast stop) - ' + error.message);
                     return false;

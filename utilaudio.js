@@ -25,7 +25,7 @@ let isConnected = false;
 const MixerAudio = new Lang.Class({
     Name: 'MixerAudio',
 
-    _init: function () {
+    _init: function() {
         Lib.TalkativeLog('-#-mixer _init');
 
         MixerControl = this._getMixerControl();
@@ -38,11 +38,11 @@ const MixerAudio = new Lang.Class({
             //more log for debug
             if (Pref.getOption('b', Pref.VERBOSE_DEBUG_SETTING_KEY)) {
                 MixerControl.connect("stream_added",
-                    Lang.bind(this, function (control, id) {
+                    Lang.bind(this, function(control, id) {
                         this._onStreamAdd(control, id)
                     }));
                 MixerControl.connect("stream_removed",
-                    Lang.bind(this, function (control, id) {
+                    Lang.bind(this, function(control, id) {
                         this._onStreamRemove(control, id)
                     }));
             }
@@ -51,7 +51,7 @@ const MixerAudio = new Lang.Class({
         }
     },
 
-    _getMixerControl: function () {
+    _getMixerControl: function() {
         var _mixerTmp;
         if (MixerControl) {
             Lib.TalkativeLog('-#-mixer exist -> ' + MixerControl + ' state -> ' + MixerControl.get_state());
@@ -69,40 +69,40 @@ const MixerAudio = new Lang.Class({
         }
     },
 
-    _onChangeStatePAC: function () {
+    _onChangeStatePAC: function() {
         Lib.TalkativeLog('-#-mixer state changed');
 
         switch (MixerControl.get_state()) {
-        case Gvc.MixerControlState.CLOSED:
-            Lib.TalkativeLog('-#-Mixer close');
-            isConnected = false;
-            break;
-        case Gvc.MixerControlState.CONNECTING:
-            Lib.TalkativeLog('-#-Mixer connecting');
-            isConnected = false;
-            break;
-        case Gvc.MixerControlState.FAILED:
-            Lib.TalkativeLog('-#-Mixer failed');
-            isConnected = false;
-            break;
-        case Gvc.MixerControlState.READY:
-            Lib.TalkativeLog('-#-Mixer ready');
-            isConnected = true;
+            case Gvc.MixerControlState.CLOSED:
+                Lib.TalkativeLog('-#-Mixer close');
+                isConnected = false;
+                break;
+            case Gvc.MixerControlState.CONNECTING:
+                Lib.TalkativeLog('-#-Mixer connecting');
+                isConnected = false;
+                break;
+            case Gvc.MixerControlState.FAILED:
+                Lib.TalkativeLog('-#-Mixer failed');
+                isConnected = false;
+                break;
+            case Gvc.MixerControlState.READY:
+                Lib.TalkativeLog('-#-Mixer ready');
+                isConnected = true;
 
-            //more log for debug
-            if (Pref.getOption('b', Pref.VERBOSE_DEBUG_SETTING_KEY)) {
-                this._getInfoPA();
-            }
+                //more log for debug
+                if (Pref.getOption('b', Pref.VERBOSE_DEBUG_SETTING_KEY)) {
+                    this._getInfoPA();
+                }
 
-            break;
-        default:
-            Lib.TalkativeLog('-#-Mixer UNK');
-            isConnected = false;
-            break;
+                break;
+            default:
+                Lib.TalkativeLog('-#-Mixer UNK');
+                isConnected = false;
+                break;
         }
     },
 
-    getListInputAudio: function () {
+    getListInputAudio: function() {
         Lib.TalkativeLog('-#-get list input audio');
 
         if (isConnected) {
@@ -153,7 +153,7 @@ const MixerAudio = new Lang.Class({
         return false;
     },
 
-    getAudioSource: function () {
+    getAudioSource: function() {
         Lib.TalkativeLog('-#-get source audio choosen');
 
         var arrtmp = this.getListInputAudio();
@@ -163,7 +163,7 @@ const MixerAudio = new Lang.Class({
     },
 
 
-    _onStreamAdd: function (control, id) {
+    _onStreamAdd: function(control, id) {
         Lib.TalkativeLog('-#-mixer stream add - ID: ' + id);
         var streamTmp = control.lookup_stream_id(id);
 
@@ -180,13 +180,13 @@ const MixerAudio = new Lang.Class({
         }
     },
 
-    _onStreamRemove: function (control, id) {
+    _onStreamRemove: function(control, id) {
         Lib.TalkativeLog('-#-mixer stream remove - ID: ' + id);
         var streamTmp = control.lookup_stream_id(id);
 
     },
 
-    _getInfoPA: function () {
+    _getInfoPA: function() {
         var tmp = MixerControl.get_cards();
         Lib.TalkativeLog('#-# mixer cards -> ' + tmp.length);
         for (let x in tmp) {
@@ -260,13 +260,13 @@ const MixerAudio = new Lang.Class({
         }
     },
 
-    checkAudio: function () {
+    checkAudio: function() {
         Lib.TalkativeLog('-#-check GVC lib presence: ' + isConnected);
 
         return isConnected;
     },
 
-    destroy: function () {
+    destroy: function() {
         if (MixerControl) {
             MixerControl.close();
         }

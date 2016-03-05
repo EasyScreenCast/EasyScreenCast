@@ -31,7 +31,7 @@ const HelperWebcam = new Lang.Class({
     /*
      * Create a device monitor inputvideo
      */
-    _init: function () {
+    _init: function() {
         Lib.TalkativeLog('-@-init webcam');
 
         this.deviceMonitor = new Gst.DeviceMonitor({
@@ -59,24 +59,24 @@ const HelperWebcam = new Lang.Class({
     /*
      * connect to msg bus
      */
-    _getMsg: function (bus, message) {
+    _getMsg: function(bus, message) {
         Lib.TalkativeLog('-@-event getmsg');
         switch (message.type) {
-        case Gst.MessageType.DEVICE_ADDED:
-            Lib.TalkativeLog('Device added');
+            case Gst.MessageType.DEVICE_ADDED:
+                Lib.TalkativeLog('Device added');
 
-            //update device and caps
-            this.refreshAllInputVideo();
-            break;
-        case Gst.MessageType.DEVICE_REMOVED:
-            Lib.TalkativeLog('Device removed');
+                //update device and caps
+                this.refreshAllInputVideo();
+                break;
+            case Gst.MessageType.DEVICE_REMOVED:
+                Lib.TalkativeLog('Device removed');
 
-            //update device and caps
-            this.refreshAllInputVideo();
-            break;
-        default:
-            Lib.TalkativeLog('Device UNK');
-            break;
+                //update device and caps
+                this.refreshAllInputVideo();
+                break;
+            default:
+                Lib.TalkativeLog('Device UNK');
+                break;
         }
 
         return GLib.SOURCE_CONTINUE;
@@ -84,7 +84,7 @@ const HelperWebcam = new Lang.Class({
     /*
      * refresh all devices info
      */
-    refreshAllInputVideo: function () {
+    refreshAllInputVideo: function() {
         Lib.TalkativeLog('-@-refresh all video input');
 
         ListDevices = this.getDevicesIV();
@@ -103,7 +103,7 @@ const HelperWebcam = new Lang.Class({
     /*
      * get caps from device
      */
-    getCapsForIV: function (tmpCaps) {
+    getCapsForIV: function(tmpCaps) {
         Lib.TalkativeLog('-@-get all caps from a input video');
         Lib.TalkativeLog('-@-caps avaiable N°: ' + tmpCaps.get_size());
 
@@ -120,7 +120,7 @@ const HelperWebcam = new Lang.Class({
     /*
      * get devices IV
      */
-    getDevicesIV: function () {
+    getDevicesIV: function() {
         Lib.TalkativeLog('-@-get devices');
 
         var list = this.deviceMonitor.get_devices();
@@ -131,7 +131,7 @@ const HelperWebcam = new Lang.Class({
     /*
      * get array name devices IV
      */
-    getNameDevices: function () {
+    getNameDevices: function() {
         Lib.TalkativeLog('-@-get name devices');
 
         var tmpArray = new Array();
@@ -145,7 +145,7 @@ const HelperWebcam = new Lang.Class({
     /*
      * get array caps
      */
-    getListCapsDevice: function (device) {
+    getListCapsDevice: function(device) {
         var tmpArray = new Array();
         tmpArray = ListCaps[device];
         Lib.TalkativeLog('-@-list caps of device: ' + tmpArray);
@@ -155,14 +155,14 @@ const HelperWebcam = new Lang.Class({
     /*
      * start listening
      */
-    startMonitor: function () {
+    startMonitor: function() {
         Lib.TalkativeLog('-@-start video devicemonitor');
         this.deviceMonitor.start();
     },
     /*
      * Stop listening
      */
-    stopMonitor: function () {
+    stopMonitor: function() {
         Lib.TalkativeLog('-@-stop video devicemonitor');
         this.disconnectSourceBus();
         this.deviceMonitor.stop();
@@ -170,7 +170,7 @@ const HelperWebcam = new Lang.Class({
     /*
      * disconect bus
      */
-    disconnectSourceBus: function () {
+    disconnectSourceBus: function() {
         if (this.dmBusId) {
             this.dmBus.disconnect(this.dmBusId);
             this.dmBusId = 0;
