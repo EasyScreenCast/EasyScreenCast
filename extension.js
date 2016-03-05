@@ -52,7 +52,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
     Name: 'EasyScreenCast.indicator',
     Extends: PanelMenu.Button,
 
-    _init: function () {
+    _init: function() {
         this.parent(null, 'EasyScreenCast-indicator');
 
         this.CtrlAudio = new UtilAudio.MixerAudio();
@@ -134,7 +134,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.CtrlWebcam.startMonitor();
     },
 
-    _onButtonPress: function (actor, event) {
+    _onButtonPress: function(actor, event) {
         let button = event.get_button();
 
         if (button === 1) {
@@ -153,7 +153,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         }
     },
 
-    _addMIRecording: function () {
+    _addMIRecording: function() {
         this.imRecordAction = new PopupMenu.PopupBaseMenuItem;
         this.RecordingLabel = new St.Label({
             text: _('Start recording'),
@@ -168,7 +168,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
             x_align: Clutter.ActorAlign.CENTER,
         });
 
-        this.imRecordAction.connect('activate', Lang.bind(this, function () {
+        this.imRecordAction.connect('activate', Lang.bind(this, function() {
             this.isShowNotify = Pref.getOption(
                 'b', Pref.SHOW_TIMER_REC_SETTING_KEY);
 
@@ -178,7 +178,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.menu.addMenuItem(this.imRecordAction);
     },
 
-    _addSubMenuAudioRec: function () {
+    _addSubMenuAudioRec: function() {
         if (this.smAudioRec === null || this.smAudioRec === undefined) {
             Lib.TalkativeLog('-*-create new sub menu audio');
             this.smAudioRec = new PopupMenu.PopupSubMenuMenuItem(
@@ -198,7 +198,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.menu.addMenuItem(this.smAudioRec);
     },
 
-    _addSubMenuWebCam: function () {
+    _addSubMenuWebCam: function() {
         this.smWebCam = new PopupMenu.PopupSubMenuMenuItem('', true);
         this.smWebCam.icon.icon_name = 'camera-web-symbolic';
         var arrMI = this._createMIWebCam();
@@ -213,7 +213,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.menu.addMenuItem(this.smWebCam);
     },
 
-    _addSubMenuAreaRec: function () {
+    _addSubMenuAreaRec: function() {
         this.smAreaRec = new PopupMenu.PopupSubMenuMenuItem('', true);
         this.smAreaRec.icon.icon_name = 'view-fullscreen-symbolic';
 
@@ -228,7 +228,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.menu.addMenuItem(this.smAreaRec);
     },
 
-    _addSubMenuDelayRec: function () {
+    _addSubMenuDelayRec: function() {
         this.smDelayRec = new PopupMenu.PopupSubMenuMenuItem('', true);
         this.smDelayRec.icon.icon_name = 'alarm-symbolic';
 
@@ -247,7 +247,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.menu.addMenuItem(this.smDelayRec);
     },
 
-    _createMIAreaRec: function () {
+    _createMIAreaRec: function() {
         this.AreaType = new Array(_('Record all desktop'),
             _('Record a selected monitor'), _('Record a selected window'),
             _('Record a selected area'));
@@ -263,10 +263,10 @@ const EasyScreenCast_Indicator = new Lang.Class({
                     can_focus: true
                 });
 
-            (function (i, arr, item) {
-                this.connectMI = function () {
+            (function(i, arr, item) {
+                this.connectMI = function() {
                     this.connect('activate',
-                        Lang.bind(this, function () {
+                        Lang.bind(this, function() {
                             Lib.TalkativeLog('-*-set area recording to ' + i + ' ' + arr[i]);
                             Pref.setOption(Pref.AREA_SCREEN_SETTING_KEY, i);
 
@@ -280,7 +280,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         return this.AreaMenuItem;
     },
 
-    _createMIWebCam: function () {
+    _createMIWebCam: function() {
         this.WebCamDevice = new Array(_('No WebCam recording'));
         //add menu item webcam device from GST
         this.WebCamDevice.push((this.CtrlWebcam.getNameDevices().join()));
@@ -296,10 +296,10 @@ const EasyScreenCast_Indicator = new Lang.Class({
                     can_focus: true
                 });
 
-            (function (i, arr, item) {
-                this.connectMI = function () {
+            (function(i, arr, item) {
+                this.connectMI = function() {
                     this.connect('activate',
-                        Lang.bind(this, function () {
+                        Lang.bind(this, function() {
                             Lib.TalkativeLog('-*-set webcam device to ' + i + ' ' + arr[i]);
                             Pref.setOption(Pref.DEVICE_WEBCAM_SETTING_KEY, i);
 
@@ -313,7 +313,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         return this.AreaMenuItem;
     },
 
-    _createMIAudioRec: function () {
+    _createMIAudioRec: function() {
         //add std menu item
         this.AudioChoice = new Array({
             desc: _('No audio source'),
@@ -365,10 +365,10 @@ const EasyScreenCast_Indicator = new Lang.Class({
             }
 
             //add action on menu item
-            (function (i, arr, item) {
-                this.connectMI = function () {
+            (function(i, arr, item) {
+                this.connectMI = function() {
                     this.connect('activate',
-                        Lang.bind(this, function () {
+                        Lang.bind(this, function() {
                             Lib.TalkativeLog('-*-set audio choice to ' + i);
                             Pref.setOption(
                                 Pref.INPUT_AUDIO_SOURCE_SETTING_KEY, i);
@@ -383,7 +383,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         return this.AudioMenuItem;
     },
 
-    _createMIInfoDelayRec: function () {
+    _createMIInfoDelayRec: function() {
         this.DelayTimeTitle = new PopupMenu.PopupMenuItem(_('Delay Time'), {
             reactive: false
         });
@@ -402,7 +402,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.TimeSlider = new Slider.Slider(Pref.getOption('i',
             Pref.TIME_DELAY_SETTING_KEY) / 100);
         this.TimeSlider.connect(
-            'value-changed', Lang.bind(this, function (item) {
+            'value-changed', Lang.bind(this, function(item) {
                 this.DelayTimeLabel.set_text(
                     Math.floor(item.value * 100).toString() + _(' Sec'));
             }));
@@ -419,15 +419,15 @@ const EasyScreenCast_Indicator = new Lang.Class({
         return [this.DelayTimeTitle, this.imSliderDelay];
     },
 
-    _enable: function () {
+    _enable: function() {
         this.actor.add_actor(this.indicatorBox);
     },
 
-    _disable: function () {
+    _disable: function() {
         this.actor.remove_actor(this.indicatorBox);
     },
 
-    _doDelayAction: function () {
+    _doDelayAction: function() {
         if (this.isDelayActive) {
             Lib.TalkativeLog('-*-delay recording called | delay= ' + this.TimeSlider.value);
             timerD = new Time.TimerDelay((
@@ -441,7 +441,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         }
     },
 
-    _doRecording: function () {
+    _doRecording: function() {
         //start/stop record screen
         if (isActive === false) {
             Lib.TalkativeLog('-*-start recording');
@@ -453,15 +453,15 @@ const EasyScreenCast_Indicator = new Lang.Class({
             if (optArea > 0) {
                 Lib.TalkativeLog('-*-type of selection of the area to record: ' + optArea);
                 switch (optArea) {
-                case 3:
-                    new Selection.SelectionArea();
-                    break;
-                case 2:
-                    new Selection.SelectionWindow();
-                    break;
-                case 1:
-                    new Selection.SelectionDesktop();
-                    break;
+                    case 3:
+                        new Selection.SelectionArea();
+                        break;
+                    case 2:
+                        new Selection.SelectionWindow();
+                        break;
+                    case 1:
+                        new Selection.SelectionDesktop();
+                        break;
                 }
             } else {
                 Lib.TalkativeLog('-*-recording full area');
@@ -494,7 +494,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
                 };
 
                 var Cmd = tmpCmd.replace(/_fpath|_dirpath|_fname/gi,
-                    function (match) {
+                    function(match) {
                         return mapObj[match];
                     });
 
@@ -507,7 +507,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.refreshIndicator(false);
     },
 
-    doRecResult: function (result, file) {
+    doRecResult: function(result, file) {
         if (result) {
             isActive = true;
 
@@ -540,13 +540,13 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.refreshIndicator(false);
     },
 
-    _doExtensionPreferences: function () {
+    _doExtensionPreferences: function() {
         Lib.TalkativeLog('-*-open preferences');
 
         Main.Util.trySpawnCommandLine('gnome-shell-extension-prefs EasyScreenCast@iacopodeenosee.gmail.com');
     },
 
-    _onDelayTimeChanged: function () {
+    _onDelayTimeChanged: function() {
 
         var secDelay = Math.floor(this.TimeSlider.value * 100)
         Pref.setOption(Pref.TIME_DELAY_SETTING_KEY, secDelay);
@@ -566,7 +566,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         }
     },
 
-    _createNotify: function () {
+    _createNotify: function() {
         var source = new MessageTray.SystemNotificationSource();
 
         this.notifyCounting = new MessageTray.Notification(source,
@@ -582,7 +582,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         source.notify(this.notifyCounting);
     },
 
-    _createAlertNotify: function () {
+    _createAlertNotify: function() {
         var source = new MessageTray.SystemNotificationSource();
 
         this.notifyAlert = new MessageTray.Notification(source,
@@ -599,7 +599,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         source.notify(this.notifyAlert);
     },
 
-    refreshIndicator: function (param1, param2, focus) {
+    refreshIndicator: function(param1, param2, focus) {
         Lib.TalkativeLog('-*-refresh indicator -A ' + isActive + ' -F ' + focus);
 
         if (isActive === true) {
@@ -620,7 +620,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         }
     },
 
-    _replaceStdIndicator: function (OPTtemp) {
+    _replaceStdIndicator: function(OPTtemp) {
         if (OPTtemp) {
             Lib.TalkativeLog('-*-replace STD indicator');
             Main.panel.statusArea['aggregateMenu']
@@ -632,7 +632,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         }
     },
 
-    _enableKeybindings: function () {
+    _enableKeybindings: function() {
         if (Pref.getOption('b', Pref.ACTIVE_SHORTCUT_SETTING_KEY)) {
             Lib.TalkativeLog('-*-enable keybinding');
 
@@ -644,7 +644,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
                 Shell.ActionMode.MESSAGE_TRAY |
                 Shell.ActionMode.OVERVIEW |
                 Shell.ActionMode.POPUP,
-                Lang.bind(this, function () {
+                Lang.bind(this, function() {
                     Lib.TalkativeLog('-*-intercept key combination');
                     this._doRecording();
                 })
@@ -652,7 +652,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         }
     },
 
-    _removeKeybindings: function () {
+    _removeKeybindings: function() {
         if (Pref.getOption('b', Pref.ACTIVE_SHORTCUT_SETTING_KEY)) {
             Lib.TalkativeLog('-*-remove keybinding');
 
@@ -660,7 +660,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         }
     },
 
-    destroy: function () {
+    destroy: function() {
         Lib.TalkativeLog('-*-destroy indicator called');
 
         if (isActive) {
@@ -682,7 +682,7 @@ function refreshNotify(sec, alertEnd) {
                 });
 
             Indicator.notifyCounting.addAction(_('Open in the filesystem'),
-                Lang.bind(this, function (self, action) {
+                Lang.bind(this, function(self, action) {
                     Lib.TalkativeLog('-*-button notification pressed');
                     var pathFolder = Pref.getOption(
                         's', Pref.FILE_FOLDER_SETTING_KEY)
