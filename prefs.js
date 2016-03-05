@@ -26,6 +26,8 @@ const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Lib = Me.imports.convenience;
 const UtilWebcam = Me.imports.utilwebcam;
+const UtilGSP = Me.imports.utilgsp;
+
 
 // setting keys
 const INPUT_AUDIO_SOURCE_SETTING_KEY = 'input-audio-source';
@@ -79,7 +81,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
     GTypeName: 'EasyScreenCastSettingsWidget',
     Extends: Gtk.Box,
 
-    _init: function (params) {
+    _init: function(params) {
         this.parent(params);
 
         // creates the settings
@@ -157,7 +159,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             });
             renderer.connect(
                 "accel-edited", Lang.bind(this,
-                    function (renderer, path, key, mods, hwCode) {
+                    function(renderer, path, key, mods, hwCode) {
                         Lib.TalkativeLog('-^-edited key accel');
 
                         let accel = Gtk.accelerator_name(key, mods);
@@ -170,7 +172,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
 
             renderer.connect(
                 "accel-cleared", Lang.bind(this,
-                    function (renderer, path) {
+                    function(renderer, path) {
                         Lib.TalkativeLog('-^-cleared key accel');
 
                         this._updateRowShortcut(null);
@@ -210,15 +212,19 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                 PIPELINE_REC_SETTING_KEY, this.Ref_buffer_Pipeline, 'text',
                 Gio.SettingsBindFlags.DEFAULT);
 
+            //implements label desciption GSP
+            this.Ref_label_DescrGSP = builder.get_object(
+                'lbl_GSP_Description');
+            this.Ref_label_DescrGSP.set_text(UtilGSP.getDescr(
+                getOption('i', QUALITY_SETTING_KEY),
+                getOption('i', FILE_CONTAINER_SETTING_KEY)));
+
             //implements quality scale option
             this.Ref_scale_Quality = builder.get_object(
                 'scl_Quality');
-            settings.bind(
-                QUALITY_SETTING_KEY, this.Ref_scale_Quality,
-                'digits', Gio.SettingsBindFlags.DEFAULT);
             this.Ref_scale_Quality.set_valign(Gtk.Align.START);
             let adjustment2 = new Gtk.Adjustment({
-                value: 2,
+                value: 1,
                 lower: 0,
                 upper: 3,
                 step_increment: 1,
@@ -231,14 +237,26 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                 this.Ref_scale_Quality.add_mark(ind,
                     Gtk.PositionType.BOTTOM, '');
             }
+
             this.Ref_scale_Quality.set_value(getOption(
                 'i', QUALITY_SETTING_KEY));
+
             this.Ref_scale_Quality.connect(
-                'value-changed', Lang.bind(this, function (self) {
+                'value-changed', Lang.bind(this, function(self) {
                     Lib.TalkativeLog('-^-value quality changed : ' + self.get_value());
 
-                    setOption(QUALITY_SETTING_KEY,
-                        self.get_value());
+                    //round the value
+                    var roundTmp = parseInt((self.get_value()).toFixed(0));
+                    Lib.TalkativeLog('-^-value quality fixed : ' + roundTmp);
+
+                    //update label descr GSP
+                    this.Ref_label_DescrGSP.set_text(UtilGSP.getDescr(
+                        roundTmp,
+                        getOption('i', FILE_CONTAINER_SETTING_KEY)));
+
+                    self.set_value(roundTmp);
+
+                    setOption(QUALITY_SETTING_KEY, roundTmp);
                 })
             );
 
@@ -258,7 +276,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                 ACTIVE_CUSTOM_GSP_SETTING_KEY, this.Ref_switch_CustomGSP,
                 'active', Gio.SettingsBindFlags.DEFAULT);
             this.Ref_switch_CustomGSP.connect(
-                'button_press_event', Lang.bind(this, function (self) {
+                'button_press_event', Lang.bind(this, function(self) {
                     //update GSP text area
                     this._setStateGSP(getOption(
                         'b', ACTIVE_CUSTOM_GSP_SETTING_KEY));
@@ -309,7 +327,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
 
             this.Ref_filechooser_FileFolder.connect(
                 'file_set', Lang.bind(this,
-                    function (self) {
+                    function(self) {
                         var tmpPathFolder = self.get_filename();
                         Lib.TalkativeLog('-^-file path get from widget : ' + tmpPathFolder);
                         if (tmpPathFolder !== null)
@@ -337,7 +355,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             let CapsSelection = this.Ref_TreeView_QualityWebCam.get_selection();
 
             // connect selection signal
-            CapsSelection.connect('changed', Lang.bind(this, function (self) {
+            CapsSelection.connect('changed', Lang.bind(this, function(self) {
                 let [isSelected, model, iter] =
                 self.get_selected();
                 if (isSelected) {
@@ -491,7 +509,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
 
             //connect keywebcam signal
             settings.connect('changed::' + DEVICE_WEBCAM_SETTING_KEY,
-                Lang.bind(this, function () {
+                Lang.bind(this, function() {
                     Lib.TalkativeLog('-^-webcam device changed');
 
                     this._updateStateWebcamOptions();
@@ -500,7 +518,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         }
     },
 
-    _updateWebCamCaps: function (device) {
+    _updateWebCamCaps: function(device) {
         if (device > 0) {
             Lib.TalkativeLog('-^-webcam device: ' + device);
 
@@ -523,7 +541,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         }
     },
 
-    _updateRowShortcut: function (accel) {
+    _updateRowShortcut: function(accel) {
         Lib.TalkativeLog('-^-update row combo key accel');
 
         let [key, mods] =
@@ -534,7 +552,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             this.Iter_ShortcutRow, [SHORTCUT_COLUMN_KEY, SHORTCUT_COLUMN_MODS], [key, mods]);
     },
 
-    _setStateGSP: function (active) {
+    _setStateGSP: function(active) {
         //update GSP text area
         if (!active) {
             Lib.TalkativeLog('-^-custom GSP');
@@ -555,7 +573,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         }
     },
 
-    _updateStateWebcamOptions: function () {
+    _updateStateWebcamOptions: function() {
         Lib.TalkativeLog('-^-update webcam option widgets');
 
         var tmpDev = getOption('i', DEVICE_WEBCAM_SETTING_KEY);
@@ -576,7 +594,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
     },
 
     //function to restore default value of the settings
-    _setDefaultsettings: function () {
+    _setDefaultsettings: function() {
         Lib.TalkativeLog('-^-restore default option');
 
         setOption(SHOW_TIMER_REC_SETTING_KEY, true);
@@ -608,24 +626,24 @@ function getOption(type, key) {
     checkSettings();
 
     switch (type) {
-    case 'b':
-        return settings.get_boolean(key);
-        break;
+        case 'b':
+            return settings.get_boolean(key);
+            break;
 
-    case 'i':
-        return settings.get_int(key);
-        break;
+        case 'i':
+            return settings.get_int(key);
+            break;
 
-    case 's':
-        return settings.get_string(key);
-        break;
+        case 's':
+            return settings.get_string(key);
+            break;
 
-    case 'as':
-        return settings.get_strv(key);
-        break;
+        case 'as':
+            return settings.get_strv(key);
+            break;
 
-    default:
-        return 'ERROR';
+        default:
+            return 'ERROR';
     };
     return '';
 }
@@ -645,25 +663,25 @@ function getGSPstd(audio) {
 function setOption(key, option) {
     checkSettings();
 
-    switch (typeof (option)) {
-    case 'boolean':
-        settings.set_boolean(key, option);
-        break;
+    switch (typeof(option)) {
+        case 'boolean':
+            settings.set_boolean(key, option);
+            break;
 
-    case 'number':
-        settings.set_int(key, option);
-        break;
+        case 'number':
+            settings.set_int(key, option);
+            break;
 
-    case 'string':
-        settings.set_string(key, option);
-        break;
+        case 'string':
+            settings.set_string(key, option);
+            break;
 
-    case 'object':
-        settings.set_strv(key, option);
-        break;
+        case 'object':
+            settings.set_strv(key, option);
+            break;
 
-    default:
-        return 'ERROR';
+        default:
+            return 'ERROR';
     };
     return '';
 }

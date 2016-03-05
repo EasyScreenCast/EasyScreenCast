@@ -35,142 +35,122 @@ const SCREEN_WEBCAM_SOUND = 'queue max-size-buffers=0 max-size-time=0 max-size-b
 // CONST CONTAINER - WebM
 const webm = {
     nameGSP: 'webmmux',
-    quality: [
-        {
-            //quality level 0
-            fps: 15,
-            vq: 'vp9enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T',
-            aq: 'vorbisenc',
-            descr: 'FPS: 15 \nVideo -> VP9 Encoder | blabla \nAudio -> Vorbis Encoder'
-        },
-        {
-            //quality level 1
-            fps: 30,
-            vq: 'vp9enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T',
-            aq: 'vorbisenc',
-            descr: 'FPS: 30 \nVideo -> VP9 Encoder | blabla \nAudio -> Vorbis Encoder'
+    quality: [{
+        //quality level 0
+        fps: 15,
+        vq: 'vp8enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T',
+        aq: 'vorbisenc',
+        descr: 'FPS: 15 \nVideo -> VP8 Encoder | blabla \nAudio -> Vorbis Encoder'
+    }, {
+        //quality level 1
+        fps: 30,
+        vq: 'vp8enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T',
+        aq: 'vorbisenc',
+        descr: 'FPS: 30 \nVideo -> VP8 Encoder | blabla \nAudio -> Vorbis Encoder'
 
-        },
-        {
-            //quality level 2
-            fps: 30,
-            vq: 'vp9enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T',
-            aq: 'vorbisenc',
-            descr: 'FPS: 30 \nVideo -> VP9 Encoder | blabla \nAudio -> Vorbis Encoder'
-        },
-        {
-            //quality level 3
-            fps: 60,
-            vq: 'vp9enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T',
-            aq: 'vorbisenc',
-            descr: 'FPS: 60 \nVideo -> VP9 Encoder | blabla \nAudio -> Vorbis Encoder'
-        },
-    ]
+    }, {
+        //quality level 2
+        fps: 30,
+        vq: 'vp8enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T',
+        aq: 'vorbisenc',
+        descr: 'FPS: 30 \nVideo -> VP8 Encoder | blabla \nAudio -> Vorbis Encoder'
+    }, {
+        //quality level 3
+        fps: 60,
+        vq: 'vp8enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T',
+        aq: 'vorbisenc',
+        descr: 'FPS: 60 \nVideo -> VP8 Encoder | blabla \nAudio -> Vorbis Encoder'
+    }, ]
 };
 
 // CONST CONTAINER - Mp4
 const mp4 = {
     nameGSP: 'mp4mux',
-    quality: [
-        {
-            //quality level 0
-            fps: 15,
-            vq: 'mpeg2enc',
-            aq: 'lamemp3enc',
-            descr: 'FPS: 15 \nVideo -> Mpeg2 Encoder | blabla \nAudio -> Mp3 Encoder'
-        },
-        {
-            //quality level 1
-            fps: 30,
-            vq: 'mpeg2enc',
-            aq: 'lamemp3enc',
-            descr: 'FPS: 30 \nVideo -> Mpeg2 Encoder | blabla \nAudio -> Mp3 Encoder'
-        },
-        {
-            //quality level 2
-            fps: 30,
-            vq: 'mpeg2enc',
-            aq: 'lamemp3enc',
-            descr: 'FPS: 30 \nVideo -> Mpeg2 Encoder | blabla \nAudio -> Mp3 Encoder'
-        },
-        {
-            //quality level 3
-            fps: 60,
-            vq: 'mpeg2enc',
-            aq: 'lamemp3enc',
-            descr: 'FPS: 60 \nVideo -> Mpeg2 Encoder | blabla \nAudio -> Mp3 Encoder'
-        },
-    ]
+    quality: [{
+        //quality level 0
+        fps: 15,
+        vq: 'mpeg2enc',
+        aq: 'lamemp3enc',
+        descr: 'FPS: 15 \nVideo -> Mpeg2 Encoder | blabla \nAudio -> Mp3 Encoder'
+    }, {
+        //quality level 1
+        fps: 30,
+        vq: 'mpeg2enc',
+        aq: 'lamemp3enc',
+        descr: 'FPS: 30 \nVideo -> Mpeg2 Encoder | blabla \nAudio -> Mp3 Encoder'
+    }, {
+        //quality level 2
+        fps: 30,
+        vq: 'mpeg2enc',
+        aq: 'lamemp3enc',
+        descr: 'FPS: 30 \nVideo -> Mpeg2 Encoder | blabla \nAudio -> Mp3 Encoder'
+    }, {
+        //quality level 3
+        fps: 60,
+        vq: 'mpeg2enc',
+        aq: 'lamemp3enc',
+        descr: 'FPS: 60 \nVideo -> Mpeg2 Encoder | blabla \nAudio -> Mp3 Encoder'
+    }, ]
 };
 
 // CONST CONTAINER - Mkv
 const mkv = {
     nameGSP: 'matroskamux',
-    quality: [
-        {
-            //quality level 0
-            fps: 15,
-            vq: 'x264enc',
-            aq: 'flacenc',
-            descr: 'FPS: 15 \nVideo -> x264 Encoder | blabla \nAudio -> Flac Encoder'
-        },
-        {
-            //quality level 1
-            fps: 30,
-            vq: 'x264enc',
-            aq: 'flacenc',
-            descr: 'FPS: 30 \nVideo -> x264 Encoder | blabla \nAudio -> Flac Encoder'
-        },
-        {
-            //quality level 2
-            fps: 30,
-            vq: 'x264enc',
-            aq: 'flacenc',
-            descr: 'FPS: 30 \nVideo -> x264 Encoder | blabla \nAudio -> Flac Encoder'
-        },
-        {
-            //quality level 3
-            fps: 60,
-            vq: 'x264enc',
-            aq: 'flacenc',
-            descr: 'FPS: 60 \nVideo -> x264 Encoder | blabla \nAudio -> Flac Encoder'
-        },
-    ]
+    quality: [{
+        //quality level 0
+        fps: 15,
+        vq: 'x264enc',
+        aq: 'flacenc',
+        descr: 'FPS: 15 \nVideo -> x264 Encoder | blabla \nAudio -> Flac Encoder'
+    }, {
+        //quality level 1
+        fps: 30,
+        vq: 'x264enc',
+        aq: 'flacenc',
+        descr: 'FPS: 30 \nVideo -> x264 Encoder | blabla \nAudio -> Flac Encoder'
+    }, {
+        //quality level 2
+        fps: 30,
+        vq: 'x264enc',
+        aq: 'flacenc',
+        descr: 'FPS: 30 \nVideo -> x264 Encoder | blabla \nAudio -> Flac Encoder'
+    }, {
+        //quality level 3
+        fps: 60,
+        vq: 'x264enc',
+        aq: 'flacenc',
+        descr: 'FPS: 60 \nVideo -> x264 Encoder | blabla \nAudio -> Flac Encoder'
+    }, ]
 };
 
 // CONST CONTAINER - Ogg
 const ogg = {
     nameGSP: 'oggmux',
-    quality: [
-        {
-            //quality level 0
-            fps: 15,
-            vq: 'theoraenc',
-            aq: 'opusenc',
-            descr: 'FPS: 15 \nVideo -> Theora Encoder | blabla \nAudio -> Opus Encoder'
-        },
-        {
-            //quality level 1
-            fps: 30,
-            vq: 'theoraenc',
-            aq: 'opusenc',
-            descr: 'FPS: 30 \nVideo -> Theora Encoder | blabla \nAudio -> Opus Encoder'
-        },
-        {
-            //quality level 2
-            fps: 30,
-            vq: 'theoraenc',
-            aq: 'opusenc',
-            descr: 'FPS: 30 \nVideo -> Theora Encoder | blabla \nAudio -> Opus Encoder'
-        },
-        {
-            //quality level 3
-            fps: 60,
-            vq: 'theoraenc',
-            aq: 'opusenc',
-            descr: 'FPS: 60 \nVideo -> Theora Encoder | blabla \nAudio -> Opus Encoder'
-        },
-    ]
+    quality: [{
+        //quality level 0
+        fps: 15,
+        vq: 'theoraenc',
+        aq: 'opusenc',
+        descr: 'FPS: 15 \nVideo -> Theora Encoder | blabla \nAudio -> Opus Encoder'
+    }, {
+        //quality level 1
+        fps: 30,
+        vq: 'theoraenc',
+        aq: 'opusenc',
+        descr: 'FPS: 30 \nVideo -> Theora Encoder | blabla \nAudio -> Opus Encoder'
+    }, {
+        //quality level 2
+        fps: 30,
+        vq: 'theoraenc',
+        aq: 'opusenc',
+        descr: 'FPS: 30 \nVideo -> Theora Encoder | blabla \nAudio -> Opus Encoder'
+    }, {
+        //quality level 3
+        fps: 60,
+        vq: 'theoraenc',
+        aq: 'opusenc',
+        descr: 'FPS: 60 \nVideo -> Theora Encoder | blabla \nAudio -> Opus Encoder'
+    }, ]
 };
 
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -192,7 +172,7 @@ const RESOLUTION = [
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 // VAR ARRAY CONTAINER
-var CONTAINER = [webm, mp4, mkv, ogg];
+const CONTAINER = [webm, mp4, mkv, ogg];
 
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
@@ -223,82 +203,82 @@ function composeGSP() {
 
     if (Device_Webcam > 0) {
         switch (Device_Audio) {
-        case 0:
-            Lib.TalkativeLog('-§- SCREEN-WEBCAM');
+            case 0:
+                Lib.TalkativeLog('-§- SCREEN-WEBCAM');
 
-            this.tmpGSP = SCREEN_WEBCAM;
+                this.tmpGSP = SCREEN_WEBCAM;
 
-            //replace WEBCAM_DEVICE/WEBCAM_CAPS
-            this.tmpGSP = replaceWebcam(
-                this.tmpGSP,
-                Device_Webcam,
-                QualityWebcam
-            );
-
-            break;
-        case 1:
-            Lib.TalkativeLog('-§-SCREEN-WEBCAM-AUDIO(d)');
-
-            this.tmpGSP = SCREEN_WEBCAM_SOUND;
-
-            //replace WEBCAM_DEVICE/WEBCAM_CAPS/ENCODER-AUDIO
-            this.tmpGSP = replaceAudio(
-                replaceWebcam(
+                //replace WEBCAM_DEVICE/WEBCAM_CAPS
+                this.tmpGSP = replaceWebcam(
                     this.tmpGSP,
                     Device_Webcam,
-                    QualityWebcam),
-                true,
-                Container,
-                QualityGSP);
+                    QualityWebcam
+                );
 
-            break;
-        default:
-            Lib.TalkativeLog('-§-SCREEN-WEBCAM-AUDIO');
+                break;
+            case 1:
+                Lib.TalkativeLog('-§-SCREEN-WEBCAM-AUDIO(d)');
 
-            this.tmpGSP = SCREEN_WEBCAM_SOUND;
+                this.tmpGSP = SCREEN_WEBCAM_SOUND;
 
-            //replace WEBCAM_DEVICE/WEBCAM_CAPS/ENCODER-AUDIO/AUDIO_DEVICE
-            this.tmpGSP = replaceAudio(
-                replaceWebcam(
-                    this.tmpGSP,
-                    Device_Webcam,
-                    QualityWebcam),
-                false,
-                Container,
-                QualityGSP);
+                //replace WEBCAM_DEVICE/WEBCAM_CAPS/ENCODER-AUDIO
+                this.tmpGSP = replaceAudio(
+                    replaceWebcam(
+                        this.tmpGSP,
+                        Device_Webcam,
+                        QualityWebcam),
+                    true,
+                    Container,
+                    QualityGSP);
+
+                break;
+            default:
+                Lib.TalkativeLog('-§-SCREEN-WEBCAM-AUDIO');
+
+                this.tmpGSP = SCREEN_WEBCAM_SOUND;
+
+                //replace WEBCAM_DEVICE/WEBCAM_CAPS/ENCODER-AUDIO/AUDIO_DEVICE
+                this.tmpGSP = replaceAudio(
+                    replaceWebcam(
+                        this.tmpGSP,
+                        Device_Webcam,
+                        QualityWebcam),
+                    false,
+                    Container,
+                    QualityGSP);
         }
     } else {
         switch (Device_Audio) {
-        case 0:
-            Lib.TalkativeLog('-§-SCREEN');
+            case 0:
+                Lib.TalkativeLog('-§-SCREEN');
 
-            this.tmpGSP = SCREEN;
+                this.tmpGSP = SCREEN;
 
-            break;
-        case 1:
-            Lib.TalkativeLog('-§-SCREEN-AUDIO(d)');
+                break;
+            case 1:
+                Lib.TalkativeLog('-§-SCREEN-AUDIO(d)');
 
-            this.tmpGSP = SCREEN_SOUND;
+                this.tmpGSP = SCREEN_SOUND;
 
-            //replace ENCODER-AUDIO
-            this.tmpGSP = replaceAudio(
-                this.tmpGSP,
-                true,
-                Container,
-                QualityGSP);
+                //replace ENCODER-AUDIO
+                this.tmpGSP = replaceAudio(
+                    this.tmpGSP,
+                    true,
+                    Container,
+                    QualityGSP);
 
-            break;
-        default:
-            Lib.TalkativeLog('-§-SCREEN-AUDIO');
+                break;
+            default:
+                Lib.TalkativeLog('-§-SCREEN-AUDIO');
 
-            this.tmpGSP = SCREEN_SOUND;
+                this.tmpGSP = SCREEN_SOUND;
 
-            //replace ENCODER-AUDIO/AUDIO_DEVICE
-            this.tmpGSP = replaceAudio(
-                this.tmpGSP,
-                false,
-                Container,
-                QualityGSP);
+                //replace ENCODER-AUDIO/AUDIO_DEVICE
+                this.tmpGSP = replaceAudio(
+                    this.tmpGSP,
+                    false,
+                    Container,
+                    QualityGSP);
         }
     }
 
@@ -309,12 +289,12 @@ function composeGSP() {
         _CONTAINER_: CONTAINER[Container].nameGSP
     };
 
-    this.tmpGSP = this.tmpGSP
-        .replace(/_SCREENCAST_RES_|_ENCODER_VIDEO_|_CONTAINER_/gi,
-            function (match) {
-                return mapObj[match];
-            }
-        );
+    this.tmpGSP = this.tmpGSP.replace(
+        /_SCREENCAST_RES_|_ENCODER_VIDEO_|_CONTAINER_/gi,
+        function(match) {
+            return mapObj[match];
+        }
+    );
 
 
     Lib.TalkativeLog('-§-final GSP :' + this.tmpGSP);
@@ -346,7 +326,7 @@ function replaceAudio(gsp, defaultAudio, ConTMP, QGSPtmp) {
         };
 
         var audioPipeline = gsp.replace(/pulsesrc|_ENCODER_AUDIO_/gi,
-            function (match) {
+            function(match) {
                 return mapObj[match];
             }
         );
@@ -374,7 +354,7 @@ function replaceWebcam(gsp, device, caps) {
     };
 
     var audioPipeline = gsp.replace(/_WEBCAM_DEV_|_WEBCAM_CAP_/gi,
-        function (match) {
+        function(match) {
             return mapObj[match];
         }
     );
@@ -382,4 +362,13 @@ function replaceWebcam(gsp, device, caps) {
     Lib.TalkativeLog('-§-pipeline post-webcam:' + webcamPipeline);
 
     return webcamPipeline;
+}
+
+/*
+ * get description
+ */
+function getDescr(quality, container) {
+    Lib.TalkativeLog('-§-get description Q-> ' + quality + ' C-> ' + container);
+
+    return CONTAINER[container].quality[quality].descr;
 }
