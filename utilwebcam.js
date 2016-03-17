@@ -111,7 +111,7 @@ const HelperWebcam = new Lang.Class({
         for (var i = 0; i < tmpCaps.get_size(); i++) {
             //cleaned cap
             cleanCaps[i] = tmpCaps.get_structure(i).to_string()
-                .replace(/\(.*?\)/gi, '');
+                .replace(/\(.*?\)|;/gi, '');
 
             Lib.TalkativeLog('-@-cap : ' + i + ' : ' + cleanCaps[i]);
         }
