@@ -40,26 +40,26 @@ const webm = {
         fps: 15,
         vq: 'vp8enc min_quantizer=13 max_quantizer=20 cpu-used=5 deadline=1000000 sharpness=2 target-bitrate=10000 threads=%T',
         aq: 'vorbisenc',
-        descr: 'FPS: 15 \nVideo -> VP8 Encoder:-min_quantizer=13\n-max_quantizer=20\n-cpu-used=5\n-deadline=1000000\n-sharpness=2\n-target-bitrate=10000\n\nAudio -> Vorbis Encoder'
+        descr: 'FPS: 15 \nVideo -> VP8 Encoder:\n-min_quantizer=13\n-max_quantizer=20\n-cpu-used=5\n-deadline=1000000\n-sharpness=2\n-target-bitrate=10000n\nAudio -> Vorbis Encoder'
     }, {
         //quality level 1
         fps: 30,
         vq: 'vp8enc min_quantizer=4 max_quantizer=13 cpu-used=2 deadline=500000 sharpness=0 target-bitrate=15000 threads=%T',
         aq: 'vorbisenc',
-        descr: 'FPS: 30 \nVideo -> VP8 Encoder:-min_quantizer=4\n-max_quantizer=13\n-cpu-used=2\n-deadline=500000\n-sharpness=0\n-target-bitrate=15000\n\nAudio -> Vorbis Encoder'
+        descr: 'FPS: 30 \nVideo -> VP8 Encoder:\n-min_quantizer=4\n-max_quantizer=13\n-cpu-used=2\n-deadline=500000\n-sharpness=0\n-target-bitrate=15000\nAudio -> Vorbis Encoder'
 
     }, {
         //quality level 2
         fps: 30,
         vq: 'vp8enc min_quantizer=0 max_quantizer=7 cpu-used=1 deadline=500000 sharpness=0 target-bitrate=25000 threads=%T',
         aq: 'vorbisenc',
-        descr: 'FPS: 30 \nVideo -> VP8 Encoder:-min_quantizer=0\n-max_quantizer=7\n-cpu-used=1\n-deadline=500000\n-sharpness=0\n-target-bitrate=25000\n\nAudio -> Vorbis Encoder'
+        descr: 'FPS: 30 \nVideo -> VP8 Encoder:\n-min_quantizer=0\n-max_quantizer=7\n-cpu-used=1\n-deadline=500000\n-sharpness=0\n-target-bitrate=25000\nAudio -> Vorbis Encoder'
     }, {
         //quality level 3
         fps: 60,
         vq: 'vp8enc min_quantizer=0 max_quantizer=0 cpu-used=0 deadline=100000 sharpness=0 target-bitrate=40000 threads=%T',
         aq: 'vorbisenc',
-        descr: 'FPS: 60 \nVideo -> VP8 Encoder:-min_quantizer=0\n-max_quantizer=0\n-cpu-used=0\n-deadline=100000\n-sharpness=0\n-target-bitrate=40000\n\nAudio -> Vorbis Encoder'
+        descr: 'FPS: 60 \nVideo -> VP8 Encoder:\n-min_quantizer=0\n-max_quantizer=0\n-cpu-used=0\n-deadline=100000\n-sharpness=0\n-target-bitrate=40000\nAudio -> Vorbis Encoder'
     }, ]
 };
 
@@ -199,7 +199,7 @@ function composeGSP() {
     let Container = Pref.getOption(
         'i', Pref.FILE_CONTAINER_SETTING_KEY);
 
-    Lib.TalkativeLog('-§-get option||devWB: ' + Device_Webcam + '||devA: ' + Device_Audio + '||Qgsp: ' + QualityGSP + '||Qwc: ' + QualityWebcam + '||Res: ' + Resolution + '||Cont: ' + Container);
+    Lib.TalkativeLog('-§-get option||devW: ' + Device_Webcam + '||devA: ' + Device_Audio + '||Qgsp: ' + QualityGSP + '||Qwc: ' + QualityWebcam + '||Res: ' + Resolution + '||Cont: ' + Container);
 
     if (Device_Webcam > 0) {
         switch (Device_Audio) {
@@ -341,10 +341,10 @@ function replaceAudio(gsp, defaultAudio, ConTMP, QGSPtmp) {
  * replace webcam
  */
 function replaceWebcam(gsp, device, caps) {
-    Lib.TalkativeLog('-§-replace webcam -> ' + device);
+    Lib.TalkativeLog('-§-replace webcam -> ' + device + ' caps: ' + caps);
 
     //replace device/caps
-    var reDev = '/dev/video' + device - 1;
+    var reDev = '/dev/video' + (device - 1);
 
     Lib.TalkativeLog('-§-pipeline pre-webcam:' + gsp);
 
