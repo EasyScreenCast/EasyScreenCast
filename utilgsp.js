@@ -350,7 +350,7 @@ function replaceWebcam(gsp, device, caps) {
 
     var mapObj = {
         _WEBCAM_DEV_: reDev,
-        _ENCODER_VIDEO_: caps
+        _WEBCAM_CAP_: caps
     };
 
     var webcamPipeline = gsp.replace(/_WEBCAM_DEV_|_WEBCAM_CAP_/gi,
