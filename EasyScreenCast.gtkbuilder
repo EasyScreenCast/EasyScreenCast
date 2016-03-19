@@ -489,7 +489,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                               </object>
                               <packing>
                                 <property name="name">pg_Preset</property>
-                                <property name="title" translatable="yes">PagePreset</property>
+                                <property name="title" translatable="no">PagePreset</property>
                               </packing>
                             </child>
                             <child>
@@ -671,7 +671,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                               </object>
                               <packing>
                                 <property name="name">pg_Custom</property>
-                                <property name="title" translatable="yes">PageCustom</property>
+                                <property name="title" translatable="no">PageCustom</property>
                                 <property name="position">1</property>
                               </packing>
                             </child>

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-18 13:35+0200\n"
+"POT-Creation-Date: 2016-03-19 12:19+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,123 +17,164 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: extension.js:116
+#: extension.js:122 EasyScreenCast.gtkbuilder:330
 msgid "Options"
 msgstr ""
 
-#: extension.js:128 extension.js:476
+#: extension.js:159 extension.js:610
 msgid "Start recording"
 msgstr ""
 
-#: extension.js:146
-msgid "Record audio"
+#: extension.js:185 extension.js:319
+msgid "No audio source"
 msgstr ""
 
-#: extension.js:182
-msgid "Recording area"
+#: extension.js:242 extension.js:554
+msgid " sec. delay before recording"
 msgstr ""
 
-#: extension.js:197
-msgid "Delay recording"
+#: extension.js:244 extension.js:556
+msgid "Start recording immediately"
 msgstr ""
 
-#: extension.js:208 extension.js:418
-msgid " sec"
+#: extension.js:251
+msgid "Record all desktop"
 msgstr ""
 
-#: extension.js:210 extension.js:421
-msgid "off"
+#: extension.js:252
+msgid "Record a selected monitor"
 msgstr ""
 
-#: extension.js:218
-msgid "All desktop"
+#: extension.js:252
+msgid "Record a selected window"
 msgstr ""
 
-#: extension.js:218
-msgid "Select monitor"
+#: extension.js:253
+msgid "Record a selected area"
 msgstr ""
 
-#: extension.js:219
-msgid "Select window"
+#: extension.js:284
+msgid "No WebCam recording"
 msgstr ""
 
-#: extension.js:219
-msgid "Select area"
+#: extension.js:325
+msgid "Default audio source"
 msgstr ""
 
-#: extension.js:250
+#: extension.js:343
+msgid ""
+"\n"
+" - Port: "
+msgstr ""
+
+#: extension.js:344
+msgid ""
+"\n"
+" - Name: "
+msgstr ""
+
+#: extension.js:387
 msgid "Delay Time"
 msgstr ""
 
-#: extension.js:256 extension.js:270
+#: extension.js:393 extension.js:407
 msgid " Sec"
 msgstr ""
 
-#: extension.js:430
+#: extension.js:564
 msgid "Start Recording"
 msgstr ""
 
-#: extension.js:446
+#: extension.js:580
 msgid "ERROR RECORDER - See logs form more info"
 msgstr ""
 
-#: extension.js:469
+#: extension.js:603
 msgid "Stop recording"
 msgstr ""
 
-#: extension.js:532
+#: extension.js:670
 msgid "EasyScreenCast -> Finish Recording / Seconds : "
 msgstr ""
 
-#: extension.js:537
+#: extension.js:675
 msgid "Open in the filesystem"
 msgstr ""
 
-#: extension.js:552
+#: extension.js:690
 msgid "EasyScreenCast -> Recording in progress / Seconds passed : "
 msgstr ""
 
-#: prefs.js:86
+#: prefs.js:102
 msgid "Could not load the preferences UI file"
 msgstr ""
 
-#: selection.js:202
+#: prefs.js:345
+msgid "WebCam Caps"
+msgstr ""
+
+#: prefs.js:589 EasyScreenCast.gtkbuilder:724
+msgid "No webcam device selected"
+msgstr ""
+
+#: selection.js:205
 msgid "Select a area for recording or press [ESC] to abort"
 msgstr ""
 
-#: selection.js:240
+#: selection.js:243
 msgid "Select a window for recording or press [ESC] to abort"
 msgstr ""
 
-#: selection.js:309
+#: selection.js:312
 msgid "Select a desktop for recording or press [ESC] to abort"
 msgstr ""
 
-#: EasyScreenCast.gtkbuilder:55
+#: EasyScreenCast.gtkbuilder:72
 msgid "Replace standard indicator on status menu"
 msgstr ""
 
-#: EasyScreenCast.gtkbuilder:81
+#: EasyScreenCast.gtkbuilder:98
 msgid "Show time recording into notification bar"
 msgstr ""
 
-#: EasyScreenCast.gtkbuilder:108
+#: EasyScreenCast.gtkbuilder:123
 msgid "Show a border around the area being recorded"
 msgstr ""
 
-#: EasyScreenCast.gtkbuilder:133
+#: EasyScreenCast.gtkbuilder:148
 msgid "Enable keyboard shortcut"
 msgstr ""
 
-#: EasyScreenCast.gtkbuilder:156 EasyScreenCast.gtkbuilder:186
+#: EasyScreenCast.gtkbuilder:171 EasyScreenCast.gtkbuilder:185
 msgid "To activate the change of the shortcut restart the extension"
 msgstr ""
 
-#: EasyScreenCast.gtkbuilder:159
+#: EasyScreenCast.gtkbuilder:174
 msgid "Shortcut combination"
 msgstr ""
 
-#: EasyScreenCast.gtkbuilder:170
+#: EasyScreenCast.gtkbuilder:210
+msgid "Draw cursor on screencast"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:235
+msgid "Execute command after recording"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:258 EasyScreenCast.gtkbuilder:275
+msgid ""
+"These words will be replaced\n"
+" _fpath = the absolute path of the screencast video file.\n"
+"_dirpath = the absolute path of destination folder for the screencast video "
+"file.\n"
+"_fname = the name of the screencast video file."
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:264
+msgid "Command post-recording"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:290
 msgid ""
 "This option enable more debug message, to view these run this command into a "
 "terminal:\n"
@@ -141,11 +182,11 @@ msgid ""
 "$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
 msgstr ""
 
-#: EasyScreenCast.gtkbuilder:175
+#: EasyScreenCast.gtkbuilder:295
 msgid "Enable verbose debug"
 msgstr ""
 
-#: EasyScreenCast.gtkbuilder:209
+#: EasyScreenCast.gtkbuilder:306
 msgid ""
 "This option enable more debug message, to view these run this command into a "
 "terminal:\n"
@@ -153,111 +194,162 @@ msgid ""
 "$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
 msgstr ""
 
-#: EasyScreenCast.gtkbuilder:248
-msgid "<b>Options</b>"
+#: EasyScreenCast.gtkbuilder:363
+msgid "Custom GStreamer Pipeline"
 msgstr ""
 
-#: EasyScreenCast.gtkbuilder:285
+#: EasyScreenCast.gtkbuilder:477
+msgid "No GSP description\n"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:512
 msgid "Frames Per Second"
 msgstr ""
 
-#: EasyScreenCast.gtkbuilder:298
-msgid "Draw cursor on screencast"
-msgstr ""
-
-#: EasyScreenCast.gtkbuilder:312
+#: EasyScreenCast.gtkbuilder:526
 msgid "0"
 msgstr ""
 
-#: EasyScreenCast.gtkbuilder:338
-msgid "Input source Audio"
+#: EasyScreenCast.gtkbuilder:572
+msgid "GStreamer Pipeline"
 msgstr ""
 
-#: EasyScreenCast.gtkbuilder:363
-msgid "Execute command after recording"
-msgstr ""
-
-#: EasyScreenCast.gtkbuilder:386 EasyScreenCast.gtkbuilder:400
+#: EasyScreenCast.gtkbuilder:593
 msgid ""
-"The word $AbsFilePath will replace by the absolute path of the screencast "
-"video file."
+"The extension does NOT handle the webcam and audio when you use a custom "
+"gstreamer pipeline.\n"
 msgstr ""
 
-#: EasyScreenCast.gtkbuilder:389
-msgid "Command post-recording"
+#: EasyScreenCast.gtkbuilder:613
+msgid "Official doc"
 msgstr ""
 
-#: EasyScreenCast.gtkbuilder:436
-msgid "<b>Screencast options</b>"
+#: EasyScreenCast.gtkbuilder:629
+msgid "Wiki #1"
 msgstr ""
 
-#: EasyScreenCast.gtkbuilder:473 EasyScreenCast.gtkbuilder:504
-msgid ""
-"the filename which may contain some escape sequences - %d and %t will be "
-"replaced by the start date and time of the recording."
+#: EasyScreenCast.gtkbuilder:644
+msgid "Wiki #2"
 msgstr ""
 
-#: EasyScreenCast.gtkbuilder:476
-msgid "File name template : "
+#: EasyScreenCast.gtkbuilder:698 EasyScreenCast.gtkbuilder:790
+msgid "Quality"
 msgstr ""
 
-#: EasyScreenCast.gtkbuilder:487 EasyScreenCast.gtkbuilder:516
-#: EasyScreenCast.gtkbuilder:549
+#: EasyScreenCast.gtkbuilder:805
+msgid "Type of unit of measure"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:818
+msgid "Width"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:831
+msgid "Height"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:869
+msgid "Percentage"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:870
+msgid "Pixel"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:881
+msgid "Size"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:897
+msgid "Put the webcam in the corner"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:911
+msgid "Right-Bottom"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:912
+msgid "Left-Bottom"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:913
+msgid "Right-Top"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:914
+msgid "Left-Top"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:928
+msgid "Margin X"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:953
+msgid "Margin Y"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:978
+msgid "Alpha channel"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:1003
+msgid "Show border"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:1025
+msgid "Position"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:1049
+msgid "WebCam"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:1076
 msgid ""
 "Select the folder where the file is saved, if not specific a folder  the "
 "file will be saved in the $XDG_VIDEOS_DIR if it exists, or the home "
 "directory otherwise."
 msgstr ""
 
-#: EasyScreenCast.gtkbuilder:490
-msgid "The file is saved in the path : "
+#: EasyScreenCast.gtkbuilder:1079
+msgid "Destination folder"
 msgstr ""
 
-#: EasyScreenCast.gtkbuilder:562
-msgid "Choose a directory"
-msgstr ""
-
-#: EasyScreenCast.gtkbuilder:593
-msgid "<b>File screencast</b>"
-msgstr ""
-
-#: EasyScreenCast.gtkbuilder:631
-msgid "Custom GStreamer Pipeline"
-msgstr ""
-
-#: EasyScreenCast.gtkbuilder:667
+#: EasyScreenCast.gtkbuilder:1090 EasyScreenCast.gtkbuilder:1107
+#: EasyScreenCast.gtkbuilder:1131 EasyScreenCast.gtkbuilder:1145
 msgid ""
-"The extension handles audio and webcam support  only if is NOT used a custom "
-"gstreamer pipeline .\n"
-"GStreamer is a pipeline-based multimedia allows a programmer to create a "
-"variety of media-handling components, including simple audio playback, audio "
-"and video playback, recording, streaming and editing.Below some useful links."
+"the filename which may contain some escape sequences - %d and %t will be "
+"replaced by the start date and time of the recording."
 msgstr ""
 
-#: EasyScreenCast.gtkbuilder:683
-msgid "Official doc"
+#: EasyScreenCast.gtkbuilder:1093
+msgid "File name template"
 msgstr ""
 
-#: EasyScreenCast.gtkbuilder:699
-msgid "Wiki #1"
+#: EasyScreenCast.gtkbuilder:1120
+msgid "Select the destination folder"
 msgstr ""
 
-#: EasyScreenCast.gtkbuilder:714
-msgid "Wiki #2"
+#: EasyScreenCast.gtkbuilder:1134
+msgid "File container"
 msgstr ""
 
-#: EasyScreenCast.gtkbuilder:771
-msgid "GStreamer Pipeline"
+#: EasyScreenCast.gtkbuilder:1148
+msgid "File resolution"
 msgstr ""
 
-#: EasyScreenCast.gtkbuilder:801
-msgid "<b>GStreamer Pipeline</b>"
+#: EasyScreenCast.gtkbuilder:1176
+msgid "Native area screen resolution"
 msgstr ""
 
-#: EasyScreenCast.gtkbuilder:840
+#: EasyScreenCast.gtkbuilder:1201
+msgid "File"
+msgstr ""
+
+#: EasyScreenCast.gtkbuilder:1240
 msgid "Report [ Bugs / Feature Request / Issue ] here"
 msgstr ""
 
-#: EasyScreenCast.gtkbuilder:855
+#: EasyScreenCast.gtkbuilder:1255
 msgid "Restore default options"
 msgstr ""
