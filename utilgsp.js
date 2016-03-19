@@ -344,7 +344,7 @@ function replaceWebcam(gsp, device, caps) {
     Lib.TalkativeLog('-§-replace webcam -> ' + device + ' caps: ' + caps);
 
     //replace device/caps
-    var reDev = '/dev/video' + (device - 1);
+    var reDev = 'device=/dev/video' + (device - 1);
 
     Lib.TalkativeLog('-§-pipeline pre-webcam:' + gsp);
 
