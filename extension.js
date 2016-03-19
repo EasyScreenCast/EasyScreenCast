@@ -550,19 +550,10 @@ const EasyScreenCast_Indicator = new Lang.Class({
 
         var secDelay = Math.floor(this.TimeSlider.value * 100)
         Pref.setOption(Pref.TIME_DELAY_SETTING_KEY, secDelay);
-
         if (secDelay > 0) {
-            this.isDelayActive = true;
-
-            if (secDelay > 1) {
-                this.smDelayRec.label.text = secDelay + _(' seconds of delay in registration');
-            } else {
-                this.smDelayRec.label.text = secDelay + _(' second of delay in registration');
-            }
+            this.smDelayRec.label.text = secDelay + _(' sec. delay before recording');
         } else {
-            this.isDelayActive = false;
-
-            this.smDelayRec.label.text = _('No delay in the registration');
+            this.smDelayRec.label.text = _('Start recording immediately');
         }
     },
 
