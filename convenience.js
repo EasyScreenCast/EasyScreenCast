@@ -94,24 +94,33 @@ function getSettings(schema) {
 */
 function TalkativeLog(msg) {
     if (Pref.getOption('b', Pref.VERBOSE_DEBUG_SETTING_KEY)) {
-        global.log('ESC > ' + msg);
+        global.log('ESC>' + msg);
     }
 };
 
 const ESConGIcon = new Gio.FileIcon({
-    file: Gio.File.new_for_path(Me.dir.get_child('images/icon_recording.svg').get_path())
+    file: Gio.File.new_for_path(Me.dir.get_child(
+        'images/icon_recording.svg').get_path())
 });
 
 const ESCoffGIcon = new Gio.FileIcon({
-    file: Gio.File.new_for_path(Me.dir.get_child('images/icon_default.svg').get_path())
+    file: Gio.File.new_for_path(Me.dir.get_child(
+        'images/icon_default.svg').get_path())
 });
 
 const ESConGIconSel = new Gio.FileIcon({
-    file: Gio.File.new_for_path(Me.dir.get_child('images/icon_recordingSel.svg').get_path())
+    file: Gio.File.new_for_path(Me.dir.get_child(
+        'images/icon_recordingSel.svg').get_path())
 });
 
 const ESCoffGIconSel = new Gio.FileIcon({
-    file: Gio.File.new_for_path(Me.dir.get_child('images/icon_defaultSel.svg').get_path())
+    file: Gio.File.new_for_path(Me.dir.get_child(
+        'images/icon_defaultSel.svg').get_path())
 });
 
-const ESCimgScreen = Me.dir.get_child('images/screen.svg').get_path();
+const ESCimgPerformance = Me.dir.get_child(
+    'images/Icon_Performance.svg').get_path();
+
+
+const ESCimgQuality = Me.dir.get_child(
+    'images/Icon_Quality.svg').get_path();

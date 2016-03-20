@@ -51,7 +51,7 @@
             <description>height of screencasting</description>
         </key>
         <key name="replace-indicator" type="b">
-            <default>false</default>
+            <default>true</default>
             <summary>replace the indicator into a status menu</summary>
             <description>replace the indicator into a status menu</description>
         </key>
@@ -91,7 +91,7 @@
             <description>enable execute post command</description>
         </key>
         <key name="post-cmd" type="s">
-            <default>'xdg-open AbsFilePath &amp;'</default>
+            <default>'xdg-open _fpath &amp;'</default>
             <summary>command to execute</summary>
             <description>command to execute</description>
         </key>
@@ -104,6 +104,71 @@
             <default>false</default>
             <summary>Enable keyboard shortcut</summary>
             <description>Enable keyboard shortcut</description>
+        </key>
+        <key name="file-container" type="i">
+            <default>0</default>
+            <summary>file screencast container</summary>
+            <description>file screencast container</description>
+        </key>
+        <key name="file-resolution" type="i">
+            <default>0</default>
+            <summary>file screencast resolution</summary>
+            <description>file screencast resolution</description>
+        </key>
+        <key name="quality-index" type="i">
+            <default>1</default>
+            <summary>store the quality index option</summary>
+            <description>store the quality index option</description>
+        </key>
+        <key name="device-webcam" type="i">
+            <default>0</default>
+            <summary>select webcam device</summary>
+            <description>select webcam device</description>
+        </key>
+        <key name="quality-webcam" type="s">
+            <default>""</default>
+            <summary>select webcam quality</summary>
+            <description>select webcam quality</description>
+        </key>
+        <key name="width-webcam" type="i">
+            <default>20</default>
+            <summary>width webcam</summary>
+            <description>width webcam</description>
+        </key>
+        <key name="height-webcam" type="i">
+            <default>10</default>
+            <summary>height webcam</summary>
+            <description>height webcam</description>
+        </key>
+        <key name="type-unit-webcam" type="i">
+            <default>0</default>
+            <summary>type of unit of measure webcam</summary>
+            <description>type of unit of measure</description>
+        </key>
+        <key name="show-border-webcam" type="b">
+            <default>false</default>
+            <summary>show border webcam</summary>
+            <description>show border webcam</description>
+        </key>
+        <key name="margin-x-webcam" type="i">
+            <default>0</default>
+            <summary>margin x from border webcam</summary>
+            <description>margin x webcam</description>
+        </key>
+        <key name="margin-y-webcam" type="i">
+            <default>0</default>
+            <summary>margin y from border webcam</summary>
+            <description>margin y from border webcam</description>
+        </key>
+        <key name="alpha-channel-webcam" type="i">
+            <default>0</default>
+            <summary>alpha channel webcam</summary>
+            <description>aplha channel webcam</description>
+        </key>
+        <key name="corner-position-webcam" type="i">
+            <default>0</default>
+            <summary>the corner position of webcam</summary>
+            <description>the corner position of webcam</description>
         </key>
     </schema>
 </schemalist>

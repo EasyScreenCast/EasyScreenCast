@@ -1,10 +1,9 @@
-EasyScreenCast simplifies the use of the video recording function integrated in gnome shell, allows quickly to change the various settings of the desktop recording.
+EasyScreenCast is a simple extension of a gnome 3 shell DE 
 
 Copyright (C) 2013-16 Borsato Ivano.
 
 * [Web Page](http://iacopodeenosee.wordpress.com/)
 * [GNOME Shell Extensions Page](https://extensions.gnome.org/extension/690/easyscreencast/)
-* [![Join the chat at https://gitter.im/iacopodeenosee/EasyScreenCast](https://badges.gitter.im/iacopodeenosee/EasyScreenCast.svg)](https://gitter.im/iacopodeenosee/EasyScreenCast?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ##License Info
 EasyScreenCast is free software distributed under the GNU GPL.
