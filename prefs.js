@@ -599,7 +599,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
 
         setOption(SHOW_TIMER_REC_SETTING_KEY, true);
         setOption(SHOW_AREA_REC_SETTING_KEY, false);
-        setOption(REPLACE_INDICATOR_SETTING_KEY, false);
+        setOption(REPLACE_INDICATOR_SETTING_KEY, true);
         setOption(DRAW_CURSOR_SETTING_KEY, true);
         setOption(VERBOSE_DEBUG_SETTING_KEY, false);
         setOption(ACTIVE_CUSTOM_GSP_SETTING_KEY, false);
@@ -617,7 +617,19 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         setOption(INPUT_AUDIO_SOURCE_SETTING_KEY, -1);
         setOption(DEVICE_WEBCAM_SETTING_KEY, 0);
 
-        // TO-DO update default option
+        setOption(TIME_DELAY_SETTING_KEY, 0);
+        setOption(FILE_CONTAINER_SETTING_KEY, 0);
+        setOption(FILE_RESOLUTION_SETTING_KEY, 0);
+        setOption(QUALITY_SETTING_KEY, 1);
+        setOption(QUALITY_WEBCAM_SETTING_KEY, '');
+        setOption(WIDTH_WEBCAM_SETTING_KEY, 20);
+        setOption(HEIGHT_WEBCAM_SETTING_KEY, 10);
+        setOption(TYPE_UNIT_WEBCAM_SETTING_KEY, 0);
+        setOption(SHOW_BORDER_WEBCAM_SETTING_KEY, false);
+        setOption(MARGIN_X_WEBCAM_SETTING_KEY, 0);
+        setOption(MARGIN_Y_WEBCAM_SETTING_KEY, 0);
+        setOption(ALPHA_CHANNEL_WEBCAM_SETTING_KEY, 0);
+        setOption(CORNER_POSITION_WEBCAM_SETTING_KEY, 0);
     }
 });
 

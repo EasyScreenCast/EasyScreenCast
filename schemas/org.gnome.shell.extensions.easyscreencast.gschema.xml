@@ -116,7 +116,7 @@
             <description>file screencast resolution</description>
         </key>
         <key name="quality-index" type="i">
-            <default>0</default>
+            <default>1</default>
             <summary>store the quality index option</summary>
             <description>store the quality index option</description>
         </key>
