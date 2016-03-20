@@ -489,7 +489,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                               </object>
                               <packing>
                                 <property name="name">pg_Preset</property>
-                                <property name="title" translatable="no">PagePreset</property>
+                                <property name="title">PagePreset</property>
                               </packing>
                             </child>
                             <child>
@@ -543,7 +543,6 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="margin_bottom">10</property>
-                                    <property name="resize_mode">queue</property>
                                     <property name="label_xalign">0.10000000149011612</property>
                                     <child>
                                       <object class="GtkAlignment" id="alignment160">
@@ -552,15 +551,21 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                                         <property name="left_padding">5</property>
                                         <property name="right_padding">5</property>
                                         <child>
-                                          <object class="GtkTextView" id="txe_CommandStringRec">
+                                          <object class="GtkScrolledWindow" id="scrolledwindow2">
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
-                                            <property name="margin_top">5</property>
-                                            <property name="margin_bottom">5</property>
-                                            <property name="hexpand">True</property>
-                                            <property name="vexpand">True</property>
-                                            <property name="wrap_mode">word-char</property>
-                                            <property name="accepts_tab">False</property>
+                                            <child>
+                                              <object class="GtkTextView" id="txe_CommandStringRec">
+                                                <property name="visible">True</property>
+                                                <property name="can_focus">True</property>
+                                                <property name="margin_top">5</property>
+                                                <property name="margin_bottom">5</property>
+                                                <property name="hexpand">True</property>
+                                                <property name="vexpand">True</property>
+                                                <property name="wrap_mode">word-char</property>
+                                                <property name="accepts_tab">False</property>
+                                              </object>
+                                            </child>
                                           </object>
                                         </child>
                                       </object>
@@ -671,7 +676,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                               </object>
                               <packing>
                                 <property name="name">pg_Custom</property>
-                                <property name="title" translatable="no">PageCustom</property>
+                                <property name="title">PageCustom</property>
                                 <property name="position">1</property>
                               </packing>
                             </child>
