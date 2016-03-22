@@ -4,5 +4,5 @@
     "url": "http://iacopodeenosee.wordpress.com/projects/easyscreencast/",
     "name": "EasyScreenCast",
     "version": "0.9.9",
-    "description": "This extension simplifies the use of the video recording function integrated in gnome shell, allows quickly to change the various settings of the desktop recording.\n\nSOURCE CODE ->  http://github.com/iacopodeenosee/EasyScreenCast\n\nVIDEO ->  https://youtu.be/81E9AruraKU\n\nATTENTION !!!\nif an error occurs during the update is recommended to reload GNOME Shell (Alt + F2, 'r') and reload the extension's installation page."
+    "description": "This extension simplifies the use of the video recording function integrated in gnome shell, allows quickly to change the various settings of the desktop recording.\n\nSOURCE CODE ->  http://github.com/iacopodeenosee/EasyScreenCast\n\nVIDEO ->  https://youtu.be/81E9AruraKU\n\n**NOTICE**\nif an error occurs during the update is recommended to reload GNOME Shell (Alt + F2, 'r') and reload the extension's installation page."
 }

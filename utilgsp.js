@@ -40,7 +40,7 @@ const webm = {
         fps: 15,
         vq: 'vp8enc min_quantizer=13 max_quantizer=20 cpu-used=5 deadline=1000000 sharpness=2 target-bitrate=10000 threads=%T',
         aq: 'vorbisenc',
-        descr: 'FPS: 15 \nVideo -> VP8 Encoder:\n-min_quantizer=13\n-max_quantizer=20\n-cpu-used=5\n-deadline=1000000\n-sharpness=2\n-target-bitrate=10000n\nAudio -> Vorbis Encoder'
+        descr: 'FPS: 15 \nVideo -> VP8 Encoder:\n-min_quantizer=13\n-max_quantizer=20\n-cpu-used=5\n-deadline=1000000\n-sharpness=2\n-target-bitrate=10000\nAudio -> Vorbis Encoder'
     }, {
         //quality level 1
         fps: 30,
