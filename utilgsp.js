@@ -305,14 +305,14 @@ function composeGSP() {
 /*
  * replace audio
  */
-function replaceAudio(gsp, defaultAudio, ConTMP, QGSPtmp) {
+function replaceAudio(gspRA, defaultAudio, ConTMP, QGSPtmp) {
     Lib.TalkativeLog('-§-replace audio default->' + defaultAudio);
     //replace device/encoder
-    Lib.TalkativeLog('-§-pipeline pre-audio:' + gsp);
+    var aq = CONTAINER[ConTMP].quality[QGSPtmp].aq;
+    Lib.TalkativeLog('-§-pipeline pre-audio:' + gspRA + ' aq:' + aq);
 
     if (defaultAudio) {
-        var audioPipeline = gsp.replace(/_ENCODER_AUDIO_/gi,
-            CONTAINER[ConTMP].quality[QGSPtmp].aq);
+        var audioPipeline = gspRA.replace(/_ENCODER_AUDIO_/gi, aq);
     } else {
         var audiosource = this.CtrlAudio.getAudioSource();
         if (audiosource.indexOf('output') !== -1) {
@@ -322,10 +322,10 @@ function replaceAudio(gsp, defaultAudio, ConTMP, QGSPtmp) {
 
         var mapObj = {
             pulsesrc: reDev,
-            _ENCODER_VIDEO_: CONTAINER[ConTMP].quality[QGSPtmp].aq
+            _ENCODER_AUDIO_: aq
         };
 
-        var audioPipeline = gsp.replace(/pulsesrc|_ENCODER_AUDIO_/gi,
+        var audioPipeline = gspRA.replace(/pulsesrc|_ENCODER_AUDIO_/gi,
             function(match) {
                 return mapObj[match];
             }
@@ -340,20 +340,20 @@ function replaceAudio(gsp, defaultAudio, ConTMP, QGSPtmp) {
 /*
  * replace webcam
  */
-function replaceWebcam(gsp, device, caps) {
+function replaceWebcam(gspRW, device, caps) {
     Lib.TalkativeLog('-§-replace webcam -> ' + device + ' caps: ' + caps);
 
     //replace device/caps
     var reDev = 'device=/dev/video' + (device - 1);
 
-    Lib.TalkativeLog('-§-pipeline pre-webcam:' + gsp);
+    Lib.TalkativeLog('-§-pipeline pre-webcam:' + gspRW);
 
     var mapObj = {
         _WEBCAM_DEV_: reDev,
         _WEBCAM_CAP_: caps
     };
 
-    var webcamPipeline = gsp.replace(/_WEBCAM_DEV_|_WEBCAM_CAP_/gi,
+    var webcamPipeline = gspRW.replace(/_WEBCAM_DEV_|_WEBCAM_CAP_/gi,
         function(match) {
             return mapObj[match];
         }
