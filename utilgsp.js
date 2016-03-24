@@ -34,6 +34,7 @@ const SCREEN_WEBCAM_SOUND = 'queue max-size-buffers=0 max-size-time=0 max-size-b
 
 // CONST CONTAINER - WebM
 const webm = {
+    fileExt: '.webm',
     nameGSP: 'webmmux',
     quality: [{
         //quality level 0
@@ -65,6 +66,7 @@ const webm = {
 
 // CONST CONTAINER - Mp4
 const mp4 = {
+    fileExt: '.mp4',
     nameGSP: 'mp4mux',
     quality: [{
         //quality level 0
@@ -95,6 +97,7 @@ const mp4 = {
 
 // CONST CONTAINER - Mkv
 const mkv = {
+    fileExt: '.mkv',
     nameGSP: 'matroskamux',
     quality: [{
         //quality level 0
@@ -125,6 +128,7 @@ const mkv = {
 
 // CONST CONTAINER - Ogg
 const ogg = {
+    fileExt: '.ogg',
     nameGSP: 'oggmux',
     quality: [{
         //quality level 0
@@ -371,4 +375,13 @@ function getDescr(quality, container) {
     Lib.TalkativeLog('-§-get description Q-> ' + quality + ' C-> ' + container);
 
     return CONTAINER[container].quality[quality].descr;
+}
+
+/*
+ * get file extension
+ */
+function getFileExtension(container) {
+    Lib.TalkativeLog('-§-get file extension C-> ' + container);
+
+    return CONTAINER[container].fileExt;
 }

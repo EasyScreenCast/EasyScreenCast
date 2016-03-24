@@ -62,7 +62,10 @@ const CaptureVideo = new Lang.Class({
         this.recordingActive = false;
 
         //prepare variable for screencast
-        var fileRec = Pref.getOption('s', Pref.FILE_NAME_SETTING_KEY);
+        var fileRec = Pref.getOption('s', Pref.FILE_NAME_SETTING_KEY) +
+            UtilGSP.getFileExtension(Pref.getOption(
+                'i', Pref.FILE_CONTAINER_SETTING_KEY));
+
         if (Pref.getOption('s', Pref.FILE_FOLDER_SETTING_KEY) !== '')
             fileRec = Pref.getOption('s', Pref.FILE_FOLDER_SETTING_KEY) +
             '/' + fileRec;
