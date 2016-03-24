@@ -71,27 +71,27 @@ const mp4 = {
     quality: [{
         //quality level 0
         fps: 15,
-        vq: 'mpeg2enc',
+        vq: 'x264enc',
         aq: 'lamemp3enc',
-        descr: 'FPS: 15 \nVideo -> Mpeg2 Encoder | blabla \nAudio -> Mp3 Encoder'
+        descr: 'FPS: 15 \nVideo -> x264enc Encoder | blabla \nAudio -> Mp3 Encoder'
     }, {
         //quality level 1
         fps: 30,
-        vq: 'mpeg2enc',
+        vq: 'x264enc',
         aq: 'lamemp3enc',
-        descr: 'FPS: 30 \nVideo -> Mpeg2 Encoder | blabla \nAudio -> Mp3 Encoder'
+        descr: 'FPS: 30 \nVideo -> x264enc Encoder | blabla \nAudio -> Mp3 Encoder'
     }, {
         //quality level 2
         fps: 30,
-        vq: 'mpeg2enc',
+        vq: 'x264enc',
         aq: 'lamemp3enc',
-        descr: 'FPS: 30 \nVideo -> Mpeg2 Encoder | blabla \nAudio -> Mp3 Encoder'
+        descr: 'FPS: 30 \nVideo -> x264enc Encoder | blabla \nAudio -> Mp3 Encoder'
     }, {
         //quality level 3
         fps: 60,
-        vq: 'mpeg2enc',
+        vq: 'x264enc',
         aq: 'lamemp3enc',
-        descr: 'FPS: 60 \nVideo -> Mpeg2 Encoder | blabla \nAudio -> Mp3 Encoder'
+        descr: 'FPS: 60 \nVideo -> x264enc Encoder | blabla \nAudio -> Mp3 Encoder'
     }, ]
 };
 
