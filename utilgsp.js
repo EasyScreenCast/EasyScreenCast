@@ -41,26 +41,26 @@ const webm = {
         fps: 15,
         vq: 'vp8enc min_quantizer=13 max_quantizer=20 cpu-used=5 deadline=1000000 sharpness=2 target-bitrate=10000 threads=%T',
         aq: 'vorbisenc',
-        descr: 'FPS: 15 \nVideo -> VP8 Encoder:\n-min_quantizer=13\n-max_quantizer=20\n-cpu-used=5\n-deadline=1000000\n-sharpness=2\n-target-bitrate=10000\nAudio -> Vorbis Encoder'
+        descr: 'FPS: 15 \nVideo -> VP8  Encoder:\n-min_quantizer=13\n-max_quantizer=20\n-cpu-used=5\n-deadline=1000000\n-sharpness=2\n-target-bitrate=10000\nAudio -> Vorbis Encoder'
     }, {
         //quality level 1
         fps: 30,
         vq: 'vp8enc min_quantizer=4 max_quantizer=13 cpu-used=2 deadline=500000 sharpness=0 target-bitrate=15000 threads=%T',
         aq: 'vorbisenc',
-        descr: 'FPS: 30 \nVideo -> VP8 Encoder:\n-min_quantizer=4\n-max_quantizer=13\n-cpu-used=2\n-deadline=500000\n-sharpness=0\n-target-bitrate=15000\nAudio -> Vorbis Encoder'
+        descr: 'FPS: 30 \nVideo -> VP8  Encoder:\n-min_quantizer=4\n-max_quantizer=13\n-cpu-used=2\n-deadline=500000\n-sharpness=0\n-target-bitrate=15000\nAudio -> Vorbis Encoder'
 
     }, {
         //quality level 2
         fps: 30,
         vq: 'vp8enc min_quantizer=0 max_quantizer=7 cpu-used=1 deadline=500000 sharpness=0 target-bitrate=25000 threads=%T',
         aq: 'vorbisenc',
-        descr: 'FPS: 30 \nVideo -> VP8 Encoder:\n-min_quantizer=0\n-max_quantizer=7\n-cpu-used=1\n-deadline=500000\n-sharpness=0\n-target-bitrate=25000\nAudio -> Vorbis Encoder'
+        descr: 'FPS: 30 \nVideo -> VP8  Encoder:\n-min_quantizer=0\n-max_quantizer=7\n-cpu-used=1\n-deadline=500000\n-sharpness=0\n-target-bitrate=25000\nAudio -> Vorbis Encoder'
     }, {
         //quality level 3
         fps: 60,
         vq: 'vp8enc min_quantizer=0 max_quantizer=0 cpu-used=0 deadline=100000 sharpness=0 target-bitrate=40000 threads=%T',
         aq: 'vorbisenc',
-        descr: 'FPS: 60 \nVideo -> VP8 Encoder:\n-min_quantizer=0\n-max_quantizer=0\n-cpu-used=0\n-deadline=100000\n-sharpness=0\n-target-bitrate=40000\nAudio -> Vorbis Encoder'
+        descr: 'FPS: 60 \nVideo -> VP8  Encoder:\n-min_quantizer=0\n-max_quantizer=0\n-cpu-used=0\n-deadline=100000\n-sharpness=0\n-target-bitrate=40000\nAudio -> Vorbis Encoder'
     }, ]
 };
 
@@ -71,27 +71,27 @@ const mp4 = {
     quality: [{
         //quality level 0
         fps: 15,
-        vq: 'x264enc',
+        vq: 'x264enc tune="fastdecode" speed-preset="superfast" subme=1 qp-min=28 qp-max=40 threads=%T',
         aq: 'lamemp3enc',
-        descr: 'FPS: 15 \nVideo -> x264enc Encoder | blabla \nAudio -> Mp3 Encoder'
+        descr: 'FPS: 15 \nVideo -> x264enc  Encoder:\n-tune="fastdecode"\n-speed-preset="superfast"\n-subme=1\n-qp-min=28\n-qp-max=40\nAudio -> Mp3 Encoder'
     }, {
         //quality level 1
         fps: 30,
-        vq: 'x264enc',
+        vq: 'x264enc tune="animation" speed-preset="fast" subme=5 qp-min=18 qp-max=28 threads=%T',
         aq: 'lamemp3enc',
-        descr: 'FPS: 30 \nVideo -> x264enc Encoder | blabla \nAudio -> Mp3 Encoder'
+        descr: 'FPS: 30 \nVideo -> x264enc  Encoder:\n-tune="animation"\n-speed-preset="fast"\n-subme=5\n-qp-min=18\n-qp-max=28\nAudio -> Mp3 Encoder'
     }, {
         //quality level 2
         fps: 30,
-        vq: 'x264enc',
+        vq: 'x264enc tune="animation" speed-preset="medium" subme=8 qp-min=10 qp-max=18 threads=%T',
         aq: 'lamemp3enc',
-        descr: 'FPS: 30 \nVideo -> x264enc Encoder | blabla \nAudio -> Mp3 Encoder'
+        descr: 'FPS: 30 \nVideo -> x264enc  Encoder:\n-tune="animation"\n-speed-preset="medium"\n-subme=8\n-qp-min=10\n-qp-max=18\nAudio -> Mp3 Encoder'
     }, {
         //quality level 3
         fps: 60,
-        vq: 'x264enc',
+        vq: 'x264enc tune="animation" speed-preset="slower" subme=10 qp-min=0 qp-max=10 threads=%T',
         aq: 'lamemp3enc',
-        descr: 'FPS: 60 \nVideo -> x264enc Encoder | blabla \nAudio -> Mp3 Encoder'
+        descr: 'FPS: 60 \nVideo -> x264enc  Encoder:\n-tune="animation"\n-speed-preset="slower"\n-subme=10\n-qp-min=0\n-qp-max=10\nAudio -> Mp3 Encoder'
     }, ]
 };
 
@@ -102,27 +102,27 @@ const mkv = {
     quality: [{
         //quality level 0
         fps: 15,
-        vq: 'x264enc',
+        vq: 'x264enc tune="fastdecode" speed-preset="superfast" subme=1 qp-min=28 qp-max=40 threads=%T',
         aq: 'flacenc',
-        descr: 'FPS: 15 \nVideo -> x264 Encoder | blabla \nAudio -> Flac Encoder'
+        descr: 'FPS: 15 \nVideo -> x264enc  Encoder:\n-tune="fastdecode"\n-speed-preset="superfast"\n-subme=1\n-qp-min=28\n-qp-max=40\nAudio -> Flac Encoder'
     }, {
         //quality level 1
         fps: 30,
-        vq: 'x264enc',
+        vq: 'x264enc tune="animation" speed-preset="fast" subme=5 qp-min=18 qp-max=28 threads=%T',
         aq: 'flacenc',
-        descr: 'FPS: 30 \nVideo -> x264 Encoder | blabla \nAudio -> Flac Encoder'
+        descr: 'FPS: 30 \nVideo -> x264 x264enc  Encoder:\n-tune="animation"\n-speed-preset="fast"\n-subme=5\n-qp-min=18\n-qp-max=28\nAudio -> Flac Encoder'
     }, {
         //quality level 2
         fps: 30,
-        vq: 'x264enc',
+        vq: 'x264enc tune="animation" speed-preset="medium" subme=8 qp-min=10 qp-max=18 threads=%T',
         aq: 'flacenc',
-        descr: 'FPS: 30 \nVideo -> x264 Encoder | blabla \nAudio -> Flac Encoder'
+        descr: 'FPS: 30 \nVideo -> x264enc  Encoder:\n-tune="animation"\n-speed-preset="medium"\n-subme=8\n-qp-min=10\n-qp-max=18\nAudio -> Flac Encoder'
     }, {
         //quality level 3
         fps: 60,
-        vq: 'x264enc',
+        vq: 'x264enc tune="animation" speed-preset="slower" subme=10 qp-min=0 qp-max=10 threads=%T',
         aq: 'flacenc',
-        descr: 'FPS: 60 \nVideo -> x264 Encoder | blabla \nAudio -> Flac Encoder'
+        descr: 'FPS: 60 \nVideo -> x264enc  Encoder:\n-tune="animation"\n-speed-preset="slower"\n-subme=10\n-qp-min=0\n-qp-max=10\nAudio -> Flac Encoder'
     }, ]
 };
 
