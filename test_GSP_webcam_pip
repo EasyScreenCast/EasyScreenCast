@@ -353,13 +353,14 @@ gst-launch-1.0  --gst-debug=3 ximagesrc \
 ! xvimagesink
 
 
+###########################################
 // WEBM - VP8 - DESKTOP RECORDING QUALITY 1
 gst-launch-1.0  --gst-debug=3 \
 ximagesrc \
 ! videoconvert \
 ! vp8enc min_quantizer=13 max_quantizer=20 cpu-used=5 deadline=1000000 sharpness=2 target-bitrate=10000 threads=5 \
 ! webmmux name=mux \
-! filesink location=scr_dead-0.webm
+! filesink location=scr.webm
 
 // WEBM - VP8 - DESKTOP RECORDING QUALITY 2
 gst-launch-1.0  --gst-debug=3 \
@@ -367,7 +368,7 @@ ximagesrc \
 ! videoconvert \
 ! vp8enc min_quantizer=4 max_quantizer=13 cpu-used=2 deadline=500000 sharpness=0 target-bitrate=15000 threads=5  \
 ! webmmux name=mux \
-! filesink location=scr_-webm
+! filesink location=scr.webm
 
 // WEBM - VP8 - DESKTOP RECORDING QUALITY 3
 gst-launch-1.0  --gst-debug=3 \
@@ -375,7 +376,7 @@ ximagesrc \
 ! videoconvert \
 ! vp8enc min_quantizer=0 max_quantizer=7 cpu-used=1 deadline=500000 sharpness=0 target-bitrate=25000 threads=5  \
 ! webmmux name=mux \
-! filesink location=scr_-webm
+! filesink location=scr.webm
 
 // WEBM - VP8 - DESKTOP RECORDING QUALITY 4
 gst-launch-1.0  --gst-debug=3 \
@@ -383,7 +384,42 @@ ximagesrc \
 ! videoconvert \
 ! vp8enc min_quantizer=0 max_quantizer=0 cpu-used=0 deadline=100000 sharpness=0 target-bitrate=40000 threads=5  \
 ! webmmux name=mux \
-! filesink location=scr_-webm
+! filesink location=scr.webm
+
+###########################################
+// MKV - X264 - DESKTOP RECORDING QUALITY 1
+gst-launch-1.0  --gst-debug=3 \
+ximagesrc \
+! videoconvert \
+! x264enc tune="fastdecode" speed-preset="superfast" subme=1 qp-min=28 qp-max=40 \
+! mp4mux name=mux \
+! filesink location=scr.mp4
+
+// MKV - X264 - DESKTOP RECORDING QUALITY 2
+gst-launch-1.0  --gst-debug=3 \
+ximagesrc \
+! videoconvert \
+! x264enc tune="animation" speed-preset="fast" subme=5 qp-min=18 qp-max=28 \
+! mp4mux name=mux \
+! filesink location=scr.mp4
+
+// MKV - X264 - DESKTOP RECORDING QUALITY 3
+gst-launch-1.0  --gst-debug=3 \
+ximagesrc \
+! videoconvert \
+! x264enc tune="animation" speed-preset="medium" subme=8 qp-min=10 qp-max=18 \
+! mp4mux name=mux \
+! filesink location=scr.mp4
+
+// MKV - X264 - DESKTOP RECORDING QUALITY 4
+gst-launch-1.0  --gst-debug=3 \
+ximagesrc \
+! videoconvert \
+! x264enc tune="animation" speed-preset="slower" subme=10 qp-min=0 qp-max=10 \
+! mp4mux name=mux \
+! filesink location=scr.mp4
+
+
 
 
 
