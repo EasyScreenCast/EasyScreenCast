@@ -419,6 +419,38 @@ ximagesrc \
 ! mp4mux name=mux \
 ! filesink location=scr.mp4
 
+###########################################
+// OGG - THEORA - DESKTOP RECORDING QUALITY 1
+gst-launch-1.0  --gst-debug=3 \
+ximagesrc \
+! videoconvert \
+! theoraenc speed-level=3 vp3-compatible=true quality=10 bitrate=10000 \
+! oggmux name=mux \
+! filesink location=scr.ogg
+
+// OGG - THEORA - DESKTOP RECORDING QUALITY 2
+gst-launch-1.0  --gst-debug=3 \
+ximagesrc \
+! videoconvert \
+! theoraenc speed-level=1 vp3-compatible=false quality=30 bitrate=25000 \
+! oggmux name=mux \
+! filesink location=scr.ogg
+
+// OGG - THEORA - DESKTOP RECORDING QUALITY 3
+gst-launch-1.0  --gst-debug=3 \
+ximagesrc \
+! videoconvert \
+! theoraenc speed-level=0 vp3-compatible=false quality=50 bitrate=50000 \
+! oggmux name=mux \
+! filesink location=scr.ogg
+
+// OGG - THEORA - DESKTOP RECORDING QUALITY 4
+gst-launch-1.0  --gst-debug=3 \
+ximagesrc \
+! videoconvert \
+! theoraenc speed-level=0 vp3-compatible=false quality=60 bitrate=100000 \
+! oggmux name=mux \
+! filesink location=scr.ogg
 
 
 
