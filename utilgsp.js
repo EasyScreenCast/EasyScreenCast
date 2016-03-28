@@ -133,27 +133,27 @@ const ogg = {
     quality: [{
         //quality level 0
         fps: 15,
-        vq: 'theoraenc',
+        vq: 'theoraenc speed-level=3 vp3-compatible=true quality=10 bitrate=10000',
         aq: 'opusenc',
-        descr: 'FPS: 15 \nVideo -> Theora Encoder | blabla \nAudio -> Opus Encoder'
+        descr: 'FPS: 15 \nVideo -> Theora Encoder:\n-speed-level=3\n-vp3-compatible=true\n-quality=10\n-bitrate=10000\nAudio -> Opus Encoder'
     }, {
         //quality level 1
         fps: 30,
-        vq: 'theoraenc',
+        vq: 'theoraenc speed-level=1 vp3-compatible=false quality=30 bitrate=25000',
         aq: 'opusenc',
-        descr: 'FPS: 30 \nVideo -> Theora Encoder | blabla \nAudio -> Opus Encoder'
+        descr: 'FPS: 30 \nVideo -> Theora Encoder:\n-speed-level=1\n-vp3-compatible=false\n-quality=30\n-bitrate=25000\nAudio -> Opus Encoder'
     }, {
         //quality level 2
         fps: 30,
-        vq: 'theoraenc',
+        vq: 'theoraenc speed-level=0 vp3-compatible=false quality=50 bitrate=50000',
         aq: 'opusenc',
-        descr: 'FPS: 30 \nVideo -> Theora Encoder | blabla \nAudio -> Opus Encoder'
+        descr: 'FPS: 30 \nVideo -> Theora Encoder:\n-speed-level=0\n-vp3-compatible=false\n-quality=50\n-bitrate=50000\nAudio -> Opus Encoder'
     }, {
         //quality level 3
         fps: 60,
-        vq: 'theoraenc',
+        vq: 'theoraenc speed-level=0 vp3-compatible=false quality=60 bitrate=100000',
         aq: 'opusenc',
-        descr: 'FPS: 60 \nVideo -> Theora Encoder | blabla \nAudio -> Opus Encoder'
+        descr: 'FPS: 60 \nVideo -> Theora Encoder\n-speed-level=0\n-vp3-compatible=false\n-quality=60\n-bitrate=100000\nAudio -> Opus Encoder'
     }, ]
 };
 
