@@ -3,83 +3,378 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-08 14:12+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Ivan Burmin <zirrald@yandex.ru>\n"
-"Language-Team: Русский <>\n"
-"Language: ru\n"
+"POT-Creation-Date: 2016-03-29 15:29+0000\n"
+"PO-Revision-Date: 2016-03-29 16:23+0000\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-#: extension.js:108
+"X-Generator: Poedit 1.8.7\n"
+"Last-Translator: \n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Language: ru\n"
+
+#: extension.js:122 EasyScreenCast.gtkbuilder:330
 msgid "Options"
 msgstr "Настройки"
-#: extension.js:125 extension.js:375
+
+#: extension.js:159 extension.js:610
 msgid "Start recording"
 msgstr "Начать запись"
-#: extension.js:143
-msgid "Record audio"
-msgstr "Записывать звук"
-#: extension.js:167
-msgid "Delay recording"
-msgstr "Задержка записи"
-#: extension.js:190
+
+#: extension.js:185 extension.js:319
+msgid "No audio source"
+msgstr "Нет источника звука"
+
+#: extension.js:242 extension.js:554
+msgid " sec. delay before recording"
+msgstr " секунд задержки перед записью"
+
+#: extension.js:244 extension.js:556
+msgid "Start recording immediately"
+msgstr "Начать запись немедленно"
+
+#: extension.js:251
+msgid "Record all desktop"
+msgstr "Записывать весь рабочий стол"
+
+#: extension.js:252
+msgid "Record a selected monitor"
+msgstr "Записывать выбранный монитор"
+
+#: extension.js:252
+msgid "Record a selected window"
+msgstr "Записывать выбранное окно"
+
+#: extension.js:253
+msgid "Record a selected area"
+msgstr "Записывать выбранную область"
+
+#: extension.js:284
+msgid "No WebCam recording"
+msgstr "Нет вебкамеры для записи"
+
+#: extension.js:325
+msgid "Default audio source"
+msgstr "Источник звука по умолчанию"
+
+#: extension.js:343
+msgid ""
+"\n"
+" - Port: "
+msgstr ""
+"\n"
+" - Порт: "
+
+#: extension.js:344
+msgid ""
+"\n"
+" - Name: "
+msgstr ""
+"\n"
+" - Имя: "
+
+#: extension.js:387
 msgid "Delay Time"
 msgstr "Время задержки"
-#: extension.js:196 extension.js:210
+
+#: extension.js:393 extension.js:407
 msgid " Sec"
 msgstr " сек"
-#: extension.js:329
+
+#: extension.js:564
 msgid "Start Recording"
 msgstr "Начать запись"
-#: extension.js:345
+
+#: extension.js:580
 msgid "ERROR RECORDER - See logs form more info"
-msgstr "ОШИБКА ЗАПИСИ - Подробности в логах"
-#: extension.js:368
+msgstr "ОШИБКА ЗАПИСИ - Более подробная информация в логах"
+
+#: extension.js:603
 msgid "Stop recording"
 msgstr "Остановить запись"
-#: extension.js:430
+
+#: extension.js:670
 msgid "EasyScreenCast -> Finish Recording / Seconds : "
-msgstr "EasyScreenCast -> Запись завершена / Секунд : "
-#: extension.js:435
+msgstr "EasyScreenCast -> Запись завершена / Продолжительность : "
+
+#: extension.js:675
 msgid "Open in the filesystem"
 msgstr "Открыть в файловом менеджере"
-#: extension.js:450
+
+#: extension.js:690
 msgid "EasyScreenCast -> Recording in progress / Seconds passed : "
-msgstr "EasyScreenCast -> Идёт запись / Секунд прошло : "
-#: prefs.js:90
+msgstr "EasyScreenCast -> Идет запись / Продолжительность : "
+
+#: prefs.js:102
 msgid "Could not load the preferences UI file"
-msgstr "Не удалось загрузить файл настроек пользовательского интерфейса"
-#: prefs.js:380
-msgid "The registration covers the entire area"
-msgstr "Регистрируется вся область экрана"
-#: prefs.js:386
-msgid "Fill box below with the values of the coordinates in pixels"
-msgstr "Заполните ниже значения координат в пикселях"
-#: prefs.js:392
-msgid "At the start of the recording you can select the recording area"
-msgstr "После начала записи выберите область записи"
-#: prefs.js:398
-msgid ""
-"At the start of the recording you can select the window you want to record"
-msgstr ""
-"После начала записи выберите окно, которое вы хотите записать"
-#: prefs.js:404
-msgid ""
-"At the start of the recording you can select the desktop you want to record"
-msgstr ""
-"После начала записи выберите рабочий стол, который вы хотите записать"
-#: selection.js:202
+msgstr "Не удалось загрузить файл настройки UI"
+
+#: prefs.js:345
+msgid "WebCam Caps"
+msgstr "Вебкамера"
+
+#: prefs.js:589 EasyScreenCast.gtkbuilder:724
+msgid "No webcam device selected"
+msgstr "Вебкамера не выбрана"
+
+#: selection.js:205
 msgid "Select a area for recording or press [ESC] to abort"
-msgstr "Выберите область для записи или нажмите [ESC] для отмены"
-#: selection.js:240
+msgstr "Выделите область для записи или нажмите [ESC] для отмены"
+
+#: selection.js:243
 msgid "Select a window for recording or press [ESC] to abort"
-msgstr "Выберите окно для записи или нажмите [ESC] для отмены"
-#: selection.js:299
+msgstr "Выделите окно для записи или нажмите [ESC] для отмены"
+
+#: selection.js:312
 msgid "Select a desktop for recording or press [ESC] to abort"
-msgstr "Выберите рабочий стол для записи или нажмите [ESC] для отмены"
+msgstr "Выделите рабочий стол для записи или нажмите [ESC] для отмены"
+
+#: EasyScreenCast.gtkbuilder:72
+msgid "Replace standard indicator on status menu"
+msgstr "Заменить стандартный индикатор в системном лотке"
+
+#: EasyScreenCast.gtkbuilder:98
+msgid "Show time recording into notification bar"
+msgstr "Показывать время записи на панели уведомлений"
+
+#: EasyScreenCast.gtkbuilder:123
+msgid "Show a border around the area being recorded"
+msgstr "Показывать рамку вокруг записываемой области"
+
+#: EasyScreenCast.gtkbuilder:148
+msgid "Enable keyboard shortcut"
+msgstr "Включить клавиши быстрого доступа"
+
+#: EasyScreenCast.gtkbuilder:171 EasyScreenCast.gtkbuilder:185
+msgid "To activate the change of the shortcut restart the extension"
+msgstr "Для активации клавиш быстрого доступа перезапустите расширение"
+
+#: EasyScreenCast.gtkbuilder:174
+msgid "Shortcut combination"
+msgstr "Клавиши быстрого доступа"
+
+#: EasyScreenCast.gtkbuilder:210
+msgid "Draw cursor on screencast"
+msgstr "Отрисовывать курсор на записи"
+
+#: EasyScreenCast.gtkbuilder:235
+msgid "Execute command after recording"
+msgstr "Выполнить команду после записи"
+
+#: EasyScreenCast.gtkbuilder:258 EasyScreenCast.gtkbuilder:275
+msgid ""
+"These words will be replaced\n"
+" _fpath = the absolute path of the screencast video file.\n"
+"_dirpath = the absolute path of destination folder for the screencast video "
+"file.\n"
+"_fname = the name of the screencast video file."
+msgstr ""
+"Эти переменные могут быть заменены\n"
+" _fpath = полный путь до записанного видеофайла.\n"
+"_dirpath = полный путь до папки расположения записанного видеофайла.\n"
+"_fname = имя записанного видеофайла."
+
+#: EasyScreenCast.gtkbuilder:264
+msgid "Command post-recording"
+msgstr "Команда"
+
+#: EasyScreenCast.gtkbuilder:290
+msgid ""
+"This option enable more debug message, to view these run this command into a "
+"terminal:\n"
+"$ journalctl /usr/bin/gnome-session --since=today --no-pager | grep js\n"
+"$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
+msgstr ""
+"Эта опция включает больше отладочных сообщений. Для их просмотра введите в "
+"терминале:\n"
+"$ journalctl /usr/bin/gnome-session --since=today --no-pager | grep js\n"
+"$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
+
+#: EasyScreenCast.gtkbuilder:295
+msgid "Enable verbose debug"
+msgstr "Включить подробную отладку"
+
+#: EasyScreenCast.gtkbuilder:306
+msgid ""
+"This option enable more debug message, to view these run this command into a "
+"terminal:\n"
+"$ journalctl /usr/bin/gnome-session --since=today | grep js\n"
+"$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
+msgstr ""
+"Эта опция включает больше отладочных сообщений. Для их просмотра введите в "
+"терминале:\n"
+"$ journalctl /usr/bin/gnome-session --since=today | grep js\n"
+"$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
+
+#: EasyScreenCast.gtkbuilder:363
+msgid "Custom GStreamer Pipeline"
+msgstr "Свои настройки GStreamer"
+
+#: EasyScreenCast.gtkbuilder:477
+msgid "No GSP description\n"
+msgstr "No GSP description\n"
+
+#: EasyScreenCast.gtkbuilder:512
+msgid "Frames Per Second"
+msgstr "Кадров в секунду"
+
+#: EasyScreenCast.gtkbuilder:526
+msgid "0"
+msgstr "0"
+
+#: EasyScreenCast.gtkbuilder:572
+msgid "GStreamer Pipeline"
+msgstr "Фреймворк GStreamer"
+
+#: EasyScreenCast.gtkbuilder:593
+msgid ""
+"The extension does NOT handle the webcam and audio when you use a custom "
+"gstreamer pipeline.\n"
+msgstr ""
+"Расширение НЕ СМОЖЕТ использовать вебкамеру и аудио при использовании "
+"пользовательских настроек GStreamer.\n"
+
+#: EasyScreenCast.gtkbuilder:613
+msgid "Official doc"
+msgstr "Официальная документация"
+
+#: EasyScreenCast.gtkbuilder:629
+msgid "Wiki #1"
+msgstr "Вики #1"
+
+#: EasyScreenCast.gtkbuilder:644
+msgid "Wiki #2"
+msgstr "Вики #2"
+
+#: EasyScreenCast.gtkbuilder:698 EasyScreenCast.gtkbuilder:790
+msgid "Quality"
+msgstr "Качество"
+
+#: EasyScreenCast.gtkbuilder:805
+msgid "Type of unit of measure"
+msgstr "Единицы измерений"
+
+#: EasyScreenCast.gtkbuilder:818
+msgid "Width"
+msgstr "Ширина"
+
+#: EasyScreenCast.gtkbuilder:831
+msgid "Height"
+msgstr "Высота"
+
+#: EasyScreenCast.gtkbuilder:869
+msgid "Percentage"
+msgstr "Проценты"
+
+#: EasyScreenCast.gtkbuilder:870
+msgid "Pixel"
+msgstr "Пиксели"
+
+#: EasyScreenCast.gtkbuilder:881
+msgid "Size"
+msgstr "Размер"
+
+#: EasyScreenCast.gtkbuilder:897
+msgid "Put the webcam in the corner"
+msgstr "Разместить вебкамеру в углу"
+
+#: EasyScreenCast.gtkbuilder:911
+msgid "Right-Bottom"
+msgstr "Внизу-справа"
+
+#: EasyScreenCast.gtkbuilder:912
+msgid "Left-Bottom"
+msgstr "Внизу-слева"
+
+#: EasyScreenCast.gtkbuilder:913
+msgid "Right-Top"
+msgstr "Сверху-справа"
+
+#: EasyScreenCast.gtkbuilder:914
+msgid "Left-Top"
+msgstr "Сверху-слева"
+
+#: EasyScreenCast.gtkbuilder:928
+msgid "Margin X"
+msgstr "Отступ X"
+
+#: EasyScreenCast.gtkbuilder:953
+msgid "Margin Y"
+msgstr "Отступ Y"
+
+#: EasyScreenCast.gtkbuilder:978
+msgid "Alpha channel"
+msgstr "Альфа-канал"
+
+#: EasyScreenCast.gtkbuilder:1003
+msgid "Show border"
+msgstr "Показать рамку"
+
+#: EasyScreenCast.gtkbuilder:1025
+msgid "Position"
+msgstr "Позиция"
+
+#: EasyScreenCast.gtkbuilder:1049
+msgid "WebCam"
+msgstr "Вебкамера"
+
+#: EasyScreenCast.gtkbuilder:1076
+msgid ""
+"Select the folder where the file is saved, if not specific a folder  the "
+"file will be saved in the $XDG_VIDEOS_DIR if it exists, or the home "
+"directory otherwise."
+msgstr ""
+"Выберите папку в которой будет сохранен файл. Если папка не задана, файл "
+"будет сохранен в  папке $XDG_VIDEOS_DIR, если она существует или в домашней "
+"папке."
+
+#: EasyScreenCast.gtkbuilder:1079
+msgid "Destination folder"
+msgstr "Папка для сохранения"
+
+#: EasyScreenCast.gtkbuilder:1090 EasyScreenCast.gtkbuilder:1107
+#: EasyScreenCast.gtkbuilder:1131 EasyScreenCast.gtkbuilder:1145
+msgid ""
+"the filename which may contain some escape sequences - %d and %t will be "
+"replaced by the start date and time of the recording."
+msgstr ""
+"имя файла может содержать переменные - %d и %t, которые будут заменены на "
+"дату и время записи соответственно."
+
+#: EasyScreenCast.gtkbuilder:1093
+msgid "File name template"
+msgstr "Шаблон имени файла"
+
+#: EasyScreenCast.gtkbuilder:1120
+msgid "Select the destination folder"
+msgstr "Выберите папку для сохранения"
+
+#: EasyScreenCast.gtkbuilder:1134
+msgid "File container"
+msgstr "Контейнер видеофайла"
+
+#: EasyScreenCast.gtkbuilder:1148
+msgid "File resolution"
+msgstr "Разрешение видеофайла"
+
+#: EasyScreenCast.gtkbuilder:1176
+msgid "Native area screen resolution"
+msgstr "Текущее разрешение экрана"
+
+#: EasyScreenCast.gtkbuilder:1201
+msgid "File"
+msgstr "Файл"
+
+#: EasyScreenCast.gtkbuilder:1240
+msgid "Report [ Bugs / Feature Request / Issue ] here"
+msgstr "Сообщить о [ Баге / Предложении / Ошибке ] сюда"
+
+#: EasyScreenCast.gtkbuilder:1255
+msgid "Restore default options"
+msgstr "Сбросить настройки по умолчанию"
