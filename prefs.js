@@ -614,7 +614,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         setOption(FILE_FOLDER_SETTING_KEY, '');
         setOption(ACTIVE_POST_CMD_SETTING_KEY, false);
         setOption(POST_CMD_SETTING_KEY, 'xdg-open _fpath &');
-        setOption(INPUT_AUDIO_SOURCE_SETTING_KEY, -1);
+        setOption(INPUT_AUDIO_SOURCE_SETTING_KEY, 0);
         setOption(DEVICE_WEBCAM_SETTING_KEY, 0);
 
         setOption(TIME_DELAY_SETTING_KEY, 0);

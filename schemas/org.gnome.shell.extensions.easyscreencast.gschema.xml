@@ -11,7 +11,7 @@
             <description>Enable show area screencast during recording</description>
         </key>
         <key name="input-audio-source" type="i">
-            <default>-1</default>
+            <default>0</default>
             <summary>select input audio source</summary>
             <description>select input audio source</description>
         </key>
