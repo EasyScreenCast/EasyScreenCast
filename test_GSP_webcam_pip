@@ -523,7 +523,6 @@ ximagesrc \
 ! filesink location=screencast.webm
 
 
-
 //convert to esc
 queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! videomixer name=mix  ! videoconvert ! videoscale ! video/x-raw, width=1920, height=1080, framerate=30/1 , add-borders=true ! vp8enc  min_quantizer=10 max_quantizer=10 cpu-used=2 deadline=1000000  threads=2 ! mux. v4l2src do-timestamp=true !  video/x-raw,format=YUY2,width=640, height=480, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mix. pulsesrc ! audioconvert ! vorbisenc ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mux. webmmux name=mux
 
@@ -545,6 +544,55 @@ ximagesrc \
 
 //convert to esc
 queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! videomixer name=mix  ! videoconvert ! videoscale ! video/x-raw, width=1920, height=1080, framerate=30/1 , add-borders=true ! vp8enc  min_quantizer=10 max_quantizer=10 cpu-used=2 deadline=1000000  threads=2 ! mux. v4l2src do-timestamp=true ! video/x-raw,format=YUY2,width=640, height=480, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mix. webmmux name=mux
+
+
+//DESKTOP RECORDING WITH WEBCAM INTO VIDEOBOX WITH SOUND
+gst-launch-1.0  --gst-debug=3 \
+ximagesrc \
+! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 \
+! videomixer name=mix \
+! videoconvert \
+! videoscale \
+! video/x-raw, width=1920, height=1080, framerate=30/1 , add-borders=true  \
+! vp8enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=2 \
+! mux. v4l2src do-timestamp=true \
+! video/x-raw,format=YUY2,width=320, height=240, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 \
+! videobox border-alpha=0.5 top=-50 left=-80 \
+! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 \
+! mix. pulsesrc \
+! audioconvert \
+! vorbisenc \
+! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 \
+! mux. webmmux name=mux
+
+
+//convert to ESC
+queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! videomixer name=mix ! videoconvert ! videoscale ! video/x-raw, width=1920, height=1080, framerate=30/1 , add-borders=true  ! vp8enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T ! mux. v4l2src do-timestamp=true ! video/x-raw,format=YUY2,width=320, height=240, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 ! videobox border-alpha=0.5 top=-50 left=-80 ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mix. pulsesrc ! audioconvert ! vorbisenc ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mux. webmmux name=mux
+
+
+//DESKTOP RECORDING WITH WEBCAM INTO VIDEOMIXER OPTION WITH SOUND
+gst-launch-1.0  --gst-debug=3 \
+ximagesrc \
+! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 \
+! videomixer name=mix sink_0::alpha=0.5 sink_0::xpos=50 sink_0::ypos=50 \
+! videoconvert \
+! videoscale \
+! video/x-raw, width=1920, height=1080, framerate=30/1 , add-borders=true  \
+! vp8enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=2 \
+! mux. v4l2src do-timestamp=true \
+! video/x-raw,format=YUY2,width=320, height=240, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 \
+! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 \
+! mix. pulsesrc \
+! audioconvert \
+! vorbisenc \
+! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 \
+! mux. webmmux name=mux
+
+
+//convert to ESC
+queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! videomixer name=mix sink_0::alpha=0.5 sink_0::xpos=50 sink_0::ypos=50 ! videoconvert ! videoscale ! video/x-raw, width=1920, height=1080, framerate=30/1 , add-borders=true ! vp8enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=2 ! mux. v4l2src do-timestamp=true ! video/x-raw,format=YUY2,width=320, height=240, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mix. pulsesrc ! audioconvert ! vorbisenc ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mux. webmmux name=mux
+
+
 
 
 #################
