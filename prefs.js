@@ -16,6 +16,7 @@ const GLib = imports.gi.GLib;
 const GObject = imports.gi.GObject;
 const Gio = imports.gi.Gio;
 const Gtk = imports.gi.Gtk;
+const Pango = imports.gi.Pango;
 const Lang = imports.lang;
 
 const Gettext = imports.gettext.domain(
@@ -363,9 +364,13 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                     Lib.TalkativeLog('-^-treeview row selected : ' + Caps);
 
                     setOption(QUALITY_WEBCAM_SETTING_KEY, Caps);
+
+                    //update label webcam caps
+                    this.Ref_Label_WebCamCaps.set_ellipsize(
+                        Pango.EllipsizeMode.END);
+                    this.Ref_Label_WebCamCaps.set_text(Caps);
                 }
             }));
-
 
             //fill combobox with quality option webcam
             this._updateWebCamCaps(getOption('i', DEVICE_WEBCAM_SETTING_KEY));
@@ -480,7 +485,9 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             //implements webcam stack menu chooser
             this.Ref_Label_WebCam = builder.get_object(
                 'lbl_Webcam');
-
+            //implements webcam caps stack menu chooser
+            this.Ref_Label_WebCamCaps = builder.get_object(
+                'lbl_WebcamCaps');
 
             //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
@@ -581,12 +588,25 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         if (tmpDev > 0) {
             var arrDev = this.CtrlWebcam.getNameDevices();
             this.Ref_Label_WebCam.set_text(arrDev[tmpDev - 1]);
+
+            //setup label webcam caps
+            var tmpCaps = getOption('s', QUALITY_WEBCAM_SETTING_KEY);
+            if (tmpCaps === '') {
+                //this.Ref_Label_WebCamCaps.use_markup(true);
+                this.Ref_Label_WebCamCaps.set_markup(
+                    _('<span foreground="red">No Caps selected, please select one from the caps list</span>'));
+            } else {
+                this.Ref_Label_WebCamCaps.set_text(tmpCaps);
+            }
+
             //webcam recording show widget
             this.Ref_StackSwitcher_WebCam.set_sensitive(true);
             this.Ref_StackObj_WebCam.set_sensitive(true);
         } else {
             this.Ref_Label_WebCam.set_text(
                 _('No webcam device selected'));
+            //setup label webcam caps
+            this.Ref_Label_WebCamCaps.set_text(_('-'));
             //webcam NOT recording hide widget
             this.Ref_StackSwitcher_WebCam.set_sensitive(false);
             this.Ref_StackObj_WebCam.set_sensitive(false);

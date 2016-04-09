@@ -10,12 +10,6 @@
       <column type="gint"/>
     </columns>
   </object>
-  <object class="GtkListStore" id="liststore_QualityWebCam">
-    <columns>
-      <!-- column-name webcamcap -->
-      <column type="gchararray"/>
-    </columns>
-  </object>
   <object class="GtkBox" id="Main_Container">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -736,6 +730,19 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                           </packing>
                         </child>
                         <child>
+                          <object class="GtkLabel" id="lbl_WebcamCaps">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="label" translatable="yes">-</property>
+                            <property name="justify">center</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">False</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                        <child>
                           <object class="GtkSeparator" id="separator3">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
@@ -744,7 +751,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                             <property name="expand">False</property>
                             <property name="fill">True</property>
                             <property name="padding">10</property>
-                            <property name="position">1</property>
+                            <property name="position">2</property>
                           </packing>
                         </child>
                         <child>
@@ -759,7 +766,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                             <property name="expand">False</property>
                             <property name="fill">True</property>
                             <property name="padding">15</property>
-                            <property name="position">2</property>
+                            <property name="position">3</property>
                           </packing>
                         </child>
                         <child>
@@ -1035,7 +1042,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                           <packing>
                             <property name="expand">False</property>
                             <property name="fill">True</property>
-                            <property name="position">3</property>
+                            <property name="position">4</property>
                           </packing>
                         </child>
                       </object>
@@ -1276,5 +1283,11 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
         <property name="position">2</property>
       </packing>
     </child>
+  </object>
+  <object class="GtkListStore" id="liststore_QualityWebCam">
+    <columns>
+      <!-- column-name webcamcap -->
+      <column type="gchararray"/>
+    </columns>
   </object>
 </interface>
