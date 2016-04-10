@@ -164,13 +164,13 @@ const RESOLUTION = [
     // NATIVE SCREENCAST RESOLUTION
     '',
     // SD - 480
-    'videoscale ! video/x-raw, width=768, height=480, framerate=30/1 , add-borders=true ! ',
+    'videoscale ! video/x-raw, width=768, height=480, add-borders=true ! ',
     // HD - 720
-    'videoscale ! video/x-raw, width=1280, height=720, framerate=30/1 , add-borders=true ! ',
+    'videoscale ! video/x-raw, width=1280, height=720, add-borders=true ! ',
     // FHD - 1080
-    'videoscale ! video/x-raw, width=1920, height=1080, framerate=30/1 , add-borders=true ! ',
+    'videoscale ! video/x-raw, width=1920, height=1080, add-borders=true ! ',
     // UHD - 2160
-    'videoscale ! video/x-raw, width=3840, height=2160, framerate=30/1 , add-borders=true ! '
+    'videoscale ! video/x-raw, width=3840, height=2160, add-borders=true ! '
 ];
 
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
