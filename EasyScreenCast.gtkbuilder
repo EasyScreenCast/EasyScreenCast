@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.19.0 -->
+<!-- Generated with glade 3.20.0 -->
 <interface>
   <requires lib="gtk+" version="3.16"/>
   <object class="GtkListStore" id="liststore_KeyShortcut">
@@ -8,6 +8,12 @@
       <column type="gint"/>
       <!-- column-name mods -->
       <column type="gint"/>
+    </columns>
+  </object>
+  <object class="GtkListStore" id="liststore_QualityWebCam">
+    <columns>
+      <!-- column-name webcamcap -->
+      <column type="gchararray"/>
     </columns>
   </object>
   <object class="GtkBox" id="Main_Container">
@@ -853,6 +859,8 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                                     <property name="can_focus">True</property>
                                     <property name="halign">start</property>
                                     <property name="hexpand">True</property>
+                                    <property name="input_purpose">number</property>
+                                    <property name="numeric">True</property>
                                   </object>
                                   <packing>
                                     <property name="left_attach">1</property>
@@ -865,6 +873,8 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                                     <property name="can_focus">True</property>
                                     <property name="halign">start</property>
                                     <property name="hexpand">True</property>
+                                    <property name="input_purpose">number</property>
+                                    <property name="numeric">True</property>
                                   </object>
                                   <packing>
                                     <property name="left_attach">1</property>
@@ -1004,31 +1014,6 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                                   <packing>
                                     <property name="left_attach">1</property>
                                     <property name="top_attach">3</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkLabel" id="label26">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="halign">end</property>
-                                    <property name="hexpand">True</property>
-                                    <property name="label" translatable="yes">Show border</property>
-                                  </object>
-                                  <packing>
-                                    <property name="left_attach">0</property>
-                                    <property name="top_attach">4</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkSwitch" id="swt_WebCamShowBorder">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">True</property>
-                                    <property name="halign">start</property>
-                                    <property name="hexpand">True</property>
-                                  </object>
-                                  <packing>
-                                    <property name="left_attach">1</property>
-                                    <property name="top_attach">4</property>
                                   </packing>
                                 </child>
                               </object>
@@ -1283,11 +1268,5 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
         <property name="position">2</property>
       </packing>
     </child>
-  </object>
-  <object class="GtkListStore" id="liststore_QualityWebCam">
-    <columns>
-      <!-- column-name webcamcap -->
-      <column type="gchararray"/>
-    </columns>
   </object>
 </interface>

@@ -145,11 +145,6 @@
             <summary>type of unit of measure webcam</summary>
             <description>type of unit of measure</description>
         </key>
-        <key name="show-border-webcam" type="b">
-            <default>false</default>
-            <summary>show border webcam</summary>
-            <description>show border webcam</description>
-        </key>
         <key name="margin-x-webcam" type="i">
             <default>0</default>
             <summary>margin x from border webcam</summary>

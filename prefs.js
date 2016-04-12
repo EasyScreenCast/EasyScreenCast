@@ -60,7 +60,6 @@ const QUALITY_WEBCAM_SETTING_KEY = 'quality-webcam';
 const WIDTH_WEBCAM_SETTING_KEY = 'width-webcam';
 const HEIGHT_WEBCAM_SETTING_KEY = 'height-webcam';
 const TYPE_UNIT_WEBCAM_SETTING_KEY = 'type-unit-webcam';
-const SHOW_BORDER_WEBCAM_SETTING_KEY = 'show-border-webcam';
 const MARGIN_X_WEBCAM_SETTING_KEY = 'margin-x-webcam';
 const MARGIN_Y_WEBCAM_SETTING_KEY = 'margin-y-webcam';
 const ALPHA_CHANNEL_WEBCAM_SETTING_KEY = 'alpha-channel-webcam';
@@ -430,13 +429,6 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                 'value',
                 Gio.SettingsBindFlags.DEFAULT);
 
-            //implements webcam show border option
-            this.Ref_switch_ShowBorder = builder.get_object(
-                'swt_WebCamShowBorder');
-            settings.bind(
-                SHOW_BORDER_WEBCAM_SETTING_KEY, this.Ref_switch_ShowBorder,
-                'active', Gio.SettingsBindFlags.DEFAULT);
-
             //implements webcam type unit dimension option
             this.Ref_ComboBox_TypeUnitWebCam = builder.get_object(
                 'cbt_WebCamUnitMeasure');
@@ -645,7 +637,6 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         setOption(WIDTH_WEBCAM_SETTING_KEY, 20);
         setOption(HEIGHT_WEBCAM_SETTING_KEY, 10);
         setOption(TYPE_UNIT_WEBCAM_SETTING_KEY, 0);
-        setOption(SHOW_BORDER_WEBCAM_SETTING_KEY, false);
         setOption(MARGIN_X_WEBCAM_SETTING_KEY, 0);
         setOption(MARGIN_Y_WEBCAM_SETTING_KEY, 0);
         setOption(ALPHA_CHANNEL_WEBCAM_SETTING_KEY, 0);
