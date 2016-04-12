@@ -417,13 +417,13 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             this.Ref_Spinner_AlphaWebCam = builder.get_object(
                 'spb_WebCamAlpha');
             let adjustmentAlpha = new Gtk.Adjustment({
-                value: 0,
-                lower: 0,
-                upper: 100,
-                step_increment: 1,
-                page_increment: 10
+                value: 0.01,
+                lower: 0.00,
+                upper: 1.00,
+                step_increment: 0.05,
+                page_increment: 0.25
             });
-            this.Ref_Spinner_AlphaWebCam.configure(adjustmentAlpha, 10, 0);
+            this.Ref_Spinner_AlphaWebCam.configure(adjustmentAlpha, 0.25, 2);
             settings.bind(
                 ALPHA_CHANNEL_WEBCAM_SETTING_KEY, this.Ref_Spinner_AlphaWebCam,
                 'value',
@@ -639,7 +639,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         setOption(TYPE_UNIT_WEBCAM_SETTING_KEY, 0);
         setOption(MARGIN_X_WEBCAM_SETTING_KEY, 0);
         setOption(MARGIN_Y_WEBCAM_SETTING_KEY, 0);
-        setOption(ALPHA_CHANNEL_WEBCAM_SETTING_KEY, 0);
+        setOption(ALPHA_CHANNEL_WEBCAM_SETTING_KEY, 0.75);
         setOption(CORNER_POSITION_WEBCAM_SETTING_KEY, 0);
     }
 });

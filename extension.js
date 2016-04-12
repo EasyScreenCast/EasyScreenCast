@@ -543,7 +543,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
     _doExtensionPreferences: function() {
         Lib.TalkativeLog('-*-open preferences');
 
-        Main.Util.trySpawnCommandLine('gnome-shell-extension-prefs EasyScreenCast@iacopodeenosee.gmail.com');
+        Main.Util.trySpawnCommandLine('gnome-shell-extension-prefs  EasyScreenCast@iacopodeenosee.gmail.com');
     },
 
     _onDelayTimeChanged: function() {
