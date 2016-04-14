@@ -92,7 +92,7 @@ msgid "Start Recording"
 msgstr "Начать запись"
 
 #: extension.js:580
-msgid "ERROR RECORDER - See logs form more info"
+msgid "ERROR RECORDER - See logs for more info"
 msgstr "ОШИБКА ЗАПИСИ - Более подробная информация в логах"
 
 #: extension.js:603

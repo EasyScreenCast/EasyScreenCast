@@ -75,7 +75,7 @@ msgid "Start Recording"
 msgstr "Démarrer l'enregistrement"
 
 #: extension.js:446
-msgid "ERROR RECORDER - See logs form more info"
+msgid "ERROR RECORDER - See logs for more info"
 msgstr "ERREUR D'ENREGISTREMENT - Consultez les logs pour plus de détails"
 
 #: extension.js:469

@@ -577,7 +577,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         var source = new MessageTray.SystemNotificationSource();
 
         this.notifyAlert = new MessageTray.Notification(source,
-            _('ERROR RECORDER - See logs form more info'),
+            _('ERROR RECORDER - See logs for more info'),
             null, {
                 gicon: Lib.ESCoffGIcon
             });
