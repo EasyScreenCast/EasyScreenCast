@@ -661,6 +661,10 @@ function getOption(type, key) {
             return settings.get_string(key);
             break;
 
+        case 'd':
+            return settings.get_double(key);
+            break;
+
         case 'as':
             return settings.get_strv(key);
             break;
@@ -697,6 +701,10 @@ function setOption(key, option) {
 
         case 'string':
             settings.set_string(key, option);
+            break;
+
+        case 'double':
+            settings.set_double(key, option);
             break;
 
         case 'object':
