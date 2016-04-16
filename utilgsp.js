@@ -25,10 +25,10 @@ const SCREEN = '_SCREENCAST_RES_ _ENCODER_VIDEO_ ! queue max-size-buffers=0 max-
 const SCREEN_SOUND = 'queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! _SCREENCAST_RES_ _ENCODER_VIDEO_ ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mux. pulsesrc ! audioconvert ! _ENCODER_AUDIO_ ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mux. _CONTAINER_ name=mux ';
 
 // CONST GSP - base plus webcam
-const SCREEN_WEBCAM = 'queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! videomixer name=mix ! videoconvert ! _SCREENCAST_RES_ _ENCODER_VIDEO_ ! mux. v4l2src _WEBCAM_DEV_ ! _WEBCAM_CAP_ ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mix. _CONTAINER_ name=mux';
+const SCREEN_WEBCAM = 'queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! videomixer name=mix _WEBCAM_OPT_ ! videoconvert ! _SCREENCAST_RES_ _ENCODER_VIDEO_ ! mux. v4l2src _WEBCAM_DEV_ ! _WEBCAM_CAP_ ! videoscale ! video/x-raw, width=_WEBCAM_W_, height=_WEBCAM_H_, add-borders=false ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mix. _CONTAINER_ name=mux';
 
 // CONST GSP - base plus sound and webcam stream
-const SCREEN_WEBCAM_SOUND = 'queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! videomixer name=mix ! videoconvert ! _SCREENCAST_RES_ _ENCODER_VIDEO_ ! mux. v4l2src _WEBCAM_DEV_ ! _WEBCAM_CAP_ ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mix. pulsesrc ! audioconvert ! _ENCODER_AUDIO_ ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mux. _CONTAINER_ name=mux';
+const SCREEN_WEBCAM_SOUND = 'queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! videomixer name=mix _WEBCAM_OPT_ ! videoconvert ! _SCREENCAST_RES_ _ENCODER_VIDEO_ ! mux. v4l2src _WEBCAM_DEV_ ! _WEBCAM_CAP_ ! videoscale ! video/x-raw, width=_WEBCAM_W_, height=_WEBCAM_H_,  add-borders=false ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mix. pulsesrc ! audioconvert ! _ENCODER_AUDIO_ ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mux. _CONTAINER_ name=mux';
 
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
@@ -349,15 +349,21 @@ function replaceWebcam(gspRW, device, caps) {
 
     //replace device/caps
     var reDev = 'device=/dev/video' + (device - 1);
+    var reWCopt = composeWebCamOption();
+    var [reWCwidth, reWCheight] = getWebCamDimension();
 
     Lib.TalkativeLog('-§-pipeline pre-webcam:' + gspRW);
 
     var mapObj = {
         _WEBCAM_DEV_: reDev,
-        _WEBCAM_CAP_: caps
+        _WEBCAM_CAP_: caps,
+        _WEBCAM_OPT_: reWCopt,
+        _WEBCAM_W_: reWCwidth,
+        _WEBCAM_H_: reWCheight
     };
 
-    var webcamPipeline = gspRW.replace(/_WEBCAM_DEV_|_WEBCAM_CAP_/gi,
+    var webcamPipeline = gspRW.replace(
+        /_WEBCAM_DEV_|_WEBCAM_CAP_|_WEBCAM_OPT_|_WEBCAM_W_|_WEBCAM_H_/gi,
         function(match) {
             return mapObj[match];
         }
@@ -366,6 +372,94 @@ function replaceWebcam(gspRW, device, caps) {
     Lib.TalkativeLog('-§-pipeline post-webcam:' + webcamPipeline);
 
     return webcamPipeline;
+}
+
+/*
+ * compose option webcam position
+ */
+function composeWebCamOption() {
+    Lib.TalkativeLog('-§-compose webcam option');
+
+    //retrieve option webcam
+    var WC_Alpha = Pref.getOption('d', Pref.ALPHA_CHANNEL_WEBCAM_SETTING_KEY);
+    var WC_marginX = Pref.getOption('i', Pref.MARGIN_X_WEBCAM_SETTING_KEY);
+    var WC_marginY = Pref.getOption('i', Pref.MARGIN_Y_WEBCAM_SETTING_KEY);
+    var WC_posCorner = Pref.getOption(
+        'i', Pref.CORNER_POSITION_WEBCAM_SETTING_KEY);
+
+    var [WC_w, WC_h, SCR_w, SCR_h] = getWebCamDimension();
+
+    var posX = 0;
+    var posY = 0;
+
+    Lib.TalkativeLog('-§-alpha=' + WC_Alpha + ' |marX=' + WC_marginX + ' |marY=' + WC_marginY + ' |corner=' + WC_posCorner);
+
+    //corner top-left
+    posX = WC_marginX;
+    posY = WC_marginY;
+
+    switch (WC_posCorner) {
+        case 0:
+            //corner bottom-right
+            posX = Math.floor(SCR_w - (WC_w + WC_marginX));
+            posY = Math.floor(SCR_h - (WC_h + WC_marginY));
+            break;
+        case 1:
+            //corner bottom-left
+            posx = WC_marginX;
+            posY = Math.floor(SCR_h - (WC_h + WC_marginY));
+            break;
+        case 2:
+            //corner top-right
+            posX = Math.floor(SCR_w - (WC_w + WC_marginX));
+            posY = WC_marginY;
+            break;
+        default:
+    }
+
+    //check valid position
+    if ((posX < 0 || posX > SCR_w) && (posY < 0 || posY > SCR_h)) {
+        Lib.TalkativeLog('-§-NOT valid position');
+        posX = 0;
+        posY = 0;
+    }
+
+    var tmpWCopt = 'sink_0::alpha=1 sink_1::alpha=' + WC_Alpha +
+        ' sink_1::xpos=' + posX + ' sink_1::ypos=' + posY + ' ';
+
+    Lib.TalkativeLog('-§-posX=' + posX + ' |posY=' + posY);
+    Lib.TalkativeLog('-§-webcam option=' + tmpWCopt);
+
+    return tmpWCopt;
+}
+
+/*
+ * retrieve dimension webcam
+ */
+function getWebCamDimension() {
+    Lib.TalkativeLog('-§-get webcam dimension');
+
+    var WC_w = Pref.getOption('i', Pref.WIDTH_WEBCAM_SETTING_KEY);
+    var WC_h = Pref.getOption('i', Pref.HEIGHT_WEBCAM_SETTING_KEY);
+    var WC_DimType = Pref.getOption('i', Pref.TYPE_UNIT_WEBCAM_SETTING_KEY);
+
+    var SCR_w = Pref.getOption('i', Pref.WIDTH_SETTING_KEY);
+    var SCR_h = Pref.getOption('i', Pref.HEIGHT_SETTING_KEY);
+    if (Pref.getOption('i', Pref.AREA_SCREEN_SETTING_KEY) === 0) {
+        SCR_w = global.screen_width;
+        SCR_h = global.screen_height;
+    }
+
+    Lib.TalkativeLog('-§-WC w=' + WC_w + ' WC h=' + WC_h + ' WCtype=' + WC_DimType + ' screen W=' + SCR_w + ' screen H=' + SCR_h);
+
+    if (WC_DimType === 0) {
+        WC_w = Math.floor((SCR_w * WC_w) / 100);
+        WC_h = Math.floor((SCR_h * WC_h) / 100);
+    }
+
+    Lib.TalkativeLog('-§-after percentage WCw=' + WC_w + ' WCh=' + WC_h);
+
+    return [WC_w, WC_h, SCR_w, SCR_h];
 }
 
 /*
