@@ -25,7 +25,7 @@ mv EasyScreenCast ~/.local/share/gnome-shell/extensions/EasyScreenCast@iacopodee
 ```
 
 # How to view the logs
-You must enable the verbose logs in options window and after that you can find the logs by typing this on terminal:
+You must **enable the verbose logs in options window** and after that you can find the logs by typing this on terminal:
 
 ```
 journalctl --since=today --no-pager | grep js
