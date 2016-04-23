@@ -316,24 +316,32 @@ function replaceAudio(gspRA, defaultAudio, ConTMP, QGSPtmp) {
     Lib.TalkativeLog('-§-pipeline pre-audio:' + gspRA + ' aq:' + aq);
 
     if (defaultAudio) {
+        Lib.TalkativeLog('-§-default audio source');
         var audioPipeline = gspRA.replace(/_ENCODER_AUDIO_/gi, aq);
     } else {
         var audiosource = this.CtrlAudio.getAudioSource();
-        if (audiosource.indexOf('output') !== -1) {
-            audiosource += '.monitor';
-        }
-        var reDev = 'pulsesrc device="' + audiosource + '"';
 
-        var mapObj = {
-            pulsesrc: reDev,
-            _ENCODER_AUDIO_: aq
-        };
-
-        var audioPipeline = gspRA.replace(/pulsesrc|_ENCODER_AUDIO_/gi,
-            function(match) {
-                return mapObj[match];
+        if (audiosource === undefined) {
+            Lib.TalkativeLog('-§-failure combination of array audio sources');
+            var audioPipeline = gspRA.replace(/_ENCODER_AUDIO_/gi, aq);
+        } else {
+            Lib.TalkativeLog('-§-correct audio source assignment');
+            if (audiosource.indexOf('output') !== -1) {
+                audiosource += '.monitor';
             }
-        );
+            var reDev = 'pulsesrc device="' + audiosource + '"';
+
+            var mapObj = {
+                pulsesrc: reDev,
+                _ENCODER_AUDIO_: aq
+            };
+
+            var audioPipeline = gspRA.replace(/pulsesrc|_ENCODER_AUDIO_/gi,
+                function(match) {
+                    return mapObj[match];
+                }
+            );
+        }
     }
 
     Lib.TalkativeLog('-§-pipeline post-audio:' + audioPipeline);
