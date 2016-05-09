@@ -33,7 +33,7 @@ const SCREEN_WEBCAM_SOUND = 'queue max-size-buffers=0 max-size-time=0 max-size-b
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 // CONST CONTAINER - WebM
-const webm = {
+const webmVP8 = {
     fileExt: '.webm',
     nameGSP: 'webmmux',
     quality: [{
@@ -61,6 +61,37 @@ const webm = {
         vq: 'vp8enc min_quantizer=0 max_quantizer=0 cpu-used=0 deadline=100000 sharpness=0 target-bitrate=40000 threads=%T',
         aq: 'vorbisenc',
         descr: 'FPS: 60 \nVideo -> VP8  Encoder:\n-min_quantizer=0\n-max_quantizer=0\n-cpu-used=0\n-deadline=100000\n-sharpness=0\n-target-bitrate=40000\nAudio -> Vorbis Encoder'
+    }, ]
+};
+
+const webmVP9 = {
+    fileExt: '.webm',
+    nameGSP: 'webmmux',
+    quality: [{
+        //quality level 0
+        fps: 15,
+        vq: 'vp9enc min_quantizer=13 max_quantizer=20 cpu-used=5 deadline=1000000 sharpness=2 target-bitrate=10000 threads=%T',
+        aq: 'vorbisenc',
+        descr: 'FPS: 15 \nVideo -> VP9  Encoder:\n-min_quantizer=13\n-max_quantizer=20\n-cpu-used=5\n-deadline=1000000\n-sharpness=2\n-target-bitrate=10000\nAudio -> Vorbis Encoder'
+    }, {
+        //quality level 1
+        fps: 30,
+        vq: 'vp9enc min_quantizer=4 max_quantizer=13 cpu-used=2 deadline=500000 sharpness=0 target-bitrate=15000 threads=%T',
+        aq: 'vorbisenc',
+        descr: 'FPS: 30 \nVideo -> VP9  Encoder:\n-min_quantizer=4\n-max_quantizer=13\n-cpu-used=2\n-deadline=500000\n-sharpness=0\n-target-bitrate=15000\nAudio -> Vorbis Encoder'
+
+    }, {
+        //quality level 2
+        fps: 30,
+        vq: 'vp9enc min_quantizer=0 max_quantizer=7 cpu-used=1 deadline=500000 sharpness=0 target-bitrate=25000 threads=%T',
+        aq: 'vorbisenc',
+        descr: 'FPS: 30 \nVideo -> VP9  Encoder:\n-min_quantizer=0\n-max_quantizer=7\n-cpu-used=1\n-deadline=500000\n-sharpness=0\n-target-bitrate=25000\nAudio -> Vorbis Encoder'
+    }, {
+        //quality level 3
+        fps: 60,
+        vq: 'vp9enc min_quantizer=0 max_quantizer=0 cpu-used=0 deadline=100000 sharpness=0 target-bitrate=40000 threads=%T',
+        aq: 'vorbisenc',
+        descr: 'FPS: 60 \nVideo -> VP9  Encoder:\n-min_quantizer=0\n-max_quantizer=0\n-cpu-used=0\n-deadline=100000\n-sharpness=0\n-target-bitrate=40000\nAudio -> Vorbis Encoder'
     }, ]
 };
 
@@ -176,7 +207,7 @@ const RESOLUTION = [
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 // VAR ARRAY CONTAINER
-const CONTAINER = [webm, mp4, mkv, ogg];
+const CONTAINER = [webmVP8, mp4, mkv, ogg, webmVP9];
 
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
