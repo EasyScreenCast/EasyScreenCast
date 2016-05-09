@@ -34,9 +34,19 @@ const HelperWebcam = new Lang.Class({
     _init: function() {
         Lib.TalkativeLog('-@-init webcam');
 
-        this.deviceMonitor = new Gst.DeviceMonitor({
-            show_all: true
-        });
+        //get gstreamer lib version
+        [M, m, micro, nano] = Gst.version();
+        Lib.TalkativeLog('-@-gstreamer version: ' + M + '.' + m + '.' + micro + '.' + nano);
+        if (M === 1 && m >= 8) {
+            //gstreamer version equal or higher 1.8
+            this.deviceMonitor = new Gst.DeviceMonitor({
+                show_all: true
+            });
+        } else {
+            //gstreamer version lower 1.8
+            this.deviceMonitor = new Gst.DeviceMonitor();
+        }
+
 
         if (this.deviceMonitor !== null && this.deviceMonitor !== undefined) {
             Lib.TalkativeLog('-@-device monitor created');
