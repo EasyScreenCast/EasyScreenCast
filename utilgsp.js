@@ -110,7 +110,7 @@ const mkv = {
         fps: 30,
         vq: 'x264enc tune="animation" speed-preset="fast" subme=5 qp-min=18 qp-max=28 threads=%T',
         aq: 'flacenc',
-        descr: 'FPS: 30 \nVideo -> x264 x264enc  Encoder:\n-tune="animation"\n-speed-preset="fast"\n-subme=5\n-qp-min=18\n-qp-max=28\nAudio -> Flac Encoder'
+        descr: 'FPS: 30 \nVideo -> x264enc  Encoder:\n-tune="animation"\n-speed-preset="fast"\n-subme=5\n-qp-min=18\n-qp-max=28\nAudio -> Flac Encoder'
     }, {
         //quality level 2
         fps: 30,
