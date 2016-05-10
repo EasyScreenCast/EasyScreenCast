@@ -102,9 +102,9 @@ const mp4 = {
     quality: [{
         //quality level 0
         fps: 15,
-        vq: 'x264enc psy-tune="fastdecode" speed-preset="superfast" subme=1 qp-min=28 qp-max=40 threads=%T',
+        vq: 'x264enc psy-tune="none" speed-preset="superfast" subme=1 qp-min=28 qp-max=40 threads=%T',
         aq: 'lamemp3enc',
-        descr: 'FPS: 15 \nVideo -> x264enc  Encoder:\n-psy-tune="fastdecode"\n-speed-preset="superfast"\n-subme=1\n-qp-min=28\n-qp-max=40\nAudio -> Mp3 Encoder'
+        descr: 'FPS: 15 \nVideo -> x264enc  Encoder:\n-psy-tune="none"\n-speed-preset="superfast"\n-subme=1\n-qp-min=28\n-qp-max=40\nAudio -> Mp3 Encoder'
     }, {
         //quality level 1
         fps: 30,
@@ -120,9 +120,9 @@ const mp4 = {
     }, {
         //quality level 3
         fps: 60,
-        vq: 'x264enc psy-tune="animation" speed-preset="slower" subme=10 qp-min=0 qp-max=10 threads=%T',
+        vq: 'x264enc psy-tune="film" speed-preset="slower" subme=10 qp-min=0 qp-max=10 threads=%T',
         aq: 'lamemp3enc',
-        descr: 'FPS: 60 \nVideo -> x264enc  Encoder:\n-psy-tune="animation"\n-speed-preset="slower"\n-subme=10\n-qp-min=0\n-qp-max=10\nAudio -> Mp3 Encoder'
+        descr: 'FPS: 60 \nVideo -> x264enc  Encoder:\n-psy-tune="film"\n-speed-preset="slower"\n-subme=10\n-qp-min=0\n-qp-max=10\nAudio -> Mp3 Encoder'
     }, ]
 };
 
@@ -133,9 +133,9 @@ const mkv = {
     quality: [{
         //quality level 0
         fps: 15,
-        vq: 'x264enc psy-tune="fastdecode" speed-preset="superfast" subme=1 qp-min=28 qp-max=40 threads=%T',
+        vq: 'x264enc psy-tune="none" speed-preset="superfast" subme=1 qp-min=28 qp-max=40 threads=%T',
         aq: 'flacenc',
-        descr: 'FPS: 15 \nVideo -> x264enc  Encoder:\n-psy-tune="fastdecode"\n-speed-preset="superfast"\n-subme=1\n-qp-min=28\n-qp-max=40\nAudio -> Flac Encoder'
+        descr: 'FPS: 15 \nVideo -> x264enc  Encoder:\n-psy-tune="none"\n-speed-preset="superfast"\n-subme=1\n-qp-min=28\n-qp-max=40\nAudio -> Flac Encoder'
     }, {
         //quality level 1
         fps: 30,
@@ -151,9 +151,9 @@ const mkv = {
     }, {
         //quality level 3
         fps: 60,
-        vq: 'x264enc psy-tune="animation" speed-preset="slower" subme=10 qp-min=0 qp-max=10 threads=%T',
+        vq: 'x264enc psy-tune="film" speed-preset="slower" subme=10 qp-min=0 qp-max=10 threads=%T',
         aq: 'flacenc',
-        descr: 'FPS: 60 \nVideo -> x264enc  Encoder:\n-psy-tune="animation"\n-speed-preset="slower"\n-subme=10\n-qp-min=0\n-qp-max=10\nAudio -> Flac Encoder'
+        descr: 'FPS: 60 \nVideo -> x264enc  Encoder:\n-psy-tune="film"\n-speed-preset="slower"\n-subme=10\n-qp-min=0\n-qp-max=10\nAudio -> Flac Encoder'
     }, ]
 };
 
