@@ -1226,7 +1226,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                                       </packing>
                                     </child>
                                     <child>
-                                      <object class="GtkComboBoxText" id="cbt_WebCamCorner1">
+                                      <object class="GtkComboBoxText" id="cbt_KeyPressEfx">
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
                                         <property name="halign">start</property>
@@ -1272,7 +1272,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                                     <property name="row_homogeneous">True</property>
                                     <property name="column_homogeneous">True</property>
                                     <child>
-                                      <object class="GtkCheckButton">
+                                      <object class="GtkCheckButton" id="ckb_CommandKey">
                                         <property name="label" translatable="yes">Comand</property>
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
@@ -1285,7 +1285,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                                       </packing>
                                     </child>
                                     <child>
-                                      <object class="GtkCheckButton">
+                                      <object class="GtkCheckButton" id="ckb_SuperKey">
                                         <property name="label" translatable="yes">Super</property>
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
@@ -1298,7 +1298,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                                       </packing>
                                     </child>
                                     <child>
-                                      <object class="GtkCheckButton">
+                                      <object class="GtkCheckButton" id="ckb_ShiftKey">
                                         <property name="label" translatable="yes">Shift</property>
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
@@ -1311,7 +1311,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                                       </packing>
                                     </child>
                                     <child>
-                                      <object class="GtkCheckButton">
+                                      <object class="GtkCheckButton" id="ckb_FnKey">
                                         <property name="label" translatable="yes">Fn</property>
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
@@ -1324,7 +1324,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                                       </packing>
                                     </child>
                                     <child>
-                                      <object class="GtkCheckButton">
+                                      <object class="GtkCheckButton" id="ckb_AltKey">
                                         <property name="label" translatable="yes">Alt</property>
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
@@ -1337,7 +1337,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                                       </packing>
                                     </child>
                                     <child>
-                                      <object class="GtkCheckButton">
+                                      <object class="GtkCheckButton" id="ckb_OthersKey">
                                         <property name="label" translatable="yes">Others</property>
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
