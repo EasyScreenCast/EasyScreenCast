@@ -622,7 +622,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         setOption(WIDTH_SETTING_KEY, 600);
         setOption(HEIGHT_SETTING_KEY, 400);
 
-        setOption(FILE_NAME_SETTING_KEY, 'Screencast_%d_%t.webm');
+        setOption(FILE_NAME_SETTING_KEY, 'Screencast_%d_%t');
         setOption(FILE_FOLDER_SETTING_KEY, '');
         setOption(ACTIVE_POST_CMD_SETTING_KEY, false);
         setOption(POST_CMD_SETTING_KEY, 'xdg-open _fpath &');

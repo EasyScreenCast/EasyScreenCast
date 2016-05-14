@@ -76,7 +76,7 @@
             <description>select area of screencast</description>
         </key>
         <key name="file-name" type="s">
-            <default>'Screencast_%d_%t.webm'</default>
+            <default>'Screencast_%d_%t'</default>
             <summary>file name template of screencast</summary>
             <description>file name template of screencast</description>
         </key>
