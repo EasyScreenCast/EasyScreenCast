@@ -1129,6 +1129,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                           <object class="GtkFileChooserButton" id="fcb_FilePathRec">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
+                            <property name="tooltip_text" translatable="yes">Select the folder where the file is saved, if not specific a folder  the file will be saved in the $XDG_VIDEOS_DIR if it exists, or the home directory otherwise.</property>
                             <property name="action">select-folder</property>
                             <property name="title" translatable="yes">Select the destination folder</property>
                           </object>
