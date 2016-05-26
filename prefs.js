@@ -322,8 +322,25 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             //implements file folder string rec option
             this.Ref_filechooser_FileFolder = builder.get_object(
                 'fcb_FilePathRec');
-            this.Ref_filechooser_FileFolder.set_current_folder(
-                getOption('s', FILE_FOLDER_SETTING_KEY));
+
+            //check state initial value
+            var tmpFolder = getOption('s', FILE_FOLDER_SETTING_KEY);
+            Lib.TalkativeLog('-^-folder for screencast: ' + tmpFolder);
+            if (tmpFolder === '' ||
+                tmpFolder === null ||
+                tmpFolder === undefined) {
+                var res = (Lib.getResultCmd(['xdg-user-dir', 'VIDEOS']))
+                    .replace(/(\n)/g, "");;
+                if (res !== null) {
+                    Lib.TalkativeLog('-^-xdg-user video: ' + res);
+                    tmpFolder = res;
+                } else {
+                    Lib.TalkativeLog('-^-NOT SET xdg-user video');
+                    tmpFolder = (Lib.getResultCmd(['echo', '$HOME']))
+                        .replace(/(\n)/g, "");
+                }
+            }
+            this.Ref_filechooser_FileFolder.set_filename(tmpFolder);
 
             this.Ref_filechooser_FileFolder.connect(
                 'file_set', Lang.bind(this,

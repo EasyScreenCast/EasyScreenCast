@@ -27,6 +27,7 @@
 
 const Gettext = imports.gettext;
 const Gio = imports.gi.Gio;
+const GLib = imports.gi.GLib;
 
 const Config = imports.misc.config;
 const ExtensionUtils = imports.misc.extensionUtils;
@@ -98,6 +99,23 @@ function TalkativeLog(msg) {
     }
 };
 
+function getResultCmd(cmd) {
+    let [res, out] = GLib.spawn_sync(null,
+        cmd,
+        null,
+        GLib.SpawnFlags.SEARCH_PATH,
+        null);
+
+    if (out == null) {
+        return null;
+    } else {
+        return out.toString();
+    }
+};
+
+/*
+////////////////////////////////////////////////////////////////////////////////
+*/
 const ESConGIcon = new Gio.FileIcon({
     file: Gio.File.new_for_path(Me.dir.get_child(
         'images/icon_recording.svg').get_path())
