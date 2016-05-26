@@ -1170,11 +1170,11 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <items>
-                              <item id="0">WebM - VP8</item>
-                              <item id="4" translatable="yes">WebM - VP9</item>
-                              <item id="1">Mp4</item>
-                              <item id="2">Mkv</item>
-                              <item id="3">Ogg</item>
+                              <item id="0">WebM  [VP8 encoder]</item>
+                              <item id="4">WebM  [VP9 encoder]</item>
+                              <item id="1">Mp4  [x264 encoder]</item>
+                              <item id="2">Mkv  [x264 encoder]</item>
+                              <item id="3">Ogg  [Theora encoder]</item>
                             </items>
                           </object>
                           <packing>
