@@ -43,7 +43,7 @@ const SHOW_AREA_REC_SETTING_KEY = 'show-area-rec';
 const VERBOSE_DEBUG_SETTING_KEY = 'verbose-debug';
 const PIPELINE_REC_SETTING_KEY = 'pipeline';
 const FPS_SETTING_KEY = 'fps';
-const REPLACE_INDICATOR_SETTING_KEY = 'replace-indicator';
+const STATUS_INDICATORS_SETTING_KEY = 'status-indicators';
 const X_POS_SETTING_KEY = 'x-pos';
 const Y_POS_SETTING_KEY = 'y-pos';
 const WIDTH_SETTING_KEY = 'width-rec';
@@ -126,10 +126,10 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                 'active', Gio.SettingsBindFlags.DEFAULT);
 
             //implements show indicator option
-            this.Ref_switch_ShowIndicatorRec = builder.get_object(
-                'swt_ShowIndicatorRec');
+            this.Ref_combobox_IndicatorsRec = builder.get_object(
+                'cbt_StatusIndicatorsRec');
             settings.bind(
-                REPLACE_INDICATOR_SETTING_KEY, this.Ref_switch_ShowIndicatorRec,
+                STATUS_INDICATORS_SETTING_KEY, this.Ref_combobox_IndicatorsRec,
                 'active', Gio.SettingsBindFlags.DEFAULT);
 
             //implements draw cursor option
@@ -306,17 +306,17 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                 Gio.SettingsBindFlags.DEFAULT);
 
             //implements file container option
-            this.Ref_ComboBox_Container = builder.get_object(
+            this.Ref_combobox_Container = builder.get_object(
                 'cbt_FileContainer');
             settings.bind(
-                FILE_CONTAINER_SETTING_KEY, this.Ref_ComboBox_Container,
+                FILE_CONTAINER_SETTING_KEY, this.Ref_combobox_Container,
                 'active', Gio.SettingsBindFlags.DEFAULT);
 
             //implements file container option
-            this.Ref_ComboBox_Resolution = builder.get_object(
+            this.Ref_combobox_Resolution = builder.get_object(
                 'cbt_FileResolution');
             settings.bind(
-                FILE_RESOLUTION_SETTING_KEY, this.Ref_ComboBox_Resolution,
+                FILE_RESOLUTION_SETTING_KEY, this.Ref_combobox_Resolution,
                 'active', Gio.SettingsBindFlags.DEFAULT);
 
             //implements file folder string rec option
@@ -392,10 +392,10 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             this._updateWebCamCaps(getOption('i', DEVICE_WEBCAM_SETTING_KEY));
 
             //implements webcam corner position option
-            this.Ref_ComboBox_CornerWebCam = builder.get_object(
+            this.Ref_combobox_CornerWebCam = builder.get_object(
                 'cbt_WebCamCorner');
             settings.bind(
-                CORNER_POSITION_WEBCAM_SETTING_KEY, this.Ref_ComboBox_CornerWebCam,
+                CORNER_POSITION_WEBCAM_SETTING_KEY, this.Ref_combobox_CornerWebCam,
                 'active', Gio.SettingsBindFlags.DEFAULT);
 
             //implements webcam margin x position option
@@ -447,10 +447,10 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                 Gio.SettingsBindFlags.DEFAULT);
 
             //implements webcam type unit dimension option
-            this.Ref_ComboBox_TypeUnitWebCam = builder.get_object(
+            this.Ref_combobox_TypeUnitWebCam = builder.get_object(
                 'cbt_WebCamUnitMeasure');
             settings.bind(
-                TYPE_UNIT_WEBCAM_SETTING_KEY, this.Ref_ComboBox_TypeUnitWebCam,
+                TYPE_UNIT_WEBCAM_SETTING_KEY, this.Ref_combobox_TypeUnitWebCam,
                 'active', Gio.SettingsBindFlags.DEFAULT);
 
             //implements webcam width option
@@ -628,7 +628,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
 
         setOption(SHOW_TIMER_REC_SETTING_KEY, true);
         setOption(SHOW_AREA_REC_SETTING_KEY, false);
-        setOption(REPLACE_INDICATOR_SETTING_KEY, true);
+        setOption(STATUS_INDICATORS_SETTING_KEY, 1);
         setOption(DRAW_CURSOR_SETTING_KEY, true);
         setOption(VERBOSE_DEBUG_SETTING_KEY, false);
         setOption(ACTIVE_CUSTOM_GSP_SETTING_KEY, false);

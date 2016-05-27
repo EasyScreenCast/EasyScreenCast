@@ -69,23 +69,11 @@
                             <property name="halign">end</property>
                             <property name="margin_top">4</property>
                             <property name="hexpand">True</property>
-                            <property name="label" translatable="yes">Replace standard indicator on status menu</property>
+                            <property name="label" translatable="yes">Recording status indicators</property>
                             <property name="justify">right</property>
                           </object>
                           <packing>
                             <property name="left_attach">0</property>
-                            <property name="top_attach">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkSwitch" id="swt_ShowIndicatorRec">
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="halign">start</property>
-                            <property name="hexpand">True</property>
-                          </object>
-                          <packing>
-                            <property name="left_attach">1</property>
                             <property name="top_attach">0</property>
                           </packing>
                         </child>
@@ -312,6 +300,22 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                           <packing>
                             <property name="left_attach">1</property>
                             <property name="top_attach">8</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkComboBoxText" id="cbt_StatusIndicatorsRec">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <items>
+                              <item id="0" translatable="yes">Both  [ESC + Default]</item>
+                              <item id="1" translatable="yes">ESC only</item>
+                              <item id="2" translatable="yes">Default only</item>
+                              <item id="3" translatable="yes">not any</item>
+                            </items>
+                          </object>
+                          <packing>
+                            <property name="left_attach">1</property>
+                            <property name="top_attach">0</property>
                           </packing>
                         </child>
                       </object>

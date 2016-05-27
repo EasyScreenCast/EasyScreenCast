@@ -513,8 +513,9 @@ const EasyScreenCast_Indicator = new Lang.Class({
 
             Lib.TalkativeLog('-*-record OK');
             //update indicator
-            this._replaceStdIndicator(Pref.getOption(
-                'b', Pref.REPLACE_INDICATOR_SETTING_KEY));
+            var indicators = Pref.getOption(
+                'i', Pref.STATUS_INDICATORS_SETTING_KEY);
+            this._replaceStdIndicator(indicators === 1 || indicators === 3);
 
             if (this.isShowNotify) {
                 Lib.TalkativeLog('-*-show notify');
@@ -593,11 +594,22 @@ const EasyScreenCast_Indicator = new Lang.Class({
     refreshIndicator: function(param1, param2, focus) {
         Lib.TalkativeLog('-*-refresh indicator -A ' + isActive + ' -F ' + focus);
 
+        var indicators = Pref.getOption(
+            'i', Pref.STATUS_INDICATORS_SETTING_KEY);
+
         if (isActive === true) {
-            if (focus === true) {
-                this.indicatorIcon.set_gicon(Lib.ESConGIconSel);
+            if (indicators === 0 || indicators === 1) {
+                if (focus === true) {
+                    this.indicatorIcon.set_gicon(Lib.ESConGIconSel);
+                } else {
+                    this.indicatorIcon.set_gicon(Lib.ESConGIcon);
+                }
             } else {
-                this.indicatorIcon.set_gicon(Lib.ESConGIcon);
+                if (focus === true) {
+                    this.indicatorIcon.set_gicon(Lib.ESCoffGIconSel);
+                } else {
+                    this.indicatorIcon.set_gicon(Lib.ESCoffGIcon);
+                }
             }
 
             this.RecordingLabel.set_text(_('Stop recording'));
