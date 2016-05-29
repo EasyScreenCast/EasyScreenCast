@@ -276,7 +276,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                 ACTIVE_CUSTOM_GSP_SETTING_KEY, this.Ref_switch_CustomGSP,
                 'active', Gio.SettingsBindFlags.DEFAULT);
             this.Ref_switch_CustomGSP.connect(
-                'button_press_event', Lang.bind(this, function(self) {
+                'state-set', Lang.bind(this, function(self) {
                     //update GSP text area
                     this._setStateGSP(getOption(
                         'b', ACTIVE_CUSTOM_GSP_SETTING_KEY));
