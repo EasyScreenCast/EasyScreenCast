@@ -47,7 +47,15 @@ const HelperWebcam = new Lang.Class({
             this.deviceMonitor = new Gst.DeviceMonitor();
         }
 
+        //get gstreamer plugin avaiable
+        let registry = new Gst.Registry();
+        let listPI = registry.get_plugin_list();
+        Lib.TalkativeLog('-@-plugin list: ' + listPI.length);
+        for (var ind in listPI) {
+            Lib.TalkativeLog('-@-plugin name: ' + listPI[ind].get_name() + ' Pfilename: ' + listPI[ind].get_filename() + ' Pdesc:  ' + listPI[ind].get_description() + ' Pversion: ' + listPI[ind].get_version() + ' Pload: ' + listPI[ind].is_loaded());
+        };
 
+        //create device monitor
         if (this.deviceMonitor !== null && this.deviceMonitor !== undefined) {
             Lib.TalkativeLog('-@-device monitor created');
             this.dmBus = this.deviceMonitor.get_bus();
