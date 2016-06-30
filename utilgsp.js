@@ -511,6 +511,15 @@ function getDescr(quality, container) {
 }
 
 /*
+ * get fps
+ */
+function getFps(quality, container) {
+    Lib.TalkativeLog('-§-get fps Q-> ' + quality + ' C-> ' + container);
+
+    return CONTAINER[container].quality[quality].fps;
+}
+
+/*
  * get file extension
  */
 function getFileExtension(container) {

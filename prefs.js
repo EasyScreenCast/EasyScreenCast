@@ -254,6 +254,11 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                         roundTmp,
                         getOption('i', FILE_CONTAINER_SETTING_KEY)));
 
+                    //update fps
+                    setOption(FPS_SETTING_KEY, UtilGSP.getFps(
+                        roundTmp,
+                        getOption('i', FILE_CONTAINER_SETTING_KEY)));
+
                     self.set_value(roundTmp);
 
                     setOption(QUALITY_SETTING_KEY, roundTmp);
@@ -574,6 +579,8 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             Lib.TalkativeLog('-^-custom GSP');
 
             this.Ref_stack_Quality.set_visible_child_name('pg_Custom');
+
+            setOption(FPS_SETTING_KEY, 30);
 
         } else {
             Lib.TalkativeLog('-^-NOT custom GSP');
