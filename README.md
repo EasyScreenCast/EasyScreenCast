@@ -4,10 +4,10 @@ EasyScreenCast simplifies the use of the video recording function integrated in 
 - [Video](https://youtu.be/81E9AruraKU)
 
 # Requirements
-- Gnome Shell 3.12 [ 3.16 audio/webcam support ]
-- Gstreamer 1.x [ webcam support ]
+- Gnome Shell 3.12+ [ 3.16+ audio/webcam support ]
+- Gstreamer 1.x [ common function/webcam support ]
 - gst plugins ugly [ x264 support ]
-- gst plugins base [ theora support ]
+- gst plugins base [ common function/theora support ]
 - gst plugins good [ mp4/mkv/webm/vp8/vp9 support ]
 
 # Gstreamer patterns pipeline
