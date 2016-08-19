@@ -202,7 +202,7 @@ const SelectionArea = new Lang.Class({
         this._capture.connect('captured-event', this._onEvent.bind(this));
         this._capture.connect('stop', this.emit.bind(this, 'stop'));
 
-        this._capture._showAlert(_('Select a area for recording or press [ESC] to abort'));
+        this._capture._showAlert(_('select an area for recording or press [ESC] to abort'));
     },
 
     _onEvent: function(capture, event) {
@@ -240,7 +240,7 @@ const SelectionWindow = new Lang.Class({
         this._capture.connect('captured-event', this._onEvent.bind(this));
         this._capture.connect('stop', this.emit.bind(this, 'stop'));
 
-        this._capture._showAlert(_('Select a window for recording or press [ESC] to abort'));
+        this._capture._showAlert(_('select an window for recording or press [ESC] to abort'));
     },
 
     _onEvent: function(capture, event) {
@@ -281,10 +281,12 @@ const SelectionWindow = new Lang.Class({
     },
 
     _highlightWindow: function(win) {
+        Lib.TalkativeLog('-£-window highlight on, pos/meas: ' + getWindowRectangle(win));
         this._capture.drawSelection(getWindowRectangle(win), false);
     },
 
     _clearHighlight: function() {
+        Lib.TalkativeLog('-£-window highlight off');
         this._capture.clearSelection();
     }
 });
@@ -309,7 +311,7 @@ const SelectionDesktop = new Lang.Class({
         this._capture.connect('captured-event', this._onEvent.bind(this));
         this._capture.connect('stop', this.emit.bind(this, 'stop'));
 
-        this._capture._showAlert(_('Select a desktop for recording or press [ESC] to abort'));
+        this._capture._showAlert(_('select an desktop for recording or press [ESC] to abort'));
     },
 
     _onEvent: function(capture, event) {
@@ -374,31 +376,6 @@ const AreaRecording = new Lang.Class({
         if ((recX + recW <= tmpW - 5) && (recY + recH <= tmpH - 5)) {
             this.drawArea(recX - 2, recY - 2, recW + 4, recH + 4);
         }
-
-        //        this._areaRecording.connect('button-press-event',
-        //            Lang.bind(this, this._onButtonPress));
-        //        this._areaRecording.connect('button-release-event',
-        //            Lang.bind(this, this._onButtonRelease));
-        //        this._areaRecording.connect('motion-event',
-        //            Lang.bind(this, this._onMotionEvent));
-
-        //        _onMotionEvent: function (actor, event) {
-        //            Lib.TalkativeLog('-£-motion event');
-        //
-        //            return Clutter.EVENT_PROPAGATE;
-        //        },
-        //
-        //        _onButtonPress: function (actor, event) {
-        //            Lib.TalkativeLog('-£-btn press event');
-        //
-        //            return Clutter.EVENT_PROPAGATE;
-        //        },
-        //
-        //        _onButtonRelease: function (actor, event) {
-        //            Lib.TalkativeLog('-£-btn release event');
-        //
-        //            return Clutter.EVENT_PROPAGATE;
-        //        }
     },
 
     drawArea: function(x, y, w, h) {
@@ -451,9 +428,11 @@ const selectWindow = function(windows, x, y) {
     let filtered = windows.filter(function(win) {
         if ((win !== undefined) && win.visible &&
             (typeof win.get_meta_window === 'function')) {
+            Lib.TalkativeLog('-£-selectWin x:' + x + ' y:' + y);
 
             let [w, h] = win.get_size();
             let [wx, wy] = win.get_position();
+            Lib.TalkativeLog('-£-selectWin w:' + w + ' h:' + h + 'wx:' + wx + ' wy:' + wy);
 
             return (
                 (wx <= x) && (wy <= y) && ((wx + w) >= x) && ((wy + h) >= y)
