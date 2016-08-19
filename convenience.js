@@ -95,7 +95,7 @@ function getSettings(schema) {
 */
 function TalkativeLog(msg) {
     if (Pref.getOption('b', Pref.VERBOSE_DEBUG_SETTING_KEY)) {
-        global.log('ESC>' + msg);
+        global.log('[ESC]' + msg);
     }
 };
 
