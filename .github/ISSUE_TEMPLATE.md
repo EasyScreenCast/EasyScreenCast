@@ -22,10 +22,15 @@
 
 ## Logs
 <!--- Providing logs helps us come up with a solution that is most useful in the real world -->
- * Log, enable verbose debug logs into options window, and after that try  `journalctl --since=today --no-pager | grep js`
- * webcam info: `v4l2-ctl --all`
- * webcam info: `for VIDEO_DEVICE in /dev/video* ; do echo ; echo ; echo $VIDEO_DEVICE ; echo ; v4l2-ctl --device=$VIDEO_DEVICE --list-inputs ; done`
- * webcam info: `GST_DEBUG=v4l2src:5 gst-launch-1.0 v4l2src num-buffers=1 ! fakesink | grep probed`
+ * Log, **enable verbose debug logs** into options window, and after that try  
+ `journalctl --since=today --no-pager | grep js`
+ * webcam info:
+ `v4l2-ctl --all`
+ * webcam info:
+ `for VIDEO_DEVICE in /dev/video* ; do echo ; echo ; echo $VIDEO_DEVICE ; echo ; v4l2-ctl --device=$VIDEO_DEVICE --list-inputs ; done`
+ * webcam info:
+ `GST_DEBUG=v4l2src:5 gst-launch-1.0 v4l2src num-buffers=1 ! fakesink | grep probed`
+
 ## Your Environment
 <!--- Include as many relevant details about the environment you experienced the bug in -->
 * where you downloaded the extension?
