@@ -83,7 +83,7 @@
                             <property name="can_focus">False</property>
                             <property name="halign">end</property>
                             <property name="hexpand">True</property>
-                            <property name="label" translatable="yes">Show time recording into notification bar</property>
+                            <property name="label" translatable="yes">Show alerts and notifications</property>
                           </object>
                           <packing>
                             <property name="left_attach">0</property>
@@ -91,7 +91,7 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkSwitch" id="swt_ShowTimerRec">
+                          <object class="GtkSwitch" id="swt_ShowNotifyAlert">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="halign">start</property>

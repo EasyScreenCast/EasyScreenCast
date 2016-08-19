@@ -148,7 +148,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
                 this.menu.close();
             }
             this.isShowNotify = Pref.getOption(
-                'b', Pref.SHOW_TIMER_REC_SETTING_KEY);
+                'b', Pref.SHOW_NOTIFY_ALERT_SETTING_KEY);
             this._doRecording();
         }
     },
@@ -170,7 +170,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
 
         this.imRecordAction.connect('activate', Lang.bind(this, function() {
             this.isShowNotify = Pref.getOption(
-                'b', Pref.SHOW_TIMER_REC_SETTING_KEY);
+                'b', Pref.SHOW_NOTIFY_ALERT_SETTING_KEY);
 
             this._doRecording();
         }));
@@ -536,7 +536,10 @@ const EasyScreenCast_Indicator = new Lang.Class({
 
             pathFile = '';
 
-            this._createAlertNotify();
+            if (this.isShowNotify) {
+                Lib.TalkativeLog('-*-show error notify');
+                this._createAlertNotify();
+            }
         }
         this.refreshIndicator(false);
     },
@@ -677,7 +680,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
 
 function refreshNotify(sec, alertEnd) {
     if (Indicator.notifyCounting !== null ||
-        Indicator.notifyCounting !== undefined) {
+        Indicator.notifyCounting !== undefined || Indicator.isShowNotify) {
         if (alertEnd) {
             Indicator.notifyCounting.update(_('EasyScreenCast -> Finish Recording / Seconds : ' + sec),
                 null, {

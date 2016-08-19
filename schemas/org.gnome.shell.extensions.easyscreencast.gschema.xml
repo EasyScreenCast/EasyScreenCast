@@ -1,9 +1,9 @@
 <schemalist>
     <schema id="org.gnome.shell.extensions.EasyScreenCast" path="/org/gnome/shell/extensions/EasyScreenCast/">
-        <key name="show-timer-rec" type="b">
+        <key name="show-notify-alert" type="b">
             <default>true</default>
-            <summary>Enable show timer of recording into notify</summary>
-            <description>Enable show timer of recording into notify</description>
+            <summary>Enable show notify and alert message</summary>
+            <description>Enable show notify and alert message</description>
         </key>
         <key name="show-area-rec" type="b">
             <default>false</default>

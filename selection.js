@@ -54,6 +54,8 @@ const Capture = new Lang.Class({
         Lib.TalkativeLog('-£-capture selection init');
 
         this._mouseDown = false;
+        this.showAlert = Pref.getOption('b',
+            Pref.SHOW_NOTIFY_ALERT_SETTING_KEY);
 
         this.monitor = Main.layoutManager.focusMonitor;
 
@@ -167,25 +169,28 @@ const Capture = new Lang.Class({
     },
 
     _showAlert: function(msg) {
-        var text = new St.Label({
-            style_class: 'alert-msg',
-            text: msg
-        });
-        text.opacity = 255;
-        Main.uiGroup.add_actor(text);
+        if (this.showAlert) {
+            Lib.TalkativeLog('-£-show alert tweener');
+            var text = new St.Label({
+                style_class: 'alert-msg',
+                text: msg
+            });
+            text.opacity = 255;
+            Main.uiGroup.add_actor(text);
 
-        text.set_position(Math.floor(this.monitor.width / 2 - text.width / 2),
-            Math.floor(this.monitor.height / 2 - text.height / 2));
+            text.set_position(Math.floor(this.monitor.width / 2 - text.width / 2),
+                Math.floor(this.monitor.height / 2 - text.height / 2));
 
-        Tweener.addTween(text, {
-            opacity: 0,
-            time: 4,
-            transition: 'easeOutQuad',
-            onComplete: Lang.bind(this, function() {
-                Main.uiGroup.remove_actor(text);
-                text = null;
-            })
-        });
+            Tweener.addTween(text, {
+                opacity: 0,
+                time: 4,
+                transition: 'easeOutQuad',
+                onComplete: Lang.bind(this, function() {
+                    Main.uiGroup.remove_actor(text);
+                    text = null;
+                })
+            });
+        }
     }
 });
 

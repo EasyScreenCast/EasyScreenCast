@@ -38,7 +38,7 @@ const ACTIVE_CUSTOM_GSP_SETTING_KEY = 'active-custom-gsp';
 const ACTIVE_SHORTCUT_SETTING_KEY = 'active-shortcut';
 const SHORTCUT_KEY_SETTING_KEY = 'shortcut-key';
 const TIME_DELAY_SETTING_KEY = 'delay-time';
-const SHOW_TIMER_REC_SETTING_KEY = 'show-timer-rec';
+const SHOW_NOTIFY_ALERT_SETTING_KEY = 'show-notify-alert';
 const SHOW_AREA_REC_SETTING_KEY = 'show-area-rec';
 const VERBOSE_DEBUG_SETTING_KEY = 'verbose-debug';
 const PIPELINE_REC_SETTING_KEY = 'pipeline';
@@ -113,10 +113,10 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             this.pack_start(Ref_box_MainContainer, true, true, 0);
 
             //implements show timer option
-            this.Ref_switch_ShowTimerRec = builder.get_object(
-                'swt_ShowTimerRec');
+            this.Ref_switch_ShowNotifyAlert = builder.get_object(
+                'swt_ShowNotifyAlert');
             settings.bind(
-                SHOW_TIMER_REC_SETTING_KEY, this.Ref_switch_ShowTimerRec,
+                SHOW_NOTIFY_ALERT_SETTING_KEY, this.Ref_switch_ShowNotifyAlert,
                 'active', Gio.SettingsBindFlags.DEFAULT);
 
             //implements show area option
@@ -633,7 +633,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
     _setDefaultsettings: function() {
         Lib.TalkativeLog('-^-restore default option');
 
-        setOption(SHOW_TIMER_REC_SETTING_KEY, true);
+        setOption(SHOW_NOTIFY_ALERT_SETTING_KEY, true);
         setOption(SHOW_AREA_REC_SETTING_KEY, false);
         setOption(STATUS_INDICATORS_SETTING_KEY, 1);
         setOption(DRAW_CURSOR_SETTING_KEY, true);
