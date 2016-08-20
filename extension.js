@@ -37,6 +37,7 @@ const Time = Me.imports.timer;
 const UtilRecorder = Me.imports.utilrecorder;
 const UtilAudio = Me.imports.utilaudio;
 const UtilWebcam = Me.imports.utilwebcam;
+const UtilNotify = Me.imports.utilnotify;
 const Selection = Me.imports.selection;
 
 
@@ -57,6 +58,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
 
         this.CtrlAudio = new UtilAudio.MixerAudio();
         this.CtrlWebcam = new UtilWebcam.HelperWebcam();
+        this.CtrlNotify = new UtilNotify.NotifyManager();
 
         //check audio
         if (!this.CtrlAudio.checkAudio()) {
@@ -520,7 +522,8 @@ const EasyScreenCast_Indicator = new Lang.Class({
             if (this.isShowNotify) {
                 Lib.TalkativeLog('-*-show notify');
                 //create counting notify
-                this._createNotify();
+                this.notifyCounting = this.CtrlNotify.createNotify(
+                    _('Start Recording'), Lib.ESConGIcon);
 
                 //start counting rec
                 timerC = new Time.TimerCounting(refreshNotify, this);
@@ -538,7 +541,9 @@ const EasyScreenCast_Indicator = new Lang.Class({
 
             if (this.isShowNotify) {
                 Lib.TalkativeLog('-*-show error notify');
-                this._createAlertNotify();
+                this.CtrlNotify.createNotify(
+                    _('ERROR RECORDER - See logs for more info'),
+                    Lib.ESCoffGIcon);
             }
         }
         this.refreshIndicator(false);
@@ -559,39 +564,6 @@ const EasyScreenCast_Indicator = new Lang.Class({
         } else {
             this.smDelayRec.label.text = _('Start recording immediately');
         }
-    },
-
-    _createNotify: function() {
-        var source = new MessageTray.SystemNotificationSource();
-
-        this.notifyCounting = new MessageTray.Notification(source,
-            _('Start Recording'),
-            null, {
-                gicon: Lib.ESConGIcon
-            });
-
-        this.notifyCounting.setTransient(false);
-        this.notifyCounting.setResident(true);
-
-        Main.messageTray.add(source);
-        source.notify(this.notifyCounting);
-    },
-
-    _createAlertNotify: function() {
-        var source = new MessageTray.SystemNotificationSource();
-
-        this.notifyAlert = new MessageTray.Notification(source,
-            _('ERROR RECORDER - See logs for more info'),
-            null, {
-                gicon: Lib.ESCoffGIcon
-            });
-
-        this.notifyAlert.setTransient(false);
-        this.notifyAlert.setResident(true);
-        this.notifyAlert.playSound();
-
-        Main.messageTray.add(source);
-        source.notify(this.notifyAlert);
     },
 
     refreshIndicator: function(param1, param2, focus) {
@@ -682,30 +654,16 @@ function refreshNotify(sec, alertEnd) {
     if (Indicator.notifyCounting !== null ||
         Indicator.notifyCounting !== undefined || Indicator.isShowNotify) {
         if (alertEnd) {
-            Indicator.notifyCounting.update(_('EasyScreenCast -> Finish Recording / Seconds : ' + sec),
-                null, {
-                    gicon: Lib.ESCoffGIcon
-                });
 
-            Indicator.notifyCounting.addAction(_('Open in the filesystem'),
-                Lang.bind(this, function(self, action) {
-                    Lib.TalkativeLog('-*-button notification pressed');
-                    var pathFolder = Pref.getOption(
-                        's', Pref.FILE_FOLDER_SETTING_KEY)
-                    if (pathFolder === "") {
-                        Main.Util.trySpawnCommandLine('xdg-open "$(xdg-user-dir VIDEOS)"');
-                    } else {
-                        Main.Util.trySpawnCommandLine('xdg-open ' + pathFolder);
-                    }
-                }));
-
-            Indicator.notifyCounting.playSound();
-
+            this.CtrlNotify.updateNotify(this.notifyCounting,
+                _('EasyScreenCast -> Finish Recording / Seconds : ' + sec),
+                Lib.ESCoffGIcon,
+                true);
         } else {
-            Indicator.notifyCounting.update(_('EasyScreenCast -> Recording in progress / Seconds passed : ') + sec,
-                null, {
-                    gicon: Lib.ESConGIcon
-                });
+            this.CtrlNotify.updateNotify(this.notifyCounting,
+                _('EasyScreenCast -> Recording in progress / Seconds passed : ') + sec,
+                Lib.ESConGIcon,
+                false);
         }
     }
 }
