@@ -15,6 +15,9 @@
 const Lang = imports.lang;
 const Main = imports.ui.main;
 const MessageTray = imports.ui.messageTray;
+const St = imports.gi.St;
+const Tweener = imports.ui.tweener;
+
 
 
 const ExtensionUtils = imports.misc.extensionUtils;
@@ -38,7 +41,6 @@ const NotifyManager = new Lang.Class({
      */
     createNotify: function(msg, icon, sound) {
         Lib.TalkativeLog('-°-create notify :' + msg);
-
         var notify = new MessageTray.Notification(this.source, msg, null, {
             gicon: icon
         });
@@ -67,6 +69,35 @@ const NotifyManager = new Lang.Class({
 
         if (sound) {
             notify.playSound();
+        }
+    },
+    /*
+     * create alert
+     */
+    createAlert: function(msg) {
+        Lib.TalkativeLog('-°-show alert tweener : ' + msg);
+        if (Pref.getOption('b', Pref.SHOW_NOTIFY_ALERT_SETTING_KEY)) {
+            var monitor = Main.layoutManager.focusMonitor;
+
+            var text = new St.Label({
+                style_class: 'alert-msg',
+                text: msg
+            });
+            text.opacity = 255;
+            Main.uiGroup.add_actor(text);
+
+            text.set_position(Math.floor(monitor.width / 2 - text.width / 2),
+                Math.floor(monitor.height / 2 - text.height / 2));
+
+            Tweener.addTween(text, {
+                opacity: 0,
+                time: 4,
+                transition: 'easeOutQuad',
+                onComplete: Lang.bind(this, function() {
+                    Main.uiGroup.remove_actor(text);
+                    text = null;
+                })
+            });
         }
     }
 });

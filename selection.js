@@ -31,7 +31,6 @@ const GLib = imports.gi.GLib;
 const Shell = imports.gi.Shell;
 const Meta = imports.gi.Meta;
 const Clutter = imports.gi.Clutter;
-const Tweener = imports.ui.tweener;
 const St = imports.gi.St;
 const Layout = imports.ui.layout;
 
@@ -46,6 +45,8 @@ const Me = ExtensionUtils.getCurrentExtension();
 const Lib = Me.imports.convenience;
 const Pref = Me.imports.prefs;
 const Ext = Me.imports.extension;
+const UtilNotify = Me.imports.utilnotify;
+
 
 const Capture = new Lang.Class({
     Name: "EasyScreenCast.Capture",
@@ -54,8 +55,6 @@ const Capture = new Lang.Class({
         Lib.TalkativeLog('-£-capture selection init');
 
         this._mouseDown = false;
-        this.showAlert = Pref.getOption('b',
-            Pref.SHOW_NOTIFY_ALERT_SETTING_KEY);
 
         this.monitor = Main.layoutManager.focusMonitor;
 
@@ -166,31 +165,6 @@ const Capture = new Lang.Class({
         Pref.setOption(Pref.WIDTH_SETTING_KEY, w);
 
         Ext.Indicator._doDelayAction();
-    },
-
-    _showAlert: function(msg) {
-        if (this.showAlert) {
-            Lib.TalkativeLog('-£-show alert tweener');
-            var text = new St.Label({
-                style_class: 'alert-msg',
-                text: msg
-            });
-            text.opacity = 255;
-            Main.uiGroup.add_actor(text);
-
-            text.set_position(Math.floor(this.monitor.width / 2 - text.width / 2),
-                Math.floor(this.monitor.height / 2 - text.height / 2));
-
-            Tweener.addTween(text, {
-                opacity: 0,
-                time: 4,
-                transition: 'easeOutQuad',
-                onComplete: Lang.bind(this, function() {
-                    Main.uiGroup.remove_actor(text);
-                    text = null;
-                })
-            });
-        }
     }
 });
 
@@ -207,7 +181,9 @@ const SelectionArea = new Lang.Class({
         this._capture.connect('captured-event', this._onEvent.bind(this));
         this._capture.connect('stop', this.emit.bind(this, 'stop'));
 
-        this._capture._showAlert(_('select an area for recording or press [ESC] to abort'));
+        let CtrlNotify = new UtilNotify.NotifyManager();
+        CtrlNotify.createAlert(
+            _('select an area for recording or press [ESC] to abort'));
     },
 
     _onEvent: function(capture, event) {
@@ -245,7 +221,9 @@ const SelectionWindow = new Lang.Class({
         this._capture.connect('captured-event', this._onEvent.bind(this));
         this._capture.connect('stop', this.emit.bind(this, 'stop'));
 
-        this._capture._showAlert(_('select an window for recording or press [ESC] to abort'));
+        let CtrlNotify = new UtilNotify.NotifyManager();
+        CtrlNotify.createAlert(
+            _('select an window for recording or press [ESC] to abort'));
     },
 
     _onEvent: function(capture, event) {
@@ -316,7 +294,9 @@ const SelectionDesktop = new Lang.Class({
         this._capture.connect('captured-event', this._onEvent.bind(this));
         this._capture.connect('stop', this.emit.bind(this, 'stop'));
 
-        this._capture._showAlert(_('select an desktop for recording or press [ESC] to abort'));
+        let CtrlNotify = new UtilNotify.NotifyManager();
+        CtrlNotify.createAlert(
+            _('select an desktop for recording or press [ESC] to abort'));
     },
 
     _onEvent: function(capture, event) {
