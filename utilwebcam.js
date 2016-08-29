@@ -128,12 +128,39 @@ const HelperWebcam = new Lang.Class({
         var cleanCaps = new Array();
         for (var i = 0; i < tmpCaps.get_size(); i++) {
             //cleaned cap
-            cleanCaps[i] = tmpCaps.get_structure(i).to_string()
+            var tmpStr = tmpCaps.get_structure(i).to_string()
                 .replace(/\(.*?\)|;/gi, '');
+
+            //fine cleaning of option CAPS remain
+            cleanCaps[i] = this.cleanCapsOPT(tmpStr);
 
             Lib.TalkativeLog('-@-cap : ' + i + ' : ' + cleanCaps[i]);
         }
         return cleanCaps;
+    },
+    /*
+     * clean caps form options label
+     */
+    cleanCapsOPT: function(strCaps) {
+        Lib.TalkativeLog('-@-fine tunning caps:' + strCaps);
+
+        if (strCaps.indexOf('{ ') >= 0) {
+            //clean
+            var firstOPT = strCaps.indexOf('{ ');
+            var lastOPT = strCaps.indexOf(' }');
+
+            var strInitial = strCaps.substr(0, firstOPT);
+            var strMedia = strCaps.substring(firstOPT + 2,
+                strCaps.indexOf(',', firstOPT));
+            var strPost = strCaps.substr(lastOPT + 2);
+
+            var tmpStr = strInitial + strMedia + strPost;
+            Lib.TalkativeLog('-@-cleaned caps:' + tmpStr);
+            //recall
+            this.cleanCapsOPT(tmpStr);
+        } else {
+            return strCaps;
+        }
     },
     /*
      * get devices IV
