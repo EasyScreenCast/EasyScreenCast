@@ -128,11 +128,6 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.menu.addMenuItem(this.imOptions);
         this.imOptions.connect(
             'activate', Lang.bind(this, this._doExtensionPreferences));
-
-        //enable key binding
-        this._enableKeybindings();
-        //start monitoring inputvideo
-        this.CtrlWebcam.startMonitor();
     },
 
     _onButtonPress: function(actor, event) {
@@ -421,10 +416,20 @@ const EasyScreenCast_Indicator = new Lang.Class({
     },
 
     _enable: function() {
+        //enable key binding
+        this._enableKeybindings();
+        //start monitoring inputvideo
+        this.CtrlWebcam.startMonitor();
+        //add indicator
         this.actor.add_actor(this.indicatorBox);
     },
 
     _disable: function() {
+        //remove key binding
+        this._removeKeybindings();
+        //stop monitoring inputvideo
+        Indicator.CtrlWebcam.stopMonitor();
+        //remove indicator
         this.actor.remove_actor(this.indicatorBox);
     },
 
@@ -644,7 +649,6 @@ const EasyScreenCast_Indicator = new Lang.Class({
             isActive = false;
         }
 
-        this._removeKeybindings();
         this.parent();
     }
 });
@@ -700,9 +704,6 @@ function disable() {
 
     if (Indicator !== null) {
         Lib.TalkativeLog('-*-indicator call destroy');
-
-        //stop monitoring inputvideo
-        Indicator.CtrlWebcam.stopMonitor();
 
         Indicator._disable();
         Indicator.destroy();
