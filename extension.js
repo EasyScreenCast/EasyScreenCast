@@ -91,7 +91,6 @@ const EasyScreenCast_Indicator = new Lang.Class({
         });
 
         this.indicatorBox.add_actor(this.indicatorIcon);
-        this.actor.add_actor(this.indicatorBox);
 
         //init var
         this.recorder = new UtilRecorder.CaptureVideo();
