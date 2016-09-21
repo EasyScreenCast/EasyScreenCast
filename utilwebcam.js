@@ -129,7 +129,7 @@ const HelperWebcam = new Lang.Class({
         for (var i = 0; i < tmpCaps.get_size(); i++) {
             //cleaned cap
             var tmpStr = tmpCaps.get_structure(i).to_string()
-                .replace(/\(.*?\)|;/gi, '');
+                .replace(/;/gi, '');
 
             //fine cleaning of option CAPS remain
             cleanCaps[i] = this.cleanCapsOPT(tmpStr);
