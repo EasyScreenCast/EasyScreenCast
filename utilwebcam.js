@@ -129,7 +129,8 @@ const HelperWebcam = new Lang.Class({
         for (var i = 0; i < tmpCaps.get_size(); i++) {
             //cleaned cap
             var tmpStr = tmpCaps.get_structure(i).to_string()
-                .replace(/\(.*?\)|;/gi, '');
+                .replace(/;/gi, '')
+                .replace(/\((.*?)\)/gi, '\($1\)');
 
             //fine cleaning of option CAPS remain
             cleanCaps[i] = this.cleanCapsOPT(tmpStr);
@@ -148,16 +149,19 @@ const HelperWebcam = new Lang.Class({
             //clean
             var firstOPT = strCaps.indexOf('{ ');
             var lastOPT = strCaps.indexOf(' }');
+            var nextMedia = strCaps.indexOf(',', firstOPT)
+            if (strCaps.indexOf(',', firstOPT) + 1 > lastOPT + 2)
+		nextMedia = lastOPT;
 
             var strInitial = strCaps.substr(0, firstOPT);
             var strMedia = strCaps.substring(firstOPT + 2,
-                strCaps.indexOf(',', firstOPT));
+                nextMedia);
             var strPost = strCaps.substr(lastOPT + 2);
 
             var tmpStr = strInitial + strMedia + strPost;
             Lib.TalkativeLog('-@-cleaned caps:' + tmpStr);
             //recall
-            this.cleanCapsOPT(tmpStr);
+            return this.cleanCapsOPT(tmpStr);
         } else {
             return strCaps;
         }
