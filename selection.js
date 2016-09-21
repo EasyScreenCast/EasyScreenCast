@@ -264,8 +264,9 @@ const SelectionWindow = new Lang.Class({
     },
 
     _highlightWindow: function(win) {
-        Lib.TalkativeLog('-£-window highlight on, pos/meas: ' + getWindowRectangle(win));
-        this._capture.drawSelection(getWindowRectangle(win), false);
+        let rect = getWindowRectangle(win);
+        Lib.TalkativeLog('-£-window highlight on, pos/meas: x:' + rect.x + ' y:' + rect.y +' w:' + rect.w + ' h:' + rect.h);
+        this._capture.drawSelection(rect, false);
     },
 
     _clearHighlight: function() {
