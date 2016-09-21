@@ -398,14 +398,14 @@ const getRectangle = function(x1, y1, x2, y2) {
 
 
 const getWindowRectangle = function(win) {
-    let tmpSize = win.get_size();
-    let tmpPosition = win.get_position();
+    let [tw, th] = win.get_size();
+    let [tx,ty] = win.get_position();
 
     return {
-        x: tmpPosition.x,
-        y: tmpPosition.y,
-        w: tmpSize.width,
-        h: tmpSize.height
+        x: tx,
+        y: ty,
+        w: tw,
+        h: th
     };
 };
 
