@@ -157,7 +157,7 @@ const HelperWebcam = new Lang.Class({
             var tmpStr = strInitial + strMedia + strPost;
             Lib.TalkativeLog('-@-cleaned caps:' + tmpStr);
             //recall
-            this.cleanCapsOPT(tmpStr);
+            return this.cleanCapsOPT(tmpStr);
         } else {
             return strCaps;
         }
