@@ -249,6 +249,8 @@ const SelectionWindow = new Lang.Class({
 
                 Lib.TalkativeLog('-£-windows pre wx: ' + wx + ' wy: ' + wy + ' height: ' + h + '  width: ' + w);
 
+                if (wx < 0) wx = 0;
+                if (wy < 0) wy = 0;
                 if (wx + w > tmpM.width) {
                     w -= Math.abs((wx + w) - tmpM.width);
                 }
