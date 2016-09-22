@@ -249,6 +249,8 @@ const SelectionWindow = new Lang.Class({
 
                 Lib.TalkativeLog('-£-windows pre wx: ' + wx + ' wy: ' + wy + ' height: ' + h + '  width: ' + w);
 
+                if (wx < 0) wx = 0;
+                if (wy < 0) wy = 0;
                 if (wx + w > tmpM.width) {
                     w -= Math.abs((wx + w) - tmpM.width);
                 }
@@ -264,8 +266,9 @@ const SelectionWindow = new Lang.Class({
     },
 
     _highlightWindow: function(win) {
-        Lib.TalkativeLog('-£-window highlight on, pos/meas: ' + getWindowRectangle(win));
-        this._capture.drawSelection(getWindowRectangle(win), false);
+        let rect = getWindowRectangle(win);
+        Lib.TalkativeLog('-£-window highlight on, pos/meas: x:' + rect.x + ' y:' + rect.y +' w:' + rect.w + ' h:' + rect.h);
+        this._capture.drawSelection(rect, false);
     },
 
     _clearHighlight: function() {
@@ -397,14 +400,14 @@ const getRectangle = function(x1, y1, x2, y2) {
 
 
 const getWindowRectangle = function(win) {
-    let tmpSize = win.get_size();
-    let tmpPosition = win.get_position();
+    let [tw, th] = win.get_size();
+    let [tx,ty] = win.get_position();
 
     return {
-        x: tmpPosition.x,
-        y: tmpPosition.y,
-        w: tmpSize.width,
-        h: tmpSize.height
+        x: tx,
+        y: ty,
+        w: tw,
+        h: th
     };
 };
 
