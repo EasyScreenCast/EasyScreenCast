@@ -345,16 +345,17 @@ function replaceAudio(gspRA, defaultAudio, ConTMP, QGSPtmp) {
     //replace device/encoder
     var aq = CONTAINER[ConTMP].quality[QGSPtmp].aq;
     Lib.TalkativeLog('-§-pipeline pre-audio:' + gspRA + ' aq:' + aq);
+    var audioPipeline;
 
     if (defaultAudio) {
         Lib.TalkativeLog('-§-default audio source');
-        var audioPipeline = gspRA.replace(/_ENCODER_AUDIO_/gi, aq);
+        audioPipeline = gspRA.replace(/_ENCODER_AUDIO_/gi, aq);
     } else {
         var audiosource = this.CtrlAudio.getAudioSource();
 
         if (audiosource === undefined) {
             Lib.TalkativeLog('-§-failure combination of array audio sources');
-            var audioPipeline = gspRA.replace(/_ENCODER_AUDIO_/gi, aq);
+            audioPipeline = gspRA.replace(/_ENCODER_AUDIO_/gi, aq);
         } else {
             Lib.TalkativeLog('-§-correct audio source assignment');
             if (audiosource.indexOf('output') !== -1) {
@@ -367,7 +368,7 @@ function replaceAudio(gspRA, defaultAudio, ConTMP, QGSPtmp) {
                 _ENCODER_AUDIO_: aq
             };
 
-            var audioPipeline = gspRA.replace(/pulsesrc|_ENCODER_AUDIO_/gi,
+            audioPipeline = gspRA.replace(/pulsesrc|_ENCODER_AUDIO_/gi,
                 function(match) {
                     return mapObj[match];
                 }
