@@ -96,7 +96,6 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.recorder = new UtilRecorder.CaptureVideo();
         this.AreaSelected = null;
         this.TimeSlider = null;
-        this.notifyCounting;
 
         //add start/stop menu entry
         this._addMIRecording();
@@ -268,7 +267,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
 
                             item.label.text = arr[i];
                         }));
-                }
+                };
                 this.connectMI();
             }).call(this.AreaMenuItem[i], i, this.AreaType, this.smAreaRec);
         }
@@ -301,7 +300,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
 
                             item.label.text = arr[i];
                         }));
-                }
+                };
                 this.connectMI();
             }).call(this.AreaMenuItem[i], i, this.WebCamDevice, this.smWebCam);
         }
@@ -371,7 +370,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
 
                             item.label.text = arr[i].desc;
                         }));
-                }
+                };
                 this.connectMI();
             }).call(this.AudioMenuItem[i], i,
                 this.AudioChoice, this.smAudioRec);
@@ -561,7 +560,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
 
     _onDelayTimeChanged: function() {
 
-        var secDelay = Math.floor(this.TimeSlider.value * 100)
+        var secDelay = Math.floor(this.TimeSlider.value * 100);
         Pref.setOption(Pref.TIME_DELAY_SETTING_KEY, secDelay);
         if (secDelay > 0) {
             this.smDelayRec.label.text = secDelay + _(' sec. delay before recording');
@@ -671,15 +670,11 @@ function refreshNotify(sec, alertEnd) {
     }
 }
 
-
-
-
 function init(meta) {
     Lib.TalkativeLog('-*-initExtension called');
 
     Lib.initTranslations('EasyScreenCast@iacopodeenosee.gmail.com');
 }
-
 
 function enable() {
     Lib.TalkativeLog('-*-enableExtension called');

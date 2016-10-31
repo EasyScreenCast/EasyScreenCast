@@ -53,7 +53,7 @@ const HelperWebcam = new Lang.Class({
         Lib.TalkativeLog('-@-plugin list: ' + listPI.length);
         for (var ind in listPI) {
             Lib.TalkativeLog('-@-plugin name: ' + listPI[ind].get_name() + ' Pfilename: ' + listPI[ind].get_filename() + ' Pdesc:  ' + listPI[ind].get_description() + ' Pversion: ' + listPI[ind].get_version() + ' Pload: ' + listPI[ind].is_loaded());
-        };
+        }
 
         //create device monitor
         if (this.deviceMonitor !== null && this.deviceMonitor !== undefined) {
@@ -108,7 +108,7 @@ const HelperWebcam = new Lang.Class({
         ListDevices = this.getDevicesIV();
 
         //compose devices array
-        ListCaps = new Array();
+        ListCaps = [];
         for (var index in ListDevices) {
             ListCaps[index] =
                 this.getCapsForIV(ListDevices[index].caps);
@@ -125,7 +125,7 @@ const HelperWebcam = new Lang.Class({
         Lib.TalkativeLog('-@-get all caps from a input video');
         Lib.TalkativeLog('-@-caps avaiable N°: ' + tmpCaps.get_size());
 
-        var cleanCaps = new Array();
+        var cleanCaps = [];
         for (var i = 0; i < tmpCaps.get_size(); i++) {
             //cleaned cap
             var tmpStr = tmpCaps.get_structure(i).to_string()
@@ -148,7 +148,7 @@ const HelperWebcam = new Lang.Class({
             //clean
             var firstOPT = strCaps.indexOf('{ ');
             var lastOPT = strCaps.indexOf(' }');
-            var nextMedia = strCaps.indexOf(',', firstOPT)
+            var nextMedia = strCaps.indexOf(',', firstOPT);
             if (strCaps.indexOf(',', firstOPT) + 1 > lastOPT + 2)
 		nextMedia = lastOPT;
 
@@ -182,7 +182,7 @@ const HelperWebcam = new Lang.Class({
     getNameDevices: function() {
         Lib.TalkativeLog('-@-get name devices');
 
-        var tmpArray = new Array();
+        var tmpArray = [];
         for (var index in ListDevices) {
             tmpArray.push(ListDevices[index].display_name);
         }
@@ -194,7 +194,7 @@ const HelperWebcam = new Lang.Class({
      * get array caps
      */
     getListCapsDevice: function(device) {
-        var tmpArray = new Array();
+        var tmpArray = [];
         tmpArray = ListCaps[device];
         Lib.TalkativeLog('-@-list caps of device: ' + tmpArray);
 

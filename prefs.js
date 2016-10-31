@@ -95,7 +95,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         builder.set_translation_domain(
             'EasyScreenCast@iacopodeenosee.gmail.com');
 
-        if (builder.add_from_file(uiFilePath) == 0) {
+        if (builder.add_from_file(uiFilePath) === 0) {
             Lib.TalkativeLog('-^-could not load the ui file: ' + format(uiFilePath));
 
             let label = new Gtk.Label({
@@ -335,7 +335,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                 tmpFolder === null ||
                 tmpFolder === undefined) {
                 var res = (Lib.getResultCmd(['xdg-user-dir', 'VIDEOS']))
-                    .replace(/(\n)/g, "");;
+                    .replace(/(\n)/g, "");
                 if (res !== null) {
                     Lib.TalkativeLog('-^-xdg-user video: ' + res);
                     tmpFolder = res;
@@ -695,14 +695,14 @@ function getOption(type, key) {
 
         default:
             return 'ERROR';
-    };
+    }
     return '';
 }
 
 //getter option
 function getGSPstd(audio) {
 
-    //TO-DO update gsp
+    //TODO update gsp
     if (audio) {
         return 'queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! videorate ! vp8enc min_quantizer=0 max_quantizer=5 cpu-used=3 deadline=1000000 threads=%T ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mux. pulsesrc ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! audioconvert ! vorbisenc ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mux. webmmux name=mux ';
     } else {
@@ -737,10 +737,9 @@ function setOption(key, option) {
 
         default:
             return 'ERROR';
-    };
+    }
     return '';
 }
-
 
 function checkSettings() {
     if (settings === null) {
@@ -756,4 +755,4 @@ function buildPrefsWidget() {
     widget.show_all();
 
     return widget;
-};
+}
