@@ -1,0 +1,24 @@
+{
+  "name": "easyscreencast",
+  "version": "",
+  "description": "EasyScreenCast simplifies the use of the video recording function integrated in gnome shell, allows quickly to change the various settings of the desktop recording. Copyright (C) 2013-16 Borsato Ivano. - [Web Page](http://iacopodeenosee.wordpress.com/) - [GNOME Shell Extensions Page](https://extensions.gnome.org/extension/690/easyscreencast/) - [Video](https://youtu.be/81E9AruraKU)",
+  "main": "",
+  "scripts": {
+    "test": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iacopodeenosee/EasyScreenCast.git"
+  },
+  "author": "",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/iacopodeenosee/EasyScreenCast/issues"
+  },
+  "homepage": "https://github.com/iacopodeenosee/EasyScreenCast",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-jshint": "^2.0.2",
+    "jshint": "^2.9.4"
+  }
+}
