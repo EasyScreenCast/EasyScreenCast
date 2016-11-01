@@ -26,7 +26,7 @@ there are a few thing to do, open a terminal and enter:
 1-download from github last version
 
 ```
-git clone https://github.com/iacopodeenosee/EasyScreenCast
+git clone https://github.com/EasyScreenCast/EasyScreenCast
 ```
 
 2-move the entire directory to gnome shell extension home
