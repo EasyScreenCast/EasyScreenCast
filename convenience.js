@@ -97,7 +97,7 @@ function TalkativeLog(msg) {
     if (Pref.getOption('b', Pref.VERBOSE_DEBUG_SETTING_KEY)) {
         global.log('[ESC]' + msg);
     }
-};
+}
 
 function getResultCmd(cmd) {
     let [res, out] = GLib.spawn_sync(null,
@@ -106,12 +106,12 @@ function getResultCmd(cmd) {
         GLib.SpawnFlags.SEARCH_PATH,
         null);
 
-    if (out == null) {
+    if (out === null) {
         return null;
     } else {
         return out.toString();
     }
-};
+}
 
 /*
 ////////////////////////////////////////////////////////////////////////////////

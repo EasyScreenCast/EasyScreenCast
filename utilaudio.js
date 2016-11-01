@@ -39,11 +39,11 @@ const MixerAudio = new Lang.Class({
             if (Pref.getOption('b', Pref.VERBOSE_DEBUG_SETTING_KEY)) {
                 MixerControl.connect("stream_added",
                     Lang.bind(this, function(control, id) {
-                        this._onStreamAdd(control, id)
+                        this._onStreamAdd(control, id);
                     }));
                 MixerControl.connect("stream_removed",
                     Lang.bind(this, function(control, id) {
-                        this._onStreamRemove(control, id)
+                        this._onStreamRemove(control, id);
                     }));
             }
         } else {
@@ -107,7 +107,7 @@ const MixerAudio = new Lang.Class({
 
         if (isConnected) {
             var tmp = MixerControl.get_sources();
-            var arrayTmp = new Array();
+            var arrayTmp = [];
 
             var tmpSinks = MixerControl.get_sinks();
             Lib.TalkativeLog('-#-Mixer sink -> ' + tmpSinks.length);
