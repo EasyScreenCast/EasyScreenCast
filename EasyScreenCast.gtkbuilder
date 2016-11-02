@@ -1261,7 +1261,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <property name="relief">none</property>
-            <property name="uri">https://github.com/iacopodeenosee/EasyScreenCast/issues</property>
+            <property name="uri">https://github.com/EasyScreenCast/EasyScreenCast/issues</property>
           </object>
           <packing>
             <property name="expand">True</property>
