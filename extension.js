@@ -84,7 +84,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         }
 
         //add icon
-        this.indicatorBox = new St.BoxLayout;
+        this.indicatorBox = new St.BoxLayout();
         this.indicatorIcon = new St.Icon({
             gicon: Lib.ESCoffGIcon,
             icon_size: 16
@@ -101,7 +101,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this._addMIRecording();
 
         //add separetor menu
-        this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem);
+        this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
 
         //add sub menu audio recording
         this._addSubMenuAudioRec();
@@ -116,7 +116,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this._addSubMenuDelayRec();
 
         //add separetor menu
-        this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem);
+        this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
 
         //add option menu entry
         this.imOptions = new PopupMenu.PopupMenuItem(_('Options'));
@@ -149,7 +149,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
     },
 
     _addMIRecording: function() {
-        this.imRecordAction = new PopupMenu.PopupBaseMenuItem;
+        this.imRecordAction = new PopupMenu.PopupBaseMenuItem();
         this.RecordingLabel = new St.Label({
             text: _('Start recording'),
             style_class: 'RecordAction-label',
