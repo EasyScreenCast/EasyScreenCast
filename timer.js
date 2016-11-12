@@ -184,11 +184,13 @@ const TimerCounting = new Lang.Class({
     halt: function() {
         isRunning = false;
     },
+
     /**
-     * The internal callback-function.
+     * The internal callback-function. Calls a function that handles
+     * the desktop notifications and one that sets the time label next
+     * to the icon.
      */
     _callbackInternal: function() {
-
         if (isRunning === false) {
             Lib.TalkativeLog('-%-finish TimerCounting ');
 
@@ -196,6 +198,7 @@ const TimerCounting = new Lang.Class({
             secpassed = 0;
 
             this.stop();
+            this.Scope.updateTimeLabel("");
 
             return false;
         } else {
@@ -204,6 +207,7 @@ const TimerCounting = new Lang.Class({
             Lib.TalkativeLog('-%-continued TimerCounting | sec: ' + secpassed);
 
             CallbackFuncCounting.apply(this.Scope, [secpassed, false]);
+            this.Scope.updateTimeLabel(secpassed);
 
             return true;
         }
