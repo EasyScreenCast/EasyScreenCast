@@ -104,6 +104,11 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
 
         //add sub menu audio recording
+        this.smAudioRec = new PopupMenu.PopupSubMenuMenuItem(
+             _('No audio source'), true
+        );
+        this.smAudioRec.icon.icon_name = 'audio-input-microphone-symbolic';
+        this.menu.addMenuItem(this.smAudioRec);
         this._addSubMenuAudioRec();
 
         //add sub menu webcam recording
@@ -129,6 +134,12 @@ const EasyScreenCast_Indicator = new Lang.Class({
             'activate', Lang.bind(this, this._doExtensionPreferences));
     },
 
+     /* Left clicking on the icon toggles the recording
+      * options menu. Any other mouse button will start
+      * the recording.
+      * Some submenus are refreshed to account for new
+      * sources.
+     */
     _onButtonPress: function(actor, event) {
         let button = event.get_button();
 
@@ -173,24 +184,18 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.menu.addMenuItem(this.imRecordAction);
     },
 
+    /* Refreshes the submenu for audio recording sources.
+     */
     _addSubMenuAudioRec: function() {
-        if (this.smAudioRec === null || this.smAudioRec === undefined) {
-            Lib.TalkativeLog('-*-create new sub menu audio');
-            this.smAudioRec = new PopupMenu.PopupSubMenuMenuItem(
-                _('No audio source'), true);
-            this.smAudioRec.icon.icon_name = 'audio-input-microphone-symbolic';
-        } else {
-            Lib.TalkativeLog('-*-reset the sub menu audio');
-            //remove old menu item
-            this.smAudioRec.menu.removeAll();
-        }
+        Lib.TalkativeLog('-*-reset the sub menu audio');
+        //remove old menu items
+        this.smAudioRec.menu.removeAll();
 
+        Lib.TalkativeLog('-*-add new items to sub menu audio');
         var arrMI = this._createMIAudioRec();
         for (var ele in arrMI) {
             this.smAudioRec.menu.addMenuItem(arrMI[ele]);
         }
-
-        this.menu.addMenuItem(this.smAudioRec);
     },
 
     _addSubMenuWebCam: function() {
