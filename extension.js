@@ -83,13 +83,20 @@ const EasyScreenCast_Indicator = new Lang.Class({
             this.isDelayActive = false;
         }
 
-        //add icon
+        // Add the title bar icon and label for time display
         this.indicatorBox = new St.BoxLayout();
         this.indicatorIcon = new St.Icon({
             gicon: Lib.ESCoffGIcon,
             icon_size: 16
         });
+        this.timeLabel = new St.Label({
+            text: "",
+            style_class: 'time-label',
+            y_expand: true,
+            y_align: Clutter.ActorAlign.CENTER
+        });
 
+        this.indicatorBox.add_actor(this.timeLabel);
         this.indicatorBox.add_actor(this.indicatorIcon);
 
         //init var
@@ -132,6 +139,35 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.menu.addMenuItem(this.imOptions);
         this.imOptions.connect(
             'activate', Lang.bind(this, this._doExtensionPreferences));
+    },
+
+    /**
+    * Set a new value for the time label. Integers are
+    * converted to seconds, minutes, hours. All other
+    * values are converted to strings.
+    */
+    updateTimeLabel: function(newValue) {
+        function padZeros(number) {
+            if (number < 10) {
+                number = "0" + number;
+            }
+
+            return number.toString()
+        }
+
+        if (typeof(newValue) == "number") {
+            let hours = Math.floor(newValue / 3600);
+            newValue = newValue - hours * 3600;
+
+            let minutes = Math.floor(newValue / 60);
+            newValue = newValue - minutes * 60;
+
+            newValue = padZeros(hours) +
+                 ':' + padZeros(minutes) +
+                 ':' + padZeros(newValue);
+        }
+
+        this.timeLabel.set_text(newValue.toString());
     },
 
      /* Left clicking on the icon toggles the recording
