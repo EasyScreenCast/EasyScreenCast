@@ -32,7 +32,7 @@ const GLib = imports.gi.GLib;
 const Config = imports.misc.config;
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
-const Pref = Me.imports.prefs;
+const Settings = Me.imports.settings;
 
 /**
  * initTranslations:
@@ -94,7 +94,7 @@ function getSettings(schema) {
 ////////////////////////////////////////////////////////////////////////////////
 */
 function TalkativeLog(msg) {
-    if (Pref.getOption('b', Pref.VERBOSE_DEBUG_SETTING_KEY)) {
+    if (Settings.getOption('b', Settings.VERBOSE_DEBUG_SETTING_KEY)) {
         global.log('[ESC]' + msg);
     }
 }

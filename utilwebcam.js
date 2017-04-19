@@ -19,7 +19,6 @@ const Gst = imports.gi.Gst;
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Lib = Me.imports.convenience;
-const Pref = Me.imports.prefs;
 
 Gst.init(null);
 

@@ -32,7 +32,7 @@ const _ = Gettext.gettext;
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Lib = Me.imports.convenience;
-const Pref = Me.imports.prefs;
+const Settings = Me.imports.settings;
 const Time = Me.imports.timer;
 const UtilRecorder = Me.imports.utilrecorder;
 const UtilAudio = Me.imports.utilaudio;
@@ -63,9 +63,9 @@ const EasyScreenCast_Indicator = new Lang.Class({
         //check audio
         if (!this.CtrlAudio.checkAudio()) {
             Lib.TalkativeLog('-*-disable audio recording');
-            Pref.setOption(Pref.INPUT_AUDIO_SOURCE_SETTING_KEY, 0);
-            Pref.setOption(Pref.ACTIVE_CUSTOM_GSP_SETTING_KEY,
-                Pref.getGSPstd(false));
+            Settings.setOption(Settings.INPUT_AUDIO_SOURCE_SETTING_KEY, 0);
+            Settings.setOption(Settings.ACTIVE_CUSTOM_GSP_SETTING_KEY,
+                Settings.getGSPstd(false));
         }
 
         //add enter/leave/click event
@@ -77,7 +77,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
             'button_press_event', Lang.bind(this, this._onButtonPress, false));
 
         //prepare setting var
-        if (Pref.getOption('i', Pref.TIME_DELAY_SETTING_KEY) > 0) {
+        if (Settings.getOption('i', Settings.TIME_DELAY_SETTING_KEY) > 0) {
             this.isDelayActive = true;
         } else {
             this.isDelayActive = false;
@@ -189,8 +189,8 @@ const EasyScreenCast_Indicator = new Lang.Class({
             if (this.menu.isOpen) {
                 this.menu.close();
             }
-            this.isShowNotify = Pref.getOption(
-                'b', Pref.SHOW_NOTIFY_ALERT_SETTING_KEY);
+            this.isShowNotify = Settings.getOption(
+                'b', Settings.SHOW_NOTIFY_ALERT_SETTING_KEY);
             this._doRecording();
         }
     },
@@ -211,8 +211,8 @@ const EasyScreenCast_Indicator = new Lang.Class({
         });
 
         this.imRecordAction.connect('activate', Lang.bind(this, function() {
-            this.isShowNotify = Pref.getOption(
-                'b', Pref.SHOW_NOTIFY_ALERT_SETTING_KEY);
+            this.isShowNotify = Settings.getOption(
+                'b', Settings.SHOW_NOTIFY_ALERT_SETTING_KEY);
 
             this._doRecording();
         }));
@@ -243,8 +243,8 @@ const EasyScreenCast_Indicator = new Lang.Class({
         }
 
         this.smWebCam.label.text =
-            this.WebCamDevice[Pref.getOption(
-                'i', Pref.DEVICE_WEBCAM_SETTING_KEY)];
+            this.WebCamDevice[Settings.getOption(
+                'i', Settings.DEVICE_WEBCAM_SETTING_KEY)];
 
         this.menu.addMenuItem(this.smWebCam);
     },
@@ -259,7 +259,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         }
 
         this.smAreaRec.label.text =
-            this.AreaType[Pref.getOption('i', Pref.AREA_SCREEN_SETTING_KEY)];
+            this.AreaType[Settings.getOption('i', Settings.AREA_SCREEN_SETTING_KEY)];
 
         this.menu.addMenuItem(this.smAreaRec);
     },
@@ -273,7 +273,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
             this.smDelayRec.menu.addMenuItem(arrMI[ele]);
         }
 
-        var secDelay = Pref.getOption('i', Pref.TIME_DELAY_SETTING_KEY);
+        var secDelay = Settings.getOption('i', Settings.TIME_DELAY_SETTING_KEY);
         if (secDelay > 0) {
             this.smDelayRec.label.text = secDelay + _(' sec. delay before recording');
         } else {
@@ -304,7 +304,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
                     this.connect('activate',
                         Lang.bind(this, function() {
                             Lib.TalkativeLog('-*-set area recording to ' + i + ' ' + arr[i]);
-                            Pref.setOption(Pref.AREA_SCREEN_SETTING_KEY, i);
+                            Settings.setOption(Settings.AREA_SCREEN_SETTING_KEY, i);
 
                             item.label.text = arr[i];
                         }));
@@ -337,7 +337,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
                     this.connect('activate',
                         Lang.bind(this, function() {
                             Lib.TalkativeLog('-*-set webcam device to ' + i + ' ' + arr[i]);
-                            Pref.setOption(Pref.DEVICE_WEBCAM_SETTING_KEY, i);
+                            Settings.setOption(Settings.DEVICE_WEBCAM_SETTING_KEY, i);
 
                             item.label.text = arr[i];
                         }));
@@ -394,8 +394,8 @@ const EasyScreenCast_Indicator = new Lang.Class({
             }), 1);
 
             //update choice audio from pref
-            if (i === Pref.getOption(
-                    'i', Pref.INPUT_AUDIO_SOURCE_SETTING_KEY)) {
+            if (i === Settings.getOption(
+                    'i', Settings.INPUT_AUDIO_SOURCE_SETTING_KEY)) {
                 Lib.TalkativeLog('-*-get audio choice from pref ' + i);
                 this.smAudioRec.label.text = this.AudioChoice[i].desc;
             }
@@ -406,8 +406,8 @@ const EasyScreenCast_Indicator = new Lang.Class({
                     this.connect('activate',
                         Lang.bind(this, function() {
                             Lib.TalkativeLog('-*-set audio choice to ' + i);
-                            Pref.setOption(
-                                Pref.INPUT_AUDIO_SOURCE_SETTING_KEY, i);
+                            Settings.setOption(
+                                Settings.INPUT_AUDIO_SOURCE_SETTING_KEY, i);
 
                             item.label.text = arr[i].desc;
                         }));
@@ -425,8 +425,8 @@ const EasyScreenCast_Indicator = new Lang.Class({
         });
 
         this.DelayTimeLabel = new St.Label({
-            text: Math.floor(Pref.getOption('i',
-                Pref.TIME_DELAY_SETTING_KEY)).toString() + _(' Sec')
+            text: Math.floor(Settings.getOption('i',
+                Settings.TIME_DELAY_SETTING_KEY)).toString() + _(' Sec')
         });
         this.DelayTimeTitle.actor.add_child(this.DelayTimeLabel, {
             align: St.Align.END
@@ -435,8 +435,8 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.imSliderDelay = new PopupMenu.PopupBaseMenuItem({
             activate: false
         });
-        this.TimeSlider = new Slider.Slider(Pref.getOption('i',
-            Pref.TIME_DELAY_SETTING_KEY) / 100);
+        this.TimeSlider = new Slider.Slider(Settings.getOption('i',
+            Settings.TIME_DELAY_SETTING_KEY) / 100);
         this.TimeSlider.connect(
             'value-changed', Lang.bind(this, function(item) {
                 this.DelayTimeLabel.set_text(
@@ -495,7 +495,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
             pathFile = '';
 
             //get selected area
-            var optArea = (Pref.getOption('i', Pref.AREA_SCREEN_SETTING_KEY));
+            var optArea = (Settings.getOption('i', Settings.AREA_SCREEN_SETTING_KEY));
             if (optArea > 0) {
                 Lib.TalkativeLog('-*-type of selection of the area to record: ' + optArea);
                 switch (optArea) {
@@ -526,11 +526,11 @@ const EasyScreenCast_Indicator = new Lang.Class({
             }
 
             //execute post-command
-            if (Pref.getOption('b', Pref.ACTIVE_POST_CMD_SETTING_KEY)) {
+            if (Settings.getOption('b', Settings.ACTIVE_POST_CMD_SETTING_KEY)) {
                 Lib.TalkativeLog('-*-execute post command');
 
                 //launch cmd after registration
-                var tmpCmd = Pref.getOption('s', Pref.POST_CMD_SETTING_KEY);
+                var tmpCmd = Settings.getOption('s', Settings.POST_CMD_SETTING_KEY);
 
                 var mapObj = {
                     _fpath: pathFile,
@@ -559,8 +559,8 @@ const EasyScreenCast_Indicator = new Lang.Class({
 
             Lib.TalkativeLog('-*-record OK');
             //update indicator
-            var indicators = Pref.getOption(
-                'i', Pref.STATUS_INDICATORS_SETTING_KEY);
+            var indicators = Settings.getOption(
+                'i', Settings.STATUS_INDICATORS_SETTING_KEY);
             this._replaceStdIndicator(indicators === 1 || indicators === 3);
 
             if (this.isShowNotify) {
@@ -602,7 +602,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
     _onDelayTimeChanged: function() {
 
         var secDelay = Math.floor(this.TimeSlider.value * 100);
-        Pref.setOption(Pref.TIME_DELAY_SETTING_KEY, secDelay);
+        Settings.setOption(Settings.TIME_DELAY_SETTING_KEY, secDelay);
         if (secDelay > 0) {
             this.smDelayRec.label.text = secDelay + _(' sec. delay before recording');
         } else {
@@ -613,8 +613,8 @@ const EasyScreenCast_Indicator = new Lang.Class({
     refreshIndicator: function(param1, param2, focus) {
         Lib.TalkativeLog('-*-refresh indicator -A ' + isActive + ' -F ' + focus);
 
-        var indicators = Pref.getOption(
-            'i', Pref.STATUS_INDICATORS_SETTING_KEY);
+        var indicators = Settings.getOption(
+            'i', Settings.STATUS_INDICATORS_SETTING_KEY);
 
         if (isActive === true) {
             if (indicators === 0 || indicators === 1) {
@@ -655,12 +655,12 @@ const EasyScreenCast_Indicator = new Lang.Class({
     },
 
     _enableKeybindings: function() {
-        if (Pref.getOption('b', Pref.ACTIVE_SHORTCUT_SETTING_KEY)) {
+        if (Settings.getOption('b', Settings.ACTIVE_SHORTCUT_SETTING_KEY)) {
             Lib.TalkativeLog('-*-enable keybinding');
 
             Main.wm.addKeybinding(
-                Pref.SHORTCUT_KEY_SETTING_KEY,
-                Pref.settings,
+                Settings.SHORTCUT_KEY_SETTING_KEY,
+                Settings.settings,
                 Meta.KeyBindingFlags.NONE,
                 Shell.ActionMode.NORMAL |
                 Shell.ActionMode.MESSAGE_TRAY |
@@ -675,10 +675,10 @@ const EasyScreenCast_Indicator = new Lang.Class({
     },
 
     _removeKeybindings: function() {
-        if (Pref.getOption('b', Pref.ACTIVE_SHORTCUT_SETTING_KEY)) {
+        if (Settings.getOption('b', Settings.ACTIVE_SHORTCUT_SETTING_KEY)) {
             Lib.TalkativeLog('-*-remove keybinding');
 
-            Main.wm.removeKeybinding(Pref.SHORTCUT_KEY_SETTING_KEY);
+            Main.wm.removeKeybinding(Settings.SHORTCUT_KEY_SETTING_KEY);
         }
     },
 

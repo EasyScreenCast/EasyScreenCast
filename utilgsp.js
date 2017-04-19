@@ -15,7 +15,7 @@
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Lib = Me.imports.convenience;
-const Pref = Me.imports.prefs;
+const Settings = Me.imports.settings;
 const UtilAudio = Me.imports.utilaudio;
 
 // CONST GSP - base
@@ -221,18 +221,18 @@ function composeGSP() {
     this.tmpGSP = '';
 
     //retrieve options
-    let Device_Webcam = Pref.getOption(
-        'i', Pref.DEVICE_WEBCAM_SETTING_KEY);
-    let Device_Audio = Pref.getOption(
-        'i', Pref.INPUT_AUDIO_SOURCE_SETTING_KEY);
-    let QualityGSP = Pref.getOption(
-        'i', Pref.QUALITY_SETTING_KEY);
-    let QualityWebcam = Pref.getOption(
-        's', Pref.QUALITY_WEBCAM_SETTING_KEY);
-    let Resolution = Pref.getOption(
-        'i', Pref.FILE_RESOLUTION_SETTING_KEY);
-    let Container = Pref.getOption(
-        'i', Pref.FILE_CONTAINER_SETTING_KEY);
+    let Device_Webcam = Settings.getOption(
+        'i', Settings.DEVICE_WEBCAM_SETTING_KEY);
+    let Device_Audio = Settings.getOption(
+        'i', Settings.INPUT_AUDIO_SOURCE_SETTING_KEY);
+    let QualityGSP = Settings.getOption(
+        'i', Settings.QUALITY_SETTING_KEY);
+    let QualityWebcam = Settings.getOption(
+        's', Settings.QUALITY_WEBCAM_SETTING_KEY);
+    let Resolution = Settings.getOption(
+        'i', Settings.FILE_RESOLUTION_SETTING_KEY);
+    let Container = Settings.getOption(
+        'i', Settings.FILE_CONTAINER_SETTING_KEY);
 
     Lib.TalkativeLog('-§-get option||devW: ' + Device_Webcam + '||devA: ' + Device_Audio + '||Qgsp: ' + QualityGSP + '||Qwc: ' + QualityWebcam + '||Res: ' + Resolution + '||Cont: ' + Container);
 
@@ -421,11 +421,11 @@ function composeWebCamOption() {
     Lib.TalkativeLog('-§-compose webcam option');
 
     //retrieve option webcam
-    var WC_Alpha = Pref.getOption('d', Pref.ALPHA_CHANNEL_WEBCAM_SETTING_KEY);
-    var WC_marginX = Pref.getOption('i', Pref.MARGIN_X_WEBCAM_SETTING_KEY);
-    var WC_marginY = Pref.getOption('i', Pref.MARGIN_Y_WEBCAM_SETTING_KEY);
-    var WC_posCorner = Pref.getOption(
-        'i', Pref.CORNER_POSITION_WEBCAM_SETTING_KEY);
+    var WC_Alpha = Settings.getOption('d', Settings.ALPHA_CHANNEL_WEBCAM_SETTING_KEY);
+    var WC_marginX = Settings.getOption('i', Settings.MARGIN_X_WEBCAM_SETTING_KEY);
+    var WC_marginY = Settings.getOption('i', Settings.MARGIN_Y_WEBCAM_SETTING_KEY);
+    var WC_posCorner = Settings.getOption(
+        'i', Settings.CORNER_POSITION_WEBCAM_SETTING_KEY);
 
     var [WC_w, WC_h, SCR_w, SCR_h] = getWebCamDimension();
 
@@ -479,13 +479,13 @@ function composeWebCamOption() {
 function getWebCamDimension() {
     Lib.TalkativeLog('-§-get webcam dimension');
 
-    var WC_w = Pref.getOption('i', Pref.WIDTH_WEBCAM_SETTING_KEY);
-    var WC_h = Pref.getOption('i', Pref.HEIGHT_WEBCAM_SETTING_KEY);
-    var WC_DimType = Pref.getOption('i', Pref.TYPE_UNIT_WEBCAM_SETTING_KEY);
+    var WC_w = Settings.getOption('i', Settings.WIDTH_WEBCAM_SETTING_KEY);
+    var WC_h = Settings.getOption('i', Settings.HEIGHT_WEBCAM_SETTING_KEY);
+    var WC_DimType = Settings.getOption('i', Settings.TYPE_UNIT_WEBCAM_SETTING_KEY);
 
-    var SCR_w = Pref.getOption('i', Pref.WIDTH_SETTING_KEY);
-    var SCR_h = Pref.getOption('i', Pref.HEIGHT_SETTING_KEY);
-    if (Pref.getOption('i', Pref.AREA_SCREEN_SETTING_KEY) === 0) {
+    var SCR_w = Settings.getOption('i', Settings.WIDTH_SETTING_KEY);
+    var SCR_h = Settings.getOption('i', Settings.HEIGHT_SETTING_KEY);
+    if (Settings.getOption('i', Settings.AREA_SCREEN_SETTING_KEY) === 0) {
         SCR_w = global.screen_width;
         SCR_h = global.screen_height;
     }

@@ -22,7 +22,7 @@ const LibRecorder = imports.ui.screencast;
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Lib = Me.imports.convenience;
-const Pref = Me.imports.prefs;
+const Settings = Me.imports.settings;
 const Selection = Me.imports.selection;
 const UtilGSP = Me.imports.utilgsp;
 const Ext = Me.imports.extension;
@@ -62,19 +62,19 @@ const CaptureVideo = new Lang.Class({
         this.recordingActive = false;
 
         //prepare variable for screencast
-        var fileRec = Pref.getOption('s', Pref.FILE_NAME_SETTING_KEY) +
-            UtilGSP.getFileExtension(Pref.getOption(
-                'i', Pref.FILE_CONTAINER_SETTING_KEY));
+        var fileRec = Settings.getOption('s', Settings.FILE_NAME_SETTING_KEY) +
+            UtilGSP.getFileExtension(Settings.getOption(
+                'i', Settings.FILE_CONTAINER_SETTING_KEY));
 
-        if (Pref.getOption('s', Pref.FILE_FOLDER_SETTING_KEY) !== '')
-            fileRec = Pref.getOption('s', Pref.FILE_FOLDER_SETTING_KEY) +
+        if (Settings.getOption('s', Settings.FILE_FOLDER_SETTING_KEY) !== '')
+            fileRec = Settings.getOption('s', Settings.FILE_FOLDER_SETTING_KEY) +
             '/' + fileRec;
 
         let pipelineRec = '';
 
-        if (Pref.getOption('b', Pref.ACTIVE_CUSTOM_GSP_SETTING_KEY)) {
-            pipelineRec = Pref.getOption('s',
-                Pref.PIPELINE_REC_SETTING_KEY);
+        if (Settings.getOption('b', Settings.ACTIVE_CUSTOM_GSP_SETTING_KEY)) {
+            pipelineRec = Settings.getOption('s',
+                Settings.PIPELINE_REC_SETTING_KEY);
         } else {
             //compose GSP
             pipelineRec = UtilGSP.composeGSP();
@@ -84,14 +84,14 @@ const CaptureVideo = new Lang.Class({
 
         var optionsRec = {
             'draw-cursor': new GLib.Variant(
-                'b', Pref.getOption('b', Pref.DRAW_CURSOR_SETTING_KEY)),
+                'b', Settings.getOption('b', Settings.DRAW_CURSOR_SETTING_KEY)),
             'framerate': new GLib.Variant(
-                'i', Pref.getOption('i', Pref.FPS_SETTING_KEY)),
+                'i', Settings.getOption('i', Settings.FPS_SETTING_KEY)),
             'pipeline': new GLib.Variant(
                 's', pipelineRec)
         };
 
-        if (Pref.getOption('i', Pref.AREA_SCREEN_SETTING_KEY) === 0) {
+        if (Settings.getOption('i', Settings.AREA_SCREEN_SETTING_KEY) === 0) {
             ScreenCastService.ScreencastRemote(fileRec, optionsRec,
                 Lang.bind(this, function(result, error) {
                     if (error) {
@@ -106,11 +106,11 @@ const CaptureVideo = new Lang.Class({
                 })
             );
         } else {
-            ScreenCastService.ScreencastAreaRemote(Pref.getOption(
-                    'i', Pref.X_POS_SETTING_KEY), Pref.getOption(
-                    'i', Pref.Y_POS_SETTING_KEY), Pref.getOption(
-                    'i', Pref.WIDTH_SETTING_KEY), Pref.getOption(
-                    'i', Pref.HEIGHT_SETTING_KEY),
+            ScreenCastService.ScreencastAreaRemote(Settings.getOption(
+                    'i', Settings.X_POS_SETTING_KEY), Settings.getOption(
+                    'i', Settings.Y_POS_SETTING_KEY), Settings.getOption(
+                    'i', Settings.WIDTH_SETTING_KEY), Settings.getOption(
+                    'i', Settings.HEIGHT_SETTING_KEY),
                 fileRec, optionsRec,
                 Lang.bind(this, function(result, error) {
                     if (error) {
@@ -122,8 +122,8 @@ const CaptureVideo = new Lang.Class({
                         Lib.TalkativeLog('-&-screencast execute - ' + result[0] + ' - ' + result[1]);
 
                         //draw area recording
-                        if (Pref.getOption(
-                                'b', Pref.SHOW_AREA_REC_SETTING_KEY)) {
+                        if (Settings.getOption(
+                                'b', Settings.SHOW_AREA_REC_SETTING_KEY)) {
                             this.AreaSelected = new Selection.AreaRecording();
                         }
 
