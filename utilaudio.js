@@ -17,7 +17,7 @@ const Lang = imports.lang;
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Lib = Me.imports.convenience;
-const Pref = Me.imports.prefs;
+const Settings = Me.imports.settings;
 
 let MixerControl = null;
 let isConnected = false;
@@ -36,7 +36,7 @@ const MixerAudio = new Lang.Class({
                 Lang.bind(this, this._onChangeStatePAC));
 
             //more log for debug
-            if (Pref.getOption('b', Pref.VERBOSE_DEBUG_SETTING_KEY)) {
+            if (Settings.getOption('b', Settings.VERBOSE_DEBUG_SETTING_KEY)) {
                 MixerControl.connect("stream_added",
                     Lang.bind(this, function(control, id) {
                         this._onStreamAdd(control, id);
@@ -90,7 +90,7 @@ const MixerAudio = new Lang.Class({
                 isConnected = true;
 
                 //more log for debug
-                if (Pref.getOption('b', Pref.VERBOSE_DEBUG_SETTING_KEY)) {
+                if (Settings.getOption('b', Settings.VERBOSE_DEBUG_SETTING_KEY)) {
                     this._getInfoPA();
                 }
 
@@ -157,8 +157,8 @@ const MixerAudio = new Lang.Class({
         Lib.TalkativeLog('-#-get source audio choosen');
 
         var arrtmp = this.getListInputAudio();
-        var index = Pref.getOption(
-            'i', Pref.INPUT_AUDIO_SOURCE_SETTING_KEY) - 2;
+        var index = Settings.getOption(
+            'i', Settings.INPUT_AUDIO_SOURCE_SETTING_KEY) - 2;
         return arrtmp[index].name;
     },
 

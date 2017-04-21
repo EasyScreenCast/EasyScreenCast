@@ -43,7 +43,7 @@ const _ = Gettext.gettext;
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Lib = Me.imports.convenience;
-const Pref = Me.imports.prefs;
+const Settings = Me.imports.settings;
 const Ext = Me.imports.extension;
 const UtilNotify = Me.imports.utilnotify;
 
@@ -159,10 +159,10 @@ const Capture = new Lang.Class({
         Lib.TalkativeLog('-£-selection x:' + x + ' y:' + y +
             ' height:' + h + ' width:' + w);
 
-        Pref.setOption(Pref.X_POS_SETTING_KEY, x);
-        Pref.setOption(Pref.Y_POS_SETTING_KEY, y);
-        Pref.setOption(Pref.HEIGHT_SETTING_KEY, h);
-        Pref.setOption(Pref.WIDTH_SETTING_KEY, w);
+        Settings.setOption(Settings.X_POS_SETTING_KEY, x);
+        Settings.setOption(Settings.Y_POS_SETTING_KEY, y);
+        Settings.setOption(Settings.HEIGHT_SETTING_KEY, h);
+        Settings.setOption(Settings.WIDTH_SETTING_KEY, w);
 
         Ext.Indicator._doDelayAction();
     }
@@ -339,10 +339,10 @@ const AreaRecording = new Lang.Class({
         });
 
 
-        var recX = Pref.getOption('i', Pref.X_POS_SETTING_KEY);
-        var recY = Pref.getOption('i', Pref.Y_POS_SETTING_KEY);
-        var recW = Pref.getOption('i', Pref.WIDTH_SETTING_KEY);
-        var recH = Pref.getOption('i', Pref.HEIGHT_SETTING_KEY);
+        var recX = Settings.getOption('i', Settings.X_POS_SETTING_KEY);
+        var recY = Settings.getOption('i', Settings.Y_POS_SETTING_KEY);
+        var recW = Settings.getOption('i', Settings.WIDTH_SETTING_KEY);
+        var recH = Settings.getOption('i', Settings.HEIGHT_SETTING_KEY);
 
         var tmpH = Main.layoutManager.currentMonitor.height;
         var tmpW = Main.layoutManager.currentMonitor.width;
