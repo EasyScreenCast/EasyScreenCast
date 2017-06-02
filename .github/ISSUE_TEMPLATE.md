@@ -22,6 +22,7 @@
 
 ## Logs
 <!--- Providing logs helps us come up with a solution that is most useful in the real world -->
+ * Use `journalctl /usr/bin/gnome-shell -f` to monitor Gnome shell activity. Maybe the crash will log something.
  * Log, **enable verbose debug logs** into options window, and after that try  
  `journalctl --since=today --no-pager | grep js`
  * webcam info:
@@ -33,10 +34,12 @@
 
 ## Your Environment
 <!--- Include as many relevant details about the environment you experienced the bug in -->
-* where you downloaded the extension?
+* Where did you download the extension?
  [ ] Gnome shell extension website
- [ ] Last release from git repo
- [ ] Last version from git on master branch repo
-* gnome shell version:
+ [ ] From Git (Add commit tag)
+* Gnome shell version:
 
 * Operating System and version:
+
+* Wayland or X?
+
