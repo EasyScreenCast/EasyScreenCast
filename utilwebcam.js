@@ -183,7 +183,11 @@ const HelperWebcam = new Lang.Class({
 
         var tmpArray = [];
         for (var index in ListDevices) {
-            tmpArray.push(ListDevices[index].display_name);
+            var wcName='Unspecified webcam'
+            if(ListDevices[index].display_name!==''){
+              wcName=ListDevices[index].display_name
+            }
+            tmpArray.push(wcName);
         }
 
         Lib.TalkativeLog('-@-list devices name: ' + tmpArray);
