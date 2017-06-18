@@ -34,7 +34,7 @@ const HelperWebcam = new Lang.Class({
         Lib.TalkativeLog('-@-init webcam');
 
         //get gstreamer lib version
-        [M, m, micro, nano] = Gst.version();
+        var [M, m, micro, nano] = Gst.version();
         Lib.TalkativeLog('-@-gstreamer version: ' + M + '.' + m + '.' + micro + '.' + nano);
         if (M === 1 && m >= 8) {
             //gstreamer version equal or higher 1.8
