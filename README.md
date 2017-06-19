@@ -14,7 +14,7 @@ EasyScreenCast simplifies the use of the video recording function integrated in 
 ![GStreamer  pipeline](https://iacopodeenosee.files.wordpress.com/2016/03/gstreamer_pipeline_diagram.jpeg "GSP pipeline")
 
 # License Info
-EasyScreenCast is free software distributed under the GNU GPL. All files are under GPL v3. read > COPYING < for more infomation about license.
+EasyScreenCast is free software distributed under the GNU GPL. All files are under GPL v3. read [COPYING](COPYING.md) for more infomation about license.
 
 # How to install
 there are a few thing to do, open a terminal and enter:
@@ -62,3 +62,17 @@ mkdir -p locale/$lang/LC_MESSAGES
 ```
 msgfmt /locale/$lang.po -o locale/$lang/LC_MESSAGES/EasyScreenCast@iacopodeenosee.gmail.com.mo
 ```
+
+# Converting to GIF
+
+There are a wide variety of video editors that should be able to convert
+the screencasts to GIFs. An easy way to convert a file using the command
+line is:
+
+```
+ffmpeg -i _filepath -pix_fmt rgb24 _dirpath/_filename.gif
+```
+
+For more information see for example:
+
+ - [How do I convert a video to GIF using ffmpeg, with reasonable quality?](https://superuser.com/questions/556029/how-do-i-convert-a-video-to-gif-using-ffmpeg-with-reasonable-quality)
