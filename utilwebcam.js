@@ -183,7 +183,7 @@ const HelperWebcam = new Lang.Class({
 
         var tmpArray = [];
         for (var index in ListDevices) {
-            var wcName='Unspecified webcam'
+            var wcName=_('Unspecified webcam');
             if(ListDevices[index].display_name!==''){
               wcName=ListDevices[index].display_name
             }
