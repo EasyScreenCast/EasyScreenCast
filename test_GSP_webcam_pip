@@ -468,6 +468,23 @@ ximagesrc \
 ! filesink location=screencast.webm
 
 
+
+//DESKTOP RECORDING WITH AUDIO
+gst-launch-1.0  --gst-debug=3 \
+ximagesrc \
+! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0  \
+! videoconvert \
+! vp8enc min_quantizer=4 max_quantizer=13 cpu-used=2 deadline=500000 sharpness=0 target-bitrate=15000 threads=2  \
+! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0  \
+! mux. pulsesrc  \
+! audioconvert  \
+! vorbisenc  \
+! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0  \
+! mux. webmmux name=mux \
+! filesink location=screencast.webm
+
+
+
 //ONLY WEBCAM RECORDING
 gst-launch-1.0  --gst-debug=3 \
 v4l2src do-timestamp=true \
