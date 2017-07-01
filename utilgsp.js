@@ -195,7 +195,7 @@ const RESOLUTION = [
     // NATIVE SCREENCAST RESOLUTION
     '',
     // SD - 480
-    'videoscale ! video/x-raw, width=768, height=480, add-borders=true ! ',
+    'videoscale ! video/x-raw, width=640, height=480, add-borders=true ! ',
     // HD - 720
     'videoscale ! video/x-raw, width=1280, height=720, add-borders=true ! ',
     // FHD - 1080
