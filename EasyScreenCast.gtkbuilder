@@ -1193,7 +1193,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                             <property name="can_focus">False</property>
                             <items>
                               <item id="0" translatable="yes">Native area screen resolution</item>
-                              <item id="1">SD  (480p)  [768x480]</item>
+                              <item id="1">SD  (480p)  [640x480]</item>
                               <item id="2">HD  (720p)  [1280x720]</item>
                               <item id="3">Full HD  (1080p)  [1920x1080]</item>
                               <item id="4">Ultra HD  (2160p)  [3840x2160]</item>
