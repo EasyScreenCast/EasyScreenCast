@@ -242,7 +242,9 @@ const SelectionWindow = new Lang.Class({
             if (this._selectedWindow) {
                 this._capture._stop();
 
-                let tmpM = Main.layoutManager.currentMonitor;
+                var max_height=global.screen_height;
+                var max_width=global.screen_width;
+                Lib.TalkativeLog('-£-global screen area H: '+ max_height + ' W: ' + max_width);
 
                 var [w, h] = this._selectedWindow.get_size();
                 var [wx, wy] = this._selectedWindow.get_position();
@@ -251,11 +253,11 @@ const SelectionWindow = new Lang.Class({
 
                 if (wx < 0) wx = 0;
                 if (wy < 0) wy = 0;
-                if (wx + w > tmpM.width) {
-                    w -= Math.abs((wx + w) - tmpM.width);
+                if (wx + w > max_width) {
+                    w = max_width - wx;
                 }
-                if (wy + h > tmpM.height) {
-                    h -= Math.abs((wy + h) - tmpM.height);
+                if (wy + h > max_height) {
+                    h = max_height - wy;
                 }
 
                 Lib.TalkativeLog('-£-windows post wx: ' + wx + ' wy: ' + wy + ' height: ' + h + ' width: ' + w);
