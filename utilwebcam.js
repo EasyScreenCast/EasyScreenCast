@@ -148,8 +148,9 @@ const HelperWebcam = new Lang.Class({
             var firstOPT = strCaps.indexOf('{ ');
             var lastOPT = strCaps.indexOf(' }');
             var nextMedia = strCaps.indexOf(',', firstOPT);
-            if (strCaps.indexOf(',', firstOPT) + 1 > lastOPT + 2)
-		nextMedia = lastOPT;
+            if (strCaps.indexOf(',', firstOPT) + 1 > lastOPT + 2) {
+                nextMedia = lastOPT;
+            }
 
             var strInitial = strCaps.substr(0, firstOPT);
             var strMedia = strCaps.substring(firstOPT + 2,

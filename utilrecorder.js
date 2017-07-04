@@ -49,8 +49,9 @@ const CaptureVideo = new Lang.Class({
                 if (error) {
                     Lib.TalkativeLog('-&-ERROR(d-bus proxy connected) - ' + error.message);
                     return;
-                } else
+                } else {
                     Lib.TalkativeLog('-&-d-bus proxy connected');
+                }
             })
         );
     },
@@ -66,9 +67,10 @@ const CaptureVideo = new Lang.Class({
             UtilGSP.getFileExtension(Settings.getOption(
                 'i', Settings.FILE_CONTAINER_SETTING_KEY));
 
-        if (Settings.getOption('s', Settings.FILE_FOLDER_SETTING_KEY) !== '')
+        if (Settings.getOption('s', Settings.FILE_FOLDER_SETTING_KEY) !== '') {
             fileRec = Settings.getOption('s', Settings.FILE_FOLDER_SETTING_KEY) +
             '/' + fileRec;
+        }
 
         let pipelineRec = '';
 
@@ -99,8 +101,9 @@ const CaptureVideo = new Lang.Class({
 
                         this.stop();
                         Ext.Indicator.doRecResult(false);
-                    } else
+                    } else {
                         Lib.TalkativeLog('-&-screencast execute - ' + result[0] + ' - ' + result[1]);
+                    }
 
                     Ext.Indicator.doRecResult(result[0], result[1]);
                 })
@@ -145,8 +148,9 @@ const CaptureVideo = new Lang.Class({
                 if (error) {
                     Lib.TalkativeLog('-&-ERROR(screencast stop) - ' + error.message);
                     return false;
-                } else
+                } else {
                     Lib.TalkativeLog('-&-screencast stop - ' + result[0]);
+                }
 
                 //clear area recording
                 if (this.AreaSelected !== null &&
