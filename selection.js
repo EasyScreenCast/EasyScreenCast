@@ -432,9 +432,9 @@ const selectWindow = function(windows, x, y) {
         }
     });
 
-    filtered.sort(function(a, b)
-        (a.get_meta_window().get_layer() <= b.get_meta_window().get_layer())
-    );
+    filtered.sort(function(a, b) {
+        return a.get_meta_window().get_layer() <= b.get_meta_window().get_layer();
+    });
 
     return filtered[0];
 };
