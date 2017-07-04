@@ -152,10 +152,10 @@ const EasyScreenCast_Indicator = new Lang.Class({
                 number = "0" + number;
             }
 
-            return number.toString()
+            return number.toString();
         }
 
-        if (typeof(newValue) == "number") {
+        if (typeof(newValue) === "number") {
             let hours = Math.floor(newValue / 3600);
             newValue = newValue - hours * 3600;
 
