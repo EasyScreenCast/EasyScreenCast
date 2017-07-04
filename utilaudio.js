@@ -18,6 +18,7 @@ const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Lib = Me.imports.convenience;
 const Settings = Me.imports.settings;
+const UtilNotify = Me.imports.utilnotify;
 
 let MixerControl = null;
 let isConnected = false;
@@ -159,7 +160,20 @@ const MixerAudio = new Lang.Class({
         var arrtmp = this.getListInputAudio();
         var index = Settings.getOption(
             'i', Settings.INPUT_AUDIO_SOURCE_SETTING_KEY) - 2;
-        return arrtmp[index].name;
+
+        if(index >= 0 && index < arrtmp.length){
+            return arrtmp[index].name;
+        } else {
+            //set noaudio on audio preferences
+            Settings.setOption(Settings.INPUT_AUDIO_SOURCE_SETTING_KEY, 0);
+            //show notify
+            var CtrlNotify = new UtilNotify.NotifyManager();
+            CtrlNotify.createNotify(
+                    _('There was an error in managing audio sources, please select a correct source'),
+                    Lib.ESCoffGIcon,
+                    true);
+            return '';
+        }
     },
 
 
