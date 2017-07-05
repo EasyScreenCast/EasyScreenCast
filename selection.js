@@ -251,11 +251,18 @@ const SelectionWindow = new Lang.Class({
 
                 Lib.TalkativeLog('-£-windows pre wx: ' + wx + ' wy: ' + wy + ' height: ' + h + '  width: ' + w);
 
-                if (wx < 0) wx = 0;
-                if (wy < 0) wy = 0;
+                if (wx < 0) {
+                    wx = 0;
+                }
+
+                if (wy < 0) {
+                    wy = 0;
+                }
+
                 if (wx + w > max_width) {
                     w = max_width - wx;
                 }
+
                 if (wy + h > max_height) {
                     h = max_height - wy;
                 }
@@ -432,9 +439,9 @@ const selectWindow = function(windows, x, y) {
         }
     });
 
-    filtered.sort(function(a, b)
-        (a.get_meta_window().get_layer() <= b.get_meta_window().get_layer())
-    );
+    filtered.sort(function(a, b) {
+        return a.get_meta_window().get_layer() <= b.get_meta_window().get_layer();
+    });
 
     return filtered[0];
 };

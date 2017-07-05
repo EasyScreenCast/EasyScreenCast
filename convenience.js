@@ -50,10 +50,11 @@ function initTranslations(domain) {
     // otherwise assume that extension has been installed in the
     // same prefix as gnome-shell
     let localeDir = Me.dir.get_child('locale');
-    if (localeDir.query_exists(null))
+    if (localeDir.query_exists(null)) {
         Gettext.bindtextdomain(domain, localeDir.get_path());
-    else
+    } else {
         Gettext.bindtextdomain(domain, Config.LOCALEDIR);
+    }
 }
 
 /**
@@ -76,14 +77,17 @@ function getSettings(schema) {
     // in the standard folders)
     let schemaDir = Me.dir.get_child('schemas');
     let schemaSource;
-    if (schemaDir.query_exists(null))
+    if (schemaDir.query_exists(null)) {
         schemaSource = GioSSS.new_from_directory(schemaDir.get_path(), GioSSS.get_default(), false);
-    else
+    } else {
         schemaSource = GioSSS.get_default();
+    }
 
     let schemaObj = schemaSource.lookup(schema, true);
-    if (!schemaObj)
+
+    if (!schemaObj) {
         throw new Error('Schema ' + schema + ' could not be found for extension ' + Me.metadata.uuid + '. Please check your installation.');
+    }
 
     return new Gio.Settings({
         settings_schema: schemaObj

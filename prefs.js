@@ -311,8 +311,9 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                     function(self) {
                         var tmpPathFolder = self.get_filename();
                         Lib.TalkativeLog('-^-file path get from widget : ' + tmpPathFolder);
-                        if (tmpPathFolder !== null)
+                        if (tmpPathFolder !== null) {
                             Settings.setOption(Settings.FILE_FOLDER_SETTING_KEY, tmpPathFolder);
+                        }
                     })
             );
 
