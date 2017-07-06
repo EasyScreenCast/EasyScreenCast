@@ -45,7 +45,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         // creates the settings
         Settings.checkSettings();
 
-        this.CtrlWebcam = new UtilWebcam.HelperWebcam();
+        this.CtrlWebcam = null;
         this.CtrlExe = new UtilExeCmd.ExecuteStuff(null);
 
         // creates the ui builder and add the main resource file
@@ -503,7 +503,6 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                 }
             });
 
-
         //load file resolution pref and upadte UI
         var tmpRes= Settings.getOption('i',
             Settings.FILE_RESOLUTION_TYPE_SETTING_KEY);
@@ -647,6 +646,14 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         }
         Ref_filechooser_FileFolder.set_filename(tmpFolder);
 
+        Settings.settings.connect('changed::' + Settings.DEVICE_WEBCAM_SETTING_KEY,
+            Lang.bind(this, function() {
+                Lib.TalkativeLog('-^-webcam device changed');
+
+                this._updateStateWebcamOptions();
+            })
+        );
+
         Ref_filechooser_FileFolder.connect('file_set',
             (self) => {
                 var tmpPathFolder = self.get_filename();
@@ -788,6 +795,21 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             this.Ref_ListStore_QualityWebCam.clear();
             Settings.setOption(Settings.QUALITY_WEBCAM_SETTING_KEY, '');
         }
+    },
+
+    /**
+     * Refreshes the webcam settings.
+     */
+    _refreshWebcamOptions: function () {
+        if (this.CtrlWebcam === null) {
+            this.CtrlWebcam = new UtilWebcam.HelperWebcam();
+        }
+
+        //fill combobox with quality option webcam
+        this._updateWebCamCaps(Settings.getOption('i', Settings.DEVICE_WEBCAM_SETTING_KEY));
+
+        //update webcam widget state
+        this._updateStateWebcamOptions();
     },
 
     _updateRowShortcut: function(accel) {
