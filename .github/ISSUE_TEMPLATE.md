@@ -41,5 +41,4 @@
 
 * Operating System and version:
 
-* Wayland or X?
-
+* Display server: Wayland / X11 / Other
