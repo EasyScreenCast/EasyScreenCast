@@ -276,12 +276,8 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                 Settings.FILE_CONTAINER_SETTING_KEY, this.Ref_combobox_Container,
                 'active', Gio.SettingsBindFlags.DEFAULT);
 
-            //implements file container option
-            this.Ref_combobox_Resolution = builder.get_object(
-                'cbt_FileResolution');
-            Settings.settings.bind(
-                Settings.FILE_RESOLUTION_SETTING_KEY, this.Ref_combobox_Resolution,
-                'active', Gio.SettingsBindFlags.DEFAULT);
+            //implements file container resolution
+
 
             //implements file folder string rec option
             this.Ref_filechooser_FileFolder = builder.get_object(

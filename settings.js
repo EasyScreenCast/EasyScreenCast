@@ -53,7 +53,6 @@ const AREA_SCREEN_SETTING_KEY = 'area-screen';
 const FILE_NAME_SETTING_KEY = 'file-name';
 const FILE_FOLDER_SETTING_KEY = 'file-folder';
 const FILE_CONTAINER_SETTING_KEY = 'file-container';
-const FILE_RESOLUTION_SETTING_KEY = 'file-resolution';
 const QUALITY_SETTING_KEY = 'quality-index';
 const DEVICE_WEBCAM_SETTING_KEY = 'device-webcam';
 const QUALITY_WEBCAM_SETTING_KEY = 'quality-webcam';
