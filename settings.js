@@ -12,13 +12,6 @@
     FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
 */
 
-const GLib = imports.gi.GLib;
-const GObject = imports.gi.GObject;
-const Gio = imports.gi.Gio;
-const Gtk = imports.gi.Gtk;
-const Pango = imports.gi.Pango;
-const Lang = imports.lang;
-
 const Gettext = imports.gettext.domain(
     'EasyScreenCast@iacopodeenosee.gmail.com');
 const _ = Gettext.gettext;
@@ -26,8 +19,6 @@ const _ = Gettext.gettext;
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Lib = Me.imports.convenience;
-const UtilWebcam = Me.imports.utilwebcam;
-const UtilGSP = Me.imports.utilgsp;
 
 
 // setting keys
@@ -53,6 +44,10 @@ const AREA_SCREEN_SETTING_KEY = 'area-screen';
 const FILE_NAME_SETTING_KEY = 'file-name';
 const FILE_FOLDER_SETTING_KEY = 'file-folder';
 const FILE_CONTAINER_SETTING_KEY = 'file-container';
+const FILE_RESOLUTION_TYPE_SETTING_KEY = 'file-resolution-type';
+const FILE_RESOLUTION_KAR_SETTING_KEY = 'file-resolution-kar';
+const FILE_RESOLUTION_WIDTH_SETTING_KEY = 'file-resolution-width';
+const FILE_RESOLUTION_HEIGHT_SETTING_KEY = 'file-resolution-height';
 const QUALITY_SETTING_KEY = 'quality-index';
 const DEVICE_WEBCAM_SETTING_KEY = 'device-webcam';
 const QUALITY_WEBCAM_SETTING_KEY = 'quality-webcam';
@@ -102,7 +97,7 @@ function getOption(type, key) {
     return '';
 }
 
-//getter option
+//get a standard gsp pipeline
 function getGSPstd(audio) {
 
     //TODO update gsp

@@ -110,6 +110,26 @@
             <summary>file screencast container</summary>
             <description>file screencast container</description>
         </key>
+	<key name="file-resolution-type" type="i">
+            <default>-1</default>
+            <summary>file screencast resolution type</summary>
+            <description>file screencast resolution type [native(-1),preset(0-99),custom(99)]</description>
+        </key>
+	<key name="file-resolution-kar" type="b">
+            <default>true</default>
+            <summary>file screencast resolution Keep Aspect Ratio</summary>
+            <description>file screencast resolution Keep Aspect Ratio (add borders)</description>
+        </key>
+	<key name="file-resolution-width" type="i">
+            <default>0</default>
+            <summary>file screencast resolution width</summary>
+            <description>file screencast resolution width</description>
+        </key>
+	<key name="file-resolution-height" type="i">
+            <default>0</default>
+            <summary>file screencast resolution height</summary>
+            <description>file screencast resolution height</description>
+        </key>
         <key name="quality-index" type="i">
             <default>1</default>
             <summary>store the quality index option</summary>

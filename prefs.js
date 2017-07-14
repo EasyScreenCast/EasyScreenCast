@@ -611,7 +611,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
 
         Settings.setOption(Settings.TIME_DELAY_SETTING_KEY, 0);
         Settings.setOption(Settings.FILE_CONTAINER_SETTING_KEY, 0);
-        Settings.setOption(Settings.FILE_RESOLUTION_SETTING_KEY, 0);
+        Settings.setOption(Settings.FILE_RESOLUTION_TYPE_SETTING_KEY, -1);
         Settings.setOption(Settings.QUALITY_SETTING_KEY, 1);
         Settings.setOption(Settings.QUALITY_WEBCAM_SETTING_KEY, '');
         Settings.setOption(Settings.WIDTH_WEBCAM_SETTING_KEY, 20);
