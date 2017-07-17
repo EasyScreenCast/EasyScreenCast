@@ -1210,24 +1210,27 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                               <object class="GtkStack" id="stk_FileResolution">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
+                                <property name="margin_top">10</property>
                                 <property name="vhomogeneous">False</property>
                                 <property name="transition_duration">800</property>
                                 <property name="transition_type">slide-up-down</property>
                                 <property name="interpolate_size">True</property>
                                 <child>
-                                  <object class="GtkLabel">
+                                  <object class="GtkLabel" id="chd_FileResolution_Native">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="margin_top">10</property>
                                     <property name="label" translatable="yes">Native area resolution</property>
+                                    <attributes>
+                                      <attribute name="foreground" value="#cccc00000000"/>
+                                    </attributes>
                                   </object>
                                   <packing>
-                                    <property name="name">page0</property>
+                                    <property name="name">native</property>
                                     <property name="title" translatable="yes">Native</property>
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkGrid" id="grid8">
+                                  <object class="GtkGrid" id="chd_FileResolution_Preset">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="margin_top">5</property>
@@ -1247,16 +1250,28 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                                       </packing>
                                     </child>
                                     <child>
-                                      <object class="GtkComboBoxText" id="cbt_FileResolution1">
+                                      <object class="GtkComboBoxText" id="cbt_FileResolution">
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
                                         <property name="halign">start</property>
                                         <property name="hexpand">True</property>
                                         <items>
-                                          <item id="1">SD  (480p)</item>
-                                          <item id="2">HD  (720p)</item>
-                                          <item id="3">Full HD  (1080p)</item>
-                                          <item id="4">Ultra HD  (2160p)</item>
+                                          <item id="0">VGA [480p] [4:3]</item>
+                                          <item id="1">FWVGA [480p] [16:9]</item>
+                                          <item id="2">SVGA [600p] [4:3]</item>
+                                          <item id="3">SMPTE [720p] [4:3]</item>
+                                          <item id="4" translatable="yes">HD [720p] [16:9]</item>
+                                          <item id="5" translatable="yes">XGA [768p] [4:3]</item>
+                                          <item id="6" translatable="yes">HD ready [768p] [16:9]</item>
+                                          <item id="7" translatable="yes">SXGA [1024p] [5:4]</item>
+                                          <item id="8" translatable="yes">Full HD [1080p] [16:9]</item>
+                                          <item id="9" translatable="yes">UXGA [1200p] [4:3]</item>
+                                          <item id="10" translatable="yes">QHD [1440p] [16:9]</item>
+                                          <item id="11" translatable="yes">QSXGA [2048p] [5:4]</item>
+                                          <item id="12" translatable="yes">4K [2160p] [16:9]</item>
+                                          <item id="13" translatable="yes">5K [2880p] [16:9]</item>
+                                          <item id="14" translatable="yes">8K [4320p] [16:9]</item>
+                                          <item id="15" translatable="yes">10K [5760p] [16:9]</item>
                                         </items>
                                       </object>
                                       <packing>
@@ -1266,13 +1281,13 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                                     </child>
                                   </object>
                                   <packing>
-                                    <property name="name">page1</property>
+                                    <property name="name">preset</property>
                                     <property name="title" translatable="yes">Preset</property>
                                     <property name="position">1</property>
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkBox">
+                                  <object class="GtkBox" id="chd_FileResolution_Custom">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="orientation">vertical</property>
@@ -1297,7 +1312,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                                           </packing>
                                         </child>
                                         <child>
-                                          <object class="GtkSpinButton">
+                                          <object class="GtkSpinButton" id="spb_ResWidth">
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
                                             <property name="halign">start</property>
@@ -1316,7 +1331,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                                       </packing>
                                     </child>
                                     <child>
-                                      <object class="GtkScale">
+                                      <object class="GtkScale" id="scl_ResWidth">
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
                                         <property name="round_digits">1</property>
@@ -1348,7 +1363,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                                           </packing>
                                         </child>
                                         <child>
-                                          <object class="GtkSpinButton">
+                                          <object class="GtkSpinButton" id="spb_ResHeight">
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
                                             <property name="halign">start</property>
@@ -1367,7 +1382,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                                       </packing>
                                     </child>
                                     <child>
-                                      <object class="GtkScale">
+                                      <object class="GtkScale" id="scl_ResHeight">
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
                                         <property name="round_digits">1</property>
@@ -1379,7 +1394,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                                       </packing>
                                     </child>
                                     <child>
-                                      <object class="GtkCheckButton">
+                                      <object class="GtkCheckButton" id="chb_FileResolution_kar">
                                         <property name="label" translatable="yes">keep original aspect ratio</property>
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
@@ -1396,7 +1411,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                                     </child>
                                   </object>
                                   <packing>
-                                    <property name="name">page2</property>
+                                    <property name="name">custom</property>
                                     <property name="title" translatable="yes">Custom</property>
                                     <property name="position">2</property>
                                   </packing>
