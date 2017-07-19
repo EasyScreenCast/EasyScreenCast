@@ -354,7 +354,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             let adjustmentResWidth = new Gtk.Adjustment({
                 value: 640,
                 lower: 640,
-                upper: 10240,
+                upper: 3840,
                 step_increment: 1,
                 page_increment: 100
             });
@@ -371,7 +371,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             let adjustmentResHeight = new Gtk.Adjustment({
                 value: 480,
                 lower: 480,
-                upper: 5760,
+                upper: 2160,
                 step_increment: 1,
                 page_increment: 100
             });
@@ -410,7 +410,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
 
             // add marks on width/height file resolution
             //let ind = 0;
-            for (let ind=0; ind < 16; ind++) {
+            for (let ind=0; ind < 13; ind++) {
                 var [h,w]=this._getResolutionPreset(ind);
                 this.Ref_scale_WidthRes.add_mark(w,
                     Gtk.PositionType.BOTTOM, '');
@@ -740,10 +740,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             [1200,1600],
             [1440,2560],
             [2048,2560],
-            [2160,3840],
-            [2880,5120],
-            [4320,7680],
-            [5760,10240]
+            [2160,3840]
             ];
         if (index >= 0 && index < arrRes.length){
             return arrRes[index];

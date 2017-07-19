@@ -1269,9 +1269,6 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                                           <item id="10" translatable="yes">QHD [1440p] [16:9]</item>
                                           <item id="11" translatable="yes">QSXGA [2048p] [5:4]</item>
                                           <item id="12" translatable="yes">4K [2160p] [16:9]</item>
-                                          <item id="13" translatable="yes">5K [2880p] [16:9]</item>
-                                          <item id="14" translatable="yes">8K [4320p] [16:9]</item>
-                                          <item id="15" translatable="yes">10K [5760p] [16:9]</item>
                                         </items>
                                       </object>
                                       <packing>
