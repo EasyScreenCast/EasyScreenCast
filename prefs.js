@@ -600,6 +600,11 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             this.Ref_Label_WebCamCaps = builder.get_object(
                 'lbl_WebcamCaps');
 
+            //implements info img extension
+            this.Ref_image_ESC = builder.get_object(
+                'img_ESC');
+            this.Ref_image_ESC.set_from_file(Lib.ESCimgInfo);
+
             //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
             //update GSP area

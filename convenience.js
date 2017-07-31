@@ -140,9 +140,14 @@ const ESCoffGIconSel = new Gio.FileIcon({
         'images/icon_defaultSel.svg').get_path())
 });
 
+/*
+////////////////////////////////////////////////////////////////////////////////
+*/
 const ESCimgPerformance = Me.dir.get_child(
     'images/Icon_Performance.svg').get_path();
 
-
 const ESCimgQuality = Me.dir.get_child(
     'images/Icon_Quality.svg').get_path();
+
+const ESCimgInfo = Me.dir.get_child(
+    'images/Icon_Info.png').get_path();
