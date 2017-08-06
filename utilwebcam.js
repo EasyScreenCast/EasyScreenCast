@@ -16,6 +16,10 @@ const Lang = imports.lang;
 const GLib = imports.gi.GLib;
 const Gst = imports.gi.Gst;
 
+const Gettext = imports.gettext.domain(
+    'EasyScreenCast@iacopodeenosee.gmail.com');
+const _ = Gettext.gettext;
+
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Lib = Me.imports.convenience;
