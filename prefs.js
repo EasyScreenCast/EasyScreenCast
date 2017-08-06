@@ -539,9 +539,6 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             Lib.TalkativeLog('-^-custom GSP');
 
             this.Ref_stack_Quality.set_visible_child_name('pg_Custom');
-
-            Settings.setOption(Settings.FPS_SETTING_KEY, 30);
-
         } else {
             Lib.TalkativeLog('-^-NOT custom GSP');
 
@@ -552,7 +549,6 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                 audio = true;
             }
             Settings.setOption(Settings.PIPELINE_REC_SETTING_KEY, Settings.getGSPstd(audio));
-
         }
     },
 
