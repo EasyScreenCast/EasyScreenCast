@@ -604,6 +604,12 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             this.Ref_image_ESC = builder.get_object(
                 'img_ESC');
             this.Ref_image_ESC.set_from_file(Lib.ESCimgInfo);
+            
+            //implements info version label 
+            this.Ref_Label_Version = builder.get_object(
+                'lbl_Version');
+            //this.Ref_Label_Version.set_text("Version: " + Me.metadata.version);
+            this.Ref_Label_Version.set_markup("Version: " +'<span color="blue">' + Me.metadata.version + '</span>');
 
             //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 

@@ -713,6 +713,8 @@ function refreshNotify(sec, alertEnd) {
 
 function init(meta) {
     Lib.TalkativeLog('-*-initExtension called');
+    Lib.TalkativeLog('-*-version: ' + meta.metadata.version);
+    Lib.TalkativeLog('-*-install path: ' + meta.path);
 
     Lib.initTranslations('EasyScreenCast@iacopodeenosee.gmail.com');
 }
