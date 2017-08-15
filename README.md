@@ -36,7 +36,7 @@ make install
 You must **enable the verbose logs in options window** and after that you can find the logs by typing this on terminal:
 
 ```
-journalctl --since=today --no-pager | grep ESC
+journalctl --since=today --no-pager --output=cat | grep ESC
 ```
 
 to open the option windows from terminal try that on terminal:
