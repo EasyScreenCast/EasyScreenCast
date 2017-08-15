@@ -1,5 +1,3 @@
-/* -*- mode: js; js-basic-offset: 4; indent-tabs-mode: nil -*- */
-
 /*
     Copyright (C) 2013  Borsato Ivano
 
@@ -604,8 +602,8 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             this.Ref_image_ESC = builder.get_object(
                 'img_ESC');
             this.Ref_image_ESC.set_from_file(Lib.ESCimgInfo);
-            
-            //implements info version label 
+
+            //implements info version label
             this.Ref_Label_Version = builder.get_object(
                 'lbl_Version');
             //this.Ref_Label_Version.set_text("Version: " + Me.metadata.version);

@@ -1,5 +1,3 @@
-/* -*- mode: js; js-basic-offset: 4; indent-tabs-mode: nil -*- */
-
 /*
 The MIT License (MIT)
 Copyright (c) 2013 otto.allmendinger@gmail.com
