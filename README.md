@@ -37,6 +37,7 @@ You must **enable the verbose logs in options window** and after that you can fi
 
 ```
 journalctl --since=today --no-pager --output=cat | grep ESC
+journalctl /usr/bin/gnome-shell --no-pager --output=cat
 ```
 
 to open the option windows from terminal try that on terminal:
