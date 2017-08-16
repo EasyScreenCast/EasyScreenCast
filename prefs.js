@@ -47,7 +47,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         this.CtrlWebcam = new UtilWebcam.HelperWebcam();
 
         // creates the ui builder and add the main resource file
-        let uiFilePath = Me.path + '/EasyScreenCast.gtkbuilder';
+        let uiFilePath = Me.path + '/Options_UI.glade';
         let builder = new Gtk.Builder();
         builder.set_translation_domain(
             'EasyScreenCast@iacopodeenosee.gmail.com');

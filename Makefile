@@ -2,7 +2,7 @@
 
 UUID = EasyScreenCast@iacopodeenosee.gmail.com
 NAME_EXTENSION = EasyScreenCast
-BASE_MODULES = convenience.js prefs.js selection.js utilgsp.js utilwebcam.js COPYING extension.js metadata.json README.md  settings.js  timer.js utilnotify.js EasyScreenCast.gtkbuilder package.json stylesheet.css utilaudio.js utilrecorder.js
+BASE_MODULES = convenience.js prefs.js selection.js utilgsp.js utilwebcam.js COPYING extension.js metadata.json README.md  settings.js  timer.js utilnotify.js Options_UI.glade package.json stylesheet.css utilaudio.js utilrecorder.js
 IMG_MEDIA = icon_defaultSel.svg Icon_Info.png icon_recordingSel.svg icon_default.svg Icon_Performance.svg Icon_Quality.svg  icon_recording.svg
 
 TOLOCALIZE =  prefs.js extension.js selection.js
@@ -44,11 +44,11 @@ mergepo: potfile
 		msgmerge -U $$l ./locale/easyscreencast.pot; \
 	done;
 
-./locale/easyscreencast.pot: $(TOLOCALIZE) EasyScreenCast.gtkbuilder
+./locale/easyscreencast.pot: $(TOLOCALIZE) Options_UI.glade
 	mkdir -p locale
 	xgettext -k --keyword=__ --keyword=N__ --add-comments='Translators:' -o locale/easyscreencast.pot --package-name "Dash to Dock" $(TOLOCALIZE)
-	intltool-extract --type=gettext/glade EasyScreenCast.gtkbuilder
-	xgettext -k --keyword=_ --keyword=N_ --join-existing -o locale/easyscreencast.pot EasyScreenCast.gtkbuilder.h
+	intltool-extract --type=gettext/glade Options_UI.glade
+	xgettext -k --keyword=_ --keyword=N_ --join-existing -o locale/easyscreencast.pot Options_UI.glade.h
 
 ./locale/%.mo: ./locale/%.po
 	msgfmt -c $< -o $@
