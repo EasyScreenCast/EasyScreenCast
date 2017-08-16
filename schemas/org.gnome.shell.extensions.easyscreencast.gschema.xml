@@ -91,7 +91,7 @@
             <description>enable execute post command</description>
         </key>
         <key name="post-cmd" type="s">
-            <default>'xdg-open _fpath &amp;'</default>
+            <default>'xdg-open _fpath'</default>
             <summary>command to execute</summary>
             <description>command to execute</description>
         </key>

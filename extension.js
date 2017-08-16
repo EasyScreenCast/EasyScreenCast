@@ -37,6 +37,7 @@ const UtilAudio = Me.imports.utilaudio;
 const UtilWebcam = Me.imports.utilwebcam;
 const UtilNotify = Me.imports.utilnotify;
 const Selection = Me.imports.selection;
+const UtilExeCmd = Me.imports.utilexecmd;
 
 
 let Indicator;
@@ -57,6 +58,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.CtrlAudio = new UtilAudio.MixerAudio();
         this.CtrlWebcam = new UtilWebcam.HelperWebcam();
         this.CtrlNotify = new UtilNotify.NotifyManager();
+        this.CtrlExe = new UtilExeCmd.ExecuteStuff(this);
 
         //check audio
         if (!this.CtrlAudio.checkAudio()) {
@@ -544,7 +546,12 @@ const EasyScreenCast_Indicator = new Lang.Class({
 
                 Lib.TalkativeLog('-*-post command:' + Cmd);
 
-                Main.Util.trySpawnCommandLine(Cmd);
+                //Main.Util.trySpawnCommandLine(Cmd);
+                this.CtrlExe.Execute(Cmd, false, null, function() {
+                    this.CtrlNotify.createNotify(
+                        _('ERROR POST SCRIPT - See logs for more info'),
+                        Lib.ESCoffGIcon);
+                    });
             }
         }
 
@@ -594,7 +601,11 @@ const EasyScreenCast_Indicator = new Lang.Class({
     _doExtensionPreferences: function() {
         Lib.TalkativeLog('-*-open preferences');
 
-        Main.Util.trySpawnCommandLine('gnome-shell-extension-prefs  EasyScreenCast@iacopodeenosee.gmail.com');
+        this.CtrlExe.Execute(
+            'gnome-shell-extension-prefs  EasyScreenCast@iacopodeenosee.gmail.com',
+            false,
+            null,
+            null);
     },
 
     _onDelayTimeChanged: function() {

@@ -102,20 +102,6 @@ function TalkativeLog(msg) {
     }
 }
 
-function getResultCmd(cmd) {
-    let [res, out] = GLib.spawn_sync(null,
-        cmd,
-        null,
-        GLib.SpawnFlags.SEARCH_PATH,
-        null);
-
-    if (out === null) {
-        return null;
-    } else {
-        return out.toString();
-    }
-}
-
 /*
 ////////////////////////////////////////////////////////////////////////////////
 */

@@ -27,6 +27,7 @@ const Lib = Me.imports.convenience;
 const UtilWebcam = Me.imports.utilwebcam;
 const UtilGSP = Me.imports.utilgsp;
 const Settings = Me.imports.settings;
+const UtilExeCmd = Me.imports.utilexecmd;
 
 
 function init() {
@@ -45,6 +46,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         Settings.checkSettings();
 
         this.CtrlWebcam = new UtilWebcam.HelperWebcam();
+        this.CtrlExe = new UtilExeCmd.ExecuteStuff(null);
 
         // creates the ui builder and add the main resource file
         let uiFilePath = Me.path + '/Options_UI.glade';
@@ -630,14 +632,15 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         if (tmpFolder === '' ||
             tmpFolder === null ||
             tmpFolder === undefined) {
-            var res = (Lib.getResultCmd(['xdg-user-dir', 'VIDEOS']))
+            var res = (this.CtrlExe.Spawn(['xdg-user-dir', 'VIDEOS']))
                 .replace(/(\n)/g, "");
+
             if (res !== null) {
                 Lib.TalkativeLog('-^-xdg-user video: ' + res);
                 tmpFolder = res;
             } else {
                 Lib.TalkativeLog('-^-NOT SET xdg-user video');
-                tmpFolder = (Lib.getResultCmd(['echo', '$HOME']))
+                tmpFolder = (this.CtrlExe.Spawn(['echo', '$HOME']))
                     .replace(/(\n)/g, "");
             }
         }
