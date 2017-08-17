@@ -73,7 +73,7 @@ const TimerDelay = new Lang.Class({
         this.stop();
 
         ID_TimerDelay = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 1000,
-            Lang.bind(this, this._callbackInternal));
+            () => this._callbackInternal());
     },
     /**
      * Stop the current timer
@@ -160,7 +160,7 @@ const TimerCounting = new Lang.Class({
         isRunning = true;
 
         ID_TimerCounting = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 1000,
-            Lang.bind(this, this._callbackInternal));
+            () => this._callbackInternal());
     },
     /**
      * Stop the current timer

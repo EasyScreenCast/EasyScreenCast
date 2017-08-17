@@ -95,12 +95,12 @@ const ExecuteStuff = new Lang.Class({
 
             var tagWatchOUT = GLib.io_add_watch(IOchannelOUT, GLib.PRIORITY_DEFAULT,
                 GLib.IOCondition.IN | GLib.IOCondition.HUP,
-                Lang.bind(this, this._loadPipeOUT),
+                () => this._loadPipeOUT(),
                 null
             );
             var tagWatchERR = GLib.io_add_watch(IOchannelERR, GLib.PRIORITY_DEFAULT,
                 GLib.IOCondition.IN | GLib.IOCondition.HUP,
-                Lang.bind(this, this._loadPipeERR),
+                () => this._loadPipeERR(),
                 null
             );
         }

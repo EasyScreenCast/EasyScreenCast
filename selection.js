@@ -86,7 +86,7 @@ const Capture = new Lang.Class({
             Lib.TalkativeLog('-£-Main.pushModal() === false');
         }
 
-        Main.sessionMode.connect('updated', Lang.bind(this, this._updateDraw));
+        Main.sessionMode.connect('updated', () => this._updateDraw());
     },
 
     _updateDraw: function() {
@@ -356,17 +356,19 @@ const AreaRecording = new Lang.Class({
 
         Main.uiGroup.add_actor(this._areaRecording);
 
-        Main.overview.connect('showing', Lang.bind(this, function() {
-            Lib.TalkativeLog('-£-overview opening');
+        Main.overview.connect('showing',
+            () => {
+                Lib.TalkativeLog('-£-overview opening');
 
-            Main.uiGroup.remove_actor(this._areaRecording);
-        }));
+                Main.uiGroup.remove_actor(this._areaRecording);
+            });
 
-        Main.overview.connect('hidden', Lang.bind(this, function() {
-            Lib.TalkativeLog('-£-overview closed');
+        Main.overview.connect('hidden',
+            () => {
+                Lib.TalkativeLog('-£-overview closed');
 
-            Main.uiGroup.add_actor(this._areaRecording);
-        }));
+                Main.uiGroup.add_actor(this._areaRecording);
+            });
 
         if ((recX + recW <= tmpW - 5) && (recY + recH <= tmpH - 5)) {
             this.drawArea(recX - 2, recY - 2, recW + 4, recH + 4);

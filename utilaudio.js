@@ -31,18 +31,18 @@ const MixerAudio = new Lang.Class({
         if (MixerControl) {
             isConnected = true;
             MixerControl.connect("state-changed",
-                Lang.bind(this, this._onChangeStatePAC));
+                () => this._onChangeStatePAC());
 
             //more log for debug
             if (Settings.getOption('b', Settings.VERBOSE_DEBUG_SETTING_KEY)) {
                 MixerControl.connect("stream_added",
-                    Lang.bind(this, function(control, id) {
+                    (control, id) => {
                         this._onStreamAdd(control, id);
-                    }));
+                    });
                 MixerControl.connect("stream_removed",
-                    Lang.bind(this, function(control, id) {
+                    (control, id) => {
                         this._onStreamRemove(control, id);
-                    }));
+                    });
             }
         } else {
             Lib.TalkativeLog('-#-Error lib pulse NOT present or NOT respond');

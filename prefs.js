@@ -98,7 +98,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             this.Ref_button_SetDeafaultSettings = builder.get_object(
                 'btn_DefaultOption');
             this.Ref_button_SetDeafaultSettings.connect(
-                'clicked', Lang.bind(this, this._setDefaultsettings));
+                'clicked', () => this._setDefaultsettings());
 
 
             //update list view
@@ -110,11 +110,11 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
 
             //connect keywebcam signal
             Settings.settings.connect('changed::' + Settings.DEVICE_WEBCAM_SETTING_KEY,
-                Lang.bind(this, function() {
+                () => {
                     Lib.TalkativeLog('-^-webcam device changed');
 
                     this._updateStateWebcamOptions();
-                })
+                }
             );
         }
     },
@@ -165,29 +165,23 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         let renderer = new Gtk.CellRendererAccel({
             editable: true
         });
-        renderer.connect(
-            "accel-edited", Lang.bind(this,
-                function(renderer, path, key, mods, hwCode) {
-                    Lib.TalkativeLog('-^-edited key accel');
+        renderer.connect("accel-edited",
+            (renderer, path, key, mods, hwCode) => {
+                Lib.TalkativeLog('-^-edited key accel');
 
-                    let accel = Gtk.accelerator_name(key, mods);
+                let accel = Gtk.accelerator_name(key, mods);
 
-                    ctx._updateRowShortcut(accel);
-                    Settings.setOption(Settings.SHORTCUT_KEY_SETTING_KEY, [accel]);
-                }
-            )
-        );
+                ctx._updateRowShortcut(accel);
+                Settings.setOption(Settings.SHORTCUT_KEY_SETTING_KEY, [accel]);
+            });
 
-        renderer.connect(
-            "accel-cleared", Lang.bind(this,
-                function(renderer, path) {
-                    Lib.TalkativeLog('-^-cleared key accel');
+        renderer.connect("accel-cleared",
+            (renderer, path) => {
+                Lib.TalkativeLog('-^-cleared key accel');
 
-                    ctx._updateRowShortcut(null);
-                    Settings.setOption(Settings.SHORTCUT_KEY_SETTING_KEY, []);
-                }
-            )
-        );
+                ctx._updateRowShortcut(null);
+                Settings.setOption(Settings.SHORTCUT_KEY_SETTING_KEY, []);
+            });
 
         let column = new Gtk.TreeViewColumn();
         column.pack_start(renderer, true);
@@ -271,8 +265,8 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         ctx.Ref_scale_Quality.set_value(Settings.getOption(
             'i', Settings.QUALITY_SETTING_KEY));
 
-        ctx.Ref_scale_Quality.connect(
-            'value-changed', Lang.bind(this, function(self) {
+        ctx.Ref_scale_Quality.connect('value-changed',
+            (self) => {
                 Lib.TalkativeLog('-^-value quality changed : ' + self.get_value());
 
                 //round the value
@@ -292,8 +286,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                 self.set_value(roundTmp);
 
                 Settings.setOption(Settings.QUALITY_SETTING_KEY, roundTmp);
-            })
-        );
+            });
 
         //implements image for scale widget
         ctx.Ref_image_Performance = gtkDB.get_object(
@@ -310,13 +303,12 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         tmpS.bind(Settings.ACTIVE_CUSTOM_GSP_SETTING_KEY,
             ctx.Ref_switch_CustomGSP,
             'active', Gio.SettingsBindFlags.DEFAULT);
-        ctx.Ref_switch_CustomGSP.connect(
-            'state-set', Lang.bind(this, function(self) {
+        ctx.Ref_switch_CustomGSP.connect('state-set',
+            (self) => {
                 //update GSP text area
                 ctx._setStateGSP(Settings.getOption(
                     'b', Settings.ACTIVE_CUSTOM_GSP_SETTING_KEY));
-            })
-        );
+            });
 
         ctx.Ref_stack_Quality = gtkDB.get_object('stk_Quality');
     },
@@ -342,21 +334,23 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         let CapsSelection = ctx.Ref_TreeView_QualityWebCam.get_selection();
 
         // connect selection signal
-        CapsSelection.connect('changed', Lang.bind(this, function(self) {
-            let [isSelected, model, iter] =
-            self.get_selected();
-            if (isSelected) {
-                let Caps = ctx.Ref_ListStore_QualityWebCam.get_value(iter, 0);
-                Lib.TalkativeLog('-^-treeview row selected : ' + Caps);
+        CapsSelection.connect('changed',
+            (self) => {
+                let [isSelected, model, iter] =
+                self.get_selected();
+                if (isSelected) {
+                    let Caps = ctx.Ref_ListStore_QualityWebCam.get_value(iter, 0);
+                    Lib.TalkativeLog('-^-treeview row selected : ' + Caps);
 
-                Settings.setOption(Settings.QUALITY_WEBCAM_SETTING_KEY, Caps);
+                    Settings.setOption(Settings.QUALITY_WEBCAM_SETTING_KEY, Caps);
 
-                //update label webcam caps
-                ctx.Ref_Label_WebCamCaps.set_ellipsize(
-                    Pango.EllipsizeMode.END);
-                ctx.Ref_Label_WebCamCaps.set_text(Caps);
+                    //update label webcam caps
+                    ctx.Ref_Label_WebCamCaps.set_ellipsize(
+                        Pango.EllipsizeMode.END);
+                    ctx.Ref_Label_WebCamCaps.set_text(Caps);
+                }
             }
-        }));
+        );
 
         //fill combobox with quality option webcam
         ctx._updateWebCamCaps(Settings.getOption('i', Settings.DEVICE_WEBCAM_SETTING_KEY));
@@ -501,7 +495,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
 
         //intercept combobox res changed and update width/height value
         ctx.Ref_combobox_Resolution.connect('changed',
-            Lang.bind(this, function(self) {
+            (self) => {
                 var activeRes = self.active;
                 Lib.TalkativeLog('-^-preset combobox changed: ' + activeRes);
                 if(activeRes >=0 && activeRes < 15){
@@ -514,7 +508,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                         Settings.FILE_RESOLUTION_WIDTH_SETTING_KEY,w);
                     Lib.TalkativeLog('-^-Res changed h: ' + h + ' w: '+ w);
                 }
-        }));
+            });
 
 
         //load file resolution pref and upadte UI
@@ -529,9 +523,8 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         }
 
         //setup event on stack switcher
-        ctx.Ref_stackswitcher_FileResolution.connect(
-            'event', Lang.bind(this,
-                function() {
+        ctx.Ref_stackswitcher_FileResolution.connect('event',
+            () => {
                     Lib.TalkativeLog('-^-stack_FR event grab');
                     var page = ctx.
                         Ref_stack_FileResolution.get_visible_child_name();
@@ -552,8 +545,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                     } else {
                         Lib.TalkativeLog('-^-page error');
                     }
-                }
-        ));
+            });
 
         //implements file width option
         ctx.Ref_Spinner_WidthRes = gtkDB.get_object(
@@ -646,16 +638,14 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         }
         ctx.Ref_filechooser_FileFolder.set_filename(tmpFolder);
 
-        ctx.Ref_filechooser_FileFolder.connect(
-            'file_set', Lang.bind(this,
-                function(self) {
-                    var tmpPathFolder = self.get_filename();
-                    Lib.TalkativeLog('-^-file path get from widget : ' + tmpPathFolder);
-                    if (tmpPathFolder !== null) {
-                        Settings.setOption(Settings.FILE_FOLDER_SETTING_KEY, tmpPathFolder);
-                    }
-                })
-        );
+        ctx.Ref_filechooser_FileFolder.connect('file_set',
+            (self) => {
+                var tmpPathFolder = self.get_filename();
+                Lib.TalkativeLog('-^-file path get from widget : ' + tmpPathFolder);
+                if (tmpPathFolder !== null) {
+                    Settings.setOption(Settings.FILE_FOLDER_SETTING_KEY, tmpPathFolder);
+                }
+            });
 
     },
 
