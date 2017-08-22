@@ -276,12 +276,149 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                 Settings.FILE_CONTAINER_SETTING_KEY, this.Ref_combobox_Container,
                 'active', Gio.SettingsBindFlags.DEFAULT);
 
-            //implements file container option
+            //implements file stack resolution
+            this.Ref_stack_FileResolution = builder.get_object(
+                'stk_FileResolution');
+
+            //implements file container resolution
+            this.Ref_stackswitcher_FileResolution = builder.get_object(
+                'sts_FileResolution');
+
+            //implements file resolution preset spinner
             this.Ref_combobox_Resolution = builder.get_object(
                 'cbt_FileResolution');
             Settings.settings.bind(
-                Settings.FILE_RESOLUTION_SETTING_KEY, this.Ref_combobox_Resolution,
+                Settings.FILE_RESOLUTION_TYPE_SETTING_KEY,
+                this.Ref_combobox_Resolution,
                 'active', Gio.SettingsBindFlags.DEFAULT);
+
+            //intercept combobox res changed and update width/height value
+            this.Ref_combobox_Resolution.connect('changed',
+                Lang.bind(this, function(self) {
+                    var activeRes = self.active;
+                    Lib.TalkativeLog('-^-preset combobox changed: ' + activeRes);
+                    if(activeRes >=0 && activeRes < 15){
+                        var [h,w] = this._getResolutionPreset(activeRes);
+
+                        //update width/height
+                        Settings.setOption(
+                            Settings.FILE_RESOLUTION_HEIGHT_SETTING_KEY,h);
+                        Settings.setOption(
+                            Settings.FILE_RESOLUTION_WIDTH_SETTING_KEY,w);
+                        Lib.TalkativeLog('-^-Res changed h: ' + h + ' w: '+ w);
+                    }
+            }));
+
+
+            //load file resolution pref and upadte UI
+            var tmpRes= Settings.getOption('i',
+                Settings.FILE_RESOLUTION_TYPE_SETTING_KEY);
+            if (tmpRes < 0){
+                this.Ref_stack_FileResolution.set_visible_child_name('native');
+            } else if (tmpRes === 999){
+                this.Ref_stack_FileResolution.set_visible_child_name('custom');
+            } else {
+                this.Ref_stack_FileResolution.set_visible_child_name('preset');
+            }
+
+            //setup event on stack switcher
+            this.Ref_stackswitcher_FileResolution.connect(
+                'event', Lang.bind(this,
+                    function() {
+                        Lib.TalkativeLog('-^-stack_FR event grab');
+                        var page = this.
+                            Ref_stack_FileResolution.get_visible_child_name();
+                        Lib.TalkativeLog('-^-active page -> '+ page);
+
+                        if(page === 'native'){
+                            //set option to -1
+                            Settings.setOption(
+                                Settings.FILE_RESOLUTION_TYPE_SETTING_KEY, -1);
+                        } else if (page === 'preset') {
+                            //set option to fullHD 16:9
+                            Settings.setOption(
+                                Settings.FILE_RESOLUTION_TYPE_SETTING_KEY, 8);
+                        } else if (page === 'custom') {
+                            //set option to 99
+                            Settings.setOption(
+                                Settings.FILE_RESOLUTION_TYPE_SETTING_KEY, 999);
+                        } else {
+                            Lib.TalkativeLog('-^-page error');
+                        }
+                    }
+            ));
+
+            //implements file width option
+            this.Ref_Spinner_WidthRes = builder.get_object(
+                'spb_ResWidth');
+            let adjustmentResWidth = new Gtk.Adjustment({
+                value: 640,
+                lower: 640,
+                upper: 3840,
+                step_increment: 1,
+                page_increment: 100
+            });
+            this.Ref_Spinner_WidthRes.configure(adjustmentResWidth, 10, 0);
+            Settings.settings.bind(
+                Settings.FILE_RESOLUTION_WIDTH_SETTING_KEY,
+                this.Ref_Spinner_WidthRes,
+                'value',
+                Gio.SettingsBindFlags.DEFAULT);
+
+            //implements file heigth option
+            this.Ref_Spinner_HeightRes = builder.get_object(
+                'spb_ResHeight');
+            let adjustmentResHeight = new Gtk.Adjustment({
+                value: 480,
+                lower: 480,
+                upper: 2160,
+                step_increment: 1,
+                page_increment: 100
+            });
+            this.Ref_Spinner_HeightRes.configure(adjustmentResHeight, 10, 0);
+            Settings.settings.bind(
+                Settings.FILE_RESOLUTION_HEIGHT_SETTING_KEY,
+                this.Ref_Spinner_HeightRes,
+                'value',
+                Gio.SettingsBindFlags.DEFAULT);
+
+            //implements keep aspect ratio check box
+            this.Ref_checkbox_KAR = builder.get_object(
+                'chb_FileResolution_kar');
+            Settings.settings.bind(
+                Settings.FILE_RESOLUTION_KAR_SETTING_KEY, this.Ref_checkbox_KAR,
+                'active', Gio.SettingsBindFlags.DEFAULT);
+
+            //implements resolution width scale option
+            this.Ref_scale_WidthRes = builder.get_object(
+                'scl_ResWidth');
+            this.Ref_scale_WidthRes.set_valign(Gtk.Align.START);
+            this.Ref_scale_WidthRes.set_adjustment(adjustmentResWidth);
+            this.Ref_scale_WidthRes.set_digits(0);
+            this.Ref_scale_WidthRes.set_value(Settings.getOption(
+                'i', Settings.FILE_RESOLUTION_WIDTH_SETTING_KEY));
+
+            //implements resolution height scale option
+            this.Ref_scale_HeightRes = builder.get_object(
+                'scl_ResHeight');
+            this.Ref_scale_HeightRes.set_valign(Gtk.Align.START);
+            this.Ref_scale_HeightRes.set_adjustment(adjustmentResHeight);
+            this.Ref_scale_HeightRes.set_digits(0);
+            this.Ref_scale_HeightRes.set_value(Settings.getOption(
+                'i', Settings.FILE_RESOLUTION_HEIGHT_SETTING_KEY));
+
+
+            // add marks on width/height file resolution
+            //let ind = 0;
+            for (let ind=0; ind < 13; ind++) {
+                var [h,w]=this._getResolutionPreset(ind);
+                this.Ref_scale_WidthRes.add_mark(w,
+                    Gtk.PositionType.BOTTOM, '');
+
+                this.Ref_scale_HeightRes.add_mark(h,
+                    Gtk.PositionType.BOTTOM, '');
+            }
+
 
             //implements file folder string rec option
             this.Ref_filechooser_FileFolder = builder.get_object(
@@ -585,6 +722,29 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         }
     },
 
+    _getResolutionPreset(index){
+        var arrRes=[
+            [480,640],
+            [480,854],
+            [600,800],
+            [720,960],
+            [720,1280],
+            [768,1024],
+            [768,1366],
+            [1024,1280],
+            [1080,1920],
+            [1200,1600],
+            [1440,2560],
+            [2048,2560],
+            [2160,3840]
+            ];
+        if (index >= 0 && index < arrRes.length){
+            return arrRes[index];
+        } else {
+            return null;
+        }
+    },
+
     //function to restore default value of the settings
     _setDefaultsettings: function() {
         Lib.TalkativeLog('-^-restore default option');
@@ -611,7 +771,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
 
         Settings.setOption(Settings.TIME_DELAY_SETTING_KEY, 0);
         Settings.setOption(Settings.FILE_CONTAINER_SETTING_KEY, 0);
-        Settings.setOption(Settings.FILE_RESOLUTION_SETTING_KEY, 0);
+        Settings.setOption(Settings.FILE_RESOLUTION_TYPE_SETTING_KEY, -1);
         Settings.setOption(Settings.QUALITY_SETTING_KEY, 1);
         Settings.setOption(Settings.QUALITY_WEBCAM_SETTING_KEY, '');
         Settings.setOption(Settings.WIDTH_WEBCAM_SETTING_KEY, 20);

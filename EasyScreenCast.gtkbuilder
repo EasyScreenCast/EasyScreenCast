@@ -132,7 +132,7 @@
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="halign">end</property>
-                            <property name="hexpand">False</property>
+                            <property name="hexpand">True</property>
                             <property name="label" translatable="yes">Enable keyboard shortcut</property>
                           </object>
                           <packing>
@@ -158,7 +158,7 @@
                             <property name="can_focus">False</property>
                             <property name="tooltip_text" translatable="yes">To activate the change of the shortcut restart the extension</property>
                             <property name="halign">end</property>
-                            <property name="hexpand">False</property>
+                            <property name="hexpand">True</property>
                             <property name="label" translatable="yes">Shortcut combination</property>
                           </object>
                           <packing>
@@ -279,7 +279,7 @@ _fname = the name of the screencast video file.</property>
 $ journalctl --since=today --no-pager | grep js
 $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                             <property name="halign">end</property>
-                            <property name="hexpand">False</property>
+                            <property name="hexpand">True</property>
                             <property name="label" translatable="yes">Enable verbose debug</property>
                           </object>
                           <packing>
@@ -1188,16 +1188,238 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkComboBoxText" id="cbt_FileResolution">
+                          <object class="GtkBox">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <items>
-                              <item id="0" translatable="yes">Native area screen resolution</item>
-                              <item id="1">SD  (480p)  [640x480]</item>
-                              <item id="2">HD  (720p)  [1280x720]</item>
-                              <item id="3">Full HD  (1080p)  [1920x1080]</item>
-                              <item id="4">Ultra HD  (2160p)  [3840x2160]</item>
-                            </items>
+                            <property name="orientation">vertical</property>
+                            <child>
+                              <object class="GtkStackSwitcher" id="sts_FileResolution">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="halign">center</property>
+                                <property name="hexpand">True</property>
+                                <property name="stack">stk_FileResolution</property>
+                              </object>
+                              <packing>
+                                <property name="expand">True</property>
+                                <property name="fill">True</property>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkStack" id="stk_FileResolution">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="margin_top">10</property>
+                                <property name="vhomogeneous">False</property>
+                                <property name="transition_duration">800</property>
+                                <property name="transition_type">slide-up-down</property>
+                                <property name="interpolate_size">True</property>
+                                <child>
+                                  <object class="GtkLabel" id="chd_FileResolution_Native">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="label" translatable="yes">Native area resolution</property>
+                                    <attributes>
+                                      <attribute name="foreground" value="#cccc00000000"/>
+                                    </attributes>
+                                  </object>
+                                  <packing>
+                                    <property name="name">native</property>
+                                    <property name="title" translatable="yes">Native</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkGrid" id="chd_FileResolution_Preset">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="margin_top">5</property>
+                                    <property name="row_spacing">18</property>
+                                    <property name="column_spacing">15</property>
+                                    <child>
+                                      <object class="GtkLabel">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="halign">end</property>
+                                        <property name="hexpand">True</property>
+                                        <property name="label" translatable="yes">Preset helper</property>
+                                      </object>
+                                      <packing>
+                                        <property name="left_attach">0</property>
+                                        <property name="top_attach">0</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkComboBoxText" id="cbt_FileResolution">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="halign">start</property>
+                                        <property name="hexpand">True</property>
+                                        <items>
+                                          <item id="0">VGA [480p] [4:3]</item>
+                                          <item id="1">FWVGA [480p] [16:9]</item>
+                                          <item id="2">SVGA [600p] [4:3]</item>
+                                          <item id="3">SMPTE [720p] [4:3]</item>
+                                          <item id="4" translatable="yes">HD [720p] [16:9]</item>
+                                          <item id="5" translatable="yes">XGA [768p] [4:3]</item>
+                                          <item id="6" translatable="yes">HD ready [768p] [16:9]</item>
+                                          <item id="7" translatable="yes">SXGA [1024p] [5:4]</item>
+                                          <item id="8" translatable="yes">Full HD [1080p] [16:9]</item>
+                                          <item id="9" translatable="yes">UXGA [1200p] [4:3]</item>
+                                          <item id="10" translatable="yes">QHD [1440p] [16:9]</item>
+                                          <item id="11" translatable="yes">QSXGA [2048p] [5:4]</item>
+                                          <item id="12" translatable="yes">4K [2160p] [16:9]</item>
+                                        </items>
+                                      </object>
+                                      <packing>
+                                        <property name="left_attach">1</property>
+                                        <property name="top_attach">0</property>
+                                      </packing>
+                                    </child>
+                                  </object>
+                                  <packing>
+                                    <property name="name">preset</property>
+                                    <property name="title" translatable="yes">Preset</property>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkBox" id="chd_FileResolution_Custom">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="orientation">vertical</property>
+                                    <child>
+                                      <object class="GtkGrid" id="grid6">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="margin_top">5</property>
+                                        <property name="row_spacing">18</property>
+                                        <property name="column_spacing">15</property>
+                                        <child>
+                                          <object class="GtkLabel">
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">False</property>
+                                            <property name="halign">end</property>
+                                            <property name="hexpand">True</property>
+                                            <property name="label" translatable="yes">Width</property>
+                                          </object>
+                                          <packing>
+                                            <property name="left_attach">0</property>
+                                            <property name="top_attach">0</property>
+                                          </packing>
+                                        </child>
+                                        <child>
+                                          <object class="GtkSpinButton" id="spb_ResWidth">
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">True</property>
+                                            <property name="halign">start</property>
+                                            <property name="hexpand">True</property>
+                                          </object>
+                                          <packing>
+                                            <property name="left_attach">1</property>
+                                            <property name="top_attach">0</property>
+                                          </packing>
+                                        </child>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">0</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkScale" id="scl_ResWidth">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="round_digits">1</property>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">True</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">1</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkGrid" id="grid7">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="margin_top">5</property>
+                                        <property name="row_spacing">18</property>
+                                        <property name="column_spacing">15</property>
+                                        <child>
+                                          <object class="GtkLabel">
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">False</property>
+                                            <property name="halign">end</property>
+                                            <property name="hexpand">True</property>
+                                            <property name="label" translatable="yes">Height</property>
+                                          </object>
+                                          <packing>
+                                            <property name="left_attach">0</property>
+                                            <property name="top_attach">0</property>
+                                          </packing>
+                                        </child>
+                                        <child>
+                                          <object class="GtkSpinButton" id="spb_ResHeight">
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">True</property>
+                                            <property name="halign">start</property>
+                                            <property name="hexpand">True</property>
+                                          </object>
+                                          <packing>
+                                            <property name="left_attach">1</property>
+                                            <property name="top_attach">0</property>
+                                          </packing>
+                                        </child>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">2</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkScale" id="scl_ResHeight">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="round_digits">1</property>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">True</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">3</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkCheckButton" id="chb_FileResolution_kar">
+                                        <property name="label" translatable="yes">keep original aspect ratio</property>
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="receives_default">False</property>
+                                        <property name="halign">center</property>
+                                        <property name="margin_top">5</property>
+                                        <property name="draw_indicator">True</property>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">True</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">4</property>
+                                      </packing>
+                                    </child>
+                                  </object>
+                                  <packing>
+                                    <property name="name">custom</property>
+                                    <property name="title" translatable="yes">Custom</property>
+                                    <property name="position">2</property>
+                                  </packing>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">1</property>
+                              </packing>
+                            </child>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
