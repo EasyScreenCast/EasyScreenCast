@@ -1529,7 +1529,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                         <property name="can_focus">True</property>
                         <property name="shadow_type">in</property>
                         <child>
-                          <object class="GtkTextView">
+                          <object class="GtkTextView" id="txe_ContainerLog">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                           </object>
@@ -1637,11 +1637,13 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                     <child>
                       <object class="GtkLabel" id="lbl_Version">
                         <property name="visible">True</property>
-                        <property name="can_focus">False</property>
+                        <property name="can_focus">True</property>
+                        <property name="has_focus">True</property>
                         <property name="halign">center</property>
                         <property name="margin_bottom">10</property>
                         <property name="hexpand">True</property>
                         <property name="label" translatable="yes">N/A</property>
+                        <property name="selectable">True</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
