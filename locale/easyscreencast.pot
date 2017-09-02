@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-02 10:40+0200\n"
+"POT-Creation-Date: 2017-09-02 13:56+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -143,6 +143,10 @@ msgstr ""
 msgid "select an desktop for recording or press [ESC] to abort"
 msgstr ""
 
+#: utilwebcam.js:189
+msgid "Unspecified webcam"
+msgstr ""
+
 #: Options_UI.glade.h:1
 msgid "Recording status indicators"
 msgstr ""
@@ -156,11 +160,11 @@ msgid "Show a border around the area being recorded"
 msgstr ""
 
 #: Options_UI.glade.h:4
-msgid "Enable keyboard shortcut"
+msgid "To activate the change of the shortcut restart the extension"
 msgstr ""
 
 #: Options_UI.glade.h:5
-msgid "To activate the change of the shortcut restart the extension"
+msgid "Enable keyboard shortcut"
 msgstr ""
 
 #: Options_UI.glade.h:6
@@ -445,59 +449,71 @@ msgid "Get extension log"
 msgstr ""
 
 #: Options_UI.glade.h:84
-msgid "Get last GS pipeline"
+msgid "Get the logs of the extension of the last 15 minutes."
 msgstr ""
 
 #: Options_UI.glade.h:85
-msgid "Get Gnome log"
+msgid "Get last GS pipeline"
 msgstr ""
 
 #: Options_UI.glade.h:86
-msgid "Restore default options"
+msgid "Get all complete Gstreamer pipe line of the last 15 minutes."
 msgstr ""
 
 #: Options_UI.glade.h:87
-msgid "Support"
+msgid "Get Gnome log"
 msgstr ""
 
 #: Options_UI.glade.h:88
-msgid "EasyScreenCast"
+msgid "Get the logs of gnome shell of the last 15 minutes."
 msgstr ""
 
 #: Options_UI.glade.h:89
-msgid "N/A"
+msgid "Restore default options"
 msgstr ""
 
 #: Options_UI.glade.h:90
+msgid "Support"
+msgstr ""
+
+#: Options_UI.glade.h:91
+msgid "EasyScreenCast"
+msgstr ""
+
+#: Options_UI.glade.h:92
+msgid "N/A"
+msgstr ""
+
+#: Options_UI.glade.h:93
 msgid ""
 "This extension simplifies the use of the \n"
 "screen recorder  included in gnome shell"
 msgstr ""
 
-#: Options_UI.glade.h:92
+#: Options_UI.glade.h:95
 msgid "This software is licensed under GPL v3"
 msgstr ""
 
-#: Options_UI.glade.h:93
+#: Options_UI.glade.h:96
 msgid "Credits"
 msgstr ""
 
-#: Options_UI.glade.h:94
+#: Options_UI.glade.h:97
 msgid "How to contribute?"
 msgstr ""
 
-#: Options_UI.glade.h:95
+#: Options_UI.glade.h:98
 msgid "With a translation"
 msgstr ""
 
-#: Options_UI.glade.h:96
+#: Options_UI.glade.h:99
 msgid "Reporting bugs"
 msgstr ""
 
-#: Options_UI.glade.h:97
+#: Options_UI.glade.h:100
 msgid "Add code"
 msgstr ""
 
-#: Options_UI.glade.h:98
+#: Options_UI.glade.h:101
 msgid "Info"
 msgstr ""

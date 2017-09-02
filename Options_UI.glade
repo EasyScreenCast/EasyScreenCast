@@ -127,6 +127,7 @@
                       <object class="GtkLabel" id="label10">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="tooltip_text" translatable="yes">To activate the change of the shortcut restart the extension</property>
                         <property name="halign">end</property>
                         <property name="hexpand">True</property>
                         <property name="label" translatable="yes">Enable keyboard shortcut</property>
@@ -140,6 +141,7 @@
                       <object class="GtkSwitch" id="swt_KeyShortcut">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
+                        <property name="tooltip_text" translatable="yes">To activate the change of the shortcut restart the extension</property>
                         <property name="halign">start</property>
                         <property name="hexpand">True</property>
                       </object>
@@ -171,6 +173,7 @@
                           <object class="GtkTreeView" id="treeview_KeyShortcut">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
+                            <property name="tooltip_text" translatable="yes">To activate the change of the shortcut restart the extension</property>
                             <property name="model">liststore_KeyShortcut</property>
                             <property name="headers_visible">False</property>
                             <property name="search_column">0</property>
@@ -1112,7 +1115,6 @@ _fname = the name of the screencast video file.</property>
                       <object class="GtkLabel" id="label11">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="tooltip_text" translatable="yes">the filename which may contain some escape sequences - %d and %t will be replaced by the start date and time of the recording.</property>
                         <property name="halign">end</property>
                         <property name="hexpand">True</property>
                         <property name="label" translatable="yes">File container</property>
@@ -1126,7 +1128,6 @@ _fname = the name of the screencast video file.</property>
                       <object class="GtkLabel" id="label15">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="tooltip_text" translatable="yes">the filename which may contain some escape sequences - %d and %t will be replaced by the start date and time of the recording.</property>
                         <property name="halign">end</property>
                         <property name="hexpand">True</property>
                         <property name="label" translatable="yes">File resolution</property>
@@ -1483,6 +1484,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
+                            <property name="tooltip_text" translatable="yes">Get the logs of the extension of the last 15 minutes.</property>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -1496,6 +1498,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
+                            <property name="tooltip_text" translatable="yes">Get all complete Gstreamer pipe line of the last 15 minutes.</property>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -1509,6 +1512,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
+                            <property name="tooltip_text" translatable="yes">Get the logs of gnome shell of the last 15 minutes.</property>
                           </object>
                           <packing>
                             <property name="expand">False</property>
