@@ -729,7 +729,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                         Lib.TalkativeLog('-^-CALLBACK async S= '+ success);
                         if(success){
                             if(Ref_buffer_Log.get_line_count() > 0){
-                                let strNOgsp = _('No Gstreamer pipe line found');
+                                let strNOgsp = _('No Gstreamer pipeline found');
                                 Ref_buffer_Log.insert(
                                     Ref_buffer_Log.get_end_iter(),
                                     strNOgsp,
