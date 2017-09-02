@@ -49,6 +49,7 @@ mergepo: potfile
 	xgettext -k --keyword=_ --keyword=N_ --from-code=UTF-8 --add-comments='Translators:' -o locale/easyscreencast.pot --package-name "EasyScreenCast" $(TOLOCALIZE)
 	intltool-extract --type=gettext/glade Options_UI.glade
 	xgettext -k --keyword=_ --keyword=N_ --from-code=UTF-8 --join-existing -o locale/easyscreencast.pot Options_UI.glade.h
+	rm Options_UI.glade.h
 
 ./locale/%.mo: ./locale/%.po
 	msgfmt -c $< -o $@
