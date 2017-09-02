@@ -5,7 +5,7 @@ NAME_EXTENSION = EasyScreenCast
 BASE_MODULES = convenience.js prefs.js selection.js utilgsp.js utilwebcam.js COPYING extension.js metadata.json README.md  settings.js  timer.js utilnotify.js Options_UI.glade package.json stylesheet.css utilaudio.js utilrecorder.js utilexecmd.js
 IMG_MEDIA = icon_defaultSel.svg Icon_Info.png icon_recordingSel.svg icon_default.svg Icon_Performance.svg Icon_Quality.svg  icon_recording.svg
 
-TOLOCALIZE =  prefs.js extension.js selection.js
+TOLOCALIZE =  prefs.js extension.js selection.js utilwebcam.js
 MSGSRC = $(wildcard locale/*.po)
 
 ifeq ($(strip $(DESTDIR)),)
@@ -37,7 +37,7 @@ extension: ./schemas/gschemas.compiled $(MSGSRC:.po=.mo)
 ./schemas/gschemas.compiled: ./schemas/org.gnome.shell.extensions.easyscreencast.gschema.xml
 	glib-compile-schemas ./schemas/
 
-potfile: ./locale/messages.pot
+potfile: ./locale/easyscreencast.pot
 
 mergepo: potfile
 	for l in $(MSGSRC); do \
@@ -46,9 +46,9 @@ mergepo: potfile
 
 ./locale/easyscreencast.pot: $(TOLOCALIZE) Options_UI.glade
 	mkdir -p locale
-	xgettext -k --keyword=__ --keyword=N__ --add-comments='Translators:' -o locale/easyscreencast.pot --package-name "Dash to Dock" $(TOLOCALIZE)
+	xgettext -k --keyword=_ --keyword=N_ --from-code=UTF-8 --add-comments='Translators:' -o locale/easyscreencast.pot --package-name "EasyScreenCast" $(TOLOCALIZE)
 	intltool-extract --type=gettext/glade Options_UI.glade
-	xgettext -k --keyword=_ --keyword=N_ --join-existing -o locale/easyscreencast.pot Options_UI.glade.h
+	xgettext -k --keyword=_ --keyword=N_ --from-code=UTF-8 --join-existing -o locale/easyscreencast.pot Options_UI.glade.h
 
 ./locale/%.mo: ./locale/%.po
 	msgfmt -c $< -o $@
