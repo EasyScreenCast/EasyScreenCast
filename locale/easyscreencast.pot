@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-02 13:56+0200\n"
+"POT-Creation-Date: 2017-09-02 14:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,7 +26,7 @@ msgid "WebCam Caps"
 msgstr ""
 
 #: prefs.js:732
-msgid "No Gstreamer pipe line found"
+msgid "No Gstreamer pipeline found"
 msgstr ""
 
 #: prefs.js:766
@@ -132,15 +132,15 @@ msgid "EasyScreenCast -> Recording in progress / Seconds passed : "
 msgstr ""
 
 #: selection.js:184
-msgid "select an area for recording or press [ESC] to abort"
+msgid "Select an area for recording or press [ESC] to abort"
 msgstr ""
 
 #: selection.js:224
-msgid "select an window for recording or press [ESC] to abort"
+msgid "Select an window for recording or press [ESC] to abort"
 msgstr ""
 
 #: selection.js:309
-msgid "select an desktop for recording or press [ESC] to abort"
+msgid "Select an desktop for recording or press [ESC] to abort"
 msgstr ""
 
 #: utilwebcam.js:189
@@ -205,7 +205,7 @@ msgid "Default only"
 msgstr ""
 
 #: Options_UI.glade.h:17
-msgid "not any"
+msgid "Not any"
 msgstr ""
 
 #: Options_UI.glade.h:19
@@ -340,7 +340,7 @@ msgstr ""
 #: Options_UI.glade.h:55
 #, no-c-format
 msgid ""
-"the filename which may contain some escape sequences - %d and %t will be "
+"The filename which may contain some escape sequences - %d and %t will be "
 "replaced by the start date and time of the recording."
 msgstr ""
 
@@ -457,7 +457,7 @@ msgid "Get last GS pipeline"
 msgstr ""
 
 #: Options_UI.glade.h:86
-msgid "Get all complete Gstreamer pipe line of the last 15 minutes."
+msgid "Get all complete Gstreamer pipeline of the last 15 minutes."
 msgstr ""
 
 #: Options_UI.glade.h:87

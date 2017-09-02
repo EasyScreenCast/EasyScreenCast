@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-02 13:56+0200\n"
+"POT-Creation-Date: 2017-09-02 14:46+0200\n"
 "PO-Revision-Date: 2017-02-09 13:55+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -28,7 +28,7 @@ msgstr "Webcam Caps"
 
 #: prefs.js:732
 #, fuzzy
-msgid "No Gstreamer pipe line found"
+msgid "No Gstreamer pipeline found"
 msgstr "GStreamer Pipeline"
 
 #: prefs.js:766
@@ -139,17 +139,17 @@ msgstr "EasyScreenCasrt -> Laufende Aufnahme / verstrichene Sekunden :"
 
 #: selection.js:184
 #, fuzzy
-msgid "select an area for recording or press [ESC] to abort"
+msgid "Select an area for recording or press [ESC] to abort"
 msgstr "Wähle ein Bereich für die Aufnahme oder drücke [ESC] zum abbrechen"
 
 #: selection.js:224
 #, fuzzy
-msgid "select an window for recording or press [ESC] to abort"
+msgid "Select an window for recording or press [ESC] to abort"
 msgstr "Wähle ein Fenster für die Aufnahme oder drücke [ESC] zum abbrechen"
 
 #: selection.js:309
 #, fuzzy
-msgid "select an desktop for recording or press [ESC] to abort"
+msgid "Select an desktop for recording or press [ESC] to abort"
 msgstr ""
 "Wähle ein Schreibtisch für die Aufnahme oder drücke [ESC] zum abbrechen"
 
@@ -220,7 +220,7 @@ msgid "Default only"
 msgstr ""
 
 #: Options_UI.glade.h:17
-msgid "not any"
+msgid "Not any"
 msgstr ""
 
 #: Options_UI.glade.h:19
@@ -358,9 +358,9 @@ msgid "Destination folder"
 msgstr "Zielordner"
 
 #: Options_UI.glade.h:55
-#, no-c-format
+#, fuzzy, no-c-format
 msgid ""
-"the filename which may contain some escape sequences - %d and %t will be "
+"The filename which may contain some escape sequences - %d and %t will be "
 "replaced by the start date and time of the recording."
 msgstr ""
 "Der Dateiname kann Escape Sequenzen beinhalten. %d wird durch das Datum und "
@@ -489,7 +489,7 @@ msgid "Get last GS pipeline"
 msgstr ""
 
 #: Options_UI.glade.h:86
-msgid "Get all complete Gstreamer pipe line of the last 15 minutes."
+msgid "Get all complete Gstreamer pipeline of the last 15 minutes."
 msgstr ""
 
 #: Options_UI.glade.h:87

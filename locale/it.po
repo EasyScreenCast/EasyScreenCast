@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-02 13:56+0200\n"
-"PO-Revision-Date: 2016-03-19 13:18+0100\n"
+"POT-Creation-Date: 2017-09-02 14:46+0200\n"
+"PO-Revision-Date: 2017-09-02 14:50+0200\n"
 "Last-Translator: idn <iacopodeenosee@gmail.com>\n"
 "Language-Team: \n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.7\n"
+"X-Generator: Poedit 2.0.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: prefs.js:61
@@ -27,19 +27,20 @@ msgid "WebCam Caps"
 msgstr "WebCam Caps"
 
 #: prefs.js:732
-#, fuzzy
-msgid "No Gstreamer pipe line found"
-msgstr "GStreamer Pipeline"
+msgid "No Gstreamer pipeline found"
+msgstr "Nessuna GStreamer Pipeline trovata"
 
 #: prefs.js:766
 msgid "Version: "
-msgstr ""
+msgstr "Versione: "
 
 #: prefs.js:837
 msgid ""
 "<span foreground=\"red\">No Caps selected, please select one from the caps "
 "list</span>"
 msgstr ""
+"<span foreground=\"red\">Nessuna Caps selezionata, per favore selezionarne "
+"una dalla lista</span>"
 
 #: prefs.js:847 Options_UI.glade.h:33
 msgid "No webcam device selected"
@@ -138,31 +139,26 @@ msgid "EasyScreenCast -> Recording in progress / Seconds passed : "
 msgstr "EasyScreenCast -> Registrazione in corso / Secondi passati : "
 
 #: selection.js:184
-#, fuzzy
-msgid "select an area for recording or press [ESC] to abort"
+msgid "Select an area for recording or press [ESC] to abort"
 msgstr "Seleziona l'area da registrare o premi [ESC] per annulare"
 
 #: selection.js:224
-#, fuzzy
-msgid "select an window for recording or press [ESC] to abort"
+msgid "Select an window for recording or press [ESC] to abort"
 msgstr "Seleziona la finestra da registrare o premi [ESC] per annulare"
 
 #: selection.js:309
-#, fuzzy
-msgid "select an desktop for recording or press [ESC] to abort"
+msgid "Select an desktop for recording or press [ESC] to abort"
 msgstr "Seleziona il desktop da registrare o premi [ESC] per annulare"
 
 #: utilwebcam.js:189
 msgid "Unspecified webcam"
-msgstr ""
+msgstr "Webcam non specificata"
 
 #: Options_UI.glade.h:1
-#, fuzzy
 msgid "Recording status indicators"
-msgstr "Registra Audio"
+msgstr "Stato degli indicatori durante la registrazione"
 
 #: Options_UI.glade.h:2
-#, fuzzy
 msgid "Show alerts and notifications"
 msgstr "Mostra tempo di registrazione nella barra delle notifiche"
 
@@ -189,7 +185,7 @@ msgstr "Registra cursore nel screencast"
 
 #: Options_UI.glade.h:8
 msgid "Execute command after recording"
-msgstr "esegui comando dopo la registrazione"
+msgstr "Esegui comando dopo la registrazione"
 
 #: Options_UI.glade.h:9
 msgid ""
@@ -210,19 +206,19 @@ msgstr "Comando post-registrazione"
 
 #: Options_UI.glade.h:14
 msgid "Both  [ESC + Default]"
-msgstr ""
+msgstr "Entrambi [ESC + Default]"
 
 #: Options_UI.glade.h:15
 msgid "ESC only"
-msgstr ""
+msgstr "Solo ESC"
 
 #: Options_UI.glade.h:16
 msgid "Default only"
-msgstr ""
+msgstr "Solo Default"
 
 #: Options_UI.glade.h:17
-msgid "not any"
-msgstr ""
+msgid "Not any"
+msgstr "Nessuno"
 
 #: Options_UI.glade.h:19
 msgid "Custom GStreamer Pipeline"
@@ -360,7 +356,7 @@ msgstr "Cartella di destinazione"
 #: Options_UI.glade.h:55
 #, no-c-format
 msgid ""
-"the filename which may contain some escape sequences - %d and %t will be "
+"The filename which may contain some escape sequences - %d and %t will be "
 "replaced by the start date and time of the recording."
 msgstr ""
 "Il nome del file può contenere dei caratteri speciali, %d e %t questi "
@@ -383,17 +379,16 @@ msgid "File resolution"
 msgstr "Risoluzione del file"
 
 #: Options_UI.glade.h:60
-#, fuzzy
 msgid "Native area resolution"
 msgstr "Risoluzione nativa dell'area di registrazione"
 
 #: Options_UI.glade.h:61
 msgid "Native"
-msgstr ""
+msgstr "Nativa"
 
 #: Options_UI.glade.h:62
 msgid "Preset helper"
-msgstr ""
+msgstr "Lista predefiniti"
 
 #: Options_UI.glade.h:63
 msgid "HD [720p] [16:9]"
@@ -433,22 +428,21 @@ msgstr ""
 
 #: Options_UI.glade.h:72
 msgid "Preset"
-msgstr ""
+msgstr "Predefiniti"
 
 #: Options_UI.glade.h:73
 msgid "keep original aspect ratio"
-msgstr ""
+msgstr "mantieni l' aspect-ratio originale"
 
 #: Options_UI.glade.h:74
 msgid "Custom"
-msgstr ""
+msgstr "Personalizzata"
 
 #: Options_UI.glade.h:75
 msgid "File"
 msgstr "File"
 
 #: Options_UI.glade.h:76
-#, fuzzy
 msgid ""
 "This option enable more debug message, to view these run this command into a "
 "terminal:\n"
@@ -478,27 +472,27 @@ msgstr ""
 
 #: Options_UI.glade.h:83
 msgid "Get extension log"
-msgstr ""
+msgstr "Log estensione"
 
 #: Options_UI.glade.h:84
 msgid "Get the logs of the extension of the last 15 minutes."
-msgstr ""
+msgstr "Ottieni il log dell' estensione degli ultimi 15 minuti."
 
 #: Options_UI.glade.h:85
 msgid "Get last GS pipeline"
-msgstr ""
+msgstr "Ultime Gstreamer pipeline"
 
 #: Options_UI.glade.h:86
-msgid "Get all complete Gstreamer pipe line of the last 15 minutes."
-msgstr ""
+msgid "Get all complete Gstreamer pipeline of the last 15 minutes."
+msgstr "Ottieni le Gstreamer pipeline complete degli ultimi 15 minuti."
 
 #: Options_UI.glade.h:87
 msgid "Get Gnome log"
-msgstr ""
+msgstr "Log Gnome"
 
 #: Options_UI.glade.h:88
 msgid "Get the logs of gnome shell of the last 15 minutes."
-msgstr ""
+msgstr "Ottieni i logs di gnome shell degli utlimi 15 minuti."
 
 #: Options_UI.glade.h:89
 msgid "Restore default options"
@@ -506,49 +500,51 @@ msgstr "Ripristina le opzioni di default"
 
 #: Options_UI.glade.h:90
 msgid "Support"
-msgstr ""
+msgstr "Supporto"
 
 #: Options_UI.glade.h:91
 msgid "EasyScreenCast"
-msgstr ""
+msgstr "EasyScreenCast"
 
 #: Options_UI.glade.h:92
 msgid "N/A"
-msgstr ""
+msgstr "N/A"
 
 #: Options_UI.glade.h:93
 msgid ""
 "This extension simplifies the use of the \n"
 "screen recorder  included in gnome shell"
 msgstr ""
+"This extension simplifies the use of the \n"
+"screen recorder  included in gnome shell"
 
 #: Options_UI.glade.h:95
 msgid "This software is licensed under GPL v3"
-msgstr ""
+msgstr "Questo software è sotto licenza GPL v3"
 
 #: Options_UI.glade.h:96
 msgid "Credits"
-msgstr ""
+msgstr "Crediti"
 
 #: Options_UI.glade.h:97
 msgid "How to contribute?"
-msgstr ""
+msgstr "Come contribuire?"
 
 #: Options_UI.glade.h:98
 msgid "With a translation"
-msgstr ""
+msgstr "Con una traduzione"
 
 #: Options_UI.glade.h:99
 msgid "Reporting bugs"
-msgstr ""
+msgstr "Segnalando bugs"
 
 #: Options_UI.glade.h:100
 msgid "Add code"
-msgstr ""
+msgstr "Miglioranto il codice"
 
 #: Options_UI.glade.h:101
 msgid "Info"
-msgstr ""
+msgstr "Info"
 
 #~ msgid "Open in the filesystem"
 #~ msgstr "Apri nel filesystem"
