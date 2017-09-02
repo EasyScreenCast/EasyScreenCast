@@ -533,7 +533,8 @@ const EasyScreenCast_Indicator = new Lang.Class({
                 Lib.TalkativeLog('-*-execute post command');
 
                 //launch cmd after registration
-                var tmpCmd = Settings.getOption('s', Settings.POST_CMD_SETTING_KEY);
+                var tmpCmd = '/usr/bin/sh -c "' +
+                    Settings.getOption('s', Settings.POST_CMD_SETTING_KEY) + '"';
 
                 var mapObj = {
                     _fpath: pathFile,
@@ -549,12 +550,8 @@ const EasyScreenCast_Indicator = new Lang.Class({
 
                 Lib.TalkativeLog('-*-post command:' + Cmd);
 
-                //Main.Util.trySpawnCommandLine(Cmd);
-                this.CtrlExe.Execute(Cmd, false, null, function() {
-                    this.CtrlNotify.createNotify(
-                        _('ERROR POST SCRIPT - See logs for more info'),
-                        Lib.ESCoffGIcon);
-                    });
+                //execute post command
+                this.CtrlExe.Spawn(Cmd);
             }
         }
 
@@ -604,11 +601,8 @@ const EasyScreenCast_Indicator = new Lang.Class({
     _doExtensionPreferences: function() {
         Lib.TalkativeLog('-*-open preferences');
 
-        this.CtrlExe.Execute(
-            'gnome-shell-extension-prefs  EasyScreenCast@iacopodeenosee.gmail.com',
-            false,
-            null,
-            null);
+        this.CtrlExe.Spawn(
+            'gnome-shell-extension-prefs  EasyScreenCast@iacopodeenosee.gmail.com');
     },
 
     _onDelayTimeChanged: function() {
