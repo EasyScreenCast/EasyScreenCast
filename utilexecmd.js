@@ -12,6 +12,7 @@
 
 const Lang = imports.lang;
 const GLib = imports.gi.GLib;
+const Gio = imports.gi.Gio;
 
 
 const ExtensionUtils = imports.misc.extensionUtils;
@@ -26,138 +27,159 @@ const ExecuteStuff = new Lang.Class({
         Lib.TalkativeLog('-¶-init scope:' + scope);
 
         this.Scope = scope;
-        this.RightCallback = null;
-        this.WrongCallback = null;
+        this.Callback = null;
     },
 
-    Execute: function(cmd, sync, rightCallback, wrongCallback){
-        Lib.TalkativeLog('-¶-execute: ' + cmd);
-        this.CommandString = cmd;
+    _parseCmd: function(cmd){
+        let successP, argv;
 
-        this._setCallback(this.RightCallback, rightCallback);
-        this._setCallback(this.WrongCallback ,wrongCallback);
+        try {
+            [successP, argv] = GLib.shell_parse_argv(cmd);
+        }
+        catch (err) {
+            Lib.TalkativeLog('-¶-ERROR PARSE');
+            successP = false;
+        }
+        if(successP){
+            Lib.TalkativeLog('-¶-parse: '+ successP + ' argv: ' + argv);
+            return [successP, argv];
+        } else {
+            return [successP, null];
+        }
+    },
+
+    Execute: function(cmd, sync, resCallback, lineCallback){
+        Lib.TalkativeLog('-¶-execute: ' + cmd);
+
+        this.CommandString = cmd;
+        if (resCallback === undefined && resCallback === null &&
+            typeof resCallback !== "function") {
+            Lib.TalkativeLog('-¶-resCallback NEED to be a function');
+
+            this.Callback = null;
+        } else {
+            this.Callback = resCallback;
+        }
 
         if(sync===true){
             Lib.TalkativeLog('-¶-sync execute (wait for return)');
             this._syncCmd(this.CommandString);
         } else {
             Lib.TalkativeLog('-¶-async execute (fork process)');
+            if (lineCallback === undefined && lineCallback === null &&
+                typeof lineCallback !== "function") {
+                Lib.TalkativeLog('-¶-lineCallback NEED to be a function');
+
+                this.lineCallback = null;
+            } else {
+                this.lineCallback = lineCallback;
+            }
             this._asyncCmd(this.CommandString);
         }
     },
 
     Spawn: function(cmd){
-        Lib.TalkativeLog('-¶-spawn: ' + cmd);
+        let [successP, argv] = this._parseCmd(cmd);
+        if(successP){
+            let successS, pid;
+            try {
+                [successS, pid] = GLib.spawn_async(null, argv, null,
+                        GLib.SpawnFlags.SEARCH_PATH |
+                        GLib.SpawnFlags.DO_NOT_REAP_CHILD,null);
+            }
+            catch (err) {
+                Lib.TalkativeLog('-¶-ERROR SPAWN err:' + err.message.toString());
+                successS = false;
+            }
 
-        try {
-            let [success, std_out, std_err, code_res] =
-                GLib.spawn_sync(null,
-                    cmd,
-                    null,
-                    GLib.SpawnFlags.SEARCH_PATH,
-                    null);
-        }
-        catch(err) {
-            var success = false;
-        }
-        finally {
-            if(success && std_out !== null){
-                Lib.TalkativeLog('-¶-spawn OK: ' + code_res);
-                return std_out.toString();
+            if(successS){
+                Lib.TalkativeLog('-¶-spawn: '+ successS + ' pid: ' + pid);
+                return true;
             } else {
-                Lib.TalkativeLog('-¶-spawn ERROR: ' + code_res + ' err: ' + std_err.toString());
+                Lib.TalkativeLog('-¶-spawn ERROR');
                 return null;
+
             }
         }
     },
 
     _syncCmd: function(cmd) {
-        try {
-            let [success, std_out, std_err, code_res] =
-                GLib.spawn_command_line_sync(cmd);
-        }
-        catch(err) {
-            var success = false;
-        }
-        finally {
-            if(success){
-                Lib.TalkativeLog('-¶-execute OK: ' + code_res);
-                if(this.RightCallback !== null)
-                    this.RightCallback.apply(this.Scope, []);
-            } else {
-                Lib.TalkativeLog('-¶-execute ERROR: ' + code_res);
-                if(this.WrongCallback !== null)
-                    this.WrongCallback.apply(this.scope,[]);
+        let [successP, argv] = this._parseCmd(cmd);
+        if(successP){
+            Lib.TalkativeLog('-¶-argv: ' + argv);
+            let successS, std_out, std_err, exit;
+            try {
+                [successS, std_out, std_err, exit] = GLib.spawn_sync(null,
+                    argv, null, GLib.SpawnFlags.SEARCH_PATH , function () {});
+            }catch (err) {
+                Lib.TalkativeLog('-¶-ERROR SPAWN');
+                successS = false;
             }
+            if (successS) {
+                Lib.TalkativeLog('-¶-argv: ' + argv);
+                Lib.TalkativeLog('-¶-std_out: ' + std_out);
+                Lib.TalkativeLog('-¶-std_err: ' + std_err);
 
-            var IOchannelOUT = GLib.IOChannel.unix_new(std_out);
-            var IOchannelERR = GLib.IOChannel.unix_new(std_err);
-
-            var tagWatchOUT = GLib.io_add_watch(IOchannelOUT, GLib.PRIORITY_DEFAULT,
-                GLib.IOCondition.IN | GLib.IOCondition.HUP,
-                () => this._loadPipeOUT(),
-                null
-            );
-            var tagWatchERR = GLib.io_add_watch(IOchannelERR, GLib.PRIORITY_DEFAULT,
-                GLib.IOCondition.IN | GLib.IOCondition.HUP,
-                () => this._loadPipeERR(),
-                null
-            );
+                Lib.TalkativeLog('-¶-exe RC');
+                if(this.Callback !== null)
+                    this.Callback.apply(this.Scope, [true, std_out.toString()]);
+            } else {
+                Lib.TalkativeLog('-¶-ERROR exe WC');
+                if(this.Callback !== null)
+                    this.Callback.apply(this.Scope,[false]);
+            }
         }
     },
 
     _asyncCmd: function(cmd) {
-        try {
-            var success = GLib.spawn_command_line_async(cmd);
-        }
-        catch(err) {
-            var success = false;
-        }
-        finally {
-            if(success){
-                Lib.TalkativeLog('-¶-execute OK');
-                if(this.RightCallback !== null)
-                    this.RightCallback.apply(this.Scope, []);
+        let [successP, argv] = this._parseCmd(cmd);
+        if(successP){
+            Lib.TalkativeLog('-¶-argv: ' + argv);
+            let successS, pid, std_in, std_out, std_err;
+
+            try {
+            [successS, pid, std_in, std_out, std_err] =
+                GLib.spawn_async_with_pipes(null, argv, null,
+                    GLib.SpawnFlags.SEARCH_PATH, function () {}, null, null);
+
+            }catch (err) {
+                Lib.TalkativeLog('-¶-ERROR SPAWN');
+                successS = false;
+            }
+            if (successS) {
+                Lib.TalkativeLog('-¶-argv: ' + argv);
+                Lib.TalkativeLog('-¶-pid: ' + pid);
+                Lib.TalkativeLog('-¶-std_in: ' + std_in);
+                Lib.TalkativeLog('-¶-std_out: ' + std_out);
+                Lib.TalkativeLog('-¶-std_err: ' + std_err);
+
+                let out_reader = new Gio.DataInputStream({
+                    base_stream: new Gio.UnixInputStream({
+                        fd: std_out
+                    })
+                });
+                let in_writer = new Gio.DataOutputStream({
+                    base_stream: new Gio.UnixOutputStream({
+                        fd: std_in
+                    })
+                });
+
+                let [out, size] = out_reader.read_line(null);
+                while (out !== null) {
+                    if(this.lineCallback !== null)
+                        this.lineCallback.apply(this.Scope,[out.toString()]);
+                    [out, size] = out_reader.read_line(null);
+                }
+
+                if(this.Callback !== null){
+                    Lib.TalkativeLog('-¶-exe RC');
+                    this.Callback.apply(this.Scope, [true]);
+                }
             } else {
-                Lib.TalkativeLog('-¶-execute ERROR');
-                if(this.WrongCallback !== null)
-                    this.WrongCallback.apply(this.scope,[]);
+                Lib.TalkativeLog('-¶-ERROR exe WC');
+                if(this.Callback !== null)
+                    this.Callback.apply(this.Scope,[false]);
             }
         }
-    },
-
-    _setCallback: function(dest, func) {
-        if (func === undefined || func === null ||
-            typeof func !== "function") {
-            Lib.TalkativeLog('-¶-callback NEED to be a function');
-
-            dest = null;
-        } else {
-            dest = func;
-        }
-    },
-
-    _loadPipeOUT: function(channel, condition, data) {
-        if (condition != GLib.IOCondition.HUP) {
-            let [size, out] = channel.read_to_end(null);
-            let result = out.toString();
-            if(result != null){
-                Lib.TalkativeLog('-¶-pipe OUT: ' + result);
-            }
-        }
-        GLib.source_remove(this.tagWatchOUT);
-        channel.shutdown(true);
-    },
-
-    _loadPipeERR: function(channel, condition, data) {
-        if (condition != GLib.IOCondition.HUP) {
-            let [size, out] = channel.read_to_end(null);
-            let result = out.toString();
-            if(result != null){
-                Lib.TalkativeLog('-¶-pipe ERROR: ' + result);
-            }
-        }
-        GLib.source_remove(this.tagWatchERR);
-        channel.shutdown(false);
     }
 });
