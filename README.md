@@ -17,25 +17,27 @@ EasyScreenCast simplifies the use of the video recording function integrated in 
 EasyScreenCast is free software distributed under the GNU GPL. All files are under GPL v3. read [COPYING](COPYING.md) for more infomation about license.
 
 # How to install
-there are a few thing to do, open a terminal and enter:
+there are several methods:
 
-1-download from github last version
+1-from **gnome extension site**, just go on [this page](https://extensions.gnome.org/extension/690/easyscreencast/) and click/touch on the button ON, that's all.
 
-```
-git clone https://github.com/EasyScreenCast/EasyScreenCast
-```
 
-2-move the entire directory to gnome shell extension home
+2-from **github repo**, if you want the most up-to-date version, just do these simple steps
+
 
 ```
-mv EasyScreenCast ~/.local/share/gnome-shell/extensions/EasyScreenCast@iacopodeenosee.gmail.com
+git clone https://github.com/EasyScreenCast/EasyScreenCast.git
+cd EasyScreenCast
+make
+make install
 ```
 
 # How to view the logs
 You must **enable the verbose logs in options window** and after that you can find the logs by typing this on terminal:
 
 ```
-journalctl --since=today --no-pager | grep js
+journalctl --since=today --no-pager --output=cat | grep ESC
+journalctl /usr/bin/gnome-shell --since=today --no-pager --output=cat
 ```
 
 to open the option windows from terminal try that on terminal:

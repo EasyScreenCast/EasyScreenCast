@@ -1,5 +1,3 @@
-/* -*- mode: js; js-basic-offset: 4; indent-tabs-mode: nil -*- */
-
 /*
 The MIT License (MIT)
 Copyright (c) 2013 otto.allmendinger@gmail.com
@@ -88,7 +86,7 @@ const Capture = new Lang.Class({
             Lib.TalkativeLog('-£-Main.pushModal() === false');
         }
 
-        Main.sessionMode.connect('updated', Lang.bind(this, this._updateDraw));
+        Main.sessionMode.connect('updated', () => this._updateDraw());
     },
 
     _updateDraw: function() {
@@ -183,7 +181,7 @@ const SelectionArea = new Lang.Class({
 
         let CtrlNotify = new UtilNotify.NotifyManager();
         CtrlNotify.createAlert(
-            _('select an area for recording or press [ESC] to abort'));
+            _('Select an area for recording or press [ESC] to abort'));
     },
 
     _onEvent: function(capture, event) {
@@ -223,7 +221,7 @@ const SelectionWindow = new Lang.Class({
 
         let CtrlNotify = new UtilNotify.NotifyManager();
         CtrlNotify.createAlert(
-            _('select a window for recording or press [ESC] to abort'));
+            _('Select an window for recording or press [ESC] to abort'));
     },
 
     _onEvent: function(capture, event) {
@@ -308,7 +306,7 @@ const SelectionDesktop = new Lang.Class({
 
         let CtrlNotify = new UtilNotify.NotifyManager();
         CtrlNotify.createAlert(
-            _('select a desktop for recording or press [ESC] to abort'));
+            _('Select an desktop for recording or press [ESC] to abort'));
     },
 
     _onEvent: function(capture, event) {
@@ -358,17 +356,19 @@ const AreaRecording = new Lang.Class({
 
         Main.uiGroup.add_actor(this._areaRecording);
 
-        Main.overview.connect('showing', Lang.bind(this, function() {
-            Lib.TalkativeLog('-£-overview opening');
+        Main.overview.connect('showing',
+            () => {
+                Lib.TalkativeLog('-£-overview opening');
 
-            Main.uiGroup.remove_actor(this._areaRecording);
-        }));
+                Main.uiGroup.remove_actor(this._areaRecording);
+            });
 
-        Main.overview.connect('hidden', Lang.bind(this, function() {
-            Lib.TalkativeLog('-£-overview closed');
+        Main.overview.connect('hidden',
+            () => {
+                Lib.TalkativeLog('-£-overview closed');
 
-            Main.uiGroup.add_actor(this._areaRecording);
-        }));
+                Main.uiGroup.add_actor(this._areaRecording);
+            });
 
         if ((recX + recW <= tmpW - 5) && (recY + recH <= tmpH - 5)) {
             this.drawArea(recX - 2, recY - 2, recW + 4, recH + 4);

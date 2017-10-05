@@ -1,5 +1,3 @@
-/* -*- mode: js; js-basic-offset: 4; indent-tabs-mode: nil -*- */
-
 /*
     Copyright (C) 2013  Borsato Ivano
 
@@ -45,15 +43,14 @@ const CaptureVideo = new Lang.Class({
         ScreenCastService = new ScreenCastProxy(
             Gio.DBus.session, 'org.gnome.Shell.Screencast',
             '/org/gnome/Shell/Screencast',
-            Lang.bind(this, function(proxy, error) {
+            (proxy, error) => {
                 if (error) {
                     Lib.TalkativeLog('-&-ERROR(d-bus proxy connected) - ' + error.message);
                     return;
                 } else {
                     Lib.TalkativeLog('-&-d-bus proxy connected');
                 }
-            })
-        );
+            });
     },
     /*
      * start recording
@@ -95,7 +92,7 @@ const CaptureVideo = new Lang.Class({
 
         if (Settings.getOption('i', Settings.AREA_SCREEN_SETTING_KEY) === 0) {
             ScreenCastService.ScreencastRemote(fileRec, optionsRec,
-                Lang.bind(this, function(result, error) {
+                (result, error) => {
                     if (error) {
                         Lib.TalkativeLog('-&-ERROR(screencast execute) - ' + error.message);
 
@@ -106,8 +103,7 @@ const CaptureVideo = new Lang.Class({
                     }
 
                     Ext.Indicator.doRecResult(result[0], result[1]);
-                })
-            );
+                });
         } else {
             ScreenCastService.ScreencastAreaRemote(Settings.getOption(
                     'i', Settings.X_POS_SETTING_KEY), Settings.getOption(
@@ -115,7 +111,7 @@ const CaptureVideo = new Lang.Class({
                     'i', Settings.WIDTH_SETTING_KEY), Settings.getOption(
                     'i', Settings.HEIGHT_SETTING_KEY),
                 fileRec, optionsRec,
-                Lang.bind(this, function(result, error) {
+                (result, error) => {
                     if (error) {
                         Lib.TalkativeLog('-&-ERROR(screencast execute) - ' + error.message);
 
@@ -132,8 +128,7 @@ const CaptureVideo = new Lang.Class({
 
                         Ext.Indicator.doRecResult(result[0], result[1]);
                     }
-                })
-            );
+                });
         }
     },
     /*
@@ -142,9 +137,8 @@ const CaptureVideo = new Lang.Class({
     stop: function() {
         Lib.TalkativeLog('-&-stop video recording');
 
-        ScreenCastService.StopScreencastRemote(Lang.bind(
-            this,
-            function(result, error) {
+        ScreenCastService.StopScreencastRemote(
+            (result, error) => {
                 if (error) {
                     Lib.TalkativeLog('-&-ERROR(screencast stop) - ' + error.message);
                     return false;
@@ -159,7 +153,6 @@ const CaptureVideo = new Lang.Class({
                 }
 
                 return true;
-            }
-        ));
+            });
     }
 });

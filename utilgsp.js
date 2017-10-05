@@ -1,5 +1,3 @@
-/* -*- mode: js; js-basic-offset: 4; indent-tabs-mode: nil -*- */
-
 /*
     Copyright (C) 2016  Borsato Ivano
 
@@ -194,14 +192,8 @@ const ogg = {
 const RESOLUTION = [
     // NATIVE SCREENCAST RESOLUTION
     '',
-    // SD - 480
-    'videoscale ! video/x-raw, width=640, height=480, add-borders=true ! ',
-    // HD - 720
-    'videoscale ! video/x-raw, width=1280, height=720, add-borders=true ! ',
-    // FHD - 1080
-    'videoscale ! video/x-raw, width=1920, height=1080, add-borders=true ! ',
-    // UHD - 2160
-    'videoscale ! video/x-raw, width=3840, height=2160, add-borders=true ! '
+    // PRESET/CUSTOM SCREENCAST RESOLUTION
+    'videoscale ! video/x-raw, width=_RES_WIDTH_, height=_RES_HEIGHT_, add-borders=_RES_KAR_ ! '
 ];
 
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -229,12 +221,18 @@ function composeGSP() {
         'i', Settings.QUALITY_SETTING_KEY);
     let QualityWebcam = Settings.getOption(
         's', Settings.QUALITY_WEBCAM_SETTING_KEY);
-    let Resolution = Settings.getOption(
-        'i', Settings.FILE_RESOLUTION_SETTING_KEY);
+    let ResolutionType = Settings.getOption(
+        'i', Settings.FILE_RESOLUTION_TYPE_SETTING_KEY);
+    let ResolutionKAR = Settings.getOption(
+        'b', Settings.FILE_RESOLUTION_KAR_SETTING_KEY);
+    let ResolutionHeight = Settings.getOption(
+        'i', Settings.FILE_RESOLUTION_HEIGHT_SETTING_KEY);
+    let ResolutionWidth = Settings.getOption(
+        'i', Settings.FILE_RESOLUTION_WIDTH_SETTING_KEY);
     let Container = Settings.getOption(
         'i', Settings.FILE_CONTAINER_SETTING_KEY);
 
-    Lib.TalkativeLog('-§-get option||devW: ' + Device_Webcam + '||devA: ' + Device_Audio + '||Qgsp: ' + QualityGSP + '||Qwc: ' + QualityWebcam + '||Res: ' + Resolution + '||Cont: ' + Container);
+    Lib.TalkativeLog('-§-get option||devW: ' + Device_Webcam + '||devA: ' + Device_Audio + '||Qgsp: ' + QualityGSP + '||Qwc: ' + QualityWebcam + '||Res: ' + ResolutionType + '||Cont: ' + Container);
 
     if (Device_Webcam > 0) {
         switch (Device_Audio) {
@@ -317,9 +315,13 @@ function composeGSP() {
         }
     }
 
+    //compose resolution string
+    var Resolution = composeResolution(ResolutionType, ResolutionHeight,
+        ResolutionWidth, ResolutionKAR);
+
     //replace RESOLUTION/ENCODER-VIDEO/CONTAINER
     var mapObj = {
-        _SCREENCAST_RES_: RESOLUTION[Resolution],
+        _SCREENCAST_RES_: Resolution,
         _ENCODER_VIDEO_: CONTAINER[Container].quality[QualityGSP].vq,
         _CONTAINER_: CONTAINER[Container].nameGSP
     };
@@ -330,7 +332,6 @@ function composeGSP() {
             return mapObj[match];
         }
     );
-
 
     Lib.TalkativeLog('-§-final GSP :' + this.tmpGSP);
 
@@ -412,6 +413,49 @@ function replaceWebcam(gspRW, device, caps) {
     Lib.TalkativeLog('-§-pipeline post-webcam:' + webcamPipeline);
 
     return webcamPipeline;
+}
+
+/*
+ * replace resolution
+ */
+function composeResolution(tmpRes,h,w,kar) {
+    Lib.TalkativeLog('-§-resolution option: ' + tmpRes);
+    var strRes = RESOLUTION[0];
+
+    switch (tmpRes){
+    case -1:
+        break;
+    case 999:
+        var mapObj = {
+            _RES_KAR_ : kar ? 'true' : 'false',
+            _RES_HEIGHT_ : h,
+            _RES_WIDTH_ : w
+        };
+
+        strRes = RESOLUTION[1].replace(
+            /_RES_KAR_|_RES_HEIGHT_|_RES_WIDTH_/gi,
+            function(match) {
+                return mapObj[match];
+            }
+        );
+        break;
+    default:
+        var mapObj = {
+            _RES_KAR_ : 'true',
+            _RES_HEIGHT_ : h,
+            _RES_WIDTH_ : w
+        };
+
+        strRes = RESOLUTION[1].replace(
+            /_RES_KAR_|_RES_WIDTH_|_RES_HEIGHT_/gi,
+            function(match) {
+                return mapObj[match];
+            }
+        );
+    }
+
+    Lib.TalkativeLog('-§-compose resolution: ' + strRes);
+    return strRes;
 }
 
 /*

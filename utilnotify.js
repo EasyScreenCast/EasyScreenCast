@@ -1,5 +1,3 @@
-/* -*- mode: js; js-basic-offset: 4; indent-tabs-mode: nil -*- */
-
 /*
     Copyright (C) 2016  Borsato Ivano
 
@@ -93,10 +91,11 @@ const NotifyManager = new Lang.Class({
                 opacity: 0,
                 time: 4,
                 transition: 'easeOutQuad',
-                onComplete: Lang.bind(this, function() {
-                    Main.uiGroup.remove_actor(text);
-                    text = null;
-                })
+                onComplete:
+                    () => {
+                        Main.uiGroup.remove_actor(text);
+                        text = null;
+                    }
             });
         }
     }

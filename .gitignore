@@ -1,2 +1,8 @@
-node_modules/
+locale/de.mo
+locale/es.mo
+locale/fr.mo
+locale/it.mo
+locale/pt_BR.mo
+locale/ru.mo
+*~
 

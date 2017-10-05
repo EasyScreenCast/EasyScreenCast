@@ -1,4 +1,3 @@
-/* -*- mode: js; js-basic-offset: 4; indent-tabs-mode: nil -*- */
 /*
   Copyright (c) 2011-2012, Giovanni Campagna <scampa.giovanni@gmail.com>
 
@@ -103,20 +102,6 @@ function TalkativeLog(msg) {
     }
 }
 
-function getResultCmd(cmd) {
-    let [res, out] = GLib.spawn_sync(null,
-        cmd,
-        null,
-        GLib.SpawnFlags.SEARCH_PATH,
-        null);
-
-    if (out === null) {
-        return null;
-    } else {
-        return out.toString();
-    }
-}
-
 /*
 ////////////////////////////////////////////////////////////////////////////////
 */
@@ -140,9 +125,14 @@ const ESCoffGIconSel = new Gio.FileIcon({
         'images/icon_defaultSel.svg').get_path())
 });
 
+/*
+////////////////////////////////////////////////////////////////////////////////
+*/
 const ESCimgPerformance = Me.dir.get_child(
     'images/Icon_Performance.svg').get_path();
 
-
 const ESCimgQuality = Me.dir.get_child(
     'images/Icon_Quality.svg').get_path();
+
+const ESCimgInfo = Me.dir.get_child(
+    'images/Icon_Info.png').get_path();
