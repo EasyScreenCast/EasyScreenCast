@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-09-02 14:46+0200\n"
-"PO-Revision-Date: 2017-09-02 14:50+0200\n"
+"PO-Revision-Date: 2017-10-05 09:29+0200\n"
 "Last-Translator: idn <iacopodeenosee@gmail.com>\n"
 "Language-Team: \n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.3\n"
+"X-Generator: Poedit 2.0.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: prefs.js:61
@@ -540,7 +540,7 @@ msgstr "Segnalando bugs"
 
 #: Options_UI.glade.h:100
 msgid "Add code"
-msgstr "Miglioranto il codice"
+msgstr "Migliorando il codice"
 
 #: Options_UI.glade.h:101
 msgid "Info"
