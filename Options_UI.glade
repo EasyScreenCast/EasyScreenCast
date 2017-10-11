@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.20.0 -->
+<!-- Generated with glade 3.20.1 -->
 <interface>
   <requires lib="gtk+" version="3.16"/>
   <object class="GtkListStore" id="liststore_KeyShortcut">
@@ -138,33 +138,6 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkSwitch" id="swt_KeyShortcut">
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="tooltip_text" translatable="yes">To activate the change of the shortcut restart the extension</property>
-                        <property name="halign">start</property>
-                        <property name="hexpand">True</property>
-                      </object>
-                      <packing>
-                        <property name="left_attach">1</property>
-                        <property name="top_attach">3</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="label12">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="tooltip_text" translatable="yes">To activate the change of the shortcut restart the extension</property>
-                        <property name="halign">end</property>
-                        <property name="hexpand">True</property>
-                        <property name="label" translatable="yes">Shortcut combination</property>
-                      </object>
-                      <packing>
-                        <property name="left_attach">0</property>
-                        <property name="top_attach">4</property>
-                      </packing>
-                    </child>
-                    <child>
                       <object class="GtkViewport" id="viewport_KeyShortcut">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
@@ -189,53 +162,19 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkLabel" id="textentry1">
+                      <object class="GtkComboBoxText" id="cbt_StatusIndicatorsRec">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="halign">end</property>
-                        <property name="hexpand">True</property>
-                        <property name="label" translatable="yes">Draw cursor on screencast</property>
-                      </object>
-                      <packing>
-                        <property name="left_attach">0</property>
-                        <property name="top_attach">5</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkSwitch" id="swt_DrawCursorRec">
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="halign">start</property>
-                        <property name="hexpand">True</property>
+                        <items>
+                          <item id="0" translatable="yes">Both  [ESC + Default]</item>
+                          <item id="1" translatable="yes">ESC only</item>
+                          <item id="2" translatable="yes">Default only</item>
+                          <item id="3" translatable="yes">Not any</item>
+                        </items>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
-                        <property name="top_attach">5</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="label14">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="halign">end</property>
-                        <property name="hexpand">True</property>
-                        <property name="label" translatable="yes">Execute command after recording</property>
-                      </object>
-                      <packing>
-                        <property name="left_attach">0</property>
-                        <property name="top_attach">6</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkSwitch" id="swt_executepostcmd">
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="halign">start</property>
-                        <property name="hexpand">False</property>
-                      </object>
-                      <packing>
-                        <property name="left_attach">1</property>
-                        <property name="top_attach">6</property>
+                        <property name="top_attach">0</property>
                       </packing>
                     </child>
                     <child>
@@ -252,7 +191,7 @@ _fname = the name of the screencast video file.</property>
                       </object>
                       <packing>
                         <property name="left_attach">0</property>
-                        <property name="top_attach">7</property>
+                        <property name="top_attach">9</property>
                       </packing>
                     </child>
                     <child>
@@ -267,24 +206,97 @@ _fname = the name of the screencast video file.</property>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
-                        <property name="top_attach">7</property>
+                        <property name="top_attach">9</property>
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkComboBoxText" id="cbt_StatusIndicatorsRec">
+                      <object class="GtkLabel" id="label14">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <items>
-                          <item id="0" translatable="yes">Both  [ESC + Default]</item>
-                          <item id="1" translatable="yes">ESC only</item>
-                          <item id="2" translatable="yes">Default only</item>
-                          <item id="3" translatable="yes">Not any</item>
-                        </items>
+                        <property name="halign">end</property>
+                        <property name="hexpand">True</property>
+                        <property name="label" translatable="yes">Execute command after recording</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">0</property>
+                        <property name="top_attach">8</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSwitch" id="swt_executepostcmd">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="halign">start</property>
+                        <property name="hexpand">False</property>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
-                        <property name="top_attach">0</property>
+                        <property name="top_attach">8</property>
                       </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSwitch" id="swt_DrawCursorRec">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="halign">start</property>
+                        <property name="hexpand">True</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">1</property>
+                        <property name="top_attach">5</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="textentry1">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="halign">end</property>
+                        <property name="hexpand">True</property>
+                        <property name="label" translatable="yes">Draw cursor on screencast</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">0</property>
+                        <property name="top_attach">5</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="height_request">1</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="halign">end</property>
+                        <property name="hexpand">True</property>
+                        <property name="label" translatable="yes">Active shortcut</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">0</property>
+                        <property name="top_attach">4</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSwitch" id="swt_KeyShortcut">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="tooltip_text" translatable="yes">To activate the change of the shortcut restart the extension</property>
+                        <property name="halign">start</property>
+                        <property name="hexpand">True</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">1</property>
+                        <property name="top_attach">3</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
                     </child>
                   </object>
                 </child>
@@ -1466,65 +1478,45 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                             <property name="top_attach">0</property>
                           </packing>
                         </child>
+                        <child>
+                          <object class="GtkComboBoxText" id="cbt_LogChooser">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="halign">start</property>
+                            <property name="margin_bottom">5</property>
+                            <property name="hexpand">False</property>
+                            <items>
+                              <item id="0" translatable="yes">extension</item>
+                              <item id="1" translatable="yes">last Gstreamer pipeline</item>
+                              <item id="2" translatable="yes">gnome shell</item>
+                            </items>
+                          </object>
+                          <packing>
+                            <property name="left_attach">1</property>
+                            <property name="top_attach">1</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="label12">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="tooltip_text" translatable="yes">This option enable more debug message, to view these run this command into a terminal:
+$ journalctl --since=today --no-pager | grep js
+$ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
+                            <property name="halign">end</property>
+                            <property name="hexpand">True</property>
+                            <property name="label" translatable="yes">Display the log of</property>
+                          </object>
+                          <packing>
+                            <property name="left_attach">0</property>
+                            <property name="top_attach">1</property>
+                          </packing>
+                        </child>
                       </object>
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
                         <property name="position">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkBox">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="homogeneous">True</property>
-                        <child>
-                          <object class="GtkButton" id="btn_GetExtLog">
-                            <property name="label" translatable="yes">Get extension log</property>
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="receives_default">True</property>
-                            <property name="tooltip_text" translatable="yes">Get the logs of the extension of the last 15 minutes.</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkButton" id="btn_GetLastGSP">
-                            <property name="label" translatable="yes">Get last GS pipeline</property>
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="receives_default">True</property>
-                            <property name="tooltip_text" translatable="yes">Get all complete Gstreamer pipeline of the last 15 minutes.</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">1</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkButton" id="btn_GetGnomeLog">
-                            <property name="label" translatable="yes">Get Gnome log</property>
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="receives_default">True</property>
-                            <property name="tooltip_text" translatable="yes">Get the logs of gnome shell of the last 15 minutes.</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">2</property>
-                          </packing>
-                        </child>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">1</property>
                       </packing>
                     </child>
                     <child>
@@ -1536,13 +1528,15 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                           <object class="GtkTextView" id="txe_ContainerLog">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
+                            <property name="editable">False</property>
+                            <property name="monospace">True</property>
                           </object>
                         </child>
                       </object>
                       <packing>
                         <property name="expand">True</property>
                         <property name="fill">True</property>
-                        <property name="position">2</property>
+                        <property name="position">1</property>
                       </packing>
                     </child>
                     <child>
@@ -1555,7 +1549,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">3</property>
+                        <property name="position">2</property>
                       </packing>
                     </child>
                     <child>
@@ -1571,7 +1565,7 @@ $ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
                         <property name="expand">False</property>
                         <property name="fill">False</property>
                         <property name="pack_type">end</property>
-                        <property name="position">4</property>
+                        <property name="position">3</property>
                       </packing>
                     </child>
                   </object>
