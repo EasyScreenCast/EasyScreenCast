@@ -55,6 +55,9 @@ const EasyScreenCast_Indicator = new Lang.Class({
     _init: function() {
         this.parent(null, 'EasyScreenCast-indicator');
 
+        // TODO: Workaround for https://bugzilla.gnome.org/show_bug.cgi?id=776041
+        Settings.setOption(Settings.DEVICE_WEBCAM_SETTING_KEY, -1);
+
         this.CtrlAudio = new UtilAudio.MixerAudio();
         this.CtrlWebcam  = null;
         this.CtrlNotify = new UtilNotify.NotifyManager();
@@ -638,6 +641,9 @@ const EasyScreenCast_Indicator = new Lang.Class({
 
         this.CtrlExe.Spawn(
             'gnome-shell-extension-prefs  EasyScreenCast@iacopodeenosee.gmail.com');
+        this.CtrlWebcam = new UtilWebcam.HelperWebcam();
+
+        Main.Util.trySpawnCommandLine('gnome-shell-extension-prefs  EasyScreenCast@iacopodeenosee.gmail.com');
     },
 
     _onDelayTimeChanged: function() {

@@ -98,9 +98,6 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             this._updateRowShortcut(
                 Settings.getOption('as', Settings.SHORTCUT_KEY_SETTING_KEY)[0]);
 
-            //update webcam widget state
-            this._updateStateWebcamOptions();
-
             //connect keywebcam signal
             Settings.settings.connect('changed::' + Settings.DEVICE_WEBCAM_SETTING_KEY,
                 () => {
@@ -643,16 +640,16 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                     }
                 }, null);
             }
+
+            //connect keywebcam signal
+            Settings.settings.connect('changed::' + Settings.DEVICE_WEBCAM_SETTING_KEY,
+                Lang.bind(this, function() {
+                    Lib.TalkativeLog('-^-webcam device changed');
+                    this._refreshWebcamOptions();
+                })
+            );
         }
         Ref_filechooser_FileFolder.set_filename(tmpFolder);
-
-        Settings.settings.connect('changed::' + Settings.DEVICE_WEBCAM_SETTING_KEY,
-            Lang.bind(this, function() {
-                Lib.TalkativeLog('-^-webcam device changed');
-
-                this._updateStateWebcamOptions();
-            })
-        );
 
         Ref_filechooser_FileFolder.connect('file_set',
             (self) => {
@@ -775,9 +772,10 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
     },
 
     _updateWebCamCaps: function(device) {
-        if (device > 0) {
-            Lib.TalkativeLog('-^-webcam device: ' + device);
+        Lib.TalkativeLog('-^-webcam device: ' + device);
 
+        if (device > 0) {
+            this._initializeWebcamHelper();
             var listCaps = this.CtrlWebcam.getListCapsDevice(device - 1);
             Lib.TalkativeLog('-^-webcam caps: ' + listCaps.length);
             if (listCaps !== null && listCaps !== undefined) {
@@ -797,19 +795,28 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         }
     },
 
+
     /**
      * Refreshes the webcam settings.
      */
     _refreshWebcamOptions: function () {
-        if (this.CtrlWebcam === null) {
-            this.CtrlWebcam = new UtilWebcam.HelperWebcam();
-        }
+        Lib.TalkativeLog('-^-refresh webcam options');
+        this._initializeWebcamHelper();
 
         //fill combobox with quality option webcam
         this._updateWebCamCaps(Settings.getOption('i', Settings.DEVICE_WEBCAM_SETTING_KEY));
 
         //update webcam widget state
         this._updateStateWebcamOptions();
+    },
+
+    /**
+     * Initializes this.CtrlWebcam if it is null.
+     */
+    _initializeWebcamHelper: function () {
+        if (this.CtrlWebcam === null) {
+            this.CtrlWebcam = new UtilWebcam.HelperWebcam();
+        }
     },
 
     _updateRowShortcut: function(accel) {
