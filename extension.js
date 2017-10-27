@@ -55,8 +55,11 @@ const EasyScreenCast_Indicator = new Lang.Class({
     _init: function() {
         this.parent(null, 'EasyScreenCast-indicator');
 
+        // TODO: Workaround for https://bugzilla.gnome.org/show_bug.cgi?id=776041
+        Settings.setOption(Settings.DEVICE_WEBCAM_SETTING_KEY, -1);
+
         this.CtrlAudio = new UtilAudio.MixerAudio();
-        this.CtrlWebcam = new UtilWebcam.HelperWebcam();
+        this.CtrlWebcam  = null;
         this.CtrlNotify = new UtilNotify.NotifyManager();
         this.CtrlExe = new UtilExeCmd.ExecuteStuff(this);
 
@@ -172,7 +175,8 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.timeLabel.set_text(newValue.toString());
     },
 
-     /* Left clicking on the icon toggles the recording
+     /**
+      * Left clicking on the icon toggles the recording
       * options menu. Any other mouse button will start
       * the recording.
       * Some submenus are refreshed to account for new
@@ -184,7 +188,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         if (button === 1) {
             Lib.TalkativeLog('-*-left click indicator');
 
-            this._addSubMenuAudioRec();
+            this._setupExtensionMenu();
         } else {
             Lib.TalkativeLog('-*-right click indicator');
 
@@ -195,6 +199,46 @@ const EasyScreenCast_Indicator = new Lang.Class({
                 'b', Settings.SHOW_NOTIFY_ALERT_SETTING_KEY);
             this._doRecording();
         }
+    },
+
+    /**
+     * Sets up the menu when the user opens it.
+     */
+    _setupExtensionMenu: function () {
+        this._addSubMenuAudioRec();
+        this._setUpWebCamOptions();
+    },
+
+    /**
+     * Sets up all the options for web-cams. Should only run the
+     * first time the icon is clicked an the CtrlWebcam is still
+     * null.
+     */
+    _setUpWebCamOptions: function () {
+        if (this.CtrlWebcam === null) {
+            this.CtrlWebcam = new UtilWebcam.HelperWebcam();
+
+            //add sub menu webcam recording
+            this._populateSubMenuWebcam();
+
+            //start monitoring inputvideo
+            this.CtrlWebcam.startMonitor();
+        }
+    },
+
+    /**
+     * Adds individual webcam items to the webcam menu.
+     */
+    _populateSubMenuWebcam: function () {
+        let arrMI = this._createMIWebCam();
+
+        for (let element in arrMI) {
+            this.smWebCam.menu.addMenuItem(arrMI[element]);
+        }
+
+        this.smWebCam.label.text = this.WebCamDevice[
+            Settings.getOption('i', Settings.DEVICE_WEBCAM_SETTING_KEY)
+        ];
     },
 
     _addMIRecording: function() {
@@ -240,14 +284,6 @@ const EasyScreenCast_Indicator = new Lang.Class({
     _addSubMenuWebCam: function() {
         this.smWebCam = new PopupMenu.PopupSubMenuMenuItem('', true);
         this.smWebCam.icon.icon_name = 'camera-web-symbolic';
-        var arrMI = this._createMIWebCam();
-        for (var ele in arrMI) {
-            this.smWebCam.menu.addMenuItem(arrMI[ele]);
-        }
-
-        this.smWebCam.label.text =
-            this.WebCamDevice[Settings.getOption(
-                'i', Settings.DEVICE_WEBCAM_SETTING_KEY)];
 
         this.menu.addMenuItem(this.smWebCam);
     },
@@ -461,8 +497,6 @@ const EasyScreenCast_Indicator = new Lang.Class({
     _enable: function() {
         //enable key binding
         this._enableKeybindings();
-        //start monitoring inputvideo
-        this.CtrlWebcam.startMonitor();
         //add indicator
         this.actor.add_actor(this.indicatorBox);
     },
@@ -470,8 +504,12 @@ const EasyScreenCast_Indicator = new Lang.Class({
     _disable: function() {
         //remove key binding
         this._removeKeybindings();
-        //stop monitoring inputvideo
-        Indicator.CtrlWebcam.stopMonitor();
+
+        if (Indicator.CtrlWebcam !== null) {
+            //stop monitoring inputvideo
+            Indicator.CtrlWebcam.stopMonitor();
+        }
+
         //remove indicator
         this.actor.remove_actor(this.indicatorBox);
     },
@@ -603,6 +641,9 @@ const EasyScreenCast_Indicator = new Lang.Class({
 
         this.CtrlExe.Spawn(
             'gnome-shell-extension-prefs  EasyScreenCast@iacopodeenosee.gmail.com');
+        this.CtrlWebcam = new UtilWebcam.HelperWebcam();
+
+        Main.Util.trySpawnCommandLine('gnome-shell-extension-prefs  EasyScreenCast@iacopodeenosee.gmail.com');
     },
 
     _onDelayTimeChanged: function() {

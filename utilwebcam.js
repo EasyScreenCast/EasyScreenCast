@@ -22,8 +22,6 @@ const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Lib = Me.imports.convenience;
 
-Gst.init(null);
-
 let ListDevices = null;
 let ListCaps = null;
 
@@ -34,6 +32,8 @@ const HelperWebcam = new Lang.Class({
      */
     _init: function() {
         Lib.TalkativeLog('-@-init webcam');
+
+        Gst.init(null);
 
         //get gstreamer lib version
         var [M, m, micro, nano] = Gst.version();

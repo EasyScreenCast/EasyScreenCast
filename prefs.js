@@ -45,7 +45,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         // creates the settings
         Settings.checkSettings();
 
-        this.CtrlWebcam = new UtilWebcam.HelperWebcam();
+        this.CtrlWebcam = null;
         this.CtrlExe = new UtilExeCmd.ExecuteStuff(null);
 
         // creates the ui builder and add the main resource file
@@ -97,9 +97,6 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             //update list view
             this._updateRowShortcut(
                 Settings.getOption('as', Settings.SHORTCUT_KEY_SETTING_KEY)[0]);
-
-            //update webcam widget state
-            this._updateStateWebcamOptions();
 
             //connect keywebcam signal
             Settings.settings.connect('changed::' + Settings.DEVICE_WEBCAM_SETTING_KEY,
@@ -503,7 +500,6 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                 }
             });
 
-
         //load file resolution pref and upadte UI
         var tmpRes= Settings.getOption('i',
             Settings.FILE_RESOLUTION_TYPE_SETTING_KEY);
@@ -644,6 +640,14 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                     }
                 }, null);
             }
+
+            //connect keywebcam signal
+            Settings.settings.connect('changed::' + Settings.DEVICE_WEBCAM_SETTING_KEY,
+                Lang.bind(this, function() {
+                    Lib.TalkativeLog('-^-webcam device changed');
+                    this._refreshWebcamOptions();
+                })
+            );
         }
         Ref_filechooser_FileFolder.set_filename(tmpFolder);
 
@@ -768,9 +772,10 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
     },
 
     _updateWebCamCaps: function(device) {
-        if (device > 0) {
-            Lib.TalkativeLog('-^-webcam device: ' + device);
+        Lib.TalkativeLog('-^-webcam device: ' + device);
 
+        if (device > 0) {
+            this._initializeWebcamHelper();
             var listCaps = this.CtrlWebcam.getListCapsDevice(device - 1);
             Lib.TalkativeLog('-^-webcam caps: ' + listCaps.length);
             if (listCaps !== null && listCaps !== undefined) {
@@ -787,6 +792,30 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             Lib.TalkativeLog('-^-NO Webcam recording');
             this.Ref_ListStore_QualityWebCam.clear();
             Settings.setOption(Settings.QUALITY_WEBCAM_SETTING_KEY, '');
+        }
+    },
+
+
+    /**
+     * Refreshes the webcam settings.
+     */
+    _refreshWebcamOptions: function () {
+        Lib.TalkativeLog('-^-refresh webcam options');
+        this._initializeWebcamHelper();
+
+        //fill combobox with quality option webcam
+        this._updateWebCamCaps(Settings.getOption('i', Settings.DEVICE_WEBCAM_SETTING_KEY));
+
+        //update webcam widget state
+        this._updateStateWebcamOptions();
+    },
+
+    /**
+     * Initializes this.CtrlWebcam if it is null.
+     */
+    _initializeWebcamHelper: function () {
+        if (this.CtrlWebcam === null) {
+            this.CtrlWebcam = new UtilWebcam.HelperWebcam();
         }
     },
 
