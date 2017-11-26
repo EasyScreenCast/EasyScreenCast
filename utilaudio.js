@@ -100,11 +100,15 @@ const MixerAudio = new Lang.Class({
         }
     },
 
+    /**
+     * Gets a list of input audio sources.
+     *
+     * @returns {Array}
+     */
     getListInputAudio: function() {
         Lib.TalkativeLog('-#-get list input audio');
 
         if (isConnected) {
-            var tmp = MixerControl.get_sources();
             var arrayTmp = [];
 
             var tmpSinks = MixerControl.get_sinks();
@@ -148,7 +152,7 @@ const MixerAudio = new Lang.Class({
             Lib.TalkativeLog('-#-Error lib pulse NOT present or NOT respond');
         }
 
-        return false;
+        return [];
     },
 
     getAudioSource: function() {
