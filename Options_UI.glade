@@ -316,9 +316,7 @@ _fname = the name of the screencast video file.</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="tooltip_text" translatable="yes">These words will be replaced
- _fpath = the absolute path of the screencast video file.
-_dirpath = the absolute path of destination folder for the screencast video file.
-_fname = the name of the screencast video file.</property>
+_dirpath = the absolute path of destination folder for the screencast video file.</property>
                         <property name="halign">end</property>
                         <property name="hexpand">True</property>
                         <property name="label" translatable="yes">Command pre-recording</property>
@@ -333,9 +331,7 @@ _fname = the name of the screencast video file.</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="tooltip_text" translatable="yes">These words will be replaced
- _fpath = the absolute path of the screencast video file.
-_dirpath = the absolute path of destination folder for the screencast video file.
-_fname = the name of the screencast video file.</property>
+_dirpath = the absolute path of destination folder for the screencast video file.</property>
                         <property name="hexpand">True</property>
                       </object>
                       <packing>
