@@ -20,7 +20,7 @@ const Settings = Me.imports.settings;
 let MixerControl = null;
 let isConnected = false;
 
-const MixerAudio = new Lang.Class({
+var MixerAudio = new Lang.Class({
     Name: 'MixerAudio',
 
     _init: function() {

@@ -105,22 +105,22 @@ function TalkativeLog(msg) {
 /*
 ////////////////////////////////////////////////////////////////////////////////
 */
-const ESConGIcon = new Gio.FileIcon({
+var ESConGIcon = new Gio.FileIcon({
     file: Gio.File.new_for_path(Me.dir.get_child(
         'images/icon_recording.svg').get_path())
 });
 
-const ESCoffGIcon = new Gio.FileIcon({
+var ESCoffGIcon = new Gio.FileIcon({
     file: Gio.File.new_for_path(Me.dir.get_child(
         'images/icon_default.svg').get_path())
 });
 
-const ESConGIconSel = new Gio.FileIcon({
+var ESConGIconSel = new Gio.FileIcon({
     file: Gio.File.new_for_path(Me.dir.get_child(
         'images/icon_recordingSel.svg').get_path())
 });
 
-const ESCoffGIconSel = new Gio.FileIcon({
+var ESCoffGIconSel = new Gio.FileIcon({
     file: Gio.File.new_for_path(Me.dir.get_child(
         'images/icon_defaultSel.svg').get_path())
 });
@@ -128,11 +128,11 @@ const ESCoffGIconSel = new Gio.FileIcon({
 /*
 ////////////////////////////////////////////////////////////////////////////////
 */
-const ESCimgPerformance = Me.dir.get_child(
+var ESCimgPerformance = Me.dir.get_child(
     'images/Icon_Performance.svg').get_path();
 
-const ESCimgQuality = Me.dir.get_child(
+var ESCimgQuality = Me.dir.get_child(
     'images/Icon_Quality.svg').get_path();
 
-const ESCimgInfo = Me.dir.get_child(
+var ESCimgInfo = Me.dir.get_child(
     'images/Icon_Info.png').get_path();

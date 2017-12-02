@@ -20,51 +20,51 @@ const Lib = Me.imports.convenience;
 
 
 // setting keys
-const INPUT_AUDIO_SOURCE_SETTING_KEY = 'input-audio-source';
-const ACTIVE_POST_CMD_SETTING_KEY = 'execute-post-cmd';
-const POST_CMD_SETTING_KEY = 'post-cmd';
-const ACTIVE_PRE_CMD_SETTING_KEY = 'execute-pre-cmd';
-const PRE_CMD_SETTING_KEY = 'pre-cmd';
-const ACTIVE_CUSTOM_GSP_SETTING_KEY = 'active-custom-gsp';
-const ACTIVE_SHORTCUT_SETTING_KEY = 'active-shortcut';
-const SHORTCUT_KEY_SETTING_KEY = 'shortcut-key';
-const TIME_DELAY_SETTING_KEY = 'delay-time';
-const SHOW_NOTIFY_ALERT_SETTING_KEY = 'show-notify-alert';
-const SHOW_AREA_REC_SETTING_KEY = 'show-area-rec';
-const VERBOSE_DEBUG_SETTING_KEY = 'verbose-debug';
-const PIPELINE_REC_SETTING_KEY = 'pipeline';
-const FPS_SETTING_KEY = 'fps';
-const STATUS_INDICATORS_SETTING_KEY = 'status-indicators';
-const X_POS_SETTING_KEY = 'x-pos';
-const Y_POS_SETTING_KEY = 'y-pos';
-const WIDTH_SETTING_KEY = 'width-rec';
-const HEIGHT_SETTING_KEY = 'height-rec';
-const DRAW_CURSOR_SETTING_KEY = 'draw-cursor';
-const AREA_SCREEN_SETTING_KEY = 'area-screen';
-const FILE_NAME_SETTING_KEY = 'file-name';
-const FILE_FOLDER_SETTING_KEY = 'file-folder';
-const FILE_CONTAINER_SETTING_KEY = 'file-container';
-const FILE_RESOLUTION_TYPE_SETTING_KEY = 'file-resolution-type';
-const FILE_RESOLUTION_KAR_SETTING_KEY = 'file-resolution-kar';
-const FILE_RESOLUTION_WIDTH_SETTING_KEY = 'file-resolution-width';
-const FILE_RESOLUTION_HEIGHT_SETTING_KEY = 'file-resolution-height';
-const QUALITY_SETTING_KEY = 'quality-index';
-const DEVICE_WEBCAM_SETTING_KEY = 'device-webcam';
-const QUALITY_WEBCAM_SETTING_KEY = 'quality-webcam';
-const WIDTH_WEBCAM_SETTING_KEY = 'width-webcam';
-const HEIGHT_WEBCAM_SETTING_KEY = 'height-webcam';
-const TYPE_UNIT_WEBCAM_SETTING_KEY = 'type-unit-webcam';
-const MARGIN_X_WEBCAM_SETTING_KEY = 'margin-x-webcam';
-const MARGIN_Y_WEBCAM_SETTING_KEY = 'margin-y-webcam';
-const ALPHA_CHANNEL_WEBCAM_SETTING_KEY = 'alpha-channel-webcam';
-const CORNER_POSITION_WEBCAM_SETTING_KEY = 'corner-position-webcam';
+var INPUT_AUDIO_SOURCE_SETTING_KEY = 'input-audio-source';
+var ACTIVE_POST_CMD_SETTING_KEY = 'execute-post-cmd';
+var POST_CMD_SETTING_KEY = 'post-cmd';
+var ACTIVE_PRE_CMD_SETTING_KEY = 'execute-pre-cmd';
+var PRE_CMD_SETTING_KEY = 'pre-cmd';
+var ACTIVE_CUSTOM_GSP_SETTING_KEY = 'active-custom-gsp';
+var ACTIVE_SHORTCUT_SETTING_KEY = 'active-shortcut';
+var SHORTCUT_KEY_SETTING_KEY = 'shortcut-key';
+var TIME_DELAY_SETTING_KEY = 'delay-time';
+var SHOW_NOTIFY_ALERT_SETTING_KEY = 'show-notify-alert';
+var SHOW_AREA_REC_SETTING_KEY = 'show-area-rec';
+var VERBOSE_DEBUG_SETTING_KEY = 'verbose-debug';
+var PIPELINE_REC_SETTING_KEY = 'pipeline';
+var FPS_SETTING_KEY = 'fps';
+var STATUS_INDICATORS_SETTING_KEY = 'status-indicators';
+var X_POS_SETTING_KEY = 'x-pos';
+var Y_POS_SETTING_KEY = 'y-pos';
+var WIDTH_SETTING_KEY = 'width-rec';
+var HEIGHT_SETTING_KEY = 'height-rec';
+var DRAW_CURSOR_SETTING_KEY = 'draw-cursor';
+var AREA_SCREEN_SETTING_KEY = 'area-screen';
+var FILE_NAME_SETTING_KEY = 'file-name';
+var FILE_FOLDER_SETTING_KEY = 'file-folder';
+var FILE_CONTAINER_SETTING_KEY = 'file-container';
+var FILE_RESOLUTION_TYPE_SETTING_KEY = 'file-resolution-type';
+var FILE_RESOLUTION_KAR_SETTING_KEY = 'file-resolution-kar';
+var FILE_RESOLUTION_WIDTH_SETTING_KEY = 'file-resolution-width';
+var FILE_RESOLUTION_HEIGHT_SETTING_KEY = 'file-resolution-height';
+var QUALITY_SETTING_KEY = 'quality-index';
+var DEVICE_WEBCAM_SETTING_KEY = 'device-webcam';
+var QUALITY_WEBCAM_SETTING_KEY = 'quality-webcam';
+var WIDTH_WEBCAM_SETTING_KEY = 'width-webcam';
+var HEIGHT_WEBCAM_SETTING_KEY = 'height-webcam';
+var TYPE_UNIT_WEBCAM_SETTING_KEY = 'type-unit-webcam';
+var MARGIN_X_WEBCAM_SETTING_KEY = 'margin-x-webcam';
+var MARGIN_Y_WEBCAM_SETTING_KEY = 'margin-y-webcam';
+var ALPHA_CHANNEL_WEBCAM_SETTING_KEY = 'alpha-channel-webcam';
+var CORNER_POSITION_WEBCAM_SETTING_KEY = 'corner-position-webcam';
 
 // shortcut tree view columns
-const SHORTCUT_COLUMN_KEY = 0;
-const SHORTCUT_COLUMN_MODS = 1;
+var SHORTCUT_COLUMN_KEY = 0;
+var SHORTCUT_COLUMN_MODS = 1;
 
 
-let settings = null;
+var settings = null;
 
 //getter option
 function getOption(type, key) {
