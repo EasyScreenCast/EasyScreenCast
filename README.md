@@ -62,7 +62,7 @@ mkdir -p locale/$lang/LC_MESSAGES
 4 - Convert in binary these .po files, where $lang is a code language, with that command:
 
 ```
-msgfmt /locale/$lang.po -o locale/$lang/LC_MESSAGES/EasyScreenCast@iacopodeenosee.gmail.com.mo
+msgfmt locale/$lang.po -o locale/$lang/LC_MESSAGES/EasyScreenCast@iacopodeenosee.gmail.com.mo
 ```
 
 # Converting to GIF
