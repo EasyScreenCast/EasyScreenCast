@@ -45,7 +45,9 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         // creates the settings
         Settings.checkSettings();
 
+        /*
         this.CtrlWebcam = new UtilWebcam.HelperWebcam();
+        */
         this.CtrlExe = new UtilExeCmd.ExecuteStuff(null);
 
         // creates the ui builder and add the main resource file
@@ -78,7 +80,9 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             this._initTabQuality(this, builder, Settings.settings);
 
             // setup tab webcam
+            /*
             this._initTabWebcam(this, builder, Settings.settings);
+            */
 
             // setup tab file
             this._initTabFile(this, builder, Settings.settings);
@@ -99,7 +103,9 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                 Settings.getOption('as', Settings.SHORTCUT_KEY_SETTING_KEY)[0]);
 
             //update webcam widget state
+            /*
             this._updateStateWebcamOptions();
+            */
 
             //connect keywebcam signal
             Settings.settings.connect('changed::' + Settings.DEVICE_WEBCAM_SETTING_KEY,
@@ -194,6 +200,19 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             'txe_postcmd');
         tmpS.bind(Settings.POST_CMD_SETTING_KEY,
             Ref_textedit_PostCMD,
+            'text', Gio.SettingsBindFlags.DEFAULT);
+
+        //implements pre execute command
+        let Ref_switch_ExecutePreCMD = gtkDB.get_object(
+            'swt_executeprecmd');
+        tmpS.bind(Settings.ACTIVE_PRE_CMD_SETTING_KEY,
+            Ref_switch_ExecutePreCMD,
+            'active', Gio.SettingsBindFlags.DEFAULT);
+
+        let Ref_textedit_PreCMD = gtkDB.get_object(
+            'txe_precmd');
+        tmpS.bind(Settings.PRE_CMD_SETTING_KEY,
+            Ref_textedit_PreCMD,
             'text', Gio.SettingsBindFlags.DEFAULT);
     },
 
@@ -331,9 +350,9 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                     Settings.setOption(Settings.QUALITY_WEBCAM_SETTING_KEY, Caps);
 
                     //update label webcam caps
-                    Ref_Label_WebCamCaps.set_ellipsize(
+                    ctx.Ref_Label_WebCamCaps.set_ellipsize(
                         Pango.EllipsizeMode.END);
-                    Ref_Label_WebCamCaps.set_text(Caps);
+                    ctx.Ref_Label_WebCamCaps.set_text(Caps);
                 }
             }
         );
@@ -843,7 +862,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             //setup label webcam caps
             var tmpCaps = Settings.getOption('s', Settings.QUALITY_WEBCAM_SETTING_KEY);
             if (tmpCaps === '') {
-                //this.Ref_Label_WebCamCaps.use_markup(true);
+                this.Ref_Label_WebCamCaps.use_markup(true);
                 this.Ref_Label_WebCamCaps.set_markup(
                     _('<span foreground="red">No Caps selected, please select one from the caps list</span>'));
             } else {
@@ -907,6 +926,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         Settings.setOption(Settings.FILE_NAME_SETTING_KEY, 'Screencast_%d_%t');
         Settings.setOption(Settings.FILE_FOLDER_SETTING_KEY, '');
         Settings.setOption(Settings.ACTIVE_POST_CMD_SETTING_KEY, false);
+        Settings.setOption(Settings.ACTIVE_PRE_CMD_SETTING_KEY, false);
         Settings.setOption(Settings.POST_CMD_SETTING_KEY, 'xdg-open _fpath &');
         Settings.setOption(Settings.INPUT_AUDIO_SOURCE_SETTING_KEY, 0);
         Settings.setOption(Settings.DEVICE_WEBCAM_SETTING_KEY, 0);

@@ -56,7 +56,9 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.parent(null, 'EasyScreenCast-indicator');
 
         this.CtrlAudio = new UtilAudio.MixerAudio();
+        /*
         this.CtrlWebcam = new UtilWebcam.HelperWebcam();
+        */
         this.CtrlNotify = new UtilNotify.NotifyManager();
         this.CtrlExe = new UtilExeCmd.ExecuteStuff(this);
 
@@ -121,7 +123,9 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this._addSubMenuAudioRec();
 
         //add sub menu webcam recording
+        /*
         this._addSubMenuWebCam();
+        */
 
         //add sub menu area recording
         this._addSubMenuAreaRec();
@@ -462,7 +466,9 @@ const EasyScreenCast_Indicator = new Lang.Class({
         //enable key binding
         this._enableKeybindings();
         //start monitoring inputvideo
+        /*
         this.CtrlWebcam.startMonitor();
+        */
         //add indicator
         this.actor.add_actor(this.indicatorBox);
     },
@@ -471,7 +477,9 @@ const EasyScreenCast_Indicator = new Lang.Class({
         //remove key binding
         this._removeKeybindings();
         //stop monitoring inputvideo
-        Indicator.CtrlWebcam.stopMonitor();
+        /*
+        this.CtrlWebcam.stopMonitor();
+        */
         //remove indicator
         this.actor.remove_actor(this.indicatorBox);
     },
@@ -481,11 +489,38 @@ const EasyScreenCast_Indicator = new Lang.Class({
             Lib.TalkativeLog('-*-delay recording called | delay= ' + this.TimeSlider.value);
             timerD = new Time.TimerDelay((
                     Math.floor(this.TimeSlider.value * 100)),
-                this.recorder.start, this);
+                this._doPreCommand, this);
             timerD.begin();
         } else {
             Lib.TalkativeLog('-*-instant recording called');
             //start recording
+            this._doPreCommand();
+        }
+    },
+
+    _doPreCommand: function(){
+        if(Settings.getOption('b', Settings.ACTIVE_PRE_CMD_SETTING_KEY)){
+            Lib.TalkativeLog('-*-execute pre command');
+
+            var PreCmd = Settings.getOption('s',Settings.PRE_CMD_SETTING_KEY);
+
+            this.CtrlExe.Execute(PreCmd,false,
+                (res) => {
+                            Lib.TalkativeLog('-*-pre command final: ' + res);
+                            if(res===true){
+                                Lib.TalkativeLog('-*-pre command OK');
+                                this.recorder.start();
+                            } else {
+                                Lib.TalkativeLog('-*-pre command ERROR');
+                                this.CtrlNotify.createNotify(
+                                    _('ERROR PRE COMMAND - See logs for more info'),
+                                Lib.ESCoffGIcon);
+                            }
+                        },
+                (line) => {
+                            Lib.TalkativeLog('-*-pre command output: ' + line);
+                        });
+        } else {
             this.recorder.start();
         }
     },
@@ -529,33 +564,37 @@ const EasyScreenCast_Indicator = new Lang.Class({
             }
 
             //execute post-command
-            if (Settings.getOption('b', Settings.ACTIVE_POST_CMD_SETTING_KEY)) {
-                Lib.TalkativeLog('-*-execute post command');
-
-                //launch cmd after registration
-                var tmpCmd = '/usr/bin/sh -c "' +
-                    Settings.getOption('s', Settings.POST_CMD_SETTING_KEY) + '"';
-
-                var mapObj = {
-                    _fpath: pathFile,
-                    _dirpath: pathFile.substr(0, pathFile.lastIndexOf('/')),
-                    _fname: pathFile.substr(pathFile.lastIndexOf('/') + 1,
-                        pathFile.length)
-                };
-
-                var Cmd = tmpCmd.replace(/_fpath|_dirpath|_fname/gi,
-                    function(match) {
-                        return mapObj[match];
-                    });
-
-                Lib.TalkativeLog('-*-post command:' + Cmd);
-
-                //execute post command
-                this.CtrlExe.Spawn(Cmd);
-            }
+            this._doPostCommand();
         }
 
         this.refreshIndicator(false);
+    },
+
+    _doPostCommand :function(){
+        if (Settings.getOption('b', Settings.ACTIVE_POST_CMD_SETTING_KEY)) {
+            Lib.TalkativeLog('-*-execute post command');
+
+            //launch cmd after registration
+            var tmpCmd = '/usr/bin/sh -c "' +
+                Settings.getOption('s', Settings.POST_CMD_SETTING_KEY) + '"';
+
+            var mapObj = {
+                _fpath: pathFile,
+                _dirpath: pathFile.substr(0, pathFile.lastIndexOf('/')),
+                _fname: pathFile.substr(pathFile.lastIndexOf('/') + 1,
+                    pathFile.length)
+            };
+
+            var Cmd = tmpCmd.replace(/_fpath|_dirpath|_fname/gi,
+                function(match) {
+                    return mapObj[match];
+                });
+
+            Lib.TalkativeLog('-*-post command:' + Cmd);
+
+            //execute post command
+            this.CtrlExe.Spawn(Cmd);
+        }
     },
 
     doRecResult: function(result, file) {
@@ -630,11 +669,12 @@ const EasyScreenCast_Indicator = new Lang.Class({
                     this.indicatorIcon.set_gicon(Lib.ESConGIcon);
                 }
             } else {
-                if (focus === true) {
+                this.indicatorIcon.set_gicon(null);
+/*                if (focus === true) {
                     this.indicatorIcon.set_gicon(Lib.ESCoffGIconSel);
                 } else {
                     this.indicatorIcon.set_gicon(Lib.ESCoffGIcon);
-                }
+                }*/
             }
 
             this.RecordingLabel.set_text(_('Stop recording'));
