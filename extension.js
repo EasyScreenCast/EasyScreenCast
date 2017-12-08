@@ -55,11 +55,8 @@ const EasyScreenCast_Indicator = new Lang.Class({
     _init: function() {
         this.parent(null, 'EasyScreenCast-indicator');
 
-        // TODO: Workaround for https://bugzilla.gnome.org/show_bug.cgi?id=776041
-        Settings.setOption(Settings.DEVICE_WEBCAM_SETTING_KEY, -1);
-
         this.CtrlAudio = new UtilAudio.MixerAudio();
-        /*
+        /* TODO: fix gstreamer init
         this.CtrlWebcam = new UtilWebcam.HelperWebcam();
         */
 
@@ -127,7 +124,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this._addSubMenuAudioRec();
 
         //add sub menu webcam recording
-        /*
+        /* TODO: fix gstreamer init
         this._addSubMenuWebCam();
         */
 
@@ -503,7 +500,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         //enable key binding
         this._enableKeybindings();
         //start monitoring inputvideo
-        /*
+        /* TODO: fix gstreamer init
         this.CtrlWebcam.startMonitor();
         */
 
@@ -515,7 +512,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         //remove key binding
         this._removeKeybindings();
         //stop monitoring inputvideo
-        /*
+        /* TODO: fix gstreamer init
         this.CtrlWebcam.stopMonitor();
         */
 
@@ -541,7 +538,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         if(Settings.getOption('b', Settings.ACTIVE_PRE_CMD_SETTING_KEY)){
             Lib.TalkativeLog('-*-execute pre command');
 
-            var PreCmd = Settings.getOption('s',Settings.PRE_CMD_SETTING_KEY);
+            const PreCmd = Settings.getOption('s',Settings.PRE_CMD_SETTING_KEY);
 
             this.CtrlExe.Execute(PreCmd,false,
                 (res) => {
@@ -572,7 +569,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
             pathFile = '';
 
             //get selected area
-            var optArea = (Settings.getOption('i', Settings.AREA_SCREEN_SETTING_KEY));
+            const optArea = (Settings.getOption('i', Settings.AREA_SCREEN_SETTING_KEY));
             if (optArea > 0) {
                 Lib.TalkativeLog('-*-type of selection of the area to record: ' + optArea);
                 switch (optArea) {
@@ -614,17 +611,17 @@ const EasyScreenCast_Indicator = new Lang.Class({
             Lib.TalkativeLog('-*-execute post command');
 
             //launch cmd after registration
-            var tmpCmd = '/usr/bin/sh -c "' +
+            const tmpCmd = '/usr/bin/sh -c "' +
                 Settings.getOption('s', Settings.POST_CMD_SETTING_KEY) + '"';
 
-            var mapObj = {
+            const mapObj = {
                 _fpath: pathFile,
                 _dirpath: pathFile.substr(0, pathFile.lastIndexOf('/')),
                 _fname: pathFile.substr(pathFile.lastIndexOf('/') + 1,
                     pathFile.length)
             };
 
-            var Cmd = tmpCmd.replace(/_fpath|_dirpath|_fname/gi,
+            const Cmd = tmpCmd.replace(/_fpath|_dirpath|_fname/gi,
                 function(match) {
                     return mapObj[match];
                 });
@@ -642,7 +639,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
 
             Lib.TalkativeLog('-*-record OK');
             //update indicator
-            var indicators = Settings.getOption(
+            const indicators = Settings.getOption(
                 'i', Settings.STATUS_INDICATORS_SETTING_KEY);
             this._replaceStdIndicator(indicators === 1 || indicators === 3);
 
@@ -681,14 +678,13 @@ const EasyScreenCast_Indicator = new Lang.Class({
 
         this.CtrlExe.Spawn(
             'gnome-shell-extension-prefs  EasyScreenCast@iacopodeenosee.gmail.com');
-        this.CtrlWebcam = new UtilWebcam.HelperWebcam();
 
         Main.Util.trySpawnCommandLine('gnome-shell-extension-prefs  EasyScreenCast@iacopodeenosee.gmail.com');
     },
 
     _onDelayTimeChanged: function() {
 
-        var secDelay = Math.floor(this.TimeSlider.value * 100);
+        const secDelay = Math.floor(this.TimeSlider.value * 100);
         Settings.setOption(Settings.TIME_DELAY_SETTING_KEY, secDelay);
         if (secDelay > 0) {
             this.smDelayRec.label.text = secDelay + _(' sec. delay before recording');
@@ -700,7 +696,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
     refreshIndicator: function(param1, param2, focus) {
         Lib.TalkativeLog('-*-refresh indicator -A ' + isActive + ' -F ' + focus);
 
-        var indicators = Settings.getOption(
+        const indicators = Settings.getOption(
             'i', Settings.STATUS_INDICATORS_SETTING_KEY);
 
         if (isActive === true) {
@@ -711,12 +707,16 @@ const EasyScreenCast_Indicator = new Lang.Class({
                     this.indicatorIcon.set_gicon(Lib.ESConGIcon);
                 }
             } else {
-                this.indicatorIcon.set_gicon(null);
-/*                if (focus === true) {
-                    this.indicatorIcon.set_gicon(Lib.ESCoffGIconSel);
+                if(Settings.getOption(
+                    'b', Settings.ACTIVE_SHORTCUT_SETTING_KEY)){
+                    this.indicatorIcon.set_gicon(null);
                 } else {
-                    this.indicatorIcon.set_gicon(Lib.ESCoffGIcon);
-                }*/
+                    if (focus === true) {
+                        this.indicatorIcon.set_gicon(Lib.ESConGIconSel);
+                    } else {
+                        this.indicatorIcon.set_gicon(Lib.ESConGIcon);
+                    }
+                }
             }
 
             this.RecordingLabel.set_text(_('Stop recording'));

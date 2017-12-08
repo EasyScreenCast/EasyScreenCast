@@ -27,7 +27,6 @@ const Lib = Me.imports.convenience;
 const UtilWebcam = Me.imports.utilwebcam;
 const UtilGSP = Me.imports.utilgsp;
 const Settings = Me.imports.settings;
-const UtilExeCmd = Me.imports.utilexecmd;
 
 
 function init() {
@@ -45,11 +44,9 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         // creates the settings
         Settings.checkSettings();
 
-        /*
+        /* TODO: fix gstreamer init
         this.CtrlWebcam = new UtilWebcam.HelperWebcam();
         */
-
-        this.CtrlExe = new UtilExeCmd.ExecuteStuff(null);
 
         // creates the ui builder and add the main resource file
         let uiFilePath = Me.path + '/Options_UI.glade';
@@ -81,7 +78,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             this._initTabQuality(this, builder, Settings.settings);
 
             // setup tab webcam
-            /*
+            /* TODO: fix gstreamer init
             this._initTabWebcam(this, builder, Settings.settings);
             */
 
@@ -104,9 +101,9 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                 Settings.getOption('as', Settings.SHORTCUT_KEY_SETTING_KEY)[0]);
 
             //update webcam widget state
-            /*
+            /* TODO: fix gstreamer init
             this._updateStateWebcamOptions();
-            */
+
 
             //connect keywebcam signal
             Settings.settings.connect('changed::' + Settings.DEVICE_WEBCAM_SETTING_KEY,
@@ -116,6 +113,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                     this._updateStateWebcamOptions();
                 }
             );
+            */
         }
     },
 
@@ -704,7 +702,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         //intercept combobox res changed and update width/height value
         Ref_combobox_LogChooser.connect('changed',
             (self) => {
-                var activeLog = self.active;
+                const activeLog = self.active;
                 Lib.TalkativeLog('-^-log combobox changed: ' + activeLog);
                 switch(activeLog){
                 case 0:
