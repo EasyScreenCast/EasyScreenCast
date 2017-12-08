@@ -27,6 +27,7 @@ const Lib = Me.imports.convenience;
 const UtilWebcam = Me.imports.utilwebcam;
 const UtilGSP = Me.imports.utilgsp;
 const Settings = Me.imports.settings;
+const UtilExeCmd = Me.imports.utilexecmd;
 
 
 function init() {
@@ -43,7 +44,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
 
         // creates the settings
         Settings.checkSettings();
-
+        this.CtrlExe = new UtilExeCmd.ExecuteStuff(this);
         /* TODO: fix gstreamer init
         this.CtrlWebcam = new UtilWebcam.HelperWebcam();
         */
