@@ -31,6 +31,7 @@ all: extension
 
 clean:
 	rm -f ./schemas/gschemas.compiled
+	rm -f ./locale/*.mo
 
 extension: ./schemas/gschemas.compiled $(MSGSRC:.po=.mo)
 
