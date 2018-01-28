@@ -20,7 +20,7 @@ const Me = ExtensionUtils.getCurrentExtension();
 const Lib = Me.imports.convenience;
 
 
-const ExecuteStuff = new Lang.Class({
+var ExecuteStuff = new Lang.Class({
     Name: "ExecuteStuff",
 
     _init: function(scope) {

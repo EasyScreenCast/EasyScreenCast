@@ -25,7 +25,7 @@ const Lib = Me.imports.convenience;
 let ListDevices = null;
 let ListCaps = null;
 
-const HelperWebcam = new Lang.Class({
+var HelperWebcam = new Lang.Class({
     Name: "HelperWebcam",
     /*
      * Create a device monitor inputvideo
@@ -63,7 +63,7 @@ const HelperWebcam = new Lang.Class({
             if (this.dmBus !== null && this.dmBus !== undefined) {
                 Lib.TalkativeLog('-@-dbus created');
                 this.dmBus.add_watch(GLib.PRIORITY_DEFAULT, this._getMsg);
-                let caps = Gst.Caps.new_empty_simple('video/x-raw', null);
+                let caps = Gst.Caps.new_empty_simple('video/x-raw');
                 this.deviceMonitor.add_filter('Video/Source', caps);
 
                 //update device and caps

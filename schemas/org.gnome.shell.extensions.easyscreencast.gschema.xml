@@ -85,6 +85,16 @@
             <summary>file folder of screencast</summary>
             <description>file folder of screencast</description>
         </key>
+	<key name="execute-pre-cmd" type="b">
+            <default>false</default>
+            <summary>enable execute pre command</summary>
+            <description>enable execute pre command</description>
+        </key>
+        <key name="pre-cmd" type="s">
+            <default>''</default>
+            <summary>command to execute</summary>
+            <description>command to execute</description>
+        </key>
         <key name="execute-post-cmd" type="b">
             <default>false</default>
             <summary>enable execute post command</summary>

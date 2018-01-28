@@ -55,11 +55,11 @@ const EasyScreenCast_Indicator = new Lang.Class({
     _init: function() {
         this.parent(null, 'EasyScreenCast-indicator');
 
-        // TODO: Workaround for https://bugzilla.gnome.org/show_bug.cgi?id=776041
-        Settings.setOption(Settings.DEVICE_WEBCAM_SETTING_KEY, -1);
-
         this.CtrlAudio = new UtilAudio.MixerAudio();
-        this.CtrlWebcam  = null;
+        /* TODO: fix gstreamer init
+        this.CtrlWebcam = new UtilWebcam.HelperWebcam();
+        */
+
         this.CtrlNotify = new UtilNotify.NotifyManager();
         this.CtrlExe = new UtilExeCmd.ExecuteStuff(this);
 
@@ -124,7 +124,9 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this._addSubMenuAudioRec();
 
         //add sub menu webcam recording
+        /* TODO: fix gstreamer init
         this._addSubMenuWebCam();
+        */
 
         //add sub menu area recording
         this._addSubMenuAreaRec();
@@ -497,6 +499,11 @@ const EasyScreenCast_Indicator = new Lang.Class({
     _enable: function() {
         //enable key binding
         this._enableKeybindings();
+        //start monitoring inputvideo
+        /* TODO: fix gstreamer init
+        this.CtrlWebcam.startMonitor();
+        */
+
         //add indicator
         this.actor.add_actor(this.indicatorBox);
     },
@@ -504,11 +511,10 @@ const EasyScreenCast_Indicator = new Lang.Class({
     _disable: function() {
         //remove key binding
         this._removeKeybindings();
-
-        if (Indicator.CtrlWebcam !== null) {
-            //stop monitoring inputvideo
-            Indicator.CtrlWebcam.stopMonitor();
-        }
+        //stop monitoring inputvideo
+        /* TODO: fix gstreamer init
+        this.CtrlWebcam.stopMonitor();
+        */
 
         //remove indicator
         this.actor.remove_actor(this.indicatorBox);
@@ -519,11 +525,38 @@ const EasyScreenCast_Indicator = new Lang.Class({
             Lib.TalkativeLog('-*-delay recording called | delay= ' + this.TimeSlider.value);
             timerD = new Time.TimerDelay((
                     Math.floor(this.TimeSlider.value * 100)),
-                this.recorder.start, this);
+                this._doPreCommand, this);
             timerD.begin();
         } else {
             Lib.TalkativeLog('-*-instant recording called');
             //start recording
+            this._doPreCommand();
+        }
+    },
+
+    _doPreCommand: function(){
+        if(Settings.getOption('b', Settings.ACTIVE_PRE_CMD_SETTING_KEY)){
+            Lib.TalkativeLog('-*-execute pre command');
+
+            const PreCmd = Settings.getOption('s',Settings.PRE_CMD_SETTING_KEY);
+
+            this.CtrlExe.Execute(PreCmd,false,
+                (res) => {
+                            Lib.TalkativeLog('-*-pre command final: ' + res);
+                            if(res===true){
+                                Lib.TalkativeLog('-*-pre command OK');
+                                this.recorder.start();
+                            } else {
+                                Lib.TalkativeLog('-*-pre command ERROR');
+                                this.CtrlNotify.createNotify(
+                                    _('ERROR PRE COMMAND - See logs for more info'),
+                                Lib.ESCoffGIcon);
+                            }
+                        },
+                (line) => {
+                            Lib.TalkativeLog('-*-pre command output: ' + line);
+                        });
+        } else {
             this.recorder.start();
         }
     },
@@ -536,7 +569,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
             pathFile = '';
 
             //get selected area
-            var optArea = (Settings.getOption('i', Settings.AREA_SCREEN_SETTING_KEY));
+            const optArea = (Settings.getOption('i', Settings.AREA_SCREEN_SETTING_KEY));
             if (optArea > 0) {
                 Lib.TalkativeLog('-*-type of selection of the area to record: ' + optArea);
                 switch (optArea) {
@@ -567,33 +600,37 @@ const EasyScreenCast_Indicator = new Lang.Class({
             }
 
             //execute post-command
-            if (Settings.getOption('b', Settings.ACTIVE_POST_CMD_SETTING_KEY)) {
-                Lib.TalkativeLog('-*-execute post command');
-
-                //launch cmd after registration
-                var tmpCmd = '/usr/bin/sh -c "' +
-                    Settings.getOption('s', Settings.POST_CMD_SETTING_KEY) + '"';
-
-                var mapObj = {
-                    _fpath: pathFile,
-                    _dirpath: pathFile.substr(0, pathFile.lastIndexOf('/')),
-                    _fname: pathFile.substr(pathFile.lastIndexOf('/') + 1,
-                        pathFile.length)
-                };
-
-                var Cmd = tmpCmd.replace(/_fpath|_dirpath|_fname/gi,
-                    function(match) {
-                        return mapObj[match];
-                    });
-
-                Lib.TalkativeLog('-*-post command:' + Cmd);
-
-                //execute post command
-                this.CtrlExe.Spawn(Cmd);
-            }
+            this._doPostCommand();
         }
 
         this.refreshIndicator(false);
+    },
+
+    _doPostCommand :function(){
+        if (Settings.getOption('b', Settings.ACTIVE_POST_CMD_SETTING_KEY)) {
+            Lib.TalkativeLog('-*-execute post command');
+
+            //launch cmd after registration
+            const tmpCmd = '/usr/bin/sh -c "' +
+                Settings.getOption('s', Settings.POST_CMD_SETTING_KEY) + '"';
+
+            const mapObj = {
+                _fpath: pathFile,
+                _dirpath: pathFile.substr(0, pathFile.lastIndexOf('/')),
+                _fname: pathFile.substr(pathFile.lastIndexOf('/') + 1,
+                    pathFile.length)
+            };
+
+            const Cmd = tmpCmd.replace(/_fpath|_dirpath|_fname/gi,
+                function(match) {
+                    return mapObj[match];
+                });
+
+            Lib.TalkativeLog('-*-post command:' + Cmd);
+
+            //execute post command
+            this.CtrlExe.Spawn(Cmd);
+        }
     },
 
     doRecResult: function(result, file) {
@@ -602,7 +639,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
 
             Lib.TalkativeLog('-*-record OK');
             //update indicator
-            var indicators = Settings.getOption(
+            const indicators = Settings.getOption(
                 'i', Settings.STATUS_INDICATORS_SETTING_KEY);
             this._replaceStdIndicator(indicators === 1 || indicators === 3);
 
@@ -641,14 +678,13 @@ const EasyScreenCast_Indicator = new Lang.Class({
 
         this.CtrlExe.Spawn(
             'gnome-shell-extension-prefs  EasyScreenCast@iacopodeenosee.gmail.com');
-        this.CtrlWebcam = new UtilWebcam.HelperWebcam();
 
         Main.Util.trySpawnCommandLine('gnome-shell-extension-prefs  EasyScreenCast@iacopodeenosee.gmail.com');
     },
 
     _onDelayTimeChanged: function() {
 
-        var secDelay = Math.floor(this.TimeSlider.value * 100);
+        const secDelay = Math.floor(this.TimeSlider.value * 100);
         Settings.setOption(Settings.TIME_DELAY_SETTING_KEY, secDelay);
         if (secDelay > 0) {
             this.smDelayRec.label.text = secDelay + _(' sec. delay before recording');
@@ -660,7 +696,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
     refreshIndicator: function(param1, param2, focus) {
         Lib.TalkativeLog('-*-refresh indicator -A ' + isActive + ' -F ' + focus);
 
-        var indicators = Settings.getOption(
+        const indicators = Settings.getOption(
             'i', Settings.STATUS_INDICATORS_SETTING_KEY);
 
         if (isActive === true) {
@@ -671,10 +707,15 @@ const EasyScreenCast_Indicator = new Lang.Class({
                     this.indicatorIcon.set_gicon(Lib.ESConGIcon);
                 }
             } else {
-                if (focus === true) {
-                    this.indicatorIcon.set_gicon(Lib.ESCoffGIconSel);
+                if(Settings.getOption(
+                    'b', Settings.ACTIVE_SHORTCUT_SETTING_KEY)){
+                    this.indicatorIcon.set_gicon(null);
                 } else {
-                    this.indicatorIcon.set_gicon(Lib.ESCoffGIcon);
+                    if (focus === true) {
+                        this.indicatorIcon.set_gicon(Lib.ESConGIconSel);
+                    } else {
+                        this.indicatorIcon.set_gicon(Lib.ESConGIcon);
+                    }
                 }
             }
 

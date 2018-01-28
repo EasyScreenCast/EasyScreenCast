@@ -221,7 +221,7 @@ const SelectionWindow = new Lang.Class({
 
         let CtrlNotify = new UtilNotify.NotifyManager();
         CtrlNotify.createAlert(
-            _('Select an window for recording or press [ESC] to abort'));
+            _('Select a window for recording or press [ESC] to abort'));
     },
 
     _onEvent: function(capture, event) {
@@ -306,7 +306,7 @@ const SelectionDesktop = new Lang.Class({
 
         let CtrlNotify = new UtilNotify.NotifyManager();
         CtrlNotify.createAlert(
-            _('Select an desktop for recording or press [ESC] to abort'));
+            _('Select a desktop for recording or press [ESC] to abort'));
     },
 
     _onEvent: function(capture, event) {
