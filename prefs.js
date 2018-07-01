@@ -18,7 +18,7 @@ const Pango = imports.gi.Pango;
 const Lang = imports.lang;
 
 const Gettext = imports.gettext.domain(
-    'EasyScreenCast@iacopodeenosee.gmail.com');
+    'easyscreencast@easyscreencast.github.com');
 const _ = Gettext.gettext;
 
 const ExtensionUtils = imports.misc.extensionUtils;
@@ -31,7 +31,7 @@ const UtilExeCmd = Me.imports.utilexecmd;
 
 
 function init() {
-    Lib.initTranslations('EasyScreenCast@iacopodeenosee.gmail.com');
+    Lib.initTranslations('easyscreencast@easyscreencast.github.com');
 }
 
 const EasyScreenCastSettingsWidget = new GObject.Class({
@@ -53,7 +53,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         let uiFilePath = Me.path + '/Options_UI.glade';
         let builder = new Gtk.Builder();
         builder.set_translation_domain(
-            'EasyScreenCast@iacopodeenosee.gmail.com');
+            'easyscreencast@easyscreencast.github.com');
 
         if (builder.add_from_file(uiFilePath) === 0) {
             Lib.TalkativeLog('-^-could not load the ui file: ' + format(uiFilePath));

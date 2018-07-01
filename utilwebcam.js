@@ -15,7 +15,7 @@ const GLib = imports.gi.GLib;
 const Gst = imports.gi.Gst;
 
 const Gettext = imports.gettext.domain(
-    'EasyScreenCast@iacopodeenosee.gmail.com');
+    'easyscreencast@easyscreencast.github.com');
 const _ = Gettext.gettext;
 
 const ExtensionUtils = imports.misc.extensionUtils;

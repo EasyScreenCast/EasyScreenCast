@@ -11,7 +11,7 @@
 */
 
 const Gettext = imports.gettext.domain(
-    'EasyScreenCast@iacopodeenosee.gmail.com');
+    'easyscreencast@easyscreencast.github.com');
 const _ = Gettext.gettext;
 
 const ExtensionUtils = imports.misc.extensionUtils;

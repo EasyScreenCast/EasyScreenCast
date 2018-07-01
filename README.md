@@ -43,7 +43,7 @@ journalctl /usr/bin/gnome-shell --since=today --no-pager --output=cat
 to open the option windows from terminal try that on terminal:
 
 ```
-gnome-shell-extension-prefs EasyScreenCast@iacopodeenosee.gmail.com
+gnome-shell-extension-prefs easyscreencast@easyscreencast.github.com
 ```
 
 # Translation
@@ -62,7 +62,7 @@ mkdir -p locale/$lang/LC_MESSAGES
 4 - Convert in binary these .po files, where $lang is a code language, with that command:
 
 ```
-msgfmt locale/$lang.po -o locale/$lang/LC_MESSAGES/EasyScreenCast@iacopodeenosee.gmail.com.mo
+msgfmt locale/$lang.po -o locale/$lang/LC_MESSAGES/easyscreencast@easyscreencast.github.com.mo
 ```
 
 # Converting to GIF

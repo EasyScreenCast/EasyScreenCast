@@ -24,7 +24,7 @@ const Main = imports.ui.main;
 const LibRecorder = imports.ui.screencast;
 
 const Gettext = imports.gettext.domain(
-    'EasyScreenCast@iacopodeenosee.gmail.com');
+    'easyscreencast@easyscreencast.github.com');
 const _ = Gettext.gettext;
 
 const ExtensionUtils = imports.misc.extensionUtils;
@@ -677,9 +677,9 @@ const EasyScreenCast_Indicator = new Lang.Class({
         Lib.TalkativeLog('-*-open preferences');
 
         this.CtrlExe.Spawn(
-            'gnome-shell-extension-prefs  EasyScreenCast@iacopodeenosee.gmail.com');
+            'gnome-shell-extension-prefs  easyscreencast@easyscreencast.github.com');
 
-        Main.Util.trySpawnCommandLine('gnome-shell-extension-prefs  EasyScreenCast@iacopodeenosee.gmail.com');
+        Main.Util.trySpawnCommandLine('gnome-shell-extension-prefs  easyscreencast@easyscreencast.github.com');
     },
 
     _onDelayTimeChanged: function() {
@@ -804,7 +804,7 @@ function init(meta) {
     Lib.TalkativeLog('-*-version: ' + meta.metadata.version);
     Lib.TalkativeLog('-*-install path: ' + meta.path);
 
-    Lib.initTranslations('EasyScreenCast@iacopodeenosee.gmail.com');
+    Lib.initTranslations('easyscreencast@easyscreencast.github.com');
 }
 
 function enable() {
