@@ -30,7 +30,7 @@ var HelperWebcam = new Lang.Class({
     /*
      * Create a device monitor inputvideo
      */
-    _init: function() {
+    _init: function () {
         Lib.TalkativeLog('-@-init webcam');
 
         Gst.init(null);
@@ -78,7 +78,7 @@ var HelperWebcam = new Lang.Class({
     /*
      * connect to msg bus
      */
-    _getMsg: function(bus, message) {
+    _getMsg: function (bus, message) {
         Lib.TalkativeLog('-@-event getmsg');
         switch (message.type) {
             case Gst.MessageType.DEVICE_ADDED:
@@ -103,7 +103,7 @@ var HelperWebcam = new Lang.Class({
     /*
      * refresh all devices info
      */
-    refreshAllInputVideo: function() {
+    refreshAllInputVideo: function () {
         Lib.TalkativeLog('-@-refresh all video input');
 
         ListDevices = this.getDevicesIV();
@@ -122,7 +122,7 @@ var HelperWebcam = new Lang.Class({
     /*
      * get caps from device
      */
-    getCapsForIV: function(tmpCaps) {
+    getCapsForIV: function (tmpCaps) {
         Lib.TalkativeLog('-@-get all caps from a input video');
         Lib.TalkativeLog('-@-caps avaiable N°: ' + tmpCaps.get_size());
 
@@ -142,7 +142,7 @@ var HelperWebcam = new Lang.Class({
     /*
      * clean caps form options label
      */
-    cleanCapsOPT: function(strCaps) {
+    cleanCapsOPT: function (strCaps) {
         Lib.TalkativeLog('-@-fine tunning caps:' + strCaps);
 
         if (strCaps.indexOf('{ ') >= 0) {
@@ -170,7 +170,7 @@ var HelperWebcam = new Lang.Class({
     /*
      * get devices IV
      */
-    getDevicesIV: function() {
+    getDevicesIV: function () {
         Lib.TalkativeLog('-@-get devices');
 
         var list = this.deviceMonitor.get_devices();
@@ -181,14 +181,14 @@ var HelperWebcam = new Lang.Class({
     /*
      * get array name devices IV
      */
-    getNameDevices: function() {
+    getNameDevices: function () {
         Lib.TalkativeLog('-@-get name devices');
 
         var tmpArray = [];
         for (var index in ListDevices) {
-            var wcName=_('Unspecified webcam');
-            if(ListDevices[index].display_name!==''){
-              wcName=ListDevices[index].display_name
+            var wcName = _('Unspecified webcam');
+            if (ListDevices[index].display_name !== '') {
+                wcName = ListDevices[index].display_name
             }
             tmpArray.push(wcName);
         }
@@ -199,7 +199,7 @@ var HelperWebcam = new Lang.Class({
     /*
      * get array caps
      */
-    getListCapsDevice: function(device) {
+    getListCapsDevice: function (device) {
         var tmpArray = [];
         tmpArray = ListCaps[device];
         Lib.TalkativeLog('-@-list caps of device: ' + tmpArray);
@@ -209,14 +209,14 @@ var HelperWebcam = new Lang.Class({
     /*
      * start listening
      */
-    startMonitor: function() {
+    startMonitor: function () {
         Lib.TalkativeLog('-@-start video devicemonitor');
         this.deviceMonitor.start();
     },
     /*
      * Stop listening
      */
-    stopMonitor: function() {
+    stopMonitor: function () {
         Lib.TalkativeLog('-@-stop video devicemonitor');
         this.disconnectSourceBus();
         this.deviceMonitor.stop();
@@ -224,7 +224,7 @@ var HelperWebcam = new Lang.Class({
     /*
      * disconect bus
      */
-    disconnectSourceBus: function() {
+    disconnectSourceBus: function () {
         if (this.dmBusId) {
             this.dmBus.disconnect(this.dmBusId);
             this.dmBusId = 0;

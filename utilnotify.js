@@ -17,7 +17,6 @@ const St = imports.gi.St;
 const Tweener = imports.ui.tweener;
 
 
-
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Lib = Me.imports.convenience;
@@ -29,7 +28,7 @@ const NotifyManager = new Lang.Class({
     /*
      * Create a notify manager
      */
-    _init: function() {
+    _init: function () {
         Lib.TalkativeLog('-°-init notify manager');
 
         this.source = new MessageTray.SystemNotificationSource();
@@ -37,7 +36,7 @@ const NotifyManager = new Lang.Class({
     /*
      * create notify
      */
-    createNotify: function(msg, icon, sound) {
+    createNotify: function (msg, icon, sound) {
         Lib.TalkativeLog('-°-create notify :' + msg);
         var notify = new MessageTray.Notification(this.source, msg, null, {
             gicon: icon
@@ -58,7 +57,7 @@ const NotifyManager = new Lang.Class({
     /*
      * update notify
      */
-    updateNotify: function(notify, msg, icon, sound) {
+    updateNotify: function (notify, msg, icon, sound) {
         Lib.TalkativeLog('-°-update notify');
 
         notify.update(msg, null, {
@@ -72,7 +71,7 @@ const NotifyManager = new Lang.Class({
     /*
      * create alert
      */
-    createAlert: function(msg) {
+    createAlert: function (msg) {
         Lib.TalkativeLog('-°-show alert tweener : ' + msg);
         if (Settings.getOption('b', Settings.SHOW_NOTIFY_ALERT_SETTING_KEY)) {
             var monitor = Main.layoutManager.focusMonitor;

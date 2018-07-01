@@ -39,7 +39,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
     GTypeName: 'EasyScreenCastSettingsWidget',
     Extends: Gtk.Box,
 
-    _init: function(params) {
+    _init: function (params) {
         this.parent(params);
 
         // creates the settings
@@ -118,7 +118,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         }
     },
 
-    _initTabOptions(ctx, gtkDB, tmpS){
+    _initTabOptions(ctx, gtkDB, tmpS) {
         //implements show timer option
         let Ref_switch_ShowNotifyAlert = gtkDB.get_object(
             'swt_ShowNotifyAlert');
@@ -216,7 +216,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             'text', Gio.SettingsBindFlags.DEFAULT);
     },
 
-    _initTabQuality(ctx, gtkDB, tmpS){
+    _initTabQuality(ctx, gtkDB, tmpS) {
         //implements FPS option
         let Ref_spinner_FrameRateRec = gtkDB.get_object(
             'spb_FrameRateRec');
@@ -318,7 +318,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         ctx.Ref_stack_Quality = gtkDB.get_object('stk_Quality');
     },
 
-    _initTabWebcam(ctx, gtkDB, tmpS){
+    _initTabWebcam(ctx, gtkDB, tmpS) {
         //implements webcam quality option
         ctx.Ref_ListStore_QualityWebCam = gtkDB.get_object(
             'liststore_QualityWebCam');
@@ -342,7 +342,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         CapsSelection.connect('changed',
             (self) => {
                 let [isSelected, model, iter] =
-                self.get_selected();
+                    self.get_selected();
                 if (isSelected) {
                     let Caps = ctx.Ref_ListStore_QualityWebCam.get_value(iter, 0);
                     Lib.TalkativeLog('-^-treeview row selected : ' + Caps);
@@ -468,7 +468,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             'lbl_WebcamCaps');
     },
 
-    _initTabFile(ctx, gtkDB, tmpS){
+    _initTabFile(ctx, gtkDB, tmpS) {
         //implements file name string rec option
         let Ref_textedit_FileName = gtkDB.get_object(
             'txe_FileNameRec');
@@ -503,24 +503,24 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             (self) => {
                 var activeRes = self.active;
                 Lib.TalkativeLog('-^-preset combobox changed: ' + activeRes);
-                if(activeRes >=0 && activeRes < 15){
-                    var [h,w] = ctx._getResolutionPreset(activeRes);
+                if (activeRes >= 0 && activeRes < 15) {
+                    var [h, w] = ctx._getResolutionPreset(activeRes);
 
                     //update width/height
                     Settings.setOption(
-                        Settings.FILE_RESOLUTION_HEIGHT_SETTING_KEY,h);
+                        Settings.FILE_RESOLUTION_HEIGHT_SETTING_KEY, h);
                     Settings.setOption(
-                        Settings.FILE_RESOLUTION_WIDTH_SETTING_KEY,w);
-                    Lib.TalkativeLog('-^-Res changed h: ' + h + ' w: '+ w);
+                        Settings.FILE_RESOLUTION_WIDTH_SETTING_KEY, w);
+                    Lib.TalkativeLog('-^-Res changed h: ' + h + ' w: ' + w);
                 }
             });
 
         //load file resolution pref and upadte UI
-        var tmpRes= Settings.getOption('i',
+        var tmpRes = Settings.getOption('i',
             Settings.FILE_RESOLUTION_TYPE_SETTING_KEY);
-        if (tmpRes < 0){
+        if (tmpRes < 0) {
             Ref_stack_FileResolution.set_visible_child_name('native');
-        } else if (tmpRes === 999){
+        } else if (tmpRes === 999) {
             Ref_stack_FileResolution.set_visible_child_name('custom');
         } else {
             Ref_stack_FileResolution.set_visible_child_name('preset');
@@ -529,26 +529,26 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         //setup event on stack switcher
         Ref_stackswitcher_FileResolution.connect('event',
             () => {
-                    Lib.TalkativeLog('-^-stack_FR event grab');
-                    var page =
-                        Ref_stack_FileResolution.get_visible_child_name();
-                    Lib.TalkativeLog('-^-active page -> '+ page);
+                Lib.TalkativeLog('-^-stack_FR event grab');
+                var page =
+                    Ref_stack_FileResolution.get_visible_child_name();
+                Lib.TalkativeLog('-^-active page -> ' + page);
 
-                    if(page === 'native'){
-                        //set option to -1
-                        Settings.setOption(
-                            Settings.FILE_RESOLUTION_TYPE_SETTING_KEY, -1);
-                    } else if (page === 'preset') {
-                        //set option to fullHD 16:9
-                        Settings.setOption(
-                            Settings.FILE_RESOLUTION_TYPE_SETTING_KEY, 8);
-                    } else if (page === 'custom') {
-                        //set option to 99
-                        Settings.setOption(
-                            Settings.FILE_RESOLUTION_TYPE_SETTING_KEY, 999);
-                    } else {
-                        Lib.TalkativeLog('-^-page error');
-                    }
+                if (page === 'native') {
+                    //set option to -1
+                    Settings.setOption(
+                        Settings.FILE_RESOLUTION_TYPE_SETTING_KEY, -1);
+                } else if (page === 'preset') {
+                    //set option to fullHD 16:9
+                    Settings.setOption(
+                        Settings.FILE_RESOLUTION_TYPE_SETTING_KEY, 8);
+                } else if (page === 'custom') {
+                    //set option to 99
+                    Settings.setOption(
+                        Settings.FILE_RESOLUTION_TYPE_SETTING_KEY, 999);
+                } else {
+                    Lib.TalkativeLog('-^-page error');
+                }
             });
 
         //implements file width option
@@ -611,7 +611,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         // add marks on width/height file resolution
         let ind = 0;
         for (; ind < 13; ind++) {
-            var [h,w]=ctx._getResolutionPreset(ind);
+            var [h, w] = ctx._getResolutionPreset(ind);
             Ref_scale_WidthRes.add_mark(w,
                 Gtk.PositionType.BOTTOM, '');
 
@@ -632,13 +632,13 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
 
             let result = null;
             ctx.CtrlExe.Execute('xdg-user-dir VIDEOS',
-                true, (success, out)=>{
+                true, (success, out) => {
 
-                Lib.TalkativeLog('-^-CALLBACK sync S: '+ success + ' out: ' + out);
-                if(success && out !=='' && out !== undefined){
-                    result = out.replace(/(\n)/g, "");
-                }
-            }, null);
+                    Lib.TalkativeLog('-^-CALLBACK sync S: ' + success + ' out: ' + out);
+                    if (success && out !== '' && out !== undefined) {
+                        result = out.replace(/(\n)/g, "");
+                    }
+                }, null);
 
             if (result !== null) {
                 Lib.TalkativeLog('-^-xdg-user video: ' + result);
@@ -647,18 +647,18 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                 Lib.TalkativeLog('-^-NOT SET xdg-user video');
 
                 ctx.CtrlExe.Execute('/usr/bin/sh -c "echo $HOME"',
-                    true, (success, out)=>{
+                    true, (success, out) => {
 
-                    Lib.TalkativeLog('-^-CALLBACK sync S: '+ success + ' out: ' + out);
-                    if(success && out !=='' && out !== undefined){
-                        tmpFolder = out.replace(/(\n)/g, "");
-                    }
-                }, null);
+                        Lib.TalkativeLog('-^-CALLBACK sync S: ' + success + ' out: ' + out);
+                        if (success && out !== '' && out !== undefined) {
+                            tmpFolder = out.replace(/(\n)/g, "");
+                        }
+                    }, null);
             }
 
             //connect keywebcam signal
             Settings.settings.connect('changed::' + Settings.DEVICE_WEBCAM_SETTING_KEY,
-                Lang.bind(this, function() {
+                Lang.bind(this, function () {
                     Lib.TalkativeLog('-^-webcam device changed');
                     this._refreshWebcamOptions();
                 })
@@ -677,7 +677,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
 
     },
 
-    _initTabSupport(ctx, gtkDB, tmpS){
+    _initTabSupport(ctx, gtkDB, tmpS) {
         //implements textentry log
         let Ref_TextView_ESCLog = gtkDB.get_object('txe_ContainerLog');
         let Ref_buffer_Log = Ref_TextView_ESCLog.get_buffer();
@@ -689,7 +689,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             Ref_switch_VerboseDebug,
             'active', Gio.SettingsBindFlags.DEFAULT);
 
-         Ref_switch_VerboseDebug.connect('state-set',
+        Ref_switch_VerboseDebug.connect('state-set',
             (self) => {
                 //update log display widgets
                 Ref_TextView_ESCLog.sensistive = self.active;
@@ -705,81 +705,82 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             (self) => {
                 const activeLog = self.active;
                 Lib.TalkativeLog('-^-log combobox changed: ' + activeLog);
-                switch(activeLog){
-                case 0:
-                    //clear buffer
-                    Ref_buffer_Log.delete(
-                        Ref_buffer_Log.get_start_iter(),
-                        Ref_buffer_Log.get_end_iter());
+                switch (activeLog) {
+                    case 0:
+                        //clear buffer
+                        Ref_buffer_Log.delete(
+                            Ref_buffer_Log.get_start_iter(),
+                            Ref_buffer_Log.get_end_iter());
 
-                    ctx.CtrlExe.Execute('journalctl --since "15 min ago" --output=cat --no-pager',
-                        false, (success)=>{
-                            Lib.TalkativeLog('-^-CALLBACK async S= '+ success);
-                        },
-                        (line)=>{
-                            let esc = line.indexOf("[ESC]");
-                            if(line !=='' && line !== undefined && esc !== -1){
-                                line += '\n';
-                                Ref_buffer_Log.insert(
-                                    Ref_buffer_Log.get_end_iter(),
-                                    line,
-                                    line.length);
-                            }
-                        });
-                    break;
-                case 1:
-                    //clear buffer
-                    Ref_buffer_Log.delete(
-                        Ref_buffer_Log.get_start_iter(),
-                        Ref_buffer_Log.get_end_iter());
-
-                    ctx.CtrlExe.Execute('journalctl --since "15 min ago" --output=cat --no-pager',
-                        false, (success)=>{
-                            Lib.TalkativeLog('-^-CALLBACK async S= '+ success);
-                            if(success){
-                                if(Ref_buffer_Log.get_line_count() > 0){
-                                    let strNOgsp = _('No Gstreamer pipeline found');
+                        ctx.CtrlExe.Execute('journalctl --since "15 min ago" --output=cat --no-pager',
+                            false, (success) => {
+                                Lib.TalkativeLog('-^-CALLBACK async S= ' + success);
+                            },
+                            (line) => {
+                                let esc = line.indexOf("[ESC]");
+                                if (line !== '' && line !== undefined && esc !== -1) {
+                                    line += '\n';
                                     Ref_buffer_Log.insert(
                                         Ref_buffer_Log.get_end_iter(),
-                                        strNOgsp,
-                                        strNOgsp.length);
+                                        line,
+                                        line.length);
                                 }
-                            }
-                        },
-                        (line)=>{
-                            let esc = line.indexOf('-§-final GSP :');
-                            if(line !=='' && line !== undefined && esc !== -1){
-                                line += '\n';
-                                Ref_buffer_Log.insert(
-                                    Ref_buffer_Log.get_end_iter(),
-                                    line,
-                                    line.length);
-                            }
-                        });
-                    break;
-                case 2:
-                    //clear buffer
-                    Ref_buffer_Log.delete(
-                        Ref_buffer_Log.get_start_iter(),
-                        Ref_buffer_Log.get_end_iter());
+                            });
+                        break;
+                    case 1:
+                        //clear buffer
+                        Ref_buffer_Log.delete(
+                            Ref_buffer_Log.get_start_iter(),
+                            Ref_buffer_Log.get_end_iter());
 
-                    ctx.CtrlExe.Execute('journalctl /usr/bin/gnome-shell --since "15 min ago" --output=cat --no-pager',
-                        false, (success)=>{
-                            Lib.TalkativeLog('-^-CALLBACK async S= '+ success);
-                        },
-                        (line)=>{
-                            if(line !=='' && line !== undefined){
-                                line += '\n';
-                                Ref_buffer_Log.insert(
-                                    Ref_buffer_Log.get_end_iter(),
-                                    line,
-                                    line.length);
-                            }
-                        });
-                    break;
-                default:
-                    break;
-                };
+                        ctx.CtrlExe.Execute('journalctl --since "15 min ago" --output=cat --no-pager',
+                            false, (success) => {
+                                Lib.TalkativeLog('-^-CALLBACK async S= ' + success);
+                                if (success) {
+                                    if (Ref_buffer_Log.get_line_count() > 0) {
+                                        let strNOgsp = _('No Gstreamer pipeline found');
+                                        Ref_buffer_Log.insert(
+                                            Ref_buffer_Log.get_end_iter(),
+                                            strNOgsp,
+                                            strNOgsp.length);
+                                    }
+                                }
+                            },
+                            (line) => {
+                                let esc = line.indexOf('-§-final GSP :');
+                                if (line !== '' && line !== undefined && esc !== -1) {
+                                    line += '\n';
+                                    Ref_buffer_Log.insert(
+                                        Ref_buffer_Log.get_end_iter(),
+                                        line,
+                                        line.length);
+                                }
+                            });
+                        break;
+                    case 2:
+                        //clear buffer
+                        Ref_buffer_Log.delete(
+                            Ref_buffer_Log.get_start_iter(),
+                            Ref_buffer_Log.get_end_iter());
+
+                        ctx.CtrlExe.Execute('journalctl /usr/bin/gnome-shell --since "15 min ago" --output=cat --no-pager',
+                            false, (success) => {
+                                Lib.TalkativeLog('-^-CALLBACK async S= ' + success);
+                            },
+                            (line) => {
+                                if (line !== '' && line !== undefined) {
+                                    line += '\n';
+                                    Ref_buffer_Log.insert(
+                                        Ref_buffer_Log.get_end_iter(),
+                                        line,
+                                        line.length);
+                                }
+                            });
+                        break;
+                    default:
+                        break;
+                }
+                ;
             });
 
         //update state of get log
@@ -793,7 +794,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             () => ctx._setDefaultsettings());
     },
 
-    _initTabInfo(ctx, gtkDB){
+    _initTabInfo(ctx, gtkDB) {
         //implements info img extension
         let Ref_image_ESC = gtkDB.get_object('img_ESC');
         Ref_image_ESC.set_from_file(Lib.ESCimgInfo);
@@ -804,7 +805,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             Me.metadata.version + '</span>');
     },
 
-    _updateWebCamCaps: function(device) {
+    _updateWebCamCaps: function (device) {
         Lib.TalkativeLog('-^-webcam device: ' + device);
 
         if (device > 0) {
@@ -852,18 +853,18 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         }
     },
 
-    _updateRowShortcut: function(accel) {
+    _updateRowShortcut: function (accel) {
         Lib.TalkativeLog('-^-update row combo key accel');
 
         let [key, mods] =
-            (accel !== null) ? Gtk.accelerator_parse(accel): [0, 0];
+            (accel !== null) ? Gtk.accelerator_parse(accel) : [0, 0];
 
         Lib.TalkativeLog('-^-key ' + key + ' mods ' + mods);
         this.Ref_liststore_Shortcut.set(
             this.Iter_ShortcutRow, [Settings.SHORTCUT_COLUMN_KEY, Settings.SHORTCUT_COLUMN_MODS], [key, mods]);
     },
 
-    _setStateGSP: function(active) {
+    _setStateGSP: function (active) {
         //update GSP text area
         if (!active) {
             Lib.TalkativeLog('-^-custom GSP');
@@ -882,7 +883,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         }
     },
 
-    _updateStateWebcamOptions: function() {
+    _updateStateWebcamOptions: function () {
         Lib.TalkativeLog('-^-update webcam option widgets');
 
         var tmpDev = Settings.getOption('i', Settings.DEVICE_WEBCAM_SETTING_KEY);
@@ -915,23 +916,23 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         }
     },
 
-    _getResolutionPreset(index){
-        var arrRes=[
-            [480,640],
-            [480,854],
-            [600,800],
-            [720,960],
-            [720,1280],
-            [768,1024],
-            [768,1366],
-            [1024,1280],
-            [1080,1920],
-            [1200,1600],
-            [1440,2560],
-            [2048,2560],
-            [2160,3840]
-            ];
-        if (index >= 0 && index < arrRes.length){
+    _getResolutionPreset(index) {
+        var arrRes = [
+            [480, 640],
+            [480, 854],
+            [600, 800],
+            [720, 960],
+            [720, 1280],
+            [768, 1024],
+            [768, 1366],
+            [1024, 1280],
+            [1080, 1920],
+            [1200, 1600],
+            [1440, 2560],
+            [2048, 2560],
+            [2160, 3840]
+        ];
+        if (index >= 0 && index < arrRes.length) {
             return arrRes[index];
         } else {
             return null;
@@ -939,7 +940,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
     },
 
     //function to restore default value of the settings
-    _setDefaultsettings: function() {
+    _setDefaultsettings: function () {
         Lib.TalkativeLog('-^-restore default option');
 
         Settings.setOption(Settings.SHOW_NOTIFY_ALERT_SETTING_KEY, true);

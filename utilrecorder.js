@@ -34,7 +34,7 @@ const CaptureVideo = new Lang.Class({
     /*
      * Create a video recorder
      */
-    _init: function() {
+    _init: function () {
         Lib.TalkativeLog('-&-init recorder');
 
         this.AreaSelected = null;
@@ -55,7 +55,7 @@ const CaptureVideo = new Lang.Class({
     /*
      * start recording
      */
-    start: function() {
+    start: function () {
         Lib.TalkativeLog('-&-start video recording');
         this.recordingActive = false;
 
@@ -66,7 +66,7 @@ const CaptureVideo = new Lang.Class({
 
         if (Settings.getOption('s', Settings.FILE_FOLDER_SETTING_KEY) !== '') {
             fileRec = Settings.getOption('s', Settings.FILE_FOLDER_SETTING_KEY) +
-            '/' + fileRec;
+                '/' + fileRec;
         }
 
         let pipelineRec = '';
@@ -106,10 +106,10 @@ const CaptureVideo = new Lang.Class({
                 });
         } else {
             ScreenCastService.ScreencastAreaRemote(Settings.getOption(
-                    'i', Settings.X_POS_SETTING_KEY), Settings.getOption(
-                    'i', Settings.Y_POS_SETTING_KEY), Settings.getOption(
-                    'i', Settings.WIDTH_SETTING_KEY), Settings.getOption(
-                    'i', Settings.HEIGHT_SETTING_KEY),
+                'i', Settings.X_POS_SETTING_KEY), Settings.getOption(
+                'i', Settings.Y_POS_SETTING_KEY), Settings.getOption(
+                'i', Settings.WIDTH_SETTING_KEY), Settings.getOption(
+                'i', Settings.HEIGHT_SETTING_KEY),
                 fileRec, optionsRec,
                 (result, error) => {
                     if (error) {
@@ -122,7 +122,7 @@ const CaptureVideo = new Lang.Class({
 
                         //draw area recording
                         if (Settings.getOption(
-                                'b', Settings.SHOW_AREA_REC_SETTING_KEY)) {
+                            'b', Settings.SHOW_AREA_REC_SETTING_KEY)) {
                             this.AreaSelected = new Selection.AreaRecording();
                         }
 
@@ -134,7 +134,7 @@ const CaptureVideo = new Lang.Class({
     /*
      * Stop recording
      */
-    stop: function() {
+    stop: function () {
         Lib.TalkativeLog('-&-stop video recording');
 
         ScreenCastService.StopScreencastRemote(

@@ -52,7 +52,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
     Name: 'EasyScreenCast.indicator',
     Extends: PanelMenu.Button,
 
-    _init: function() {
+    _init: function () {
         this.parent(null, 'EasyScreenCast-indicator');
 
         this.CtrlAudio = new UtilAudio.MixerAudio();
@@ -79,7 +79,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
             (param1, param2, focus) =>
                 this.refreshIndicator(param1, param2, false));
         this.actor.connect('button_press_event',
-            (actor, event) => this._onButtonPress(actor,event));
+            (actor, event) => this._onButtonPress(actor, event));
 
         //prepare setting var
         if (Settings.getOption('i', Settings.TIME_DELAY_SETTING_KEY) > 0) {
@@ -117,7 +117,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
 
         //add sub menu audio recording
         this.smAudioRec = new PopupMenu.PopupSubMenuMenuItem(
-             _('No audio source'), true
+            _('No audio source'), true
         );
         this.smAudioRec.icon.icon_name = 'audio-input-microphone-symbolic';
         this.menu.addMenuItem(this.smAudioRec);
@@ -149,11 +149,11 @@ const EasyScreenCast_Indicator = new Lang.Class({
     },
 
     /**
-    * Set a new value for the time label. Integers are
-    * converted to seconds, minutes, hours. All other
-    * values are converted to strings.
-    */
-    updateTimeLabel: function(newValue) {
+     * Set a new value for the time label. Integers are
+     * converted to seconds, minutes, hours. All other
+     * values are converted to strings.
+     */
+    updateTimeLabel: function (newValue) {
         function padZeros(number) {
             if (number < 10) {
                 number = "0" + number;
@@ -170,21 +170,21 @@ const EasyScreenCast_Indicator = new Lang.Class({
             newValue = newValue - minutes * 60;
 
             newValue = padZeros(hours) +
-                 ':' + padZeros(minutes) +
-                 ':' + padZeros(newValue);
+                ':' + padZeros(minutes) +
+                ':' + padZeros(newValue);
         }
 
         this.timeLabel.set_text(newValue.toString());
     },
 
-     /**
-      * Left clicking on the icon toggles the recording
-      * options menu. Any other mouse button will start
-      * the recording.
-      * Some submenus are refreshed to account for new
-      * sources.
+    /**
+     * Left clicking on the icon toggles the recording
+     * options menu. Any other mouse button will start
+     * the recording.
+     * Some submenus are refreshed to account for new
+     * sources.
      */
-    _onButtonPress: function(actor, event) {
+    _onButtonPress: function (actor, event) {
         let button = event.get_button();
 
         if (button === 1) {
@@ -240,10 +240,10 @@ const EasyScreenCast_Indicator = new Lang.Class({
 
         this.smWebCam.label.text = this.WebCamDevice[
             Settings.getOption('i', Settings.DEVICE_WEBCAM_SETTING_KEY)
-        ];
+            ];
     },
 
-    _addMIRecording: function() {
+    _addMIRecording: function () {
         this.imRecordAction = new PopupMenu.PopupBaseMenuItem();
         this.RecordingLabel = new St.Label({
             text: _('Start recording'),
@@ -271,7 +271,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
 
     /* Refreshes the submenu for audio recording sources.
      */
-    _addSubMenuAudioRec: function() {
+    _addSubMenuAudioRec: function () {
         Lib.TalkativeLog('-*-reset the sub menu audio');
         //remove old menu items
         this.smAudioRec.menu.removeAll();
@@ -283,14 +283,14 @@ const EasyScreenCast_Indicator = new Lang.Class({
         }
     },
 
-    _addSubMenuWebCam: function() {
+    _addSubMenuWebCam: function () {
         this.smWebCam = new PopupMenu.PopupSubMenuMenuItem('', true);
         this.smWebCam.icon.icon_name = 'camera-web-symbolic';
 
         this.menu.addMenuItem(this.smWebCam);
     },
 
-    _addSubMenuAreaRec: function() {
+    _addSubMenuAreaRec: function () {
         this.smAreaRec = new PopupMenu.PopupSubMenuMenuItem('', true);
         this.smAreaRec.icon.icon_name = 'view-fullscreen-symbolic';
 
@@ -305,7 +305,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.menu.addMenuItem(this.smAreaRec);
     },
 
-    _addSubMenuDelayRec: function() {
+    _addSubMenuDelayRec: function () {
         this.smDelayRec = new PopupMenu.PopupSubMenuMenuItem('', true);
         this.smDelayRec.icon.icon_name = 'alarm-symbolic';
 
@@ -324,7 +324,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.menu.addMenuItem(this.smDelayRec);
     },
 
-    _createMIAreaRec: function() {
+    _createMIAreaRec: function () {
         this.AreaType = new Array(_('Record all desktop'),
             _('Record a selected monitor'), _('Record a selected window'),
             _('Record a selected area'));
@@ -340,8 +340,8 @@ const EasyScreenCast_Indicator = new Lang.Class({
                     can_focus: true
                 });
 
-            (function(i, arr, item) {
-                this.connectMI = function() {
+            (function (i, arr, item) {
+                this.connectMI = function () {
                     this.connect('activate',
                         () => {
                             Lib.TalkativeLog('-*-set area recording to ' + i + ' ' + arr[i]);
@@ -357,7 +357,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         return this.AreaMenuItem;
     },
 
-    _createMIWebCam: function() {
+    _createMIWebCam: function () {
         this.WebCamDevice = new Array(_('No WebCam recording'));
         //add menu item webcam device from GST
         this.WebCamDevice.push((this.CtrlWebcam.getNameDevices().join()));
@@ -373,8 +373,8 @@ const EasyScreenCast_Indicator = new Lang.Class({
                     can_focus: true
                 });
 
-            (function(i, arr, item) {
-                this.connectMI = function() {
+            (function (i, arr, item) {
+                this.connectMI = function () {
                     this.connect('activate',
                         () => {
                             Lib.TalkativeLog('-*-set webcam device to ' + i + ' ' + arr[i]);
@@ -390,7 +390,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         return this.AreaMenuItem;
     },
 
-    _createMIAudioRec: function() {
+    _createMIAudioRec: function () {
         //add std menu item
         this.AudioChoice = new Array({
             desc: _('No audio source'),
@@ -436,14 +436,14 @@ const EasyScreenCast_Indicator = new Lang.Class({
 
             //update choice audio from pref
             if (i === Settings.getOption(
-                    'i', Settings.INPUT_AUDIO_SOURCE_SETTING_KEY)) {
+                'i', Settings.INPUT_AUDIO_SOURCE_SETTING_KEY)) {
                 Lib.TalkativeLog('-*-get audio choice from pref ' + i);
                 this.smAudioRec.label.text = this.AudioChoice[i].desc;
             }
 
             //add action on menu item
-            (function(i, arr, item) {
-                this.connectMI = function() {
+            (function (i, arr, item) {
+                this.connectMI = function () {
                     this.connect('activate',
                         () => {
                             Lib.TalkativeLog('-*-set audio choice to ' + i);
@@ -460,7 +460,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         return this.AudioMenuItem;
     },
 
-    _createMIInfoDelayRec: function() {
+    _createMIInfoDelayRec: function () {
         this.DelayTimeTitle = new PopupMenu.PopupMenuItem(_('Delay Time'), {
             reactive: false
         });
@@ -496,7 +496,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         return [this.DelayTimeTitle, this.imSliderDelay];
     },
 
-    _enable: function() {
+    _enable: function () {
         //enable key binding
         this._enableKeybindings();
         //start monitoring inputvideo
@@ -508,7 +508,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.actor.add_actor(this.indicatorBox);
     },
 
-    _disable: function() {
+    _disable: function () {
         //remove key binding
         this._removeKeybindings();
         //stop monitoring inputvideo
@@ -520,7 +520,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.actor.remove_actor(this.indicatorBox);
     },
 
-    _doDelayAction: function() {
+    _doDelayAction: function () {
         if (this.isDelayActive) {
             Lib.TalkativeLog('-*-delay recording called | delay= ' + this.TimeSlider.value);
             timerD = new Time.TimerDelay((
@@ -534,34 +534,34 @@ const EasyScreenCast_Indicator = new Lang.Class({
         }
     },
 
-    _doPreCommand: function(){
-        if(Settings.getOption('b', Settings.ACTIVE_PRE_CMD_SETTING_KEY)){
+    _doPreCommand: function () {
+        if (Settings.getOption('b', Settings.ACTIVE_PRE_CMD_SETTING_KEY)) {
             Lib.TalkativeLog('-*-execute pre command');
 
-            const PreCmd = Settings.getOption('s',Settings.PRE_CMD_SETTING_KEY);
+            const PreCmd = Settings.getOption('s', Settings.PRE_CMD_SETTING_KEY);
 
-            this.CtrlExe.Execute(PreCmd,false,
+            this.CtrlExe.Execute(PreCmd, false,
                 (res) => {
-                            Lib.TalkativeLog('-*-pre command final: ' + res);
-                            if(res===true){
-                                Lib.TalkativeLog('-*-pre command OK');
-                                this.recorder.start();
-                            } else {
-                                Lib.TalkativeLog('-*-pre command ERROR');
-                                this.CtrlNotify.createNotify(
-                                    _('ERROR PRE COMMAND - See logs for more info'),
-                                Lib.ESCoffGIcon);
-                            }
-                        },
+                    Lib.TalkativeLog('-*-pre command final: ' + res);
+                    if (res === true) {
+                        Lib.TalkativeLog('-*-pre command OK');
+                        this.recorder.start();
+                    } else {
+                        Lib.TalkativeLog('-*-pre command ERROR');
+                        this.CtrlNotify.createNotify(
+                            _('ERROR PRE COMMAND - See logs for more info'),
+                            Lib.ESCoffGIcon);
+                    }
+                },
                 (line) => {
-                            Lib.TalkativeLog('-*-pre command output: ' + line);
-                        });
+                    Lib.TalkativeLog('-*-pre command output: ' + line);
+                });
         } else {
             this.recorder.start();
         }
     },
 
-    _doRecording: function() {
+    _doRecording: function () {
         //start/stop record screen
         if (isActive === false) {
             Lib.TalkativeLog('-*-start recording');
@@ -606,7 +606,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.refreshIndicator(false);
     },
 
-    _doPostCommand :function(){
+    _doPostCommand: function () {
         if (Settings.getOption('b', Settings.ACTIVE_POST_CMD_SETTING_KEY)) {
             Lib.TalkativeLog('-*-execute post command');
 
@@ -622,7 +622,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
             };
 
             const Cmd = tmpCmd.replace(/_fpath|_dirpath|_fname/gi,
-                function(match) {
+                function (match) {
                     return mapObj[match];
                 });
 
@@ -633,7 +633,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         }
     },
 
-    doRecResult: function(result, file) {
+    doRecResult: function (result, file) {
         if (result) {
             isActive = true;
 
@@ -673,7 +673,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.refreshIndicator(false);
     },
 
-    _doExtensionPreferences: function() {
+    _doExtensionPreferences: function () {
         Lib.TalkativeLog('-*-open preferences');
 
         this.CtrlExe.Spawn(
@@ -682,7 +682,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         Main.Util.trySpawnCommandLine('gnome-shell-extension-prefs  easyscreencast@easyscreencast.github.com');
     },
 
-    _onDelayTimeChanged: function() {
+    _onDelayTimeChanged: function () {
 
         const secDelay = Math.floor(this.TimeSlider.value * 100);
         Settings.setOption(Settings.TIME_DELAY_SETTING_KEY, secDelay);
@@ -693,7 +693,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         }
     },
 
-    refreshIndicator: function(param1, param2, focus) {
+    refreshIndicator: function (param1, param2, focus) {
         Lib.TalkativeLog('-*-refresh indicator -A ' + isActive + ' -F ' + focus);
 
         const indicators = Settings.getOption(
@@ -707,8 +707,8 @@ const EasyScreenCast_Indicator = new Lang.Class({
                     this.indicatorIcon.set_gicon(Lib.ESConGIcon);
                 }
             } else {
-                if(Settings.getOption(
-                    'b', Settings.ACTIVE_SHORTCUT_SETTING_KEY)){
+                if (Settings.getOption(
+                    'b', Settings.ACTIVE_SHORTCUT_SETTING_KEY)) {
                     this.indicatorIcon.set_gicon(null);
                 } else {
                     if (focus === true) {
@@ -730,7 +730,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         }
     },
 
-    _replaceStdIndicator: function(OPTtemp) {
+    _replaceStdIndicator: function (OPTtemp) {
         if (OPTtemp) {
             Lib.TalkativeLog('-*-replace STD indicator');
             Main.panel.statusArea['aggregateMenu']
@@ -742,7 +742,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         }
     },
 
-    _enableKeybindings: function() {
+    _enableKeybindings: function () {
         if (Settings.getOption('b', Settings.ACTIVE_SHORTCUT_SETTING_KEY)) {
             Lib.TalkativeLog('-*-enable keybinding');
 
@@ -762,7 +762,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         }
     },
 
-    _removeKeybindings: function() {
+    _removeKeybindings: function () {
         if (Settings.getOption('b', Settings.ACTIVE_SHORTCUT_SETTING_KEY)) {
             Lib.TalkativeLog('-*-remove keybinding');
 
@@ -770,7 +770,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         }
     },
 
-    destroy: function() {
+    destroy: function () {
         Lib.TalkativeLog('-*-destroy indicator called');
 
         if (isActive) {

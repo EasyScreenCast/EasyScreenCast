@@ -59,7 +59,7 @@ const webmVP8 = {
         vq: 'vp8enc min_quantizer=0 max_quantizer=0 cpu-used=0 deadline=100000 sharpness=0 target-bitrate=40000 threads=%T',
         aq: 'vorbisenc',
         descr: 'FPS: 60 \nVideo -> VP8  Encoder:\n-min_quantizer=0\n-max_quantizer=0\n-cpu-used=0\n-deadline=100000\n-sharpness=0\n-target-bitrate=40000\nAudio -> Vorbis Encoder'
-    }, ]
+    },]
 };
 
 const webmVP9 = {
@@ -90,7 +90,7 @@ const webmVP9 = {
         vq: 'vp9enc min_quantizer=0 max_quantizer=0 cpu-used=0 deadline=100000 sharpness=0 target-bitrate=40000 threads=%T',
         aq: 'vorbisenc',
         descr: 'FPS: 60 \nVideo -> VP9  Encoder:\n-min_quantizer=0\n-max_quantizer=0\n-cpu-used=0\n-deadline=100000\n-sharpness=0\n-target-bitrate=40000\nAudio -> Vorbis Encoder'
-    }, ]
+    },]
 };
 
 // CONST CONTAINER - Mp4
@@ -121,7 +121,7 @@ const mp4 = {
         vq: 'x264enc psy-tune="film" speed-preset="slower" subme=10 qp-min=0 qp-max=10 threads=%T',
         aq: 'lamemp3enc',
         descr: 'FPS: 60 \nVideo -> x264enc  Encoder:\n-psy-tune="film"\n-speed-preset="slower"\n-subme=10\n-qp-min=0\n-qp-max=10\nAudio -> Mp3 Encoder'
-    }, ]
+    },]
 };
 
 // CONST CONTAINER - Mkv
@@ -152,7 +152,7 @@ const mkv = {
         vq: 'x264enc psy-tune="film" speed-preset="slower" subme=10 qp-min=0 qp-max=10 threads=%T',
         aq: 'flacenc',
         descr: 'FPS: 60 \nVideo -> x264enc  Encoder:\n-psy-tune="film"\n-speed-preset="slower"\n-subme=10\n-qp-min=0\n-qp-max=10\nAudio -> Flac Encoder'
-    }, ]
+    },]
 };
 
 // CONST CONTAINER - Ogg
@@ -183,7 +183,7 @@ const ogg = {
         vq: 'theoraenc speed-level=0 vp3-compatible=false quality=60 bitrate=100000',
         aq: 'opusenc',
         descr: 'FPS: 60 \nVideo -> Theora Encoder\n-speed-level=0\n-vp3-compatible=false\n-quality=60\n-bitrate=100000\nAudio -> Opus Encoder'
-    }, ]
+    },]
 };
 
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -328,7 +328,7 @@ function composeGSP() {
 
     this.tmpGSP = this.tmpGSP.replace(
         /_SCREENCAST_RES_|_ENCODER_VIDEO_|_CONTAINER_/gi,
-        function(match) {
+        function (match) {
             return mapObj[match];
         }
     );
@@ -370,7 +370,7 @@ function replaceAudio(gspRA, defaultAudio, ConTMP, QGSPtmp) {
             };
 
             audioPipeline = gspRA.replace(/pulsesrc|_ENCODER_AUDIO_/gi,
-                function(match) {
+                function (match) {
                     return mapObj[match];
                 }
             );
@@ -405,7 +405,7 @@ function replaceWebcam(gspRW, device, caps) {
 
     var webcamPipeline = gspRW.replace(
         /_WEBCAM_DEV_|_WEBCAM_CAP_|_WEBCAM_OPT_|_WEBCAM_W_|_WEBCAM_H_/gi,
-        function(match) {
+        function (match) {
             return mapObj[match];
         }
     );
@@ -418,40 +418,40 @@ function replaceWebcam(gspRW, device, caps) {
 /*
  * replace resolution
  */
-function composeResolution(tmpRes,h,w,kar) {
+function composeResolution(tmpRes, h, w, kar) {
     Lib.TalkativeLog('-§-resolution option: ' + tmpRes);
     var strRes = RESOLUTION[0];
 
-    switch (tmpRes){
-    case -1:
-        break;
-    case 999:
-        var mapObj = {
-            _RES_KAR_ : kar ? 'true' : 'false',
-            _RES_HEIGHT_ : h,
-            _RES_WIDTH_ : w
-        };
+    switch (tmpRes) {
+        case -1:
+            break;
+        case 999:
+            var mapObj = {
+                _RES_KAR_: kar ? 'true' : 'false',
+                _RES_HEIGHT_: h,
+                _RES_WIDTH_: w
+            };
 
-        strRes = RESOLUTION[1].replace(
-            /_RES_KAR_|_RES_HEIGHT_|_RES_WIDTH_/gi,
-            function(match) {
-                return mapObj[match];
-            }
-        );
-        break;
-    default:
-        var mapObj = {
-            _RES_KAR_ : 'true',
-            _RES_HEIGHT_ : h,
-            _RES_WIDTH_ : w
-        };
+            strRes = RESOLUTION[1].replace(
+                /_RES_KAR_|_RES_HEIGHT_|_RES_WIDTH_/gi,
+                function (match) {
+                    return mapObj[match];
+                }
+            );
+            break;
+        default:
+            var mapObj = {
+                _RES_KAR_: 'true',
+                _RES_HEIGHT_: h,
+                _RES_WIDTH_: w
+            };
 
-        strRes = RESOLUTION[1].replace(
-            /_RES_KAR_|_RES_WIDTH_|_RES_HEIGHT_/gi,
-            function(match) {
-                return mapObj[match];
-            }
-        );
+            strRes = RESOLUTION[1].replace(
+                /_RES_KAR_|_RES_WIDTH_|_RES_HEIGHT_/gi,
+                function (match) {
+                    return mapObj[match];
+                }
+            );
     }
 
     Lib.TalkativeLog('-§-compose resolution: ' + strRes);
