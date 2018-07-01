@@ -6,3 +6,5 @@ locale/pt_BR.mo
 locale/ru.mo
 *~
 
+# IDE files
+.idea/
