@@ -29,7 +29,6 @@ const UtilGSP = Me.imports.utilgsp;
 const Settings = Me.imports.settings;
 const UtilExeCmd = Me.imports.utilexecmd;
 
-
 function init() {
     Lib.initTranslations('easyscreencast@easyscreencast.github.com');
 }
@@ -39,6 +38,12 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
     GTypeName: 'EasyScreenCastSettingsWidget',
     Extends: Gtk.Box,
 
+    /**
+     * Init class
+     *
+     * @param {array} params
+     * @private
+     */
     _init: function (params) {
         this.parent(params);
 
@@ -118,6 +123,12 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         }
     },
 
+    /**
+     * @param ctx
+     * @param gtkDB
+     * @param tmpS
+     * @private
+     */
     _initTabOptions(ctx, gtkDB, tmpS) {
         //implements show timer option
         let Ref_switch_ShowNotifyAlert = gtkDB.get_object(
@@ -216,6 +227,12 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             'text', Gio.SettingsBindFlags.DEFAULT);
     },
 
+    /**
+     * @param ctx
+     * @param gtkDB
+     * @param tmpS
+     * @private
+     */
     _initTabQuality(ctx, gtkDB, tmpS) {
         //implements FPS option
         let Ref_spinner_FrameRateRec = gtkDB.get_object(
@@ -318,6 +335,12 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         ctx.Ref_stack_Quality = gtkDB.get_object('stk_Quality');
     },
 
+    /**
+     * @param ctx
+     * @param gtkDB
+     * @param tmpS
+     * @private
+     */
     _initTabWebcam(ctx, gtkDB, tmpS) {
         //implements webcam quality option
         ctx.Ref_ListStore_QualityWebCam = gtkDB.get_object(
@@ -468,6 +491,12 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             'lbl_WebcamCaps');
     },
 
+    /**
+     * @param ctx
+     * @param gtkDB
+     * @param tmpS
+     * @private
+     */
     _initTabFile(ctx, gtkDB, tmpS) {
         //implements file name string rec option
         let Ref_textedit_FileName = gtkDB.get_object(
@@ -677,6 +706,12 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
 
     },
 
+    /**
+     * @param ctx
+     * @param gtkDB
+     * @param tmpS
+     * @private
+     */
     _initTabSupport(ctx, gtkDB, tmpS) {
         //implements textentry log
         let Ref_TextView_ESCLog = gtkDB.get_object('txe_ContainerLog');
@@ -794,6 +829,11 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             () => ctx._setDefaultsettings());
     },
 
+    /**
+     * @param ctx
+     * @param gtkDB
+     * @private
+     */
     _initTabInfo(ctx, gtkDB) {
         //implements info img extension
         let Ref_image_ESC = gtkDB.get_object('img_ESC');
@@ -805,6 +845,10 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             Me.metadata.version + '</span>');
     },
 
+    /**
+     * @param device
+     * @private
+     */
     _updateWebCamCaps: function (device) {
         Lib.TalkativeLog('-^-webcam device: ' + device);
 
@@ -832,6 +876,8 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
 
     /**
      * Refreshes the webcam settings.
+     *
+     * @private
      */
     _refreshWebcamOptions: function () {
         Lib.TalkativeLog('-^-refresh webcam options');
@@ -846,6 +892,8 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
 
     /**
      * Initializes this.CtrlWebcam if it is null.
+     *
+     * @private
      */
     _initializeWebcamHelper: function () {
         if (this.CtrlWebcam === null) {
@@ -853,6 +901,10 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         }
     },
 
+    /**
+     * @param accel
+     * @private
+     */
     _updateRowShortcut: function (accel) {
         Lib.TalkativeLog('-^-update row combo key accel');
 
@@ -864,6 +916,10 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             this.Iter_ShortcutRow, [Settings.SHORTCUT_COLUMN_KEY, Settings.SHORTCUT_COLUMN_MODS], [key, mods]);
     },
 
+    /**
+     * @param active
+     * @private
+     */
     _setStateGSP: function (active) {
         //update GSP text area
         if (!active) {
@@ -883,6 +939,9 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         }
     },
 
+    /**
+     * @private
+     */
     _updateStateWebcamOptions: function () {
         Lib.TalkativeLog('-^-update webcam option widgets');
 
@@ -916,6 +975,11 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         }
     },
 
+    /**
+     * @param index
+     * @return {array}
+     * @private
+     */
     _getResolutionPreset(index) {
         var arrRes = [
             [480, 640],
@@ -939,7 +1003,11 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         }
     },
 
-    //function to restore default value of the settings
+    /**
+     * function to restore default value of the settings
+     *
+     * @private
+     */
     _setDefaultsettings: function () {
         Lib.TalkativeLog('-^-restore default option');
 
@@ -979,6 +1047,9 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
     }
 });
 
+/**
+ * @return {GObject.Class}
+ */
 function buildPrefsWidget() {
     Lib.TalkativeLog('-^-Init pref widget');
 

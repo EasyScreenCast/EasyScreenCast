@@ -18,7 +18,6 @@ const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Lib = Me.imports.convenience;
 
-
 // setting keys
 var INPUT_AUDIO_SOURCE_SETTING_KEY = 'input-audio-source';
 var ACTIVE_POST_CMD_SETTING_KEY = 'execute-post-cmd';
@@ -66,40 +65,39 @@ var SHORTCUT_COLUMN_MODS = 1;
 
 var settings = null;
 
-//getter option
+/**
+ * getter option
+ *
+ * @param {string} type
+ * @param key
+ * @return {string}
+ */
 function getOption(type, key) {
     checkSettings();
 
     switch (type) {
         case 'b':
             return settings.get_boolean(key);
-            break;
-
         case 'i':
             return settings.get_int(key);
-            break;
-
         case 's':
             return settings.get_string(key);
-            break;
-
         case 'd':
             return settings.get_double(key);
-            break;
-
         case 'as':
             return settings.get_strv(key);
-            break;
-
-        default:
-            return 'ERROR';
     }
+
     return '';
 }
 
-//get a standard gsp pipeline
+/**
+ * get a standard gsp pipeline
+ *
+ * @param audio
+ * @return {string}
+ */
 function getGSPstd(audio) {
-
     //TODO update gsp
     if (audio) {
         return 'queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! videorate ! vp8enc min_quantizer=0 max_quantizer=5 cpu-used=3 deadline=1000000 threads=%T ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mux. pulsesrc ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! audioconvert ! vorbisenc ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mux. webmmux name=mux ';
@@ -108,7 +106,13 @@ function getGSPstd(audio) {
     }
 }
 
-//setter option
+/**
+ * setter option
+ *
+ * @param key
+ * @param {string} option
+ * @return {string}
+ */
 function setOption(key, option) {
     checkSettings();
 

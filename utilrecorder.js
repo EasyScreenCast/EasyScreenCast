@@ -29,9 +29,13 @@ const ScreenCastProxy = Gio.DBusProxy.makeProxyWrapper(
     LibRecorder.ScreencastIface);
 let ScreenCastService = null;
 
+/**
+ * @type {RecordVideo}
+ */
 const CaptureVideo = new Lang.Class({
     Name: "RecordVideo",
-    /*
+
+    /**
      * Create a video recorder
      */
     _init: function () {
@@ -46,13 +50,13 @@ const CaptureVideo = new Lang.Class({
             (proxy, error) => {
                 if (error) {
                     Lib.TalkativeLog('-&-ERROR(d-bus proxy connected) - ' + error.message);
-                    return;
                 } else {
                     Lib.TalkativeLog('-&-d-bus proxy connected');
                 }
             });
     },
-    /*
+
+    /**
      * start recording
      */
     start: function () {
@@ -131,8 +135,11 @@ const CaptureVideo = new Lang.Class({
                 });
         }
     },
-    /*
+
+    /**
      * Stop recording
+     *
+     * @return {boolean}
      */
     stop: function () {
         Lib.TalkativeLog('-&-stop video recording');

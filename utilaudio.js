@@ -20,9 +20,17 @@ const Settings = Me.imports.settings;
 let MixerControl = null;
 let isConnected = false;
 
+/**
+ * @type {MixerAudio}
+ */
 var MixerAudio = new Lang.Class({
     Name: 'MixerAudio',
 
+    /**
+     * Init Lang class
+     *
+     * @private
+     */
     _init: function () {
         Lib.TalkativeLog('-#-mixer _init');
 
@@ -49,8 +57,13 @@ var MixerAudio = new Lang.Class({
         }
     },
 
+    /**
+     * @return {*}
+     * @private
+     */
     _getMixerControl: function () {
         var _mixerTmp;
+
         if (MixerControl) {
             Lib.TalkativeLog('-#-mixer exist -> ' + MixerControl + ' state -> ' + MixerControl.get_state());
 
@@ -103,7 +116,7 @@ var MixerAudio = new Lang.Class({
     /**
      * Gets a list of input audio sources.
      *
-     * @returns {Array}
+     * @returns {array}
      */
     getListInputAudio: function () {
         Lib.TalkativeLog('-#-get list input audio');
@@ -155,6 +168,9 @@ var MixerAudio = new Lang.Class({
         return [];
     },
 
+    /**
+     * @return {string}
+     */
     getAudioSource: function () {
         Lib.TalkativeLog('-#-get source audio choosen');
 
@@ -172,7 +188,11 @@ var MixerAudio = new Lang.Class({
         }
     },
 
-
+    /**
+     * @param control
+     * @param id
+     * @private
+     */
     _onStreamAdd: function (control, id) {
         Lib.TalkativeLog('-#-mixer stream add - ID: ' + id);
         var streamTmp = control.lookup_stream_id(id);
@@ -190,12 +210,19 @@ var MixerAudio = new Lang.Class({
         }
     },
 
+    /**
+     * @param control
+     * @param id
+     * @private
+     */
     _onStreamRemove: function (control, id) {
         Lib.TalkativeLog('-#-mixer stream remove - ID: ' + id);
         var streamTmp = control.lookup_stream_id(id);
-
     },
 
+    /**
+     * @private
+     */
     _getInfoPA: function () {
         var tmp = MixerControl.get_cards();
         Lib.TalkativeLog('#-# mixer cards -> ' + tmp.length);
@@ -270,12 +297,18 @@ var MixerAudio = new Lang.Class({
         }
     },
 
+    /**
+     * @return {boolean}
+     */
     checkAudio: function () {
         Lib.TalkativeLog('-#-check GVC lib presence: ' + isConnected);
 
         return isConnected;
     },
 
+    /**
+     * Destroy mixer control
+     */
     destroy: function () {
         if (MixerControl) {
             MixerControl.close();

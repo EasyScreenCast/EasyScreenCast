@@ -19,10 +19,16 @@ const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Lib = Me.imports.convenience;
 
-
+/**
+ * @type {ExecuteStuff}
+ */
 var ExecuteStuff = new Lang.Class({
     Name: "ExecuteStuff",
 
+    /**
+     * @param scope
+     * @private
+     */
     _init: function (scope) {
         Lib.TalkativeLog('-¶-init scope:' + scope);
 
@@ -30,6 +36,11 @@ var ExecuteStuff = new Lang.Class({
         this.Callback = null;
     },
 
+    /**
+     * @param cmd
+     * @return {*[]}
+     * @private
+     */
     _parseCmd: function (cmd) {
         let successP, argv;
 
@@ -48,6 +59,13 @@ var ExecuteStuff = new Lang.Class({
         }
     },
 
+    /**
+     * @param cmd
+     * @param sync
+     * @param resCallback
+     * @param lineCallback
+     * @constructor
+     */
     Execute: function (cmd, sync, resCallback, lineCallback) {
         Lib.TalkativeLog('-¶-execute: ' + cmd);
 
@@ -78,6 +96,11 @@ var ExecuteStuff = new Lang.Class({
         }
     },
 
+    /**
+     * @param cmd
+     * @return {*}
+     * @constructor
+     */
     Spawn: function (cmd) {
         let [successP, argv] = this._parseCmd(cmd);
         if (successP) {
@@ -103,6 +126,10 @@ var ExecuteStuff = new Lang.Class({
         }
     },
 
+    /**
+     * @param cmd
+     * @private
+     */
     _syncCmd: function (cmd) {
         let [successP, argv] = this._parseCmd(cmd);
         if (successP) {
@@ -122,16 +149,22 @@ var ExecuteStuff = new Lang.Class({
                 Lib.TalkativeLog('-¶-std_err: ' + std_err);
 
                 Lib.TalkativeLog('-¶-exe RC');
-                if (this.Callback !== null)
+                if (this.Callback !== null) {
                     this.Callback.apply(this.Scope, [true, std_out.toString()]);
+                }
             } else {
                 Lib.TalkativeLog('-¶-ERROR exe WC');
-                if (this.Callback !== null)
+                if (this.Callback !== null) {
                     this.Callback.apply(this.Scope, [false]);
+                }
             }
         }
     },
 
+    /**
+     * @param cmd
+     * @private
+     */
     _asyncCmd: function (cmd) {
         let [successP, argv] = this._parseCmd(cmd);
         if (successP) {
@@ -168,8 +201,9 @@ var ExecuteStuff = new Lang.Class({
 
                 let [out, size] = out_reader.read_line(null);
                 while (out !== null) {
-                    if (this.lineCallback !== null)
+                    if (this.lineCallback !== null) {
                         this.lineCallback.apply(this.Scope, [out.toString()]);
+                    }
                     [out, size] = out_reader.read_line(null);
                 }
 
@@ -179,8 +213,9 @@ var ExecuteStuff = new Lang.Class({
                 }
             } else {
                 Lib.TalkativeLog('-¶-ERROR exe WC');
-                if (this.Callback !== null)
+                if (this.Callback !== null) {
                     this.Callback.apply(this.Scope, [false]);
+                }
             }
         }
     }

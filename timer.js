@@ -25,10 +25,18 @@ let ID_TimerDelay = null;
 let CallbackFuncDelay = null;
 let ElapsedSec;
 
+/**
+ * @type {TimerDelay}
+ */
 const TimerDelay = new Lang.Class({
     Name: "TimerDelay",
-    /*
+
+    /**
      * Create a new timer
+     *
+     * @param {number} delay
+     * @param {function} callback
+     * @param scope
      */
     _init: function (delay, callback, scope) {
 
@@ -44,8 +52,11 @@ const TimerDelay = new Lang.Class({
             this.Scope = scope;
         }
     },
-    /*
+
+    /**
      * Set the callback-function
+     *
+     * @param {function} callback
      */
     setCallback: function (callback) {
         Lib.TalkativeLog('-%-setcallback TimerDelay called');
@@ -57,14 +68,18 @@ const TimerDelay = new Lang.Class({
         }
         CallbackFuncDelay = callback;
     },
-    /*
+
+    /**
      * Set the delay time
+     *
+     * @param {number} delay
      */
     setDelay: function (delay) {
         Lib.TalkativeLog('-%-setdelay TimerDelay called');
 
         DelaySec = delay;
     },
+
     /**
      * Start or restart a new timer
      */
@@ -75,6 +90,7 @@ const TimerDelay = new Lang.Class({
         ID_TimerDelay = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 1000,
             () => this._callbackInternal());
     },
+
     /**
      * Stop the current timer
      */
@@ -88,6 +104,7 @@ const TimerDelay = new Lang.Class({
             }
         }
     },
+
     /**
      * A convenient way to restart the timer.
      */
@@ -95,9 +112,11 @@ const TimerDelay = new Lang.Class({
         this.stop();
         this.begin();
     },
+
     /**
      * The internal callback-function.
      * @private
+     * @return {boolean}
      */
     _callbackInternal: function () {
         Lib.TalkativeLog('-%-internalFunction TimerDelay called | Sec = ' +
@@ -122,11 +141,17 @@ let CallbackFuncCounting = null;
 let isRunning = false;
 let secpassed = 0;
 
-
+/**
+ * @type {Lang.Class}
+ */
 const TimerCounting = new Lang.Class({
     Name: "TimerCounting",
-    /*
+
+    /**
      * Create a new timer
+     *
+     * @param {function} callback
+     * @param scope
      */
     _init: function (callback, scope) {
         Lib.TalkativeLog('-%-init TimerCounting called');
@@ -135,8 +160,11 @@ const TimerCounting = new Lang.Class({
         secpassed = 0;
         this.Scope = scope;
     },
-    /*
+
+    /**
      * Set the callback-function
+     *
+     * @param {function} callback
      */
     setCallback: function (callback) {
         Lib.TalkativeLog('-%-setcallback TimerCounting called');
@@ -148,6 +176,7 @@ const TimerCounting = new Lang.Class({
         }
         CallbackFuncCounting = callback;
     },
+
     /**
      * Start or restart a new timer
      */
@@ -162,6 +191,7 @@ const TimerCounting = new Lang.Class({
         ID_TimerCounting = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 1000,
             () => this._callbackInternal());
     },
+
     /**
      * Stop the current timer
      */
@@ -176,6 +206,7 @@ const TimerCounting = new Lang.Class({
             }
         }
     },
+
     /**
      * A convenient way to stop timer
      */
@@ -187,6 +218,9 @@ const TimerCounting = new Lang.Class({
      * The internal callback-function. Calls a function that handles
      * the desktop notifications and one that sets the time label next
      * to the icon.
+     *
+     * @private
+     * @return {boolean}
      */
     _callbackInternal: function () {
         if (isRunning === false) {

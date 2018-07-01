@@ -45,10 +45,15 @@ const Settings = Me.imports.settings;
 const Ext = Me.imports.extension;
 const UtilNotify = Me.imports.utilnotify;
 
-
+/**
+ * @type {Lang.Class}
+ */
 const Capture = new Lang.Class({
     Name: "EasyScreenCast.Capture",
 
+    /**
+     * @private
+     */
     _init: function () {
         Lib.TalkativeLog('-£-capture selection init');
 
@@ -89,18 +94,32 @@ const Capture = new Lang.Class({
         Main.sessionMode.connect('updated', () => this._updateDraw());
     },
 
+    /**
+     * @private
+     */
     _updateDraw: function () {
         Lib.TalkativeLog('-£-update draw capture');
     },
 
+    /**
+     * @private
+     */
     _setDefaultCursor: function () {
         global.screen.set_cursor(Meta.Cursor.DEFAULT);
     },
 
+    /**
+     * @private
+     */
     _setCaptureCursor: function () {
         global.screen.set_cursor(Meta.Cursor.CROSSHAIR);
     },
 
+    /**
+     * @param actor
+     * @param event
+     * @private
+     */
     _onCaptureEvent: function (actor, event) {
         if (event.type() === Clutter.EventType.KEY_PRESS) {
             if (event.get_key_symbol() === Clutter.Escape) {
@@ -111,6 +130,13 @@ const Capture = new Lang.Class({
         this.emit("captured-event", event);
     },
 
+    /**
+     * @param {Number} x
+     * @param {Number} y
+     * @param {Number} w
+     * @param {Number} h
+     * @param {boolean} showResolution
+     */
     drawSelection: function ({
                                  x,
                                  y,
@@ -131,6 +157,9 @@ const Capture = new Lang.Class({
         }
     },
 
+    /**
+     * Clear drawing selection
+     */
     clearSelection: function () {
         this.drawSelection({
             x: -10,
@@ -140,6 +169,9 @@ const Capture = new Lang.Class({
         }, false);
     },
 
+    /**
+     * @private
+     */
     _stop: function () {
         Lib.TalkativeLog('-£-capture selection stop');
 
@@ -171,6 +203,9 @@ Signals.addSignalMethods(Capture.prototype);
 const SelectionArea = new Lang.Class({
     Name: "EasyScreenCast.SelectionArea",
 
+    /**
+     * @private
+     */
     _init: function () {
         Lib.TalkativeLog('-£-area selection init');
 
@@ -184,6 +219,11 @@ const SelectionArea = new Lang.Class({
             _('Select an area for recording or press [ESC] to abort'));
     },
 
+    /**
+     * @param capture
+     * @param event
+     * @private
+     */
     _onEvent: function (capture, event) {
         let type = event.type();
         let [x, y, mask] = global.get_pointer();
@@ -211,6 +251,9 @@ Signals.addSignalMethods(SelectionArea.prototype);
 const SelectionWindow = new Lang.Class({
     Name: "EasyScreenCast.SelectionWindow",
 
+    /**
+     * @private
+     */
     _init: function () {
         Lib.TalkativeLog('-£-window selection init');
 
@@ -224,6 +267,11 @@ const SelectionWindow = new Lang.Class({
             _('Select a window for recording or press [ESC] to abort'));
     },
 
+    /**
+     * @param capture
+     * @param event
+     * @private
+     */
     _onEvent: function (capture, event) {
         let type = event.type();
         let [x, y, mask] = global.get_pointer();
@@ -272,12 +320,19 @@ const SelectionWindow = new Lang.Class({
         }
     },
 
+    /**
+     * @param win
+     * @private
+     */
     _highlightWindow: function (win) {
         let rect = getWindowRectangle(win);
         Lib.TalkativeLog('-£-window highlight on, pos/meas: x:' + rect.x + ' y:' + rect.y + ' w:' + rect.w + ' h:' + rect.h);
         this._capture.drawSelection(rect, false);
     },
 
+    /**
+     * @private
+     */
     _clearHighlight: function () {
         Lib.TalkativeLog('-£-window highlight off');
         this._capture.clearSelection();
@@ -289,6 +344,9 @@ Signals.addSignalMethods(SelectionWindow.prototype);
 const SelectionDesktop = new Lang.Class({
     Name: "EasyScreenCast.SelectionDesktop",
 
+    /**
+     * @private
+     */
     _init: function () {
         Lib.TalkativeLog('-£-desktop selection init');
 
@@ -309,6 +367,11 @@ const SelectionDesktop = new Lang.Class({
             _('Select a desktop for recording or press [ESC] to abort'));
     },
 
+    /**
+     * @param capture
+     * @param event
+     * @private
+     */
     _onEvent: function (capture, event) {
         let type = event.type();
 
@@ -333,6 +396,9 @@ Signals.addSignalMethods(SelectionDesktop.prototype);
 const AreaRecording = new Lang.Class({
     Name: "EasyScreenCast.AreaRecording",
 
+    /**
+     * @private
+     */
     _init: function () {
         Lib.TalkativeLog('-£-area recording init');
 
@@ -344,7 +410,6 @@ const AreaRecording = new Lang.Class({
             x: -10,
             y: -10
         });
-
 
         var recX = Settings.getOption('i', Settings.X_POS_SETTING_KEY);
         var recY = Settings.getOption('i', Settings.Y_POS_SETTING_KEY);
@@ -375,6 +440,12 @@ const AreaRecording = new Lang.Class({
         }
     },
 
+    /**
+     * @param {Number} x
+     * @param {Number} y
+     * @param {Number} w
+     * @param {Number} h
+     */
     drawArea: function (x, y, w, h) {
         Lib.TalkativeLog('-£-draw area recording');
 
@@ -383,6 +454,9 @@ const AreaRecording = new Lang.Class({
         this._areaRecording.set_size(w, h);
     },
 
+    /**
+     * Clears the drawing area
+     */
     clearArea: function () {
         Lib.TalkativeLog('-£-hide area recording');
 
@@ -390,6 +464,9 @@ const AreaRecording = new Lang.Class({
         this.drawArea(-10, -10, 0, 0);
     },
 
+    /**
+     * @return {boolean}
+     */
     isVisible: function () {
         return this._visible;
     }
@@ -397,7 +474,13 @@ const AreaRecording = new Lang.Class({
 
 Signals.addSignalMethods(AreaRecording.prototype);
 
-
+/**
+ * @param {number} x1
+ * @param {number} y1
+ * @param {number} x2
+ * @param {number} y2
+ * @return {{x: number, y: number, w: number, h: number}}
+ */
 const getRectangle = function (x1, y1, x2, y2) {
     return {
         x: Math.min(x1, x2),
@@ -407,7 +490,10 @@ const getRectangle = function (x1, y1, x2, y2) {
     };
 };
 
-
+/**
+ * @param win
+ * @return {{x: *, y: *, w: *, h: *}}
+ */
 const getWindowRectangle = function (win) {
     let [tw, th] = win.get_size();
     let [tx, ty] = win.get_position();
@@ -420,7 +506,12 @@ const getWindowRectangle = function (win) {
     };
 };
 
-
+/**
+ * @param windows
+ * @param {number} x
+ * @param {number} y
+ * @return {*}
+ */
 const selectWindow = function (windows, x, y) {
     let filtered = windows.filter(function (win) {
         if ((win !== undefined) && win.visible &&

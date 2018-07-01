@@ -203,8 +203,10 @@ const CONTAINER = [webmVP8, webmVP9, mp4, mkv, ogg];
 
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-/*
+/**
  * Compose GSP
+ *
+ * @return {string}
  */
 function composeGSP() {
     Lib.TalkativeLog('-§-COMPOSE GSP');
@@ -338,8 +340,14 @@ function composeGSP() {
     return this.tmpGSP;
 }
 
-/*
+/**
  * replace audio
+ *
+ * @param gspRA
+ * @param defaultAudio
+ * @param ConTMP
+ * @param QGSPtmp
+ * @return {*}
  */
 function replaceAudio(gspRA, defaultAudio, ConTMP, QGSPtmp) {
     Lib.TalkativeLog('-§-replace audio default->' + defaultAudio);
@@ -382,8 +390,13 @@ function replaceAudio(gspRA, defaultAudio, ConTMP, QGSPtmp) {
     return audioPipeline;
 }
 
-/*
+/**
  * replace webcam
+ *
+ * @param gspRW
+ * @param device
+ * @param caps
+ * @return {string | void | *}
  */
 function replaceWebcam(gspRW, device, caps) {
     Lib.TalkativeLog('-§-replace webcam -> ' + device + ' caps: ' + caps);
@@ -415,8 +428,14 @@ function replaceWebcam(gspRW, device, caps) {
     return webcamPipeline;
 }
 
-/*
+/**
  * replace resolution
+ *
+ * @param tmpRes
+ * @param h
+ * @param w
+ * @param kar
+ * @return {string}
  */
 function composeResolution(tmpRes, h, w, kar) {
     Lib.TalkativeLog('-§-resolution option: ' + tmpRes);
@@ -458,8 +477,10 @@ function composeResolution(tmpRes, h, w, kar) {
     return strRes;
 }
 
-/*
+/**
  * compose option webcam position
+ *
+ * @return {string}
  */
 function composeWebCamOption() {
     Lib.TalkativeLog('-§-compose webcam option');
@@ -517,8 +538,10 @@ function composeWebCamOption() {
     return tmpWCopt;
 }
 
-/*
+/**
  * retrieve dimension webcam
+ *
+ * @return {*[]}
  */
 function getWebCamDimension() {
     Lib.TalkativeLog('-§-get webcam dimension');
@@ -546,8 +569,10 @@ function getWebCamDimension() {
     return [WC_w, WC_h, SCR_w, SCR_h];
 }
 
-/*
+/**
  * get description
+ *
+ * @return {string}
  */
 function getDescr(quality, container) {
     Lib.TalkativeLog('-§-get description Q-> ' + quality + ' C-> ' + container);
@@ -555,8 +580,10 @@ function getDescr(quality, container) {
     return CONTAINER[container].quality[quality].descr;
 }
 
-/*
+/**
  * get fps
+ *
+ * @return {number}
  */
 function getFps(quality, container) {
     Lib.TalkativeLog('-§-get fps Q-> ' + quality + ' C-> ' + container);
@@ -564,8 +591,10 @@ function getFps(quality, container) {
     return CONTAINER[container].quality[quality].fps;
 }
 
-/*
+/**
  * get file extension
+ *
+ * @return {string}
  */
 function getFileExtension(container) {
     Lib.TalkativeLog('-§-get file extension C-> ' + container);

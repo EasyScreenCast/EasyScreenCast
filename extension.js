@@ -39,7 +39,6 @@ const UtilNotify = Me.imports.utilnotify;
 const Selection = Me.imports.selection;
 const UtilExeCmd = Me.imports.utilexecmd;
 
-
 let Indicator;
 let timerD = null;
 let timerC = null;
@@ -47,11 +46,16 @@ let timerC = null;
 let isActive = false;
 let pathFile = '';
 
-
+/**
+ * @type {EasyScreenCast.indicator}
+ */
 const EasyScreenCast_Indicator = new Lang.Class({
     Name: 'EasyScreenCast.indicator',
     Extends: PanelMenu.Button,
 
+    /**
+     * @private
+     */
     _init: function () {
         this.parent(null, 'EasyScreenCast-indicator');
 
@@ -152,6 +156,9 @@ const EasyScreenCast_Indicator = new Lang.Class({
      * Set a new value for the time label. Integers are
      * converted to seconds, minutes, hours. All other
      * values are converted to strings.
+     *
+     * @param {string} newValue
+     * @return {string}
      */
     updateTimeLabel: function (newValue) {
         function padZeros(number) {
@@ -183,6 +190,9 @@ const EasyScreenCast_Indicator = new Lang.Class({
      * the recording.
      * Some submenus are refreshed to account for new
      * sources.
+     *
+     * @param {string} actor
+     * @param {event} event
      */
     _onButtonPress: function (actor, event) {
         let button = event.get_button();
@@ -243,6 +253,9 @@ const EasyScreenCast_Indicator = new Lang.Class({
             ];
     },
 
+    /**
+     * @private
+     */
     _addMIRecording: function () {
         this.imRecordAction = new PopupMenu.PopupBaseMenuItem();
         this.RecordingLabel = new St.Label({
@@ -269,7 +282,8 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.menu.addMenuItem(this.imRecordAction);
     },
 
-    /* Refreshes the submenu for audio recording sources.
+    /**
+     *  Refreshes the submenu for audio recording sources.
      */
     _addSubMenuAudioRec: function () {
         Lib.TalkativeLog('-*-reset the sub menu audio');
@@ -283,6 +297,9 @@ const EasyScreenCast_Indicator = new Lang.Class({
         }
     },
 
+    /**
+     * @private
+     */
     _addSubMenuWebCam: function () {
         this.smWebCam = new PopupMenu.PopupSubMenuMenuItem('', true);
         this.smWebCam.icon.icon_name = 'camera-web-symbolic';
@@ -290,6 +307,9 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.menu.addMenuItem(this.smWebCam);
     },
 
+    /**
+     * @private
+     */
     _addSubMenuAreaRec: function () {
         this.smAreaRec = new PopupMenu.PopupSubMenuMenuItem('', true);
         this.smAreaRec.icon.icon_name = 'view-fullscreen-symbolic';
@@ -305,6 +325,9 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.menu.addMenuItem(this.smAreaRec);
     },
 
+    /**
+     * @private
+     */
     _addSubMenuDelayRec: function () {
         this.smDelayRec = new PopupMenu.PopupSubMenuMenuItem('', true);
         this.smDelayRec.icon.icon_name = 'alarm-symbolic';
@@ -324,6 +347,10 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.menu.addMenuItem(this.smDelayRec);
     },
 
+    /**
+     * @return {array}
+     * @private
+     */
     _createMIAreaRec: function () {
         this.AreaType = new Array(_('Record all desktop'),
             _('Record a selected monitor'), _('Record a selected window'),
@@ -357,6 +384,10 @@ const EasyScreenCast_Indicator = new Lang.Class({
         return this.AreaMenuItem;
     },
 
+    /**
+     * @return {array}
+     * @private
+     */
     _createMIWebCam: function () {
         this.WebCamDevice = new Array(_('No WebCam recording'));
         //add menu item webcam device from GST
@@ -390,6 +421,10 @@ const EasyScreenCast_Indicator = new Lang.Class({
         return this.AreaMenuItem;
     },
 
+    /**
+     * @return {array}
+     * @private
+     */
     _createMIAudioRec: function () {
         //add std menu item
         this.AudioChoice = new Array({
@@ -460,6 +495,10 @@ const EasyScreenCast_Indicator = new Lang.Class({
         return this.AudioMenuItem;
     },
 
+    /**
+     * @return {array}
+     * @private
+     */
     _createMIInfoDelayRec: function () {
         this.DelayTimeTitle = new PopupMenu.PopupMenuItem(_('Delay Time'), {
             reactive: false
@@ -496,6 +535,9 @@ const EasyScreenCast_Indicator = new Lang.Class({
         return [this.DelayTimeTitle, this.imSliderDelay];
     },
 
+    /**
+     * @private
+     */
     _enable: function () {
         //enable key binding
         this._enableKeybindings();
@@ -508,6 +550,9 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.actor.add_actor(this.indicatorBox);
     },
 
+    /**
+     * @private
+     */
     _disable: function () {
         //remove key binding
         this._removeKeybindings();
@@ -520,6 +565,9 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.actor.remove_actor(this.indicatorBox);
     },
 
+    /**
+     * @private
+     */
     _doDelayAction: function () {
         if (this.isDelayActive) {
             Lib.TalkativeLog('-*-delay recording called | delay= ' + this.TimeSlider.value);
@@ -534,6 +582,9 @@ const EasyScreenCast_Indicator = new Lang.Class({
         }
     },
 
+    /**
+     * @private
+     */
     _doPreCommand: function () {
         if (Settings.getOption('b', Settings.ACTIVE_PRE_CMD_SETTING_KEY)) {
             Lib.TalkativeLog('-*-execute pre command');
@@ -561,6 +612,9 @@ const EasyScreenCast_Indicator = new Lang.Class({
         }
     },
 
+    /**
+     * @private
+     */
     _doRecording: function () {
         //start/stop record screen
         if (isActive === false) {
@@ -606,6 +660,9 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.refreshIndicator(false);
     },
 
+    /**
+     * @private
+     */
     _doPostCommand: function () {
         if (Settings.getOption('b', Settings.ACTIVE_POST_CMD_SETTING_KEY)) {
             Lib.TalkativeLog('-*-execute post command');
@@ -633,6 +690,10 @@ const EasyScreenCast_Indicator = new Lang.Class({
         }
     },
 
+    /**
+     * @param result
+     * @param file
+     */
     doRecResult: function (result, file) {
         if (result) {
             isActive = true;
@@ -673,6 +734,9 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.refreshIndicator(false);
     },
 
+    /**
+     * @private
+     */
     _doExtensionPreferences: function () {
         Lib.TalkativeLog('-*-open preferences');
 
@@ -682,6 +746,9 @@ const EasyScreenCast_Indicator = new Lang.Class({
         Main.Util.trySpawnCommandLine('gnome-shell-extension-prefs  easyscreencast@easyscreencast.github.com');
     },
 
+    /**
+     * @private
+     */
     _onDelayTimeChanged: function () {
 
         const secDelay = Math.floor(this.TimeSlider.value * 100);
@@ -693,6 +760,11 @@ const EasyScreenCast_Indicator = new Lang.Class({
         }
     },
 
+    /**
+     * @param param1
+     * @param param2
+     * @param focus
+     */
     refreshIndicator: function (param1, param2, focus) {
         Lib.TalkativeLog('-*-refresh indicator -A ' + isActive + ' -F ' + focus);
 
@@ -730,6 +802,10 @@ const EasyScreenCast_Indicator = new Lang.Class({
         }
     },
 
+    /**
+     * @param OPTtemp
+     * @private
+     */
     _replaceStdIndicator: function (OPTtemp) {
         if (OPTtemp) {
             Lib.TalkativeLog('-*-replace STD indicator');
@@ -742,6 +818,9 @@ const EasyScreenCast_Indicator = new Lang.Class({
         }
     },
 
+    /**
+     * @private
+     */
     _enableKeybindings: function () {
         if (Settings.getOption('b', Settings.ACTIVE_SHORTCUT_SETTING_KEY)) {
             Lib.TalkativeLog('-*-enable keybinding');
@@ -762,6 +841,9 @@ const EasyScreenCast_Indicator = new Lang.Class({
         }
     },
 
+    /**
+     * @private
+     */
     _removeKeybindings: function () {
         if (Settings.getOption('b', Settings.ACTIVE_SHORTCUT_SETTING_KEY)) {
             Lib.TalkativeLog('-*-remove keybinding');
@@ -770,6 +852,9 @@ const EasyScreenCast_Indicator = new Lang.Class({
         }
     },
 
+    /**
+     * Destroy indicator
+     */
     destroy: function () {
         Lib.TalkativeLog('-*-destroy indicator called');
 
@@ -781,6 +866,10 @@ const EasyScreenCast_Indicator = new Lang.Class({
     }
 });
 
+/**
+ * @param {number} sec
+ * @param alertEnd
+ */
 function refreshNotify(sec, alertEnd) {
     if (Indicator.notifyCounting !== null ||
         Indicator.notifyCounting !== undefined || Indicator.isShowNotify) {
@@ -799,6 +888,9 @@ function refreshNotify(sec, alertEnd) {
     }
 }
 
+/**
+ * @param {Meta} meta
+ */
 function init(meta) {
     Lib.TalkativeLog('-*-initExtension called');
     Lib.TalkativeLog('-*-version: ' + meta.metadata.version);

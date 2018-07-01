@@ -16,16 +16,18 @@ const MessageTray = imports.ui.messageTray;
 const St = imports.gi.St;
 const Tweener = imports.ui.tweener;
 
-
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Lib = Me.imports.convenience;
 const Settings = Me.imports.settings;
 
-
+/**
+ * @type {NotifyManager}
+ */
 const NotifyManager = new Lang.Class({
     Name: "NotifyManager",
-    /*
+
+    /**
      * Create a notify manager
      */
     _init: function () {
@@ -33,8 +35,14 @@ const NotifyManager = new Lang.Class({
 
         this.source = new MessageTray.SystemNotificationSource();
     },
-    /*
+
+    /**
      * create notify
+     *
+     * @param msg
+     * @param icon
+     * @param sound
+     * @return {MessageTray.Notification}
      */
     createNotify: function (msg, icon, sound) {
         Lib.TalkativeLog('-°-create notify :' + msg);
@@ -54,8 +62,14 @@ const NotifyManager = new Lang.Class({
 
         return notify;
     },
-    /*
+
+    /**
      * update notify
+     *
+     * @param notify
+     * @param msg
+     * @param icon
+     * @param sound
      */
     updateNotify: function (notify, msg, icon, sound) {
         Lib.TalkativeLog('-°-update notify');
@@ -68,8 +82,11 @@ const NotifyManager = new Lang.Class({
             notify.playSound();
         }
     },
-    /*
+
+    /**
      * create alert
+     *
+     * @param msg
      */
     createAlert: function (msg) {
         Lib.TalkativeLog('-°-show alert tweener : ' + msg);

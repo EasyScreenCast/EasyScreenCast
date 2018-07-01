@@ -39,9 +39,10 @@ const Settings = Me.imports.settings;
  *
  * Initialize Gettext to load translations from extensionsdir/locale.
  * If @domain is not provided, it will be taken from metadata['gettext-domain']
+ *
+ * @param {string} domain
  */
 function initTranslations(domain) {
-
     domain = domain || Me.metadata['gettext-domain'];
 
     // check if this extension was built with "make zip-file", and thus
@@ -63,6 +64,9 @@ function initTranslations(domain) {
  * Builds and return a GSettings schema for @schema, using schema files
  * in extensionsdir/schemas. If @schema is not provided, it is taken from
  * metadata['settings-schema'].
+ *
+ * @param {string} schema
+ * @return {Gio.Settings}
  */
 function getSettings(schema) {
     //schema = schema || extension.metadata['settings-schema'];
@@ -93,18 +97,16 @@ function getSettings(schema) {
     });
 }
 
-/*
-////////////////////////////////////////////////////////////////////////////////
-*/
+/**
+ * @param {string} msg
+ * @constructor
+ */
 function TalkativeLog(msg) {
     if (Settings.getOption('b', Settings.VERBOSE_DEBUG_SETTING_KEY)) {
         global.log('[ESC]' + msg);
     }
 }
 
-/*
-////////////////////////////////////////////////////////////////////////////////
-*/
 var ESConGIcon = new Gio.FileIcon({
     file: Gio.File.new_for_path(Me.dir.get_child(
         'images/icon_recording.svg').get_path())
@@ -125,9 +127,6 @@ var ESCoffGIconSel = new Gio.FileIcon({
         'images/icon_defaultSel.svg').get_path())
 });
 
-/*
-////////////////////////////////////////////////////////////////////////////////
-*/
 var ESCimgPerformance = Me.dir.get_child(
     'images/Icon_Performance.svg').get_path();
 
