@@ -10,6 +10,10 @@
     FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
 */
 
+const GIRepository = imports.gi.GIRepository;
+GIRepository.Repository.prepend_search_path("/usr/lib64/gnome-shell");
+GIRepository.Repository.prepend_library_path("/usr/lib64/gnome-shell");
+
 const GLib = imports.gi.GLib;
 const GObject = imports.gi.GObject;
 const Gio = imports.gi.Gio;
