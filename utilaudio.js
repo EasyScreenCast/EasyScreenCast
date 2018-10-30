@@ -9,6 +9,12 @@
     without even the implied warranty of MERCHANTABILITY or FITNESS
     FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
 */
+
+const GIRepository = imports.gi.GIRepository;
+GIRepository.Repository.prepend_search_path("/usr/lib/gnome-shell");
+GIRepository.Repository.prepend_library_path("/usr/lib/gnome-shell");
+GIRepository.Repository.prepend_search_path("/usr/lib64/gnome-shell");
+GIRepository.Repository.prepend_library_path("/usr/lib64/gnome-shell");
 const Gvc = imports.gi.Gvc;
 const Lang = imports.lang;
 
