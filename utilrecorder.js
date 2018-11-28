@@ -32,7 +32,7 @@ let ScreenCastService = null;
 /**
  * @type {RecordVideo}
  */
-const CaptureVideo = new Lang.Class({
+var CaptureVideo = new Lang.Class({
     Name: "RecordVideo",
 
     /**

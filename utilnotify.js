@@ -24,7 +24,7 @@ const Settings = Me.imports.settings;
 /**
  * @type {NotifyManager}
  */
-const NotifyManager = new Lang.Class({
+var NotifyManager = new Lang.Class({
     Name: "NotifyManager",
 
     /**

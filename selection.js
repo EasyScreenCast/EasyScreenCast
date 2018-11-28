@@ -341,7 +341,7 @@ const SelectionWindow = new Lang.Class({
 
 Signals.addSignalMethods(SelectionWindow.prototype);
 
-const SelectionDesktop = new Lang.Class({
+var SelectionDesktop = new Lang.Class({
     Name: "EasyScreenCast.SelectionDesktop",
 
     /**
