@@ -113,43 +113,39 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.AreaSelected = null;
         this.TimeSlider = null;
 
-        //add start/stop menu entry
-        this._addMIRecording();
+        this._init_main_menu();
+    },
 
-        //add separetor menu
+    /**
+     * @private
+     */
+    _init_main_menu: function () {
+        this._add_start_stop_menu_entry();
         this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
-
-        //add sub menu audio recording
-        this.smAudioRec = new PopupMenu.PopupSubMenuMenuItem(
+        this.sub_menu_audio_recording = new PopupMenu.PopupSubMenuMenuItem(
             _('No audio source'), true
         );
-        this.smAudioRec.icon.icon_name = 'audio-input-microphone-symbolic';
-        this.menu.addMenuItem(this.smAudioRec);
-        this._addSubMenuAudioRec();
+        this.sub_menu_audio_recording.icon.icon_name = 'audio-input-microphone-symbolic';
+        this.menu.addMenuItem(this.sub_menu_audio_recording);
+        this._add_audio_recording_sub_menu();
 
         //add sub menu webcam recording
         /* TODO: fix gstreamer init
         this._addSubMenuWebCam();
         */
 
-        //add sub menu area recording
-        this._addSubMenuAreaRec();
-
-        //add sub menu delay recording
-        this._addSubMenuDelayRec();
-
-        //add separetor menu
+        this._add_area_recording_sub_menu();
+        this._add_recording_delay_sub_menu();
         this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
-
-        //add option menu entry
-        this.imOptions = new PopupMenu.PopupMenuItem(_('Options'));
-        this.imOptions.actor.insert_child_at_index(new St.Icon({
+        this.menu_item_options = new PopupMenu.PopupMenuItem(_('Options'));
+        this.menu_item_options.actor.insert_child_at_index(new St.Icon({
             style_class: 'popup-menu-icon',
             icon_name: 'preferences-other-symbolic'
         }), 1);
-        this.menu.addMenuItem(this.imOptions);
-        this.imOptions.connect('activate',
-            () => this._doExtensionPreferences());
+        this.menu.addMenuItem(this.menu_item_options);
+        this.menu_item_options.connect('activate', () => {
+            this._open_extension_preferences();
+        });
     },
 
     /**
@@ -169,7 +165,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
             return number.toString();
         }
 
-        if (typeof(newValue) === "number") {
+        if (typeof (newValue) === "number") {
             let hours = Math.floor(newValue / 3600);
             newValue = newValue - hours * 3600;
 
@@ -217,8 +213,8 @@ const EasyScreenCast_Indicator = new Lang.Class({
      * Sets up the menu when the user opens it.
      */
     _setupExtensionMenu: function () {
-        this._addSubMenuAudioRec();
-        this._setUpWebCamOptions();
+        this._add_audio_recording_sub_menu();
+        this._add_webcam_sub_menu();
     },
 
     /**
@@ -226,7 +222,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
      * first time the icon is clicked an the CtrlWebcam is still
      * null.
      */
-    _setUpWebCamOptions: function () {
+    _add_webcam_sub_menu: function () {
         if (this.CtrlWebcam === null) {
             this.CtrlWebcam = new UtilWebcam.HelperWebcam();
 
@@ -256,7 +252,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
     /**
      * @private
      */
-    _addMIRecording: function () {
+    _add_start_stop_menu_entry: function () {
         this.imRecordAction = new PopupMenu.PopupBaseMenuItem();
         this.RecordingLabel = new St.Label({
             text: _('Start recording'),
@@ -265,12 +261,10 @@ const EasyScreenCast_Indicator = new Lang.Class({
             x_expand: true,
             x_align: Clutter.ActorAlign.CENTER,
         });
-        this.imRecordAction.actor.add_child(this.RecordingLabel, {
-            x_expand: true,
-            x_fill: true,
-            x_align: Clutter.ActorAlign.CENTER,
-        });
-
+        this.imRecordAction.actor.add_child(this.RecordingLabel);
+        this.imRecordAction.x_expand = true;
+        this.imRecordAction.x_fill = true;
+        this.imRecordAction.x_align = Clutter.ActorAlign.CENTER;
         this.imRecordAction.connect('activate',
             () => {
                 this.isShowNotify = Settings.getOption(
@@ -285,15 +279,15 @@ const EasyScreenCast_Indicator = new Lang.Class({
     /**
      *  Refreshes the submenu for audio recording sources.
      */
-    _addSubMenuAudioRec: function () {
+    _add_audio_recording_sub_menu: function () {
         Lib.TalkativeLog('-*-reset the sub menu audio');
         //remove old menu items
-        this.smAudioRec.menu.removeAll();
+        this.sub_menu_audio_recording.menu.removeAll();
 
         Lib.TalkativeLog('-*-add new items to sub menu audio');
         var arrMI = this._createMIAudioRec();
         for (var ele in arrMI) {
-            this.smAudioRec.menu.addMenuItem(arrMI[ele]);
+            this.sub_menu_audio_recording.menu.addMenuItem(arrMI[ele]);
         }
     },
 
@@ -310,25 +304,25 @@ const EasyScreenCast_Indicator = new Lang.Class({
     /**
      * @private
      */
-    _addSubMenuAreaRec: function () {
-        this.smAreaRec = new PopupMenu.PopupSubMenuMenuItem('', true);
-        this.smAreaRec.icon.icon_name = 'view-fullscreen-symbolic';
+    _add_area_recording_sub_menu: function () {
+        this.sub_menu_area_recording = new PopupMenu.PopupSubMenuMenuItem('', true);
+        this.sub_menu_area_recording.icon.icon_name = 'view-fullscreen-symbolic';
 
         var arrMI = this._createMIAreaRec();
         for (var ele in arrMI) {
-            this.smAreaRec.menu.addMenuItem(arrMI[ele]);
+            this.sub_menu_area_recording.menu.addMenuItem(arrMI[ele]);
         }
 
-        this.smAreaRec.label.text =
+        this.sub_menu_area_recording.label.text =
             this.AreaType[Settings.getOption('i', Settings.AREA_SCREEN_SETTING_KEY)];
 
-        this.menu.addMenuItem(this.smAreaRec);
+        this.menu.addMenuItem(this.sub_menu_area_recording);
     },
 
     /**
      * @private
      */
-    _addSubMenuDelayRec: function () {
+    _add_recording_delay_sub_menu: function () {
         this.smDelayRec = new PopupMenu.PopupSubMenuMenuItem('', true);
         this.smDelayRec.icon.icon_name = 'alarm-symbolic';
 
@@ -378,7 +372,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
                         });
                 };
                 this.connectMI();
-            }).call(this.AreaMenuItem[i], i, this.AreaType, this.smAreaRec);
+            }).call(this.AreaMenuItem[i], i, this.AreaType, this.sub_menu_area_recording);
         }
 
         return this.AreaMenuItem;
@@ -473,7 +467,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
             if (i === Settings.getOption(
                 'i', Settings.INPUT_AUDIO_SOURCE_SETTING_KEY)) {
                 Lib.TalkativeLog('-*-get audio choice from pref ' + i);
-                this.smAudioRec.label.text = this.AudioChoice[i].desc;
+                this.sub_menu_audio_recording.label.text = this.AudioChoice[i].desc;
             }
 
             //add action on menu item
@@ -490,7 +484,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
                 };
                 this.connectMI();
             }).call(this.AudioMenuItem[i], i,
-                this.AudioChoice, this.smAudioRec);
+                this.AudioChoice, this.sub_menu_audio_recording);
         }
         return this.AudioMenuItem;
     },
@@ -508,9 +502,8 @@ const EasyScreenCast_Indicator = new Lang.Class({
             text: Math.floor(Settings.getOption('i',
                 Settings.TIME_DELAY_SETTING_KEY)).toString() + _(' Sec')
         });
-        this.DelayTimeTitle.actor.add_child(this.DelayTimeLabel, {
-            align: St.Align.END
-        });
+        this.DelayTimeTitle.actor.add_child(this.DelayTimeLabel);
+        this.DelayTimeTitle.align = St.Align.END;
 
         this.imSliderDelay = new PopupMenu.PopupBaseMenuItem({
             activate: false
@@ -737,7 +730,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
     /**
      * @private
      */
-    _doExtensionPreferences: function () {
+    _open_extension_preferences: function () {
         Lib.TalkativeLog('-*-open preferences');
 
         this.CtrlExe.Spawn(
