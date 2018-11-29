@@ -44,6 +44,7 @@ const Lib = Me.imports.convenience;
 const Settings = Me.imports.settings;
 const Ext = Me.imports.extension;
 const UtilNotify = Me.imports.utilnotify;
+const display_api = Me.imports.display_module.display_api;
 
 /**
  * @type {Lang.Class}
@@ -105,14 +106,14 @@ const Capture = new Lang.Class({
      * @private
      */
     _setDefaultCursor: function () {
-        global.screen.set_cursor(Meta.Cursor.DEFAULT);
+        display_api.set_cursor(Meta.Cursor.DEFAULT);
     },
 
     /**
      * @private
      */
     _setCaptureCursor: function () {
-        global.screen.set_cursor(Meta.Cursor.CROSSHAIR);
+        display_api.set_cursor(Meta.Cursor.CROSSHAIR);
     },
 
     /**
@@ -349,12 +350,14 @@ var SelectionDesktop = new Lang.Class({
      */
     _init: function () {
         Lib.TalkativeLog('-£-desktop selection init');
+        const number_displays = display_api.number_displays();
+        Lib.TalkativeLog('-£-Number of monitor ' + number_displays);
 
-        this._nMonitors = global.screen.get_n_monitors();
-        Lib.TalkativeLog('-£-Number of monitor ' + this._nMonitors);
-        for (var i = 0; i < this._nMonitors; i++) {
-            var tmpM = new Layout.Monitor(i,
-                global.screen.get_monitor_geometry(i));
+        for (var i = 0; i < number_displays; i++) {
+            var tmpM = new Layout.Monitor(
+                i,
+                display_api.display_geometry_for_index(i)
+            );
             Lib.TalkativeLog('-£-monitor geometry x=' + tmpM.x + ' y=' + tmpM.y + ' w=' + tmpM.width + ' h=' + tmpM.height);
         }
 
