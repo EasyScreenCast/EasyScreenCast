@@ -144,7 +144,7 @@ let secpassed = 0;
 /**
  * @type {Lang.Class}
  */
-const TimerCounting = new Lang.Class({
+var TimerCounting = new Lang.Class({
     Name: "TimerCounting",
 
     /**

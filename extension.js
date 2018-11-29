@@ -39,7 +39,7 @@ const UtilNotify = Me.imports.utilnotify;
 const Selection = Me.imports.selection;
 const UtilExeCmd = Me.imports.utilexecmd;
 
-let Indicator;
+var Indicator;
 let timerD = null;
 let timerC = null;
 
