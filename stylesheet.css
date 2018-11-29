@@ -31,5 +31,6 @@
 
 .time-label {
     font-size: 14px;
+    padding-right: 5px;
     color: #ff0000;
 }
