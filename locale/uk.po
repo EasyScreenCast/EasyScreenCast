@@ -1,0 +1,543 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-11-29 16:00+0200\n"
+"PO-Revision-Date: 2018-11-29 16:30+0200\n"
+"Last-Translator: Beregok <beregok@gmail.com>\n"
+"Language-Team: \n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: prefs.js:61
+msgid "Could not load the preferences UI file"
+msgstr "Не вдалося завантажити файл налаштувань UI"
+
+#: prefs.js:317
+msgid "WebCam Caps"
+msgstr "Вебкамера"
+
+#: prefs.js:732
+msgid "No Gstreamer pipeline found"
+msgstr "Фреймворк GStreamer"
+
+#: prefs.js:766
+msgid "Version: "
+msgstr "Версія"
+
+#: prefs.js:837
+msgid ""
+"<span foreground=\"red\">No Caps selected, please select one from the caps "
+"list</span>"
+msgstr ""
+
+#: prefs.js:847 Options_UI.glade.h:33
+msgid "No webcam device selected"
+msgstr "Вебкамера не вибрана"
+
+#: prefs.js:849 Options_UI.glade.h:34
+msgid "-"
+msgstr ""
+
+#: extension.js:117 extension.js:358
+msgid "No audio source"
+msgstr "Немає джерела звуку"
+
+#: extension.js:136 Options_UI.glade.h:18
+msgid "Options"
+msgstr "Налаштування"
+
+#: extension.js:203 extension.js:647
+msgid "Start recording"
+msgstr "Почати запис"
+
+#: extension.js:281 extension.js:613
+msgid " sec. delay before recording"
+msgstr " секунд затримки перед записом"
+
+#: extension.js:283 extension.js:615
+msgid "Start recording immediately"
+msgstr "Почати запис негайно"
+
+#: extension.js:290
+msgid "Record all desktop"
+msgstr "Записувати ввесь робочий стіл"
+
+#: extension.js:291
+msgid "Record a selected monitor"
+msgstr "Записувати обраний монітор"
+
+#: extension.js:291
+msgid "Record a selected window"
+msgstr "Записувати обране вікно"
+
+#: extension.js:292
+msgid "Record a selected area"
+msgstr "Записувати вибрану область"
+
+#: extension.js:323
+msgid "No WebCam recording"
+msgstr "Немає вебкамери для запису"
+
+#: extension.js:364
+msgid "Default audio source"
+msgstr "Джерело звуку за замовчуванням"
+
+#: extension.js:382
+msgid ""
+"\n"
+" - Port: "
+msgstr ""
+"\n"
+" - Порт: "
+
+#: extension.js:383
+msgid ""
+"\n"
+" - Name: "
+msgstr ""
+"\n"
+" - Ім'я: "
+
+#: extension.js:426
+msgid "Delay Time"
+msgstr "Час затримки"
+
+#: extension.js:432 extension.js:446
+msgid " Sec"
+msgstr " сек"
+
+#: extension.js:575
+msgid "Start Recording"
+msgstr "Почати запис"
+
+#: extension.js:594
+msgid "ERROR RECORDER - See logs for more info"
+msgstr "ПОМИЛКА ЗАПИСУ - Більше детальна інформація в файлах журналу"
+
+#: extension.js:640
+msgid "Stop recording"
+msgstr "Зупинити запис"
+
+#: extension.js:708
+msgid "EasyScreenCast -> Finish Recording / Seconds : "
+msgstr "EasyScreenCast -> Запис завершено / Тривалість : "
+
+#: extension.js:713
+msgid "EasyScreenCast -> Recording in progress / Seconds passed : "
+msgstr "EasyScreenCast -> Йде запис / Тривалість : "
+
+#: selection.js:184
+msgid "Select an area for recording or press [ESC] to abort"
+msgstr "Виділіть область для запису [ESC] для відміни"
+
+#: selection.js:224
+msgid "Select an window for recording or press [ESC] to abort"
+msgstr "Виберіть вікно для запису [ESC] для відміни"
+
+#: selection.js:309
+msgid "Select an desktop for recording or press [ESC] to abort"
+msgstr "Виберіть робочий стіл для запису [ESC] для відміни"
+
+#: utilwebcam.js:189
+msgid "Unspecified webcam"
+msgstr ""
+
+#: Options_UI.glade.h:1
+msgid "Recording status indicators"
+msgstr "Індикатор статусу запису"
+
+#: Options_UI.glade.h:2
+msgid "Show alerts and notifications"
+msgstr "Показувати час запису на панелі сповіщень"
+
+#: Options_UI.glade.h:3
+msgid "Show a border around the area being recorded"
+msgstr "Показувати обрамлення навколо області запису"
+
+#: Options_UI.glade.h:4
+msgid "To activate the change of the shortcut restart the extension"
+msgstr "Для активації клавіатурних скорочень для швидкого доступу перезавантажте застосунок"
+
+#: Options_UI.glade.h:5
+msgid "Enable keyboard shortcut"
+msgstr "Увімкнути клавіатурні скорочення для швидкого доступу"
+
+#: Options_UI.glade.h:6
+msgid "Shortcut combination"
+msgstr "Клавіатурні скорочення для швидкого доступу"
+
+#: Options_UI.glade.h:7
+msgid "Draw cursor on screencast"
+msgstr "Відображати курсор при запису"
+
+#: Options_UI.glade.h:8
+msgid "Execute command after recording"
+msgstr "Виконати команду після запису"
+
+#: Options_UI.glade.h:9
+msgid ""
+"These words will be replaced\n"
+" _fpath = the absolute path of the screencast video file.\n"
+"_dirpath = the absolute path of destination folder for the screencast video "
+"file.\n"
+"_fname = the name of the screencast video file."
+msgstr ""
+"Ці змінні можуть бути замінені\n"
+" _fpath = повний шлях до записаного відеофайлу.\n"
+"_dirpath = повний шлях до каталогу розташування записаного відеофайлу.\n"
+"_fname = ім'я записаного відеофайлу."
+
+#: Options_UI.glade.h:13
+msgid "Command post-recording"
+msgstr "Команда"
+
+#: Options_UI.glade.h:14
+msgid "Both  [ESC + Default]"
+msgstr "Обидва [ESC + Поточний]"
+
+#: Options_UI.glade.h:15
+msgid "ESC only"
+msgstr "Лише ESC"
+
+#: Options_UI.glade.h:16
+msgid "Default only"
+msgstr "Лише Поточний"
+
+#: Options_UI.glade.h:17
+msgid "Not any"
+msgstr "Жодного"
+
+#: Options_UI.glade.h:19
+msgid "Custom GStreamer Pipeline"
+msgstr "Власні налаштування GStreamer"
+
+#: Options_UI.glade.h:20
+msgid "No GSP description\n"
+msgstr "No GSP description\n"
+
+#: Options_UI.glade.h:22
+msgid "PagePreset"
+msgstr ""
+
+#: Options_UI.glade.h:23
+msgid "Frames Per Second"
+msgstr "Кадрів в секунду"
+
+#: Options_UI.glade.h:24
+msgid "0"
+msgstr "0"
+
+#: Options_UI.glade.h:25
+msgid "GStreamer Pipeline"
+msgstr "Фреймворк GStreamer"
+
+#: Options_UI.glade.h:26
+msgid ""
+"The extension does NOT handle the webcam and audio when you use a custom "
+"gstreamer pipeline.\n"
+msgstr ""
+"Розширення НЕ МОЖЕ використати веб-камеру та аудіо при при використанні "
+"користувацьких налаштувань GStreamer.\n"
+
+#: Options_UI.glade.h:28
+msgid "Official doc"
+msgstr "Офіційна документація"
+
+#: Options_UI.glade.h:29
+msgid "Wiki #1"
+msgstr "Вікі #1"
+
+#: Options_UI.glade.h:30
+msgid "Wiki #2"
+msgstr "Вікі #2"
+
+#: Options_UI.glade.h:31
+msgid "PageCustom"
+msgstr ""
+
+#: Options_UI.glade.h:32
+msgid "Quality"
+msgstr "Якість"
+
+#: Options_UI.glade.h:35
+msgid "Type of unit of measure"
+msgstr "Одиниці вимірювання"
+
+#: Options_UI.glade.h:36
+msgid "Width"
+msgstr "Ширина"
+
+#: Options_UI.glade.h:37
+msgid "Height"
+msgstr "Висота"
+
+#: Options_UI.glade.h:38
+msgid "Percentage"
+msgstr "Відсотки"
+
+#: Options_UI.glade.h:39
+msgid "Pixel"
+msgstr "Пікселі"
+
+#: Options_UI.glade.h:40
+msgid "Size"
+msgstr "Розмір"
+
+#: Options_UI.glade.h:41
+msgid "Put the webcam in the corner"
+msgstr "Розмістити веб-камеру в кутку"
+
+#: Options_UI.glade.h:42
+msgid "Right-Bottom"
+msgstr "Внизу-справа"
+
+#: Options_UI.glade.h:43
+msgid "Left-Bottom"
+msgstr "Внизу-зліва"
+
+#: Options_UI.glade.h:44
+msgid "Right-Top"
+msgstr "Зверху-справа"
+
+#: Options_UI.glade.h:45
+msgid "Left-Top"
+msgstr "Зверху-зліва"
+
+#: Options_UI.glade.h:46
+msgid "Margin X"
+msgstr "Відступ X"
+
+#: Options_UI.glade.h:47
+msgid "Margin Y"
+msgstr "Відступ Y"
+
+#: Options_UI.glade.h:48
+msgid "Alpha channel"
+msgstr "Альфа-канал"
+
+#: Options_UI.glade.h:49
+msgid "0,00"
+msgstr ""
+
+#: Options_UI.glade.h:50
+msgid "Position"
+msgstr "Позиція"
+
+#: Options_UI.glade.h:51
+msgid "WebCam"
+msgstr "Веб-камера"
+
+#: Options_UI.glade.h:52
+msgid ""
+"Select the folder where the file is saved, if not specific a folder  the "
+"file will be saved in the $XDG_VIDEOS_DIR if it exists, or the home "
+"directory otherwise."
+msgstr ""
+"Виберіть каталог для збереження файлу. Якщо каталог не заданий, файл "
+"буде збережено каталозі $XDG_VIDEOS_DIR, якщо він існує або в домашній"
+"теці."
+
+#: Options_UI.glade.h:53
+msgid "Destination folder"
+msgstr "Каталог для збереження"
+
+#: Options_UI.glade.h:55
+#, fuzzy, no-c-format
+msgid ""
+"The filename which may contain some escape sequences - %d and %t will be "
+"replaced by the start date and time of the recording."
+msgstr ""
+"ім'я файлу може мати змінні - %d та %t, які будуть замінені на"
+"дату і час запису відповідно."
+
+#: Options_UI.glade.h:56
+msgid "File name template"
+msgstr "Шаблон ім'я файлу"
+
+#: Options_UI.glade.h:57
+msgid "Select the destination folder"
+msgstr "Виберіть каталог для збереження"
+
+#: Options_UI.glade.h:58
+msgid "File container"
+msgstr "Контейнер відеофайлу"
+
+#: Options_UI.glade.h:59
+msgid "File resolution"
+msgstr "Розширення відеофайлу"
+
+#: Options_UI.glade.h:60
+msgid "Native area resolution"
+msgstr "Поточне розширення екрану"
+
+#: Options_UI.glade.h:61
+msgid "Поточне"
+msgstr ""
+
+#: Options_UI.glade.h:62
+msgid "Preset helper"
+msgstr ""
+
+#: Options_UI.glade.h:63
+msgid "HD [720p] [16:9]"
+msgstr ""
+
+#: Options_UI.glade.h:64
+msgid "XGA [768p] [4:3]"
+msgstr ""
+
+#: Options_UI.glade.h:65
+msgid "HD ready [768p] [16:9]"
+msgstr ""
+
+#: Options_UI.glade.h:66
+msgid "SXGA [1024p] [5:4]"
+msgstr ""
+
+#: Options_UI.glade.h:67
+msgid "Full HD [1080p] [16:9]"
+msgstr ""
+
+#: Options_UI.glade.h:68
+msgid "UXGA [1200p] [4:3]"
+msgstr ""
+
+#: Options_UI.glade.h:69
+msgid "QHD [1440p] [16:9]"
+msgstr ""
+
+#: Options_UI.glade.h:70
+msgid "QSXGA [2048p] [5:4]"
+msgstr ""
+
+#: Options_UI.glade.h:71
+msgid "4K [2160p] [16:9]"
+msgstr ""
+
+#: Options_UI.glade.h:72
+msgid "Preset"
+msgstr "Шаблон"
+
+#: Options_UI.glade.h:73
+msgid "keep original aspect ratio"
+msgstr ""
+
+#: Options_UI.glade.h:74
+msgid "Custom"
+msgstr "Власне"
+
+#: Options_UI.glade.h:75
+msgid "File"
+msgstr "Файл"
+
+#: Options_UI.glade.h:76
+msgid ""
+"This option enable more debug message, to view these run this command into a "
+"terminal:\n"
+"$ journalctl --since=today --no-pager | grep js\n"
+"$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
+msgstr ""
+"Ця опція вмикає більше налагоджувальних повідомлень. Для їх перегляду введіть в "
+"терміналі:\n"
+"$ journalctl /usr/bin/gnome-session --since=today --no-pager | grep js\n"
+"$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
+
+#: Options_UI.glade.h:79
+msgid "Enable verbose debug"
+msgstr "Увімкнути детальне налагодження"
+
+#: Options_UI.glade.h:80
+msgid ""
+"This option enable more debug message, to view these run this command into a "
+"terminal:\n"
+"$ journalctl /usr/bin/gnome-session --since=today | grep js\n"
+"$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
+msgstr ""
+"Ця опція вмикає більше налагоджувальних повідомлень. Для їх перегляду введіть в "
+"терміналі:\n"
+"$ journalctl /usr/bin/gnome-session --since=today | grep js\n"
+"$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
+
+#: Options_UI.glade.h:83
+msgid "Get extension log"
+msgstr "Отримати журнал відлагодження"
+
+#: Options_UI.glade.h:84
+msgid "Get the logs of the extension of the last 15 minutes."
+msgstr "Отримайте журнали відлагодження за останні 15 хвилин."
+
+#: Options_UI.glade.h:85
+msgid "Get last GS pipeline"
+msgstr ""
+
+#: Options_UI.glade.h:86
+msgid "Get all complete Gstreamer pipeline of the last 15 minutes."
+msgstr ""
+
+#: Options_UI.glade.h:87
+msgid "Get Gnome log"
+msgstr "Отримати журнали відлагодження оболонки Gnome"
+
+#: Options_UI.glade.h:88
+msgid "Get the logs of gnome shell of the last 15 minutes."
+msgstr "Отримати журнали відлагодження оболонки Gnome за останні 15 хвилин."
+
+#: Options_UI.glade.h:89
+msgid "Restore default options"
+msgstr "Скинути налаштування за замовчуванням"
+
+#: Options_UI.glade.h:90
+msgid "Support"
+msgstr "Підтримка"
+
+#: Options_UI.glade.h:91
+msgid "EasyScreenCast"
+msgstr ""
+
+#: Options_UI.glade.h:92
+msgid "N/A"
+msgstr ""
+
+#: Options_UI.glade.h:93
+msgid ""
+"This extension simplifies the use of the \n"
+"screen recorder  included in gnome shell"
+msgstr ""
+"Це розширення спрощує використання \n"
+"записування екрану в оболонці GNOME"
+
+#: Options_UI.glade.h:95
+msgid "This software is licensed under GPL v3"
+msgstr "Це програмне забезпечення, ліцензоване під GPL v3"
+
+#: Options_UI.glade.h:96
+msgid "Credits"
+msgstr "Внески"
+
+#: Options_UI.glade.h:97
+msgid "How to contribute?"
+msgstr "Як зробити свій внесок?"
+
+#: Options_UI.glade.h:98
+msgid "With a translation"
+msgstr "Перекласти на іншу мову"
+
+#: Options_UI.glade.h:99
+msgid "Reporting bugs"
+msgstr "Повідомити про помилку"
+
+#: Options_UI.glade.h:100
+msgid "Add code"
+msgstr "Долучитися"
+
+#: Options_UI.glade.h:101
+msgid "Info"
+msgstr "Інформація"
