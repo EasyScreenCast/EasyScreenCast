@@ -2,7 +2,7 @@
 
 UUID = EasyScreenCast@iacopodeenosee.gmail.com
 NAME_EXTENSION = EasyScreenCast
-BASE_MODULES = convenience.js prefs.js selection.js utilgsp.js utilwebcam.js COPYING extension.js metadata.json README.md  settings.js  timer.js utilnotify.js Options_UI.glade package.json stylesheet.css utilaudio.js utilrecorder.js utilexecmd.js
+BASE_MODULES = convenience.js prefs.js selection.js utilgsp.js utilwebcam.js COPYING extension.js metadata.json README.md settings.js timer.js utilnotify.js Options_UI.glade package.json stylesheet.css utilaudio.js utilrecorder.js utilexecmd.js display_module.js
 IMG_MEDIA = icon_defaultSel.svg Icon_Info.png icon_recordingSel.svg icon_default.svg Icon_Performance.svg Icon_Quality.svg  icon_recording.svg
 
 TOLOCALIZE =  prefs.js extension.js selection.js utilwebcam.js
