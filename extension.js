@@ -60,9 +60,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.parent(null, 'EasyScreenCast-indicator');
 
         this.CtrlAudio = new UtilAudio.MixerAudio();
-        /* TODO: fix gstreamer init
         this.CtrlWebcam = new UtilWebcam.HelperWebcam();
-        */
 
         this.CtrlNotify = new UtilNotify.NotifyManager();
         this.CtrlExe = new UtilExeCmd.ExecuteStuff(this);
@@ -130,9 +128,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this._add_audio_recording_sub_menu();
 
         //add sub menu webcam recording
-        /* TODO: fix gstreamer init
         this._addSubMenuWebCam();
-        */
 
         this._add_area_recording_sub_menu();
         this._add_recording_delay_sub_menu();
@@ -225,13 +221,13 @@ const EasyScreenCast_Indicator = new Lang.Class({
     _add_webcam_sub_menu: function () {
         if (this.CtrlWebcam === null) {
             this.CtrlWebcam = new UtilWebcam.HelperWebcam();
-
-            //add sub menu webcam recording
-            this._populateSubMenuWebcam();
-
-            //start monitoring inputvideo
-            this.CtrlWebcam.startMonitor();
         }
+
+        //add sub menu webcam recording
+        this._populateSubMenuWebcam();
+
+        //start monitoring inputvideo
+        this.CtrlWebcam.startMonitor();
     },
 
     /**
@@ -240,6 +236,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
     _populateSubMenuWebcam: function () {
         let arrMI = this._createMIWebCam();
 
+        this.smWebCam.menu.removeAll();
         for (let element in arrMI) {
             this.smWebCam.menu.addMenuItem(arrMI[element]);
         }
@@ -535,9 +532,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         //enable key binding
         this._enableKeybindings();
         //start monitoring inputvideo
-        /* TODO: fix gstreamer init
         this.CtrlWebcam.startMonitor();
-        */
 
         //add indicator
         this.actor.add_actor(this.indicatorBox);
@@ -550,9 +545,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         //remove key binding
         this._removeKeybindings();
         //stop monitoring inputvideo
-        /* TODO: fix gstreamer init
         this.CtrlWebcam.stopMonitor();
-        */
 
         //remove indicator
         this.actor.remove_actor(this.indicatorBox);
