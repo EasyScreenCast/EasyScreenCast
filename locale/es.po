@@ -8,50 +8,51 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-09-02 14:46+0200\n"
-"PO-Revision-Date: 2015-11-23 23:28-0600\n"
-"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
+"PO-Revision-Date: 2019-04-08 14:46+0000\n"
+"Last-Translator: Jordi Munar Torres <abellerabanyuda@gmail.com>\n"
 "Language-Team: \n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.4\n"
+"X-Generator: Poedit 2.2.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: prefs.js:61
 msgid "Could not load the preferences UI file"
-msgstr "No se pudo cargar el archivo de preferencias de la interfaz"
+msgstr "No se pudo cargar el archivo de preferéncias de la interfaz"
 
 #: prefs.js:317
 msgid "WebCam Caps"
 msgstr ""
 
 #: prefs.js:732
-#, fuzzy
 msgid "No Gstreamer pipeline found"
-msgstr "Conducto de GStreamer"
+msgstr "Conducto de GStreamer no encontrado"
 
 #: prefs.js:766
 msgid "Version: "
-msgstr ""
+msgstr "Versión: "
 
 #: prefs.js:837
 msgid ""
 "<span foreground=\"red\">No Caps selected, please select one from the caps "
 "list</span>"
 msgstr ""
+"<span foreground=\"red\">No Caps selected, please select one from the caps "
+"list</span>"
 
 #: prefs.js:847 Options_UI.glade.h:33
 msgid "No webcam device selected"
-msgstr ""
+msgstr "Ninguna webcam seleccionada"
 
 #: prefs.js:849 Options_UI.glade.h:34
 msgid "-"
-msgstr ""
+msgstr "-"
 
 #: extension.js:117 extension.js:358
 msgid "No audio source"
-msgstr ""
+msgstr "Ningún origen de audio"
 
 #: extension.js:136 Options_UI.glade.h:18
 msgid "Options"
@@ -62,14 +63,12 @@ msgid "Start recording"
 msgstr "Comenzar a grabar"
 
 #: extension.js:281 extension.js:613
-#, fuzzy
 msgid " sec. delay before recording"
-msgstr "Retardar la grabación"
+msgstr " retraso de la grabación en segundos"
 
 #: extension.js:283 extension.js:615
-#, fuzzy
 msgid "Start recording immediately"
-msgstr "Comenzar a grabar"
+msgstr "Comenzar a grabar immediatamente"
 
 #: extension.js:290
 #, fuzzy
@@ -77,7 +76,6 @@ msgid "Record all desktop"
 msgstr "Todo el escritorio"
 
 #: extension.js:291
-#, fuzzy
 msgid "Record a selected monitor"
 msgstr "Seleccionar un monitor"
 
@@ -87,34 +85,36 @@ msgid "Record a selected window"
 msgstr "Seleccionar una ventana"
 
 #: extension.js:292
-#, fuzzy
 msgid "Record a selected area"
-msgstr "Área de grabación"
+msgstr "Seleccionar un área de grabación"
 
 #: extension.js:323
-#, fuzzy
 msgid "No WebCam recording"
-msgstr "Retardar la grabación"
+msgstr "No grabación de WebCam"
 
 #: extension.js:364
 msgid "Default audio source"
-msgstr ""
+msgstr "Origen audio por defecto"
 
 #: extension.js:382
 msgid ""
 "\n"
 " - Port: "
 msgstr ""
+"\n"
+" - Puerto: "
 
 #: extension.js:383
 msgid ""
 "\n"
 " - Name: "
 msgstr ""
+"\n"
+" - Nombre: "
 
 #: extension.js:426
 msgid "Delay Time"
-msgstr "Tiempo de retardo"
+msgstr "Tiempo de retraso"
 
 #: extension.js:432 extension.js:446
 msgid " Sec"
@@ -157,7 +157,7 @@ msgstr "Seleccione un escritorio que grabar u oprima [ESC] para cancelar"
 
 #: utilwebcam.js:189
 msgid "Unspecified webcam"
-msgstr ""
+msgstr "WebCam sin especificar"
 
 #: Options_UI.glade.h:1
 #, fuzzy
@@ -202,6 +202,11 @@ msgid ""
 "file.\n"
 "_fname = the name of the screencast video file."
 msgstr ""
+"Estas palabres se reemplazaran\n"
+" _fpath = ruta absoluta del fichero de video de la captura.\n"
+"_dirpath = ruta absoluta del directorio de destino del fichero de video de "
+"la captura.\n"
+"_fname = el nombre del fichero de video de la captura."
 
 #: Options_UI.glade.h:13
 msgid "Command post-recording"
@@ -221,7 +226,7 @@ msgstr ""
 
 #: Options_UI.glade.h:17
 msgid "Not any"
-msgstr ""
+msgstr "Ninguno"
 
 #: Options_UI.glade.h:19
 msgid "Custom GStreamer Pipeline"
@@ -271,7 +276,7 @@ msgstr ""
 
 #: Options_UI.glade.h:32
 msgid "Quality"
-msgstr ""
+msgstr "Calidad"
 
 #: Options_UI.glade.h:35
 msgid "Type of unit of measure"
@@ -279,15 +284,15 @@ msgstr ""
 
 #: Options_UI.glade.h:36
 msgid "Width"
-msgstr ""
+msgstr "Ancho"
 
 #: Options_UI.glade.h:37
 msgid "Height"
-msgstr ""
+msgstr "Alto"
 
 #: Options_UI.glade.h:38
 msgid "Percentage"
-msgstr ""
+msgstr "Porcentage"
 
 #: Options_UI.glade.h:39
 msgid "Pixel"
@@ -295,7 +300,7 @@ msgstr ""
 
 #: Options_UI.glade.h:40
 msgid "Size"
-msgstr ""
+msgstr "Tamaño"
 
 #: Options_UI.glade.h:41
 msgid "Put the webcam in the corner"
@@ -303,31 +308,31 @@ msgstr ""
 
 #: Options_UI.glade.h:42
 msgid "Right-Bottom"
-msgstr ""
+msgstr "Abajo derecha"
 
 #: Options_UI.glade.h:43
 msgid "Left-Bottom"
-msgstr ""
+msgstr "Abajo izquierda"
 
 #: Options_UI.glade.h:44
 msgid "Right-Top"
-msgstr ""
+msgstr "Arriba derecha"
 
 #: Options_UI.glade.h:45
 msgid "Left-Top"
-msgstr ""
+msgstr "Arriba izquierda"
 
 #: Options_UI.glade.h:46
 msgid "Margin X"
-msgstr ""
+msgstr "Margen X"
 
 #: Options_UI.glade.h:47
 msgid "Margin Y"
-msgstr ""
+msgstr "Margen Y"
 
 #: Options_UI.glade.h:48
 msgid "Alpha channel"
-msgstr ""
+msgstr "Canal Alpha"
 
 #: Options_UI.glade.h:49
 msgid "0,00"
@@ -335,7 +340,7 @@ msgstr ""
 
 #: Options_UI.glade.h:50
 msgid "Position"
-msgstr ""
+msgstr "Posición"
 
 #: Options_UI.glade.h:51
 msgid "WebCam"
@@ -353,25 +358,24 @@ msgstr ""
 
 #: Options_UI.glade.h:53
 msgid "Destination folder"
-msgstr ""
+msgstr "Directorio destino"
 
 #: Options_UI.glade.h:55
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "The filename which may contain some escape sequences - %d and %t will be "
 "replaced by the start date and time of the recording."
 msgstr ""
-"el nombre de archivo, que puede contener variables: la fecha y la hora de "
+"El nombre de archivo, que puede contener variables: la fecha y la hora de "
 "inicio de la grabación reemplazarán «%d» y «%t» respectivamente."
 
 #: Options_UI.glade.h:56
-#, fuzzy
 msgid "File name template"
-msgstr "Plantilla del nombre de archivo: "
+msgstr "Plantilla del nombre de archivo"
 
 #: Options_UI.glade.h:57
 msgid "Select the destination folder"
-msgstr ""
+msgstr "Selecciones un directorio de destino"
 
 #: Options_UI.glade.h:58
 msgid "File container"
@@ -383,7 +387,7 @@ msgstr ""
 
 #: Options_UI.glade.h:60
 msgid "Native area resolution"
-msgstr ""
+msgstr "Resolución nativa del área"
 
 #: Options_UI.glade.h:61
 msgid "Native"
@@ -435,15 +439,15 @@ msgstr ""
 
 #: Options_UI.glade.h:73
 msgid "keep original aspect ratio"
-msgstr ""
+msgstr "mantener la relación de aspecto original"
 
 #: Options_UI.glade.h:74
 msgid "Custom"
-msgstr ""
+msgstr "Personalizado"
 
 #: Options_UI.glade.h:75
 msgid "File"
-msgstr ""
+msgstr "Fichero"
 
 #: Options_UI.glade.h:76
 #, fuzzy
@@ -504,7 +508,7 @@ msgstr "Restablecer opciones predeterminadas"
 
 #: Options_UI.glade.h:90
 msgid "Support"
-msgstr ""
+msgstr "Soporte"
 
 #: Options_UI.glade.h:91
 msgid "EasyScreenCast"
@@ -522,27 +526,27 @@ msgstr ""
 
 #: Options_UI.glade.h:95
 msgid "This software is licensed under GPL v3"
-msgstr ""
+msgstr "Este programa está licenciado bajo GPL v3"
 
 #: Options_UI.glade.h:96
 msgid "Credits"
-msgstr ""
+msgstr "Creditos"
 
 #: Options_UI.glade.h:97
 msgid "How to contribute?"
-msgstr ""
+msgstr "¿Como contribuir?"
 
 #: Options_UI.glade.h:98
 msgid "With a translation"
-msgstr ""
+msgstr "Con una traducción"
 
 #: Options_UI.glade.h:99
 msgid "Reporting bugs"
-msgstr ""
+msgstr "Reportando errores"
 
 #: Options_UI.glade.h:100
 msgid "Add code"
-msgstr ""
+msgstr "Agregar código"
 
 #: Options_UI.glade.h:101
 msgid "Info"
