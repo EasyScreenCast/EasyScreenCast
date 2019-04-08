@@ -60,9 +60,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.parent(null, 'EasyScreenCast-indicator');
 
         this.CtrlAudio = new UtilAudio.MixerAudio();
-        /* TODO: fix gstreamer init
         this.CtrlWebcam = new UtilWebcam.HelperWebcam();
-        */
 
         this.CtrlNotify = new UtilNotify.NotifyManager();
         this.CtrlExe = new UtilExeCmd.ExecuteStuff(this);
@@ -130,9 +128,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this._add_audio_recording_sub_menu();
 
         //add sub menu webcam recording
-        /* TODO: fix gstreamer init
         this._addSubMenuWebCam();
-        */
 
         this._add_area_recording_sub_menu();
         this._add_recording_delay_sub_menu();
@@ -225,13 +221,13 @@ const EasyScreenCast_Indicator = new Lang.Class({
     _add_webcam_sub_menu: function () {
         if (this.CtrlWebcam === null) {
             this.CtrlWebcam = new UtilWebcam.HelperWebcam();
-
-            //add sub menu webcam recording
-            this._populateSubMenuWebcam();
-
-            //start monitoring inputvideo
-            this.CtrlWebcam.startMonitor();
         }
+
+        //add sub menu webcam recording
+        this._populateSubMenuWebcam();
+
+        //start monitoring inputvideo
+        this.CtrlWebcam.startMonitor();
     },
 
     /**
@@ -240,6 +236,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
     _populateSubMenuWebcam: function () {
         let arrMI = this._createMIWebCam();
 
+        this.smWebCam.menu.removeAll();
         for (let element in arrMI) {
             this.smWebCam.menu.addMenuItem(arrMI[element]);
         }
@@ -385,11 +382,30 @@ const EasyScreenCast_Indicator = new Lang.Class({
     _createMIWebCam: function () {
         this.WebCamDevice = new Array(_('No WebCam recording'));
         //add menu item webcam device from GST
-        this.WebCamDevice.push((this.CtrlWebcam.getNameDevices().join()));
+        const devices = this.CtrlWebcam.getDevicesIV();
+        this.WebCamDevice.push.apply(this.WebCamDevice, this.CtrlWebcam.getNameDevices());
         Lib.TalkativeLog('-*-webcam list: ' + this.WebCamDevice);
         this.AreaMenuItem = new Array(this.WebCamDevice.length);
 
         for (var i = 0; i < this.AreaMenuItem.length; i++) {
+            let iDevice;
+
+            if (i === 0) {
+                iDevice = 0;
+            } else {
+                // FIXME
+                // Although the computer may have just one webcam connected to
+                // it, more than one GstDevice may be listed and all pointing to
+                // the same video device (for example /dev/video0. Each
+                // GstDevice is supposed to be used with a specific source, for
+                // example, a pipewiresrc or a v4l2src. For now, we are only
+                // using v4l2src. This means that even if we pick a Pipewire
+                // device, we will always open it with v4l2src.
+                const device = devices[i - 1];
+                const devicePath = device.get_properties().get_string('device.path');
+                iDevice = Number(devicePath.replace(/[^0-9]+/ig, ''));
+            }
+
             this.AreaMenuItem[i] =
                 new PopupMenu.PopupMenuItem(this.WebCamDevice[i], {
                     reactive: true,
@@ -398,18 +414,18 @@ const EasyScreenCast_Indicator = new Lang.Class({
                     can_focus: true
                 });
 
-            (function (i, arr, item) {
+            (function (i, iDevice, arr, item) {
                 this.connectMI = function () {
                     this.connect('activate',
                         () => {
                             Lib.TalkativeLog('-*-set webcam device to ' + i + ' ' + arr[i]);
-                            Settings.setOption(Settings.DEVICE_WEBCAM_SETTING_KEY, i);
+                            Settings.setOption(Settings.DEVICE_WEBCAM_SETTING_KEY, iDevice + 1);
 
                             item.label.text = arr[i];
                         });
                 };
                 this.connectMI();
-            }).call(this.AreaMenuItem[i], i, this.WebCamDevice, this.smWebCam);
+            }).call(this.AreaMenuItem[i], i, iDevice, this.WebCamDevice, this.smWebCam);
         }
 
         return this.AreaMenuItem;
@@ -535,9 +551,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         //enable key binding
         this._enableKeybindings();
         //start monitoring inputvideo
-        /* TODO: fix gstreamer init
         this.CtrlWebcam.startMonitor();
-        */
 
         //add indicator
         this.actor.add_actor(this.indicatorBox);
@@ -550,9 +564,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         //remove key binding
         this._removeKeybindings();
         //stop monitoring inputvideo
-        /* TODO: fix gstreamer init
         this.CtrlWebcam.stopMonitor();
-        */
 
         //remove indicator
         this.actor.remove_actor(this.indicatorBox);

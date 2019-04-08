@@ -67,7 +67,7 @@ var HelperWebcam = new Lang.Class({
                 this.dmBus.add_watch(GLib.PRIORITY_DEFAULT, this._getMsg);
                 let caps = Gst.Caps.new_empty_simple('video/x-raw');
                 this.deviceMonitor.add_filter('Video/Source', caps);
-
+                this.startMonitor();
                 //update device and caps
                 this.refreshAllInputVideo();
             } else {
@@ -113,7 +113,6 @@ var HelperWebcam = new Lang.Class({
         Lib.TalkativeLog('-@-refresh all video input');
 
         ListDevices = this.getDevicesIV();
-
         //compose devices array
         ListCaps = [];
         for (var index in ListDevices) {

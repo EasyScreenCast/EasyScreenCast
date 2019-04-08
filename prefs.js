@@ -54,9 +54,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         // creates the settings
         Settings.checkSettings();
         this.CtrlExe = new UtilExeCmd.ExecuteStuff(this);
-        /* TODO: fix gstreamer init
         this.CtrlWebcam = new UtilWebcam.HelperWebcam();
-        */
 
         // creates the ui builder and add the main resource file
         let uiFilePath = Me.path + '/Options_UI.glade';
@@ -66,7 +64,6 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
 
         if (builder.add_from_file(uiFilePath) === 0) {
             Lib.TalkativeLog('-^-could not load the ui file: ' + format(uiFilePath));
-
             let label = new Gtk.Label({
                 label: _('Could not load the preferences UI file'),
                 vexpand: true
@@ -88,9 +85,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             this._initTabQuality(this, builder, Settings.settings);
 
             // setup tab webcam
-            /* TODO: fix gstreamer init
             this._initTabWebcam(this, builder, Settings.settings);
-            */
 
             // setup tab file
             this._initTabFile(this, builder, Settings.settings);
@@ -111,7 +106,6 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                 Settings.getOption('as', Settings.SHORTCUT_KEY_SETTING_KEY)[0]);
 
             //update webcam widget state
-            /* TODO: fix gstreamer init
             this._updateStateWebcamOptions();
 
 
@@ -123,7 +117,6 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                     this._updateStateWebcamOptions();
                 }
             );
-            */
         }
     },
 
@@ -655,7 +648,6 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         //implements file folder string rec option
         let Ref_filechooser_FileFolder = gtkDB.get_object(
             'fcb_FilePathRec');
-
         //check state initial value
         var tmpFolder = Settings.getOption('s', Settings.FILE_FOLDER_SETTING_KEY);
         Lib.TalkativeLog('-^-folder for screencast: ' + tmpFolder);
@@ -958,7 +950,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             //setup label webcam caps
             var tmpCaps = Settings.getOption('s', Settings.QUALITY_WEBCAM_SETTING_KEY);
             if (tmpCaps === '') {
-                this.Ref_Label_WebCamCaps.use_markup(true);
+                this.Ref_Label_WebCamCaps.use_markup = true;
                 this.Ref_Label_WebCamCaps.set_markup(
                     _('<span foreground="red">No Caps selected, please select one from the caps list</span>'));
             } else {
