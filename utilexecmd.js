@@ -10,6 +10,7 @@
     FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
 */
 
+const ByteArray = imports.byteArray;
 const Lang = imports.lang;
 const GLib = imports.gi.GLib;
 const Gio = imports.gi.Gio;
@@ -145,12 +146,12 @@ var ExecuteStuff = new Lang.Class({
             }
             if (successS) {
                 Lib.TalkativeLog('-¶-argv: ' + argv);
-                Lib.TalkativeLog('-¶-std_out: ' + std_out);
-                Lib.TalkativeLog('-¶-std_err: ' + std_err);
+                Lib.TalkativeLog('-¶-std_out: ' + ByteArray.toString(std_out));
+                Lib.TalkativeLog('-¶-std_err: ' + ByteArray.toString(std_err));
 
                 Lib.TalkativeLog('-¶-exe RC');
                 if (this.Callback !== null) {
-                    this.Callback.apply(this.Scope, [true, std_out.toString()]);
+                    this.Callback.apply(this.Scope, [true, ByteArray.toString(std_out)]);
                 }
             } else {
                 Lib.TalkativeLog('-¶-ERROR exe WC');
