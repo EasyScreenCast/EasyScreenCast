@@ -284,7 +284,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         Ref_scale_Quality.set_value(Settings.getOption(
             'i', Settings.QUALITY_SETTING_KEY));
 
-        Ref_scale_Quality.connect('value-changed',
+        Ref_scale_Quality.connect('notify::value',
             (self) => {
                 Lib.TalkativeLog('-^-value quality changed : ' + self.get_value());
 

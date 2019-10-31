@@ -62,7 +62,7 @@ const Capture = new Lang.Class({
 
         this.monitor = Main.layoutManager.focusMonitor;
 
-        this._areaSelection = new Shell.GenericContainer({
+        this._areaSelection = new St.Widget({
             name: 'area-selection',
             style_class: 'area-selection',
             visible: 'true',
@@ -405,7 +405,7 @@ const AreaRecording = new Lang.Class({
     _init: function () {
         Lib.TalkativeLog('-£-area recording init');
 
-        this._areaRecording = new Shell.GenericContainer({
+        this._areaRecording = new St.Widget({
             name: 'area-recording',
             style_class: 'area-recording',
             visible: 'true',
