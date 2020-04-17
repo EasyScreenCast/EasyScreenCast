@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/EasyScreenCast/EasyScreenCast#readme",
   "devDependencies": {
-    "eslint": "^5.0.1"
+    "eslint": "^5.0.1",
+    "prettier": "^2.0.4"
   }
 }

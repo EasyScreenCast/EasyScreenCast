@@ -43,13 +43,13 @@ const Settings = Me.imports.settings;
  * @param {string} domain
  */
 function initTranslations(domain) {
-    domain = domain || Me.metadata['gettext-domain'];
+    domain = domain || Me.metadata["gettext-domain"];
 
     // check if this extension was built with "make zip-file", and thus
     // has the locale files in a subfolder
     // otherwise assume that extension has been installed in the
     // same prefix as gnome-shell
-    let localeDir = Me.dir.get_child('locale');
+    let localeDir = Me.dir.get_child("locale");
     if (localeDir.query_exists(null)) {
         Gettext.bindtextdomain(domain, localeDir.get_path());
     } else {
@@ -78,10 +78,14 @@ function getSettings(schema) {
     // otherwise assume that extension has been installed in the
     // same prefix as gnome-shell (and therefore schemas are available
     // in the standard folders)
-    let schemaDir = Me.dir.get_child('schemas');
+    let schemaDir = Me.dir.get_child("schemas");
     let schemaSource;
     if (schemaDir.query_exists(null)) {
-        schemaSource = GioSSS.new_from_directory(schemaDir.get_path(), GioSSS.get_default(), false);
+        schemaSource = GioSSS.new_from_directory(
+            schemaDir.get_path(),
+            GioSSS.get_default(),
+            false
+        );
     } else {
         schemaSource = GioSSS.get_default();
     }
@@ -89,11 +93,17 @@ function getSettings(schema) {
     let schemaObj = schemaSource.lookup(schema, true);
 
     if (!schemaObj) {
-        throw new Error('Schema ' + schema + ' could not be found for extension ' + Me.metadata.uuid + '. Please check your installation.');
+        throw new Error(
+            "Schema " +
+                schema +
+                " could not be found for extension " +
+                Me.metadata.uuid +
+                ". Please check your installation."
+        );
     }
 
     return new Gio.Settings({
-        settings_schema: schemaObj
+        settings_schema: schemaObj,
     });
 }
 
@@ -102,36 +112,39 @@ function getSettings(schema) {
  * @constructor
  */
 function TalkativeLog(msg) {
-    if (Settings.getOption('b', Settings.VERBOSE_DEBUG_SETTING_KEY)) {
-        global.log('[ESC]' + msg);
+    if (Settings.getOption("b", Settings.VERBOSE_DEBUG_SETTING_KEY)) {
+        global.log("[ESC]" + msg);
     }
 }
 
 var ESConGIcon = new Gio.FileIcon({
-    file: Gio.File.new_for_path(Me.dir.get_child(
-        'images/icon_recording.svg').get_path())
+    file: Gio.File.new_for_path(
+        Me.dir.get_child("images/icon_recording.svg").get_path()
+    ),
 });
 
 var ESCoffGIcon = new Gio.FileIcon({
-    file: Gio.File.new_for_path(Me.dir.get_child(
-        'images/icon_default.svg').get_path())
+    file: Gio.File.new_for_path(
+        Me.dir.get_child("images/icon_default.svg").get_path()
+    ),
 });
 
 var ESConGIconSel = new Gio.FileIcon({
-    file: Gio.File.new_for_path(Me.dir.get_child(
-        'images/icon_recordingSel.svg').get_path())
+    file: Gio.File.new_for_path(
+        Me.dir.get_child("images/icon_recordingSel.svg").get_path()
+    ),
 });
 
 var ESCoffGIconSel = new Gio.FileIcon({
-    file: Gio.File.new_for_path(Me.dir.get_child(
-        'images/icon_defaultSel.svg').get_path())
+    file: Gio.File.new_for_path(
+        Me.dir.get_child("images/icon_defaultSel.svg").get_path()
+    ),
 });
 
-var ESCimgPerformance = Me.dir.get_child(
-    'images/Icon_Performance.svg').get_path();
+var ESCimgPerformance = Me.dir
+    .get_child("images/Icon_Performance.svg")
+    .get_path();
 
-var ESCimgQuality = Me.dir.get_child(
-    'images/Icon_Quality.svg').get_path();
+var ESCimgQuality = Me.dir.get_child("images/Icon_Quality.svg").get_path();
 
-var ESCimgInfo = Me.dir.get_child(
-    'images/Icon_Info.png').get_path();
+var ESCimgInfo = Me.dir.get_child("images/Icon_Info.png").get_path();

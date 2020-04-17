@@ -31,7 +31,7 @@ var NotifyManager = new Lang.Class({
      * Create a notify manager
      */
     _init: function () {
-        Lib.TalkativeLog('-°-init notify manager');
+        Lib.TalkativeLog("-°-init notify manager");
 
         this.source = new MessageTray.SystemNotificationSource();
     },
@@ -45,9 +45,9 @@ var NotifyManager = new Lang.Class({
      * @return {MessageTray.Notification}
      */
     createNotify: function (msg, icon, sound) {
-        Lib.TalkativeLog('-°-create notify :' + msg);
+        Lib.TalkativeLog("-°-create notify :" + msg);
         var notify = new MessageTray.Notification(this.source, msg, null, {
-            gicon: icon
+            gicon: icon,
         });
 
         notify.setTransient(false);
@@ -72,10 +72,10 @@ var NotifyManager = new Lang.Class({
      * @param sound
      */
     updateNotify: function (notify, msg, icon, sound) {
-        Lib.TalkativeLog('-°-update notify');
+        Lib.TalkativeLog("-°-update notify");
 
         notify.update(msg, null, {
-            gicon: icon
+            gicon: icon,
         });
 
         if (sound) {
@@ -89,30 +89,31 @@ var NotifyManager = new Lang.Class({
      * @param msg
      */
     createAlert: function (msg) {
-        Lib.TalkativeLog('-°-show alert tweener : ' + msg);
-        if (Settings.getOption('b', Settings.SHOW_NOTIFY_ALERT_SETTING_KEY)) {
+        Lib.TalkativeLog("-°-show alert tweener : " + msg);
+        if (Settings.getOption("b", Settings.SHOW_NOTIFY_ALERT_SETTING_KEY)) {
             var monitor = Main.layoutManager.focusMonitor;
 
             var text = new St.Label({
-                style_class: 'alert-msg',
-                text: msg
+                style_class: "alert-msg",
+                text: msg,
             });
             text.opacity = 255;
             Main.uiGroup.add_actor(text);
 
-            text.set_position(Math.floor(monitor.width / 2 - text.width / 2),
-                Math.floor(monitor.height / 2 - text.height / 2));
+            text.set_position(
+                Math.floor(monitor.width / 2 - text.width / 2),
+                Math.floor(monitor.height / 2 - text.height / 2)
+            );
 
             Tweener.addTween(text, {
                 opacity: 0,
                 time: 4,
-                transition: 'easeOutQuad',
-                onComplete:
-                    () => {
-                        Main.uiGroup.remove_actor(text);
-                        text = null;
-                    }
+                transition: "easeOutQuad",
+                onComplete: () => {
+                    Main.uiGroup.remove_actor(text);
+                    text = null;
+                },
             });
         }
-    }
+    },
 });

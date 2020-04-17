@@ -36,5 +36,5 @@ var display_api = {
      */
     set_cursor(cursor) {
         return this._display().set_cursor(cursor);
-    }
+    },
 };
