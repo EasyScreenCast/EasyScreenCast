@@ -29,6 +29,7 @@ const Gettext = imports.gettext.domain(
 const _ = Gettext.gettext;
 
 const ExtensionUtils = imports.misc.extensionUtils;
+const Util = imports.misc.util;
 const Me = ExtensionUtils.getCurrentExtension();
 const Lib = Me.imports.convenience;
 const Settings = Me.imports.settings;
@@ -837,15 +838,12 @@ const EasyScreenCast_Indicator = new Lang.Class({
      * @private
      */
     _open_extension_preferences: function () {
-        Lib.TalkativeLog("-*-open preferences");
+        if (typeof ExtensionUtils.openPrefs === "function") {
+            ExtensionUtils.openPrefs();
+            return;
+        }
 
-        this.CtrlExe.Spawn(
-            "gnome-shell-extension-prefs  EasyScreenCast@iacopodeenosee.gmail.com"
-        );
-
-        Main.Util.trySpawnCommandLine(
-            "gnome-shell-extension-prefs  EasyScreenCast@iacopodeenosee.gmail.com"
-        );
+        Util.spawn(["gnome-shell-extension-prefs", Me.uuid]);
     },
 
     /**
