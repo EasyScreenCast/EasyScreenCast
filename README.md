@@ -10,9 +10,6 @@ EasyScreenCast simplifies the use of the video recording function integrated in 
 - gst plugins base [ common function/theora support ]
 - gst plugins good [ mp4/mkv/webm/vp8/vp9 support ]
 
-# Gstreamer patterns pipeline
-![GStreamer  pipeline](https://iacopodeenosee.files.wordpress.com/2016/03/gstreamer_pipeline_diagram.jpeg "GSP pipeline")
-
 # License Info
 EasyScreenCast is free software distributed under the GNU GPL. All files are under GPL v3. read [COPYING](COPYING.md) for more infomation about license.
 
@@ -30,6 +27,14 @@ git clone https://github.com/EasyScreenCast/EasyScreenCast.git
 cd EasyScreenCast
 make
 make install
+```
+
+# How to test changes
+
+You can run a new session to test changes to the installed extension:
+
+```
+dbus-run-session -- gnome-shell --nested
 ```
 
 # How to view the logs
