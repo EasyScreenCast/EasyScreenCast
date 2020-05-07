@@ -48,7 +48,7 @@ journalctl /usr/bin/gnome-shell --since=today --no-pager --output=cat
 to open the option windows from terminal try that on terminal:
 
 ```
-gnome-shell-extension-prefs EasyScreenCast@iacopodeenosee.gmail.com
+gnome-extensions prefs EasyScreenCast@iacopodeenosee.gmail.com
 ```
 
 # Translation
