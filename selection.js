@@ -50,8 +50,8 @@ const Ext = Me.imports.extension;
 const Capture = new Lang.Class({
     Name: "EasyScreenCast.Capture",
 
-    _init: function () {
-        Lib.TalkativeLog('capture selection init');
+    _init: function() {
+        Lib.TalkativeLog('-£-capture selection init');
 
         this._mouseDown = false;
 
@@ -84,25 +84,25 @@ const Capture = new Lang.Class({
 
             this._setCaptureCursor();
         } else {
-            Lib.TalkativeLog("Main.pushModal() === false");
+            Lib.TalkativeLog('-£-Main.pushModal() === false');
         }
 
         Main.sessionMode.connect('updated', Lang.bind(this, this._updateDraw));
     },
 
-    _updateDraw: function () {
-        Lib.TalkativeLog('update draw capture');
+    _updateDraw: function() {
+        Lib.TalkativeLog('-£-update draw capture');
     },
 
-    _setDefaultCursor: function () {
+    _setDefaultCursor: function() {
         global.screen.set_cursor(Meta.Cursor.DEFAULT);
     },
 
-    _setCaptureCursor: function () {
+    _setCaptureCursor: function() {
         global.screen.set_cursor(Meta.Cursor.CROSSHAIR);
     },
 
-    _onCaptureEvent: function (actor, event) {
+    _onCaptureEvent: function(actor, event) {
         if (event.type() === Clutter.EventType.KEY_PRESS) {
             if (event.get_key_symbol() === Clutter.Escape) {
                 this._stop();
@@ -112,8 +112,11 @@ const Capture = new Lang.Class({
         this.emit("captured-event", event);
     },
 
-    drawSelection: function ({
-        x, y, w, h
+    drawSelection: function({
+        x,
+        y,
+        w,
+        h
     }, showResolution) {
         this._areaSelection.set_position(x, y);
         this._areaSelection.set_size(w, h);
@@ -129,7 +132,7 @@ const Capture = new Lang.Class({
         }
     },
 
-    clearSelection: function () {
+    clearSelection: function() {
         this.drawSelection({
             x: -10,
             y: -10,
@@ -138,8 +141,8 @@ const Capture = new Lang.Class({
         }, false);
     },
 
-    _stop: function () {
-        Lib.TalkativeLog('capture selection stop');
+    _stop: function() {
+        Lib.TalkativeLog('-£-capture selection stop');
 
         global.stage.disconnect(this._signalCapturedEvent);
         this._setDefaultCursor();
@@ -151,8 +154,8 @@ const Capture = new Lang.Class({
         this.disconnectAll();
     },
 
-    _saveRect: function (x, y, h, w) {
-        Lib.TalkativeLog('selection x:' + x + ' y:' + y +
+    _saveRect: function(x, y, h, w) {
+        Lib.TalkativeLog('-£-selection x:' + x + ' y:' + y +
             ' height:' + h + ' width:' + w);
 
         Pref.setOption(Pref.X_POS_SETTING_KEY, x);
@@ -163,7 +166,7 @@ const Capture = new Lang.Class({
         Ext.Indicator._doDelayAction();
     },
 
-    _showAlert: function (msg) {
+    _showAlert: function(msg) {
         var text = new St.Label({
             style_class: 'alert-msg',
             text: msg
@@ -178,7 +181,7 @@ const Capture = new Lang.Class({
             opacity: 0,
             time: 4,
             transition: 'easeOutQuad',
-            onComplete: Lang.bind(this, function () {
+            onComplete: Lang.bind(this, function() {
                 Main.uiGroup.remove_actor(text);
                 text = null;
             })
@@ -191,8 +194,8 @@ Signals.addSignalMethods(Capture.prototype);
 const SelectionArea = new Lang.Class({
     Name: "EasyScreenCast.SelectionArea",
 
-    _init: function () {
-        Lib.TalkativeLog('area selection init');
+    _init: function() {
+        Lib.TalkativeLog('-£-area selection init');
 
         this._mouseDown = false;
         this._capture = new Capture();
@@ -202,7 +205,7 @@ const SelectionArea = new Lang.Class({
         this._capture._showAlert(_('Select a area for recording or press [ESC] to abort'));
     },
 
-    _onEvent: function (capture, event) {
+    _onEvent: function(capture, event) {
         let type = event.type();
         let [x, y, mask] = global.get_pointer();
 
@@ -216,7 +219,7 @@ const SelectionArea = new Lang.Class({
             } else if (type === Clutter.EventType.BUTTON_RELEASE) {
                 this._capture._stop();
 
-                Lib.TalkativeLog('area x: ' + rect.x + ' y: ' + rect.y + ' height: ' + rect.h + 'width: ' + rect.w);
+                Lib.TalkativeLog('-£-area x: ' + rect.x + ' y: ' + rect.y + ' height: ' + rect.h + 'width: ' + rect.w);
 
                 this._capture._saveRect(rect.x, rect.y, rect.h, rect.w);
             }
@@ -229,8 +232,8 @@ Signals.addSignalMethods(SelectionArea.prototype);
 const SelectionWindow = new Lang.Class({
     Name: "EasyScreenCast.SelectionWindow",
 
-    _init: function () {
-        Lib.TalkativeLog('window selection init');
+    _init: function() {
+        Lib.TalkativeLog('-£-window selection init');
 
         this._windows = global.get_window_actors();
         this._capture = new Capture();
@@ -240,7 +243,7 @@ const SelectionWindow = new Lang.Class({
         this._capture._showAlert(_('Select a window for recording or press [ESC] to abort'));
     },
 
-    _onEvent: function (capture, event) {
+    _onEvent: function(capture, event) {
         let type = event.type();
         let [x, y, mask] = global.get_pointer();
 
@@ -261,7 +264,7 @@ const SelectionWindow = new Lang.Class({
                 var [w, h] = this._selectedWindow.get_size();
                 var [wx, wy] = this._selectedWindow.get_position();
 
-                Lib.TalkativeLog('windows pre wx: ' + wx + ' wy: ' + wy + ' height: ' + h + '  width: ' + w);
+                Lib.TalkativeLog('-£-windows pre wx: ' + wx + ' wy: ' + wy + ' height: ' + h + '  width: ' + w);
 
                 if (wx + w > tmpM.width) {
                     w -= Math.abs((wx + w) - tmpM.width);
@@ -270,18 +273,18 @@ const SelectionWindow = new Lang.Class({
                     h -= Math.abs((wy + h) - tmpM.height);
                 }
 
-                Lib.TalkativeLog('windows post wx: ' + wx + ' wy: ' + wy + ' height: ' + h + ' width: ' + w);
+                Lib.TalkativeLog('-£-windows post wx: ' + wx + ' wy: ' + wy + ' height: ' + h + ' width: ' + w);
 
                 this._capture._saveRect(wx, wy, h, w);
             }
         }
     },
 
-    _highlightWindow: function (win) {
+    _highlightWindow: function(win) {
         this._capture.drawSelection(getWindowRectangle(win), false);
     },
 
-    _clearHighlight: function () {
+    _clearHighlight: function() {
         this._capture.clearSelection();
     }
 });
@@ -291,15 +294,15 @@ Signals.addSignalMethods(SelectionWindow.prototype);
 const SelectionDesktop = new Lang.Class({
     Name: "EasyScreenCast.SelectionDesktop",
 
-    _init: function () {
-        Lib.TalkativeLog('desktop selection init');
+    _init: function() {
+        Lib.TalkativeLog('-£-desktop selection init');
 
         this._nMonitors = global.screen.get_n_monitors();
-        Lib.TalkativeLog('Number of monitor ' + this._nMonitors);
+        Lib.TalkativeLog('-£-Number of monitor ' + this._nMonitors);
         for (var i = 0; i < this._nMonitors; i++) {
             var tmpM = new Layout.Monitor(i,
                 global.screen.get_monitor_geometry(i));
-            Lib.TalkativeLog('monitor geometry x=' + tmpM.x + ' y=' + tmpM.y + ' w=' + tmpM.width + ' h=' + tmpM.height);
+            Lib.TalkativeLog('-£-monitor geometry x=' + tmpM.x + ' y=' + tmpM.y + ' w=' + tmpM.width + ' h=' + tmpM.height);
         }
 
         this._capture = new Capture();
@@ -309,7 +312,7 @@ const SelectionDesktop = new Lang.Class({
         this._capture._showAlert(_('Select a desktop for recording or press [ESC] to abort'));
     },
 
-    _onEvent: function (capture, event) {
+    _onEvent: function(capture, event) {
         let type = event.type();
 
         if (type === Clutter.EventType.BUTTON_PRESS) {
@@ -321,7 +324,7 @@ const SelectionDesktop = new Lang.Class({
             var y = tmpM.y;
             var height = tmpM.height;
             var width = tmpM.width;
-            Lib.TalkativeLog('desktop x: ' + x + ' y: ' + y + ' height: ' + height + 'width: ' + width);
+            Lib.TalkativeLog('-£-desktop x: ' + x + ' y: ' + y + ' height: ' + height + 'width: ' + width);
 
             this._capture._saveRect(x, y, height, width);
         }
@@ -333,8 +336,8 @@ Signals.addSignalMethods(SelectionDesktop.prototype);
 const AreaRecording = new Lang.Class({
     Name: "EasyScreenCast.AreaRecording",
 
-    _init: function () {
-        Lib.TalkativeLog('area recording init');
+    _init: function() {
+        Lib.TalkativeLog('-£-area recording init');
 
         this._areaRecording = new Shell.GenericContainer({
             name: 'area-recording',
@@ -356,14 +359,14 @@ const AreaRecording = new Lang.Class({
 
         Main.uiGroup.add_actor(this._areaRecording);
 
-        Main.overview.connect('showing', Lang.bind(this, function () {
-            Lib.TalkativeLog('overview opening');
+        Main.overview.connect('showing', Lang.bind(this, function() {
+            Lib.TalkativeLog('-£-overview opening');
 
             Main.uiGroup.remove_actor(this._areaRecording);
         }));
 
-        Main.overview.connect('hidden', Lang.bind(this, function () {
-            Lib.TalkativeLog('overview closed');
+        Main.overview.connect('hidden', Lang.bind(this, function() {
+            Lib.TalkativeLog('-£-overview closed');
 
             Main.uiGroup.add_actor(this._areaRecording);
         }));
@@ -380,40 +383,40 @@ const AreaRecording = new Lang.Class({
         //            Lang.bind(this, this._onMotionEvent));
 
         //        _onMotionEvent: function (actor, event) {
-        //            Lib.TalkativeLog('motion event');
+        //            Lib.TalkativeLog('-£-motion event');
         //
         //            return Clutter.EVENT_PROPAGATE;
         //        },
         //
         //        _onButtonPress: function (actor, event) {
-        //            Lib.TalkativeLog('btn press event');
+        //            Lib.TalkativeLog('-£-btn press event');
         //
         //            return Clutter.EVENT_PROPAGATE;
         //        },
         //
         //        _onButtonRelease: function (actor, event) {
-        //            Lib.TalkativeLog('btn release event');
+        //            Lib.TalkativeLog('-£-btn release event');
         //
         //            return Clutter.EVENT_PROPAGATE;
         //        }
     },
 
-    drawArea: function (x, y, w, h) {
-        Lib.TalkativeLog('draw area recording');
+    drawArea: function(x, y, w, h) {
+        Lib.TalkativeLog('-£-draw area recording');
 
         this._visible = true;
         this._areaRecording.set_position(x, y);
         this._areaRecording.set_size(w, h);
     },
 
-    clearArea: function () {
-        Lib.TalkativeLog('hide area recording');
+    clearArea: function() {
+        Lib.TalkativeLog('-£-hide area recording');
 
         this._visible = false;
         this.drawArea(-10, -10, 0, 0);
     },
 
-    isVisible: function () {
+    isVisible: function() {
         return this._visible;
     }
 });
@@ -421,7 +424,7 @@ const AreaRecording = new Lang.Class({
 Signals.addSignalMethods(AreaRecording.prototype);
 
 
-const getRectangle = function (x1, y1, x2, y2) {
+const getRectangle = function(x1, y1, x2, y2) {
     return {
         x: Math.min(x1, x2),
         y: Math.min(y1, y2),
@@ -431,7 +434,7 @@ const getRectangle = function (x1, y1, x2, y2) {
 };
 
 
-const getWindowRectangle = function (win) {
+const getWindowRectangle = function(win) {
     let tmpSize = win.get_size();
     let tmpPosition = win.get_position();
 
@@ -444,8 +447,8 @@ const getWindowRectangle = function (win) {
 };
 
 
-const selectWindow = function (windows, x, y) {
-    let filtered = windows.filter(function (win) {
+const selectWindow = function(windows, x, y) {
+    let filtered = windows.filter(function(win) {
         if ((win !== undefined) && win.visible &&
             (typeof win.get_meta_window === 'function')) {
 
@@ -460,7 +463,7 @@ const selectWindow = function (windows, x, y) {
         }
     });
 
-    filtered.sort(function (a, b)
+    filtered.sort(function(a, b)
         (a.get_meta_window().get_layer() <= b.get_meta_window().get_layer())
     );
 
