@@ -7,44 +7,40 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-02 14:46+0200\n"
-"PO-Revision-Date: 2017-10-05 09:29+0200\n"
-"Last-Translator: idn <iacopodeenosee@gmail.com>\n"
+"POT-Creation-Date: 2018-11-29 16:00+0200\n"
+"PO-Revision-Date: 2018-11-29 16:30+0200\n"
+"Last-Translator: Beregok <beregok@gmail.com>\n"
 "Language-Team: \n"
-"Language: it\n"
+"Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.4\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: prefs.js:61
 msgid "Could not load the preferences UI file"
-msgstr "Non è possibile caricare il file UI delle preferenze"
+msgstr "Не вдалося завантажити файл налаштувань UI"
 
 #: prefs.js:317
 msgid "WebCam Caps"
-msgstr "WebCam Caps"
+msgstr "Вебкамера"
 
 #: prefs.js:732
 msgid "No Gstreamer pipeline found"
-msgstr "Nessuna GStreamer Pipeline trovata"
+msgstr "Фреймворк GStreamer"
 
 #: prefs.js:766
 msgid "Version: "
-msgstr "Versione: "
+msgstr "Версія"
 
 #: prefs.js:837
 msgid ""
 "<span foreground=\"red\">No Caps selected, please select one from the caps "
 "list</span>"
 msgstr ""
-"<span foreground=\"red\">Nessuna Caps selezionata, per favore selezionarne "
-"una dalla lista</span>"
 
 #: prefs.js:847 Options_UI.glade.h:33
 msgid "No webcam device selected"
-msgstr "Nessuna webcam selezionata"
+msgstr "Вебкамера не вибрана"
 
 #: prefs.js:849 Options_UI.glade.h:34
 msgid "-"
@@ -52,47 +48,47 @@ msgstr ""
 
 #: extension.js:117 extension.js:358
 msgid "No audio source"
-msgstr "Nessuna sorgente Audio"
+msgstr "Немає джерела звуку"
 
 #: extension.js:136 Options_UI.glade.h:18
 msgid "Options"
-msgstr "Opzioni"
+msgstr "Налаштування"
 
 #: extension.js:203 extension.js:647
 msgid "Start recording"
-msgstr "Inizia Registrazione"
+msgstr "Почати запис"
 
 #: extension.js:281 extension.js:613
 msgid " sec. delay before recording"
-msgstr " sec. di ritardo prima della registrazione"
+msgstr " секунд затримки перед записом"
 
 #: extension.js:283 extension.js:615
 msgid "Start recording immediately"
-msgstr "Inizia subito la registrazione"
+msgstr "Почати запис негайно"
 
 #: extension.js:290
 msgid "Record all desktop"
-msgstr "Tutto il desktop"
+msgstr "Записувати ввесь робочий стіл"
 
 #: extension.js:291
 msgid "Record a selected monitor"
-msgstr "Seleziona monitor"
+msgstr "Записувати обраний монітор"
 
 #: extension.js:291
 msgid "Record a selected window"
-msgstr "Seleziona finestra"
+msgstr "Записувати обране вікно"
 
 #: extension.js:292
 msgid "Record a selected area"
-msgstr "Area di Registrazione"
+msgstr "Записувати вибрану область"
 
 #: extension.js:323
 msgid "No WebCam recording"
-msgstr "Non registrare la webcam"
+msgstr "Немає вебкамери для запису"
 
 #: extension.js:364
 msgid "Default audio source"
-msgstr "Sorgente Audio di default"
+msgstr "Джерело звуку за замовчуванням"
 
 #: extension.js:382
 msgid ""
@@ -100,7 +96,7 @@ msgid ""
 " - Port: "
 msgstr ""
 "\n"
-" - Porta: "
+" - Порт: "
 
 #: extension.js:383
 msgid ""
@@ -108,84 +104,83 @@ msgid ""
 " - Name: "
 msgstr ""
 "\n"
-" - Nome: "
+" - Ім'я: "
 
 #: extension.js:426
 msgid "Delay Time"
-msgstr "Tempo ritardo"
+msgstr "Час затримки"
 
 #: extension.js:432 extension.js:446
 msgid " Sec"
-msgstr " Sec"
+msgstr " сек"
 
 #: extension.js:575
 msgid "Start Recording"
-msgstr "Inizia Registrazione"
+msgstr "Почати запис"
 
 #: extension.js:594
 msgid "ERROR RECORDER - See logs for more info"
-msgstr "ERRORE RECORDER - visiona i logs per maggiori info"
+msgstr "ПОМИЛКА ЗАПИСУ - Більше детальна інформація в файлах журналу"
 
 #: extension.js:640
 msgid "Stop recording"
-msgstr "Ferma Registrazione"
+msgstr "Зупинити запис"
 
 #: extension.js:708
 msgid "EasyScreenCast -> Finish Recording / Seconds : "
-msgstr "EasyScreenCast -> Registrazione Terminata / Secondi : "
+msgstr "EasyScreenCast -> Запис завершено / Тривалість : "
 
 #: extension.js:713
 msgid "EasyScreenCast -> Recording in progress / Seconds passed : "
-msgstr "EasyScreenCast -> Registrazione in corso / Secondi passati : "
+msgstr "EasyScreenCast -> Йде запис / Тривалість : "
 
 #: selection.js:184
 msgid "Select an area for recording or press [ESC] to abort"
-msgstr "Seleziona l'area da registrare o premi [ESC] per annulare"
+msgstr "Виділіть область для запису [ESC] для відміни"
 
 #: selection.js:224
 msgid "Select an window for recording or press [ESC] to abort"
-msgstr "Seleziona la finestra da registrare o premi [ESC] per annulare"
+msgstr "Виберіть вікно для запису [ESC] для відміни"
 
 #: selection.js:309
 msgid "Select an desktop for recording or press [ESC] to abort"
-msgstr "Seleziona il desktop da registrare o premi [ESC] per annulare"
+msgstr "Виберіть робочий стіл для запису [ESC] для відміни"
 
 #: utilwebcam.js:189
 msgid "Unspecified webcam"
-msgstr "Webcam non specificata"
+msgstr ""
 
 #: Options_UI.glade.h:1
 msgid "Recording status indicators"
-msgstr "Stato degli indicatori durante la registrazione"
+msgstr "Індикатор статусу запису"
 
 #: Options_UI.glade.h:2
 msgid "Show alerts and notifications"
-msgstr "Mostra tempo di registrazione nella barra delle notifiche"
+msgstr "Показувати час запису на панелі сповіщень"
 
 #: Options_UI.glade.h:3
 msgid "Show a border around the area being recorded"
-msgstr "Mostra perimetro dell'area di registrazione"
+msgstr "Показувати обрамлення навколо області запису"
 
 #: Options_UI.glade.h:4
 msgid "To activate the change of the shortcut restart the extension"
-msgstr ""
-"Per attivare la nuova combinazione di tasti si deve riavviare l'estensione"
+msgstr "Для активації клавіатурних скорочень для швидкого доступу перезавантажте застосунок"
 
 #: Options_UI.glade.h:5
 msgid "Enable keyboard shortcut"
-msgstr "Abilita scorciatoia da tastiera"
+msgstr "Увімкнути клавіатурні скорочення для швидкого доступу"
 
 #: Options_UI.glade.h:6
 msgid "Shortcut combination"
-msgstr "Combinazione di tasti"
+msgstr "Клавіатурні скорочення для швидкого доступу"
 
 #: Options_UI.glade.h:7
 msgid "Draw cursor on screencast"
-msgstr "Registra cursore nel screencast"
+msgstr "Відображати курсор при запису"
 
 #: Options_UI.glade.h:8
 msgid "Execute command after recording"
-msgstr "Esegui comando dopo la registrazione"
+msgstr "Виконати команду після запису"
 
 #: Options_UI.glade.h:9
 msgid ""
@@ -195,38 +190,38 @@ msgid ""
 "file.\n"
 "_fname = the name of the screencast video file."
 msgstr ""
-"Queste parole verrano sostituite\n"
-" _fpath = percorso assoluto del file.\n"
-"_dirpath = percorso assoluto della cartella contenente il file.\n"
-"_fname = nome del file."
+"Ці змінні можуть бути замінені\n"
+" _fpath = повний шлях до записаного відеофайлу.\n"
+"_dirpath = повний шлях до каталогу розташування записаного відеофайлу.\n"
+"_fname = ім'я записаного відеофайлу."
 
 #: Options_UI.glade.h:13
 msgid "Command post-recording"
-msgstr "Comando post-registrazione"
+msgstr "Команда"
 
 #: Options_UI.glade.h:14
 msgid "Both  [ESC + Default]"
-msgstr "Entrambi [ESC + Default]"
+msgstr "Обидва [ESC + Поточний]"
 
 #: Options_UI.glade.h:15
 msgid "ESC only"
-msgstr "Solo ESC"
+msgstr "Лише ESC"
 
 #: Options_UI.glade.h:16
 msgid "Default only"
-msgstr "Solo Default"
+msgstr "Лише Поточний"
 
 #: Options_UI.glade.h:17
 msgid "Not any"
-msgstr "Nessuno"
+msgstr "Жодного"
 
 #: Options_UI.glade.h:19
 msgid "Custom GStreamer Pipeline"
-msgstr "GStreamer Pipeline personalizzata"
+msgstr "Власні налаштування GStreamer"
 
 #: Options_UI.glade.h:20
 msgid "No GSP description\n"
-msgstr "Nessuna descrizione della GSP\n"
+msgstr "No GSP description\n"
 
 #: Options_UI.glade.h:22
 msgid "PagePreset"
@@ -234,7 +229,7 @@ msgstr ""
 
 #: Options_UI.glade.h:23
 msgid "Frames Per Second"
-msgstr "Frames Per Second"
+msgstr "Кадрів в секунду"
 
 #: Options_UI.glade.h:24
 msgid "0"
@@ -242,27 +237,27 @@ msgstr "0"
 
 #: Options_UI.glade.h:25
 msgid "GStreamer Pipeline"
-msgstr "GStreamer Pipeline"
+msgstr "Фреймворк GStreamer"
 
 #: Options_UI.glade.h:26
 msgid ""
 "The extension does NOT handle the webcam and audio when you use a custom "
 "gstreamer pipeline.\n"
 msgstr ""
-"Questa estensione NON gestisce il flusso Audio e della Webcam quando si usa "
-"una gstreamer pipeline personalizzata.\n"
+"Розширення НЕ МОЖЕ використати веб-камеру та аудіо при при використанні "
+"користувацьких налаштувань GStreamer.\n"
 
 #: Options_UI.glade.h:28
 msgid "Official doc"
-msgstr "Doc ufficiale"
+msgstr "Офіційна документація"
 
 #: Options_UI.glade.h:29
 msgid "Wiki #1"
-msgstr "Wiki #1"
+msgstr "Вікі #1"
 
 #: Options_UI.glade.h:30
 msgid "Wiki #2"
-msgstr "Wiki #2"
+msgstr "Вікі #2"
 
 #: Options_UI.glade.h:31
 msgid "PageCustom"
@@ -270,63 +265,63 @@ msgstr ""
 
 #: Options_UI.glade.h:32
 msgid "Quality"
-msgstr "Qualità"
+msgstr "Якість"
 
 #: Options_UI.glade.h:35
 msgid "Type of unit of measure"
-msgstr "Tipo di unità di misura"
+msgstr "Одиниці вимірювання"
 
 #: Options_UI.glade.h:36
 msgid "Width"
-msgstr "Larghezza"
+msgstr "Ширина"
 
 #: Options_UI.glade.h:37
 msgid "Height"
-msgstr "Altezza"
+msgstr "Висота"
 
 #: Options_UI.glade.h:38
 msgid "Percentage"
-msgstr "Percentuale"
+msgstr "Відсотки"
 
 #: Options_UI.glade.h:39
 msgid "Pixel"
-msgstr "Pixel"
+msgstr "Пікселі"
 
 #: Options_UI.glade.h:40
 msgid "Size"
-msgstr "Dimensioni"
+msgstr "Розмір"
 
 #: Options_UI.glade.h:41
 msgid "Put the webcam in the corner"
-msgstr "Metti la webcam nell'angolo in"
+msgstr "Розмістити веб-камеру в кутку"
 
 #: Options_UI.glade.h:42
 msgid "Right-Bottom"
-msgstr "Basso a destra"
+msgstr "Внизу-справа"
 
 #: Options_UI.glade.h:43
 msgid "Left-Bottom"
-msgstr "Basso a sinistra"
+msgstr "Внизу-зліва"
 
 #: Options_UI.glade.h:44
 msgid "Right-Top"
-msgstr "Alto a destra"
+msgstr "Зверху-справа"
 
 #: Options_UI.glade.h:45
 msgid "Left-Top"
-msgstr "Alto a sinistra"
+msgstr "Зверху-зліва"
 
 #: Options_UI.glade.h:46
 msgid "Margin X"
-msgstr "Margine X"
+msgstr "Відступ X"
 
 #: Options_UI.glade.h:47
 msgid "Margin Y"
-msgstr "Margine Y"
+msgstr "Відступ Y"
 
 #: Options_UI.glade.h:48
 msgid "Alpha channel"
-msgstr "Canale Alpha"
+msgstr "Альфа-канал"
 
 #: Options_UI.glade.h:49
 msgid "0,00"
@@ -334,11 +329,11 @@ msgstr ""
 
 #: Options_UI.glade.h:50
 msgid "Position"
-msgstr "Posizione"
+msgstr "Позиція"
 
 #: Options_UI.glade.h:51
 msgid "WebCam"
-msgstr "WebCam"
+msgstr "Веб-камера"
 
 #: Options_UI.glade.h:52
 msgid ""
@@ -346,49 +341,50 @@ msgid ""
 "file will be saved in the $XDG_VIDEOS_DIR if it exists, or the home "
 "directory otherwise."
 msgstr ""
-"Seleziona la cartella in cui verrà salavto il file, se non specificata il "
-"file verrà salvato in $XDG_VIDEOS_DIR se esiste, altrimenti nella home."
+"Виберіть каталог для збереження файлу. Якщо каталог не заданий, файл "
+"буде збережено каталозі $XDG_VIDEOS_DIR, якщо він існує або в домашній"
+"теці."
 
 #: Options_UI.glade.h:53
 msgid "Destination folder"
-msgstr "Cartella di destinazione"
+msgstr "Каталог для збереження"
 
 #: Options_UI.glade.h:55
-#, no-c-format
+#, fuzzy, no-c-format
 msgid ""
 "The filename which may contain some escape sequences - %d and %t will be "
 "replaced by the start date and time of the recording."
 msgstr ""
-"Il nome del file può contenere dei caratteri speciali, %d e %t questi "
-"verranno sostituiti con la data e l'ora di inizio della registrazione."
+"ім'я файлу може мати змінні - %d та %t, які будуть замінені на"
+"дату і час запису відповідно."
 
 #: Options_UI.glade.h:56
 msgid "File name template"
-msgstr "Modello del nome del file"
+msgstr "Шаблон ім'я файлу"
 
 #: Options_UI.glade.h:57
 msgid "Select the destination folder"
-msgstr "Seleziona cartella di destinazione"
+msgstr "Виберіть каталог для збереження"
 
 #: Options_UI.glade.h:58
 msgid "File container"
-msgstr "Tipo di file"
+msgstr "Контейнер відеофайлу"
 
 #: Options_UI.glade.h:59
 msgid "File resolution"
-msgstr "Risoluzione del file"
+msgstr "Розширення відеофайлу"
 
 #: Options_UI.glade.h:60
 msgid "Native area resolution"
-msgstr "Risoluzione nativa dell'area di registrazione"
+msgstr "Поточне розширення екрану"
 
 #: Options_UI.glade.h:61
-msgid "Native"
-msgstr "Nativa"
+msgid "Поточне"
+msgstr ""
 
 #: Options_UI.glade.h:62
 msgid "Preset helper"
-msgstr "Lista predefiniti"
+msgstr ""
 
 #: Options_UI.glade.h:63
 msgid "HD [720p] [16:9]"
@@ -428,19 +424,19 @@ msgstr ""
 
 #: Options_UI.glade.h:72
 msgid "Preset"
-msgstr "Predefiniti"
+msgstr "Шаблон"
 
 #: Options_UI.glade.h:73
 msgid "keep original aspect ratio"
-msgstr "mantieni l' aspect-ratio originale"
+msgstr ""
 
 #: Options_UI.glade.h:74
 msgid "Custom"
-msgstr "Personalizzata"
+msgstr "Власне"
 
 #: Options_UI.glade.h:75
 msgid "File"
-msgstr "File"
+msgstr "Файл"
 
 #: Options_UI.glade.h:76
 msgid ""
@@ -449,14 +445,14 @@ msgid ""
 "$ journalctl --since=today --no-pager | grep js\n"
 "$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
 msgstr ""
-"Questa opzione abilità maggiori messaggi di debug, per visionarli esegui "
-"questi commandi nel terminale:\n"
-"$ journalctl /usr/bin/gnome-session --since=today | grep js \n"
+"Ця опція вмикає більше налагоджувальних повідомлень. Для їх перегляду введіть в "
+"терміналі:\n"
+"$ journalctl /usr/bin/gnome-session --since=today --no-pager | grep js\n"
 "$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
 
 #: Options_UI.glade.h:79
 msgid "Enable verbose debug"
-msgstr "Abilita maggiori messaggi di debug"
+msgstr "Увімкнути детальне налагодження"
 
 #: Options_UI.glade.h:80
 msgid ""
@@ -465,148 +461,83 @@ msgid ""
 "$ journalctl /usr/bin/gnome-session --since=today | grep js\n"
 "$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
 msgstr ""
-"Questa opzione abilità maggiori messaggi di debug, per visionarli esegui "
-"questi commandi nel terminale:\n"
-"$ journalctl /usr/bin/gnome-session --since=today | grep js \n"
+"Ця опція вмикає більше налагоджувальних повідомлень. Для їх перегляду введіть в "
+"терміналі:\n"
+"$ journalctl /usr/bin/gnome-session --since=today | grep js\n"
 "$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
 
 #: Options_UI.glade.h:83
 msgid "Get extension log"
-msgstr "Log estensione"
+msgstr "Отримати журнал відлагодження"
 
 #: Options_UI.glade.h:84
 msgid "Get the logs of the extension of the last 15 minutes."
-msgstr "Ottieni il log dell' estensione degli ultimi 15 minuti."
+msgstr "Отримайте журнали відлагодження за останні 15 хвилин."
 
 #: Options_UI.glade.h:85
 msgid "Get last GS pipeline"
-msgstr "Ultime Gstreamer pipeline"
+msgstr ""
 
 #: Options_UI.glade.h:86
 msgid "Get all complete Gstreamer pipeline of the last 15 minutes."
-msgstr "Ottieni le Gstreamer pipeline complete degli ultimi 15 minuti."
+msgstr ""
 
 #: Options_UI.glade.h:87
 msgid "Get Gnome log"
-msgstr "Log Gnome"
+msgstr "Отримати журнали відлагодження оболонки Gnome"
 
 #: Options_UI.glade.h:88
 msgid "Get the logs of gnome shell of the last 15 minutes."
-msgstr "Ottieni i logs di gnome shell degli utlimi 15 minuti."
+msgstr "Отримати журнали відлагодження оболонки Gnome за останні 15 хвилин."
 
 #: Options_UI.glade.h:89
 msgid "Restore default options"
-msgstr "Ripristina le opzioni di default"
+msgstr "Скинути налаштування за замовчуванням"
 
 #: Options_UI.glade.h:90
 msgid "Support"
-msgstr "Supporto"
+msgstr "Підтримка"
 
 #: Options_UI.glade.h:91
 msgid "EasyScreenCast"
-msgstr "EasyScreenCast"
+msgstr ""
 
 #: Options_UI.glade.h:92
 msgid "N/A"
-msgstr "N/A"
+msgstr ""
 
 #: Options_UI.glade.h:93
 msgid ""
 "This extension simplifies the use of the \n"
 "screen recorder  included in gnome shell"
 msgstr ""
-"This extension simplifies the use of the \n"
-"screen recorder  included in gnome shell"
+"Це розширення спрощує використання \n"
+"записування екрану в оболонці GNOME"
 
 #: Options_UI.glade.h:95
 msgid "This software is licensed under GPL v3"
-msgstr "Questo software è sotto licenza GPL v3"
+msgstr "Це програмне забезпечення, ліцензоване під GPL v3"
 
 #: Options_UI.glade.h:96
 msgid "Credits"
-msgstr "Crediti"
+msgstr "Внески"
 
 #: Options_UI.glade.h:97
 msgid "How to contribute?"
-msgstr "Come contribuire?"
+msgstr "Як зробити свій внесок?"
 
 #: Options_UI.glade.h:98
 msgid "With a translation"
-msgstr "Con una traduzione"
+msgstr "Перекласти на іншу мову"
 
 #: Options_UI.glade.h:99
 msgid "Reporting bugs"
-msgstr "Segnalando bugs"
+msgstr "Повідомити про помилку"
 
 #: Options_UI.glade.h:100
 msgid "Add code"
-msgstr "Migliorando il codice"
+msgstr "Долучитися"
 
 #: Options_UI.glade.h:101
 msgid "Info"
-msgstr "Info"
-
-#~ msgid "Open in the filesystem"
-#~ msgstr "Apri nel filesystem"
-
-#~ msgid "Replace standard indicator on status menu"
-#~ msgstr "Sostitiusci l'indicatore standard"
-
-#~ msgid "Show border"
-#~ msgstr "Mostra bordi"
-
-#~ msgid "Report [ Bugs / Feature Request / Issue ] here"
-#~ msgstr "Segnala [ Bugs / Nuove Funzionalità / Questioni ] qui"
-
-#~ msgid " sec"
-#~ msgstr " sec"
-
-#~ msgid "off"
-#~ msgstr "Spento"
-
-#~ msgid "Select area"
-#~ msgstr "Seleziona area"
-
-#~ msgid "<b>Options</b>"
-#~ msgstr "<b>Opzioni</b>"
-
-#~ msgid "Input source Audio"
-#~ msgstr "Sorgenti di ingresso audio"
-
-#~ msgid ""
-#~ "The word $AbsFilePath will replace by the absolute path of the screencast "
-#~ "video file."
-#~ msgstr ""
-#~ "La parola _fpath verrà sostituita dal percorso assoluto del file video "
-#~ "del screencast."
-
-#~ msgid "<b>Screencast options</b>"
-#~ msgstr "<b>Opzioni Screencast</b>"
-
-#~ msgid "The file is saved in the path : "
-#~ msgstr "Il file verrà salvato nel percorso: "
-
-#~ msgid "Choose a directory"
-#~ msgstr "Scegli una cartella"
-
-#~ msgid "<b>File screencast</b>"
-#~ msgstr "<b>Screencast file</b>"
-
-#~ msgid ""
-#~ "The extension handles audio and webcam support  only if is NOT used a "
-#~ "custom gstreamer pipeline .\n"
-#~ "GStreamer is a pipeline-based multimedia allows a programmer to create a "
-#~ "variety of media-handling components, including simple audio playback, "
-#~ "audio and video playback, recording, streaming and editing.Below some "
-#~ "useful links."
-#~ msgstr ""
-#~ "Questa estensione gestisce il supporto audio e della webcam solamente se "
-#~ "NON si usa una gstreamer pipeline personalizzata.\n"
-#~ "GStreamer è una piattaforma software altamente modulare utilizzata per "
-#~ "creare applicazioni multimediali. L'idea alla base della concezione di "
-#~ "GStreamer è la pipeline: questo termine (in inglese significa tubatura) è "
-#~ "usato per indicare un insieme di elementi collegati uno in serie "
-#~ "all'altro. Qui sotto qualche link utile per capirne il funzionamento."
-
-#~ msgid "<b>GStreamer Pipeline</b>"
-#~ msgstr "<b>GStreamer Pipeline</b>"
+msgstr "Інформація"

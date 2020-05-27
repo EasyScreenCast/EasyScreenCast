@@ -1,0 +1,1844 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.20.1 -->
+<interface>
+  <requires lib="gtk+" version="3.16"/>
+  <object class="GtkListStore" id="liststore_KeyShortcut">
+    <columns>
+      <!-- column-name key -->
+      <column type="gint"/>
+      <!-- column-name mods -->
+      <column type="gint"/>
+    </columns>
+  </object>
+  <object class="GtkListStore" id="liststore_QualityWebCam">
+    <columns>
+      <!-- column-name webcamcap -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
+  <object class="GtkBox" id="Main_Container">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="margin_bottom">5</property>
+    <child>
+      <object class="GtkStackSidebar" id="sts_SideBar">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="stack">stk_Main</property>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">False</property>
+        <property name="position">0</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkStack" id="stk_Main">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="transition_duration">800</property>
+        <property name="transition_type">slide-left-right</property>
+        <child>
+          <object class="GtkFrame" id="frame1">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label_xalign">0</property>
+            <property name="shadow_type">none</property>
+            <child>
+              <object class="GtkAlignment" id="alignment1">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="bottom_padding">15</property>
+                <property name="left_padding">15</property>
+                <property name="right_padding">15</property>
+                <child>
+                  <object class="GtkGrid" id="grid1">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="row_spacing">18</property>
+                    <property name="column_spacing">15</property>
+                    <child>
+                      <object class="GtkLabel" id="label13">
+                        <property name="width_request">-1</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="halign">end</property>
+                        <property name="margin_top">4</property>
+                        <property name="hexpand">True</property>
+                        <property name="label" translatable="yes">Recording status indicators</property>
+                        <property name="justify">right</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">0</property>
+                        <property name="top_attach">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label24">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="halign">end</property>
+                        <property name="hexpand">True</property>
+                        <property name="label" translatable="yes">Show alerts and notifications</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">0</property>
+                        <property name="top_attach">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSwitch" id="swt_ShowNotifyAlert">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="halign">start</property>
+                        <property name="hexpand">True</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">1</property>
+                        <property name="top_attach">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label25">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="halign">end</property>
+                        <property name="hexpand">True</property>
+                        <property name="label" translatable="yes">Show a border around the area being recorded</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">0</property>
+                        <property name="top_attach">2</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSwitch" id="swt_ShowAreaRec">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="halign">start</property>
+                        <property name="hexpand">True</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">1</property>
+                        <property name="top_attach">2</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label10">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="tooltip_text" translatable="yes">To activate the change of the shortcut restart the extension</property>
+                        <property name="halign">end</property>
+                        <property name="hexpand">True</property>
+                        <property name="label" translatable="yes">Enable keyboard shortcut</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">0</property>
+                        <property name="top_attach">3</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkViewport" id="viewport_KeyShortcut">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="tooltip_text" translatable="yes">To activate the change of the shortcut restart the extension</property>
+                        <child>
+                          <object class="GtkTreeView" id="treeview_KeyShortcut">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="tooltip_text" translatable="yes">To activate the change of the shortcut restart the extension</property>
+                            <property name="model">liststore_KeyShortcut</property>
+                            <property name="headers_visible">False</property>
+                            <property name="search_column">0</property>
+                            <child internal-child="selection">
+                              <object class="GtkTreeSelection"/>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="left_attach">1</property>
+                        <property name="top_attach">4</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkComboBoxText" id="cbt_StatusIndicatorsRec">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <items>
+                          <item id="0" translatable="yes">Both  [ESC + Default]</item>
+                          <item id="1" translatable="yes">ESC only</item>
+                          <item id="2" translatable="yes">Default only</item>
+                          <item id="3" translatable="yes">Not any</item>
+                        </items>
+                      </object>
+                      <packing>
+                        <property name="left_attach">1</property>
+                        <property name="top_attach">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label18">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="tooltip_text" translatable="yes">These words will be replaced
+ _fpath = the absolute path of the screencast video file.
+_dirpath = the absolute path of destination folder for the screencast video file.
+_fname = the name of the screencast video file.</property>
+                        <property name="halign">end</property>
+                        <property name="hexpand">True</property>
+                        <property name="label" translatable="yes">Command post-recording</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">0</property>
+                        <property name="top_attach">9</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkEntry" id="txe_postcmd">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="tooltip_text" translatable="yes">These words will be replaced
+ _fpath = the absolute path of the screencast video file.
+_dirpath = the absolute path of destination folder for the screencast video file.
+_fname = the name of the screencast video file.</property>
+                        <property name="hexpand">True</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">1</property>
+                        <property name="top_attach">9</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label14">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="halign">end</property>
+                        <property name="hexpand">True</property>
+                        <property name="label" translatable="yes">Execute command after recording</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">0</property>
+                        <property name="top_attach">8</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSwitch" id="swt_executepostcmd">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="halign">start</property>
+                        <property name="hexpand">False</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">1</property>
+                        <property name="top_attach">8</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSwitch" id="swt_DrawCursorRec">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="halign">start</property>
+                        <property name="hexpand">True</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">1</property>
+                        <property name="top_attach">5</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="textentry1">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="halign">end</property>
+                        <property name="hexpand">True</property>
+                        <property name="label" translatable="yes">Draw cursor on screencast</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">0</property>
+                        <property name="top_attach">5</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="height_request">1</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="halign">end</property>
+                        <property name="hexpand">True</property>
+                        <property name="label" translatable="yes">Active shortcut</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">0</property>
+                        <property name="top_attach">4</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSwitch" id="swt_KeyShortcut">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="tooltip_text" translatable="yes">To activate the change of the shortcut restart the extension</property>
+                        <property name="halign">start</property>
+                        <property name="hexpand">True</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">1</property>
+                        <property name="top_attach">3</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label19">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="halign">end</property>
+                        <property name="hexpand">True</property>
+                        <property name="label" translatable="yes">Execute command before recording</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">0</property>
+                        <property name="top_attach">6</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSwitch" id="swt_executeprecmd">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="halign">start</property>
+                        <property name="hexpand">False</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">1</property>
+                        <property name="top_attach">6</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label26">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="tooltip_text" translatable="yes">These words will be replaced
+_dirpath = the absolute path of destination folder for the screencast video file.</property>
+                        <property name="halign">end</property>
+                        <property name="hexpand">True</property>
+                        <property name="label" translatable="yes">Command pre-recording</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">0</property>
+                        <property name="top_attach">7</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkEntry" id="txe_precmd">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="tooltip_text" translatable="yes">These words will be replaced
+_dirpath = the absolute path of destination folder for the screencast video file.</property>
+                        <property name="hexpand">True</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">1</property>
+                        <property name="top_attach">7</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child type="label">
+              <object class="GtkLabel" id="label4">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="name">page0</property>
+            <property name="title" translatable="yes">Options</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkFrame" id="frame2">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label_xalign">0</property>
+            <property name="shadow_type">none</property>
+            <child>
+              <object class="GtkAlignment" id="alignment2">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="bottom_padding">15</property>
+                <property name="left_padding">15</property>
+                <property name="right_padding">15</property>
+                <child>
+                  <object class="GtkBox" id="box1">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="orientation">vertical</property>
+                    <child>
+                      <object class="GtkGrid" id="grid3">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="row_spacing">18</property>
+                        <property name="column_spacing">15</property>
+                        <child>
+                          <object class="GtkLabel" id="textentry26">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="halign">end</property>
+                            <property name="hexpand">True</property>
+                            <property name="label" translatable="yes">Custom GStreamer Pipeline</property>
+                          </object>
+                          <packing>
+                            <property name="left_attach">0</property>
+                            <property name="top_attach">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkSwitch" id="swt_EnableCustomGSP">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="halign">start</property>
+                            <property name="hexpand">True</property>
+                          </object>
+                          <packing>
+                            <property name="left_attach">1</property>
+                            <property name="top_attach">0</property>
+                          </packing>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSeparator" id="separator1">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="padding">10</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkStack" id="stk_Quality">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="transition_duration">800</property>
+                        <property name="transition_type">slide-up-down</property>
+                        <child>
+                          <object class="GtkBox" id="box9">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="valign">start</property>
+                            <property name="orientation">vertical</property>
+                            <child>
+                              <object class="GtkBox" id="box3">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <child>
+                                  <object class="GtkImage" id="img_Performance">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="halign">start</property>
+                                    <property name="stock">gtk-missing-image</property>
+                                    <property name="icon_size">0</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">False</property>
+                                    <property name="position">0</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkImage" id="img_Quality">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="halign">end</property>
+                                    <property name="stock">gtk-missing-image</property>
+                                    <property name="icon_size">0</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">False</property>
+                                    <property name="pack_type">end</property>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">False</property>
+                                <property name="padding">1</property>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkScale" id="scl_Quality">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="margin_bottom">18</property>
+                                <property name="fill_level">5</property>
+                                <property name="digits">0</property>
+                                <property name="draw_value">False</property>
+                                <property name="has_origin">False</property>
+                                <property name="value_pos">bottom</property>
+                              </object>
+                              <packing>
+                                <property name="expand">True</property>
+                                <property name="fill">False</property>
+                                <property name="position">1</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="lbl_GSP_Description">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="halign">center</property>
+                                <property name="vexpand">True</property>
+                                <property name="label" translatable="yes">No GSP description
+</property>
+                                <property name="wrap">True</property>
+                                <property name="wrap_mode">word-char</property>
+                                <property name="ellipsize">end</property>
+                              </object>
+                              <packing>
+                                <property name="expand">True</property>
+                                <property name="fill">True</property>
+                                <property name="position">2</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="name">pg_Preset</property>
+                            <property name="title" translatable="yes">PagePreset</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkBox" id="box10">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="orientation">vertical</property>
+                            <child>
+                              <object class="GtkGrid" id="grid66">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="row_spacing">18</property>
+                                <property name="column_spacing">15</property>
+                                <child>
+                                  <object class="GtkLabel" id="label7">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="halign">end</property>
+                                    <property name="hexpand">True</property>
+                                    <property name="label" translatable="yes">Frames Per Second</property>
+                                  </object>
+                                  <packing>
+                                    <property name="left_attach">0</property>
+                                    <property name="top_attach">0</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkSpinButton" id="spb_FrameRateRec">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="halign">start</property>
+                                    <property name="hexpand">True</property>
+                                    <property name="invisible_char">●</property>
+                                    <property name="text" translatable="yes">0</property>
+                                    <property name="climb_rate">1</property>
+                                  </object>
+                                  <packing>
+                                    <property name="left_attach">1</property>
+                                    <property name="top_attach">0</property>
+                                  </packing>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">False</property>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkFrame" id="frame104">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="margin_bottom">10</property>
+                                <property name="label_xalign">0.10000000149011612</property>
+                                <child>
+                                  <object class="GtkAlignment" id="alignment160">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="left_padding">5</property>
+                                    <property name="right_padding">5</property>
+                                    <child>
+                                      <object class="GtkScrolledWindow" id="scrolledwindow2">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <child>
+                                          <object class="GtkTextView" id="txe_CommandStringRec">
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">True</property>
+                                            <property name="margin_top">5</property>
+                                            <property name="margin_bottom">5</property>
+                                            <property name="hexpand">True</property>
+                                            <property name="vexpand">True</property>
+                                            <property name="wrap_mode">word-char</property>
+                                            <property name="accepts_tab">False</property>
+                                          </object>
+                                        </child>
+                                      </object>
+                                    </child>
+                                  </object>
+                                </child>
+                                <child type="label">
+                                  <object class="GtkLabel" id="label266">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="label" translatable="yes">GStreamer Pipeline</property>
+                                  </object>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="expand">True</property>
+                                <property name="fill">True</property>
+                                <property name="position">1</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkBox" id="box46">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="valign">start</property>
+                                <property name="orientation">vertical</property>
+                                <child>
+                                  <object class="GtkLabel" id="label146">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="halign">start</property>
+                                    <property name="label" translatable="yes">The extension does NOT handle the webcam and audio when you use a custom gstreamer pipeline.
+</property>
+                                    <property name="wrap">True</property>
+                                    <attributes>
+                                      <attribute name="weight" value="bold"/>
+                                      <attribute name="foreground" value="#efef29292929"/>
+                                    </attributes>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">0</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkBox" id="box8">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <child>
+                                      <object class="GtkLinkButton" id="linkbutton1">
+                                        <property name="label" translatable="yes">Official doc</property>
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="receives_default">True</property>
+                                        <property name="relief">none</property>
+                                        <property name="uri">http://gstreamer.freedesktop.org/documentation/plugins.html</property>
+                                        <property name="visited">True</property>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">True</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">0</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkLinkButton" id="linkbutton2">
+                                        <property name="label" translatable="yes">Wiki #1</property>
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="receives_default">True</property>
+                                        <property name="relief">none</property>
+                                        <property name="uri">http://processors.wiki.ti.com/index.php/Example_GStreamer_Pipelines</property>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">True</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">1</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkLinkButton" id="linkbutton3">
+                                        <property name="label" translatable="yes">Wiki #2</property>
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="receives_default">True</property>
+                                        <property name="relief">none</property>
+                                        <property name="uri">http://wiki.oz9aec.net/index.php/Gstreamer_Cheat_Sheet</property>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">True</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">2</property>
+                                      </packing>
+                                    </child>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">False</property>
+                                <property name="position">2</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="name">pg_Custom</property>
+                            <property name="title" translatable="yes">PageCustom</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
+                        <property name="position">2</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child type="label">
+              <object class="GtkLabel" id="label5">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="name">page1</property>
+            <property name="title" translatable="yes">Quality</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkFrame" id="frame3">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label_xalign">0</property>
+            <property name="shadow_type">none</property>
+            <child>
+              <object class="GtkAlignment" id="alignment3">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="bottom_padding">15</property>
+                <property name="left_padding">15</property>
+                <property name="right_padding">15</property>
+                <child>
+                  <object class="GtkBox" id="box5">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="orientation">vertical</property>
+                    <child>
+                      <object class="GtkLabel" id="lbl_Webcam">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">No webcam device selected</property>
+                        <property name="justify">center</property>
+                        <attributes>
+                          <attribute name="weight" value="bold"/>
+                          <attribute name="stretch" value="semi-expanded"/>
+                        </attributes>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="lbl_WebcamCaps">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="halign">center</property>
+                        <property name="hexpand">False</property>
+                        <property name="label" translatable="yes">-</property>
+                        <property name="justify">center</property>
+                        <property name="ellipsize">end</property>
+                        <property name="single_line_mode">True</property>
+                        <property name="track_visited_links">False</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSeparator" id="separator3">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="padding">10</property>
+                        <property name="position">2</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkStackSwitcher" id="sts_Webcam">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="halign">center</property>
+                        <property name="hexpand">True</property>
+                        <property name="stack">stk_Webcam</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="padding">15</property>
+                        <property name="position">3</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkStack" id="stk_Webcam">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="hexpand">True</property>
+                        <property name="vexpand">True</property>
+                        <property name="transition_duration">800</property>
+                        <property name="transition_type">slide-up-down</property>
+                        <child>
+                          <object class="GtkScrolledWindow" id="scrolledwindow1">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="shadow_type">in</property>
+                            <child>
+                              <object class="GtkTreeView" id="treeview_QualityWebam">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="hexpand">True</property>
+                                <property name="vexpand">True</property>
+                                <property name="model">liststore_QualityWebCam</property>
+                                <property name="search_column">1</property>
+                                <property name="enable_grid_lines">horizontal</property>
+                                <child internal-child="selection">
+                                  <object class="GtkTreeSelection"/>
+                                </child>
+                              </object>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="name">pg_quality_webcam</property>
+                            <property name="title" translatable="yes">Quality</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkGrid" id="grid5">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="row_spacing">18</property>
+                            <property name="column_spacing">15</property>
+                            <child>
+                              <object class="GtkLabel" id="label2">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="halign">end</property>
+                                <property name="hexpand">True</property>
+                                <property name="label" translatable="yes">Type of unit of measure</property>
+                              </object>
+                              <packing>
+                                <property name="left_attach">0</property>
+                                <property name="top_attach">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="label3">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="halign">end</property>
+                                <property name="hexpand">True</property>
+                                <property name="label" translatable="yes">Width</property>
+                              </object>
+                              <packing>
+                                <property name="left_attach">0</property>
+                                <property name="top_attach">1</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="label16">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="halign">end</property>
+                                <property name="hexpand">True</property>
+                                <property name="label" translatable="yes">Height</property>
+                              </object>
+                              <packing>
+                                <property name="left_attach">0</property>
+                                <property name="top_attach">2</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkSpinButton" id="spb_WebCamWidth">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="halign">start</property>
+                                <property name="hexpand">True</property>
+                                <property name="input_purpose">number</property>
+                                <property name="numeric">True</property>
+                              </object>
+                              <packing>
+                                <property name="left_attach">1</property>
+                                <property name="top_attach">1</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkSpinButton" id="spb_WebCamHeight">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="halign">start</property>
+                                <property name="hexpand">True</property>
+                                <property name="input_purpose">number</property>
+                                <property name="numeric">True</property>
+                              </object>
+                              <packing>
+                                <property name="left_attach">1</property>
+                                <property name="top_attach">2</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkComboBoxText" id="cbt_WebCamUnitMeasure">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="halign">start</property>
+                                <property name="hexpand">True</property>
+                                <items>
+                                  <item id="0" translatable="yes">Percentage</item>
+                                  <item id="1" translatable="yes">Pixel</item>
+                                </items>
+                              </object>
+                              <packing>
+                                <property name="left_attach">1</property>
+                                <property name="top_attach">0</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="name">pg_size_webcam</property>
+                            <property name="title" translatable="yes">Size</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkGrid" id="grid4">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="row_spacing">18</property>
+                            <property name="column_spacing">15</property>
+                            <child>
+                              <object class="GtkLabel" id="label20">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="halign">end</property>
+                                <property name="hexpand">True</property>
+                                <property name="label" translatable="yes">Put the webcam in the corner</property>
+                              </object>
+                              <packing>
+                                <property name="left_attach">0</property>
+                                <property name="top_attach">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkComboBoxText" id="cbt_WebCamCorner">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="halign">start</property>
+                                <property name="hexpand">True</property>
+                                <items>
+                                  <item id="0" translatable="yes">Right-Bottom</item>
+                                  <item id="1" translatable="yes">Left-Bottom</item>
+                                  <item id="2" translatable="yes">Right-Top</item>
+                                  <item id="3" translatable="yes">Left-Top</item>
+                                </items>
+                              </object>
+                              <packing>
+                                <property name="left_attach">1</property>
+                                <property name="top_attach">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="label21">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="halign">end</property>
+                                <property name="hexpand">True</property>
+                                <property name="label" translatable="yes">Margin X</property>
+                              </object>
+                              <packing>
+                                <property name="left_attach">0</property>
+                                <property name="top_attach">1</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkSpinButton" id="spb_WebCamMarginX">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="halign">start</property>
+                                <property name="hexpand">True</property>
+                                <property name="input_purpose">number</property>
+                                <property name="numeric">True</property>
+                              </object>
+                              <packing>
+                                <property name="left_attach">1</property>
+                                <property name="top_attach">1</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="label22">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="halign">end</property>
+                                <property name="hexpand">True</property>
+                                <property name="label" translatable="yes">Margin Y</property>
+                              </object>
+                              <packing>
+                                <property name="left_attach">0</property>
+                                <property name="top_attach">2</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkSpinButton" id="spb_WebCamMarginY">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="halign">start</property>
+                                <property name="hexpand">False</property>
+                                <property name="input_purpose">number</property>
+                                <property name="numeric">True</property>
+                              </object>
+                              <packing>
+                                <property name="left_attach">1</property>
+                                <property name="top_attach">2</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="label23">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="halign">end</property>
+                                <property name="hexpand">True</property>
+                                <property name="label" translatable="yes">Alpha channel</property>
+                              </object>
+                              <packing>
+                                <property name="left_attach">0</property>
+                                <property name="top_attach">3</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkSpinButton" id="spb_WebCamAlpha">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="halign">start</property>
+                                <property name="hexpand">True</property>
+                                <property name="text" translatable="yes">0,00</property>
+                                <property name="climb_rate">0.050000000000000003</property>
+                                <property name="digits">2</property>
+                                <property name="numeric">True</property>
+                              </object>
+                              <packing>
+                                <property name="left_attach">1</property>
+                                <property name="top_attach">3</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="name">pg_position_webcam</property>
+                            <property name="title" translatable="yes">Position</property>
+                            <property name="position">2</property>
+                          </packing>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">4</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child type="label">
+              <object class="GtkLabel" id="label6">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="name">page2</property>
+            <property name="title" translatable="yes">WebCam</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkFrame" id="frame">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label_xalign">0</property>
+            <property name="shadow_type">none</property>
+            <child>
+              <object class="GtkAlignment" id="alignment5">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="bottom_padding">15</property>
+                <property name="left_padding">15</property>
+                <property name="right_padding">15</property>
+                <child>
+                  <object class="GtkGrid" id="grid2">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="row_spacing">18</property>
+                    <property name="column_spacing">15</property>
+                    <child>
+                      <object class="GtkLabel" id="lbl_kjkhkhhkhjk">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="tooltip_text" translatable="yes">Select the folder where the file is saved, if not specific a folder  the file will be saved in the $XDG_VIDEOS_DIR if it exists, or the home directory otherwise.</property>
+                        <property name="halign">end</property>
+                        <property name="hexpand">True</property>
+                        <property name="label" translatable="yes">Destination folder</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">0</property>
+                        <property name="top_attach">3</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label17">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="tooltip_text" translatable="yes">The filename which may contain some escape sequences - %d and %t will be replaced by the start date and time of the recording.</property>
+                        <property name="halign">end</property>
+                        <property name="hexpand">True</property>
+                        <property name="label" translatable="yes">File name template</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">0</property>
+                        <property name="top_attach">2</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkEntry" id="txe_FileNameRec">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="can_default">True</property>
+                        <property name="has_default">True</property>
+                        <property name="receives_default">True</property>
+                        <property name="tooltip_text" translatable="yes">The filename which may contain some escape sequences - %d and %t will be replaced by the start date and time of the recording.</property>
+                        <property name="hexpand">True</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">1</property>
+                        <property name="top_attach">2</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkFileChooserButton" id="fcb_FilePathRec">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="tooltip_text" translatable="yes">Select the folder where the file is saved, if not specific a folder  the file will be saved in the $XDG_VIDEOS_DIR if it exists, or the home directory otherwise.</property>
+                        <property name="action">select-folder</property>
+                        <property name="title" translatable="yes">Select the destination folder</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">1</property>
+                        <property name="top_attach">3</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label11">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="halign">end</property>
+                        <property name="hexpand">True</property>
+                        <property name="label" translatable="yes">File container</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">0</property>
+                        <property name="top_attach">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label15">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="halign">end</property>
+                        <property name="hexpand">True</property>
+                        <property name="label" translatable="yes">File resolution</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">0</property>
+                        <property name="top_attach">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkComboBoxText" id="cbt_FileContainer">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <items>
+                          <item id="0">WebM  [VP8 encoder]</item>
+                          <item id="4">WebM  [VP9 encoder]</item>
+                          <item id="1">Mp4  [x264 encoder]</item>
+                          <item id="2">Mkv  [x264 encoder]</item>
+                          <item id="3">Ogg  [Theora encoder]</item>
+                        </items>
+                      </object>
+                      <packing>
+                        <property name="left_attach">1</property>
+                        <property name="top_attach">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="orientation">vertical</property>
+                        <child>
+                          <object class="GtkStackSwitcher" id="sts_FileResolution">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="halign">center</property>
+                            <property name="hexpand">True</property>
+                            <property name="stack">stk_FileResolution</property>
+                          </object>
+                          <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkStack" id="stk_FileResolution">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="margin_top">10</property>
+                            <property name="vhomogeneous">False</property>
+                            <property name="transition_duration">800</property>
+                            <property name="transition_type">slide-up-down</property>
+                            <property name="interpolate_size">True</property>
+                            <child>
+                              <object class="GtkLabel" id="chd_FileResolution_Native">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">Native area resolution</property>
+                                <attributes>
+                                  <attribute name="foreground" value="#cccc00000000"/>
+                                </attributes>
+                              </object>
+                              <packing>
+                                <property name="name">native</property>
+                                <property name="title" translatable="yes">Native</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkGrid" id="chd_FileResolution_Preset">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="margin_top">5</property>
+                                <property name="row_spacing">18</property>
+                                <property name="column_spacing">15</property>
+                                <child>
+                                  <object class="GtkLabel">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="halign">end</property>
+                                    <property name="hexpand">True</property>
+                                    <property name="label" translatable="yes">Preset helper</property>
+                                  </object>
+                                  <packing>
+                                    <property name="left_attach">0</property>
+                                    <property name="top_attach">0</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkComboBoxText" id="cbt_FileResolution">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="halign">start</property>
+                                    <property name="hexpand">True</property>
+                                    <items>
+                                      <item id="0">VGA [480p] [4:3]</item>
+                                      <item id="1">FWVGA [480p] [16:9]</item>
+                                      <item id="2">SVGA [600p] [4:3]</item>
+                                      <item id="3">SMPTE [720p] [4:3]</item>
+                                      <item id="4" translatable="yes">HD [720p] [16:9]</item>
+                                      <item id="5" translatable="yes">XGA [768p] [4:3]</item>
+                                      <item id="6" translatable="yes">HD ready [768p] [16:9]</item>
+                                      <item id="7" translatable="yes">SXGA [1024p] [5:4]</item>
+                                      <item id="8" translatable="yes">Full HD [1080p] [16:9]</item>
+                                      <item id="9" translatable="yes">UXGA [1200p] [4:3]</item>
+                                      <item id="10" translatable="yes">QHD [1440p] [16:9]</item>
+                                      <item id="11" translatable="yes">QSXGA [2048p] [5:4]</item>
+                                      <item id="12" translatable="yes">4K [2160p] [16:9]</item>
+                                    </items>
+                                  </object>
+                                  <packing>
+                                    <property name="left_attach">1</property>
+                                    <property name="top_attach">0</property>
+                                  </packing>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="name">preset</property>
+                                <property name="title" translatable="yes">Preset</property>
+                                <property name="position">1</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkBox" id="chd_FileResolution_Custom">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="orientation">vertical</property>
+                                <child>
+                                  <object class="GtkGrid" id="grid6">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="margin_top">5</property>
+                                    <property name="row_spacing">18</property>
+                                    <property name="column_spacing">15</property>
+                                    <child>
+                                      <object class="GtkLabel">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="halign">end</property>
+                                        <property name="hexpand">True</property>
+                                        <property name="label" translatable="yes">Width</property>
+                                      </object>
+                                      <packing>
+                                        <property name="left_attach">0</property>
+                                        <property name="top_attach">0</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkSpinButton" id="spb_ResWidth">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="halign">start</property>
+                                        <property name="hexpand">True</property>
+                                      </object>
+                                      <packing>
+                                        <property name="left_attach">1</property>
+                                        <property name="top_attach">0</property>
+                                      </packing>
+                                    </child>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">0</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkScale" id="scl_ResWidth">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="round_digits">1</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">True</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkGrid" id="grid7">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="margin_top">5</property>
+                                    <property name="row_spacing">18</property>
+                                    <property name="column_spacing">15</property>
+                                    <child>
+                                      <object class="GtkLabel">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="halign">end</property>
+                                        <property name="hexpand">True</property>
+                                        <property name="label" translatable="yes">Height</property>
+                                      </object>
+                                      <packing>
+                                        <property name="left_attach">0</property>
+                                        <property name="top_attach">0</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkSpinButton" id="spb_ResHeight">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="halign">start</property>
+                                        <property name="hexpand">True</property>
+                                      </object>
+                                      <packing>
+                                        <property name="left_attach">1</property>
+                                        <property name="top_attach">0</property>
+                                      </packing>
+                                    </child>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">2</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkScale" id="scl_ResHeight">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="round_digits">1</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">True</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">3</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkCheckButton" id="chb_FileResolution_kar">
+                                    <property name="label" translatable="yes">keep original aspect ratio</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="receives_default">False</property>
+                                    <property name="halign">center</property>
+                                    <property name="margin_top">5</property>
+                                    <property name="draw_indicator">True</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">True</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">4</property>
+                                  </packing>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="name">custom</property>
+                                <property name="title" translatable="yes">Custom</property>
+                                <property name="position">2</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="left_attach">1</property>
+                        <property name="top_attach">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child type="label">
+              <object class="GtkLabel" id="label8">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="name">page3</property>
+            <property name="title" translatable="yes">File</property>
+            <property name="position">3</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkFrame" id="frame5">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label_xalign">0</property>
+            <property name="shadow_type">none</property>
+            <child>
+              <object class="GtkAlignment" id="alignment6">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="bottom_padding">15</property>
+                <property name="left_padding">15</property>
+                <property name="right_padding">15</property>
+                <child>
+                  <object class="GtkBox">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="orientation">vertical</property>
+                    <child>
+                      <object class="GtkGrid" id="grid8">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="margin_bottom">5</property>
+                        <property name="row_spacing">18</property>
+                        <property name="column_spacing">15</property>
+                        <child>
+                          <object class="GtkLabel" id="label9">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="tooltip_text" translatable="yes">This option enable more debug message, to view these run this command into a terminal:
+$ journalctl --since=today --no-pager | grep js
+$ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
+                            <property name="halign">end</property>
+                            <property name="hexpand">True</property>
+                            <property name="label" translatable="yes">Enable verbose debug</property>
+                          </object>
+                          <packing>
+                            <property name="left_attach">0</property>
+                            <property name="top_attach">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkSwitch" id="swt_VerboseDebug">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="tooltip_text" translatable="yes">This option enable more debug message, to view these run this command into a terminal:
+$ journalctl /usr/bin/gnome-session --since=today | grep js
+$ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
+                            <property name="halign">start</property>
+                            <property name="hexpand">True</property>
+                          </object>
+                          <packing>
+                            <property name="left_attach">1</property>
+                            <property name="top_attach">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkComboBoxText" id="cbt_LogChooser">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="halign">start</property>
+                            <property name="margin_bottom">5</property>
+                            <property name="hexpand">False</property>
+                            <items>
+                              <item id="0" translatable="yes">extension</item>
+                              <item id="1" translatable="yes">last Gstreamer pipeline</item>
+                              <item id="2" translatable="yes">gnome shell</item>
+                            </items>
+                          </object>
+                          <packing>
+                            <property name="left_attach">1</property>
+                            <property name="top_attach">1</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="label12">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="tooltip_text" translatable="yes">This option enable more debug message, to view these run this command into a terminal:
+$ journalctl --since=today --no-pager | grep js
+$ dbus-monitor "interface=org.gnome.Shell.Screencast"</property>
+                            <property name="halign">end</property>
+                            <property name="hexpand">True</property>
+                            <property name="label" translatable="yes">Display the log of</property>
+                          </object>
+                          <packing>
+                            <property name="left_attach">0</property>
+                            <property name="top_attach">1</property>
+                          </packing>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkScrolledWindow">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="shadow_type">in</property>
+                        <child>
+                          <object class="GtkTextView" id="txe_ContainerLog">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="editable">False</property>
+                            <property name="monospace">True</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSeparator">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="margin_top">5</property>
+                        <property name="margin_bottom">5</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">2</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="btn_DefaultOption">
+                        <property name="label" translatable="yes">Restore default options</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <property name="image_position">top</property>
+                        <property name="always_show_image">True</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
+                        <property name="pack_type">end</property>
+                        <property name="position">3</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child type="label">
+              <object class="GtkLabel" id="label1">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="name">page5</property>
+            <property name="title" translatable="yes">Support</property>
+            <property name="position">4</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkFrame" id="frame4">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label_xalign">0</property>
+            <property name="shadow_type">none</property>
+            <child>
+              <object class="GtkAlignment" id="alignment4">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="bottom_padding">15</property>
+                <property name="left_padding">15</property>
+                <property name="right_padding">15</property>
+                <child>
+                  <object class="GtkBox">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="orientation">vertical</property>
+                    <child>
+                      <object class="GtkImage" id="img_ESC">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="stock">gtk-missing-image</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">EasyScreenCast</property>
+                        <attributes>
+                          <attribute name="weight" value="ultrabold"/>
+                          <attribute name="stretch" value="ultra-expanded"/>
+                          <attribute name="foreground" value="#20204a4a8787"/>
+                        </attributes>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="lbl_Version">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="has_focus">True</property>
+                        <property name="halign">center</property>
+                        <property name="margin_bottom">10</property>
+                        <property name="hexpand">True</property>
+                        <property name="label" translatable="yes">N/A</property>
+                        <property name="selectable">True</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">2</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSeparator">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">3</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="margin_top">15</property>
+                        <property name="margin_bottom">15</property>
+                        <property name="label" translatable="yes">This extension simplifies the use of the 
+screen recorder  included in gnome shell</property>
+                        <property name="justify">center</property>
+                        <property name="ellipsize">middle</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
+                        <property name="position">4</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSeparator">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">5</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLinkButton" id="btnlink_license">
+                        <property name="label" translatable="yes">This software is licensed under GPL v3</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <property name="relief">none</property>
+                        <property name="uri">https://github.com/EasyScreenCast/EasyScreenCast/blob/master/COPYING</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">6</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLinkButton" id="btnlink_credits">
+                        <property name="label" translatable="yes">Credits</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <property name="relief">none</property>
+                        <property name="uri">https://github.com/EasyScreenCast/EasyScreenCast/graphs/contributors</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">7</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">How to contribute?</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">8</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLinkButton" id="btnlink_translations">
+                        <property name="label" translatable="yes">With a translation</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <property name="relief">none</property>
+                        <property name="uri">https://github.com/EasyScreenCast/EasyScreenCast#translation</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">9</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLinkButton" id="btnlink_bugs">
+                        <property name="label" translatable="yes">Reporting bugs</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <property name="relief">none</property>
+                        <property name="uri">https://github.com/EasyScreenCast/EasyScreenCast/issues</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">10</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLinkButton" id="btnlink_code">
+                        <property name="label" translatable="yes">Add code</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <property name="relief">none</property>
+                        <property name="uri">https://github.com/EasyScreenCast/EasyScreenCast/pulls</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">11</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child type="label">
+              <object class="GtkLabel" id="label27">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="name">page4</property>
+            <property name="title" translatable="yes">Info</property>
+            <property name="position">5</property>
+          </packing>
+        </child>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+        <property name="position">1</property>
+      </packing>
+    </child>
+  </object>
+</interface>

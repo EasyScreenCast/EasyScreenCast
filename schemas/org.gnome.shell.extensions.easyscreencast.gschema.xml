@@ -1,9 +1,9 @@
 <schemalist>
     <schema id="org.gnome.shell.extensions.EasyScreenCast" path="/org/gnome/shell/extensions/EasyScreenCast/">
-        <key name="show-timer-rec" type="b">
+        <key name="show-notify-alert" type="b">
             <default>true</default>
-            <summary>Enable show timer of recording into notify</summary>
-            <description>Enable show timer of recording into notify</description>
+            <summary>Enable show notify and alert message</summary>
+            <description>Enable show notify and alert message</description>
         </key>
         <key name="show-area-rec" type="b">
             <default>false</default>
@@ -11,7 +11,7 @@
             <description>Enable show area screencast during recording</description>
         </key>
         <key name="input-audio-source" type="i">
-            <default>-1</default>
+            <default>0</default>
             <summary>select input audio source</summary>
             <description>select input audio source</description>
         </key>
@@ -50,10 +50,10 @@
             <summary>height of screencasting</summary>
             <description>height of screencasting</description>
         </key>
-        <key name="replace-indicator" type="b">
-            <default>false</default>
-            <summary>replace the indicator into a status menu</summary>
-            <description>replace the indicator into a status menu</description>
+        <key name="status-indicators" type="i">
+            <default>1</default>
+            <summary>active status indicators</summary>
+            <description>active status indicators</description>
         </key>
         <key name="draw-cursor" type="b">
             <default>true</default>
@@ -76,7 +76,7 @@
             <description>select area of screencast</description>
         </key>
         <key name="file-name" type="s">
-            <default>'Screencast_%d_%t.webm'</default>
+            <default>'Screencast_%d_%t'</default>
             <summary>file name template of screencast</summary>
             <description>file name template of screencast</description>
         </key>
@@ -85,13 +85,23 @@
             <summary>file folder of screencast</summary>
             <description>file folder of screencast</description>
         </key>
+	<key name="execute-pre-cmd" type="b">
+            <default>false</default>
+            <summary>enable execute pre command</summary>
+            <description>enable execute pre command</description>
+        </key>
+        <key name="pre-cmd" type="s">
+            <default>''</default>
+            <summary>command to execute</summary>
+            <description>command to execute</description>
+        </key>
         <key name="execute-post-cmd" type="b">
             <default>false</default>
             <summary>enable execute post command</summary>
             <description>enable execute post command</description>
         </key>
         <key name="post-cmd" type="s">
-            <default>'xdg-open AbsFilePath &amp;'</default>
+            <default>'xdg-open _fpath'</default>
             <summary>command to execute</summary>
             <description>command to execute</description>
         </key>
@@ -104,6 +114,82 @@
             <default>false</default>
             <summary>Enable keyboard shortcut</summary>
             <description>Enable keyboard shortcut</description>
+        </key>
+        <key name="file-container" type="i">
+            <default>0</default>
+            <summary>file screencast container</summary>
+            <description>file screencast container</description>
+        </key>
+	<key name="file-resolution-type" type="i">
+            <default>-1</default>
+            <summary>file screencast resolution type</summary>
+            <description>file screencast resolution type [native(-1),preset(0-99),custom(99)]</description>
+        </key>
+	<key name="file-resolution-kar" type="b">
+            <default>true</default>
+            <summary>file screencast resolution Keep Aspect Ratio</summary>
+            <description>file screencast resolution Keep Aspect Ratio (add borders)</description>
+        </key>
+	<key name="file-resolution-width" type="i">
+            <default>0</default>
+            <summary>file screencast resolution width</summary>
+            <description>file screencast resolution width</description>
+        </key>
+	<key name="file-resolution-height" type="i">
+            <default>0</default>
+            <summary>file screencast resolution height</summary>
+            <description>file screencast resolution height</description>
+        </key>
+        <key name="quality-index" type="i">
+            <default>1</default>
+            <summary>store the quality index option</summary>
+            <description>store the quality index option</description>
+        </key>
+        <key name="device-webcam" type="i">
+            <default>0</default>
+            <summary>select webcam device</summary>
+            <description>select webcam device</description>
+        </key>
+        <key name="quality-webcam" type="s">
+            <default>""</default>
+            <summary>select webcam quality</summary>
+            <description>select webcam quality</description>
+        </key>
+        <key name="width-webcam" type="i">
+            <default>20</default>
+            <summary>width webcam</summary>
+            <description>width webcam</description>
+        </key>
+        <key name="height-webcam" type="i">
+            <default>10</default>
+            <summary>height webcam</summary>
+            <description>height webcam</description>
+        </key>
+        <key name="type-unit-webcam" type="i">
+            <default>0</default>
+            <summary>type of unit of measure webcam</summary>
+            <description>type of unit of measure</description>
+        </key>
+        <key name="margin-x-webcam" type="i">
+            <default>0</default>
+            <summary>margin x from border webcam</summary>
+            <description>margin x webcam</description>
+        </key>
+        <key name="margin-y-webcam" type="i">
+            <default>0</default>
+            <summary>margin y from border webcam</summary>
+            <description>margin y from border webcam</description>
+        </key>
+        <key name="alpha-channel-webcam" type="d">
+            <default>0.75</default>
+            <range min="0.05" max="1.00"/>
+            <summary>alpha channel webcam</summary>
+            <description>aplha channel webcam</description>
+        </key>
+        <key name="corner-position-webcam" type="i">
+            <default>0</default>
+            <summary>the corner position of webcam</summary>
+            <description>the corner position of webcam</description>
         </key>
     </schema>
 </schemalist>

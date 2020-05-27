@@ -1,5 +1,3 @@
-/* -*- mode: js; js-basic-offset: 4; indent-tabs-mode: nil -*- */
-
 /*
     Copyright (C) 2013  Borsato Ivano
 
@@ -22,159 +20,183 @@ const LibRecorder = imports.ui.screencast;
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Lib = Me.imports.convenience;
-const Pref = Me.imports.prefs;
+const Settings = Me.imports.settings;
 const Selection = Me.imports.selection;
-const UtilAudio = Me.imports.utilaudio;
+const UtilGSP = Me.imports.utilgsp;
 const Ext = Me.imports.extension;
 
 const ScreenCastProxy = Gio.DBusProxy.makeProxyWrapper(
-    LibRecorder.ScreencastIface);
+    LibRecorder.ScreencastIface
+);
 let ScreenCastService = null;
 
-const CaptureVideo = new Lang.Class({
+/**
+ * @type {RecordVideo}
+ */
+var CaptureVideo = new Lang.Class({
     Name: "RecordVideo",
-    /*
+
+    /**
      * Create a video recorder
      */
     _init: function () {
-        Lib.TalkativeLog('init recorder');
+        Lib.TalkativeLog("-&-init recorder");
 
         this.AreaSelected = null;
 
-        this.CtrlAudio = new UtilAudio.MixerAudio();
-
         //connect to d-bus service
         ScreenCastService = new ScreenCastProxy(
-            Gio.DBus.session, 'org.gnome.Shell.Screencast',
-            '/org/gnome/Shell/Screencast',
-            Lang.bind(this, function (proxy, error) {
+            Gio.DBus.session,
+            "org.gnome.Shell.Screencast",
+            "/org/gnome/Shell/Screencast",
+            (proxy, error) => {
                 if (error) {
-                    Lib.TalkativeLog('ERROR(d-bus proxy connected) - ' + error.message);
-                    return;
-                } else
-                    Lib.TalkativeLog('d-bus proxy connected');
-            }));
+                    Lib.TalkativeLog(
+                        "-&-ERROR(d-bus proxy connected) - " + error.message
+                    );
+                } else {
+                    Lib.TalkativeLog("-&-d-bus proxy connected");
+                }
+            }
+        );
     },
-    /*
+
+    /**
      * start recording
      */
     start: function () {
-        Lib.TalkativeLog('start video recording');
+        Lib.TalkativeLog("-&-start video recording");
         this.recordingActive = false;
 
         //prepare variable for screencast
-        var fileRec = Pref.getOption('s', Pref.FILE_NAME_SETTING_KEY);
-        if (Pref.getOption('s', Pref.FILE_FOLDER_SETTING_KEY) !== '')
-            fileRec = Pref.getOption('s', Pref.FILE_FOLDER_SETTING_KEY) +
-            '/' + fileRec;
+        var fileRec =
+            Settings.getOption("s", Settings.FILE_NAME_SETTING_KEY) +
+            UtilGSP.getFileExtension(
+                Settings.getOption("i", Settings.FILE_CONTAINER_SETTING_KEY)
+            );
 
-        let pipelineRec = '';
-
-        if (Pref.getOption('b', Pref.ACTIVE_CUSTOM_GSP_SETTING_KEY)) {
-            pipelineRec = Pref.getOption('s', Pref.PIPELINE_REC_SETTING_KEY);
-        } else {
-            let audioChoice = Pref.getOption(
-                'i', Pref.INPUT_AUDIO_SOURCE_SETTING_KEY);
-            if (audioChoice > 1) {
-                //custom audio source
-                var tmpGSP = Pref.getGSPstd(true);
-
-                //change device source
-                var re = /pulsesrc/gi;
-                var audiosource = this.CtrlAudio.getAudioSource();
-                if (audiosource.indexOf('output') !== -1) {
-                    audiosource += '.monitor';
-                }
-                var strReplace = 'pulsesrc device="' + audiosource + '"';
-
-                Lib.TalkativeLog('pipeline pre-audio:' + tmpGSP);
-
-                var audioPipeline = tmpGSP.replace(re, strReplace);
-                Lib.TalkativeLog('pipeline post-audio:' + audioPipeline);
-
-                pipelineRec = audioPipeline;
-            } else if (audioChoice === 1) {
-                //default audio source
-                pipelineRec = Pref.getGSPstd(true);
-            } else {
-                //no audio source
-                pipelineRec = Pref.getGSPstd(false);
-            }
+        if (Settings.getOption("s", Settings.FILE_FOLDER_SETTING_KEY) !== "") {
+            fileRec =
+                Settings.getOption("s", Settings.FILE_FOLDER_SETTING_KEY) +
+                "/" +
+                fileRec;
         }
 
-        Lib.TalkativeLog('path/file template : ' + fileRec);
+        let pipelineRec = "";
+
+        if (Settings.getOption("b", Settings.ACTIVE_CUSTOM_GSP_SETTING_KEY)) {
+            pipelineRec = Settings.getOption(
+                "s",
+                Settings.PIPELINE_REC_SETTING_KEY
+            );
+        } else {
+            //compose GSP
+            pipelineRec = UtilGSP.composeGSP();
+        }
+
+        Lib.TalkativeLog("-&-path/file template : " + fileRec);
 
         var optionsRec = {
-            'draw-cursor': new GLib.Variant(
-                'b', Pref.getOption('b', Pref.DRAW_CURSOR_SETTING_KEY)),
-            'framerate': new GLib.Variant(
-                'i', Pref.getOption('i', Pref.FPS_SETTING_KEY)),
-            'pipeline': new GLib.Variant(
-                's', pipelineRec)
+            "draw-cursor": new GLib.Variant(
+                "b",
+                Settings.getOption("b", Settings.DRAW_CURSOR_SETTING_KEY)
+            ),
+            framerate: new GLib.Variant(
+                "i",
+                Settings.getOption("i", Settings.FPS_SETTING_KEY)
+            ),
+            pipeline: new GLib.Variant("s", pipelineRec),
         };
 
-        if (Pref.getOption('i', Pref.AREA_SCREEN_SETTING_KEY) === 0) {
-            ScreenCastService.ScreencastRemote(fileRec, optionsRec,
-                Lang.bind(this, function (result, error) {
+        if (Settings.getOption("i", Settings.AREA_SCREEN_SETTING_KEY) === 0) {
+            ScreenCastService.ScreencastRemote(
+                fileRec,
+                optionsRec,
+                (result, error) => {
                     if (error) {
-                        Lib.TalkativeLog('ERROR(screencast execute) - ' + error.message);
-
-                        this.stop();
-                        Ext.Indicator.doRecResult(false);
-                    } else
-                        Lib.TalkativeLog('screencast execute - ' + result[0] + ' - ' + result[1]);
-
-                    Ext.Indicator.doRecResult(result[0], result[1]);
-                }));
-        } else {
-            ScreenCastService.ScreencastAreaRemote(Pref.getOption(
-                    'i', Pref.X_POS_SETTING_KEY), Pref.getOption(
-                    'i', Pref.Y_POS_SETTING_KEY), Pref.getOption(
-                    'i', Pref.WIDTH_SETTING_KEY), Pref.getOption(
-                    'i', Pref.HEIGHT_SETTING_KEY),
-                fileRec, optionsRec,
-                Lang.bind(this, function (result, error) {
-                    if (error) {
-                        Lib.TalkativeLog('ERROR(screencast execute) - ' + error.message);
+                        Lib.TalkativeLog(
+                            "-&-ERROR(screencast execute) - " + error.message
+                        );
 
                         this.stop();
                         Ext.Indicator.doRecResult(false);
                     } else {
-                        Lib.TalkativeLog('screencast execute - ' + result[0] + ' - ' + result[1]);
+                        Lib.TalkativeLog(
+                            "-&-screencast execute - " +
+                                result[0] +
+                                " - " +
+                                result[1]
+                        );
+                    }
+
+                    Ext.Indicator.doRecResult(result[0], result[1]);
+                }
+            );
+        } else {
+            ScreenCastService.ScreencastAreaRemote(
+                Settings.getOption("i", Settings.X_POS_SETTING_KEY),
+                Settings.getOption("i", Settings.Y_POS_SETTING_KEY),
+                Settings.getOption("i", Settings.WIDTH_SETTING_KEY),
+                Settings.getOption("i", Settings.HEIGHT_SETTING_KEY),
+                fileRec,
+                optionsRec,
+                (result, error) => {
+                    if (error) {
+                        Lib.TalkativeLog(
+                            "-&-ERROR(screencast execute) - " + error.message
+                        );
+
+                        this.stop();
+                        Ext.Indicator.doRecResult(false);
+                    } else {
+                        Lib.TalkativeLog(
+                            "-&-screencast execute - " +
+                                result[0] +
+                                " - " +
+                                result[1]
+                        );
 
                         //draw area recording
-                        if (Pref.getOption(
-                                'b', Pref.SHOW_AREA_REC_SETTING_KEY)) {
+                        if (
+                            Settings.getOption(
+                                "b",
+                                Settings.SHOW_AREA_REC_SETTING_KEY
+                            )
+                        ) {
                             this.AreaSelected = new Selection.AreaRecording();
                         }
 
                         Ext.Indicator.doRecResult(result[0], result[1]);
                     }
-                }));
+                }
+            );
         }
     },
-    /*
+
+    /**
      * Stop recording
+     *
+     * @return {boolean}
      */
     stop: function () {
-        Lib.TalkativeLog('stop video recording');
+        Lib.TalkativeLog("-&-stop video recording");
 
-        ScreenCastService.StopScreencastRemote(Lang.bind(
-            this,
-            function (result, error) {
-                if (error) {
-                    Lib.TalkativeLog('ERROR(screencast stop) - ' + error.message);
-                    return false;
-                } else
-                    Lib.TalkativeLog('screencast stop - ' + result[0]);
+        ScreenCastService.StopScreencastRemote((result, error) => {
+            if (error) {
+                Lib.TalkativeLog(
+                    "-&-ERROR(screencast stop) - " + error.message
+                );
+                return false;
+            } else {
+                Lib.TalkativeLog("-&-screencast stop - " + result[0]);
+            }
 
-                //clear area recording
-                if (this.AreaSelected !== null &&
-                    this.AreaSelected.isVisible()) {
-                    this.AreaSelected.clearArea();
-                }
+            //clear area recording
+            if (this.AreaSelected !== null && this.AreaSelected.isVisible()) {
+                this.AreaSelected.clearArea();
+            }
 
-                return true;
-            }));
-    }
+            return true;
+        });
+    },
 });
