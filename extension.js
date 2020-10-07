@@ -78,13 +78,13 @@ const EasyScreenCast_Indicator = new Lang.Class({
         }
 
         //add enter/leave/click event
-        this.actor.connect("enter_event", (param1, param2, focus) =>
+        this.connect("enter_event", (param1, param2, focus) =>
             this.refreshIndicator(param1, param2, true)
         );
-        this.actor.connect("leave_event", (param1, param2, focus) =>
+        this.connect("leave_event", (param1, param2, focus) =>
             this.refreshIndicator(param1, param2, false)
         );
-        this.actor.connect("button_press_event", (actor, event) =>
+        this.connect("button_press_event", (actor, event) =>
             this._onButtonPress(actor, event)
         );
 
@@ -603,11 +603,11 @@ const EasyScreenCast_Indicator = new Lang.Class({
         });
 
         this.TimeSlider.connect("drag-end", () => this._onDelayTimeChanged());
-        this.TimeSlider.actor.connect("scroll-event", () =>
+        this.TimeSlider.connect("scroll-event", () =>
             this._onDelayTimeChanged()
         );
 
-        this.imSliderDelay.actor.add(this.TimeSlider.actor, {
+        this.imSliderDelay.add(this.TimeSlider, {
             expand: true,
         });
 
@@ -624,7 +624,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.CtrlWebcam.startMonitor();
 
         //add indicator
-        this.actor.add_actor(this.indicatorBox);
+        this.add_actor(this.indicatorBox);
     },
 
     /**
@@ -637,7 +637,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.CtrlWebcam.stopMonitor();
 
         //remove indicator
-        this.actor.remove_actor(this.indicatorBox);
+        this.remove_actor(this.indicatorBox);
     },
 
     /**
