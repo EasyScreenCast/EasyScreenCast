@@ -21,7 +21,6 @@ const PopupMenu = imports.ui.popupMenu;
 const MessageTray = imports.ui.messageTray;
 const Slider = imports.ui.slider;
 const Main = imports.ui.main;
-const LibRecorder = imports.ui.screencast;
 
 const Gettext = imports.gettext.domain(
     "EasyScreenCast@iacopodeenosee.gmail.com"
