@@ -595,6 +595,9 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.TimeSlider = new Slider.Slider(
             Settings.getOption("i", Settings.TIME_DELAY_SETTING_KEY) / 100
         );
+        this.TimeSlider.x_expand = true;
+        this.TimeSlider.y_expand = true;
+
         this.TimeSlider.connect("notify::value", (item) => {
             this.DelayTimeLabel.set_text(
                 Math.floor(item.value * 100).toString() + _(" Sec")
@@ -606,9 +609,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
             this._onDelayTimeChanged()
         );
 
-        this.imSliderDelay.add(this.TimeSlider, {
-            expand: true,
-        });
+        this.imSliderDelay.add(this.TimeSlider);
 
         return [this.DelayTimeTitle, this.imSliderDelay];
     },
