@@ -13,6 +13,7 @@
 const Lang = imports.lang;
 const Main = imports.ui.main;
 const MessageTray = imports.ui.messageTray;
+const Clutter = imports.gi.Clutter;
 const St = imports.gi.St;
 
 const ExtensionUtils = imports.misc.extensionUtils;
@@ -53,7 +54,7 @@ var NotifyManager = new Lang.Class({
         notify.setResident(true);
 
         Main.messageTray.add(this.source);
-        this.source.notify(notify);
+        this.source.showNotification(notify);
 
         if (sound) {
             notify.playSound();
