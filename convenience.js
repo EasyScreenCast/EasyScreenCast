@@ -113,7 +113,7 @@ function getSettings(schema) {
  */
 function TalkativeLog(msg) {
     if (Settings.getOption("b", Settings.VERBOSE_DEBUG_SETTING_KEY)) {
-        global.log("[ESC]" + msg);
+        log("[ESC]" + msg);
     }
 }
 
