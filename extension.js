@@ -915,6 +915,9 @@ const EasyScreenCast_Indicator = new Lang.Class({
      * @private
      */
     _replaceStdIndicator: function (OPTtemp) {
+        if (Main.panel.statusArea["aggregateMenu"]._screencast === undefined) {
+          return
+        }
         if (OPTtemp) {
             Lib.TalkativeLog("-*-replace STD indicator");
             Main.panel.statusArea[
