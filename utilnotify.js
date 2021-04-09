@@ -13,8 +13,8 @@
 const Lang = imports.lang;
 const Main = imports.ui.main;
 const MessageTray = imports.ui.messageTray;
+const Clutter = imports.gi.Clutter;
 const St = imports.gi.St;
-const Tweener = imports.ui.tweener;
 
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
@@ -54,7 +54,7 @@ var NotifyManager = new Lang.Class({
         notify.setResident(true);
 
         Main.messageTray.add(this.source);
-        this.source.notify(notify);
+        this.source.showNotification(notify);
 
         if (sound) {
             notify.playSound();
@@ -105,10 +105,10 @@ var NotifyManager = new Lang.Class({
                 Math.floor(monitor.height / 2 - text.height / 2)
             );
 
-            Tweener.addTween(text, {
+            text.ease({
                 opacity: 0,
-                time: 4,
-                transition: "easeOutQuad",
+                mode: Clutter.AnimationMode.EASE_OUT_QUAD,
+                duration: 4000,
                 onComplete: () => {
                     Main.uiGroup.remove_actor(text);
                     text = null;

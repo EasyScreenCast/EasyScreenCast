@@ -15,7 +15,8 @@ const Shell = imports.gi.Shell;
 const Main = imports.ui.main;
 const Gio = imports.gi.Gio;
 const GLib = imports.gi.GLib;
-const LibRecorder = imports.ui.screencast;
+const { loadInterfaceXML, loadSubInterfaceXML } = imports.misc.fileUtils;
+const ScreencastIface = loadInterfaceXML('org.gnome.Shell.Screencast');
 
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
@@ -26,7 +27,7 @@ const UtilGSP = Me.imports.utilgsp;
 const Ext = Me.imports.extension;
 
 const ScreenCastProxy = Gio.DBusProxy.makeProxyWrapper(
-    LibRecorder.ScreencastIface
+    ScreencastIface
 );
 let ScreenCastService = null;
 

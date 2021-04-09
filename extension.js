@@ -21,7 +21,6 @@ const PopupMenu = imports.ui.popupMenu;
 const MessageTray = imports.ui.messageTray;
 const Slider = imports.ui.slider;
 const Main = imports.ui.main;
-const LibRecorder = imports.ui.screencast;
 
 const Gettext = imports.gettext.domain(
     "EasyScreenCast@iacopodeenosee.gmail.com"
@@ -78,13 +77,13 @@ const EasyScreenCast_Indicator = new Lang.Class({
         }
 
         //add enter/leave/click event
-        this.actor.connect("enter_event", (param1, param2, focus) =>
+        this.connect("enter_event", (param1, param2, focus) =>
             this.refreshIndicator(param1, param2, true)
         );
-        this.actor.connect("leave_event", (param1, param2, focus) =>
+        this.connect("leave_event", (param1, param2, focus) =>
             this.refreshIndicator(param1, param2, false)
         );
-        this.actor.connect("button_press_event", (actor, event) =>
+        this.connect("button_press_event", (actor, event) =>
             this._onButtonPress(actor, event)
         );
 
@@ -596,6 +595,9 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.TimeSlider = new Slider.Slider(
             Settings.getOption("i", Settings.TIME_DELAY_SETTING_KEY) / 100
         );
+        this.TimeSlider.x_expand = true;
+        this.TimeSlider.y_expand = true;
+
         this.TimeSlider.connect("notify::value", (item) => {
             this.DelayTimeLabel.set_text(
                 Math.floor(item.value * 100).toString() + _(" Sec")
@@ -603,13 +605,11 @@ const EasyScreenCast_Indicator = new Lang.Class({
         });
 
         this.TimeSlider.connect("drag-end", () => this._onDelayTimeChanged());
-        this.TimeSlider.actor.connect("scroll-event", () =>
+        this.TimeSlider.connect("scroll-event", () =>
             this._onDelayTimeChanged()
         );
 
-        this.imSliderDelay.actor.add(this.TimeSlider.actor, {
-            expand: true,
-        });
+        this.imSliderDelay.add(this.TimeSlider);
 
         return [this.DelayTimeTitle, this.imSliderDelay];
     },
@@ -624,7 +624,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.CtrlWebcam.startMonitor();
 
         //add indicator
-        this.actor.add_actor(this.indicatorBox);
+        this.add_actor(this.indicatorBox);
     },
 
     /**
@@ -637,7 +637,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.CtrlWebcam.stopMonitor();
 
         //remove indicator
-        this.actor.remove_actor(this.indicatorBox);
+        this.remove_actor(this.indicatorBox);
     },
 
     /**
@@ -915,6 +915,9 @@ const EasyScreenCast_Indicator = new Lang.Class({
      * @private
      */
     _replaceStdIndicator: function (OPTtemp) {
+        if (Main.panel.statusArea["aggregateMenu"]._screencast === undefined) {
+          return
+        }
         if (OPTtemp) {
             Lib.TalkativeLog("-*-replace STD indicator");
             Main.panel.statusArea[
