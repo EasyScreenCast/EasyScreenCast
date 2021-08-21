@@ -49,6 +49,7 @@ var FILE_RESOLUTION_KAR_SETTING_KEY = "file-resolution-kar";
 var FILE_RESOLUTION_WIDTH_SETTING_KEY = "file-resolution-width";
 var FILE_RESOLUTION_HEIGHT_SETTING_KEY = "file-resolution-height";
 var QUALITY_SETTING_KEY = "quality-index";
+var DEVICE_INDEX_WEBCAM_SETTING_KEY = "device-webcam-index"
 var DEVICE_WEBCAM_SETTING_KEY = "device-webcam";
 var QUALITY_WEBCAM_SETTING_KEY = "quality-webcam";
 var WIDTH_WEBCAM_SETTING_KEY = "width-webcam";

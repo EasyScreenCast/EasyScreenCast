@@ -255,8 +255,10 @@ const EasyScreenCast_Indicator = new Lang.Class({
             this.smWebCam.menu.addMenuItem(arrMI[element]);
         }
 
+        Lib.TalkativeLog("-*-populated submenuwebcam. Settings i=" + Settings.getOption("i", Settings.DEVICE_INDEX_WEBCAM_SETTING_KEY));
+
         this.smWebCam.label.text = this.WebCamDevice[
-            Settings.getOption("i", Settings.DEVICE_WEBCAM_SETTING_KEY)
+            Settings.getOption("i", Settings.DEVICE_INDEX_WEBCAM_SETTING_KEY)
         ];
     },
 
@@ -423,11 +425,10 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.AreaMenuItem = new Array(this.WebCamDevice.length);
 
         for (var i = 0; i < this.AreaMenuItem.length; i++) {
-            let iDevice;
+            let devicePath = "";
 
-            if (i === 0) {
-                iDevice = 0;
-            } else {
+            // i === 0 is "No Webcam selected"
+            if (i > 0) {
                 // FIXME
                 // Although the computer may have just one webcam connected to
                 // it, more than one GstDevice may be listed and all pointing to
@@ -437,10 +438,10 @@ const EasyScreenCast_Indicator = new Lang.Class({
                 // using v4l2src. This means that even if we pick a Pipewire
                 // device, we will always open it with v4l2src.
                 const device = devices[i - 1];
-                const devicePath = device
+                devicePath = device
                     .get_properties()
                     .get_string("device.path");
-                iDevice = Number(devicePath.replace(/[^0-9]+/gi, ""));
+                Lib.TalkativeLog("-*-webcam i=" + i + " devicePath: " + devicePath);
             }
 
             this.AreaMenuItem[i] = new PopupMenu.PopupMenuItem(
@@ -453,15 +454,19 @@ const EasyScreenCast_Indicator = new Lang.Class({
                 }
             );
 
-            (function (i, iDevice, arr, item) {
+            (function (i, devicePath, arr, item) {
                 this.connectMI = function () {
                     this.connect("activate", () => {
                         Lib.TalkativeLog(
-                            "-*-set webcam device to " + i + " " + arr[i]
+                            "-*-set webcam device to " + i + " " + arr[i] + " devicePath=" + devicePath
+                        );
+                        Settings.setOption(
+                            Settings.DEVICE_INDEX_WEBCAM_SETTING_KEY,
+                            i
                         );
                         Settings.setOption(
                             Settings.DEVICE_WEBCAM_SETTING_KEY,
-                            iDevice + 1
+                            devicePath
                         );
 
                         item.label.text = arr[i];
@@ -471,7 +476,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
             }.call(
                 this.AreaMenuItem[i],
                 i,
-                iDevice,
+                devicePath,
                 this.WebCamDevice,
                 this.smWebCam
             ));

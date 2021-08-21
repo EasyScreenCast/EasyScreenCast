@@ -145,10 +145,15 @@
             <summary>store the quality index option</summary>
             <description>store the quality index option</description>
         </key>
-        <key name="device-webcam" type="i">
+        <key name="device-webcam-index" type="i">
             <default>0</default>
             <summary>select webcam device</summary>
             <description>select webcam device</description>
+        </key>
+        <key name="device-webcam" type="s">
+            <default>""</default>
+            <summary>selected webcam device path</summary>
+            <description>selected webcam device path</description>
         </key>
         <key name="quality-webcam" type="s">
             <default>""</default>
