@@ -202,7 +202,7 @@ const Capture = new Lang.Class({
 
 Signals.addSignalMethods(Capture.prototype);
 
-const SelectionArea = new Lang.Class({
+var SelectionArea = new Lang.Class({
     Name: "EasyScreenCast.SelectionArea",
 
     /**
@@ -260,7 +260,7 @@ const SelectionArea = new Lang.Class({
 
 Signals.addSignalMethods(SelectionArea.prototype);
 
-const SelectionWindow = new Lang.Class({
+var SelectionWindow = new Lang.Class({
     Name: "EasyScreenCast.SelectionWindow",
 
     /**
