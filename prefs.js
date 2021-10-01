@@ -58,7 +58,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         this.CtrlWebcam = new UtilWebcam.HelperWebcam();
 
         // creates the ui builder and add the main resource file
-        let uiFilePath = Me.path + "/Options_UI.glade";
+        let uiFilePath = Me.path + "/Options_UI.glade-gtk4";
         let builder = new Gtk.Builder();
         builder.set_translation_domain(
             "EasyScreenCast@iacopodeenosee.gmail.com"
@@ -73,14 +73,14 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                 vexpand: true,
             });
 
-            this.pack_start(label, true, true, 0);
+            this.append(label);
         } else {
             Lib.TalkativeLog("-^-UI file receive and load: " + uiFilePath);
 
             // gets the interesting builder objects
             let Ref_box_MainContainer = builder.get_object("Main_Container");
             // packs the main table
-            this.pack_start(Ref_box_MainContainer, true, true, 0);
+            this.append(Ref_box_MainContainer);
 
             // setup tab options
             this._initTabOptions(this, builder, Settings.settings);
@@ -92,7 +92,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             this._initTabWebcam(this, builder, Settings.settings);
 
             // setup tab file
-            this._initTabFile(this, builder, Settings.settings);
+            //this._initTabFile(this, builder, Settings.settings);
 
             // setup tab support
             this._initTabSupport(this, builder, Settings.settings);
@@ -1188,9 +1188,9 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
 function buildPrefsWidget() {
     Lib.TalkativeLog("-^-Init pref widget");
 
-    var widget = new EasyScreenCastSettingsWidget();
+    let widget = new EasyScreenCastSettingsWidget();
 
-    widget.show_all();
+    //widget.show_all();
 
     return widget;
 }
