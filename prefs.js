@@ -618,9 +618,8 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             Ref_stack_FileResolution.set_visible_child_name("preset");
         }
 
-/*
         //setup event on stack switcher
-        Ref_stackswitcher_FileResolution.connect("event", () => {
+        Ref_stack_FileResolution.connect("notify::visible-child-name", () => {
             Lib.TalkativeLog("-^-stack_FR event grab");
             var page = Ref_stack_FileResolution.get_visible_child_name();
             Lib.TalkativeLog("-^-active page -> " + page);
@@ -647,7 +646,6 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                 Lib.TalkativeLog("-^-page error");
             }
         });
-*/
 
         //implements file width option
         let Ref_Spinner_WidthRes = gtkDB.get_object("spb_ResWidth");
