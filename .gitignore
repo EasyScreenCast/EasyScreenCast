@@ -4,9 +4,14 @@ locale/fr.mo
 locale/it.mo
 locale/pt_BR.mo
 locale/ru.mo
+locale/ca.mo
+locale/uk.mo
 *~
 
 # IDE files
 .idea/
 
 node_modules/
+
+# some temporary space
+ignore/
