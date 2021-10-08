@@ -92,7 +92,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             this._initTabWebcam(this, builder, Settings.settings);
 
             // setup tab file
-            //this._initTabFile(this, builder, Settings.settings);
+            this._initTabFile(this, builder, Settings.settings);
 
             // setup tab support
             this._initTabSupport(this, builder, Settings.settings);
@@ -618,6 +618,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             Ref_stack_FileResolution.set_visible_child_name("preset");
         }
 
+/*
         //setup event on stack switcher
         Ref_stackswitcher_FileResolution.connect("event", () => {
             Lib.TalkativeLog("-^-stack_FR event grab");
@@ -646,6 +647,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                 Lib.TalkativeLog("-^-page error");
             }
         });
+*/
 
         //implements file width option
         let Ref_Spinner_WidthRes = gtkDB.get_object("spb_ResWidth");
@@ -771,17 +773,31 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                 })
             );
         }
-        Ref_filechooser_FileFolder.set_filename(tmpFolder);
+        Ref_filechooser_FileFolder.set_label('Selected: ' + tmpFolder);
 
-        Ref_filechooser_FileFolder.connect("file_set", (self) => {
-            var tmpPathFolder = self.get_filename();
-            Lib.TalkativeLog("-^-file path get from widget : " + tmpPathFolder);
-            if (tmpPathFolder !== null) {
-                Settings.setOption(
-                    Settings.FILE_FOLDER_SETTING_KEY,
-                    tmpPathFolder
-                );
-            }
+        Ref_filechooser_FileFolder.connect("clicked", (self) => {
+            Lib.TalkativeLog("-^- file chooser button clicked...");
+            let dialog = new Gtk.FileChooserNative({
+                "title": "Select folder",
+                "transient-for": null,
+                "action": Gtk.FileChooserAction.SELECT_FOLDER,
+                "accept-label": "Ok",
+                "cancel-label": "Cancel"
+            });
+            dialog.connect("response", (self, response) => {
+                if (response === Gtk.ResponseType.ACCEPT) {
+                    var tmpPathFolder = self.get_file().get_path();
+                    Lib.TalkativeLog("-^-file path get from widget : " + tmpPathFolder);
+                    Settings.setOption(
+                        Settings.FILE_FOLDER_SETTING_KEY,
+                        tmpPathFolder
+                    );
+                    Ref_filechooser_FileFolder.set_label('Selected: ' + tmpPathFolder);
+                }
+                ctx.fileChooserDialog = null;
+            });
+            dialog.show();
+            ctx.fileChooserDialog = dialog; // keep a reference to the dialog alive
         });
     },
 

@@ -923,11 +923,10 @@ _dirpath = the absolute path of destination folder for the screencast video file
                       </object>
                     </child>
                     <child>
-                      <object class="GtkFileChooserWidget" id="fcb_FilePathRec">
+                      <object class="GtkButton" id="fcb_FilePathRec">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="tooltip-text" translatable="yes">Select the folder where the file is saved, if not specific a folder  the file will be saved in the $XDG_VIDEOS_DIR if it exists, or the home directory otherwise.</property>
-                        <property name="action">select-folder</property>
                         <layout>
                           <property name="column">1</property>
                           <property name="row">3</property>
