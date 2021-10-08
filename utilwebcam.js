@@ -78,7 +78,7 @@ var HelperWebcam = new Lang.Class({
             this.dmBus = this.deviceMonitor.get_bus();
             if (this.dmBus !== null && this.dmBus !== undefined) {
                 Lib.TalkativeLog("-@-dbus created");
-                this.dmBus.add_watch(GLib.PRIORITY_DEFAULT, this._getMsg);
+                this.dmBus.add_watch(GLib.PRIORITY_DEFAULT, this._getMsg.bind(this));
                 let caps = Gst.Caps.new_empty_simple("video/x-raw");
                 this.deviceMonitor.add_filter("Video/Source", caps);
                 this.startMonitor();

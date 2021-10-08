@@ -283,7 +283,7 @@ function composeGSP() {
 
     //retrieve options
     let Device_Webcam = Settings.getOption(
-        "i",
+        "s",
         Settings.DEVICE_WEBCAM_SETTING_KEY
     );
     let Device_Audio = Settings.getOption(
@@ -331,7 +331,7 @@ function composeGSP() {
             Container
     );
 
-    if (Device_Webcam > 0) {
+    if (Device_Webcam !== "") {
         switch (Device_Audio) {
             case 0:
                 Lib.TalkativeLog("-§- SCREEN-WEBCAM");
@@ -500,7 +500,7 @@ function replaceWebcam(gspRW, device, caps) {
     Lib.TalkativeLog("-§-replace webcam -> " + device + " caps: " + caps);
 
     //replace device/caps
-    var reDev = "device=/dev/video" + (device - 1);
+    var reDev = "device=" + device;
     var reWCopt = composeWebCamOption();
     var [reWCwidth, reWCheight] = getWebCamDimension();
 

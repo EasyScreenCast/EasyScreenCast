@@ -117,7 +117,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
 
             //connect keywebcam signal
             Settings.settings.connect(
-                "changed::" + Settings.DEVICE_WEBCAM_SETTING_KEY,
+                "changed::" + Settings.DEVICE_INDEX_WEBCAM_SETTING_KEY,
                 () => {
                     Lib.TalkativeLog("-^-webcam device changed");
 
@@ -425,7 +425,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
 
         //fill combobox with quality option webcam
         ctx._updateWebCamCaps(
-            Settings.getOption("i", Settings.DEVICE_WEBCAM_SETTING_KEY)
+            Settings.getOption("i", Settings.DEVICE_INDEX_WEBCAM_SETTING_KEY)
         );
 
         //implements webcam corner position option
@@ -764,7 +764,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
 
             //connect keywebcam signal
             Settings.settings.connect(
-                "changed::" + Settings.DEVICE_WEBCAM_SETTING_KEY,
+                "changed::" + Settings.DEVICE_INDEX_WEBCAM_SETTING_KEY,
                 Lang.bind(this, function () {
                     Lib.TalkativeLog("-^-webcam device changed");
                     this._refreshWebcamOptions();
@@ -961,7 +961,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
      * @private
      */
     _updateWebCamCaps: function (device) {
-        Lib.TalkativeLog("-^-webcam device: " + device);
+        Lib.TalkativeLog("-^-webcam device index: " + device);
 
         if (device > 0) {
             this._initializeWebcamHelper();
@@ -998,7 +998,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
 
         //fill combobox with quality option webcam
         this._updateWebCamCaps(
-            Settings.getOption("i", Settings.DEVICE_WEBCAM_SETTING_KEY)
+            Settings.getOption("i", Settings.DEVICE_INDEX_WEBCAM_SETTING_KEY)
         );
 
         //update webcam widget state
@@ -1073,7 +1073,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
 
         var tmpDev = Settings.getOption(
             "i",
-            Settings.DEVICE_WEBCAM_SETTING_KEY
+            Settings.DEVICE_INDEX_WEBCAM_SETTING_KEY
         );
         this._updateWebCamCaps(tmpDev);
         if (tmpDev > 0) {
@@ -1164,7 +1164,8 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         Settings.setOption(Settings.ACTIVE_PRE_CMD_SETTING_KEY, false);
         Settings.setOption(Settings.POST_CMD_SETTING_KEY, "xdg-open _fpath &");
         Settings.setOption(Settings.INPUT_AUDIO_SOURCE_SETTING_KEY, 0);
-        Settings.setOption(Settings.DEVICE_WEBCAM_SETTING_KEY, 0);
+        Settings.setOption(Settings.DEVICE_INDEX_WEBCAM_SETTING_KEY, 0);
+        Settings.setOption(Settings.DEVICE_WEBCAM_SETTING_KEY, "");
 
         Settings.setOption(Settings.TIME_DELAY_SETTING_KEY, 0);
         Settings.setOption(Settings.FILE_CONTAINER_SETTING_KEY, 0);
