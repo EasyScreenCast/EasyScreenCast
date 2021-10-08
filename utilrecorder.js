@@ -96,6 +96,12 @@ var CaptureVideo = new Lang.Class({
         }
 
         Lib.TalkativeLog("-&-path/file template : " + fileRec);
+        // prefix with a videoconvert element
+        // see DEFAULT_PIPELINE in https://gitlab.gnome.org/GNOME/gnome-shell/-/blob/main/js/dbusServices/screencast/screencastService.js#L26
+        // this videoconvert element was added always previously and needs to be added now explicitly
+        // https://gitlab.gnome.org/GNOME/gnome-shell/-/commit/51bf7ec17617a9ed056dd563afdb98e17da07373
+        pipelineRec = "videoconvert chroma-mode=GST_VIDEO_CHROMA_MODE_NONE dither=GST_VIDEO_DITHER_NONE matrix-mode=GST_VIDEO_MATRIX_MODE_OUTPUT_ONLY n-threads=%T ! queue ! " + pipelineRec
+        Lib.TalkativeLog("-&-pipeline : " + pipelineRec);
 
         var optionsRec = {
             "draw-cursor": new GLib.Variant(
