@@ -19,8 +19,10 @@
             <property name="title" translatable="yes">Options</property>
             <property name="child">
               <object class="GtkFrame" id="frame1">
+                <property name="css-classes">borderless</property>
                 <property name="child">
                   <object class="GtkGrid" id="grid1">
+                    <property name="css-classes">options-grid</property>
                     <property name="row-spacing">18</property>
                     <property name="column-spacing">15</property>
                     <child>
@@ -316,6 +318,7 @@ _dirpath = the absolute path of destination folder for the screencast video file
             <property name="title" translatable="yes">Quality</property>
             <property name="child">
               <object class="GtkFrame" id="frame2">
+                <property name="css-classes">borderless</property>
                 <property name="child">
                   <object class="GtkBox" id="box1">
                     <property name="orientation">vertical</property>
@@ -387,14 +390,19 @@ _dirpath = the absolute path of destination folder for the screencast video file
                                 <child>
                                   <object class="GtkBox" id="box3">
                                     <property name="valign">center</property>
+                                    <property name="css-classes">border-box</property>
                                     <child>
                                       <object class="GtkImage" id="img_Performance">
-                                        <property name="halign">center</property>
+                                        <property name="halign">start</property>
+                                        <property name="hexpand">true</property>
+                                        <property name="pixel-size">100</property>
                                       </object>
                                     </child>
                                     <child>
                                       <object class="GtkImage" id="img_Quality">
-                                        <property name="halign">center</property>
+                                        <property name="halign">end</property>
+                                        <property name="hexpand">true</property>
+                                        <property name="pixel-size">100</property>
                                       </object>
                                     </child>
                                   </object>
@@ -584,6 +592,7 @@ _dirpath = the absolute path of destination folder for the screencast video file
             <property name="title" translatable="yes">WebCam</property>
             <property name="child">
               <object class="GtkFrame" id="frame3">
+                <property name="css-classes">borderless</property>
                 <property name="child">
                   <object class="GtkBox" id="box5">
                     <property name="orientation">vertical</property>
@@ -882,6 +891,7 @@ _dirpath = the absolute path of destination folder for the screencast video file
             <property name="title" translatable="yes">File</property>
             <property name="child">
               <object class="GtkFrame" id="frame">
+                <property name="css-classes">borderless</property>
                 <property name="child">
                   <object class="GtkGrid" id="grid2">
                     <property name="row-spacing">18</property>
@@ -1243,6 +1253,7 @@ _dirpath = the absolute path of destination folder for the screencast video file
             <property name="title" translatable="yes">Support</property>
             <property name="child">
               <object class="GtkFrame" id="frame5">
+                <property name="css-classes">borderless</property>
                 <property name="child">
                   <object class="GtkBox">
                     <property name="orientation">vertical</property>
@@ -1369,6 +1380,7 @@ $ dbus-monitor &quot;interface=org.gnome.Shell.Screencast&quot;</property>
             <property name="title" translatable="yes">Info</property>
             <property name="child">
               <object class="GtkFrame" id="frame4">
+                <property name="css-classes">borderless</property>
                 <property name="child">
                   <object class="GtkBox">
                     <property name="orientation">vertical</property>

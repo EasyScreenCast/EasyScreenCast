@@ -18,6 +18,7 @@ const GLib = imports.gi.GLib;
 const GObject = imports.gi.GObject;
 const Gio = imports.gi.Gio;
 const Gtk = imports.gi.Gtk;
+const Gdk = imports.gi.Gdk;
 const Pango = imports.gi.Pango;
 const Lang = imports.lang;
 
@@ -56,6 +57,13 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         Settings.checkSettings();
         this.CtrlExe = new UtilExeCmd.ExecuteStuff(this);
         this.CtrlWebcam = new UtilWebcam.HelperWebcam();
+
+        let provider = new Gtk.CssProvider();
+        provider.load_from_path(Me.dir.get_path() + '/prefs.css');
+        Gtk.StyleContext.add_provider_for_display(
+            Gdk.Display.get_default(),
+            provider,
+            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
         // creates the ui builder and add the main resource file
         let uiFilePath = Me.path + "/Options_UI.glade-gtk4";
@@ -326,7 +334,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             Settings.getOption("i", Settings.QUALITY_SETTING_KEY)
         );
 
-        Ref_scale_Quality.connect("notify::value", (self) => {
+        Ref_scale_Quality.connect("value-changed", (self) => {
             Lib.TalkativeLog("-^-value quality changed : " + self.get_value());
 
             //round the value
