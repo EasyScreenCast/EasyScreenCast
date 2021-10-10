@@ -14,6 +14,6 @@
   "uuid": "EasyScreenCast@iacopodeenosee.gmail.com",
   "url": "https://github.com/EasyScreenCast/EasyScreenCast",
   "name": "EasyScreenCast",
-  "version": "1.2.0",
+  "version": "41",
   "description": "This extension simplifies the use of the video recording function integrated in gnome shell, allows quickly to change the various settings of the desktop recording.\n\nSOURCE CODE ->  http://github.com/iacopodeenosee/EasyScreenCast\n\nVIDEO ->  https://youtu.be/81E9AruraKU\n\n**NOTICE**\nif an error occurs during the update is recommended to reload GNOME Shell (Alt + F2, 'r') and reload the extension's installation page."
 }
