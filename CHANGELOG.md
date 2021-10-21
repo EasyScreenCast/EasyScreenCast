@@ -8,6 +8,8 @@
 
 **Fixes**
 
+* [#287](https://github.com/EasyScreenCast/EasyScreenCast/issues/287) Installation with make is failing in ubuntu
+
 **Full Changelog**: <https://github.com/EasyScreenCast/EasyScreenCast/compare/1.3.1...master>
 
 # v1.3.1 (2021-10-10)

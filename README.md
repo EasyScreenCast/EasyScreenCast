@@ -41,6 +41,12 @@ make
 make install
 ```
 
+Note: You'll need to install the following dev dependencies once:
+
+```
+sudo apt install gettext jq
+```
+
 ## How to test changes
 
 You can run a new session to test changes to the installed extension:
