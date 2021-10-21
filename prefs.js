@@ -58,15 +58,25 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         this.CtrlExe = new UtilExeCmd.ExecuteStuff(this);
         this.CtrlWebcam = new UtilWebcam.HelperWebcam();
 
-        let provider = new Gtk.CssProvider();
-        provider.load_from_path(Me.dir.get_path() + '/prefs.css');
-        Gtk.StyleContext.add_provider_for_display(
-            Gdk.Display.get_default(),
-            provider,
-            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+        let cssProvider = new Gtk.CssProvider();
+        cssProvider.load_from_path(Me.dir.get_path() + '/prefs.css');
+        if (this._isGtk4()) {
+            Gtk.StyleContext.add_provider_for_display(
+                Gdk.Display.get_default(),
+                cssProvider,
+                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+        } else {
+            Gtk.StyleContext.add_provider_for_screen(
+                Gdk.Screen.get_default(),
+                cssProvider,
+                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+        }
 
         // creates the ui builder and add the main resource file
-        let uiFilePath = Me.path + "/Options_UI.glade-gtk4";
+        let uiFilePath = Me.path + "/Options_UI.glade";
+        if (this._isGtk4()) {
+            uiFilePath = Me.path + "/Options_UI.glade-gtk4";
+        }
         let builder = new Gtk.Builder();
         builder.set_translation_domain(
             "EasyScreenCast@iacopodeenosee.gmail.com"
@@ -81,14 +91,22 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                 vexpand: true,
             });
 
-            this.append(label);
+            if (this._isGtk4()) {
+                this.append(label);
+            } else {
+                this.pack_start(label, true, true, 0);
+            }
         } else {
             Lib.TalkativeLog("-^-UI file receive and load: " + uiFilePath);
 
             // gets the interesting builder objects
             let Ref_box_MainContainer = builder.get_object("Main_Container");
-            // packs the main table
-            this.append(Ref_box_MainContainer);
+            if (this._isGtk4()) {
+                this.append(Ref_box_MainContainer);
+            } else {
+                // packs the main table
+                this.pack_start(Ref_box_MainContainer, true, true, 0);
+            }
 
             // setup tab options
             this._initTabOptions(this, builder, Settings.settings);
@@ -133,6 +151,11 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                 }
             );
         }
+    },
+
+    _isGtk4() {
+        const gtkVersion = Gtk.get_major_version();
+        return gtkVersion >= 4;
     },
 
     /**
@@ -779,32 +802,48 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                 })
             );
         }
-        Ref_filechooser_FileFolder.set_label('Selected: ' + tmpFolder);
 
-        Ref_filechooser_FileFolder.connect("clicked", (self) => {
-            Lib.TalkativeLog("-^- file chooser button clicked...");
-            let dialog = new Gtk.FileChooserNative({
-                "title": "Select folder",
-                "transient-for": null,
-                "action": Gtk.FileChooserAction.SELECT_FOLDER,
-                "accept-label": "Ok",
-                "cancel-label": "Cancel"
+        if (this._isGtk4()) {
+            Ref_filechooser_FileFolder.set_label('Selected: ' + tmpFolder);
+
+            Ref_filechooser_FileFolder.connect("clicked", (self) => {
+                Lib.TalkativeLog("-^- file chooser button clicked...");
+                let dialog = new Gtk.FileChooserNative({
+                    "title": "Select folder",
+                    "transient-for": null,
+                    "action": Gtk.FileChooserAction.SELECT_FOLDER,
+                    "accept-label": "Ok",
+                    "cancel-label": "Cancel"
+                });
+                dialog.connect("response", (self, response) => {
+                    if (response === Gtk.ResponseType.ACCEPT) {
+                        var tmpPathFolder = self.get_file().get_path();
+                        Lib.TalkativeLog("-^-file path get from widget : " + tmpPathFolder);
+                        Settings.setOption(
+                            Settings.FILE_FOLDER_SETTING_KEY,
+                            tmpPathFolder
+                        );
+                        Ref_filechooser_FileFolder.set_label('Selected: ' + tmpPathFolder);
+                    }
+                    ctx.fileChooserDialog = null;
+                });
+                dialog.show();
+                ctx.fileChooserDialog = dialog; // keep a reference to the dialog alive
             });
-            dialog.connect("response", (self, response) => {
-                if (response === Gtk.ResponseType.ACCEPT) {
-                    var tmpPathFolder = self.get_file().get_path();
-                    Lib.TalkativeLog("-^-file path get from widget : " + tmpPathFolder);
+        } else {
+            Ref_filechooser_FileFolder.set_filename(tmpFolder);
+
+            Ref_filechooser_FileFolder.connect("file_set", (self) => {
+                var tmpPathFolder = self.get_filename();
+                Lib.TalkativeLog("-^-file path get from widget : " + tmpPathFolder);
+                if (tmpPathFolder !== null) {
                     Settings.setOption(
                         Settings.FILE_FOLDER_SETTING_KEY,
                         tmpPathFolder
                     );
-                    Ref_filechooser_FileFolder.set_label('Selected: ' + tmpPathFolder);
                 }
-                ctx.fileChooserDialog = null;
             });
-            dialog.show();
-            ctx.fileChooserDialog = dialog; // keep a reference to the dialog alive
-        });
+        }
     },
 
     /**
@@ -1212,7 +1251,9 @@ function buildPrefsWidget() {
 
     let widget = new EasyScreenCastSettingsWidget();
 
-    //widget.show_all();
+    if (!widget._isGtk4()) {
+        widget.show_all();
+    }
 
     return widget;
 }
