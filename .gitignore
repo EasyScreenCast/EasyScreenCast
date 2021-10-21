@@ -10,5 +10,3 @@ locale/ru.mo
 .idea/
 
 node_modules/
-
-package-lock.json
