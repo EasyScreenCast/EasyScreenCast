@@ -18,15 +18,20 @@ Copyright (C) 2013-16 Borsato Ivano.
 - gst plugins good [ mp4/mkv/webm/vp8/vp9 support ]
 
 ## License Info
-EasyScreenCast is free software distributed under the GNU GPL. All files are under GPL v3. read [COPYING](COPYING.md) for more infomation about license.
+EasyScreenCast is free software distributed under the GNU GPL. All files are under GPL v3. read [COPYING](COPYING.md) for more information about license.
 
 ## How to install
 there are several methods:
 
-1-from **gnome extension site**, just go on [this page](https://extensions.gnome.org/extension/690/easyscreencast/) and click/touch on the button ON, that's all.
+1. From **gnome extension site**, just go on [this page](https://extensions.gnome.org/extension/690/easyscreencast/) and click/touch on the button ON, that's all.
 
+2. By installing the Debian/Ubuntu package "gnome-shell-extension-easyscreencast":
+    
+    ```
+    sudo apt install gnome-shell-extension-easyscreencast
+    ```
 
-2-from **github repo**, if you want the most up-to-date version, just do these simple steps
+3. From **github repo**, if you want the most up-to-date version, just do these simple steps
 
 
 ```
