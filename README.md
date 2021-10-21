@@ -1,6 +1,6 @@
 # EasyScreenCast
 
-![GitHub Workflow Status](https://github.com/EasyScreenCast/EasyScreenCast/actions/workflows/node.js.yml/badge.svg)
+[![GitHub Workflow Status](https://github.com/EasyScreenCast/EasyScreenCast/actions/workflows/node.js.yml/badge.svg)](https://github.com/EasyScreenCast/EasyScreenCast/actions)
 
 EasyScreenCast simplifies the use of the video recording function integrated in gnome shell,
 allows quickly to change the various settings of the desktop recording.
