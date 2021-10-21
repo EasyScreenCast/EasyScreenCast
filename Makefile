@@ -21,12 +21,12 @@ INSTALLNAME = EasyScreenCast@iacopodeenosee.gmail.com
 # the version is used without modification. If this is a build
 # from a branch, then the extension version is increased.
 # This extension version number will be set in metadata.json
-FULL_VERSION=$(shell jq -r .version < package.json)
-EXTENSION_VERSION=$(word 2,$(subst _, ,$(FULL_VERSION)))
+PACKAGE_VERSION=$(shell jq -r .version < package.json)
+EXTENSION_VERSION=$(shell jq -r .version < metadata.json)
 IS_RELEASE=$(if $(findstring HEAD tags/,$(shell git name-rev HEAD)),Y,N)
 
 ifeq ($(IS_RELEASE),Y)
-	VERSION=$(word 1,$(subst _, ,$(FULL_VERSION)))
+	VERSION=$(PACKAGE_VERSION)
 	NEXT_EXTENSION_VERSION=$(EXTENSION_VERSION)
 else
 	VERSION=$(shell git describe --tags)
@@ -71,13 +71,7 @@ install-local: _build
 	-rm -fR _build
 	echo done
 
-checkversion:
-ifneq ($(words $(subst _, , $(FULL_VERSION))),2)
-	@echo "Version in package.json doesn't contain extension version: $(FULL_VERSION)"
-	exit 1
-endif
-
-versioninfo: checkversion
+versioninfo:
 	@echo "====================================="
 	@echo "Building $(NAME_EXTENSION) $(VSTRING)"
 	@echo "====================================="
