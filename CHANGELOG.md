@@ -1,14 +1,21 @@
 # v?.?.? (????-??-??)
 
+For gnome-shell 3.16 - 40.
+
 **Features**
+
+* Support Gnome Shell 40
 
 **Pull Requests**
 
+* [#295](https://github.com/EasyScreenCast/EasyScreenCast/pull/295) Support Gnome Shell 40 ([@adangel](https://github.com/adangel))
 * [#296](https://github.com/EasyScreenCast/EasyScreenCast/pull/296) Add github actions workflow ([@adangel](https://github.com/adangel))
 
 **Fixes**
 
 * [#287](https://github.com/EasyScreenCast/EasyScreenCast/issues/287) Installation with make is failing in ubuntu
+* [#289](https://github.com/EasyScreenCast/EasyScreenCast/issues/289) GNOME 40 (GTK4)
+* [#290](https://github.com/EasyScreenCast/EasyScreenCast/issues/290) Gtk.BuilderError with Gnome Shell 40.3
 
 **Full Changelog**: <https://github.com/EasyScreenCast/EasyScreenCast/compare/1.3.1...master>
 
