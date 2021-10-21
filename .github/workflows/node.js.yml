@@ -18,10 +18,10 @@ jobs:
       with:
         node-version: 12.x
         cache: 'npm'
-    - name: Install gettext
+    - name: Install gettext and jq
       run: |
         sudo apt-get update
-        sudo apt-get install gettext
+        sudo apt-get install gettext jq
 
     - run: npm ci
     - run: npm run lint

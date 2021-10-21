@@ -16,16 +16,23 @@ endif
 
 INSTALLNAME = EasyScreenCast@iacopodeenosee.gmail.com
 
-# The command line passed variable VERSION is used to set the version string
-# in the metadata and in the generated zip-file. If no VERSION is passed, the
-# current commit SHA1 is used as version number in the metadata while the
-# generated zip file has no string attached.
-ifdef VERSION
-	VSTRING = _$(VERSION)
+# Determine the version from package.json
+# Depending on whether this is a build from a tag (a release)
+# the version is used without modification. If this is a build
+# from a branch, then the extension version is increased.
+# This extension version number will be set in metadata.json
+FULL_VERSION=$(shell jq -r .version < package.json)
+EXTENSION_VERSION=$(word 2,$(subst _, ,$(FULL_VERSION)))
+IS_RELEASE=$(if $(findstring HEAD tags/,$(shell git name-rev HEAD)),Y,N)
+
+ifeq ($(IS_RELEASE),Y)
+	VERSION=$(word 1,$(subst _, ,$(FULL_VERSION)))
+	NEXT_EXTENSION_VERSION=$(EXTENSION_VERSION)
 else
-	VERSION = $(shell git rev-parse HEAD)
-	VSTRING = _$(VERSION)
+	VERSION=$(shell git describe --tags)
+	NEXT_EXTENSION_VERSION=$(shell echo "$$(($(EXTENSION_VERSION) + 1))")
 endif
+VSTRING = $(VERSION)_$(NEXT_EXTENSION_VERSION)
 
 all: extension
 
@@ -64,13 +71,24 @@ install-local: _build
 	-rm -fR _build
 	echo done
 
+checkversion:
+ifneq ($(words $(subst _, , $(FULL_VERSION))),2)
+	@echo "Version in package.json doesn't contain extension version: $(FULL_VERSION)"
+	exit 1
+endif
+
+versioninfo: checkversion
+	@echo "====================================="
+	@echo "Building $(NAME_EXTENSION) $(VSTRING)"
+	@echo "====================================="
+
 zip-file: _build
 	cd _build ; \
-	zip -qr "$(NAME_EXTENSION)$(VSTRING).zip" .
-	mv _build/$(NAME_EXTENSION)$(VSTRING).zip ./
+	zip -qr "$(NAME_EXTENSION)_$(VSTRING).zip" .
+	mv _build/$(NAME_EXTENSION)_$(VSTRING).zip ./
 	-rm -fR _build
 
-_build: all
+_build: versioninfo all
 	-rm -fR ./_build
 	mkdir -p _build
 	cp $(BASE_MODULES) _build
@@ -85,5 +103,5 @@ _build: all
 		mkdir -p $$lf; \
 		mkdir -p $$lf/LC_MESSAGES; \
 		cp $$l $$lf/LC_MESSAGES/$(UUID).mo; \
-	done;
-	sed -i 's/"version": -1/"version": "$(VERSION)"/'  _build/metadata.json;
+	done
+	sed -i 's/"version": "[0-9]\{1,\}"/"version": "$(NEXT_EXTENSION_VERSION)"/'  _build/metadata.json
