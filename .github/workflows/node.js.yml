@@ -22,6 +22,6 @@ jobs:
     - run: npm run lint
     - run: make zip-file
     - uses: actions/upload-artifact@v2
-        with:
-          name: EasyScreenCast.zip
-          path: EasyScreenCast_*.zip
+      with:
+        name: EasyScreenCast.zip
+        path: EasyScreenCast_*.zip
