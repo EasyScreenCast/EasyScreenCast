@@ -44,7 +44,7 @@ make install
 Note: You'll need to install the following dev dependencies once:
 
 ```
-sudo apt install gettext jq
+sudo apt install gettext jq intltool
 ```
 
 ## How to test changes
