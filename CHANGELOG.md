@@ -5,6 +5,7 @@ For gnome-shell 3.16 - 40.
 **Features**
 
 * Support Gnome Shell 40
+* Preliminary support for Gnome Shell 41
 
 **Pull Requests**
 
