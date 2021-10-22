@@ -25,13 +25,13 @@ const Settings = Me.imports.settings;
  * @type {NotifyManager}
  */
 var NotifyManager = new Lang.Class({
-    Name: "NotifyManager",
+    Name: 'NotifyManager',
 
     /**
      * Create a notify manager
      */
-    _init: function () {
-        Lib.TalkativeLog("-°-init notify manager");
+    _init() {
+        Lib.TalkativeLog('-°-init notify manager');
 
         this.source = new MessageTray.SystemNotificationSource();
     },
@@ -42,10 +42,10 @@ var NotifyManager = new Lang.Class({
      * @param msg
      * @param icon
      * @param sound
-     * @return {MessageTray.Notification}
+     * @returns {MessageTray.Notification}
      */
-    createNotify: function (msg, icon, sound) {
-        Lib.TalkativeLog("-°-create notify :" + msg);
+    createNotify(msg, icon, sound) {
+        Lib.TalkativeLog(`-°-create notify :${msg}`);
         var notify = new MessageTray.Notification(this.source, msg, null, {
             gicon: icon,
         });
@@ -56,9 +56,9 @@ var NotifyManager = new Lang.Class({
         Main.messageTray.add(this.source);
         this.source.showNotification(notify);
 
-        if (sound) {
+        if (sound)
             notify.playSound();
-        }
+
 
         return notify;
     },
@@ -71,16 +71,15 @@ var NotifyManager = new Lang.Class({
      * @param icon
      * @param sound
      */
-    updateNotify: function (notify, msg, icon, sound) {
-        Lib.TalkativeLog("-°-update notify");
+    updateNotify(notify, msg, icon, sound) {
+        Lib.TalkativeLog('-°-update notify');
 
         notify.update(msg, null, {
             gicon: icon,
         });
 
-        if (sound) {
+        if (sound)
             notify.playSound();
-        }
     },
 
     /**
@@ -88,13 +87,13 @@ var NotifyManager = new Lang.Class({
      *
      * @param msg
      */
-    createAlert: function (msg) {
-        Lib.TalkativeLog("-°-show alert tweener : " + msg);
-        if (Settings.getOption("b", Settings.SHOW_NOTIFY_ALERT_SETTING_KEY)) {
+    createAlert(msg) {
+        Lib.TalkativeLog(`-°-show alert tweener : ${msg}`);
+        if (Settings.getOption('b', Settings.SHOW_NOTIFY_ALERT_SETTING_KEY)) {
             var monitor = Main.layoutManager.focusMonitor;
 
             var text = new St.Label({
-                style_class: "alert-msg",
+                style_class: 'alert-msg',
                 text: msg,
             });
             text.opacity = 255;

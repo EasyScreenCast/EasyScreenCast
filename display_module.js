@@ -8,14 +8,14 @@ var display_api = {
     /**
      * Returns the Wayland display or
      *
-     * @return {Meta_Display}
+     * @returns {Meta_Display}
      */
     _display() {
         return global.display || global.screen;
     },
 
     /**
-     * @return {int}
+     * @returns {int}
      * @public
      */
     number_displays() {

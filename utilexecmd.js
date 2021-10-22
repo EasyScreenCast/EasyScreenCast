@@ -23,14 +23,14 @@ const Lib = Me.imports.convenience;
  * @type {ExecuteStuff}
  */
 var ExecuteStuff = new Lang.Class({
-    Name: "ExecuteStuff",
+    Name: 'ExecuteStuff',
 
     /**
      * @param scope
      * @private
      */
-    _init: function (scope) {
-        Lib.TalkativeLog("-¶-init scope:" + scope);
+    _init(scope) {
+        Lib.TalkativeLog(`-¶-init scope:${scope}`);
 
         this.Scope = scope;
         this.Callback = null;
@@ -38,20 +38,20 @@ var ExecuteStuff = new Lang.Class({
 
     /**
      * @param cmd
-     * @return {*[]}
+     * @returns {*[]}
      * @private
      */
-    _parseCmd: function (cmd) {
+    _parseCmd(cmd) {
         let successP, argv;
 
         try {
             [successP, argv] = GLib.shell_parse_argv(cmd);
         } catch (err) {
-            Lib.TalkativeLog("-¶-ERROR PARSE");
+            Lib.TalkativeLog('-¶-ERROR PARSE');
             successP = false;
         }
         if (successP) {
-            Lib.TalkativeLog("-¶-parse: " + successP + " argv: " + argv);
+            Lib.TalkativeLog(`-¶-parse: ${successP} argv: ${argv}`);
             return [successP, argv];
         } else {
             return [successP, null];
@@ -63,18 +63,18 @@ var ExecuteStuff = new Lang.Class({
      * @param sync
      * @param resCallback
      * @param lineCallback
-     * @constructor
+     * @class
      */
-    Execute: function (cmd, sync, resCallback, lineCallback) {
-        Lib.TalkativeLog("-¶-execute: " + cmd);
+    Execute(cmd, sync, resCallback, lineCallback) {
+        Lib.TalkativeLog(`-¶-execute: ${cmd}`);
 
         this.CommandString = cmd;
         if (
             resCallback === undefined &&
             resCallback === null &&
-            typeof resCallback !== "function"
+            typeof resCallback !== 'function'
         ) {
-            Lib.TalkativeLog("-¶-resCallback NEED to be a function");
+            Lib.TalkativeLog('-¶-resCallback NEED to be a function');
 
             this.Callback = null;
         } else {
@@ -82,16 +82,16 @@ var ExecuteStuff = new Lang.Class({
         }
 
         if (sync === true) {
-            Lib.TalkativeLog("-¶-sync execute (wait for return)");
+            Lib.TalkativeLog('-¶-sync execute (wait for return)');
             this._syncCmd(this.CommandString);
         } else {
-            Lib.TalkativeLog("-¶-async execute (fork process)");
+            Lib.TalkativeLog('-¶-async execute (fork process)');
             if (
                 lineCallback === undefined &&
                 lineCallback === null &&
-                typeof lineCallback !== "function"
+                typeof lineCallback !== 'function'
             ) {
-                Lib.TalkativeLog("-¶-lineCallback NEED to be a function");
+                Lib.TalkativeLog('-¶-lineCallback NEED to be a function');
 
                 this.lineCallback = null;
             } else {
@@ -103,10 +103,10 @@ var ExecuteStuff = new Lang.Class({
 
     /**
      * @param cmd
-     * @return {*}
-     * @constructor
+     * @returns {*}
+     * @class
      */
-    Spawn: function (cmd) {
+    Spawn(cmd) {
         let [successP, argv] = this._parseCmd(cmd);
         if (successP) {
             let successS, pid;
@@ -121,16 +121,16 @@ var ExecuteStuff = new Lang.Class({
                 );
             } catch (err) {
                 Lib.TalkativeLog(
-                    "-¶-ERROR SPAWN err:" + err.message.toString()
+                    `-¶-ERROR SPAWN err:${err.message.toString()}`
                 );
                 successS = false;
             }
 
             if (successS) {
-                Lib.TalkativeLog("-¶-spawn: " + successS + " pid: " + pid);
+                Lib.TalkativeLog(`-¶-spawn: ${successS} pid: ${pid}`);
                 return true;
             } else {
-                Lib.TalkativeLog("-¶-spawn ERROR");
+                Lib.TalkativeLog('-¶-spawn ERROR');
                 return null;
             }
         }
@@ -140,10 +140,10 @@ var ExecuteStuff = new Lang.Class({
      * @param cmd
      * @private
      */
-    _syncCmd: function (cmd) {
+    _syncCmd(cmd) {
         let [successP, argv] = this._parseCmd(cmd);
         if (successP) {
-            Lib.TalkativeLog("-¶-argv: " + argv);
+            Lib.TalkativeLog(`-¶-argv: ${argv}`);
             let successS, std_out, std_err, exit;
             try {
                 [successS, std_out, std_err, exit] = GLib.spawn_sync(
@@ -151,18 +151,18 @@ var ExecuteStuff = new Lang.Class({
                     argv,
                     null,
                     GLib.SpawnFlags.SEARCH_PATH,
-                    function () {}
+                    () => {}
                 );
             } catch (err) {
-                Lib.TalkativeLog("-¶-ERROR SPAWN");
+                Lib.TalkativeLog('-¶-ERROR SPAWN');
                 successS = false;
             }
             if (successS) {
-                Lib.TalkativeLog("-¶-argv: " + argv);
-                Lib.TalkativeLog("-¶-std_out: " + ByteArray.toString(std_out));
-                Lib.TalkativeLog("-¶-std_err: " + ByteArray.toString(std_err));
+                Lib.TalkativeLog(`-¶-argv: ${argv}`);
+                Lib.TalkativeLog(`-¶-std_out: ${ByteArray.toString(std_out)}`);
+                Lib.TalkativeLog(`-¶-std_err: ${ByteArray.toString(std_err)}`);
 
-                Lib.TalkativeLog("-¶-exe RC");
+                Lib.TalkativeLog('-¶-exe RC');
                 if (this.Callback !== null) {
                     this.Callback.apply(this.Scope, [
                         true,
@@ -170,10 +170,9 @@ var ExecuteStuff = new Lang.Class({
                     ]);
                 }
             } else {
-                Lib.TalkativeLog("-¶-ERROR exe WC");
-                if (this.Callback !== null) {
+                Lib.TalkativeLog('-¶-ERROR exe WC');
+                if (this.Callback !== null)
                     this.Callback.apply(this.Scope, [false]);
-                }
             }
         }
     },
@@ -182,10 +181,10 @@ var ExecuteStuff = new Lang.Class({
      * @param cmd
      * @private
      */
-    _asyncCmd: function (cmd) {
+    _asyncCmd(cmd) {
         let [successP, argv] = this._parseCmd(cmd);
         if (successP) {
-            Lib.TalkativeLog("-¶-argv: " + argv);
+            Lib.TalkativeLog(`-¶-argv: ${argv}`);
             let successS, pid, std_in, std_out, std_err;
 
             try {
@@ -200,20 +199,20 @@ var ExecuteStuff = new Lang.Class({
                     argv,
                     null,
                     GLib.SpawnFlags.SEARCH_PATH,
-                    function () {},
+                    () => {},
                     null,
                     null
                 );
             } catch (err) {
-                Lib.TalkativeLog("-¶-ERROR SPAWN");
+                Lib.TalkativeLog('-¶-ERROR SPAWN');
                 successS = false;
             }
             if (successS) {
-                Lib.TalkativeLog("-¶-argv: " + argv);
-                Lib.TalkativeLog("-¶-pid: " + pid);
-                Lib.TalkativeLog("-¶-std_in: " + std_in);
-                Lib.TalkativeLog("-¶-std_out: " + std_out);
-                Lib.TalkativeLog("-¶-std_err: " + std_err);
+                Lib.TalkativeLog(`-¶-argv: ${argv}`);
+                Lib.TalkativeLog(`-¶-pid: ${pid}`);
+                Lib.TalkativeLog(`-¶-std_in: ${std_in}`);
+                Lib.TalkativeLog(`-¶-std_out: ${std_out}`);
+                Lib.TalkativeLog(`-¶-std_err: ${std_err}`);
 
                 let out_reader = new Gio.DataInputStream({
                     base_stream: new Gio.UnixInputStream({
@@ -228,21 +227,20 @@ var ExecuteStuff = new Lang.Class({
 
                 let [out, size] = out_reader.read_line(null);
                 while (out !== null) {
-                    if (this.lineCallback !== null) {
+                    if (this.lineCallback !== null)
                         this.lineCallback.apply(this.Scope, [out.toString()]);
-                    }
+
                     [out, size] = out_reader.read_line(null);
                 }
 
                 if (this.Callback !== null) {
-                    Lib.TalkativeLog("-¶-exe RC");
+                    Lib.TalkativeLog('-¶-exe RC');
                     this.Callback.apply(this.Scope, [true]);
                 }
             } else {
-                Lib.TalkativeLog("-¶-ERROR exe WC");
-                if (this.Callback !== null) {
+                Lib.TalkativeLog('-¶-ERROR exe WC');
+                if (this.Callback !== null)
                     this.Callback.apply(this.Scope, [false]);
-                }
             }
         }
     },
