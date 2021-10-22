@@ -1,4 +1,4 @@
-# v?.?.? (????-??-??)
+# v1.4.0 (42) (2021-10-22)
 
 For gnome-shell 3.16 - 40.
 
@@ -18,9 +18,9 @@ For gnome-shell 3.16 - 40.
 * [#289](https://github.com/EasyScreenCast/EasyScreenCast/issues/289) GNOME 40 (GTK4)
 * [#290](https://github.com/EasyScreenCast/EasyScreenCast/issues/290) Gtk.BuilderError with Gnome Shell 40.3
 
-**Full Changelog**: <https://github.com/EasyScreenCast/EasyScreenCast/compare/1.3.1...master>
+**Full Changelog**: <https://github.com/EasyScreenCast/EasyScreenCast/compare/1.3.1...1.4.0>
 
-# v1.3.1 (2021-10-10)
+# v1.3.1 (41) (2021-10-10)
 
 For gnome-shell 3.16 - 3.38. Not compatible with gnome-shell 40.
 
