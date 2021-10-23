@@ -10,7 +10,9 @@
     FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
 */
 
-const Lang = imports.lang;
+/* exported NotifyManager */
+'use strict';
+
 const Main = imports.ui.main;
 const MessageTray = imports.ui.messageTray;
 const Clutter = imports.gi.Clutter;
@@ -24,24 +26,22 @@ const Settings = Me.imports.settings;
 /**
  * @type {NotifyManager}
  */
-var NotifyManager = new Lang.Class({
-    Name: 'NotifyManager',
-
+var NotifyManager = class {
     /**
      * Create a notify manager
      */
-    _init() {
+    construct() {
         Lib.TalkativeLog('-°-init notify manager');
 
         this.source = new MessageTray.SystemNotificationSource();
-    },
+    }
 
     /**
      * create notify
      *
-     * @param msg
-     * @param icon
-     * @param sound
+     * @param {string} msg the title
+     * @param {Gio.FileIcon} icon the icon
+     * @param {boolean} sound whether to play a sound
      * @returns {MessageTray.Notification}
      */
     createNotify(msg, icon, sound) {
@@ -56,20 +56,21 @@ var NotifyManager = new Lang.Class({
         Main.messageTray.add(this.source);
         this.source.showNotification(notify);
 
-        if (sound)
+        if (sound) {
             notify.playSound();
+        }
 
 
         return notify;
-    },
+    }
 
     /**
      * update notify
      *
-     * @param notify
-     * @param msg
-     * @param icon
-     * @param sound
+     * @param {MessageTray.Notification} notify the already existing notification to update
+     * @param {string} msg the title
+     * @param {Gio.FileIcon} icon the icon
+     * @param {boolean} sound whether to play a sound
      */
     updateNotify(notify, msg, icon, sound) {
         Lib.TalkativeLog('-°-update notify');
@@ -78,14 +79,15 @@ var NotifyManager = new Lang.Class({
             gicon: icon,
         });
 
-        if (sound)
+        if (sound) {
             notify.playSound();
-    },
+        }
+    }
 
     /**
      * create alert
      *
-     * @param msg
+     * @param {string} msg the message
      */
     createAlert(msg) {
         Lib.TalkativeLog(`-°-show alert tweener : ${msg}`);
@@ -114,5 +116,5 @@ var NotifyManager = new Lang.Class({
                 },
             });
         }
-    },
-});
+    }
+};
