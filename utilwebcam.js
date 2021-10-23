@@ -10,14 +10,14 @@
     FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
 */
 
-const Lang = imports.lang;
+/* exported HelperWebcam */
+'use strict';
+
 const GLib = imports.gi.GLib;
 imports.gi.versions.Gst = '1.0';
 const Gst = imports.gi.Gst;
 
-const Gettext = imports.gettext.domain(
-    'EasyScreenCast@iacopodeenosee.gmail.com'
-);
+const Gettext = imports.gettext.domain('EasyScreenCast@iacopodeenosee.gmail.com');
 const _ = Gettext.gettext;
 
 const ExtensionUtils = imports.misc.extensionUtils;
@@ -27,13 +27,11 @@ const Lib = Me.imports.convenience;
 let ListDevices = null;
 let ListCaps = null;
 
-var HelperWebcam = new Lang.Class({
-    Name: 'HelperWebcam',
-
+var HelperWebcam = class {
     /**
      * Create a device monitor inputvideo
      */
-    _init() {
+    construct() {
         Lib.TalkativeLog('-@-init webcam');
 
         Gst.init(null);
@@ -90,14 +88,14 @@ var HelperWebcam = new Lang.Class({
         } else {
             Lib.TalkativeLog('-@-ERROR device monitor creation');
         }
-    },
+    }
 
     /**
-     * connect to msg bus
+     * Callback for the DeviceMonitor watcher
      *
-     * @param bus
-     * @param message
-     * @returns {string}
+     * @param {Gst.Bus} bus the DeviceMonitor Bus of gstreamer
+     * @param {Gst.Message} message the message
+     * @returns {boolean}
      */
     _getMsg(bus, message) {
         Lib.TalkativeLog('-@-event getmsg');
@@ -120,7 +118,7 @@ var HelperWebcam = new Lang.Class({
         }
 
         return GLib.SOURCE_CONTINUE;
-    },
+    }
 
     /**
      * refresh all devices info
@@ -134,23 +132,17 @@ var HelperWebcam = new Lang.Class({
         for (var index in ListDevices) {
             ListCaps[index] = this.getCapsForIV(ListDevices[index].caps);
 
-            Lib.TalkativeLog(
-                `-@-webcam /dev/video${
-                    index
-                } name: ${
-                    ListDevices[index].display_name}`
-            );
+            Lib.TalkativeLog(`-@-webcam /dev/video${index} name: ${ListDevices[index].display_name}`);
             Lib.TalkativeLog(`-@-caps avaiable N°: ${ListCaps[index].length}`);
-            Lib.TalkativeLog(
-                `-@-ListCaps[${index}]` + `: ${ListCaps[index]}`
-            );
+            Lib.TalkativeLog(`-@-ListCaps[${index}]: ${ListCaps[index]}`);
         }
-    },
+    }
 
     /**
      * get caps from device
      *
-     * @param tmpCaps
+     * @param {Gst.Caps} tmpCaps capabilities of a device
+     * @returns {string[]}
      */
     getCapsForIV(tmpCaps) {
         Lib.TalkativeLog('-@-get all caps from a input video');
@@ -170,13 +162,13 @@ var HelperWebcam = new Lang.Class({
             Lib.TalkativeLog(`-@-cap : ${i} : ${cleanCaps[i]}`);
         }
         return cleanCaps;
-    },
+    }
 
     /**
      * clean caps form options label
      *
-     * @param {string} strCaps
-     * @returns {Array}
+     * @param {string} strCaps capabilities of a string, possibly "uncleaned"
+     * @returns {string}
      */
     cleanCapsOPT(strCaps) {
         Lib.TalkativeLog(`-@-fine tunning caps:${strCaps}`);
@@ -201,12 +193,12 @@ var HelperWebcam = new Lang.Class({
         } else {
             return strCaps;
         }
-    },
+    }
 
     /**
      * get devices IV
      *
-     * @returns {Array}
+     * @returns {Gst.Device[]}
      */
     getDevicesIV() {
         Lib.TalkativeLog('-@-get devices');
@@ -215,7 +207,7 @@ var HelperWebcam = new Lang.Class({
         Lib.TalkativeLog(`-@-devices number: ${list.length}`);
 
         return list;
-    },
+    }
 
     /**
      * get array name devices IV
@@ -238,20 +230,19 @@ var HelperWebcam = new Lang.Class({
 
         Lib.TalkativeLog(`-@-list devices name: ${tmpArray}`);
         return tmpArray;
-    },
+    }
 
     /**
      * get array caps
      *
-     * @param device
-     * @returns {Array}
+     * @param {int} index device
+     * @returns {string[]}
      */
-    getListCapsDevice(device) {
-        const tmpArray = ListCaps[device];
+    getListCapsDevice(index) {
+        const tmpArray = ListCaps[index];
         Lib.TalkativeLog(`-@-list caps of device: ${tmpArray}`);
-
         return tmpArray;
-    },
+    }
 
     /**
      * start listening
@@ -259,7 +250,7 @@ var HelperWebcam = new Lang.Class({
     startMonitor() {
         Lib.TalkativeLog('-@-start video devicemonitor');
         this.deviceMonitor.start();
-    },
+    }
 
     /**
      * Stop listening
@@ -268,7 +259,7 @@ var HelperWebcam = new Lang.Class({
         Lib.TalkativeLog('-@-stop video devicemonitor');
         this.disconnectSourceBus();
         this.deviceMonitor.stop();
-    },
+    }
 
     /**
      * disconect bus
@@ -278,5 +269,5 @@ var HelperWebcam = new Lang.Class({
             this.dmBus.disconnect(this.dmBusId);
             this.dmBusId = 0;
         }
-    },
-});
+    }
+};
