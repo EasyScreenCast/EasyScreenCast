@@ -178,8 +178,9 @@ var HelperWebcam = class {
             var firstOPT = strCaps.indexOf('{ ');
             var lastOPT = strCaps.indexOf(' }');
             var nextMedia = strCaps.indexOf(',', firstOPT);
-            if (strCaps.indexOf(',', firstOPT) + 1 > lastOPT + 2)
+            if (strCaps.indexOf(',', firstOPT) + 1 > lastOPT + 2) {
                 nextMedia = lastOPT;
+            }
 
 
             var strInitial = strCaps.substr(0, firstOPT);
@@ -221,9 +222,9 @@ var HelperWebcam = class {
         for (var index in ListDevices) {
             var wcName = _('Unspecified webcam');
 
-            if (ListDevices[index].display_name !== '')
+            if (ListDevices[index].display_name !== '') {
                 wcName = ListDevices[index].display_name;
-
+            }
 
             tmpArray.push(wcName);
         }
