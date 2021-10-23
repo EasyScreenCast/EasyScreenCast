@@ -10,12 +10,12 @@
     FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
 */
 
-const Lang = imports.lang;
-const Shell = imports.gi.Shell;
-const Main = imports.ui.main;
+/* exported CaptureVideo */
+'use strict';
+
 const Gio = imports.gi.Gio;
 const GLib = imports.gi.GLib;
-const { loadInterfaceXML, loadSubInterfaceXML } = imports.misc.fileUtils;
+const { loadInterfaceXML, _ } = imports.misc.fileUtils;
 const ScreencastIface = loadInterfaceXML('org.gnome.Shell.Screencast');
 
 const ExtensionUtils = imports.misc.extensionUtils;
@@ -30,21 +30,17 @@ const Selection = Me.imports.selection;
 const UtilGSP = Me.imports.utilgsp;
 const Ext = Me.imports.extension;
 
-const ScreenCastProxy = Gio.DBusProxy.makeProxyWrapper(
-    ScreencastIface
-);
+const ScreenCastProxy = Gio.DBusProxy.makeProxyWrapper(ScreencastIface);
 let ScreenCastService = null;
 
 /**
- * @type {RecordVideo}
+ * @type {CaptureVideo}
  */
-var CaptureVideo = new Lang.Class({
-    Name: 'RecordVideo',
-
+var CaptureVideo = class {
     /**
      * Create a video recorder
      */
-    _init() {
+    construct() {
         Lib.TalkativeLog('-&-init recorder');
 
         this.AreaSelected = null;
@@ -56,15 +52,13 @@ var CaptureVideo = new Lang.Class({
             '/org/gnome/Shell/Screencast',
             (proxy, error) => {
                 if (error) {
-                    Lib.TalkativeLog(
-                        `-&-ERROR(d-bus proxy connected) - ${error.message}`
-                    );
+                    Lib.TalkativeLog(`-&-ERROR(d-bus proxy connected) - ${error.message}`);
                 } else {
                     Lib.TalkativeLog('-&-d-bus proxy connected');
                 }
             }
         );
-    },
+    }
 
     /**
      * start recording
@@ -81,10 +75,7 @@ var CaptureVideo = new Lang.Class({
             );
 
         if (Settings.getOption('s', Settings.FILE_FOLDER_SETTING_KEY) !== '') {
-            fileRec =
-                `${Settings.getOption('s', Settings.FILE_FOLDER_SETTING_KEY)
-                }/${
-                    fileRec}`;
+            fileRec = `${Settings.getOption('s', Settings.FILE_FOLDER_SETTING_KEY)}/${fileRec}`;
         }
 
         let pipelineRec = '';
@@ -105,7 +96,7 @@ var CaptureVideo = new Lang.Class({
             // see DEFAULT_PIPELINE in https://gitlab.gnome.org/GNOME/gnome-shell/-/blob/main/js/dbusServices/screencast/screencastService.js#L26
             // this videoconvert element was added always previously and needs to be added now explicitly
             // https://gitlab.gnome.org/GNOME/gnome-shell/-/commit/51bf7ec17617a9ed056dd563afdb98e17da07373
-            pipelineRec = `videoconvert chroma-mode=GST_VIDEO_CHROMA_MODE_NONE dither=GST_VIDEO_DITHER_NONE matrix-mode=GST_VIDEO_MATRIX_MODE_OUTPUT_ONLY n-threads=%T ! queue ! ${pipelineRec}`
+            pipelineRec = `videoconvert chroma-mode=GST_VIDEO_CHROMA_MODE_NONE dither=GST_VIDEO_DITHER_NONE matrix-mode=GST_VIDEO_MATRIX_MODE_OUTPUT_ONLY n-threads=%T ! queue ! ${pipelineRec}`;
             Lib.TalkativeLog(`-&-pipeline : gnome-shell-version=${shellVersion} pipeline: ${pipelineRec}`);
         }
 
@@ -155,36 +146,24 @@ var CaptureVideo = new Lang.Class({
                 optionsRec,
                 (result, error) => {
                     if (error) {
-                        Lib.TalkativeLog(
-                            `-&-ERROR(screencast execute) - ${error.message}`
-                        );
+                        Lib.TalkativeLog(`-&-ERROR(screencast execute) - ${error.message}`);
 
                         this.stop();
                         Ext.Indicator.doRecResult(false);
                     } else {
-                        Lib.TalkativeLog(
-                            `-&-screencast execute - ${
-                                result[0]
-                            } - ${
-                                result[1]}`
-                        );
+                        Lib.TalkativeLog(`-&-screencast execute - ${result[0]} - ${result[1]}`);
 
                         // draw area recording
-                        if (
-                            Settings.getOption(
-                                'b',
-                                Settings.SHOW_AREA_REC_SETTING_KEY
-                            )
-                        )
+                        if (Settings.getOption('b', Settings.SHOW_AREA_REC_SETTING_KEY)) {
                             this.AreaSelected = new Selection.AreaRecording();
-
+                        }
 
                         Ext.Indicator.doRecResult(result[0], result[1]);
                     }
                 }
             );
         }
-    },
+    }
 
     /**
      * Stop recording
@@ -196,20 +175,18 @@ var CaptureVideo = new Lang.Class({
 
         ScreenCastService.StopScreencastRemote((result, error) => {
             if (error) {
-                Lib.TalkativeLog(
-                    `-&-ERROR(screencast stop) - ${error.message}`
-                );
+                Lib.TalkativeLog(`-&-ERROR(screencast stop) - ${error.message}`);
                 return false;
             } else {
                 Lib.TalkativeLog(`-&-screencast stop - ${result[0]}`);
             }
 
             // clear area recording
-            if (this.AreaSelected !== null && this.AreaSelected.isVisible())
+            if (this.AreaSelected !== null && this.AreaSelected.isVisible()) {
                 this.AreaSelected.clearArea();
-
+            }
 
             return true;
         });
-    },
-});
+    }
+};
