@@ -10,8 +10,11 @@
     FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
 */
 
+/* exported ExecuteStuff */
+'use strict';
+
+const GObject = imports.gi.GObject;
 const ByteArray = imports.byteArray;
-const Lang = imports.lang;
 const GLib = imports.gi.GLib;
 const Gio = imports.gi.Gio;
 
@@ -22,11 +25,11 @@ const Lib = Me.imports.convenience;
 /**
  * @type {ExecuteStuff}
  */
-var ExecuteStuff = new Lang.Class({
-    Name: 'ExecuteStuff',
-
+var ExecuteStuff = GObject.registerClass({
+    GTypeName: 'ExecuteStuff',
+}, class ExecuteStuff extends GObject.Object {
     /**
-     * @param scope
+     * @param {EasyScreenCastSettingsWidget|EasyScreenCastIndicator} scope the scope for executing callback methods
      * @private
      */
     _init(scope) {
@@ -34,10 +37,10 @@ var ExecuteStuff = new Lang.Class({
 
         this.Scope = scope;
         this.Callback = null;
-    },
+    }
 
     /**
-     * @param cmd
+     * @param {string} cmd the command to be executed
      * @returns {*[]}
      * @private
      */
@@ -56,29 +59,44 @@ var ExecuteStuff = new Lang.Class({
         } else {
             return [successP, null];
         }
-    },
+    }
 
     /**
-     * @param cmd
-     * @param sync
-     * @param resCallback
-     * @param lineCallback
+     * Result callback.
+     *
+     * @callback ExecuteStuff~resultCallback
+     * @param {boolean} result whether the executed command exited successfully or not
+     * @param {string} stdout (optional) output of the result, if it was executed synchronously
+     */
+
+    /**
+     * Line output callback for asynchronous commands.
+     *
+     * @callback ExecuteStuff~lineCallback
+     * @param {string} line a single line of output
+     */
+
+    /**
+     * @param {string} cmd the command to be executed
+     * @param {boolean} sync execute synchronously (wait for return) or fork a process
+     * @param {ExecuteStuff~resultCallback} resCb callback after the command is finished
+     * @param {ExecuteStuff~lineCallback} lineCb callback for stdout when command is executed asynchronosly
      * @class
      */
-    Execute(cmd, sync, resCallback, lineCallback) {
+    Execute(cmd, sync, resCb, lineCb) {
         Lib.TalkativeLog(`-¶-execute: ${cmd}`);
 
         this.CommandString = cmd;
         if (
-            resCallback === undefined &&
-            resCallback === null &&
-            typeof resCallback !== 'function'
+            resCb === undefined &&
+            resCb === null &&
+            typeof resCb !== 'function'
         ) {
             Lib.TalkativeLog('-¶-resCallback NEED to be a function');
 
             this.Callback = null;
         } else {
-            this.Callback = resCallback;
+            this.Callback = resCb;
         }
 
         if (sync === true) {
@@ -87,22 +105,22 @@ var ExecuteStuff = new Lang.Class({
         } else {
             Lib.TalkativeLog('-¶-async execute (fork process)');
             if (
-                lineCallback === undefined &&
-                lineCallback === null &&
-                typeof lineCallback !== 'function'
+                lineCb === undefined &&
+                lineCb === null &&
+                typeof lineCb !== 'function'
             ) {
                 Lib.TalkativeLog('-¶-lineCallback NEED to be a function');
 
                 this.lineCallback = null;
             } else {
-                this.lineCallback = lineCallback;
+                this.lineCallback = lineCb;
             }
             this._asyncCmd(this.CommandString);
         }
-    },
+    }
 
     /**
-     * @param cmd
+     * @param {string} cmd the command to be executed
      * @returns {*}
      * @class
      */
@@ -134,19 +152,19 @@ var ExecuteStuff = new Lang.Class({
                 return null;
             }
         }
-    },
+    }
 
     /**
-     * @param cmd
+     * @param {string} cmd the command to be executed
      * @private
      */
     _syncCmd(cmd) {
         let [successP, argv] = this._parseCmd(cmd);
         if (successP) {
             Lib.TalkativeLog(`-¶-argv: ${argv}`);
-            let successS, std_out, std_err, exit;
+            let successS, stdOut, stdErr, exit;
             try {
-                [successS, std_out, std_err, exit] = GLib.spawn_sync(
+                [successS, stdOut, stdErr, exit] = GLib.spawn_sync(
                     null,
                     argv,
                     null,
@@ -159,41 +177,43 @@ var ExecuteStuff = new Lang.Class({
             }
             if (successS) {
                 Lib.TalkativeLog(`-¶-argv: ${argv}`);
-                Lib.TalkativeLog(`-¶-std_out: ${ByteArray.toString(std_out)}`);
-                Lib.TalkativeLog(`-¶-std_err: ${ByteArray.toString(std_err)}`);
+                Lib.TalkativeLog(`-¶-stdOut: ${ByteArray.toString(stdOut)}`);
+                Lib.TalkativeLog(`-¶-stdErr: ${ByteArray.toString(stdErr)}`);
+                Lib.TalkativeLog(`-¶-exit: ${exit}`);
 
                 Lib.TalkativeLog('-¶-exe RC');
                 if (this.Callback !== null) {
                     this.Callback.apply(this.Scope, [
                         true,
-                        ByteArray.toString(std_out),
+                        ByteArray.toString(stdOut),
                     ]);
                 }
             } else {
-                Lib.TalkativeLog('-¶-ERROR exe WC');
-                if (this.Callback !== null)
+                Lib.TalkativeLog(`-¶-ERROR exe WC - exit status: ${exit}`);
+                if (this.Callback !== null) {
                     this.Callback.apply(this.Scope, [false]);
+                }
             }
         }
-    },
+    }
 
     /**
-     * @param cmd
+     * @param {string} cmd the command to be executed
      * @private
      */
     _asyncCmd(cmd) {
         let [successP, argv] = this._parseCmd(cmd);
         if (successP) {
             Lib.TalkativeLog(`-¶-argv: ${argv}`);
-            let successS, pid, std_in, std_out, std_err;
+            let successS, pid, stdIn, stdOut, stdErr;
 
             try {
                 [
                     successS,
                     pid,
-                    std_in,
-                    std_out,
-                    std_err,
+                    stdIn,
+                    stdOut,
+                    stdErr,
                 ] = GLib.spawn_async_with_pipes(
                     null,
                     argv,
@@ -210,27 +230,29 @@ var ExecuteStuff = new Lang.Class({
             if (successS) {
                 Lib.TalkativeLog(`-¶-argv: ${argv}`);
                 Lib.TalkativeLog(`-¶-pid: ${pid}`);
-                Lib.TalkativeLog(`-¶-std_in: ${std_in}`);
-                Lib.TalkativeLog(`-¶-std_out: ${std_out}`);
-                Lib.TalkativeLog(`-¶-std_err: ${std_err}`);
+                Lib.TalkativeLog(`-¶-stdIn: ${stdIn}`);
+                Lib.TalkativeLog(`-¶-stdOut: ${stdOut}`);
+                Lib.TalkativeLog(`-¶-stdErr: ${stdErr}`);
 
-                let out_reader = new Gio.DataInputStream({
+                let outReader = new Gio.DataInputStream({
                     base_stream: new Gio.UnixInputStream({
-                        fd: std_out,
+                        fd: stdOut,
                     }),
                 });
-                let in_writer = new Gio.DataOutputStream({
+                let inWriter = new Gio.DataOutputStream({
                     base_stream: new Gio.UnixOutputStream({
-                        fd: std_in,
+                        fd: stdIn,
                     }),
                 });
+                inWriter.close();
 
-                let [out, size] = out_reader.read_line(null);
+                let [out] = outReader.read_line(null);
                 while (out !== null) {
-                    if (this.lineCallback !== null)
+                    if (this.lineCallback !== null) {
                         this.lineCallback.apply(this.Scope, [out.toString()]);
+                    }
 
-                    [out, size] = out_reader.read_line(null);
+                    [out] = outReader.read_line(null);
                 }
 
                 if (this.Callback !== null) {
@@ -239,9 +261,10 @@ var ExecuteStuff = new Lang.Class({
                 }
             } else {
                 Lib.TalkativeLog('-¶-ERROR exe WC');
-                if (this.Callback !== null)
+                if (this.Callback !== null) {
                     this.Callback.apply(this.Scope, [false]);
+                }
             }
         }
-    },
+    }
 });
