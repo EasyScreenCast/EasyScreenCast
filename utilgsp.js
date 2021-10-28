@@ -10,6 +10,9 @@
     FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
 */
 
+/* exported composeGSP,getDescr,getFps,getFileExtension */
+'use strict';
+
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Lib = Me.imports.convenience;
@@ -270,6 +273,8 @@ const CONTAINER = [webmVP8, webmVP9, mp4, mkv, ogg];
 
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
+let ctrlAudio = new UtilAudio.MixerAudio();
+
 /**
  * Compose GSP
  *
@@ -278,175 +283,139 @@ const CONTAINER = [webmVP8, webmVP9, mp4, mkv, ogg];
 function composeGSP() {
     Lib.TalkativeLog('-§-COMPOSE GSP');
 
-    this.CtrlAudio = new UtilAudio.MixerAudio();
-    this.tmpGSP = '';
+    let tmpGSP = '';
 
     // retrieve options
-    let Device_Webcam = Settings.getOption(
-        's',
-        Settings.DEVICE_WEBCAM_SETTING_KEY
-    );
-    let Device_Audio = Settings.getOption(
-        'i',
-        Settings.INPUT_AUDIO_SOURCE_SETTING_KEY
-    );
-    let QualityGSP = Settings.getOption('i', Settings.QUALITY_SETTING_KEY);
-    let QualityWebcam = Settings.getOption(
-        's',
-        Settings.QUALITY_WEBCAM_SETTING_KEY
-    );
-    let ResolutionType = Settings.getOption(
-        'i',
-        Settings.FILE_RESOLUTION_TYPE_SETTING_KEY
-    );
-    let ResolutionKAR = Settings.getOption(
-        'b',
-        Settings.FILE_RESOLUTION_KAR_SETTING_KEY
-    );
-    let ResolutionHeight = Settings.getOption(
-        'i',
-        Settings.FILE_RESOLUTION_HEIGHT_SETTING_KEY
-    );
-    let ResolutionWidth = Settings.getOption(
-        'i',
-        Settings.FILE_RESOLUTION_WIDTH_SETTING_KEY
-    );
-    let Container = Settings.getOption(
-        'i',
-        Settings.FILE_CONTAINER_SETTING_KEY
-    );
+    let deviceWebcam = Settings.getOption('s', Settings.DEVICE_WEBCAM_SETTING_KEY);
+    let deviceAudio = Settings.getOption('i', Settings.INPUT_AUDIO_SOURCE_SETTING_KEY);
+    let qualityGSP = Settings.getOption('i', Settings.QUALITY_SETTING_KEY);
+    let qualityWebcam = Settings.getOption('s', Settings.QUALITY_WEBCAM_SETTING_KEY);
+    let resolutionType = Settings.getOption('i', Settings.FILE_RESOLUTION_TYPE_SETTING_KEY);
+    let resolutionKAR = Settings.getOption('b', Settings.FILE_RESOLUTION_KAR_SETTING_KEY);
+    let resolutionHeight = Settings.getOption('i', Settings.FILE_RESOLUTION_HEIGHT_SETTING_KEY);
+    let resolutionWidth = Settings.getOption('i', Settings.FILE_RESOLUTION_WIDTH_SETTING_KEY);
+    let container = Settings.getOption('i', Settings.FILE_CONTAINER_SETTING_KEY);
 
     Lib.TalkativeLog(
-        `-§-get option||devW: ${
-            Device_Webcam
-        }||devA: ${
-            Device_Audio
-        }||Qgsp: ${
-            QualityGSP
-        }||Qwc: ${
-            QualityWebcam
-        }||Res: ${
-            ResolutionType
-        }||Cont: ${
-            Container}`
+        `-§-get option||devW: ${deviceWebcam}||devA: ${deviceAudio}||Qgsp: ${qualityGSP}||Qwc: ${qualityWebcam}||Res: ${resolutionType}||Cont: ${container}`
     );
 
-    if (Device_Webcam !== '') {
-        switch (Device_Audio) {
+    if (deviceWebcam !== '') {
+        switch (deviceAudio) {
         case 0:
             Lib.TalkativeLog('-§- SCREEN-WEBCAM');
 
-            this.tmpGSP = SCREEN_WEBCAM;
+            tmpGSP = SCREEN_WEBCAM;
 
             // replace WEBCAM_DEVICE/WEBCAM_CAPS
-            this.tmpGSP = replaceWebcam(
-                this.tmpGSP,
-                Device_Webcam,
-                QualityWebcam
+            tmpGSP = _replaceWebcam(
+                tmpGSP,
+                deviceWebcam,
+                qualityWebcam
             );
 
             break;
         case 1:
             Lib.TalkativeLog('-§-SCREEN-WEBCAM-AUDIO(d)');
 
-            this.tmpGSP = SCREEN_WEBCAM_SOUND;
+            tmpGSP = SCREEN_WEBCAM_SOUND;
 
             // replace WEBCAM_DEVICE/WEBCAM_CAPS/ENCODER-AUDIO
-            this.tmpGSP = replaceAudio(
-                replaceWebcam(this.tmpGSP, Device_Webcam, QualityWebcam),
+            tmpGSP = _replaceAudio(
+                _replaceWebcam(tmpGSP, deviceWebcam, qualityWebcam),
                 true,
-                Container,
-                QualityGSP
+                container,
+                qualityGSP
             );
 
             break;
         default:
             Lib.TalkativeLog('-§-SCREEN-WEBCAM-AUDIO');
 
-            this.tmpGSP = SCREEN_WEBCAM_SOUND;
+            tmpGSP = SCREEN_WEBCAM_SOUND;
 
             // replace WEBCAM_DEVICE/WEBCAM_CAPS/ENCODER-AUDIO/AUDIO_DEVICE
-            this.tmpGSP = replaceAudio(
-                replaceWebcam(this.tmpGSP, Device_Webcam, QualityWebcam),
+            tmpGSP = _replaceAudio(
+                _replaceWebcam(tmpGSP, deviceWebcam, qualityWebcam),
                 false,
-                Container,
-                QualityGSP
+                container,
+                qualityGSP
             );
         }
     } else {
-        switch (Device_Audio) {
+        switch (deviceAudio) {
         case 0:
             Lib.TalkativeLog('-§-SCREEN');
 
-            this.tmpGSP = SCREEN;
+            tmpGSP = SCREEN;
 
             break;
         case 1:
             Lib.TalkativeLog('-§-SCREEN-AUDIO(d)');
 
-            this.tmpGSP = SCREEN_SOUND;
+            tmpGSP = SCREEN_SOUND;
 
             // replace ENCODER-AUDIO
-            this.tmpGSP = replaceAudio(
-                this.tmpGSP,
+            tmpGSP = _replaceAudio(
+                tmpGSP,
                 true,
-                Container,
-                QualityGSP
+                container,
+                qualityGSP
             );
 
             break;
         default:
             Lib.TalkativeLog('-§-SCREEN-AUDIO');
 
-            this.tmpGSP = SCREEN_SOUND;
+            tmpGSP = SCREEN_SOUND;
 
             // replace ENCODER-AUDIO/AUDIO_DEVICE
-            this.tmpGSP = replaceAudio(
-                this.tmpGSP,
+            tmpGSP = _replaceAudio(
+                tmpGSP,
                 false,
-                Container,
-                QualityGSP
+                container,
+                qualityGSP
             );
         }
     }
 
     // compose resolution string
-    var Resolution = composeResolution(
-        ResolutionType,
-        ResolutionHeight,
-        ResolutionWidth,
-        ResolutionKAR
+    var resolution = _composeResolution(
+        resolutionType,
+        resolutionHeight,
+        resolutionWidth,
+        resolutionKAR
     );
 
     // replace RESOLUTION/ENCODER-VIDEO/CONTAINER
     var mapObj = {
-        _SCREENCAST_RES_: Resolution,
-        _ENCODER_VIDEO_: CONTAINER[Container].quality[QualityGSP].vq,
-        _CONTAINER_: CONTAINER[Container].nameGSP,
+        _SCREENCAST_RES_: resolution,
+        _ENCODER_VIDEO_: CONTAINER[container].quality[qualityGSP].vq,
+        _CONTAINER_: CONTAINER[container].nameGSP,
     };
 
-    this.tmpGSP = this.tmpGSP.replace(
+    tmpGSP = tmpGSP.replace(
         /_SCREENCAST_RES_|_ENCODER_VIDEO_|_CONTAINER_/gi,
         match => {
             return mapObj[match];
         }
     );
 
-    Lib.TalkativeLog(`-§-final GSP :${this.tmpGSP}`);
+    Lib.TalkativeLog(`-§-final GSP :${tmpGSP}`);
 
-    return this.tmpGSP;
+    return tmpGSP;
 }
 
 /**
  * replace audio
  *
- * @param gspRA
- * @param defaultAudio
- * @param ConTMP
- * @param QGSPtmp
- * @returns {*}
+ * @param {string} gspRA input pipeline to be modified
+ * @param {boolean} defaultAudio whether to use the default audio device
+ * @param {int} ConTMP selected output container. Used to determine correct audio encoder
+ * @param {int} QGSPtmp quality setting
+ * @returns {string} pipeline with audio
  */
-function replaceAudio(gspRA, defaultAudio, ConTMP, QGSPtmp) {
+function _replaceAudio(gspRA, defaultAudio, ConTMP, QGSPtmp) {
     Lib.TalkativeLog(`-§-replace audio default->${defaultAudio}`);
     // replace device/encoder
     var aq = CONTAINER[ConTMP].quality[QGSPtmp].aq;
@@ -457,15 +426,16 @@ function replaceAudio(gspRA, defaultAudio, ConTMP, QGSPtmp) {
         Lib.TalkativeLog('-§-default audio source');
         audioPipeline = gspRA.replace(/_ENCODER_AUDIO_/gi, aq);
     } else {
-        var audiosource = this.CtrlAudio.getAudioSource();
+        var audiosource = ctrlAudio.getAudioSource();
 
         if (audiosource === undefined) {
             Lib.TalkativeLog('-§-failure combination of array audio sources');
             audioPipeline = gspRA.replace(/_ENCODER_AUDIO_/gi, aq);
         } else {
             Lib.TalkativeLog('-§-correct audio source assignment');
-            if (audiosource.indexOf('output') !== -1)
+            if (audiosource.indexOf('output') !== -1) {
                 audiosource += '.monitor';
+            }
 
             var reDev = `pulsesrc device="${audiosource}"`;
 
@@ -491,18 +461,18 @@ function replaceAudio(gspRA, defaultAudio, ConTMP, QGSPtmp) {
 /**
  * replace webcam
  *
- * @param gspRW
- * @param device
- * @param caps
- * @returns {string | void | *}
+ * @param {string} gspRW input pipeline to be modified
+ * @param {string} device webcam device file (e.g. /dev/video0)
+ * @param {string} caps quality options
+ * @returns {string} pipeline with webcam settings
  */
-function replaceWebcam(gspRW, device, caps) {
+function _replaceWebcam(gspRW, device, caps) {
     Lib.TalkativeLog(`-§-replace webcam -> ${device} caps: ${caps}`);
 
     // replace device/caps
     var reDev = `device=${device}`;
-    var reWCopt = composeWebCamOption();
-    var [reWCwidth, reWCheight] = getWebCamDimension();
+    var reWCopt = _composeWebCamOption();
+    var [reWCwidth, reWCheight] = _getWebCamDimension();
 
     Lib.TalkativeLog(`-§-pipeline pre-webcam:${gspRW}`);
 
@@ -529,21 +499,22 @@ function replaceWebcam(gspRW, device, caps) {
 /**
  * replace resolution
  *
- * @param tmpRes
- * @param h
- * @param w
- * @param kar
- * @returns {string}
+ * @param {int} tmpRes resolution type: native/custom
+ * @param {int} h custom height
+ * @param {int} w custom width
+ * @param {boolean} kar whether to keep aspect ratio
+ * @returns {string} pipeline part for scaling resolution
  */
-function composeResolution(tmpRes, h, w, kar) {
+function _composeResolution(tmpRes, h, w, kar) {
     Lib.TalkativeLog(`-§-resolution option: ${tmpRes}`);
     var strRes = RESOLUTION[0];
+    var mapObj = {};
 
     switch (tmpRes) {
     case -1:
         break;
     case 999:
-        var mapObj = {
+        mapObj = {
             _RES_KAR_: kar ? 'true' : 'false',
             _RES_HEIGHT_: h,
             _RES_WIDTH_: w,
@@ -557,7 +528,7 @@ function composeResolution(tmpRes, h, w, kar) {
         );
         break;
     default:
-        var mapObj = {
+        mapObj = {
             _RES_KAR_: 'true',
             _RES_HEIGHT_: h,
             _RES_WIDTH_: w,
@@ -580,68 +551,48 @@ function composeResolution(tmpRes, h, w, kar) {
  *
  * @returns {string}
  */
-function composeWebCamOption() {
+function _composeWebCamOption() {
     Lib.TalkativeLog('-§-compose webcam option');
 
     // retrieve option webcam
-    var WC_Alpha = Settings.getOption(
-        'd',
-        Settings.ALPHA_CHANNEL_WEBCAM_SETTING_KEY
-    );
-    var WC_marginX = Settings.getOption(
-        'i',
-        Settings.MARGIN_X_WEBCAM_SETTING_KEY
-    );
-    var WC_marginY = Settings.getOption(
-        'i',
-        Settings.MARGIN_Y_WEBCAM_SETTING_KEY
-    );
-    var WC_posCorner = Settings.getOption(
-        'i',
-        Settings.CORNER_POSITION_WEBCAM_SETTING_KEY
-    );
-
-    var [WC_w, WC_h, SCR_w, SCR_h] = getWebCamDimension();
+    var webcamAlpha = Settings.getOption('d', Settings.ALPHA_CHANNEL_WEBCAM_SETTING_KEY);
+    var webcamMarginX = Settings.getOption('i', Settings.MARGIN_X_WEBCAM_SETTING_KEY);
+    var webcamMarginY = Settings.getOption('i', Settings.MARGIN_Y_WEBCAM_SETTING_KEY);
+    var webcamCornerPosition = Settings.getOption('i', Settings.CORNER_POSITION_WEBCAM_SETTING_KEY);
+    var [webcamWidth, webcamHeight, screenWidth, screenHeight] = _getWebCamDimension();
 
     var posX = 0;
     var posY = 0;
 
     Lib.TalkativeLog(
-        `-§-alpha=${
-            WC_Alpha
-        } |marX=${
-            WC_marginX
-        } |marY=${
-            WC_marginY
-        } |corner=${
-            WC_posCorner}`
+        `-§-alpha=${webcamAlpha} |marX=${webcamMarginX} |marY=${webcamMarginY} |corner=${webcamCornerPosition}`
     );
 
     // corner top-left
-    posX = WC_marginX;
-    posY = WC_marginY;
+    posX = webcamMarginX;
+    posY = webcamMarginY;
 
-    switch (WC_posCorner) {
+    switch (webcamCornerPosition) {
     case 0:
         // corner bottom-right
-        posX = Math.floor(SCR_w - (WC_w + WC_marginX));
-        posY = Math.floor(SCR_h - (WC_h + WC_marginY));
+        posX = Math.floor(screenWidth - (webcamWidth + webcamMarginX));
+        posY = Math.floor(screenHeight - (webcamHeight + webcamMarginY));
         break;
     case 1:
         // corner bottom-left
-        posx = WC_marginX;
-        posY = Math.floor(SCR_h - (WC_h + WC_marginY));
+        posX = webcamMarginX;
+        posY = Math.floor(screenHeight - (webcamHeight + webcamMarginY));
         break;
     case 2:
         // corner top-right
-        posX = Math.floor(SCR_w - (WC_w + WC_marginX));
-        posY = WC_marginY;
+        posX = Math.floor(screenWidth - (webcamWidth + webcamMarginX));
+        posY = webcamMarginY;
         break;
     default:
     }
 
     // check valid position
-    if ((posX < 0 || posX > SCR_w) && (posY < 0 || posY > SCR_h)) {
+    if ((posX < 0 || posX > screenWidth) && (posY < 0 || posY > screenHeight)) {
         Lib.TalkativeLog('-§-NOT valid position');
         posX = 0;
         posY = 0;
@@ -649,7 +600,7 @@ function composeWebCamOption() {
 
     var tmpWCopt =
         `sink_0::alpha=1 sink_1::alpha=${
-            WC_Alpha
+            webcamAlpha
         } sink_1::xpos=${
             posX
         } sink_1::ypos=${
@@ -665,53 +616,41 @@ function composeWebCamOption() {
 /**
  * retrieve dimension webcam
  *
- * @returns {*[]}
+ * @returns {*[]} array with webcam width,height,screen-width,screen-height
  */
-function getWebCamDimension() {
+function _getWebCamDimension() {
     Lib.TalkativeLog('-§-get webcam dimension');
 
-    var WC_w = Settings.getOption('i', Settings.WIDTH_WEBCAM_SETTING_KEY);
-    var WC_h = Settings.getOption('i', Settings.HEIGHT_WEBCAM_SETTING_KEY);
-    var WC_DimType = Settings.getOption(
-        'i',
-        Settings.TYPE_UNIT_WEBCAM_SETTING_KEY
-    );
+    var webcamWidth = Settings.getOption('i', Settings.WIDTH_WEBCAM_SETTING_KEY);
+    var webcamHeight = Settings.getOption('i', Settings.HEIGHT_WEBCAM_SETTING_KEY);
+    var webcamUnit = Settings.getOption('i', Settings.TYPE_UNIT_WEBCAM_SETTING_KEY);
+    var screenWidth = Settings.getOption('i', Settings.WIDTH_SETTING_KEY);
+    var screenHeight = Settings.getOption('i', Settings.HEIGHT_SETTING_KEY);
 
-    var SCR_w = Settings.getOption('i', Settings.WIDTH_SETTING_KEY);
-    var SCR_h = Settings.getOption('i', Settings.HEIGHT_SETTING_KEY);
     if (Settings.getOption('i', Settings.AREA_SCREEN_SETTING_KEY) === 0) {
-        SCR_w = global.screen_width;
-        SCR_h = global.screen_height;
+        screenWidth = global.screen_width;
+        screenHeight = global.screen_height;
     }
 
     Lib.TalkativeLog(
-        `-§-WC w=${
-            WC_w
-        } WC h=${
-            WC_h
-        } WCtype=${
-            WC_DimType
-        } screen W=${
-            SCR_w
-        } screen H=${
-            SCR_h}`
+        `-§-WC w=${webcamWidth} WC h=${webcamHeight} WCtype=${webcamUnit} screen W=${screenWidth} screen H=${screenHeight}`
     );
 
-    if (WC_DimType === 0) {
-        WC_w = Math.floor((SCR_w * WC_w) / 100);
-        WC_h = Math.floor((SCR_h * WC_h) / 100);
+    if (webcamUnit === 0) {
+        webcamWidth = Math.floor((screenWidth * webcamWidth) / 100);
+        webcamHeight = Math.floor((screenHeight * webcamHeight) / 100);
     }
 
-    Lib.TalkativeLog(`-§-after percentage WCw=${WC_w} WCh=${WC_h}`);
+    Lib.TalkativeLog(`-§-after percentage WCw=${webcamWidth} WCh=${webcamHeight}`);
 
-    return [WC_w, WC_h, SCR_w, SCR_h];
+    return [webcamWidth, webcamHeight, screenWidth, screenHeight];
 }
 
 /**
  * get description
  *
- * @param quality
- * @param container
+ * @param {int} quality selected quality
+ * @param {int} container selected container format
  * @returns {string}
  */
 function getDescr(quality, container) {
@@ -723,8 +662,8 @@ function getDescr(quality, container) {
 /**
  * get fps
  *
- * @param quality
- * @param container
+ * @param {int} quality selected quality
+ * @param {int} container selected container format
  * @returns {number}
  */
 function getFps(quality, container) {
@@ -736,7 +675,7 @@ function getFps(quality, container) {
 /**
  * get file extension
  *
- * @param container
+ * @param {int} container selected container format
  * @returns {string}
  */
 function getFileExtension(container) {
