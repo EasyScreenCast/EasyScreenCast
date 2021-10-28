@@ -10,14 +10,18 @@
     FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
 */
 
-const Gettext = imports.gettext.domain(
-    'EasyScreenCast@iacopodeenosee.gmail.com'
-);
+/* exported setOption,getGSPstd,getOption */
+'use strict';
+
+const Gettext = imports.gettext.domain('EasyScreenCast@iacopodeenosee.gmail.com');
 const _ = Gettext.gettext;
 
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Lib = Me.imports.convenience;
+
+/* eslint-disable no-unused-vars */
+// these are exported constants
 
 // setting keys
 var INPUT_AUDIO_SOURCE_SETTING_KEY = 'input-audio-source';
@@ -63,14 +67,16 @@ var CORNER_POSITION_WEBCAM_SETTING_KEY = 'corner-position-webcam';
 // shortcut tree view columns
 var SHORTCUT_COLUMN_KEY = 0;
 var SHORTCUT_COLUMN_MODS = 1;
+/* eslint-enable no-unused-vars */
 
-var settings = null;
+
+let settings = null;
 
 /**
  * getter option
  *
- * @param {string} type
- * @param key
+ * @param {string} type value type of the option. one of 'b', 'i', 's', 'd', 'as'
+ * @param {string} key option key
  * @returns {string}
  */
 function getOption(type, key) {
@@ -95,23 +101,24 @@ function getOption(type, key) {
 /**
  * get a standard gsp pipeline
  *
- * @param audio
+ * @param {boolean} audio with or without audio
  * @returns {string}
  */
 function getGSPstd(audio) {
     // TODO update gsp
-    if (audio)
+    if (audio) {
         return 'queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! videorate ! vp8enc min_quantizer=0 max_quantizer=5 cpu-used=3 deadline=1000000 threads=%T ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mux. pulsesrc ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! audioconvert ! vorbisenc ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mux. webmmux name=mux ';
-    else
+    } else {
         return 'vp9enc min_quantizer=0 max_quantizer=5 cpu-used=3 deadline=1000000 threads=%T ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! webmmux';
+    }
 }
 
 /**
  * setter option
  *
- * @param key
- * @param {string} option
- * @returns {string}
+ * @param {string} key option key
+ * @param {boolean|number|string|double|object} option option value
+ * @returns {string} empty string if successful, 'ERROR' otherwise
  */
 function setOption(key, option) {
     checkSettings();
@@ -147,6 +154,7 @@ function setOption(key, option) {
  *
  */
 function checkSettings() {
-    if (settings === null)
+    if (settings === null) {
         settings = Lib.getSettings('org.gnome.shell.extensions.EasyScreenCast');
+    }
 }
