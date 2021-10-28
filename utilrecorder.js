@@ -13,6 +13,7 @@
 /* exported CaptureVideo */
 'use strict';
 
+const GObject = imports.gi.GObject;
 const Gio = imports.gi.Gio;
 const GLib = imports.gi.GLib;
 const { loadInterfaceXML, _ } = imports.misc.fileUtils;
@@ -36,11 +37,13 @@ let ScreenCastService = null;
 /**
  * @type {CaptureVideo}
  */
-var CaptureVideo = class {
+var CaptureVideo = GObject.registerClass({
+    GTypeName: 'CaptureVideo',
+}, class CaptureVideo extends GObject.Object {
     /**
      * Create a video recorder
      */
-    construct() {
+    _init() {
         Lib.TalkativeLog('-&-init recorder');
 
         this.AreaSelected = null;
@@ -189,4 +192,4 @@ var CaptureVideo = class {
             return true;
         });
     }
-};
+});

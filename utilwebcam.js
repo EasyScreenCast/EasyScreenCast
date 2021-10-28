@@ -13,6 +13,7 @@
 /* exported HelperWebcam */
 'use strict';
 
+const GObject = imports.gi.GObject;
 const GLib = imports.gi.GLib;
 imports.gi.versions.Gst = '1.0';
 const Gst = imports.gi.Gst;
@@ -27,11 +28,13 @@ const Lib = Me.imports.convenience;
 let ListDevices = null;
 let ListCaps = null;
 
-var HelperWebcam = class {
+var HelperWebcam = GObject.registerClass({
+    GTypeName: 'HelperWebcam',
+}, class HelperWebcam extends GObject.Object {
     /**
      * Create a device monitor inputvideo
      */
-    construct() {
+    _init() {
         Lib.TalkativeLog('-@-init webcam');
 
         Gst.init(null);
@@ -271,4 +274,4 @@ var HelperWebcam = class {
             this.dmBusId = 0;
         }
     }
-};
+});

@@ -13,6 +13,7 @@
 /* exported NotifyManager */
 'use strict';
 
+const GObject = imports.gi.GObject;
 const Main = imports.ui.main;
 const MessageTray = imports.ui.messageTray;
 const Clutter = imports.gi.Clutter;
@@ -26,11 +27,13 @@ const Settings = Me.imports.settings;
 /**
  * @type {NotifyManager}
  */
-var NotifyManager = class {
+var NotifyManager = GObject.registerClass({
+    GTypeName: 'NotifyManager',
+}, class NotifyManager extends GObject.Object {
     /**
      * Create a notify manager
      */
-    construct() {
+    _init() {
         Lib.TalkativeLog('-°-init notify manager');
 
         this.source = new MessageTray.SystemNotificationSource();
@@ -117,4 +120,4 @@ var NotifyManager = class {
             });
         }
     }
-};
+});
