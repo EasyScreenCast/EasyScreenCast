@@ -10,13 +10,16 @@
     FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
 */
 
+/* exported MixerAudio */
+'use strict';
+
+const GObject = imports.gi.GObject;
 const GIRepository = imports.gi.GIRepository;
 GIRepository.Repository.prepend_search_path('/usr/lib/gnome-shell');
 GIRepository.Repository.prepend_library_path('/usr/lib/gnome-shell');
 GIRepository.Repository.prepend_search_path('/usr/lib64/gnome-shell');
 GIRepository.Repository.prepend_library_path('/usr/lib64/gnome-shell');
 const Gvc = imports.gi.Gvc;
-const Lang = imports.lang;
 
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
@@ -29,9 +32,9 @@ let isConnected = false;
 /**
  * @type {MixerAudio}
  */
-var MixerAudio = new Lang.Class({
-    Name: 'MixerAudio',
-
+var MixerAudio = GObject.registerClass({
+    GTypeName: 'MixerAudio',
+}, class MixerAudio extends GObject.Object {
     /**
      * Init Lang class
      *
@@ -60,22 +63,17 @@ var MixerAudio = new Lang.Class({
         } else {
             Lib.TalkativeLog('-#-Error lib pulse NOT present or NOT respond');
         }
-    },
+    }
 
     /**
-     * @returns {*}
+     * @returns {Gvc.MixerControl}
      * @private
      */
     _getMixerControl() {
         var _mixerTmp;
 
         if (MixerControl) {
-            Lib.TalkativeLog(
-                `-#-mixer exist -> ${
-                    MixerControl
-                } state -> ${
-                    MixerControl.get_state()}`
-            );
+            Lib.TalkativeLog(`-#-mixer exist -> ${MixerControl} state -> ${MixerControl.get_state()}`);
 
             return MixerControl;
         } else {
@@ -88,7 +86,7 @@ var MixerAudio = new Lang.Class({
 
             return _mixerTmp;
         }
-    },
+    }
 
     _onChangeStatePAC() {
         Lib.TalkativeLog('-#-mixer state changed');
@@ -111,11 +109,9 @@ var MixerAudio = new Lang.Class({
             isConnected = true;
 
             // more log for debug
-            if (
-                Settings.getOption('b', Settings.VERBOSE_DEBUG_SETTING_KEY)
-            )
+            if (Settings.getOption('b', Settings.VERBOSE_DEBUG_SETTING_KEY)) {
                 this._getInfoPA();
-
+            }
 
             break;
         default:
@@ -123,7 +119,7 @@ var MixerAudio = new Lang.Class({
             isConnected = false;
             break;
         }
-    },
+    }
 
     /**
      * Gets a list of input audio sources.
@@ -182,7 +178,7 @@ var MixerAudio = new Lang.Class({
         }
 
         return [];
-    },
+    }
 
     /**
      * @returns {string}
@@ -203,11 +199,11 @@ var MixerAudio = new Lang.Class({
 
             return '';
         }
-    },
+    }
 
     /**
-     * @param control
-     * @param id
+     * @param {Gvc.MixerControl} control the mixer control to which the stream was added
+     * @param {number} id the stream id
      * @private
      */
     _onStreamAdd(control, id) {
@@ -228,17 +224,23 @@ var MixerAudio = new Lang.Class({
             Lib.TalkativeLog(`-#-stream description: ${streamTmp.description}`);
             Lib.TalkativeLog(`-#-stream port: ${streamTmp.port}`);
         }
-    },
+    }
 
     /**
-     * @param control
-     * @param id
+     * @param {Gvc.MixerControl} control the mixer control from where the stream was removed
+     * @param {number} id stream id
      * @private
      */
     _onStreamRemove(control, id) {
         Lib.TalkativeLog(`-#-mixer stream remove - ID: ${id}`);
         var streamTmp = control.lookup_stream_id(id);
-    },
+        if (
+            streamTmp.name === 'GNOME Shell' &&
+            streamTmp.description === 'Record Stream'
+        ) {
+            Lib.TalkativeLog('-#-stream gnome recorder removed');
+        }
+    }
 
     /**
      * @private
@@ -323,7 +325,7 @@ var MixerAudio = new Lang.Class({
                 );
             }
         }
-    },
+    }
 
     /**
      * @returns {boolean}
@@ -332,16 +334,14 @@ var MixerAudio = new Lang.Class({
         Lib.TalkativeLog(`-#-check GVC lib presence: ${isConnected}`);
 
         return isConnected;
-    },
+    }
 
     /**
      * Destroy mixer control
      */
     destroy() {
-        if (MixerControl)
+        if (MixerControl) {
             MixerControl.close();
-
-
-        this.destroy();
-    },
+        }
+    }
 });
