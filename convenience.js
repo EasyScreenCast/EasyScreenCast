@@ -24,9 +24,11 @@
   SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+/* exported ESConGIcon,ESCoffGIcon,ESConGIconSel,ESCoffGIconSel,ESCimgPerformance,ESCimgQuality,ESCimgInfo,TalkativeLog,getSettings,initTranslations */
+'use strict';
+
 const Gettext = imports.gettext;
 const Gio = imports.gi.Gio;
-const GLib = imports.gi.GLib;
 
 const Config = imports.misc.config;
 const ExtensionUtils = imports.misc.extensionUtils;
@@ -34,14 +36,10 @@ const Me = ExtensionUtils.getCurrentExtension();
 const Settings = Me.imports.settings;
 
 /**
- * initTranslations:
- *
- * @domain: (optional): the gettext domain to use
- *
  * Initialize Gettext to load translations from extensionsdir/locale.
  * If @domain is not provided, it will be taken from metadata['gettext-domain']
  *
- * @param {string} domain
+ * @param {string} domain (optional): the gettext domain to use
  */
 function initTranslations(domain) {
     domain = domain || Me.metadata['gettext-domain'];
@@ -51,22 +49,19 @@ function initTranslations(domain) {
     // otherwise assume that extension has been installed in the
     // same prefix as gnome-shell
     let localeDir = Me.dir.get_child('locale');
-    if (localeDir.query_exists(null))
+    if (localeDir.query_exists(null)) {
         Gettext.bindtextdomain(domain, localeDir.get_path());
-    else
+    } else {
         Gettext.bindtextdomain(domain, Config.LOCALEDIR);
+    }
 }
 
 /**
- * getSettings:
- *
- * @schema: (optional): the GSettings schema id
- *
  * Builds and return a GSettings schema for @schema, using schema files
  * in extensionsdir/schemas. If @schema is not provided, it is taken from
  * metadata['settings-schema'].
  *
- * @param {string} schema
+ * @param {string} schema (optional): the GSettings schema id
  * @returns {Gio.Settings}
  */
 function getSettings(schema) {
@@ -94,13 +89,7 @@ function getSettings(schema) {
     let schemaObj = schemaSource.lookup(schema, true);
 
     if (!schemaObj) {
-        throw new Error(
-            `Schema ${
-                schema
-            } could not be found for extension ${
-                Me.metadata.uuid
-            }. Please check your installation.`
-        );
+        throw new Error(`Schema ${schema} could not be found for extension ${Me.metadata.uuid}. Please check your installation.`);
     }
 
     return new Gio.Settings({
@@ -109,12 +98,13 @@ function getSettings(schema) {
 }
 
 /**
- * @param {string} msg
+ * @param {string} msg the message to log
  * @class
  */
 function TalkativeLog(msg) {
-    if (Settings.getOption('b', Settings.VERBOSE_DEBUG_SETTING_KEY))
+    if (Settings.getOption('b', Settings.VERBOSE_DEBUG_SETTING_KEY)) {
         log(`[ESC]${msg}`);
+    }
 }
 
 var ESConGIcon = new Gio.FileIcon({
