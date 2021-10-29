@@ -157,7 +157,7 @@ var TimerCounting = GObject.registerClass({
      *
      * @callback TimerCounting~callback
      * @param {number} count seconds passed
-     * @param {boolean} halted whether the timer is still running (false) or has been halted (true).
+     * @param {boolean} alertEnd whether the timer is ending
      */
 
     /**

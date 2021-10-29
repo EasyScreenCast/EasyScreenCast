@@ -121,19 +121,12 @@ var CaptureVideo = GObject.registerClass({
                 optionsRec,
                 (result, error) => {
                     if (error) {
-                        Lib.TalkativeLog(
-                            `-&-ERROR(screencast execute) - ${error.message}`
-                        );
+                        Lib.TalkativeLog(`-&-ERROR(screencast execute) - ${error.message}`);
 
                         this.stop();
                         Ext.Indicator.doRecResult(false);
                     } else {
-                        Lib.TalkativeLog(
-                            `-&-screencast execute - ${
-                                result[0]
-                            } - ${
-                                result[1]}`
-                        );
+                        Lib.TalkativeLog(`-&-screencast execute - ${result[0]} - ${result[1]}`);
                     }
 
                     Ext.Indicator.doRecResult(result[0], result[1]);

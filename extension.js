@@ -10,21 +10,20 @@
     FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
 */
 
+/* exported init,enable,disable,Indicator */
+'use strict';
+
+const GObject = imports.gi.GObject;
 const St = imports.gi.St;
 const Meta = imports.gi.Meta;
 const Shell = imports.gi.Shell;
-const Lang = imports.lang;
 const PanelMenu = imports.ui.panelMenu;
 const Clutter = imports.gi.Clutter;
-const Panel = imports.ui.panel;
 const PopupMenu = imports.ui.popupMenu;
-const MessageTray = imports.ui.messageTray;
 const Slider = imports.ui.slider;
 const Main = imports.ui.main;
 
-const Gettext = imports.gettext.domain(
-    'EasyScreenCast@iacopodeenosee.gmail.com'
-);
+const Gettext = imports.gettext.domain('EasyScreenCast@iacopodeenosee.gmail.com');
 const _ = Gettext.gettext;
 
 const ExtensionUtils = imports.misc.extensionUtils;
@@ -48,12 +47,11 @@ let isActive = false;
 let pathFile = '';
 
 /**
- * @type {EasyScreenCast.indicator}
+ * @type {EasyScreenCastIndicator}
  */
-const EasyScreenCast_Indicator = new Lang.Class({
-    Name: 'EasyScreenCast.indicator',
-    Extends: PanelMenu.Button,
-
+const EasyScreenCastIndicator = GObject.registerClass({
+    GTypeName: 'EasyScreenCast.indicator',
+}, class EasyScreenCastIndicator extends PanelMenu.Button {
     /**
      * @private
      */
@@ -77,21 +75,18 @@ const EasyScreenCast_Indicator = new Lang.Class({
         }
 
         // add enter/leave/click event
-        this.connect('enter_event', (param1, param2, focus) =>
-            this.refreshIndicator(param1, param2, true)
-        );
-        this.connect('leave_event', (param1, param2, focus) =>
-            this.refreshIndicator(param1, param2, false)
-        );
+        this.connect('enter_event', () => this.refreshIndicator(true));
+        this.connect('leave_event', () => this.refreshIndicator(false));
         this.connect('button_press_event', (actor, event) =>
             this._onButtonPress(actor, event)
         );
 
         // prepare setting var
-        if (Settings.getOption('i', Settings.TIME_DELAY_SETTING_KEY) > 0)
+        if (Settings.getOption('i', Settings.TIME_DELAY_SETTING_KEY) > 0) {
             this.isDelayActive = true;
-        else
+        } else {
             this.isDelayActive = false;
+        }
 
 
         // Add the title bar icon and label for time display
@@ -115,29 +110,25 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.AreaSelected = null;
         this.TimeSlider = null;
 
-        this._init_main_menu();
-    },
+        this._initMainMenu();
+    }
 
     /**
      * @private
      */
-    _init_main_menu() {
-        this._add_start_stop_menu_entry();
+    _initMainMenu() {
+        this._addStartStopMenuEntry();
         this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
-        this.sub_menu_audio_recording = new PopupMenu.PopupSubMenuMenuItem(
-            _('No audio source'),
-            true
-        );
-        this.sub_menu_audio_recording.icon.icon_name =
-            'audio-input-microphone-symbolic';
+        this.sub_menu_audio_recording = new PopupMenu.PopupSubMenuMenuItem(_('No audio source'), true);
+        this.sub_menu_audio_recording.icon.icon_name = 'audio-input-microphone-symbolic';
         this.menu.addMenuItem(this.sub_menu_audio_recording);
-        this._add_audio_recording_sub_menu();
+        this._addAudioRecordingSubMenu();
 
         // add sub menu webcam recording
         this._addSubMenuWebCam();
 
-        this._add_area_recording_sub_menu();
-        this._add_recording_delay_sub_menu();
+        this._addAreaRecordingSubMenu();
+        this._addRecordingDelaySubMenu();
         this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
         this.menu_item_options = new PopupMenu.PopupMenuItem(_('Options'));
         this.menu_item_options.actor.insert_child_at_index(
@@ -148,27 +139,25 @@ const EasyScreenCast_Indicator = new Lang.Class({
             1
         );
         this.menu.addMenuItem(this.menu_item_options);
-        this.menu_item_options.connect('activate', () => {
-            this._open_extension_preferences();
-        });
-    },
+        this.menu_item_options.connect('activate', () => this._openExtensionPreferences());
+    }
 
     /**
      * Set a new value for the time label. Integers are
      * converted to seconds, minutes, hours. All other
      * values are converted to strings.
      *
-     * @param {string} newValue
+     * @param {string|number} newValue new value of the label. if a number, then it's the seconds passed.
      * @returns {string}
      */
     updateTimeLabel(newValue) {
         /**
-         * @param number
+         * @param {number} number a number
          */
         function padZeros(number) {
-            if (number < 10)
+            if (number < 10) {
                 number = `0${number}`;
-
+            }
 
             return number.toString();
         }
@@ -180,16 +169,11 @@ const EasyScreenCast_Indicator = new Lang.Class({
             let minutes = Math.floor(newValue / 60);
             newValue -= minutes * 60;
 
-            newValue =
-                `${padZeros(hours)
-                }:${
-                    padZeros(minutes)
-                }:${
-                    padZeros(newValue)}`;
+            newValue = `${padZeros(hours)}:${padZeros(minutes)}:${padZeros(newValue)}`;
         }
 
         this.timeLabel.set_text(newValue.toString());
-    },
+    }
 
     /**
      * Left clicking on the icon toggles the recording
@@ -198,8 +182,8 @@ const EasyScreenCast_Indicator = new Lang.Class({
      * Some submenus are refreshed to account for new
      * sources.
      *
-     * @param {string} actor
-     * @param {event} event
+     * @param {Clutter.Actor} actor the actor
+     * @param {Clutter.Event} event a Clutter.Event
      */
     _onButtonPress(actor, event) {
         let button = event.get_button();
@@ -211,41 +195,39 @@ const EasyScreenCast_Indicator = new Lang.Class({
         } else {
             Lib.TalkativeLog('-*-right click indicator');
 
-            if (this.menu.isOpen)
+            if (this.menu.isOpen) {
                 this.menu.close();
+            }
 
-            this.isShowNotify = Settings.getOption(
-                'b',
-                Settings.SHOW_NOTIFY_ALERT_SETTING_KEY
-            );
+            this.isShowNotify = Settings.getOption('b', Settings.SHOW_NOTIFY_ALERT_SETTING_KEY);
             this._doRecording();
         }
-    },
+    }
 
     /**
      * Sets up the menu when the user opens it.
      */
     _setupExtensionMenu() {
-        this._add_audio_recording_sub_menu();
-        this._add_webcam_sub_menu();
-    },
+        this._addAudioRecordingSubMenu();
+        this._addWebcamSubMenu();
+    }
 
     /**
      * Sets up all the options for web-cams. Should only run the
      * first time the icon is clicked an the CtrlWebcam is still
      * null.
      */
-    _add_webcam_sub_menu() {
-        if (this.CtrlWebcam === null)
+    _addWebcamSubMenu() {
+        if (this.CtrlWebcam === null) {
             this.CtrlWebcam = new UtilWebcam.HelperWebcam();
-
+        }
 
         // add sub menu webcam recording
         this._populateSubMenuWebcam();
 
         // start monitoring inputvideo
         this.CtrlWebcam.startMonitor();
-    },
+    }
 
     /**
      * Adds individual webcam items to the webcam menu.
@@ -254,21 +236,20 @@ const EasyScreenCast_Indicator = new Lang.Class({
         let arrMI = this._createMIWebCam();
 
         this.smWebCam.menu.removeAll();
-        for (let element in arrMI)
+        for (let element in arrMI) {
             this.smWebCam.menu.addMenuItem(arrMI[element]);
+        }
 
+        let i = Settings.getOption('i', Settings.DEVICE_INDEX_WEBCAM_SETTING_KEY);
+        Lib.TalkativeLog(`-*-populated submenuwebcam. Settings i=${i}`);
 
-        Lib.TalkativeLog(`-*-populated submenuwebcam. Settings i=${Settings.getOption('i', Settings.DEVICE_INDEX_WEBCAM_SETTING_KEY)}`);
-
-        this.smWebCam.label.text = this.WebCamDevice[
-            Settings.getOption('i', Settings.DEVICE_INDEX_WEBCAM_SETTING_KEY)
-        ];
-    },
+        this.smWebCam.label.text = this.WebCamDevice[i];
+    }
 
     /**
      * @private
      */
-    _add_start_stop_menu_entry() {
+    _addStartStopMenuEntry() {
         this.imRecordAction = new PopupMenu.PopupBaseMenuItem();
         this.RecordingLabel = new St.Label({
             text: _('Start recording'),
@@ -282,30 +263,27 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.imRecordAction.x_fill = true;
         this.imRecordAction.x_align = Clutter.ActorAlign.CENTER;
         this.imRecordAction.connect('activate', () => {
-            this.isShowNotify = Settings.getOption(
-                'b',
-                Settings.SHOW_NOTIFY_ALERT_SETTING_KEY
-            );
-
+            this.isShowNotify = Settings.getOption('b', Settings.SHOW_NOTIFY_ALERT_SETTING_KEY);
             this._doRecording();
         });
 
         this.menu.addMenuItem(this.imRecordAction);
-    },
+    }
 
     /**
      *  Refreshes the submenu for audio recording sources.
      */
-    _add_audio_recording_sub_menu() {
+    _addAudioRecordingSubMenu() {
         Lib.TalkativeLog('-*-reset the sub menu audio');
         // remove old menu items
         this.sub_menu_audio_recording.menu.removeAll();
 
         Lib.TalkativeLog('-*-add new items to sub menu audio');
         var arrMI = this._createMIAudioRec();
-        for (var ele in arrMI)
+        for (var ele in arrMI) {
             this.sub_menu_audio_recording.menu.addMenuItem(arrMI[ele]);
-    },
+        }
+    }
 
     /**
      * @private
@@ -315,42 +293,35 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.smWebCam.icon.icon_name = 'camera-web-symbolic';
 
         this.menu.addMenuItem(this.smWebCam);
-    },
+    }
 
     /**
      * @private
      */
-    _add_area_recording_sub_menu() {
-        this.sub_menu_area_recording = new PopupMenu.PopupSubMenuMenuItem(
-            '',
-            true
-        );
-        this.sub_menu_area_recording.icon.icon_name =
-            'view-fullscreen-symbolic';
+    _addAreaRecordingSubMenu() {
+        this.sub_menu_area_recording = new PopupMenu.PopupSubMenuMenuItem('', true);
+        this.sub_menu_area_recording.icon.icon_name = 'view-fullscreen-symbolic';
 
         var arrMI = this._createMIAreaRec();
-        for (var ele in arrMI)
+        for (var ele in arrMI) {
             this.sub_menu_area_recording.menu.addMenuItem(arrMI[ele]);
+        }
 
-
-        this.sub_menu_area_recording.label.text = this.AreaType[
-            Settings.getOption('i', Settings.AREA_SCREEN_SETTING_KEY)
-        ];
-
+        this.sub_menu_area_recording.label.text = this.AreaType[Settings.getOption('i', Settings.AREA_SCREEN_SETTING_KEY)];
         this.menu.addMenuItem(this.sub_menu_area_recording);
-    },
+    }
 
     /**
      * @private
      */
-    _add_recording_delay_sub_menu() {
+    _addRecordingDelaySubMenu() {
         this.smDelayRec = new PopupMenu.PopupSubMenuMenuItem('', true);
         this.smDelayRec.icon.icon_name = 'alarm-symbolic';
 
         var arrMI = this._createMIInfoDelayRec();
-        for (var ele in arrMI)
+        for (var ele in arrMI) {
             this.smDelayRec.menu.addMenuItem(arrMI[ele]);
-
+        }
 
         var secDelay = Settings.getOption('i', Settings.TIME_DELAY_SETTING_KEY);
         if (secDelay > 0) {
@@ -361,19 +332,19 @@ const EasyScreenCast_Indicator = new Lang.Class({
         }
 
         this.menu.addMenuItem(this.smDelayRec);
-    },
+    }
 
     /**
      * @returns {Array}
      * @private
      */
     _createMIAreaRec() {
-        this.AreaType = new Array(
+        this.AreaType = [
             _('Record all desktop'),
             _('Record a selected monitor'),
             _('Record a selected window'),
-            _('Record a selected area')
-        );
+            _('Record a selected area'),
+        ];
 
         this.AreaMenuItem = new Array(this.AreaType.length);
 
@@ -388,15 +359,13 @@ const EasyScreenCast_Indicator = new Lang.Class({
                 }
             );
 
-            (function (i, arr, item) {
+            (function (areaSetting, arr, item) {
                 this.connectMI = function () {
                     this.connect('activate', () => {
-                        Lib.TalkativeLog(
-                            `-*-set area recording to ${i} ${arr[i]}`
-                        );
-                        Settings.setOption(Settings.AREA_SCREEN_SETTING_KEY, i);
+                        Lib.TalkativeLog(`-*-set area recording to ${areaSetting} ${arr[areaSetting]}`);
+                        Settings.setOption(Settings.AREA_SCREEN_SETTING_KEY, areaSetting);
 
-                        item.label.text = arr[i];
+                        item.label.text = arr[areaSetting];
                     });
                 };
                 this.connectMI();
@@ -409,20 +378,17 @@ const EasyScreenCast_Indicator = new Lang.Class({
         }
 
         return this.AreaMenuItem;
-    },
+    }
 
     /**
      * @returns {Array}
      * @private
      */
     _createMIWebCam() {
-        this.WebCamDevice = new Array(_('No WebCam recording'));
+        this.WebCamDevice = [_('No WebCam recording')];
         // add menu item webcam device from GST
         const devices = this.CtrlWebcam.getDevicesIV();
-        this.WebCamDevice.push.apply(
-            this.WebCamDevice,
-            this.CtrlWebcam.getNameDevices()
-        );
+        this.WebCamDevice.push([...this.CtrlWebcam.getNameDevices()]);
         Lib.TalkativeLog(`-*-webcam list: ${this.WebCamDevice}`);
         this.AreaMenuItem = new Array(this.WebCamDevice.length);
 
@@ -440,9 +406,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
                 // using v4l2src. This means that even if we pick a Pipewire
                 // device, we will always open it with v4l2src.
                 const device = devices[i - 1];
-                devicePath = device
-                    .get_properties()
-                    .get_string('device.path');
+                devicePath = device.get_properties().get_string('device.path');
                 Lib.TalkativeLog(`-*-webcam i=${i} devicePath: ${devicePath}`);
             }
 
@@ -456,22 +420,13 @@ const EasyScreenCast_Indicator = new Lang.Class({
                 }
             );
 
-            (function (i, devicePath, arr, item) {
+            (function (index, devPath, arr, item) {
                 this.connectMI = function () {
                     this.connect('activate', () => {
-                        Lib.TalkativeLog(
-                            `-*-set webcam device to ${i} ${arr[i]} devicePath=${devicePath}`
-                        );
-                        Settings.setOption(
-                            Settings.DEVICE_INDEX_WEBCAM_SETTING_KEY,
-                            i
-                        );
-                        Settings.setOption(
-                            Settings.DEVICE_WEBCAM_SETTING_KEY,
-                            devicePath
-                        );
-
-                        item.label.text = arr[i];
+                        Lib.TalkativeLog(`-*-set webcam device to ${index} ${arr[index]} devicePath=${devPath}`);
+                        Settings.setOption(Settings.DEVICE_INDEX_WEBCAM_SETTING_KEY, index);
+                        Settings.setOption(Settings.DEVICE_WEBCAM_SETTING_KEY, devPath);
+                        item.label.text = arr[index];
                     });
                 };
                 this.connectMI();
@@ -485,7 +440,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         }
 
         return this.AreaMenuItem;
-    },
+    }
 
     /**
      * @returns {Array}
@@ -493,7 +448,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
      */
     _createMIAudioRec() {
         // add std menu item
-        this.AudioChoice = new Array(
+        this.AudioChoice = [
             {
                 desc: _('No audio source'),
                 name: 'N/A',
@@ -507,13 +462,13 @@ const EasyScreenCast_Indicator = new Lang.Class({
                 port: 'N/A',
                 sortable: true,
                 resizeable: true,
-            }
-        );
+            },
+        ];
         // add menu item audio source from PA
         var audioList = this.CtrlAudio.getListInputAudio();
-        for (var index in audioList)
+        for (var index in audioList) {
             this.AudioChoice.push(audioList[index]);
-
+        }
 
         this.AudioMenuItem = new Array(this.AudioChoice.length);
 
@@ -544,27 +499,18 @@ const EasyScreenCast_Indicator = new Lang.Class({
             );
 
             // update choice audio from pref
-            if (
-                i ===
-                Settings.getOption('i', Settings.INPUT_AUDIO_SOURCE_SETTING_KEY)
-            ) {
+            if (i === Settings.getOption('i', Settings.INPUT_AUDIO_SOURCE_SETTING_KEY)) {
                 Lib.TalkativeLog(`-*-get audio choice from pref ${i}`);
-                this.sub_menu_audio_recording.label.text = this.AudioChoice[
-                    i
-                ].desc;
+                this.sub_menu_audio_recording.label.text = this.AudioChoice[i].desc;
             }
 
             // add action on menu item
-            (function (i, arr, item) {
+            (function (audioIndex, arr, item) {
                 this.connectMI = function () {
                     this.connect('activate', () => {
-                        Lib.TalkativeLog(`-*-set audio choice to ${i}`);
-                        Settings.setOption(
-                            Settings.INPUT_AUDIO_SOURCE_SETTING_KEY,
-                            i
-                        );
-
-                        item.label.text = arr[i].desc;
+                        Lib.TalkativeLog(`-*-set audio choice to ${audioIndex}`);
+                        Settings.setOption(Settings.INPUT_AUDIO_SOURCE_SETTING_KEY, audioIndex);
+                        item.label.text = arr[audioIndex].desc;
                     });
                 };
                 this.connectMI();
@@ -576,7 +522,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
             ));
         }
         return this.AudioMenuItem;
-    },
+    }
 
     /**
      * @returns {Array}
@@ -599,9 +545,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.imSliderDelay = new PopupMenu.PopupBaseMenuItem({
             activate: false,
         });
-        this.TimeSlider = new Slider.Slider(
-            Settings.getOption('i', Settings.TIME_DELAY_SETTING_KEY) / 100
-        );
+        this.TimeSlider = new Slider.Slider(Settings.getOption('i', Settings.TIME_DELAY_SETTING_KEY) / 100);
         this.TimeSlider.x_expand = true;
         this.TimeSlider.y_expand = true;
 
@@ -619,7 +563,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         this.imSliderDelay.add(this.TimeSlider);
 
         return [this.DelayTimeTitle, this.imSliderDelay];
-    },
+    }
 
     /**
      * @private
@@ -632,7 +576,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
 
         // add indicator
         this.add_actor(this.indicatorBox);
-    },
+    }
 
     /**
      * @private
@@ -645,16 +589,14 @@ const EasyScreenCast_Indicator = new Lang.Class({
 
         // remove indicator
         this.remove_actor(this.indicatorBox);
-    },
+    }
 
     /**
      * @private
      */
     _doDelayAction() {
         if (this.isDelayActive) {
-            Lib.TalkativeLog(
-                `-*-delay recording called | delay= ${this.TimeSlider.value}`
-            );
+            Lib.TalkativeLog(`-*-delay recording called | delay= ${this.TimeSlider.value}`);
             timerD = new Time.TimerDelay(
                 Math.floor(this.TimeSlider.value * 100),
                 this._doPreCommand,
@@ -666,7 +608,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
             // start recording
             this._doPreCommand();
         }
-    },
+    }
 
     /**
      * @private
@@ -675,10 +617,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         if (Settings.getOption('b', Settings.ACTIVE_PRE_CMD_SETTING_KEY)) {
             Lib.TalkativeLog('-*-execute pre command');
 
-            const PreCmd = Settings.getOption(
-                's',
-                Settings.PRE_CMD_SETTING_KEY
-            );
+            const PreCmd = Settings.getOption('s', Settings.PRE_CMD_SETTING_KEY);
 
             this.CtrlExe.Execute(
                 PreCmd,
@@ -703,7 +642,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         } else {
             this.recorder.start();
         }
-    },
+    }
 
     /**
      * @private
@@ -716,14 +655,9 @@ const EasyScreenCast_Indicator = new Lang.Class({
             pathFile = '';
 
             // get selected area
-            const optArea = Settings.getOption(
-                'i',
-                Settings.AREA_SCREEN_SETTING_KEY
-            );
+            const optArea = Settings.getOption('i', Settings.AREA_SCREEN_SETTING_KEY);
             if (optArea > 0) {
-                Lib.TalkativeLog(
-                    `-*-type of selection of the area to record: ${optArea}`
-                );
+                Lib.TalkativeLog(`-*-type of selection of the area to record: ${optArea}`);
                 switch (optArea) {
                 case 3:
                     new Selection.SelectionArea();
@@ -756,7 +690,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
         }
 
         this.refreshIndicator(false);
-    },
+    }
 
     /**
      * @private
@@ -766,10 +700,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
             Lib.TalkativeLog('-*-execute post command');
 
             // launch cmd after registration
-            const tmpCmd =
-                `/usr/bin/sh -c "${
-                    Settings.getOption('s', Settings.POST_CMD_SETTING_KEY)
-                }"`;
+            const tmpCmd = `/usr/bin/sh -c "${Settings.getOption('s', Settings.POST_CMD_SETTING_KEY)}"`;
 
             const mapObj = {
                 _fpath: pathFile,
@@ -789,11 +720,11 @@ const EasyScreenCast_Indicator = new Lang.Class({
             // execute post command
             this.CtrlExe.Spawn(Cmd);
         }
-    },
+    }
 
     /**
-     * @param result
-     * @param file
+     * @param {boolean} result whether the recording was successful
+     * @param {string} file file path of the recorded file
      */
     doRecResult(result, file) {
         if (result) {
@@ -801,10 +732,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
 
             Lib.TalkativeLog('-*-record OK');
             // update indicator
-            const indicators = Settings.getOption(
-                'i',
-                Settings.STATUS_INDICATORS_SETTING_KEY
-            );
+            const indicators = Settings.getOption('i', Settings.STATUS_INDICATORS_SETTING_KEY);
             this._replaceStdIndicator(indicators === 1 || indicators === 3);
 
             if (this.isShowNotify) {
@@ -816,7 +744,9 @@ const EasyScreenCast_Indicator = new Lang.Class({
                 );
 
                 // start counting rec
-                timerC = new Time.TimerCounting(refreshNotify, this);
+                timerC = new Time.TimerCounting((secpassed, alertEnd) => {
+                    this._refreshNotify(secpassed, alertEnd);
+                }, this);
                 timerC.begin();
             }
 
@@ -837,19 +767,43 @@ const EasyScreenCast_Indicator = new Lang.Class({
             }
         }
         this.refreshIndicator(false);
-    },
+    }
+
+    /**
+     * @param {number} sec the seconds passed
+     * @param {boolean} alertEnd whether the timer is ending
+     */
+    _refreshNotify(sec, alertEnd) {
+        if (Indicator.notifyCounting !== null || Indicator.notifyCounting !== undefined || Indicator.isShowNotify) {
+            if (alertEnd) {
+                this.CtrlNotify.updateNotify(
+                    this.notifyCounting,
+                    _(`EasyScreenCast -> Finish Recording / Seconds : ${sec}`),
+                    Lib.ESCoffGIcon,
+                    true
+                );
+            } else {
+                this.CtrlNotify.updateNotify(
+                    this.notifyCounting,
+                    _('EasyScreenCast -> Recording in progress / Seconds passed : ') + sec,
+                    Lib.ESConGIcon,
+                    false
+                );
+            }
+        }
+    }
 
     /**
      * @private
      */
-    _open_extension_preferences() {
+    _openExtensionPreferences() {
         if (typeof ExtensionUtils.openPrefs === 'function') {
             ExtensionUtils.openPrefs();
             return;
         }
 
         Util.spawn(['gnome-shell-extension-prefs', Me.uuid]);
-    },
+    }
 
     /**
      * @private
@@ -858,40 +812,28 @@ const EasyScreenCast_Indicator = new Lang.Class({
         const secDelay = Math.floor(this.TimeSlider.value * 100);
         Settings.setOption(Settings.TIME_DELAY_SETTING_KEY, secDelay);
         if (secDelay > 0) {
-            this.smDelayRec.label.text =
-                secDelay + _(' sec. delay before recording');
+            this.smDelayRec.label.text = secDelay + _(' sec. delay before recording');
         } else {
             this.smDelayRec.label.text = _('Start recording immediately');
         }
-    },
+    }
 
     /**
-     * @param param1
-     * @param param2
-     * @param focus
+     * @param {boolean} focus selects the correct icon depending on the focus state
      */
-    refreshIndicator(param1, param2, focus) {
-        Lib.TalkativeLog(
-            `-*-refresh indicator -A ${isActive} -F ${focus}`
-        );
+    refreshIndicator(focus) {
+        Lib.TalkativeLog(`-*-refresh indicator -A ${isActive} -F ${focus}`);
 
-        const indicators = Settings.getOption(
-            'i',
-            Settings.STATUS_INDICATORS_SETTING_KEY
-        );
+        const indicators = Settings.getOption('i', Settings.STATUS_INDICATORS_SETTING_KEY);
 
         if (isActive === true) {
             if (indicators === 0 || indicators === 1) {
-                if (focus === true)
+                if (focus === true) {
                     this.indicatorIcon.set_gicon(Lib.ESConGIconSel);
-                else
+                } else {
                     this.indicatorIcon.set_gicon(Lib.ESConGIcon);
-            } else if (
-                Settings.getOption(
-                    'b',
-                    Settings.ACTIVE_SHORTCUT_SETTING_KEY
-                )
-            ) {
+                }
+            } else if (Settings.getOption('b', Settings.ACTIVE_SHORTCUT_SETTING_KEY)) {
                 this.indicatorIcon.set_gicon(null);
             } else if (focus === true) {
                 this.indicatorIcon.set_gicon(Lib.ESConGIconSel);
@@ -901,35 +843,33 @@ const EasyScreenCast_Indicator = new Lang.Class({
 
             this.RecordingLabel.set_text(_('Stop recording'));
         } else {
-            if (focus === true)
+            if (focus === true) {
                 this.indicatorIcon.set_gicon(Lib.ESCoffGIconSel);
-            else
+            } else {
                 this.indicatorIcon.set_gicon(Lib.ESCoffGIcon);
+            }
 
             this.RecordingLabel.set_text(_('Start recording'));
         }
-    },
+    }
 
     /**
-     * @param OPTtemp
+     * @param {boolean} OPTtemp whether to replace the standard indicator or use it
      * @private
      */
     _replaceStdIndicator(OPTtemp) {
-        if (Main.panel.statusArea['aggregateMenu']._screencast === undefined)
+        if (Main.panel.statusArea['aggregateMenu']._screencast === undefined) {
             return;
+        }
 
         if (OPTtemp) {
             Lib.TalkativeLog('-*-replace STD indicator');
-            Main.panel.statusArea[
-                'aggregateMenu'
-            ]._screencast._indicator.visible = false;
+            Main.panel.statusArea['aggregateMenu']._screencast._indicator.visible = false;
         } else {
             Lib.TalkativeLog('-*-use STD indicator');
-            Main.panel.statusArea[
-                'aggregateMenu'
-            ]._screencast._indicator.visible = isActive;
+            Main.panel.statusArea['aggregateMenu']._screencast._indicator.visible = isActive;
         }
-    },
+    }
 
     /**
      * @private
@@ -952,7 +892,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
                 }
             );
         }
-    },
+    }
 
     /**
      * @private
@@ -963,7 +903,7 @@ const EasyScreenCast_Indicator = new Lang.Class({
 
             Main.wm.removeKeybinding(Settings.SHORTCUT_KEY_SETTING_KEY);
         }
-    },
+    }
 
     /**
      * Destroy indicator
@@ -971,51 +911,21 @@ const EasyScreenCast_Indicator = new Lang.Class({
     destroy() {
         Lib.TalkativeLog('-*-destroy indicator called');
 
-        if (isActive)
+        if (isActive) {
             isActive = false;
-
+        }
 
         this.parent();
-    },
+    }
 });
 
 /**
- * @param {number} sec
- * @param alertEnd
+ *
  */
-function refreshNotify(sec, alertEnd) {
-    if (
-        Indicator.notifyCounting !== null ||
-        Indicator.notifyCounting !== undefined ||
-        Indicator.isShowNotify
-    ) {
-        if (alertEnd) {
-            this.CtrlNotify.updateNotify(
-                this.notifyCounting,
-                _(`EasyScreenCast -> Finish Recording / Seconds : ${sec}`),
-                Lib.ESCoffGIcon,
-                true
-            );
-        } else {
-            this.CtrlNotify.updateNotify(
-                this.notifyCounting,
-                _(
-                    'EasyScreenCast -> Recording in progress / Seconds passed : '
-                ) + sec,
-                Lib.ESConGIcon,
-                false
-            );
-        }
-    }
-}
-
-/**
- * @param {Meta} meta
- */
-function init(meta) {
+function init() {
     Lib.TalkativeLog('-*-initExtension called');
-    Lib.TalkativeLog(`-*-version: ${meta.metadata.version}`);
-    Lib.TalkativeLog(`-*-install path: ${meta.path}`);
+    Lib.TalkativeLog(`-*-version: ${Me.metadata.version}`);
+    Lib.TalkativeLog(`-*-install path: ${Me.path}`);
 
     Lib.initTranslations('EasyScreenCast@iacopodeenosee.gmail.com');
 }
@@ -1029,7 +939,7 @@ function enable() {
     if (Indicator === null || Indicator === undefined) {
         Lib.TalkativeLog('-*-create indicator');
 
-        Indicator = new EasyScreenCast_Indicator();
+        Indicator = new EasyScreenCastIndicator();
         Main.panel.addToStatusArea('EasyScreenCast-indicator', Indicator);
     }
 
