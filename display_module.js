@@ -1,14 +1,14 @@
-const ExtensionUtils = imports.misc.extensionUtils;
-const Me = ExtensionUtils.getCurrentExtension();
+/* exported DisplayApi */
+'use strict';
 
 /**
  * @type {{_display(): Meta_Display, number_of_displays(): int}}
  */
-var display_api = {
+var DisplayApi = {
     /**
-     * Returns the Wayland display or
+     * Returns the Wayland display or screen
      *
-     * @returns {Meta_Display}
+     * @returns {Meta.Display}
      */
     _display() {
         return global.display || global.screen;
@@ -23,18 +23,17 @@ var display_api = {
     },
 
     /**
-     * @param {int} display_index
-     * @returns {*}
+     * @param {number} displayIndex the monitor number
+     * @returns {Meta.Rectangle}
      */
-    display_geometry_for_index(display_index) {
-        return this._display().get_monitor_geometry(display_index);
+    display_geometry_for_index(displayIndex) {
+        return this._display().get_monitor_geometry(displayIndex);
     },
 
     /**
-     * @param {string} cursor
-     * @returns {*}
+     * @param {Meta.Cursor} cursor the new cursor to set
      */
     set_cursor(cursor) {
-        return this._display().set_cursor(cursor);
+        this._display().set_cursor(cursor);
     },
 };

@@ -41,7 +41,7 @@ const Lib = Me.imports.convenience;
 const Settings = Me.imports.settings;
 const Ext = Me.imports.extension;
 const UtilNotify = Me.imports.utilnotify;
-const DisplayApi = Me.imports.display_module.display_api;
+const DisplayApi = Me.imports.display_module.DisplayApi;
 
 /**
  * @type {Lang.Class}
