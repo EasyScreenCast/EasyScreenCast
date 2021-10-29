@@ -10,7 +10,7 @@
     FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
 */
 
-/* exported setOption,getGSPstd,getOption */
+/* exported setOption,getGSPstd,getOption,settings */
 'use strict';
 
 const Gettext = imports.gettext.domain('EasyScreenCast@iacopodeenosee.gmail.com');
@@ -70,7 +70,7 @@ var SHORTCUT_COLUMN_MODS = 1;
 /* eslint-enable no-unused-vars */
 
 
-let settings = null;
+var settings = null;
 
 /**
  * getter option

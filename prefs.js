@@ -10,17 +10,18 @@
     FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
 */
 
+/* exported init,buildPrefsWidget */
+'use strict';
+
 const GIRepository = imports.gi.GIRepository;
 GIRepository.Repository.prepend_search_path('/usr/lib64/gnome-shell');
 GIRepository.Repository.prepend_library_path('/usr/lib64/gnome-shell');
 
-const GLib = imports.gi.GLib;
 const GObject = imports.gi.GObject;
 const Gio = imports.gi.Gio;
 const Gtk = imports.gi.Gtk;
 const Gdk = imports.gi.Gdk;
 const Pango = imports.gi.Pango;
-const Lang = imports.lang;
 
 const Gettext = imports.gettext.domain(
     'EasyScreenCast@iacopodeenosee.gmail.com'
@@ -42,15 +43,13 @@ function init() {
     Lib.initTranslations('EasyScreenCast@iacopodeenosee.gmail.com');
 }
 
-const EasyScreenCastSettingsWidget = new GObject.Class({
-    Name: 'EasyScreenCast.Prefs.Widget',
+const EasyScreenCastSettingsWidget = GObject.registerClass({
     GTypeName: 'EasyScreenCastSettingsWidget',
-    Extends: Gtk.Box,
-
+}, class EasyScreenCastSettingsWidget extends Gtk.Box {
     /**
      * Init class
      *
-     * @param {Array} params
+     * @param {Array} params parameters
      * @private
      */
     _init(params) {
@@ -62,7 +61,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         this.CtrlWebcam = new UtilWebcam.HelperWebcam();
 
         let cssProvider = new Gtk.CssProvider();
-        cssProvider.load_from_path(Me.dir.get_path() + '/prefs.css');
+        cssProvider.load_from_path(`${Me.path}/prefs.css`);
         if (this._isGtk4()) {
             Gtk.StyleContext.add_provider_for_display(
                 Gdk.Display.get_default(),
@@ -81,14 +80,10 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             uiFilePath = `${Me.path}/Options_UI.glade-gtk4`;
         }
         let builder = new Gtk.Builder();
-        builder.set_translation_domain(
-            'EasyScreenCast@iacopodeenosee.gmail.com'
-        );
+        builder.set_translation_domain('EasyScreenCast@iacopodeenosee.gmail.com');
 
         if (builder.add_from_file(uiFilePath) === 0) {
-            Lib.TalkativeLog(
-                `-^-could not load the ui file: ${format(uiFilePath)}`
-            );
+            Lib.TalkativeLog(`-^-could not load the ui file: ${uiFilePath}`);
             let label = new Gtk.Label({
                 label: _('Could not load the preferences UI file'),
                 vexpand: true,
@@ -103,12 +98,12 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             Lib.TalkativeLog(`-^-UI file receive and load: ${uiFilePath}`);
 
             // gets the interesting builder objects
-            let Ref_box_MainContainer = builder.get_object('Main_Container');
+            let refBoxMainContainer = builder.get_object('Main_Container');
             if (this._isGtk4()) {
-                this.append(Ref_box_MainContainer);
+                this.append(refBoxMainContainer);
             } else {
                 // packs the main table
-                this.pack_start(Ref_box_MainContainer, true, true, 0);
+                this.pack_start(refBoxMainContainer, true, true, 0);
             }
 
             // setup tab options
@@ -154,72 +149,68 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                 }
             );
         }
-    },
+    }
 
     _isGtk4() {
         const gtkVersion = Gtk.get_major_version();
         return gtkVersion >= 4;
-    },
+    }
 
     /**
-     * @param ctx
-     * @param gtkDB
-     * @param tmpS
+     * @param {EasyScreenCastSettingsWidget} ctx the prefs/settings widget
+     * @param {Gtk.Builder} gtkDB the builder that loaded the UI glade file
+     * @param {Gio.Settings} tmpS the current settings
      * @private
      */
     _initTabOptions(ctx, gtkDB, tmpS) {
         // implements show timer option
-        let Ref_switch_ShowNotifyAlert = gtkDB.get_object(
-            'swt_ShowNotifyAlert'
-        );
+        let refSwitchShowNotifyAlert = gtkDB.get_object('swt_ShowNotifyAlert');
         tmpS.bind(
             Settings.SHOW_NOTIFY_ALERT_SETTING_KEY,
-            Ref_switch_ShowNotifyAlert,
+            refSwitchShowNotifyAlert,
             'active',
             Gio.SettingsBindFlags.DEFAULT
         );
 
         // implements show area option
-        let Ref_switch_ShowAreaRec = gtkDB.get_object('swt_ShowAreaRec');
+        let refSwitchShowAreaRec = gtkDB.get_object('swt_ShowAreaRec');
         tmpS.bind(
             Settings.SHOW_AREA_REC_SETTING_KEY,
-            Ref_switch_ShowAreaRec,
+            refSwitchShowAreaRec,
             'active',
             Gio.SettingsBindFlags.DEFAULT
         );
 
         // implements show indicator option
-        let Ref_combobox_IndicatorsRec = gtkDB.get_object(
-            'cbt_StatusIndicatorsRec'
-        );
+        let refComboboxIndicatorsRec = gtkDB.get_object('cbt_StatusIndicatorsRec');
         tmpS.bind(
             Settings.STATUS_INDICATORS_SETTING_KEY,
-            Ref_combobox_IndicatorsRec,
+            refComboboxIndicatorsRec,
             'active',
             Gio.SettingsBindFlags.DEFAULT
         );
 
         // implements draw cursor option
-        let Ref_switch_DrawCursorRec = gtkDB.get_object('swt_DrawCursorRec');
+        let refSwitchDrawCursorRec = gtkDB.get_object('swt_DrawCursorRec');
         tmpS.bind(
             Settings.DRAW_CURSOR_SETTING_KEY,
-            Ref_switch_DrawCursorRec,
+            refSwitchDrawCursorRec,
             'active',
             Gio.SettingsBindFlags.DEFAULT
         );
 
         // implements enable keybinding option
-        let Ref_switch_EnableShortcut = gtkDB.get_object('swt_KeyShortcut');
+        let refSwitchEnableShortcut = gtkDB.get_object('swt_KeyShortcut');
         tmpS.bind(
             Settings.ACTIVE_SHORTCUT_SETTING_KEY,
-            Ref_switch_EnableShortcut,
+            refSwitchEnableShortcut,
             'active',
             Gio.SettingsBindFlags.DEFAULT
         );
 
         // implements selecting alternative key combo
-        let Ref_treeview_Shortcut = gtkDB.get_object('treeview_KeyShortcut');
-        Ref_treeview_Shortcut.set_sensitive(true);
+        let refTreeviewShortcut = gtkDB.get_object('treeview_KeyShortcut');
+        refTreeviewShortcut.set_sensitive(true);
         ctx.Ref_liststore_Shortcut = gtkDB.get_object('liststore_KeyShortcut');
         ctx.Iter_ShortcutRow = ctx.Ref_liststore_Shortcut.append();
 
@@ -228,7 +219,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         });
         renderer.connect(
             'accel-edited',
-            (renderer, path, key, mods, hwCode) => {
+            (_0, _1, key, mods, _2) => {
                 Lib.TalkativeLog('-^-edited key accel');
 
                 let accel = Gtk.accelerator_name(key, mods);
@@ -238,7 +229,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             }
         );
 
-        renderer.connect('accel-cleared', (renderer, path) => {
+        renderer.connect('accel-cleared', () => {
             Lib.TalkativeLog('-^-cleared key accel');
 
             ctx._updateRowShortcut(null);
@@ -258,52 +249,52 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             Settings.SHORTCUT_COLUMN_MODS
         );
 
-        Ref_treeview_Shortcut.append_column(column);
+        refTreeviewShortcut.append_column(column);
 
         // implements post execute command
-        let Ref_switch_ExecutePostCMD = gtkDB.get_object('swt_executepostcmd');
+        let refSwitchExecutePostCmd = gtkDB.get_object('swt_executepostcmd');
         tmpS.bind(
             Settings.ACTIVE_POST_CMD_SETTING_KEY,
-            Ref_switch_ExecutePostCMD,
+            refSwitchExecutePostCmd,
             'active',
             Gio.SettingsBindFlags.DEFAULT
         );
 
-        let Ref_textedit_PostCMD = gtkDB.get_object('txe_postcmd');
+        let refTexteditPostCmd = gtkDB.get_object('txe_postcmd');
         tmpS.bind(
             Settings.POST_CMD_SETTING_KEY,
-            Ref_textedit_PostCMD,
+            refTexteditPostCmd,
             'text',
             Gio.SettingsBindFlags.DEFAULT
         );
 
         // implements pre execute command
-        let Ref_switch_ExecutePreCMD = gtkDB.get_object('swt_executeprecmd');
+        let refSwitchExecutePreCmd = gtkDB.get_object('swt_executeprecmd');
         tmpS.bind(
             Settings.ACTIVE_PRE_CMD_SETTING_KEY,
-            Ref_switch_ExecutePreCMD,
+            refSwitchExecutePreCmd,
             'active',
             Gio.SettingsBindFlags.DEFAULT
         );
 
-        let Ref_textedit_PreCMD = gtkDB.get_object('txe_precmd');
+        let refTexteditPreCmd = gtkDB.get_object('txe_precmd');
         tmpS.bind(
             Settings.PRE_CMD_SETTING_KEY,
-            Ref_textedit_PreCMD,
+            refTexteditPreCmd,
             'text',
             Gio.SettingsBindFlags.DEFAULT
         );
-    },
+    }
 
     /**
-     * @param ctx
-     * @param gtkDB
-     * @param tmpS
+     * @param {EasyScreenCastSettingsWidget} ctx the prefs/settings widget
+     * @param {Gtk.Builder} gtkDB the builder that loaded the UI glade file
+     * @param {Gio.Settings} tmpS the current settings
      * @private
      */
     _initTabQuality(ctx, gtkDB, tmpS) {
         // implements FPS option
-        let Ref_spinner_FrameRateRec = gtkDB.get_object('spb_FrameRateRec');
+        let refSpinnerFrameRateRec = gtkDB.get_object('spb_FrameRateRec');
         // Create an adjustment to use for the second spinbutton
         let adjustment1 = new Gtk.Adjustment({
             value: 30,
@@ -312,27 +303,27 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             step_increment: 1,
             page_increment: 10,
         });
-        Ref_spinner_FrameRateRec.configure(adjustment1, 10, 0);
+        refSpinnerFrameRateRec.configure(adjustment1, 10, 0);
         tmpS.bind(
             Settings.FPS_SETTING_KEY,
-            Ref_spinner_FrameRateRec,
+            refSpinnerFrameRateRec,
             'value',
             Gio.SettingsBindFlags.DEFAULT
         );
 
         // implements command string rec option
-        let Ref_textedit_Pipeline = gtkDB.get_object('txe_CommandStringRec');
-        let Ref_buffer_Pipeline = Ref_textedit_Pipeline.get_buffer();
+        let refTexteditPipeline = gtkDB.get_object('txe_CommandStringRec');
+        let refBufferPipeline = refTexteditPipeline.get_buffer();
         tmpS.bind(
             Settings.PIPELINE_REC_SETTING_KEY,
-            Ref_buffer_Pipeline,
+            refBufferPipeline,
             'text',
             Gio.SettingsBindFlags.DEFAULT
         );
 
         // implements label desciption GSP
-        let Ref_label_DescrGSP = gtkDB.get_object('lbl_GSP_Description');
-        Ref_label_DescrGSP.set_text(
+        let refLabelDescGSP = gtkDB.get_object('lbl_GSP_Description');
+        refLabelDescGSP.set_text(
             UtilGSP.getDescr(
                 Settings.getOption('i', Settings.QUALITY_SETTING_KEY),
                 Settings.getOption('i', Settings.FILE_CONTAINER_SETTING_KEY)
@@ -340,8 +331,8 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         );
 
         // implements quality scale option
-        let Ref_scale_Quality = gtkDB.get_object('scl_Quality');
-        Ref_scale_Quality.set_valign(Gtk.Align.START);
+        let refScaleQuality = gtkDB.get_object('scl_Quality');
+        refScaleQuality.set_valign(Gtk.Align.START);
         let adjustment2 = new Gtk.Adjustment({
             value: 1,
             lower: 0,
@@ -349,18 +340,19 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             step_increment: 1,
             page_increment: 1,
         });
-        Ref_scale_Quality.set_adjustment(adjustment2);
-        Ref_scale_Quality.set_digits(1);
+        refScaleQuality.set_adjustment(adjustment2);
+        refScaleQuality.set_digits(1);
         let ind = 0;
-        for (; ind < 4; ind++)
-            Ref_scale_Quality.add_mark(ind, Gtk.PositionType.BOTTOM, '');
+        for (; ind < 4; ind++) {
+            refScaleQuality.add_mark(ind, Gtk.PositionType.BOTTOM, '');
+        }
 
 
-        Ref_scale_Quality.set_value(
+        refScaleQuality.set_value(
             Settings.getOption('i', Settings.QUALITY_SETTING_KEY)
         );
 
-        Ref_scale_Quality.connect('value-changed', (self) => {
+        refScaleQuality.connect('value-changed', self => {
             Lib.TalkativeLog(`-^-value quality changed : ${self.get_value()}`);
 
             // round the value
@@ -368,7 +360,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             Lib.TalkativeLog(`-^-value quality fixed : ${roundTmp}`);
 
             // update label descr GSP
-            Ref_label_DescrGSP.set_text(
+            refLabelDescGSP.set_text(
                 UtilGSP.getDescr(
                     roundTmp,
                     Settings.getOption('i', Settings.FILE_CONTAINER_SETTING_KEY)
@@ -390,34 +382,32 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         });
 
         // implements image for scale widget
-        let Ref_image_Performance = gtkDB.get_object('img_Performance');
-        Ref_image_Performance.set_from_file(Lib.ESCimgPerformance);
+        let refImagePerformance = gtkDB.get_object('img_Performance');
+        refImagePerformance.set_from_file(Lib.ESCimgPerformance);
 
-        let Ref_image_Quality = gtkDB.get_object('img_Quality');
-        Ref_image_Quality.set_from_file(Lib.ESCimgQuality);
+        let refImageQuality = gtkDB.get_object('img_Quality');
+        refImageQuality.set_from_file(Lib.ESCimgQuality);
 
         // implements custom GSPipeline option
-        let Ref_switch_CustomGSP = gtkDB.get_object('swt_EnableCustomGSP');
+        let refSwitchCustomGSP = gtkDB.get_object('swt_EnableCustomGSP');
         tmpS.bind(
             Settings.ACTIVE_CUSTOM_GSP_SETTING_KEY,
-            Ref_switch_CustomGSP,
+            refSwitchCustomGSP,
             'active',
             Gio.SettingsBindFlags.DEFAULT
         );
-        Ref_switch_CustomGSP.connect('state-set', self => {
+        refSwitchCustomGSP.connect('state-set', () => {
             // update GSP text area
-            ctx._setStateGSP(
-                Settings.getOption('b', Settings.ACTIVE_CUSTOM_GSP_SETTING_KEY)
-            );
+            ctx._setStateGSP(Settings.getOption('b', Settings.ACTIVE_CUSTOM_GSP_SETTING_KEY));
         });
 
         ctx.Ref_stack_Quality = gtkDB.get_object('stk_Quality');
-    },
+    }
 
     /**
-     * @param ctx
-     * @param gtkDB
-     * @param tmpS
+     * @param {EasyScreenCastSettingsWidget} ctx the prefs/settings widget
+     * @param {Gtk.Builder} gtkDB the builder that loaded the UI glade file
+     * @param {Gio.Settings} tmpS the current settings
      * @private
      */
     _initTabWebcam(ctx, gtkDB, tmpS) {
@@ -425,26 +415,26 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         ctx.Ref_ListStore_QualityWebCam = gtkDB.get_object(
             'liststore_QualityWebCam'
         );
-        let Ref_TreeView_QualityWebCam = gtkDB.get_object(
+        let refTreeViewQualityWebCam = gtkDB.get_object(
             'treeview_QualityWebam'
         );
         // create column data
-        let CapsColumn = new Gtk.TreeViewColumn({
+        let capsColumn = new Gtk.TreeViewColumn({
             title: _('WebCam Caps'),
         });
         let normalColumn = new Gtk.CellRendererText();
-        CapsColumn.pack_start(normalColumn, true);
-        CapsColumn.add_attribute(normalColumn, 'text', 0);
+        capsColumn.pack_start(normalColumn, true);
+        capsColumn.add_attribute(normalColumn, 'text', 0);
 
         // insert caps column into treeview
-        Ref_TreeView_QualityWebCam.insert_column(CapsColumn, 0);
+        refTreeViewQualityWebCam.insert_column(capsColumn, 0);
 
         // setup selection liststore
-        let CapsSelection = Ref_TreeView_QualityWebCam.get_selection();
+        let capsSelection = refTreeViewQualityWebCam.get_selection();
 
         // connect selection signal
-        CapsSelection.connect('changed', self => {
-            let [isSelected, model, iter] = self.get_selected();
+        capsSelection.connect('changed', self => {
+            let [isSelected,, iter] = self.get_selected();
             if (isSelected) {
                 let Caps = ctx.Ref_ListStore_QualityWebCam.get_value(iter, 0);
                 Lib.TalkativeLog(`-^-treeview row selected : ${Caps}`);
@@ -458,21 +448,19 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         });
 
         // fill combobox with quality option webcam
-        ctx._updateWebCamCaps(
-            Settings.getOption('i', Settings.DEVICE_INDEX_WEBCAM_SETTING_KEY)
-        );
+        ctx._updateWebCamCaps(Settings.getOption('i', Settings.DEVICE_INDEX_WEBCAM_SETTING_KEY));
 
         // implements webcam corner position option
-        let Ref_combobox_CornerWebCam = gtkDB.get_object('cbt_WebCamCorner');
+        let refComboboxCornerWebCam = gtkDB.get_object('cbt_WebCamCorner');
         tmpS.bind(
             Settings.CORNER_POSITION_WEBCAM_SETTING_KEY,
-            Ref_combobox_CornerWebCam,
+            refComboboxCornerWebCam,
             'active',
             Gio.SettingsBindFlags.DEFAULT
         );
 
         // implements webcam margin x position option
-        let Ref_Spinner_MarginXWebCam = gtkDB.get_object('spb_WebCamMarginX');
+        let refSpinnerMarginXWebCam = gtkDB.get_object('spb_WebCamMarginX');
         let adjustmentMarginX = new Gtk.Adjustment({
             value: 0,
             lower: 0,
@@ -480,16 +468,16 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             step_increment: 1,
             page_increment: 10,
         });
-        Ref_Spinner_MarginXWebCam.configure(adjustmentMarginX, 10, 0);
+        refSpinnerMarginXWebCam.configure(adjustmentMarginX, 10, 0);
         tmpS.bind(
             Settings.MARGIN_X_WEBCAM_SETTING_KEY,
-            Ref_Spinner_MarginXWebCam,
+            refSpinnerMarginXWebCam,
             'value',
             Gio.SettingsBindFlags.DEFAULT
         );
 
         // implements webcam margin y position option
-        let Ref_Spinner_MarginYWebCam = gtkDB.get_object('spb_WebCamMarginY');
+        let refSpinnerMarginYWebCam = gtkDB.get_object('spb_WebCamMarginY');
         let adjustmentMarginY = new Gtk.Adjustment({
             value: 0,
             lower: 0,
@@ -497,16 +485,16 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             step_increment: 1,
             page_increment: 10,
         });
-        Ref_Spinner_MarginYWebCam.configure(adjustmentMarginY, 10, 0);
+        refSpinnerMarginYWebCam.configure(adjustmentMarginY, 10, 0);
         tmpS.bind(
             Settings.MARGIN_Y_WEBCAM_SETTING_KEY,
-            Ref_Spinner_MarginYWebCam,
+            refSpinnerMarginYWebCam,
             'value',
             Gio.SettingsBindFlags.DEFAULT
         );
 
         // implements webcam aplha channel option
-        let Ref_Spinner_AlphaWebCam = gtkDB.get_object('spb_WebCamAlpha');
+        let refSpinnerAlphaWebCam = gtkDB.get_object('spb_WebCamAlpha');
         let adjustmentAlpha = new Gtk.Adjustment({
             value: 0.01,
             lower: 0.0,
@@ -514,27 +502,25 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             step_increment: 0.05,
             page_increment: 0.25,
         });
-        Ref_Spinner_AlphaWebCam.configure(adjustmentAlpha, 0.25, 2);
+        refSpinnerAlphaWebCam.configure(adjustmentAlpha, 0.25, 2);
         tmpS.bind(
             Settings.ALPHA_CHANNEL_WEBCAM_SETTING_KEY,
-            Ref_Spinner_AlphaWebCam,
+            refSpinnerAlphaWebCam,
             'value',
             Gio.SettingsBindFlags.DEFAULT
         );
 
         // implements webcam type unit dimension option
-        let Ref_combobox_TypeUnitWebCam = gtkDB.get_object(
-            'cbt_WebCamUnitMeasure'
-        );
+        let refComboboxTypeUnitWebCam = gtkDB.get_object('cbt_WebCamUnitMeasure');
         tmpS.bind(
             Settings.TYPE_UNIT_WEBCAM_SETTING_KEY,
-            Ref_combobox_TypeUnitWebCam,
+            refComboboxTypeUnitWebCam,
             'active',
             Gio.SettingsBindFlags.DEFAULT
         );
 
         // implements webcam width option
-        let Ref_Spinner_WidthWebCam = gtkDB.get_object('spb_WebCamWidth');
+        let refSpinnerWidthWebCam = gtkDB.get_object('spb_WebCamWidth');
         let adjustmentWidth = new Gtk.Adjustment({
             value: 20,
             lower: 0,
@@ -542,16 +528,16 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             step_increment: 1,
             page_increment: 10,
         });
-        Ref_Spinner_WidthWebCam.configure(adjustmentWidth, 10, 0);
+        refSpinnerWidthWebCam.configure(adjustmentWidth, 10, 0);
         tmpS.bind(
             Settings.WIDTH_WEBCAM_SETTING_KEY,
-            Ref_Spinner_WidthWebCam,
+            refSpinnerWidthWebCam,
             'value',
             Gio.SettingsBindFlags.DEFAULT
         );
 
         // implements webcam heigth option
-        let Ref_Spinner_HeightWebCam = gtkDB.get_object('spb_WebCamHeight');
+        let refSpinnerHeightWebCam = gtkDB.get_object('spb_WebCamHeight');
         let adjustmentHeight = new Gtk.Adjustment({
             value: 10,
             lower: 0,
@@ -559,10 +545,10 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             step_increment: 1,
             page_increment: 10,
         });
-        Ref_Spinner_HeightWebCam.configure(adjustmentHeight, 10, 0);
+        refSpinnerHeightWebCam.configure(adjustmentHeight, 10, 0);
         tmpS.bind(
             Settings.HEIGHT_WEBCAM_SETTING_KEY,
-            Ref_Spinner_HeightWebCam,
+            refSpinnerHeightWebCam,
             'value',
             Gio.SettingsBindFlags.DEFAULT
         );
@@ -575,114 +561,92 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         ctx.Ref_Label_WebCam = gtkDB.get_object('lbl_Webcam');
         // implements webcam caps stack menu chooser
         ctx.Ref_Label_WebCamCaps = gtkDB.get_object('lbl_WebcamCaps');
-    },
+    }
 
     /**
-     * @param ctx
-     * @param gtkDB
-     * @param tmpS
+     * @param {EasyScreenCastSettingsWidget} ctx the prefs/settings widget
+     * @param {Gtk.Builder} gtkDB the builder that loaded the UI glade file
+     * @param {Gio.Settings} tmpS the current settings
      * @private
      */
     _initTabFile(ctx, gtkDB, tmpS) {
         // implements file name string rec option
-        let Ref_textedit_FileName = gtkDB.get_object('txe_FileNameRec');
+        let refTexteditFileName = gtkDB.get_object('txe_FileNameRec');
         tmpS.bind(
             Settings.FILE_NAME_SETTING_KEY,
-            Ref_textedit_FileName,
+            refTexteditFileName,
             'text',
             Gio.SettingsBindFlags.DEFAULT
         );
 
         // implements file container option
-        let Ref_combobox_Container = gtkDB.get_object('cbt_FileContainer');
+        let refComboboxContainer = gtkDB.get_object('cbt_FileContainer');
         tmpS.bind(
             Settings.FILE_CONTAINER_SETTING_KEY,
-            Ref_combobox_Container,
+            refComboboxContainer,
             'active',
             Gio.SettingsBindFlags.DEFAULT
         );
 
-        // implements file stack resolution
-        let Ref_stack_FileResolution = gtkDB.get_object('stk_FileResolution');
-
         // implements file container resolution
-        let Ref_stackswitcher_FileResolution = gtkDB.get_object(
-            'sts_FileResolution'
-        );
+        let refStackFileResolution = gtkDB.get_object('stk_FileResolution');
 
         // implements file resolution preset spinner
-        let Ref_combobox_Resolution = gtkDB.get_object('cbt_FileResolution');
+        let refComboboxResolution = gtkDB.get_object('cbt_FileResolution');
         tmpS.bind(
             Settings.FILE_RESOLUTION_TYPE_SETTING_KEY,
-            Ref_combobox_Resolution,
+            refComboboxResolution,
             'active',
             Gio.SettingsBindFlags.DEFAULT
         );
 
         // intercept combobox res changed and update width/height value
-        Ref_combobox_Resolution.connect('changed', self => {
+        refComboboxResolution.connect('changed', self => {
             var activeRes = self.active;
             Lib.TalkativeLog(`-^-preset combobox changed: ${activeRes}`);
             if (activeRes >= 0 && activeRes < 15) {
                 var [h, w] = ctx._getResolutionPreset(activeRes);
 
                 // update width/height
-                Settings.setOption(
-                    Settings.FILE_RESOLUTION_HEIGHT_SETTING_KEY,
-                    h
-                );
-                Settings.setOption(
-                    Settings.FILE_RESOLUTION_WIDTH_SETTING_KEY,
-                    w
-                );
+                Settings.setOption(Settings.FILE_RESOLUTION_HEIGHT_SETTING_KEY, h);
+                Settings.setOption(Settings.FILE_RESOLUTION_WIDTH_SETTING_KEY, w);
                 Lib.TalkativeLog(`-^-Res changed h: ${h} w: ${w}`);
             }
         });
 
         // load file resolution pref and upadte UI
-        var tmpRes = Settings.getOption(
-            'i',
-            Settings.FILE_RESOLUTION_TYPE_SETTING_KEY
-        );
-        if (tmpRes < 0)
-            Ref_stack_FileResolution.set_visible_child_name('native');
-        else if (tmpRes === 999)
-            Ref_stack_FileResolution.set_visible_child_name('custom');
-        else
-            Ref_stack_FileResolution.set_visible_child_name('preset');
+        var tmpRes = Settings.getOption('i', Settings.FILE_RESOLUTION_TYPE_SETTING_KEY);
+        if (tmpRes < 0) {
+            refStackFileResolution.set_visible_child_name('native');
+        } else if (tmpRes === 999) {
+            refStackFileResolution.set_visible_child_name('custom');
+        } else {
+            refStackFileResolution.set_visible_child_name('preset');
+        }
 
 
-        //setup event on stack switcher
-        Ref_stack_FileResolution.connect('notify::visible-child-name', () => {
+        // setup event on stack switcher
+        refStackFileResolution.connect('notify::visible-child-name', () => {
             Lib.TalkativeLog('-^-stack_FR event grab');
-            var page = Ref_stack_FileResolution.get_visible_child_name();
+            var page = refStackFileResolution.get_visible_child_name();
             Lib.TalkativeLog(`-^-active page -> ${page}`);
 
             if (page === 'native') {
                 // set option to -1
-                Settings.setOption(
-                    Settings.FILE_RESOLUTION_TYPE_SETTING_KEY,
-                    -1
-                );
+                Settings.setOption(Settings.FILE_RESOLUTION_TYPE_SETTING_KEY, -1);
             } else if (page === 'preset') {
                 // set option to fullHD 16:9
-                Settings.setOption(
-                    Settings.FILE_RESOLUTION_TYPE_SETTING_KEY,
-                    8
-                );
+                Settings.setOption(Settings.FILE_RESOLUTION_TYPE_SETTING_KEY, 8);
             } else if (page === 'custom') {
                 // set option to 99
-                Settings.setOption(
-                    Settings.FILE_RESOLUTION_TYPE_SETTING_KEY,
-                    999
-                );
+                Settings.setOption(Settings.FILE_RESOLUTION_TYPE_SETTING_KEY, 999);
             } else {
                 Lib.TalkativeLog('-^-page error');
             }
         });
 
         // implements file width option
-        let Ref_Spinner_WidthRes = gtkDB.get_object('spb_ResWidth');
+        let refSpinnerWidthRes = gtkDB.get_object('spb_ResWidth');
         let adjustmentResWidth = new Gtk.Adjustment({
             value: 640,
             lower: 640,
@@ -690,16 +654,16 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             step_increment: 1,
             page_increment: 100,
         });
-        Ref_Spinner_WidthRes.configure(adjustmentResWidth, 10, 0);
+        refSpinnerWidthRes.configure(adjustmentResWidth, 10, 0);
         tmpS.bind(
             Settings.FILE_RESOLUTION_WIDTH_SETTING_KEY,
-            Ref_Spinner_WidthRes,
+            refSpinnerWidthRes,
             'value',
             Gio.SettingsBindFlags.DEFAULT
         );
 
         // implements file heigth option
-        let Ref_Spinner_HeightRes = gtkDB.get_object('spb_ResHeight');
+        let refSpinnerHeightRes = gtkDB.get_object('spb_ResHeight');
         let adjustmentResHeight = new Gtk.Adjustment({
             value: 480,
             lower: 480,
@@ -707,57 +671,49 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             step_increment: 1,
             page_increment: 100,
         });
-        Ref_Spinner_HeightRes.configure(adjustmentResHeight, 10, 0);
+        refSpinnerHeightRes.configure(adjustmentResHeight, 10, 0);
         tmpS.bind(
             Settings.FILE_RESOLUTION_HEIGHT_SETTING_KEY,
-            Ref_Spinner_HeightRes,
+            refSpinnerHeightRes,
             'value',
             Gio.SettingsBindFlags.DEFAULT
         );
 
         // implements keep aspect ratio check box
-        let Ref_checkbox_KAR = gtkDB.get_object('chb_FileResolution_kar');
+        let refCheckboxKeepAspectRatio = gtkDB.get_object('chb_FileResolution_kar');
         tmpS.bind(
             Settings.FILE_RESOLUTION_KAR_SETTING_KEY,
-            Ref_checkbox_KAR,
+            refCheckboxKeepAspectRatio,
             'active',
             Gio.SettingsBindFlags.DEFAULT
         );
 
         // implements resolution width scale option
-        let Ref_scale_WidthRes = gtkDB.get_object('scl_ResWidth');
-        Ref_scale_WidthRes.set_valign(Gtk.Align.START);
-        Ref_scale_WidthRes.set_adjustment(adjustmentResWidth);
-        Ref_scale_WidthRes.set_digits(0);
-        Ref_scale_WidthRes.set_value(
-            Settings.getOption('i', Settings.FILE_RESOLUTION_WIDTH_SETTING_KEY)
-        );
+        let refScaleWidthRes = gtkDB.get_object('scl_ResWidth');
+        refScaleWidthRes.set_valign(Gtk.Align.START);
+        refScaleWidthRes.set_adjustment(adjustmentResWidth);
+        refScaleWidthRes.set_digits(0);
+        refScaleWidthRes.set_value(Settings.getOption('i', Settings.FILE_RESOLUTION_WIDTH_SETTING_KEY));
 
         // implements resolution height scale option
-        let Ref_scale_HeightRes = gtkDB.get_object('scl_ResHeight');
-        Ref_scale_HeightRes.set_valign(Gtk.Align.START);
-        Ref_scale_HeightRes.set_adjustment(adjustmentResHeight);
-        Ref_scale_HeightRes.set_digits(0);
-        Ref_scale_HeightRes.set_value(
-            Settings.getOption('i', Settings.FILE_RESOLUTION_HEIGHT_SETTING_KEY)
-        );
+        let refScaleHeightRes = gtkDB.get_object('scl_ResHeight');
+        refScaleHeightRes.set_valign(Gtk.Align.START);
+        refScaleHeightRes.set_adjustment(adjustmentResHeight);
+        refScaleHeightRes.set_digits(0);
+        refScaleHeightRes.set_value(Settings.getOption('i', Settings.FILE_RESOLUTION_HEIGHT_SETTING_KEY));
 
         // add marks on width/height file resolution
         let ind = 0;
         for (; ind < 13; ind++) {
             var [h, w] = ctx._getResolutionPreset(ind);
-            Ref_scale_WidthRes.add_mark(w, Gtk.PositionType.BOTTOM, '');
-
-            Ref_scale_HeightRes.add_mark(h, Gtk.PositionType.BOTTOM, '');
+            refScaleWidthRes.add_mark(w, Gtk.PositionType.BOTTOM, '');
+            refScaleHeightRes.add_mark(h, Gtk.PositionType.BOTTOM, '');
         }
 
         // implements file folder string rec option
-        let Ref_filechooser_FileFolder = gtkDB.get_object('fcb_FilePathRec');
+        let refFilechooserFileFolder = gtkDB.get_object('fcb_FilePathRec');
         // check state initial value
-        var tmpFolder = Settings.getOption(
-            's',
-            Settings.FILE_FOLDER_SETTING_KEY
-        );
+        var tmpFolder = Settings.getOption('s', Settings.FILE_FOLDER_SETTING_KEY);
         Lib.TalkativeLog(`-^-folder for screencast: ${tmpFolder}`);
         if (tmpFolder === '' || tmpFolder === null || tmpFolder === undefined) {
             let result = null;
@@ -765,11 +721,10 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                 'xdg-user-dir VIDEOS',
                 true,
                 (success, out) => {
-                    Lib.TalkativeLog(
-                        `-^-CALLBACK sync S: ${success} out: ${out}`
-                    );
-                    if (success && out !== '' && out !== undefined)
+                    Lib.TalkativeLog(`-^-CALLBACK sync S: ${success} out: ${out}`);
+                    if (success && out !== '' && out !== undefined) {
                         result = out.replace(/(\n)/g, '');
+                    }
                 },
                 null
             );
@@ -784,11 +739,10 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                     '/usr/bin/sh -c "echo $HOME"',
                     true,
                     (success, out) => {
-                        Lib.TalkativeLog(
-                            `-^-CALLBACK sync S: ${success} out: ${out}`
-                        );
-                        if (success && out !== '' && out !== undefined)
+                        Lib.TalkativeLog(`-^-CALLBACK sync S: ${success} out: ${out}`);
+                        if (success && out !== '' && out !== undefined) {
                             tmpFolder = out.replace(/(\n)/g, '');
+                        }
                     },
                     null
                 );
@@ -797,24 +751,24 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             // connect keywebcam signal
             Settings.settings.connect(
                 `changed::${Settings.DEVICE_INDEX_WEBCAM_SETTING_KEY}`,
-                Lang.bind(this, function () {
+                () => {
                     Lib.TalkativeLog('-^-webcam device changed');
                     this._refreshWebcamOptions();
-                })
+                }
             );
         }
 
         if (this._isGtk4()) {
-            Ref_filechooser_FileFolder.set_label(`Selected: ${tmpFolder}`);
+            refFilechooserFileFolder.set_label(`Selected: ${tmpFolder}`);
 
-            Ref_filechooser_FileFolder.connect('clicked', (self) => {
+            refFilechooserFileFolder.connect('clicked', () => {
                 Lib.TalkativeLog('-^- file chooser button clicked...');
                 let dialog = new Gtk.FileChooserNative({
                     'title': 'Select folder',
                     'transient-for': null,
                     'action': Gtk.FileChooserAction.SELECT_FOLDER,
                     'accept-label': 'Ok',
-                    'cancel-label': 'Cancel'
+                    'cancel-label': 'Cancel',
                 });
                 dialog.connect('response', (self, response) => {
                     if (response === Gtk.ResponseType.ACCEPT) {
@@ -824,7 +778,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                             Settings.FILE_FOLDER_SETTING_KEY,
                             tmpPathFolder
                         );
-                        Ref_filechooser_FileFolder.set_label(`Selected: ${tmpPathFolder}`);
+                        refFilechooserFileFolder.set_label(`Selected: ${tmpPathFolder}`);
                     }
                     ctx.fileChooserDialog = null;
                 });
@@ -832,9 +786,9 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                 ctx.fileChooserDialog = dialog; // keep a reference to the dialog alive
             });
         } else {
-            Ref_filechooser_FileFolder.set_filename(tmpFolder);
+            refFilechooserFileFolder.set_filename(tmpFolder);
 
-            Ref_filechooser_FileFolder.connect('file_set', (self) => {
+            refFilechooserFileFolder.connect('file_set', self => {
                 var tmpPathFolder = self.get_filename();
                 Lib.TalkativeLog(`-^-file path get from widget : ${tmpPathFolder}`);
                 if (tmpPathFolder !== null) {
@@ -845,47 +799,47 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                 }
             });
         }
-    },
+    }
 
     /**
-     * @param ctx
-     * @param gtkDB
-     * @param tmpS
+     * @param {EasyScreenCastSettingsWidget} ctx the prefs/settings widget
+     * @param {Gtk.Builder} gtkDB the builder that loaded the UI glade file
+     * @param {Gio.Settings} tmpS the current settings
      * @private
      */
     _initTabSupport(ctx, gtkDB, tmpS) {
         // implements textentry log
-        let Ref_TextView_ESCLog = gtkDB.get_object('txe_ContainerLog');
-        let Ref_buffer_Log = Ref_TextView_ESCLog.get_buffer();
+        let refTextViewEscLog = gtkDB.get_object('txe_ContainerLog');
+        let refBufferLog = refTextViewEscLog.get_buffer();
 
         // implements verbose debug option
-        let Ref_switch_VerboseDebug = gtkDB.get_object('swt_VerboseDebug');
+        let refSwitchVerboseDebug = gtkDB.get_object('swt_VerboseDebug');
         tmpS.bind(
             Settings.VERBOSE_DEBUG_SETTING_KEY,
-            Ref_switch_VerboseDebug,
+            refSwitchVerboseDebug,
             'active',
             Gio.SettingsBindFlags.DEFAULT
         );
 
-        Ref_switch_VerboseDebug.connect('state-set', self => {
+        refSwitchVerboseDebug.connect('state-set', self => {
             // update log display widgets
-            Ref_TextView_ESCLog.sensistive = self.active;
-            Ref_combobox_LogChooser.sensitive = self.active;
+            refTextViewEscLog.sensistive = self.active;
+            refComboboxLogChooser.sensitive = self.active;
         });
 
         // implements file resolution preset spinner
-        let Ref_combobox_LogChooser = gtkDB.get_object('cbt_LogChooser');
+        let refComboboxLogChooser = gtkDB.get_object('cbt_LogChooser');
 
         // intercept combobox res changed and update width/height value
-        Ref_combobox_LogChooser.connect('changed', self => {
+        refComboboxLogChooser.connect('changed', self => {
             const activeLog = self.active;
             Lib.TalkativeLog(`-^-log combobox changed: ${activeLog}`);
             switch (activeLog) {
             case 0:
                 // clear buffer
-                Ref_buffer_Log.delete(
-                    Ref_buffer_Log.get_start_iter(),
-                    Ref_buffer_Log.get_end_iter()
+                refBufferLog.delete(
+                    refBufferLog.get_start_iter(),
+                    refBufferLog.get_end_iter()
                 );
 
                 ctx.CtrlExe.Execute(
@@ -902,8 +856,8 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                                 esc !== -1
                         ) {
                             line += '\n';
-                            Ref_buffer_Log.insert(
-                                Ref_buffer_Log.get_end_iter(),
+                            refBufferLog.insert(
+                                refBufferLog.get_end_iter(),
                                 line,
                                 line.length
                             );
@@ -913,9 +867,9 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                 break;
             case 1:
                 // clear buffer
-                Ref_buffer_Log.delete(
-                    Ref_buffer_Log.get_start_iter(),
-                    Ref_buffer_Log.get_end_iter()
+                refBufferLog.delete(
+                    refBufferLog.get_start_iter(),
+                    refBufferLog.get_end_iter()
                 );
 
                 ctx.CtrlExe.Execute(
@@ -924,12 +878,12 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                     success => {
                         Lib.TalkativeLog(`-^-CALLBACK async S= ${success}`);
                         if (success) {
-                            if (Ref_buffer_Log.get_line_count() > 0) {
+                            if (refBufferLog.get_line_count() > 0) {
                                 let strNOgsp = _(
                                     'No Gstreamer pipeline found'
                                 );
-                                Ref_buffer_Log.insert(
-                                    Ref_buffer_Log.get_end_iter(),
+                                refBufferLog.insert(
+                                    refBufferLog.get_end_iter(),
                                     strNOgsp,
                                     strNOgsp.length
                                 );
@@ -944,8 +898,8 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                                 esc !== -1
                         ) {
                             line += '\n';
-                            Ref_buffer_Log.insert(
-                                Ref_buffer_Log.get_end_iter(),
+                            refBufferLog.insert(
+                                refBufferLog.get_end_iter(),
                                 line,
                                 line.length
                             );
@@ -955,9 +909,9 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                 break;
             case 2:
                 // clear buffer
-                Ref_buffer_Log.delete(
-                    Ref_buffer_Log.get_start_iter(),
-                    Ref_buffer_Log.get_end_iter()
+                refBufferLog.delete(
+                    refBufferLog.get_start_iter(),
+                    refBufferLog.get_end_iter()
                 );
 
                 ctx.CtrlExe.Execute(
@@ -969,8 +923,8 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                     line => {
                         if (line !== '' && line !== undefined) {
                             line += '\n';
-                            Ref_buffer_Log.insert(
-                                Ref_buffer_Log.get_end_iter(),
+                            refBufferLog.insert(
+                                refBufferLog.get_end_iter(),
                                 line,
                                 line.length
                             );
@@ -984,42 +938,32 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         });
 
         // update state of get log
-        Ref_combobox_LogChooser.sensistive = Settings.getOption(
-            'b',
-            Settings.VERBOSE_DEBUG_SETTING_KEY
-        );
+        refComboboxLogChooser.sensistive = Settings.getOption('b', Settings.VERBOSE_DEBUG_SETTING_KEY);
 
         // implements default button action
-        let Ref_button_SetDeafaultSettings = gtkDB.get_object(
-            'btn_DefaultOption'
-        );
-        Ref_button_SetDeafaultSettings.connect('clicked', () =>
+        let refButtonSetDefaultSettings = gtkDB.get_object('btn_DefaultOption');
+        refButtonSetDefaultSettings.connect('clicked', () =>
             ctx._setDefaultsettings()
         );
-    },
+    }
 
     /**
-     * @param ctx
-     * @param gtkDB
+     * @param {EasyScreenCastSettingsWidget} ctx the prefs/settings widget
+     * @param {Gtk.Builder} gtkDB the builder that loaded the UI glade file
      * @private
      */
     _initTabInfo(ctx, gtkDB) {
         // implements info img extension
-        let Ref_image_ESC = gtkDB.get_object('img_ESC');
-        Ref_image_ESC.set_from_file(Lib.ESCimgInfo);
+        let refImageEsc = gtkDB.get_object('img_ESC');
+        refImageEsc.set_from_file(Lib.ESCimgInfo);
 
         // implements info version label
-        let Ref_Label_Version = gtkDB.get_object('lbl_Version');
-        Ref_Label_Version.set_markup(
-            `${_('Version: ')
-            }<span color="blue">${
-                Me.metadata.version
-            }</span>`
-        );
-    },
+        let refLabelVersion = gtkDB.get_object('lbl_Version');
+        refLabelVersion.set_markup(`${_('Version: ')}<span color="blue">${Me.metadata.version}</span>`);
+    }
 
     /**
-     * @param device
+     * @param {number} device device index
      * @private
      */
     _updateWebCamCaps(device) {
@@ -1047,7 +991,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             this.Ref_ListStore_QualityWebCam.clear();
             Settings.setOption(Settings.QUALITY_WEBCAM_SETTING_KEY, '');
         }
-    },
+    }
 
     /**
      * Refreshes the webcam settings.
@@ -1059,13 +1003,11 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         this._initializeWebcamHelper();
 
         // fill combobox with quality option webcam
-        this._updateWebCamCaps(
-            Settings.getOption('i', Settings.DEVICE_INDEX_WEBCAM_SETTING_KEY)
-        );
+        this._updateWebCamCaps(Settings.getOption('i', Settings.DEVICE_INDEX_WEBCAM_SETTING_KEY));
 
         // update webcam widget state
         this._updateStateWebcamOptions();
-    },
+    }
 
     /**
      * Initializes this.CtrlWebcam if it is null.
@@ -1073,12 +1015,13 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
      * @private
      */
     _initializeWebcamHelper() {
-        if (this.CtrlWebcam === null)
+        if (this.CtrlWebcam === null) {
             this.CtrlWebcam = new UtilWebcam.HelperWebcam();
-    },
+        }
+    }
 
     /**
-     * @param accel
+     * @param {string} accel accelerator string parsable by Gtk.accelerator_parse
      * @private
      */
     _updateRowShortcut(accel) {
@@ -1093,10 +1036,10 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             [Settings.SHORTCUT_COLUMN_KEY, Settings.SHORTCUT_COLUMN_MODS],
             [key, mods]
         );
-    },
+    }
 
     /**
-     * @param active
+     * @param {boolean} active custom or not custom GStream pipeline
      * @private
      */
     _setStateGSP(active) {
@@ -1111,20 +1054,16 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             this.Ref_stack_Quality.set_visible_child_name('pg_Preset');
 
             var audio = false;
-            if (
-                Settings.getOption(
-                    'i',
-                    Settings.INPUT_AUDIO_SOURCE_SETTING_KEY
-                ) > 0
-            )
+            if (Settings.getOption('i', Settings.INPUT_AUDIO_SOURCE_SETTING_KEY) > 0) {
                 audio = true;
+            }
 
             Settings.setOption(
                 Settings.PIPELINE_REC_SETTING_KEY,
                 Settings.getGSPstd(audio)
             );
         }
-    },
+    }
 
     /**
      * @private
@@ -1168,10 +1107,10 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             this.Ref_StackSwitcher_WebCam.set_sensitive(false);
             this.Ref_StackObj_WebCam.set_sensitive(false);
         }
-    },
+    }
 
     /**
-     * @param index
+     * @param {number} index index of the predefined resolutions
      * @returns {Array}
      * @private
      */
@@ -1191,11 +1130,12 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             [2048, 2560],
             [2160, 3840],
         ];
-        if (index >= 0 && index < arrRes.length)
+        if (index >= 0 && index < arrRes.length) {
             return arrRes[index];
-        else
+        } else {
             return null;
-    },
+        }
+    }
 
     /**
      * function to restore default value of the settings
@@ -1239,11 +1179,11 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         Settings.setOption(Settings.MARGIN_Y_WEBCAM_SETTING_KEY, 0);
         Settings.setOption(Settings.ALPHA_CHANNEL_WEBCAM_SETTING_KEY, 0.75);
         Settings.setOption(Settings.CORNER_POSITION_WEBCAM_SETTING_KEY, 0);
-    },
+    }
 });
 
 /**
- * @returns {GObject.Class}
+ * @returns {EasyScreenCastSettingsWidget}
  */
 function buildPrefsWidget() {
     Lib.TalkativeLog('-^-Init pref widget');
