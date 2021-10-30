@@ -29,7 +29,7 @@ let ListDevices = null;
 let ListCaps = null;
 
 var HelperWebcam = GObject.registerClass({
-    GTypeName: 'HelperWebcam',
+    GTypeName: 'EasyScreenCast_HelperWebcam',
 }, class HelperWebcam extends GObject.Object {
     /**
      * Create a device monitor inputvideo

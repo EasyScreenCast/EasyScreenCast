@@ -47,7 +47,7 @@ const DisplayApi = Me.imports.display_module.DisplayApi;
  * @type {Lang.Class}
  */
 const Capture = GObject.registerClass({
-    GTypeName: 'EasyScreenCast.Capture',
+    GTypeName: 'EasyScreenCast_Capture',
 }, class Capture extends GObject.Object {
     /**
      * @private
@@ -201,7 +201,7 @@ const Capture = GObject.registerClass({
 Signals.addSignalMethods(Capture.prototype);
 
 var SelectionArea = GObject.registerClass({
-    GTypeName: 'EasyScreenCast.SelectionArea',
+    GTypeName: 'EasyScreenCast_SelectionArea',
 }, class SelectionArea extends GObject.Object {
     /**
      * @private
@@ -250,7 +250,7 @@ var SelectionArea = GObject.registerClass({
 Signals.addSignalMethods(SelectionArea.prototype);
 
 var SelectionWindow = GObject.registerClass({
-    GTypeName: 'EasyScreenCast.SelectionWindow',
+    GTypeName: 'EasyScreenCast_SelectionWindow',
 }, class SelectionWindow extends GObject.Object {
     /**
      * @private
@@ -345,7 +345,7 @@ var SelectionWindow = GObject.registerClass({
 Signals.addSignalMethods(SelectionWindow.prototype);
 
 var SelectionDesktop = GObject.registerClass({
-    GTypeName: 'EasyScreenCast.SelectionDesktop',
+    GTypeName: 'EasyScreenCast_SelectionDesktop',
 }, class SelectionDesktop extends GObject.Object {
     /**
      * @private
@@ -400,7 +400,7 @@ var SelectionDesktop = GObject.registerClass({
 Signals.addSignalMethods(SelectionDesktop.prototype);
 
 const AreaRecording = GObject.registerClass({
-    GTypeName: 'EasyScreenCast.AreaRecording',
+    GTypeName: 'EasyScreenCast_AreaRecording',
 }, class AreaRecording extends GObject.Object {
     /**
      * @private

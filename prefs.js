@@ -44,7 +44,7 @@ function init() {
 }
 
 const EasyScreenCastSettingsWidget = GObject.registerClass({
-    GTypeName: 'EasyScreenCastSettingsWidget',
+    GTypeName: 'EasyScreenCast_SettingsWidget',
 }, class EasyScreenCastSettingsWidget extends Gtk.Box {
     /**
      * Init class

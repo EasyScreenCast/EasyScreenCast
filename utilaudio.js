@@ -33,7 +33,7 @@ let isConnected = false;
  * @type {MixerAudio}
  */
 var MixerAudio = GObject.registerClass({
-    GTypeName: 'MixerAudio',
+    GTypeName: 'EasyScreenCast_MixerAudio',
 }, class MixerAudio extends GObject.Object {
     /**
      * Init Lang class

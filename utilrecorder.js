@@ -38,7 +38,7 @@ let ScreenCastService = null;
  * @type {CaptureVideo}
  */
 var CaptureVideo = GObject.registerClass({
-    GTypeName: 'CaptureVideo',
+    GTypeName: 'EasyScreenCast_CaptureVideo',
 }, class CaptureVideo extends GObject.Object {
     /**
      * Create a video recorder

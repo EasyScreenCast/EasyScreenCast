@@ -17,6 +17,7 @@ const GObject = imports.gi.GObject;
 const St = imports.gi.St;
 const Meta = imports.gi.Meta;
 const Shell = imports.gi.Shell;
+// https://gitlab.gnome.org/GNOME/gnome-shell/-/blob/main/js/ui/panelMenu.js
 const PanelMenu = imports.ui.panelMenu;
 const Clutter = imports.gi.Clutter;
 const PopupMenu = imports.ui.popupMenu;
@@ -50,13 +51,13 @@ let pathFile = '';
  * @type {EasyScreenCastIndicator}
  */
 const EasyScreenCastIndicator = GObject.registerClass({
-    GTypeName: 'EasyScreenCast.indicator',
+    GTypeName: 'EasyScreenCast_Indicator',
 }, class EasyScreenCastIndicator extends PanelMenu.Button {
     /**
      * @private
      */
     _init() {
-        this.parent(null, 'EasyScreenCast-indicator');
+        super._init(null, 'EasyScreenCast_Indicator');
 
         this.CtrlAudio = new UtilAudio.MixerAudio();
         this.CtrlWebcam = new UtilWebcam.HelperWebcam();

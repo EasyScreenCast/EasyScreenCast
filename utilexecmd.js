@@ -26,7 +26,7 @@ const Lib = Me.imports.convenience;
  * @type {ExecuteStuff}
  */
 var ExecuteStuff = GObject.registerClass({
-    GTypeName: 'ExecuteStuff',
+    GTypeName: 'EasyScreenCast_ExecuteStuff',
 }, class ExecuteStuff extends GObject.Object {
     /**
      * @param {EasyScreenCastSettingsWidget|EasyScreenCastIndicator} scope the scope for executing callback methods

@@ -28,7 +28,7 @@ const Settings = Me.imports.settings;
  * @type {NotifyManager}
  */
 var NotifyManager = GObject.registerClass({
-    GTypeName: 'NotifyManager',
+    GTypeName: 'EasyScreenCast_NotifyManager',
 }, class NotifyManager extends GObject.Object {
     /**
      * Create a notify manager
