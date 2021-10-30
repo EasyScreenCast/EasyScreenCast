@@ -389,7 +389,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
         this.WebCamDevice = [_('No WebCam recording')];
         // add menu item webcam device from GST
         const devices = this.CtrlWebcam.getDevicesIV();
-        this.WebCamDevice.push([...this.CtrlWebcam.getNameDevices()]);
+        this.WebCamDevice.push(...this.CtrlWebcam.getNameDevices());
         Lib.TalkativeLog(`-*-webcam list: ${this.WebCamDevice}`);
         this.AreaMenuItem = new Array(this.WebCamDevice.length);
 
@@ -411,6 +411,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
                 Lib.TalkativeLog(`-*-webcam i=${i} devicePath: ${devicePath}`);
             }
 
+            Lib.TalkativeLog(`-*-webcam i=${i} menu-item-text: ${this.WebCamDevice[i]}`);
             this.AreaMenuItem[i] = new PopupMenu.PopupMenuItem(
                 this.WebCamDevice[i],
                 {
