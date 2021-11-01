@@ -53,7 +53,7 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
      * @private
      */
     _init(params) {
-        this.parent(params);
+        super._init(params);
 
         // creates the settings
         Settings.checkSettings();

@@ -917,7 +917,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
             isActive = false;
         }
 
-        this.parent();
+        super.destroy();
     }
 });
 
