@@ -59,7 +59,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
     _init() {
         super._init(null, 'EasyScreenCast_Indicator');
 
-        this.CtrlAudio = new UtilAudio.MixerAudio();
+        this.CtrlAudio = UtilAudio.getInstance();
         this.CtrlWebcam = new UtilWebcam.HelperWebcam();
 
         this.CtrlNotify = new UtilNotify.NotifyManager();

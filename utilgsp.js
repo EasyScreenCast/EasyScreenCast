@@ -273,8 +273,6 @@ const CONTAINER = [webmVP8, webmVP9, mp4, mkv, ogg];
 
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-let ctrlAudio = new UtilAudio.MixerAudio();
-
 /**
  * Compose GSP
  *
@@ -426,7 +424,7 @@ function _replaceAudio(gspRA, defaultAudio, ConTMP, QGSPtmp) {
         Lib.TalkativeLog('-§-default audio source');
         audioPipeline = gspRA.replace(/_ENCODER_AUDIO_/gi, aq);
     } else {
-        var audiosource = ctrlAudio.getAudioSource();
+        var audiosource = UtilAudio.getInstance().getAudioSource();
 
         if (audiosource === undefined) {
             Lib.TalkativeLog('-§-failure combination of array audio sources');

@@ -10,7 +10,7 @@
     FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
 */
 
-/* exported MixerAudio */
+/* exported MixerAudio,getInstance */
 'use strict';
 
 const GObject = imports.gi.GObject;
@@ -26,8 +26,16 @@ const Me = ExtensionUtils.getCurrentExtension();
 const Lib = Me.imports.convenience;
 const Settings = Me.imports.settings;
 
+let instance = null;
 let MixerControl = null;
 let isConnected = false;
+
+function getInstance() {
+    if (instance == null) {
+        instance = new MixerAudio();
+    }
+    return instance;
+}
 
 /**
  * @type {MixerAudio}
@@ -79,6 +87,7 @@ var MixerAudio = GObject.registerClass({
         } else {
             Lib.TalkativeLog('-#-mixer create');
 
+            // https://gitlab.gnome.org/GNOME/libgnome-volume-control
             _mixerTmp = new Gvc.MixerControl({
                 name: 'ESC Mixer Control',
             });
