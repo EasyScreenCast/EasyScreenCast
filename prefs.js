@@ -220,7 +220,7 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
         renderer.connect(
             'accel-edited',
             (_0, _1, key, mods, _2) => {
-                Lib.TalkativeLog('-^-edited key accel');
+                Lib.TalkativeLog(`-^-edited key accel: key=${key} mods=${mods}`);
 
                 let accel = Gtk.accelerator_name(key, mods);
 
@@ -1021,16 +1021,30 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
     }
 
     /**
-     * @param {string} accel accelerator string parsable by Gtk.accelerator_parse
+     * @param {string} accel accelerator string parsable by Gtk.accelerator_parse, e.g. "&lt;Super&gt;E"
      * @private
      */
     _updateRowShortcut(accel) {
-        Lib.TalkativeLog('-^-update row combo key accel');
+        Lib.TalkativeLog(`-^-update row combo key accel: ${accel}`);
 
-        let [key, mods] =
-            accel !== null ? Gtk.accelerator_parse(accel) : [0, 0];
+        let [key, mods] = [0, 0];
 
-        Lib.TalkativeLog(`-^-key ${key} mods ${mods}`);
+        if (accel !== null && accel !== undefined) {
+            if (this._isGtk4()) {
+                let ok;
+                [ok, key, mods] = Gtk.accelerator_parse(accel);
+
+                if (ok !== true) {
+                    Lib.TalkativeLog('-^-couldn\'t parse accel');
+                    key = 0;
+                    mods = 0;
+                }
+            } else {
+                [key, mods] = Gtk.accelerator_parse(accel);
+            }
+        }
+
+        Lib.TalkativeLog(`-^-key: ${key} mods: ${mods}`);
         this.Ref_liststore_Shortcut.set(
             this.Iter_ShortcutRow,
             [Settings.SHORTCUT_COLUMN_KEY, Settings.SHORTCUT_COLUMN_MODS],
