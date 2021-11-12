@@ -39,6 +39,7 @@ const UtilWebcam = Me.imports.utilwebcam;
 const UtilNotify = Me.imports.utilnotify;
 const Selection = Me.imports.selection;
 const UtilExeCmd = Me.imports.utilexecmd;
+const Gio = imports.gi.Gio;
 
 var Indicator;
 let timerD = null;
@@ -1021,6 +1022,7 @@ function init(meta) {
     Lib.TalkativeLog("-*-initExtension called");
     Lib.TalkativeLog("-*-version: " + meta.metadata.version);
     Lib.TalkativeLog("-*-install path: " + meta.path);
+    Lib.TalkativeLog(`-*-version (package.json): ${Lib.loadPackageJson().version}`);
 
     Lib.initTranslations("EasyScreenCast@iacopodeenosee.gmail.com");
 }

@@ -1013,7 +1013,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
             _("Version: ") +
                 '<span color="blue">' +
                 Me.metadata.version +
-                "</span>"
+                "</span>" + ` (${Lib.loadPackageJson().version})`
         );
     },
 

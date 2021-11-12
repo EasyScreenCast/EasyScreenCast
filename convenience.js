@@ -27,6 +27,7 @@
 const Gettext = imports.gettext;
 const Gio = imports.gi.Gio;
 const GLib = imports.gi.GLib;
+const ByteArray = imports.byteArray;
 
 const Config = imports.misc.config;
 const ExtensionUtils = imports.misc.extensionUtils;
@@ -115,6 +116,18 @@ function TalkativeLog(msg) {
     if (Settings.getOption("b", Settings.VERBOSE_DEBUG_SETTING_KEY)) {
         log("[ESC]" + msg);
     }
+}
+
+/**
+ * Loads the file package.json
+ *
+ * @returns {Object} package.json
+ */
+function loadPackageJson() {
+    let packageJsonFile = Gio.File.new_for_path(Me.dir.get_child("package.json").get_path())
+    let [_, contents] = packageJsonFile.load_contents(null);
+    let packageJson = JSON.parse(ByteArray.toString(contents));
+    return packageJson;
 }
 
 var ESConGIcon = new Gio.FileIcon({
