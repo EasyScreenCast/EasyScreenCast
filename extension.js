@@ -843,12 +843,8 @@ const EasyScreenCast_Indicator = new Lang.Class({
      * @private
      */
     _open_extension_preferences: function () {
-        if (typeof ExtensionUtils.openPrefs === "function") {
-            ExtensionUtils.openPrefs();
-            return;
-        }
-
-        Util.spawn(["gnome-shell-extension-prefs", Me.uuid]);
+        // openPrefs is available since Gnome Shell 3.36.2
+        ExtensionUtils.openPrefs();
     },
 
     /**
