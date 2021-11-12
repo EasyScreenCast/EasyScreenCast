@@ -30,8 +30,13 @@ let instance = null;
 let MixerControl = null;
 let isConnected = false;
 
+/**
+ * Get single audio mixer instance
+ *
+ * @returns {MixerAudio} the singleton mixer
+ */
 function getInstance() {
-    if (instance == null) {
+    if (instance === null) {
         instance = new MixerAudio();
     }
     return instance;
