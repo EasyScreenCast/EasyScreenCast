@@ -242,13 +242,8 @@ var MixerAudio = GObject.registerClass({
      */
     _onStreamRemove(control, id) {
         Lib.TalkativeLog(`-#-mixer stream remove - ID: ${id}`);
-        var streamTmp = control.lookup_stream_id(id);
-        if (
-            streamTmp.name === 'GNOME Shell' &&
-            streamTmp.description === 'Record Stream'
-        ) {
-            Lib.TalkativeLog('-#-stream gnome recorder removed');
-        }
+        // note: the stream has been already removed, so
+        // control.lookup_stream_id(id) won't return anything
     }
 
     /**
