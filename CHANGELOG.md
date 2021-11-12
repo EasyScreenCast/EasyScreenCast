@@ -1,3 +1,7 @@
+# Next
+
+At least gnome-shell 3.38 is required. Not compatible anymore with older versions.
+
 # v1.4.0 (42) (2021-10-22)
 
 For gnome-shell 3.16 - 40.
