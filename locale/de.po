@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-21 17:52+0200\n"
-"PO-Revision-Date: 2021-10-21 17:59+0200\n"
+"POT-Creation-Date: 2021-11-13 16:37+0100\n"
+"PO-Revision-Date: 2021-11-13 16:46+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -18,82 +18,82 @@ msgstr ""
 "X-Generator: Poedit 3.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: prefs.js:90
+#: prefs.js:88
 msgid "Could not load the preferences UI file"
 msgstr "Konnte die Einstellungen UI Datei nicht laden"
 
-#: prefs.js:430
+#: prefs.js:423
 msgid "WebCam Caps"
 msgstr "Webcam Caps"
 
-#: prefs.js:928
+#: prefs.js:883
 #, fuzzy
 msgid "No Gstreamer pipeline found"
 msgstr "GStreamer Pipeline"
 
-#: prefs.js:1013
+#: prefs.js:962
 msgid "Version: "
 msgstr ""
 
-#: prefs.js:1153
+#: prefs.js:1106
 msgid ""
 "<span foreground=\"red\">No Caps selected, please select one from the caps "
 "list</span>"
 msgstr ""
 
-#: prefs.js:1164 Options_UI.glade.h:37 Options_UI.glade-gtk4.h:38
+#: prefs.js:1117 Options_UI.glade.h:37 Options_UI.glade-gtk4.h:38
 msgid "No webcam device selected"
 msgstr "Keine Webcam selektiert"
 
-#: prefs.js:1166 Options_UI.glade.h:38 Options_UI.glade-gtk4.h:39
+#: prefs.js:1119 Options_UI.glade.h:38 Options_UI.glade-gtk4.h:39
 msgid "-"
 msgstr ""
 
-#: extension.js:128 extension.js:496
+#: extension.js:122 extension.js:454
 msgid "No audio source"
 msgstr "Keine Audio-Quelle"
 
-#: extension.js:142 Options_UI.glade.h:22 Options_UI.glade-gtk4.h:1
+#: extension.js:133 Options_UI.glade.h:22 Options_UI.glade-gtk4.h:1
 msgid "Options"
 msgstr "Optionen"
 
-#: extension.js:271 extension.js:914
+#: extension.js:255 extension.js:849
 msgid "Start recording"
 msgstr "Starte Aufnahme"
 
-#: extension.js:356 extension.js:862
+#: extension.js:329 extension.js:812
 msgid " sec. delay before recording"
 msgstr " Sekunden Verzögerung vor Aufnahme"
 
-#: extension.js:358 extension.js:864
+#: extension.js:331 extension.js:814
 msgid "Start recording immediately"
 msgstr "Starte Aufnahme sofort"
 
-#: extension.js:370
+#: extension.js:343
 msgid "Record all desktop"
 msgstr "Alle Fenster aufnehmen"
 
-#: extension.js:371
+#: extension.js:344
 msgid "Record a selected monitor"
 msgstr "Einen gewählten Bildschirm aufnehmen"
 
-#: extension.js:372
+#: extension.js:345
 msgid "Record a selected window"
 msgstr "Ein gewähltes Fenster aufnehmen"
 
-#: extension.js:373
+#: extension.js:346
 msgid "Record a selected area"
 msgstr "Einen Bereich aufnehmen"
 
-#: extension.js:417
+#: extension.js:388
 msgid "No WebCam recording"
 msgstr "Keine Webcam Aufzeichnung"
 
-#: extension.js:503
+#: extension.js:461
 msgid "Default audio source"
 msgstr "Standard Audio-Quelle"
 
-#: extension.js:523
+#: extension.js:481
 msgid ""
 "\n"
 " - Port: "
@@ -101,7 +101,7 @@ msgstr ""
 "\n"
 " - Port: "
 
-#: extension.js:525
+#: extension.js:483
 msgid ""
 "\n"
 " - Name: "
@@ -109,54 +109,46 @@ msgstr ""
 "\n"
 " - Name: "
 
-#: extension.js:584
+#: extension.js:533
 msgid "Delay Time"
 msgstr "Verzögerungszeit"
 
-#: extension.js:592 extension.js:608
+#: extension.js:541 extension.js:555
 msgid " Sec"
 msgstr " Sek"
 
-#: extension.js:692
-#, fuzzy
+#: extension.js:634
 msgid "ERROR PRE COMMAND - See logs for more info"
-msgstr "AUFNAHME FEHLER - Log Dateien prüfen für mehr Details"
+msgstr "FEHLER PRE COMMAND - Log Dateien prüfen für mehr Details"
 
-#: extension.js:814
+#: extension.js:743
 msgid "Start Recording"
 msgstr "Starte Aufnahme"
 
-#: extension.js:834
+#: extension.js:765
 msgid "ERROR RECORDER - See logs for more info"
 msgstr "AUFNAHME FEHLER - Log Dateien prüfen für mehr Details"
 
-#: extension.js:907
+#: extension.js:789
+msgid "EasyScreenCast -> Recording in progress / Seconds passed : "
+msgstr "EasyScreenCast -> Laufende Aufnahme / verstrichene Sekunden : "
+
+#: extension.js:841
 msgid "Stop recording"
 msgstr "Aufnahme beenden"
 
-#: extension.js:1000
-msgid "EasyScreenCast -> Finish Recording / Seconds : "
-msgstr "EasyScreenCast -> Aufnahme abgeschlossen / Sekunden : "
-
-#: extension.js:1008
-msgid "EasyScreenCast -> Recording in progress / Seconds passed : "
-msgstr "EasyScreenCasrt -> Laufende Aufnahme / verstrichene Sekunden : "
-
-#: selection.js:221
-#, fuzzy
+#: selection.js:219
 msgid "Select an area for recording or press [ESC] to abort"
-msgstr "Wähle ein Bereich für die Aufnahme oder drücke [ESC] zum abbrechen"
+msgstr "Wähle ein Bereich für die Aufnahme oder drücke [ESC] um abzubrechen"
 
-#: selection.js:279
-#, fuzzy
+#: selection.js:268
 msgid "Select a window for recording or press [ESC] to abort"
-msgstr "Wähle ein Fenster für die Aufnahme oder drücke [ESC] zum abbrechen"
+msgstr "Wähle ein Fenster für die Aufnahme oder drücke [ESC] um abzubrechen"
 
-#: selection.js:423
-#, fuzzy
+#: selection.js:372
 msgid "Select a desktop for recording or press [ESC] to abort"
 msgstr ""
-"Wähle ein Schreibtisch für die Aufnahme oder drücke [ESC] zum abbrechen"
+"Wähle einen Bildschirm für die Aufnahme oder drücke [ESC] um abzubrechen"
 
 #: utilwebcam.js:226
 msgid "Unspecified webcam"
@@ -167,9 +159,8 @@ msgid "Recording status indicators"
 msgstr ""
 
 #: Options_UI.glade.h:2 Options_UI.glade-gtk4.h:3
-#, fuzzy
 msgid "Show alerts and notifications"
-msgstr "Zeige Aufnahmedauer in Benachrichtigungszeile"
+msgstr "Zeige Benachrichtigungen"
 
 #: Options_UI.glade.h:3 Options_UI.glade-gtk4.h:4
 msgid "Show a border around the area being recorded"
@@ -229,9 +220,8 @@ msgid "Active shortcut"
 msgstr ""
 
 #: Options_UI.glade.h:18 Options_UI.glade-gtk4.h:19
-#, fuzzy
 msgid "Execute command before recording"
-msgstr "Führe Befehl nach Aufnahme aus"
+msgstr "Führe Befehl vor Aufnahme aus"
 
 #: Options_UI.glade.h:19 Options_UI.glade-gtk4.h:20
 #, fuzzy
@@ -246,9 +236,8 @@ msgstr ""
 " _fname = Name der Screencast Video Datei."
 
 #: Options_UI.glade.h:21 Options_UI.glade-gtk4.h:22
-#, fuzzy
 msgid "Command pre-recording"
-msgstr "Befehl nach Aufnahme"
+msgstr "Befehl vor Aufnahme"
 
 #: Options_UI.glade.h:23 Options_UI.glade-gtk4.h:24
 msgid "Custom GStreamer Pipeline"
@@ -385,13 +374,13 @@ msgid "Destination folder"
 msgstr "Zielordner"
 
 #: Options_UI.glade.h:59 Options_UI.glade-gtk4.h:60
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "The filename which may contain some escape sequences - %d and %t will be "
 "replaced by the start date and time of the recording."
 msgstr ""
-"Der Dateiname kann Escape Sequenzen beinhalten. %d wird durch das Datum und "
-"%t durch die Uhrzeit der Aufnahme ersetzt"
+"Der Dateiname kann Platzhalter beinhalten - %d wird durch das Datum und %t "
+"durch die Uhrzeit der Aufnahme ersetzt."
 
 #: Options_UI.glade.h:60 Options_UI.glade-gtk4.h:61
 msgid "File name template"
@@ -575,6 +564,9 @@ msgid ""
 "This extension simplifies the use of the\n"
 "screen recorder  included in gnome shell"
 msgstr ""
+
+#~ msgid "EasyScreenCast -> Finish Recording / Seconds : "
+#~ msgstr "EasyScreenCast -> Aufnahme abgeschlossen / Sekunden : "
 
 #~ msgid "Shortcut combination"
 #~ msgstr "Tastaturkürzel"

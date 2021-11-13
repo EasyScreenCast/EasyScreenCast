@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-21 17:52+0200\n"
+"POT-Creation-Date: 2021-11-13 16:37+0100\n"
 "PO-Revision-Date: 2017-10-05 09:29+0200\n"
 "Last-Translator: idn <iacopodeenosee@gmail.com>\n"
 "Language-Team: \n"
@@ -18,23 +18,23 @@ msgstr ""
 "X-Generator: Poedit 2.0.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: prefs.js:90
+#: prefs.js:88
 msgid "Could not load the preferences UI file"
 msgstr "Non è possibile caricare il file UI delle preferenze"
 
-#: prefs.js:430
+#: prefs.js:423
 msgid "WebCam Caps"
 msgstr "WebCam Caps"
 
-#: prefs.js:928
+#: prefs.js:883
 msgid "No Gstreamer pipeline found"
 msgstr "Nessuna GStreamer Pipeline trovata"
 
-#: prefs.js:1013
+#: prefs.js:962
 msgid "Version: "
 msgstr "Versione: "
 
-#: prefs.js:1153
+#: prefs.js:1106
 msgid ""
 "<span foreground=\"red\">No Caps selected, please select one from the caps "
 "list</span>"
@@ -42,59 +42,59 @@ msgstr ""
 "<span foreground=\"red\">Nessuna Caps selezionata, per favore selezionarne "
 "una dalla lista</span>"
 
-#: prefs.js:1164 Options_UI.glade.h:37 Options_UI.glade-gtk4.h:38
+#: prefs.js:1117 Options_UI.glade.h:37 Options_UI.glade-gtk4.h:38
 msgid "No webcam device selected"
 msgstr "Nessuna webcam selezionata"
 
-#: prefs.js:1166 Options_UI.glade.h:38 Options_UI.glade-gtk4.h:39
+#: prefs.js:1119 Options_UI.glade.h:38 Options_UI.glade-gtk4.h:39
 msgid "-"
 msgstr ""
 
-#: extension.js:128 extension.js:496
+#: extension.js:122 extension.js:454
 msgid "No audio source"
 msgstr "Nessuna sorgente Audio"
 
-#: extension.js:142 Options_UI.glade.h:22 Options_UI.glade-gtk4.h:1
+#: extension.js:133 Options_UI.glade.h:22 Options_UI.glade-gtk4.h:1
 msgid "Options"
 msgstr "Opzioni"
 
-#: extension.js:271 extension.js:914
+#: extension.js:255 extension.js:849
 msgid "Start recording"
 msgstr "Inizia Registrazione"
 
-#: extension.js:356 extension.js:862
+#: extension.js:329 extension.js:812
 msgid " sec. delay before recording"
 msgstr " sec. di ritardo prima della registrazione"
 
-#: extension.js:358 extension.js:864
+#: extension.js:331 extension.js:814
 msgid "Start recording immediately"
 msgstr "Inizia subito la registrazione"
 
-#: extension.js:370
+#: extension.js:343
 msgid "Record all desktop"
 msgstr "Tutto il desktop"
 
-#: extension.js:371
+#: extension.js:344
 msgid "Record a selected monitor"
 msgstr "Seleziona monitor"
 
-#: extension.js:372
+#: extension.js:345
 msgid "Record a selected window"
 msgstr "Seleziona finestra"
 
-#: extension.js:373
+#: extension.js:346
 msgid "Record a selected area"
 msgstr "Area di Registrazione"
 
-#: extension.js:417
+#: extension.js:388
 msgid "No WebCam recording"
 msgstr "Non registrare la webcam"
 
-#: extension.js:503
+#: extension.js:461
 msgid "Default audio source"
 msgstr "Sorgente Audio di default"
 
-#: extension.js:523
+#: extension.js:481
 msgid ""
 "\n"
 " - Port: "
@@ -102,7 +102,7 @@ msgstr ""
 "\n"
 " - Porta: "
 
-#: extension.js:525
+#: extension.js:483
 msgid ""
 "\n"
 " - Name: "
@@ -110,49 +110,45 @@ msgstr ""
 "\n"
 " - Nome: "
 
-#: extension.js:584
+#: extension.js:533
 msgid "Delay Time"
 msgstr "Tempo ritardo"
 
-#: extension.js:592 extension.js:608
+#: extension.js:541 extension.js:555
 msgid " Sec"
 msgstr " Sec"
 
-#: extension.js:692
+#: extension.js:634
 #, fuzzy
 msgid "ERROR PRE COMMAND - See logs for more info"
 msgstr "ERRORE RECORDER - visiona i logs per maggiori info"
 
-#: extension.js:814
+#: extension.js:743
 msgid "Start Recording"
 msgstr "Inizia Registrazione"
 
-#: extension.js:834
+#: extension.js:765
 msgid "ERROR RECORDER - See logs for more info"
 msgstr "ERRORE RECORDER - visiona i logs per maggiori info"
 
-#: extension.js:907
-msgid "Stop recording"
-msgstr "Ferma Registrazione"
-
-#: extension.js:1000
-msgid "EasyScreenCast -> Finish Recording / Seconds : "
-msgstr "EasyScreenCast -> Registrazione Terminata / Secondi : "
-
-#: extension.js:1008
+#: extension.js:789
 msgid "EasyScreenCast -> Recording in progress / Seconds passed : "
 msgstr "EasyScreenCast -> Registrazione in corso / Secondi passati : "
 
-#: selection.js:221
+#: extension.js:841
+msgid "Stop recording"
+msgstr "Ferma Registrazione"
+
+#: selection.js:219
 msgid "Select an area for recording or press [ESC] to abort"
 msgstr "Seleziona l'area da registrare o premi [ESC] per annulare"
 
-#: selection.js:279
+#: selection.js:268
 #, fuzzy
 msgid "Select a window for recording or press [ESC] to abort"
 msgstr "Seleziona la finestra da registrare o premi [ESC] per annulare"
 
-#: selection.js:423
+#: selection.js:372
 #, fuzzy
 msgid "Select a desktop for recording or press [ESC] to abort"
 msgstr "Seleziona il desktop da registrare o premi [ESC] per annulare"
@@ -575,6 +571,9 @@ msgid ""
 msgstr ""
 "This extension simplifies the use of the \n"
 "screen recorder  included in gnome shell"
+
+#~ msgid "EasyScreenCast -> Finish Recording / Seconds : "
+#~ msgstr "EasyScreenCast -> Registrazione Terminata / Secondi : "
 
 #~ msgid "Shortcut combination"
 #~ msgstr "Combinazione di tasti"
