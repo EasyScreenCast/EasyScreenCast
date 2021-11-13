@@ -24,11 +24,10 @@
   SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-/* exported ESConGIcon,ESCoffGIcon,ESConGIconSel,ESCoffGIconSel,ESCimgPerformance,ESCimgQuality,ESCimgInfo,TalkativeLog,getSettings,initTranslations */
+/* exported ESConGIcon,ESCoffGIcon,ESConGIconSel,ESCoffGIconSel,ESCimgPerformance,ESCimgQuality,ESCimgInfo,TalkativeLog,getSettings,initTranslations,loadPackageJson */
 'use strict';
 
 const Gio = imports.gi.Gio;
-const GLib = imports.gi.GLib;
 const ByteArray = imports.byteArray;
 
 const ExtensionUtils = imports.misc.extensionUtils;
@@ -51,7 +50,7 @@ function TalkativeLog(msg) {
  * @returns {Object} package.json
  */
 function loadPackageJson() {
-    let packageJsonFile = Gio.File.new_for_path(Me.dir.get_child("package.json").get_path())
+    let packageJsonFile = Gio.File.new_for_path(Me.dir.get_child('package.json').get_path());
     let [_, contents] = packageJsonFile.load_contents(null);
     let packageJson = JSON.parse(ByteArray.toString(contents));
     return packageJson;

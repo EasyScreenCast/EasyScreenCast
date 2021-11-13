@@ -38,7 +38,6 @@ const UtilWebcam = Me.imports.utilwebcam;
 const UtilNotify = Me.imports.utilnotify;
 const Selection = Me.imports.selection;
 const UtilExeCmd = Me.imports.utilexecmd;
-const Gio = imports.gi.Gio;
 
 var Indicator;
 let timerD = null;
