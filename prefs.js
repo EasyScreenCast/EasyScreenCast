@@ -959,7 +959,7 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
 
         // implements info version label
         let refLabelVersion = gtkDB.get_object('lbl_Version');
-        refLabelVersion.set_markup(`${_('Version: ')}<span color="blue">${Me.metadata.version}</span>`);
+        refLabelVersion.set_markup(`${_('Version: ')}<span color="blue">${Me.metadata.version}</span> (${Lib.loadPackageJson().fullversion})`);
     }
 
     /**

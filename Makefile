@@ -105,7 +105,8 @@ _build: versioninfo all
 		mkdir -p $$lf/LC_MESSAGES; \
 		cp $$l $$lf/LC_MESSAGES/$(UUID).mo; \
 	done
-	sed -i 's/"version": "[0-9]\{1,\}"/"version": "$(NEXT_EXTENSION_VERSION)"/'  _build/metadata.json
+	jq 'setpath(["version"]; "'$(NEXT_EXTENSION_VERSION)'")' metadata.json > _build/metadata.json
+	jq 'setpath(["fullversion"]; "'$(VERSION)'")' package.json > _build/package.json
 
 .PHONY: local-test
 local-test: install
