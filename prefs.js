@@ -40,7 +40,7 @@ const UtilExeCmd = Me.imports.utilexecmd;
  *
  */
 function init() {
-    Lib.initTranslations('EasyScreenCast@iacopodeenosee.gmail.com');
+    ExtensionUtils.initTranslations('EasyScreenCast@iacopodeenosee.gmail.com');
 }
 
 const EasyScreenCastSettingsWidget = GObject.registerClass({

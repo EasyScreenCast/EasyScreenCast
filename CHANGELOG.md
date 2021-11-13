@@ -1,5 +1,7 @@
 # Next
 
+At least gnome-shell 3.38 is required. Not compatible anymore with older versions.
+
 **Fixes**
 
 * [#130](https://github.com/EasyScreenCast/EasyScreenCast/issues/130): Argument 'accelerator' but got type 'undefined' when loading the preferences dialog

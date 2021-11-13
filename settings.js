@@ -155,6 +155,6 @@ function setOption(key, option) {
  */
 function checkSettings() {
     if (settings === null) {
-        settings = Lib.getSettings('org.gnome.shell.extensions.EasyScreenCast');
+        settings = ExtensionUtils.getSettings('org.gnome.shell.extensions.EasyScreenCast');
     }
 }
