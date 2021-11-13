@@ -1,3 +1,9 @@
+# Next
+
+**Fixes**
+
+* [#130](https://github.com/EasyScreenCast/EasyScreenCast/issues/130): Argument 'accelerator' but got type 'undefined' when loading the preferences dialog
+
 # v1.4.0 (42) (2021-10-22)
 
 For gnome-shell 3.16 - 40.

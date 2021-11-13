@@ -10,7 +10,10 @@
     FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
 */
 
-const Lang = imports.lang;
+/* exported TimerDelay,TimerCounting */
+'use strict';
+
+const GObject = imports.gi.GObject;
 const GLib = imports.gi.GLib;
 
 const ExtensionUtils = imports.misc.extensionUtils;
@@ -21,28 +24,28 @@ const Lib = Me.imports.convenience;
                 DELAY TIMER
 */
 let DelaySec = 0;
-let ID_TimerDelay = null;
+let timerDelayId = null;
 let CallbackFuncDelay = null;
 let ElapsedSec;
 
 /**
  * @type {TimerDelay}
  */
-const TimerDelay = new Lang.Class({
-    Name: "TimerDelay",
-
+const TimerDelay = GObject.registerClass({
+    GTypeName: 'EasyScreenCast_TimerDelay',
+}, class TimerDelay extends GObject.Object {
     /**
      * Create a new timer
      *
-     * @param {number} delay
-     * @param {function} callback
-     * @param scope
+     * @param {number} delay delay in seconds
+     * @param {Function} callback callback function that is called after delay seconds (without arguments)
+     * @param {*} scope scope for the callback
      */
-    _init: function (delay, callback, scope) {
+    _init(delay, callback, scope) {
         if (isNaN(delay)) {
-            Lib.TalkativeLog("-%-delay is NOT a number :" + delay);
+            Lib.TalkativeLog(`-%-delay is NOT a number :${delay}`);
         } else {
-            Lib.TalkativeLog("-%-init TimerDelay called - sec : " + delay);
+            Lib.TalkativeLog(`-%-init TimerDelay called - sec : ${delay}`);
 
             DelaySec = delay;
             ElapsedSec = 1;
@@ -50,83 +53,80 @@ const TimerDelay = new Lang.Class({
             this.setCallback(callback);
             this.Scope = scope;
         }
-    },
+    }
 
     /**
      * Set the callback-function
      *
-     * @param {function} callback
+     * @param {Function} callback callback function that is called after delay seconds (without arguments)
      */
-    setCallback: function (callback) {
-        Lib.TalkativeLog("-%-setcallback TimerDelay called");
+    setCallback(callback) {
+        Lib.TalkativeLog('-%-setcallback TimerDelay called');
 
         if (
             callback === undefined ||
             callback === null ||
-            typeof callback !== "function"
+            typeof callback !== 'function'
         ) {
             throw TypeError("'callback' needs to be a function.");
         }
+
         CallbackFuncDelay = callback;
-    },
+    }
 
     /**
      * Set the delay time
      *
-     * @param {number} delay
+     * @param {number} delay delay in seconds
      */
-    setDelay: function (delay) {
-        Lib.TalkativeLog("-%-setdelay TimerDelay called");
+    setDelay(delay) {
+        Lib.TalkativeLog(`-%-setdelay TimerDelay called: ${delay}`);
 
         DelaySec = delay;
-    },
+    }
 
     /**
      * Start or restart a new timer
      */
-    begin: function () {
-        Lib.TalkativeLog("-%-start TimerDelay called");
+    begin() {
+        Lib.TalkativeLog('-%-start TimerDelay called');
         this.stop();
 
-        ID_TimerDelay = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 1000, () =>
+        timerDelayId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 1000, () =>
             this._callbackInternal()
         );
-    },
+    }
 
     /**
      * Stop the current timer
      */
-    stop: function () {
-        Lib.TalkativeLog("-%-stop TimerDelay called");
-        if (ID_TimerDelay !== null) {
-            if (GLib.source_remove(ID_TimerDelay)) {
-                ID_TimerDelay = null;
+    stop() {
+        Lib.TalkativeLog('-%-stop TimerDelay called');
+        if (timerDelayId !== null) {
+            if (GLib.source_remove(timerDelayId)) {
+                timerDelayId = null;
 
                 ElapsedSec = 1;
             }
         }
-    },
+    }
 
     /**
      * A convenient way to restart the timer.
      */
-    restart: function () {
+    restart() {
         this.stop();
         this.begin();
-    },
+    }
 
     /**
      * The internal callback-function.
+     *
      * @private
-     * @return {boolean}
+     * @returns {boolean}
      */
-    _callbackInternal: function () {
-        Lib.TalkativeLog(
-            "-%-internalFunction TimerDelay called | Sec = " +
-                ElapsedSec +
-                " Sec delay = " +
-                DelaySec
-        );
+    _callbackInternal() {
+        Lib.TalkativeLog(`-%-internalFunction TimerDelay called | Sec = ${ElapsedSec} Sec delay = ${DelaySec}`);
         if (ElapsedSec >= DelaySec) {
             CallbackFuncDelay.apply(this.Scope, []);
             ElapsedSec = 1;
@@ -135,92 +135,100 @@ const TimerDelay = new Lang.Class({
             ElapsedSec++;
             return true;
         }
-    },
+    }
 });
 
 /*
                     COUNTING TIMER
 */
-let ID_TimerCounting = null;
+let timerCountingId = null;
 let CallbackFuncCounting = null;
 let isRunning = false;
 let secpassed = 0;
 
 /**
- * @type {Lang.Class}
+ * @type {TimerCounting}
  */
-var TimerCounting = new Lang.Class({
-    Name: "TimerCounting",
+var TimerCounting = GObject.registerClass({
+    GTypeName: 'EasyScreenCast_TimerCounting',
+}, class TimerCounting extends GObject.Object {
+    /**
+     * Callback for the counting timer.
+     *
+     * @callback TimerCounting~callback
+     * @param {number} count seconds passed
+     * @param {boolean} alertEnd whether the timer is ending
+     */
 
     /**
      * Create a new timer
      *
-     * @param {function} callback
-     * @param scope
+     * @param {TimerCounting~callback} callback callback function that is called every second
+     * @param {EasyScreenCast_Indicator} scope scope for the callback function. This is also used to updateTimeLabel.
      */
-    _init: function (callback, scope) {
-        Lib.TalkativeLog("-%-init TimerCounting called");
+    _init(callback, scope) {
+        Lib.TalkativeLog('-%-init TimerCounting called');
 
         this.setCallback(callback);
         secpassed = 0;
         this.Scope = scope;
-    },
+    }
 
     /**
      * Set the callback-function
      *
-     * @param {function} callback
+     * @param {TimerCounting~callback} callback callback function that is called every second
      */
-    setCallback: function (callback) {
-        Lib.TalkativeLog("-%-setcallback TimerCounting called");
+    setCallback(callback) {
+        Lib.TalkativeLog('-%-setcallback TimerCounting called');
 
         if (
             callback === undefined ||
             callback === null ||
-            typeof callback !== "function"
+            typeof callback !== 'function'
         ) {
             throw TypeError("'callback' needs to be a function.");
         }
+
         CallbackFuncCounting = callback;
-    },
+    }
 
     /**
      * Start or restart a new timer
      */
-    begin: function () {
-        Lib.TalkativeLog("-%-start TimerCounting called");
+    begin() {
+        Lib.TalkativeLog('-%-start TimerCounting called');
 
         if (isRunning) {
             this.stop();
         }
+
         isRunning = true;
 
-        ID_TimerCounting = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 1000, () =>
+        timerCountingId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 1000, () =>
             this._callbackInternal()
         );
-    },
+    }
 
     /**
      * Stop the current timer
      */
-    stop: function () {
-        Lib.TalkativeLog("-%-stop TimerCounting called");
+    stop() {
+        Lib.TalkativeLog('-%-stop TimerCounting called');
 
         isRunning = false;
 
-        if (ID_TimerCounting !== null) {
-            if (GLib.source_remove(ID_TimerCounting)) {
-                ID_TimerCounting = null;
-            }
+        if (timerCountingId !== null && GLib.source_remove(timerCountingId)) {
+            timerCountingId = null;
         }
-    },
+    }
 
     /**
      * A convenient way to stop timer
      */
-    halt: function () {
+    halt() {
         isRunning = false;
-    },
+    }
 
     /**
      * The internal callback-function. Calls a function that handles
@@ -228,28 +236,28 @@ var TimerCounting = new Lang.Class({
      * to the icon.
      *
      * @private
-     * @return {boolean}
+     * @returns {boolean}
      */
-    _callbackInternal: function () {
+    _callbackInternal() {
         if (isRunning === false) {
-            Lib.TalkativeLog("-%-finish TimerCounting ");
+            Lib.TalkativeLog('-%-finish TimerCounting ');
 
             CallbackFuncCounting.apply(this.Scope, [secpassed, true]);
             secpassed = 0;
 
             this.stop();
-            this.Scope.updateTimeLabel("");
+            this.Scope.updateTimeLabel('');
 
             return false;
         } else {
             secpassed++;
 
-            Lib.TalkativeLog("-%-continued TimerCounting | sec: " + secpassed);
+            Lib.TalkativeLog(`-%-continued TimerCounting | sec: ${secpassed}`);
 
             CallbackFuncCounting.apply(this.Scope, [secpassed, false]);
             this.Scope.updateTimeLabel(secpassed);
 
             return true;
         }
-    },
+    }
 });

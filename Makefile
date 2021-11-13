@@ -106,3 +106,11 @@ _build: versioninfo all
 		cp $$l $$lf/LC_MESSAGES/$(UUID).mo; \
 	done
 	sed -i 's/"version": "[0-9]\{1,\}"/"version": "$(NEXT_EXTENSION_VERSION)"/'  _build/metadata.json
+
+.PHONY: local-test
+local-test: install
+	dbus-run-session -- gnome-shell --nested
+
+.PHONY: lint
+lint:
+	npm run lint

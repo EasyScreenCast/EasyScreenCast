@@ -10,7 +10,10 @@
     FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
 */
 
-const Lang = imports.lang;
+/* exported NotifyManager */
+'use strict';
+
+const GObject = imports.gi.GObject;
 const Main = imports.ui.main;
 const MessageTray = imports.ui.messageTray;
 const Clutter = imports.gi.Clutter;
@@ -24,28 +27,28 @@ const Settings = Me.imports.settings;
 /**
  * @type {NotifyManager}
  */
-var NotifyManager = new Lang.Class({
-    Name: "NotifyManager",
-
+var NotifyManager = GObject.registerClass({
+    GTypeName: 'EasyScreenCast_NotifyManager',
+}, class NotifyManager extends GObject.Object {
     /**
      * Create a notify manager
      */
-    _init: function () {
-        Lib.TalkativeLog("-°-init notify manager");
+    _init() {
+        Lib.TalkativeLog('-°-init notify manager');
 
         this.source = new MessageTray.SystemNotificationSource();
-    },
+    }
 
     /**
      * create notify
      *
-     * @param msg
-     * @param icon
-     * @param sound
-     * @return {MessageTray.Notification}
+     * @param {string} msg the title
+     * @param {Gio.FileIcon} icon the icon
+     * @param {boolean} sound whether to play a sound
+     * @returns {MessageTray.Notification}
      */
-    createNotify: function (msg, icon, sound) {
-        Lib.TalkativeLog("-°-create notify :" + msg);
+    createNotify(msg, icon, sound) {
+        Lib.TalkativeLog(`-°-create notify :${msg}`);
         var notify = new MessageTray.Notification(this.source, msg, null, {
             gicon: icon,
         });
@@ -60,19 +63,20 @@ var NotifyManager = new Lang.Class({
             notify.playSound();
         }
 
+
         return notify;
-    },
+    }
 
     /**
      * update notify
      *
-     * @param notify
-     * @param msg
-     * @param icon
-     * @param sound
+     * @param {MessageTray.Notification} notify the already existing notification to update
+     * @param {string} msg the title
+     * @param {Gio.FileIcon} icon the icon
+     * @param {boolean} sound whether to play a sound
      */
-    updateNotify: function (notify, msg, icon, sound) {
-        Lib.TalkativeLog("-°-update notify");
+    updateNotify(notify, msg, icon, sound) {
+        Lib.TalkativeLog('-°-update notify');
 
         notify.update(msg, null, {
             gicon: icon,
@@ -81,20 +85,20 @@ var NotifyManager = new Lang.Class({
         if (sound) {
             notify.playSound();
         }
-    },
+    }
 
     /**
      * create alert
      *
-     * @param msg
+     * @param {string} msg the message
      */
-    createAlert: function (msg) {
-        Lib.TalkativeLog("-°-show alert tweener : " + msg);
-        if (Settings.getOption("b", Settings.SHOW_NOTIFY_ALERT_SETTING_KEY)) {
+    createAlert(msg) {
+        Lib.TalkativeLog(`-°-show alert tweener : ${msg}`);
+        if (Settings.getOption('b', Settings.SHOW_NOTIFY_ALERT_SETTING_KEY)) {
             var monitor = Main.layoutManager.focusMonitor;
 
             var text = new St.Label({
-                style_class: "alert-msg",
+                style_class: 'alert-msg',
                 text: msg,
             });
             text.opacity = 255;
@@ -115,5 +119,5 @@ var NotifyManager = new Lang.Class({
                 },
             });
         }
-    },
+    }
 });

@@ -1,0 +1,4 @@
+# From https://gitlab.gnome.org/GNOME/gnome-shell-extensions/-/blob/main/.eslintrc.yml
+extends:
+ - ./lint/eslintrc-gjs.yml
+ - ./lint/eslintrc-shell.yml
