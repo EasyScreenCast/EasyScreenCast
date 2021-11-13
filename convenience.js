@@ -27,17 +27,15 @@
 /* exported ESConGIcon,ESCoffGIcon,ESConGIconSel,ESCoffGIconSel,ESCimgPerformance,ESCimgQuality,ESCimgInfo,TalkativeLog,getSettings,initTranslations */
 'use strict';
 
-const Gettext = imports.gettext;
 const Gio = imports.gi.Gio;
 
-const Config = imports.misc.config;
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Settings = Me.imports.settings;
 
 /**
  * @param {string} msg the message to log
- * @constructor
+ * @class
  */
 function TalkativeLog(msg) {
     if (Settings.getOption('b', Settings.VERBOSE_DEBUG_SETTING_KEY)) {
