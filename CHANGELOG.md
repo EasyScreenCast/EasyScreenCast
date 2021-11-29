@@ -2,6 +2,10 @@
 
 At least gnome-shell 3.38 is required. Not compatible anymore with older versions.
 
+**Pull Requests**
+
+* [#304](https://github.com/EasyScreenCast/EasyScreenCast/pull/304): Fix image size of ESC logo ([@adangel](https://github.com/adangel))
+
 **Fixes**
 
 * [#130](https://github.com/EasyScreenCast/EasyScreenCast/issues/130): Argument 'accelerator' but got type 'undefined' when loading the preferences dialog
