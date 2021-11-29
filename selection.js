@@ -20,7 +20,7 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-/* exported SelectionArea,SelectionWindow,SelectionDesktop */
+/* exported SelectionArea,SelectionWindow,SelectionDesktop,AreaRecording */
 'use strict';
 
 const GObject = imports.gi.GObject;
@@ -399,7 +399,7 @@ var SelectionDesktop = GObject.registerClass({
 
 Signals.addSignalMethods(SelectionDesktop.prototype);
 
-const AreaRecording = GObject.registerClass({
+var AreaRecording = GObject.registerClass({
     GTypeName: 'EasyScreenCast_AreaRecording',
 }, class AreaRecording extends GObject.Object {
     /**
