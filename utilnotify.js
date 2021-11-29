@@ -15,6 +15,7 @@
 
 const GObject = imports.gi.GObject;
 const Main = imports.ui.main;
+// https://gitlab.gnome.org/GNOME/gnome-shell/-/blob/main/js/ui/messageTray.js
 const MessageTray = imports.ui.messageTray;
 const Clutter = imports.gi.Clutter;
 const St = imports.gi.St;
@@ -35,8 +36,6 @@ var NotifyManager = GObject.registerClass({
      */
     _init() {
         Lib.TalkativeLog('-°-init notify manager');
-
-        this.source = new MessageTray.SystemNotificationSource();
     }
 
     /**
@@ -49,20 +48,20 @@ var NotifyManager = GObject.registerClass({
      */
     createNotify(msg, icon, sound) {
         Lib.TalkativeLog(`-°-create notify :${msg}`);
-        var notify = new MessageTray.Notification(this.source, msg, null, {
+        var source = new MessageTray.SystemNotificationSource();
+        var notify = new MessageTray.Notification(source, msg, null, {
             gicon: icon,
         });
 
         notify.setTransient(false);
         notify.setResident(true);
 
-        Main.messageTray.add(this.source);
-        this.source.showNotification(notify);
+        Main.messageTray.add(source);
+        source.showNotification(notify);
 
         if (sound) {
             notify.playSound();
         }
-
 
         return notify;
     }

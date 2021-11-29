@@ -7,6 +7,7 @@ At least gnome-shell 3.38 is required. This version of EasyScreenCast is not com
 * [#297](https://github.com/EasyScreenCast/EasyScreenCast/pull/297): Add eslint rules ([@adangel](https://github.com/adangel))
 * [#302](https://github.com/EasyScreenCast/EasyScreenCast/pull/302): Use ExtensionUtils for initTranslations and getSettings ([@adangel](https://github.com/adangel))
 * [#303](https://github.com/EasyScreenCast/EasyScreenCast/pull/303): Display version in prefs dialog ([@adangel](https://github.com/adangel))
+* [#305](https://github.com/EasyScreenCast/EasyScreenCast/pull/305): Fix notification ([@adangel](https://github.com/adangel))
 
 **Pull Requests**
 
@@ -16,6 +17,7 @@ At least gnome-shell 3.38 is required. This version of EasyScreenCast is not com
 
 * [#130](https://github.com/EasyScreenCast/EasyScreenCast/issues/130): Argument 'accelerator' but got type 'undefined' when loading the preferences dialog
 * [#299](https://github.com/EasyScreenCast/EasyScreenCast/issues/299): Review results from extensions.gnome.org
+* [#301](https://github.com/EasyScreenCast/EasyScreenCast/issues/301): Notification has been already disposed
 
 # v1.4.0 (42) (2021-10-22)
 
