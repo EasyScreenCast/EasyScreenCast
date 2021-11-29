@@ -94,6 +94,8 @@ var CaptureVideo = GObject.registerClass({
         }
 
         Lib.TalkativeLog(`-&-path/file template : ${fileRec}`);
+        fileRec = this._generateFileName(fileRec);
+        Lib.TalkativeLog(`-&-path/file final : ${fileRec}`);
         if (shellVersion >= 40) {
             // prefix with a videoconvert element
             // see DEFAULT_PIPELINE in https://gitlab.gnome.org/GNOME/gnome-shell/-/blob/main/js/dbusServices/screencast/screencastService.js#L26
@@ -184,5 +186,13 @@ var CaptureVideo = GObject.registerClass({
 
             return true;
         });
+    }
+
+    _generateFileName(template) {
+        template = template.replaceAll('%d', '%0x').replaceAll('%t', '%0X');
+        const datetime = GLib.DateTime.new_now_local();
+        const result = datetime.format(template);
+        const withoutWhitespace = result.replaceAll(' ', '_');
+        return withoutWhitespace;
     }
 });

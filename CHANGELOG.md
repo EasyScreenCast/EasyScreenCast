@@ -11,6 +11,7 @@ At least gnome-shell 3.38 is required. This version of EasyScreenCast is not com
 **Fixes**
 
 * [#130](https://github.com/EasyScreenCast/EasyScreenCast/issues/130): Argument 'accelerator' but got type 'undefined' when loading the preferences dialog
+* [#188](https://github.com/EasyScreenCast/EasyScreenCast/issues/188): Improve filename template for the date and time format
 * [#299](https://github.com/EasyScreenCast/EasyScreenCast/issues/299): Review results from extensions.gnome.org
 
 # v1.4.0 (42) (2021-10-22)
