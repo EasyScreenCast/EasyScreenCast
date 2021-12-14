@@ -121,7 +121,7 @@ const Capture = GObject.registerClass({
      */
     _onCaptureEvent(actor, event) {
         if (event.type() === Clutter.EventType.KEY_PRESS) {
-            if (event.get_key_symbol() === Clutter.Escape) {
+            if (event.get_key_symbol() === Clutter.KEY_Escape) {
                 this._stop();
             }
         }
