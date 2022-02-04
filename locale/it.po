@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-13 16:37+0100\n"
+"POT-Creation-Date: 2021-12-14 19:54+0100\n"
 "PO-Revision-Date: 2017-10-05 09:29+0200\n"
 "Last-Translator: idn <iacopodeenosee@gmail.com>\n"
 "Language-Team: \n"
@@ -58,15 +58,15 @@ msgstr "Nessuna sorgente Audio"
 msgid "Options"
 msgstr "Opzioni"
 
-#: extension.js:255 extension.js:849
+#: extension.js:255 extension.js:853
 msgid "Start recording"
 msgstr "Inizia Registrazione"
 
-#: extension.js:329 extension.js:812
+#: extension.js:329 extension.js:816
 msgid " sec. delay before recording"
 msgstr " sec. di ritardo prima della registrazione"
 
-#: extension.js:331 extension.js:814
+#: extension.js:331 extension.js:818
 msgid "Start recording immediately"
 msgstr "Inizia subito la registrazione"
 
@@ -127,15 +127,15 @@ msgstr "ERRORE RECORDER - visiona i logs per maggiori info"
 msgid "Start Recording"
 msgstr "Inizia Registrazione"
 
-#: extension.js:765
+#: extension.js:769
 msgid "ERROR RECORDER - See logs for more info"
 msgstr "ERRORE RECORDER - visiona i logs per maggiori info"
 
-#: extension.js:789
+#: extension.js:793
 msgid "EasyScreenCast -> Recording in progress / Seconds passed : "
 msgstr "EasyScreenCast -> Registrazione in corso / Secondi passati : "
 
-#: extension.js:841
+#: extension.js:845
 msgid "Stop recording"
 msgstr "Ferma Registrazione"
 
