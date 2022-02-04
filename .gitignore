@@ -1,11 +1,4 @@
-locale/de.mo
-locale/es.mo
-locale/fr.mo
-locale/it.mo
-locale/pt_BR.mo
-locale/ru.mo
-locale/ca.mo
-locale/uk.mo
+locale/*.mo
 *~
 
 # IDE files

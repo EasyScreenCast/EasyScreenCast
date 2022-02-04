@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-13 16:37+0100\n"
+"POT-Creation-Date: 2021-12-14 19:54+0100\n"
 "PO-Revision-Date: 2021-2-4 23:32+0900\n"
 "Last-Translator: moru3_48 <moru348@gmail.com>\n"
 "Language-Team: 日本語 <>\n"
@@ -36,7 +36,9 @@ msgstr "バージョン: "
 msgid ""
 "<span foreground=\"red\">No Caps selected, please select one from the caps "
 "list</span>"
-msgstr "<span foreground=\"red\">録画が選択されていません。録画一覧から選択してください。</span>"
+msgstr ""
+"<span foreground=\"red\">録画が選択されていません。録画一覧から選択してくださ"
+"い。</span>"
 
 #: prefs.js:1117 Options_UI.glade.h:37 Options_UI.glade-gtk4.h:38
 msgid "No webcam device selected"
@@ -54,15 +56,15 @@ msgstr "オーディオソースがありません"
 msgid "Options"
 msgstr "設定"
 
-#: extension.js:255 extension.js:849
+#: extension.js:255 extension.js:853
 msgid "Start recording"
 msgstr "録画を開始"
 
-#: extension.js:329 extension.js:812
+#: extension.js:329 extension.js:816
 msgid " sec. delay before recording"
 msgstr " 秒録画を開始してから経過しました"
 
-#: extension.js:331 extension.js:814
+#: extension.js:331 extension.js:818
 msgid "Start recording immediately"
 msgstr "すぐに録画を開始"
 
@@ -118,15 +120,15 @@ msgstr "ERROR PRE COMMAND - ログで詳細を確認してください。"
 msgid "Start Recording"
 msgstr "録画を開始しました。"
 
-#: extension.js:765
+#: extension.js:769
 msgid "ERROR RECORDER - See logs for more info"
 msgstr "ERROR RECORDER - ログで詳細を確認してください。"
 
-#: extension.js:789
+#: extension.js:793
 msgid "EasyScreenCast -> Recording in progress / Seconds passed : "
 msgstr "EasyScreenCast -> 録画時間/秒経過"
 
-#: extension.js:841
+#: extension.js:845
 msgid "Stop recording"
 msgstr "録画を停止"
 
@@ -216,7 +218,8 @@ msgid "Execute command before recording"
 msgstr "録画開始前に実行するコマンド"
 
 #: Options_UI.glade.h:19 Options_UI.glade-gtk4.h:20
-msgid "These words will be replaced\n"
+msgid ""
+"These words will be replaced\n"
 "_dirpath = the absolute path of destination folder for the screencast video "
 "file."
 msgstr ""
@@ -255,7 +258,9 @@ msgstr ""
 msgid ""
 "The extension does NOT handle the webcam and audio when you use a custom "
 "gstreamer pipeline.\n"
-msgstr "GStreamer Custom Pipelineを使用した場合、この拡張機能はカメラとオーディオを処理しません。\n"
+msgstr ""
+"GStreamer Custom Pipelineを使用した場合、この拡張機能はカメラとオーディオを処"
+"理しません。\n"
 
 #: Options_UI.glade.h:32 Options_UI.glade-gtk4.h:34
 msgid "Official doc"
@@ -351,9 +356,8 @@ msgid ""
 "file will be saved in the $XDG_VIDEOS_DIR if it exists, or the home "
 "directory otherwise."
 msgstr ""
-"ファイルを保存するフォルダを選択します。"
-"指定しない場合、$XDG_VIDEOS_DIR が存在する場合はそこに、"
-"存在しない場合はホームディレクトリに保存します。"
+"ファイルを保存するフォルダを選択します。指定しない場合、$XDG_VIDEOS_DIR が存"
+"在する場合はそこに、存在しない場合はホームディレクトリに保存します。"
 
 #: Options_UI.glade.h:57 Options_UI.glade-gtk4.h:58
 msgid "Destination folder"
@@ -365,8 +369,8 @@ msgid ""
 "The filename which may contain some escape sequences - %d and %t will be "
 "replaced by the start date and time of the recording."
 msgstr ""
-"エスケープシーケンスを含むファイル名 - %d と %t は "
-"録画の開始日時に置き換わります。"
+"エスケープシーケンスを含むファイル名 - %d と %t は 録画の開始日時に置き換わり"
+"ます。"
 
 #: Options_UI.glade.h:60 Options_UI.glade-gtk4.h:61
 msgid "File name template"
@@ -455,7 +459,8 @@ msgid ""
 "$ journalctl --since=today --no-pager | grep js\n"
 "$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
 msgstr ""
-"This option enable more debug message, to view these run this command into a terminal:\n"
+"This option enable more debug message, to view these run this command into a "
+"terminal:\n"
 "$ journalctl --since=today --no-pager | grep js\n"
 "$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
 
@@ -507,7 +512,9 @@ msgstr ""
 msgid ""
 "This extension simplifies the use of the \n"
 "screen recorder  included in gnome shell"
-msgstr "この拡張機能は、gnome shellに含まれるスクリーンレコーダーの使用をより簡単にします。"
+msgstr ""
+"この拡張機能は、gnome shellに含まれるスクリーンレコーダーの使用をより簡単にし"
+"ます。"
 
 #: Options_UI.glade.h:97 Options_UI.glade-gtk4.h:97
 msgid "This software is licensed under GPL v3"
@@ -541,4 +548,6 @@ msgstr "情報"
 msgid ""
 "This extension simplifies the use of the\n"
 "screen recorder  included in gnome shell"
-msgstr "この拡張機能は、gnome shellに含まれる\nスクリーンレコーダーの使用をより簡単にします。"
+msgstr ""
+"この拡張機能は、gnome shellに含まれる\n"
+"スクリーンレコーダーの使用をより簡単にします。"
