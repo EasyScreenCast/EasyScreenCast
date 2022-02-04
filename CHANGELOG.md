@@ -7,6 +7,7 @@ At least gnome-shell 3.38 is required. This version of EasyScreenCast is not com
 * [#297](https://github.com/EasyScreenCast/EasyScreenCast/pull/297): Add eslint rules ([@adangel](https://github.com/adangel))
 * [#302](https://github.com/EasyScreenCast/EasyScreenCast/pull/302): Use ExtensionUtils for initTranslations and getSettings ([@adangel](https://github.com/adangel))
 * [#303](https://github.com/EasyScreenCast/EasyScreenCast/pull/303): Display version in prefs dialog ([@adangel](https://github.com/adangel))
+* [#306](https://github.com/EasyScreenCast/EasyScreenCast/pull/306): Add a custom _generateFileName function in utilrecorder (#188) ([@adangel](https://github.com/adangel))
 
 **Fixes**
 
