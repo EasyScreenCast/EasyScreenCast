@@ -1386,6 +1386,7 @@ $ dbus-monitor &quot;interface=org.gnome.Shell.Screencast&quot;</property>
                     <property name="orientation">vertical</property>
                     <child>
                       <object class="GtkImage" id="img_ESC">
+                        <property name="pixel-size">100</property>
                       </object>
                     </child>
                     <child>

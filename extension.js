@@ -743,6 +743,10 @@ const EasyScreenCastIndicator = GObject.registerClass({
                     _('Start Recording'),
                     Lib.ESConGIcon
                 );
+                this.notifyCounting.connect('destroy', () => {
+                    Lib.TalkativeLog('-*-notification destroyed');
+                    this.notifyCounting = null;
+                });
 
                 // start counting rec
                 timerC = new Time.TimerCounting((secpassed, alertEnd) => {
@@ -775,7 +779,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
      * @param {boolean} alertEnd whether the timer is ending
      */
     _refreshNotify(sec, alertEnd) {
-        if (Indicator.notifyCounting !== null || Indicator.notifyCounting !== undefined || Indicator.isShowNotify) {
+        if (this.notifyCounting !== null && this.notifyCounting !== undefined && this.isShowNotify) {
             if (alertEnd) {
                 this.CtrlNotify.updateNotify(
                     this.notifyCounting,
