@@ -9,11 +9,13 @@ At least gnome-shell 3.38 is required. This version of EasyScreenCast is not com
 * [#303](https://github.com/EasyScreenCast/EasyScreenCast/pull/303): Display version in prefs dialog ([@adangel](https://github.com/adangel))
 * [#304](https://github.com/EasyScreenCast/EasyScreenCast/pull/304): Fix image size of ESC logo ([@adangel](https://github.com/adangel))
 * [#305](https://github.com/EasyScreenCast/EasyScreenCast/pull/305): Fix notification ([@adangel](https://github.com/adangel))
+* [#306](https://github.com/EasyScreenCast/EasyScreenCast/pull/306): Add a custom _generateFileName function in utilrecorder (#188) ([@adangel](https://github.com/adangel))
 * [#308](https://github.com/EasyScreenCast/EasyScreenCast/pull/308): Fix [ESC] does not abort Window / Area Selection ([@meghprkh](https://github.com/meghprkh))
 
 **Fixes**
 
 * [#130](https://github.com/EasyScreenCast/EasyScreenCast/issues/130): Argument 'accelerator' but got type 'undefined' when loading the preferences dialog
+* [#188](https://github.com/EasyScreenCast/EasyScreenCast/issues/188): Improve filename template for the date and time format
 * [#299](https://github.com/EasyScreenCast/EasyScreenCast/issues/299): Review results from extensions.gnome.org
 * [#301](https://github.com/EasyScreenCast/EasyScreenCast/issues/301): Notification has been already disposed
 
