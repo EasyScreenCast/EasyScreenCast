@@ -968,11 +968,12 @@ _dirpath = the absolute path of destination folder for the screencast video file
                     <child>
                       <object class="GtkComboBoxText" id="cbt_FileContainer">
                         <items>
-                          <item id="0">WebM  [VP8 encoder]</item>
-                          <item id="4">WebM  [VP9 encoder]</item>
-                          <item id="1">Mp4  [x264 encoder]</item>
-                          <item id="2">Mkv  [x264 encoder]</item>
-                          <item id="3">Ogg  [Theora encoder]</item>
+                          <item id="0">WebM  [VP8 encoder + vorbis]</item>
+                          <item id="1">WebM  [VP9 encoder + vorbis]</item>
+                          <item id="2">MP4  [x264 encoder + mp3]</item>
+                          <item id="3">Mkv  [x264 encoder + flac]</item>
+                          <item id="4">Ogg  [Theora encoder + opus]</item>
+                          <item id="5">MP4_AAC [x264 encoder + aac]</item>
                         </items>
                         <layout>
                           <property name="column">1</property>
