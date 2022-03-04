@@ -210,7 +210,21 @@ var HelperWebcam = GObject.registerClass({
         var list = this.deviceMonitor.get_devices();
         Lib.TalkativeLog(`-@-devices number: ${list.length}`);
 
-        return list;
+        // Note:
+        // Although the computer may have just one webcam connected to
+        // it, more than one GstDevice may be listed and all pointing to
+        // the same video device (for example /dev/video0. Each
+        // GstDevice is supposed to be used with a specific source, for
+        // example, a pipewiresrc or a v4l2src. For now, we are only
+        // using v4l2src.
+        // See also: Gst.DeviceMonitor.get_providers: pipewiredeviceprovider,decklinkdeviceprovider,v4l2deviceprovider
+        //
+        // So, here we filter the devices, that have a device.path property, which
+        // means, these are only v4l2 devices
+        var filtered = list.filter(device => device.get_properties().get_string('device.path') != null);
+        Lib.TalkativeLog(`-@-devices number after filtering for v4l2: ${filtered.length}`);
+
+        return filtered;
     }
 
     /**
