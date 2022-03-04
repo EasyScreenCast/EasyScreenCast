@@ -136,66 +136,100 @@ var HelperWebcam = GObject.registerClass({
             ListCaps[index] = this.getCapsForIV(ListDevices[index].caps);
 
             Lib.TalkativeLog(`-@-webcam /dev/video${index} name: ${ListDevices[index].display_name}`);
-            Lib.TalkativeLog(`-@-caps avaiable N°: ${ListCaps[index].length}`);
+            Lib.TalkativeLog(`-@-caps available: ${ListCaps[index].length}`);
             Lib.TalkativeLog(`-@-ListCaps[${index}]: ${ListCaps[index]}`);
         }
     }
 
     /**
-     * get caps from device
+     * get caps from device.
+     * A single capability might look like: <code>video/x-raw, format=(string)YUY2, width=(int)640, height=(int)480, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction)30/1</code>
+     * This encodes a single capability (fixed), but there might also be capabilities which represent options, e.g.
+     * <code>video/x-raw, format=(string)YUY2, width=(int)640, height=(int)480, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction) { 30/1, 25/1, 20/1 }</code>.
+     * <br>
+     * The code here will take always the first option and unroll the options for framerate.
      *
      * @param {Gst.Caps} tmpCaps capabilities of a device
      * @returns {string[]}
      */
     getCapsForIV(tmpCaps) {
         Lib.TalkativeLog('-@-get all caps from a input video');
-        Lib.TalkativeLog(`-@-caps avaiable N°: ${tmpCaps.get_size()}`);
+        Lib.TalkativeLog(`-@-caps available before filtering for video/x-raw: ${tmpCaps.get_size()}`);
 
-        var cleanCaps = [];
-        for (var i = 0; i < tmpCaps.get_size(); i++) {
-            // cleaned cap
-            var tmpStr = tmpCaps
-                .get_structure(i)
-                .to_string()
-                .replace(/;/gi, '');
+        let cleanCaps = [];
+        for (let i = 0; i < tmpCaps.get_size(); i++) {
+            let capsStructure = tmpCaps.get_structure(i);
 
-            // fine cleaning of option CAPS remain
-            cleanCaps[i] = this.cleanCapsOPT(tmpStr);
+            // only consider "video/x-raw"
+            if (capsStructure.get_name() === 'video/x-raw') {
+                Lib.TalkativeLog(`-@-cap : ${i} : original : ${capsStructure.to_string()}`);
 
-            Lib.TalkativeLog(`-@-cap : ${i} : ${cleanCaps[i]}`);
+                let tmpStr = 'video/x-raw';
+                let result, number, fraction;
+                result = capsStructure.get_string('format');
+                if (result !== null) {
+                    tmpStr += `, format=(string)${result}`;
+                }
+                [result, number] = capsStructure.get_int('width');
+                if (result === true) {
+                    tmpStr += `, width=(int)${number}`;
+                }
+                [result, number] = capsStructure.get_int('height');
+                if (result === true) {
+                    tmpStr += `, height=(int)${number}`;
+                }
+                [result, number, fraction] = capsStructure.get_fraction('pixel-aspect-ratio');
+                if (result === true) {
+                    tmpStr += `, pixel-aspect-ratio=(fraction)${number}/${fraction}`;
+                }
+
+
+                if (capsStructure.has_field('framerate')) {
+                    [result, number, fraction] = capsStructure.get_fraction('framerate');
+                    if (result === true) {
+                        // a single framerate
+                        this._addAndLogCapability(cleanCaps, i, `${tmpStr}, framerate=(fraction)${number}/${fraction}`);
+                    } else {
+                        // multiple framerates
+
+                        // unfortunately GstValueList is not supported in this gjs-binding
+                        // "Error: Don't know how to convert GType GstValueList to JavaScript object"
+                        // -> capsStructure.get_value('framerate') <- won't work
+                        // -> capsStructure.get_list('framerate') <- only returns the numerator of the fraction
+                        //
+                        // therefore manually parsing the framerate values from the string representation
+                        let framerates = capsStructure.to_string();
+                        framerates = framerates.substring(framerates.indexOf('framerate=(fraction){') + 21);
+                        framerates = framerates.substring(0, framerates.indexOf('}'));
+                        framerates.split(',').forEach(element => {
+                            let [numerator, denominator] = element.split('/', 2);
+                            this._addAndLogCapability(cleanCaps, i, `${tmpStr}, framerate=(fraction)${numerator.trim()}/${denominator.trim()}`);
+                        });
+                    }
+                } else {
+                    // no framerate at all
+                    this._addAndLogCapability(cleanCaps, i, tmpStr);
+                }
+            } else {
+                Lib.TalkativeLog(`-@-cap : ${i} : skipped : ${capsStructure.to_string()}`);
+            }
         }
         return cleanCaps;
     }
 
     /**
-     * clean caps form options label
+     * Adds the capability str to the array caps, if it is not already there. Avoids duplicates.
      *
-     * @param {string} strCaps capabilities of a string, possibly "uncleaned"
-     * @returns {string}
+     * @param {Array} caps the list of capabilities
+     * @param {int} originalIndex index of the original capabilities list from the device
+     * @param {string} str the capability string to add
      */
-    cleanCapsOPT(strCaps) {
-        Lib.TalkativeLog(`-@-fine tunning caps:${strCaps}`);
-
-        if (strCaps.indexOf('{ ') >= 0) {
-            // clean
-            var firstOPT = strCaps.indexOf('{ ');
-            var lastOPT = strCaps.indexOf(' }');
-            var nextMedia = strCaps.indexOf(',', firstOPT);
-            if (strCaps.indexOf(',', firstOPT) + 1 > lastOPT + 2) {
-                nextMedia = lastOPT;
-            }
-
-
-            var strInitial = strCaps.substr(0, firstOPT);
-            var strMedia = strCaps.substring(firstOPT + 2, nextMedia);
-            var strPost = strCaps.substr(lastOPT + 2);
-
-            var tmpStr = strInitial + strMedia + strPost;
-            Lib.TalkativeLog(`-@-cleaned caps:${tmpStr}`);
-            // recall
-            return this.cleanCapsOPT(tmpStr);
+    _addAndLogCapability(caps, originalIndex, str) {
+        if (caps.indexOf(str) === -1) {
+            caps.push(str);
+            Lib.TalkativeLog(`-@-cap : ${originalIndex} : added cap : ${str}`);
         } else {
-            return strCaps;
+            Lib.TalkativeLog(`-@-cap : ${originalIndex} : ignore duplicated cap : ${str}`);
         }
     }
 
