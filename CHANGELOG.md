@@ -2,7 +2,7 @@
 
 At least gnome-shell 3.38 is required. This version of EasyScreenCast is not compatible anymore with older versions.
 
-**Pull Requests**
+**🎉 Merged pull requests:**
 
 * [#297](https://github.com/EasyScreenCast/EasyScreenCast/pull/297): Add eslint rules ([@adangel](https://github.com/adangel))
 * [#302](https://github.com/EasyScreenCast/EasyScreenCast/pull/302): Use ExtensionUtils for initTranslations and getSettings ([@adangel](https://github.com/adangel))
@@ -14,7 +14,7 @@ At least gnome-shell 3.38 is required. This version of EasyScreenCast is not com
 * [#310](https://github.com/EasyScreenCast/EasyScreenCast/pull/310): Added Japanese translation ([@moru348](https://github.com/moru348))
 * [#312](https://github.com/EasyScreenCast/EasyScreenCast/pull/312): Add Vietnamese translation ([@lehien](https://github.com/lehien))
 
-**Fixes**
+**🐛 Fixed bugs:**
 
 * [#130](https://github.com/EasyScreenCast/EasyScreenCast/issues/130): Argument 'accelerator' but got type 'undefined' when loading the preferences dialog
 * [#188](https://github.com/EasyScreenCast/EasyScreenCast/issues/188): Improve filename template for the date and time format
@@ -25,17 +25,17 @@ At least gnome-shell 3.38 is required. This version of EasyScreenCast is not com
 
 For gnome-shell 3.16 - 40.
 
-**Features**
+**🚀 Implemented enhancements:**
 
 * Support Gnome Shell 40
 * Preliminary support for Gnome Shell 41
 
-**Pull Requests**
+**🎉 Merged pull requests:**
 
 * [#295](https://github.com/EasyScreenCast/EasyScreenCast/pull/295) Support Gnome Shell 40 ([@adangel](https://github.com/adangel))
 * [#296](https://github.com/EasyScreenCast/EasyScreenCast/pull/296) Add github actions workflow ([@adangel](https://github.com/adangel))
 
-**Fixes**
+**🐛 Fixed bugs:**
 
 * [#227](https://github.com/EasyScreenCast/EasyScreenCast/issues/227) Update Readme for make requirements
 * [#287](https://github.com/EasyScreenCast/EasyScreenCast/issues/287) Installation with make is failing in ubuntu
@@ -54,7 +54,7 @@ This avoids that gnome-extensions-app magically downgrades a manually installed 
 
 Install it with `gnome-extensions install EasyScreenCast_1.3.1_41.zip --force`
 
-**Fixes**
+**🐛 Fixed bugs:**
 
 * [#245](https://github.com/EasyScreenCast/EasyScreenCast/issues/245) Push new version to GNOME shell extensions; GNOME 3.36 keeps "updating" the locally installed extension
 * [#262](https://github.com/EasyScreenCast/EasyScreenCast/issues/262) EasyScreenCast update alert every time Chrome opens on RHEL Workstation v7.7
@@ -65,18 +65,18 @@ Install it with `gnome-extensions install EasyScreenCast_1.3.1_41.zip --force`
 
 For gnome-shell 3.16 - 3.38. Not compatible with gnome-shell 40.
 
-**Features**
+**🚀 Implemented enhancements:**
 
 * Compatible with gnome-shell 3.38
 
-**Pull Requests**
+**🎉 Merged pull requests:**
 
 * [#258](https://github.com/EasyScreenCast/EasyScreenCast/pull/258) Replace deprecated gnome-shell-extension-prefs ([@efernandesng](https://github.com/efernandesng))
 * [#270](https://github.com/EasyScreenCast/EasyScreenCast/pull/270) Add catalan translation ([@cubells](https://github.com/cubells))
 * [#276](https://github.com/EasyScreenCast/EasyScreenCast/pull/276) Allow extension to load under GNOME 3.38 ([@Ian2020](https://github.com/Ian2020))
 * [#291](https://github.com/EasyScreenCast/EasyScreenCast/pull/291) Improve webcam (de)selection ([@adangel](https://github.com/adangel))
 
-**Fixes**
+**🐛 Fixed bugs:**
 
 * [#243](https://github.com/EasyScreenCast/EasyScreenCast/issues/243) TypeError: listCaps is undefined
 * [#251](https://github.com/EasyScreenCast/EasyScreenCast/issues/251) Option Is not Working
