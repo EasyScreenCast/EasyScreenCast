@@ -17,6 +17,7 @@ At least gnome-shell 3.38 is required. This version of EasyScreenCast is not com
 * [#315](https://github.com/EasyScreenCast/EasyScreenCast/pull/315): Filter webcam devices list by devicePath property ([@adangel](https://github.com/adangel))
 * [#317](https://github.com/EasyScreenCast/EasyScreenCast/pull/317): Only consider video/x-raw capabilities ([@adangel](https://github.com/adangel))
 * [#318](https://github.com/EasyScreenCast/EasyScreenCast/pull/318): Enable or disable keybinding immediately ([@adangel](https://github.com/adangel))
+* [#319](https://github.com/EasyScreenCast/EasyScreenCast/pull/319): Logfiles under the support tag weren't shown anymore ([@adangel](https://github.com/adangel))
 
 **🐛 Fixed bugs:**
 

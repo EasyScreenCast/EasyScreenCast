@@ -215,13 +215,11 @@ var ExecuteStuff = GObject.registerClass({
                     stdOut,
                     stdErr,
                 ] = GLib.spawn_async_with_pipes(
-                    null,
-                    argv,
-                    null,
-                    GLib.SpawnFlags.SEARCH_PATH,
-                    () => {},
-                    null,
-                    null
+                    null, // working directory
+                    argv, // argv
+                    null, // envp
+                    GLib.SpawnFlags.SEARCH_PATH, // flags
+                    () => {} // child_setup
                 );
             } catch (err) {
                 Lib.TalkativeLog('-¶-ERROR SPAWN');
@@ -244,12 +242,12 @@ var ExecuteStuff = GObject.registerClass({
                         fd: stdIn,
                     }),
                 });
-                inWriter.close();
+                inWriter.close(null);
 
                 let [out] = outReader.read_line(null);
                 while (out !== null) {
                     if (this.lineCallback !== null) {
-                        this.lineCallback.apply(this.Scope, [out.toString()]);
+                        this.lineCallback.apply(this.Scope, [ByteArray.toString(out)]);
                     }
 
                     [out] = outReader.read_line(null);
