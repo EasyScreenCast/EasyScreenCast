@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-12-14 19:54+0100\n"
-"PO-Revision-Date: 2021-11-13 16:46+0100\n"
+"PO-Revision-Date: 2022-03-04 10:36+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: prefs.js:88
 msgid "Could not load the preferences UI file"
@@ -27,9 +27,8 @@ msgid "WebCam Caps"
 msgstr "Webcam Caps"
 
 #: prefs.js:883
-#, fuzzy
 msgid "No Gstreamer pipeline found"
-msgstr "GStreamer Pipeline"
+msgstr "Keine GStreamer Pipeline gefunden"
 
 #: prefs.js:962
 msgid "Version: "
@@ -40,6 +39,8 @@ msgid ""
 "<span foreground=\"red\">No Caps selected, please select one from the caps "
 "list</span>"
 msgstr ""
+"<span foreground=\"red\">Keine Webcam Einstellung ausgewählt, bitte von der "
+"Liste wählen</span>"
 
 #: prefs.js:1117 Options_UI.glade.h:37 Options_UI.glade-gtk4.h:38
 msgid "No webcam device selected"
@@ -152,11 +153,11 @@ msgstr ""
 
 #: utilwebcam.js:226
 msgid "Unspecified webcam"
-msgstr ""
+msgstr "Unbekannte Webcam"
 
 #: Options_UI.glade.h:1 Options_UI.glade-gtk4.h:2
 msgid "Recording status indicators"
-msgstr ""
+msgstr "Aufnahmestatus Hinweis"
 
 #: Options_UI.glade.h:2 Options_UI.glade-gtk4.h:3
 msgid "Show alerts and notifications"
@@ -176,19 +177,19 @@ msgstr "Tastaturkürzel aktivieren"
 
 #: Options_UI.glade.h:6 Options_UI.glade-gtk4.h:7
 msgid "Both  [ESC + Default]"
-msgstr ""
+msgstr "Beide [ESC + Standard]"
 
 #: Options_UI.glade.h:7 Options_UI.glade-gtk4.h:8
 msgid "ESC only"
-msgstr ""
+msgstr "Nur ESC"
 
 #: Options_UI.glade.h:8 Options_UI.glade-gtk4.h:9
 msgid "Default only"
-msgstr ""
+msgstr "Nur Standard"
 
 #: Options_UI.glade.h:9 Options_UI.glade-gtk4.h:10
 msgid "Not any"
-msgstr ""
+msgstr "Keine"
 
 #: Options_UI.glade.h:10 Options_UI.glade-gtk4.h:11
 msgid ""
@@ -217,23 +218,20 @@ msgstr "Zeige Mauszeiger in Aufnahme"
 
 #: Options_UI.glade.h:17 Options_UI.glade-gtk4.h:18
 msgid "Active shortcut"
-msgstr ""
+msgstr "Aktiver Tastenkürzel"
 
 #: Options_UI.glade.h:18 Options_UI.glade-gtk4.h:19
 msgid "Execute command before recording"
 msgstr "Führe Befehl vor Aufnahme aus"
 
 #: Options_UI.glade.h:19 Options_UI.glade-gtk4.h:20
-#, fuzzy
 msgid ""
 "These words will be replaced\n"
 "_dirpath = the absolute path of destination folder for the screencast video "
 "file."
 msgstr ""
 "Die folgenden Wörter werden ersetzt\n"
-" _fpath = Absoluter Pfad zur Screencast Video Datei.\n"
-" _dirpath = Absoluter Pfad des Zielordners der Screencast Video Datei.\n"
-" _fname = Name der Screencast Video Datei."
+" _dirpath = Absoluter Pfad des Zielordners der Screencast Video Datei."
 
 #: Options_UI.glade.h:21 Options_UI.glade-gtk4.h:22
 msgid "Command pre-recording"
@@ -321,19 +319,19 @@ msgstr "Web-Kamera in die Ecke"
 
 #: Options_UI.glade.h:46 Options_UI.glade-gtk4.h:48
 msgid "Right-Bottom"
-msgstr "Rechter Knopf"
+msgstr "Rechts unten"
 
 #: Options_UI.glade.h:47 Options_UI.glade-gtk4.h:49
 msgid "Left-Bottom"
-msgstr "Linker Knopf"
+msgstr "Links unten"
 
 #: Options_UI.glade.h:48 Options_UI.glade-gtk4.h:50
 msgid "Right-Top"
-msgstr "rechts oben"
+msgstr "Rechts oben"
 
 #: Options_UI.glade.h:49 Options_UI.glade-gtk4.h:51
 msgid "Left-Top"
-msgstr "links oben"
+msgstr "Links oben"
 
 #: Options_UI.glade.h:50 Options_UI.glade-gtk4.h:52
 msgid "Margin X"
@@ -345,7 +343,7 @@ msgstr "Rand Y"
 
 #: Options_UI.glade.h:52 Options_UI.glade-gtk4.h:54
 msgid "Alpha channel"
-msgstr "Alpha Kanal"
+msgstr "Alpha-Kanal"
 
 #: Options_UI.glade.h:53 Options_UI.glade-gtk4.h:55
 msgid "0,00"
@@ -365,9 +363,9 @@ msgid ""
 "file will be saved in the $XDG_VIDEOS_DIR if it exists, or the home "
 "directory otherwise."
 msgstr ""
-"Wählt den Ordner in dem die Aufnahme gespeichert wird, wenn kein "
-"spezifischer Ordner gewählt wurde wird die Datei in $XDG_VIDEOS_DIR "
-"gespeichert sofern dies existiert, alternativ im HOME Verzeichnis"
+"Ordner auswählen, in dem die Aufnahme gespeichert wird. Wenn kein "
+"spezifischer Ordner gewählt wurde, wird die Datei in $XDG_VIDEOS_DIR "
+"gespeichert, sofern dies existiert, alternativ im HOME Verzeichnis."
 
 #: Options_UI.glade.h:57 Options_UI.glade-gtk4.h:58
 msgid "Destination folder"
@@ -399,9 +397,8 @@ msgid "File resolution"
 msgstr "Datei Auflösung"
 
 #: Options_UI.glade.h:64 Options_UI.glade-gtk4.h:65
-#, fuzzy
 msgid "Native area resolution"
-msgstr "Native area screen resolution"
+msgstr "Native Bildschirmauflösung"
 
 #: Options_UI.glade.h:65 Options_UI.glade-gtk4.h:64
 msgid "Native"
@@ -464,14 +461,13 @@ msgid "File"
 msgstr "Datei"
 
 #: Options_UI.glade.h:80 Options_UI.glade-gtk4.h:80
-#, fuzzy
 msgid ""
 "This option enable more debug message, to view these run this command into a "
 "terminal:\n"
 "$ journalctl --since=today --no-pager | grep js\n"
 "$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
 msgstr ""
-"Diese Option aktiviert mehr Debug-Nachrichten, um diese zu sehen führen Sie "
+"Diese Option aktiviert mehr Debug-Nachrichten. Um diese zu sehen, führen Sie "
 "diesen Befehl im Terminal aus:\n"
 "$ journalctl /usr/bin/gnome-session --since=today --no-pager | grep js\n"
 "$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
@@ -497,9 +493,8 @@ msgid "extension"
 msgstr ""
 
 #: Options_UI.glade.h:88 Options_UI.glade-gtk4.h:88
-#, fuzzy
 msgid "last Gstreamer pipeline"
-msgstr "Angepasste GStreamer Pipeline"
+msgstr "Letzte GStreamer Pipeline"
 
 #: Options_UI.glade.h:89 Options_UI.glade-gtk4.h:89
 msgid "gnome shell"
@@ -507,7 +502,7 @@ msgstr ""
 
 #: Options_UI.glade.h:90 Options_UI.glade-gtk4.h:90
 msgid "Display the log of"
-msgstr ""
+msgstr "Log anzeigen von"
 
 #: Options_UI.glade.h:91 Options_UI.glade-gtk4.h:91
 msgid "Restore default options"
