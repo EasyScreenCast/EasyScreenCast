@@ -1,4 +1,4 @@
-# Next
+# v1.5.0 (42) (2022-03-05)
 
 At least gnome-shell 3.38 is required. This version of EasyScreenCast is not compatible anymore with older versions.
 
