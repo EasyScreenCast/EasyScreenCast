@@ -13,6 +13,7 @@ At least gnome-shell 3.38 is required. This version of EasyScreenCast is not com
 * [#308](https://github.com/EasyScreenCast/EasyScreenCast/pull/308): Fix [ESC] does not abort Window / Area Selection ([@meghprkh](https://github.com/meghprkh))
 * [#310](https://github.com/EasyScreenCast/EasyScreenCast/pull/310): Added Japanese translation ([@moru348](https://github.com/moru348))
 * [#312](https://github.com/EasyScreenCast/EasyScreenCast/pull/312): Add Vietnamese translation ([@lehien](https://github.com/lehien))
+* [#319](https://github.com/EasyScreenCast/EasyScreenCast/pull/319): Logfiles under the support tag weren't shown anymore ([@adangel](https://github.com/adangel))
 
 **Fixes**
 
