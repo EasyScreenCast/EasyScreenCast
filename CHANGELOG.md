@@ -2,6 +2,10 @@
 
 At least gnome-shell 3.38 is required. This version of EasyScreenCast is not compatible anymore with older versions.
 
+**🚀 Implemented enhancements:**
+
+* [#288](https://github.com/EasyScreenCast/EasyScreenCast/issues/288): Whatsapp preset
+
 **🎉 Merged pull requests:**
 
 * [#297](https://github.com/EasyScreenCast/EasyScreenCast/pull/297): Add eslint rules ([@adangel](https://github.com/adangel))
@@ -18,6 +22,7 @@ At least gnome-shell 3.38 is required. This version of EasyScreenCast is not com
 * [#317](https://github.com/EasyScreenCast/EasyScreenCast/pull/317): Only consider video/x-raw capabilities ([@adangel](https://github.com/adangel))
 * [#318](https://github.com/EasyScreenCast/EasyScreenCast/pull/318): Enable or disable keybinding immediately ([@adangel](https://github.com/adangel))
 * [#319](https://github.com/EasyScreenCast/EasyScreenCast/pull/319): Logfiles under the support tag weren't shown anymore ([@adangel](https://github.com/adangel))
+* [#320](https://github.com/EasyScreenCast/EasyScreenCast/pull/320): Add new file container and presets for mp4+aac ([@adangel](https://github.com/adangel))
 
 **🐛 Fixed bugs:**
 

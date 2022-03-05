@@ -168,6 +168,49 @@ const mp4 = {
     ],
 };
 
+const mp4Aac = {
+    fileExt: '.mp4',
+    nameGSP: 'mp4mux',
+    quality: [
+        {
+            // quality level 0
+            fps: 15,
+            vq:
+                'x264enc psy-tune="none" speed-preset="superfast" subme=1 qp-min=28 qp-max=40 threads=%T',
+            aq: 'avenc_aac',
+            descr:
+                'FPS: 15 \nVideo -> x264enc  Encoder:\n-psy-tune="none"\n-speed-preset="superfast"\n-subme=1\n-qp-min=28\n-qp-max=40\nAudio -> AAC Encoder',
+        },
+        {
+            // quality level 1
+            fps: 30,
+            vq:
+                'x264enc psy-tune="animation" speed-preset="fast" subme=5 qp-min=18 qp-max=28 threads=%T',
+            aq: 'avenc_aac',
+            descr:
+                'FPS: 30 \nVideo -> x264enc  Encoder:\n-psy-tune="animation"\n-speed-preset="fast"\n-subme=5\n-qp-min=18\n-qp-max=28\nAudio -> AAC Encoder',
+        },
+        {
+            // quality level 2
+            fps: 30,
+            vq:
+                'x264enc psy-tune="animation" speed-preset="medium" subme=8 qp-min=10 qp-max=18 threads=%T',
+            aq: 'avenc_aac',
+            descr:
+                'FPS: 30 \nVideo -> x264enc  Encoder:\n-psy-tune="animation"\n-speed-preset="medium"\n-subme=8\n-qp-min=10\n-qp-max=18\nAudio -> AAC Encoder',
+        },
+        {
+            // quality level 3
+            fps: 60,
+            vq:
+                'x264enc psy-tune="film" speed-preset="slower" subme=10 qp-min=0 qp-max=10 threads=%T',
+            aq: 'avenc_aac',
+            descr:
+                'FPS: 60 \nVideo -> x264enc  Encoder:\n-psy-tune="film"\n-speed-preset="slower"\n-subme=10\n-qp-min=0\n-qp-max=10\nAudio -> AAC Encoder',
+        },
+    ],
+};
+
 // CONST CONTAINER - Mkv
 const mkv = {
     fileExt: '.mkv',
@@ -269,7 +312,8 @@ const RESOLUTION = [
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 // VAR ARRAY CONTAINER
-const CONTAINER = [webmVP8, webmVP9, mp4, mkv, ogg];
+// see cbt_FileContainer in *.glade files for the combo box
+const CONTAINER = [webmVP8, webmVP9, mp4, mkv, ogg, mp4Aac];
 
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 

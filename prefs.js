@@ -321,7 +321,7 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
             Gio.SettingsBindFlags.DEFAULT
         );
 
-        // implements label desciption GSP
+        // implements label description GSP
         let refLabelDescGSP = gtkDB.get_object('lbl_GSP_Description');
         refLabelDescGSP.set_text(
             UtilGSP.getDescr(
@@ -329,6 +329,17 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
                 Settings.getOption('i', Settings.FILE_CONTAINER_SETTING_KEY)
             )
         );
+        // update label description when container selection changed
+        Settings.settings.connect(`changed::${Settings.FILE_CONTAINER_SETTING_KEY}`, () => {
+            Lib.TalkativeLog('-^- new setting for file container, update gps description');
+            refLabelDescGSP.set_text(
+                UtilGSP.getDescr(
+                    Settings.getOption('i', Settings.QUALITY_SETTING_KEY),
+                    Settings.getOption('i', Settings.FILE_CONTAINER_SETTING_KEY)
+                )
+            );
+        });
+
 
         // implements quality scale option
         let refScaleQuality = gtkDB.get_object('scl_Quality');
@@ -352,33 +363,40 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
             Settings.getOption('i', Settings.QUALITY_SETTING_KEY)
         );
 
+        let oldQualityValue = refScaleQuality.get_value();
         refScaleQuality.connect('value-changed', self => {
-            Lib.TalkativeLog(`-^-value quality changed : ${self.get_value()}`);
+            // not logging by default - it's too much
+            // Lib.TalkativeLog(`-^-value quality changed : ${self.get_value()}`);
 
             // round the value
-            var roundTmp = parseInt(self.get_value().toFixed(0));
-            Lib.TalkativeLog(`-^-value quality fixed : ${roundTmp}`);
-
-            // update label descr GSP
-            refLabelDescGSP.set_text(
-                UtilGSP.getDescr(
-                    roundTmp,
-                    Settings.getOption('i', Settings.FILE_CONTAINER_SETTING_KEY)
-                )
-            );
-
-            // update fps
-            Settings.setOption(
-                Settings.FPS_SETTING_KEY,
-                UtilGSP.getFps(
-                    roundTmp,
-                    Settings.getOption('i', Settings.FILE_CONTAINER_SETTING_KEY)
-                )
-            );
+            let roundTmp = parseInt(self.get_value().toFixed(0));
+            // not logging by default - it's too much
+            // Lib.TalkativeLog(`-^-value quality fixed : ${roundTmp}`);
 
             self.set_value(roundTmp);
 
-            Settings.setOption(Settings.QUALITY_SETTING_KEY, roundTmp);
+            // only update labels for real changes
+            if (oldQualityValue !== roundTmp) {
+                oldQualityValue = roundTmp;
+                Settings.setOption(Settings.QUALITY_SETTING_KEY, roundTmp);
+
+                // update label descr GSP
+                refLabelDescGSP.set_text(
+                    UtilGSP.getDescr(
+                        roundTmp,
+                        Settings.getOption('i', Settings.FILE_CONTAINER_SETTING_KEY)
+                    )
+                );
+
+                // update fps
+                Settings.setOption(
+                    Settings.FPS_SETTING_KEY,
+                    UtilGSP.getFps(
+                        roundTmp,
+                        Settings.getOption('i', Settings.FILE_CONTAINER_SETTING_KEY)
+                    )
+                );
+            }
         });
 
         // implements image for scale widget
