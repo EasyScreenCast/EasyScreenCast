@@ -13,6 +13,7 @@ At least gnome-shell 3.38 is required. This version of EasyScreenCast is not com
 * [#308](https://github.com/EasyScreenCast/EasyScreenCast/pull/308): Fix [ESC] does not abort Window / Area Selection ([@meghprkh](https://github.com/meghprkh))
 * [#310](https://github.com/EasyScreenCast/EasyScreenCast/pull/310): Added Japanese translation ([@moru348](https://github.com/moru348))
 * [#312](https://github.com/EasyScreenCast/EasyScreenCast/pull/312): Add Vietnamese translation ([@lehien](https://github.com/lehien))
+* [#317](https://github.com/EasyScreenCast/EasyScreenCast/pull/317): Only consider video/x-raw capabilities ([@adangel](https://github.com/adangel))
 
 **Fixes**
 
@@ -20,6 +21,7 @@ At least gnome-shell 3.38 is required. This version of EasyScreenCast is not com
 * [#188](https://github.com/EasyScreenCast/EasyScreenCast/issues/188): Improve filename template for the date and time format
 * [#299](https://github.com/EasyScreenCast/EasyScreenCast/issues/299): Review results from extensions.gnome.org
 * [#301](https://github.com/EasyScreenCast/EasyScreenCast/issues/301): Notification has been already disposed
+* [#316](https://github.com/EasyScreenCast/EasyScreenCast/issues/316): No webcam recording with capability using image/jpeg
 
 # v1.4.0 (42) (2021-10-22)
 
