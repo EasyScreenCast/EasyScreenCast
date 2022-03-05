@@ -15,6 +15,7 @@ At least gnome-shell 3.38 is required. This version of EasyScreenCast is not com
 * [#312](https://github.com/EasyScreenCast/EasyScreenCast/pull/312): Add Vietnamese translation ([@lehien](https://github.com/lehien))
 * [#313](https://github.com/EasyScreenCast/EasyScreenCast/pull/313): Improved German translation ([@adangel](https://github.com/adangel))
 * [#315](https://github.com/EasyScreenCast/EasyScreenCast/pull/315): Filter webcam devices list by devicePath property ([@adangel](https://github.com/adangel))
+* [#317](https://github.com/EasyScreenCast/EasyScreenCast/pull/317): Only consider video/x-raw capabilities ([@adangel](https://github.com/adangel))
 
 **🐛 Fixed bugs:**
 
@@ -23,6 +24,7 @@ At least gnome-shell 3.38 is required. This version of EasyScreenCast is not com
 * [#299](https://github.com/EasyScreenCast/EasyScreenCast/issues/299): Review results from extensions.gnome.org
 * [#301](https://github.com/EasyScreenCast/EasyScreenCast/issues/301): Notification has been already disposed
 * [#314](https://github.com/EasyScreenCast/EasyScreenCast/issues/314): Webcam appears twice in the menu
+* [#316](https://github.com/EasyScreenCast/EasyScreenCast/issues/316): No webcam recording with capability using image/jpeg
 
 # v1.4.0 (42) (2021-10-22)
 

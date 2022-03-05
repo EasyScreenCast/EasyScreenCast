@@ -411,7 +411,7 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
      * @private
      */
     _initTabWebcam(ctx, gtkDB, tmpS) {
-        // implements webcam quality option
+        // implements webcam quality option: Type: GtkListStore
         ctx.Ref_ListStore_QualityWebCam = gtkDB.get_object(
             'liststore_QualityWebCam'
         );
@@ -974,6 +974,7 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
             var listCaps = this.CtrlWebcam.getListCapsDevice(device - 1);
             Lib.TalkativeLog(`-^-webcam caps: ${listCaps.length}`);
             if (listCaps !== null && listCaps !== undefined) {
+                this.Ref_ListStore_QualityWebCam.clear();
                 for (var index in listCaps) {
                     this.Ref_ListStore_QualityWebCam.set(
                         this.Ref_ListStore_QualityWebCam.append(),

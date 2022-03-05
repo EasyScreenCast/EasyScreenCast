@@ -191,8 +191,9 @@ var CaptureVideo = GObject.registerClass({
     _generateFileName(template) {
         template = template.replaceAll('%d', '%0x').replaceAll('%t', '%0X');
         const datetime = GLib.DateTime.new_now_local();
-        const result = datetime.format(template);
-        const withoutWhitespace = result.replaceAll(' ', '_');
-        return withoutWhitespace;
+        let result = datetime.format(template);
+        result = result.replaceAll(' ', '_'); // remove white space
+        result = result.replaceAll('/', '_'); // remove path separators
+        return result;
     }
 });
