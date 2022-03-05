@@ -46,6 +46,8 @@ let timerC = null;
 let isActive = false;
 let pathFile = '';
 
+let keybindingConfigured = false;
+
 /**
  * @type {EasyScreenCastIndicator}
  */
@@ -564,6 +566,20 @@ const EasyScreenCastIndicator = GObject.registerClass({
     _enable() {
         // enable key binding
         this._enableKeybindings();
+        // immediately activate/deactive shortcut on settings change
+        Settings.settings.connect(
+            `changed::${Settings.ACTIVE_SHORTCUT_SETTING_KEY}`,
+            () => {
+                if (Settings.getOption('b', Settings.ACTIVE_SHORTCUT_SETTING_KEY)) {
+                    Lib.TalkativeLog('-^-shortcut changed - enabling');
+                    this._enableKeybindings();
+                } else {
+                    Lib.TalkativeLog('-^-shortcut changed - disabling');
+                    this._removeKeybindings();
+                }
+            }
+        );
+
         // start monitoring inputvideo
         this.CtrlWebcam.startMonitor();
 
@@ -884,6 +900,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
                     this._doRecording();
                 }
             );
+            keybindingConfigured = true;
         }
     }
 
@@ -891,10 +908,10 @@ const EasyScreenCastIndicator = GObject.registerClass({
      * @private
      */
     _removeKeybindings() {
-        if (Settings.getOption('b', Settings.ACTIVE_SHORTCUT_SETTING_KEY)) {
+        if (keybindingConfigured) {
             Lib.TalkativeLog('-*-remove keybinding');
-
             Main.wm.removeKeybinding(Settings.SHORTCUT_KEY_SETTING_KEY);
+            keybindingConfigured = false;
         }
     }
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-14 19:54+0100\n"
+"POT-Creation-Date: 2022-03-04 15:39+0100\n"
 "PO-Revision-Date: 2016-03-29 16:23+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.8.7\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: prefs.js:88
 msgid "Could not load the preferences UI file"
@@ -42,59 +42,59 @@ msgid ""
 "list</span>"
 msgstr ""
 
-#: prefs.js:1117 Options_UI.glade.h:37 Options_UI.glade-gtk4.h:38
+#: prefs.js:1117 Options_UI.glade.h:36 Options_UI.glade-gtk4.h:37
 msgid "No webcam device selected"
 msgstr "Вебкамера не выбрана"
 
-#: prefs.js:1119 Options_UI.glade.h:38 Options_UI.glade-gtk4.h:39
+#: prefs.js:1119 Options_UI.glade.h:37 Options_UI.glade-gtk4.h:38
 msgid "-"
 msgstr ""
 
-#: extension.js:122 extension.js:454
+#: extension.js:124 extension.js:456
 msgid "No audio source"
 msgstr "Нет источника звука"
 
-#: extension.js:133 Options_UI.glade.h:22 Options_UI.glade-gtk4.h:1
+#: extension.js:135 Options_UI.glade.h:21 Options_UI.glade-gtk4.h:1
 msgid "Options"
 msgstr "Настройки"
 
-#: extension.js:255 extension.js:853
+#: extension.js:257 extension.js:869
 msgid "Start recording"
 msgstr "Начать запись"
 
-#: extension.js:329 extension.js:816
+#: extension.js:331 extension.js:832
 msgid " sec. delay before recording"
 msgstr " секунд задержки перед записью"
 
-#: extension.js:331 extension.js:818
+#: extension.js:333 extension.js:834
 msgid "Start recording immediately"
 msgstr "Начать запись немедленно"
 
-#: extension.js:343
+#: extension.js:345
 msgid "Record all desktop"
 msgstr "Записывать весь рабочий стол"
 
-#: extension.js:344
+#: extension.js:346
 msgid "Record a selected monitor"
 msgstr "Записывать выбранный монитор"
 
-#: extension.js:345
+#: extension.js:347
 msgid "Record a selected window"
 msgstr "Записывать выбранное окно"
 
-#: extension.js:346
+#: extension.js:348
 msgid "Record a selected area"
 msgstr "Записывать выбранную область"
 
-#: extension.js:388
+#: extension.js:390
 msgid "No WebCam recording"
 msgstr "Нет вебкамеры для записи"
 
-#: extension.js:461
+#: extension.js:463
 msgid "Default audio source"
 msgstr "Источник звука по умолчанию"
 
-#: extension.js:481
+#: extension.js:483
 msgid ""
 "\n"
 " - Port: "
@@ -102,7 +102,7 @@ msgstr ""
 "\n"
 " - Порт: "
 
-#: extension.js:483
+#: extension.js:485
 msgid ""
 "\n"
 " - Name: "
@@ -110,32 +110,32 @@ msgstr ""
 "\n"
 " - Имя: "
 
-#: extension.js:533
+#: extension.js:535
 msgid "Delay Time"
 msgstr "Время задержки"
 
-#: extension.js:541 extension.js:555
+#: extension.js:543 extension.js:557
 msgid " Sec"
 msgstr " сек"
 
-#: extension.js:634
+#: extension.js:650
 #, fuzzy
 msgid "ERROR PRE COMMAND - See logs for more info"
 msgstr "ОШИБКА ЗАПИСИ - Более подробная информация в логах"
 
-#: extension.js:743
+#: extension.js:759
 msgid "Start Recording"
 msgstr "Начать запись"
 
-#: extension.js:769
+#: extension.js:785
 msgid "ERROR RECORDER - See logs for more info"
 msgstr "ОШИБКА ЗАПИСИ - Более подробная информация в логах"
 
-#: extension.js:793
+#: extension.js:809
 msgid "EasyScreenCast -> Recording in progress / Seconds passed : "
 msgstr "EasyScreenCast -> Идет запись / Продолжительность : "
 
-#: extension.js:845
+#: extension.js:861
 msgid "Stop recording"
 msgstr "Остановить запись"
 
@@ -172,30 +172,26 @@ msgid "Show a border around the area being recorded"
 msgstr "Показывать рамку вокруг записываемой области"
 
 #: Options_UI.glade.h:4 Options_UI.glade-gtk4.h:5
-msgid "To activate the change of the shortcut restart the extension"
-msgstr "Для активации клавиш быстрого доступа перезапустите расширение"
-
-#: Options_UI.glade.h:5 Options_UI.glade-gtk4.h:6
 msgid "Enable keyboard shortcut"
 msgstr "Включить клавиши быстрого доступа"
 
-#: Options_UI.glade.h:6 Options_UI.glade-gtk4.h:7
+#: Options_UI.glade.h:5 Options_UI.glade-gtk4.h:6
 msgid "Both  [ESC + Default]"
 msgstr ""
 
-#: Options_UI.glade.h:7 Options_UI.glade-gtk4.h:8
+#: Options_UI.glade.h:6 Options_UI.glade-gtk4.h:7
 msgid "ESC only"
 msgstr ""
 
-#: Options_UI.glade.h:8 Options_UI.glade-gtk4.h:9
+#: Options_UI.glade.h:7 Options_UI.glade-gtk4.h:8
 msgid "Default only"
 msgstr ""
 
-#: Options_UI.glade.h:9 Options_UI.glade-gtk4.h:10
+#: Options_UI.glade.h:8 Options_UI.glade-gtk4.h:9
 msgid "Not any"
 msgstr ""
 
-#: Options_UI.glade.h:10 Options_UI.glade-gtk4.h:11
+#: Options_UI.glade.h:9 Options_UI.glade-gtk4.h:10
 msgid ""
 "These words will be replaced\n"
 " _fpath = the absolute path of the screencast video file.\n"
@@ -208,28 +204,28 @@ msgstr ""
 "_dirpath = полный путь до папки расположения записанного видеофайла.\n"
 "_fname = имя записанного видеофайла."
 
-#: Options_UI.glade.h:14 Options_UI.glade-gtk4.h:15
+#: Options_UI.glade.h:13 Options_UI.glade-gtk4.h:14
 msgid "Command post-recording"
 msgstr "Команда"
 
-#: Options_UI.glade.h:15 Options_UI.glade-gtk4.h:16
+#: Options_UI.glade.h:14 Options_UI.glade-gtk4.h:15
 msgid "Execute command after recording"
 msgstr "Выполнить команду после записи"
 
-#: Options_UI.glade.h:16 Options_UI.glade-gtk4.h:17
+#: Options_UI.glade.h:15 Options_UI.glade-gtk4.h:16
 msgid "Draw cursor on screencast"
 msgstr "Отрисовывать курсор на записи"
 
-#: Options_UI.glade.h:17 Options_UI.glade-gtk4.h:18
+#: Options_UI.glade.h:16 Options_UI.glade-gtk4.h:17
 msgid "Active shortcut"
 msgstr ""
 
-#: Options_UI.glade.h:18 Options_UI.glade-gtk4.h:19
+#: Options_UI.glade.h:17 Options_UI.glade-gtk4.h:18
 #, fuzzy
 msgid "Execute command before recording"
 msgstr "Выполнить команду после записи"
 
-#: Options_UI.glade.h:19 Options_UI.glade-gtk4.h:20
+#: Options_UI.glade.h:18 Options_UI.glade-gtk4.h:19
 #, fuzzy
 msgid ""
 "These words will be replaced\n"
@@ -241,36 +237,36 @@ msgstr ""
 "_dirpath = полный путь до папки расположения записанного видеофайла.\n"
 "_fname = имя записанного видеофайла."
 
-#: Options_UI.glade.h:21 Options_UI.glade-gtk4.h:22
+#: Options_UI.glade.h:20 Options_UI.glade-gtk4.h:21
 #, fuzzy
 msgid "Command pre-recording"
 msgstr "Команда"
 
-#: Options_UI.glade.h:23 Options_UI.glade-gtk4.h:24
+#: Options_UI.glade.h:22 Options_UI.glade-gtk4.h:23
 msgid "Custom GStreamer Pipeline"
 msgstr "Свои настройки GStreamer"
 
-#: Options_UI.glade.h:24 Options_UI.glade-gtk4.h:26
+#: Options_UI.glade.h:23 Options_UI.glade-gtk4.h:25
 msgid "No GSP description\n"
 msgstr "No GSP description\n"
 
-#: Options_UI.glade.h:26 Options_UI.glade-gtk4.h:25
+#: Options_UI.glade.h:25 Options_UI.glade-gtk4.h:24
 msgid "PagePreset"
 msgstr ""
 
-#: Options_UI.glade.h:27 Options_UI.glade-gtk4.h:29
+#: Options_UI.glade.h:26 Options_UI.glade-gtk4.h:28
 msgid "Frames Per Second"
 msgstr "Кадров в секунду"
 
-#: Options_UI.glade.h:28 Options_UI.glade-gtk4.h:30
+#: Options_UI.glade.h:27 Options_UI.glade-gtk4.h:29
 msgid "0"
 msgstr "0"
 
-#: Options_UI.glade.h:29 Options_UI.glade-gtk4.h:31
+#: Options_UI.glade.h:28 Options_UI.glade-gtk4.h:30
 msgid "GStreamer Pipeline"
 msgstr "Фреймворк GStreamer"
 
-#: Options_UI.glade.h:30 Options_UI.glade-gtk4.h:32
+#: Options_UI.glade.h:29 Options_UI.glade-gtk4.h:31
 msgid ""
 "The extension does NOT handle the webcam and audio when you use a custom "
 "gstreamer pipeline.\n"
@@ -278,95 +274,95 @@ msgstr ""
 "Расширение НЕ СМОЖЕТ использовать вебкамеру и аудио при использовании "
 "пользовательских настроек GStreamer.\n"
 
-#: Options_UI.glade.h:32 Options_UI.glade-gtk4.h:34
+#: Options_UI.glade.h:31 Options_UI.glade-gtk4.h:33
 msgid "Official doc"
 msgstr "Официальная документация"
 
-#: Options_UI.glade.h:33 Options_UI.glade-gtk4.h:35
+#: Options_UI.glade.h:32 Options_UI.glade-gtk4.h:34
 msgid "Wiki #1"
 msgstr "Вики #1"
 
-#: Options_UI.glade.h:34 Options_UI.glade-gtk4.h:36
+#: Options_UI.glade.h:33 Options_UI.glade-gtk4.h:35
 msgid "Wiki #2"
 msgstr "Вики #2"
 
-#: Options_UI.glade.h:35 Options_UI.glade-gtk4.h:28
+#: Options_UI.glade.h:34 Options_UI.glade-gtk4.h:27
 msgid "PageCustom"
 msgstr ""
 
-#: Options_UI.glade.h:36 Options_UI.glade-gtk4.h:23
+#: Options_UI.glade.h:35 Options_UI.glade-gtk4.h:22
 msgid "Quality"
 msgstr "Качество"
 
-#: Options_UI.glade.h:39 Options_UI.glade-gtk4.h:41
+#: Options_UI.glade.h:38 Options_UI.glade-gtk4.h:40
 msgid "Type of unit of measure"
 msgstr "Единицы измерений"
 
-#: Options_UI.glade.h:40 Options_UI.glade-gtk4.h:42
+#: Options_UI.glade.h:39 Options_UI.glade-gtk4.h:41
 msgid "Width"
 msgstr "Ширина"
 
-#: Options_UI.glade.h:41 Options_UI.glade-gtk4.h:43
+#: Options_UI.glade.h:40 Options_UI.glade-gtk4.h:42
 msgid "Height"
 msgstr "Высота"
 
-#: Options_UI.glade.h:42 Options_UI.glade-gtk4.h:44
+#: Options_UI.glade.h:41 Options_UI.glade-gtk4.h:43
 msgid "Percentage"
 msgstr "Проценты"
 
-#: Options_UI.glade.h:43 Options_UI.glade-gtk4.h:45
+#: Options_UI.glade.h:42 Options_UI.glade-gtk4.h:44
 msgid "Pixel"
 msgstr "Пиксели"
 
-#: Options_UI.glade.h:44 Options_UI.glade-gtk4.h:40
+#: Options_UI.glade.h:43 Options_UI.glade-gtk4.h:39
 msgid "Size"
 msgstr "Размер"
 
-#: Options_UI.glade.h:45 Options_UI.glade-gtk4.h:47
+#: Options_UI.glade.h:44 Options_UI.glade-gtk4.h:46
 msgid "Put the webcam in the corner"
 msgstr "Разместить вебкамеру в углу"
 
-#: Options_UI.glade.h:46 Options_UI.glade-gtk4.h:48
+#: Options_UI.glade.h:45 Options_UI.glade-gtk4.h:47
 msgid "Right-Bottom"
 msgstr "Внизу-справа"
 
-#: Options_UI.glade.h:47 Options_UI.glade-gtk4.h:49
+#: Options_UI.glade.h:46 Options_UI.glade-gtk4.h:48
 msgid "Left-Bottom"
 msgstr "Внизу-слева"
 
-#: Options_UI.glade.h:48 Options_UI.glade-gtk4.h:50
+#: Options_UI.glade.h:47 Options_UI.glade-gtk4.h:49
 msgid "Right-Top"
 msgstr "Сверху-справа"
 
-#: Options_UI.glade.h:49 Options_UI.glade-gtk4.h:51
+#: Options_UI.glade.h:48 Options_UI.glade-gtk4.h:50
 msgid "Left-Top"
 msgstr "Сверху-слева"
 
-#: Options_UI.glade.h:50 Options_UI.glade-gtk4.h:52
+#: Options_UI.glade.h:49 Options_UI.glade-gtk4.h:51
 msgid "Margin X"
 msgstr "Отступ X"
 
-#: Options_UI.glade.h:51 Options_UI.glade-gtk4.h:53
+#: Options_UI.glade.h:50 Options_UI.glade-gtk4.h:52
 msgid "Margin Y"
 msgstr "Отступ Y"
 
-#: Options_UI.glade.h:52 Options_UI.glade-gtk4.h:54
+#: Options_UI.glade.h:51 Options_UI.glade-gtk4.h:53
 msgid "Alpha channel"
 msgstr "Альфа-канал"
 
-#: Options_UI.glade.h:53 Options_UI.glade-gtk4.h:55
+#: Options_UI.glade.h:52 Options_UI.glade-gtk4.h:54
 msgid "0,00"
 msgstr ""
 
-#: Options_UI.glade.h:54 Options_UI.glade-gtk4.h:46
+#: Options_UI.glade.h:53 Options_UI.glade-gtk4.h:45
 msgid "Position"
 msgstr "Позиция"
 
-#: Options_UI.glade.h:55 Options_UI.glade-gtk4.h:37
+#: Options_UI.glade.h:54 Options_UI.glade-gtk4.h:36
 msgid "WebCam"
 msgstr "Вебкамера"
 
-#: Options_UI.glade.h:56 Options_UI.glade-gtk4.h:57
+#: Options_UI.glade.h:55 Options_UI.glade-gtk4.h:56
 msgid ""
 "Select the folder where the file is saved, if not specific a folder  the "
 "file will be saved in the $XDG_VIDEOS_DIR if it exists, or the home "
@@ -376,11 +372,11 @@ msgstr ""
 "будет сохранен в  папке $XDG_VIDEOS_DIR, если она существует или в домашней "
 "папке."
 
-#: Options_UI.glade.h:57 Options_UI.glade-gtk4.h:58
+#: Options_UI.glade.h:56 Options_UI.glade-gtk4.h:57
 msgid "Destination folder"
 msgstr "Папка для сохранения"
 
-#: Options_UI.glade.h:59 Options_UI.glade-gtk4.h:60
+#: Options_UI.glade.h:58 Options_UI.glade-gtk4.h:59
 #, fuzzy, no-c-format
 msgid ""
 "The filename which may contain some escape sequences - %d and %t will be "
@@ -389,88 +385,88 @@ msgstr ""
 "имя файла может содержать переменные - %d и %t, которые будут заменены на "
 "дату и время записи соответственно."
 
-#: Options_UI.glade.h:60 Options_UI.glade-gtk4.h:61
+#: Options_UI.glade.h:59 Options_UI.glade-gtk4.h:60
 msgid "File name template"
 msgstr "Шаблон имени файла"
 
-#: Options_UI.glade.h:61
+#: Options_UI.glade.h:60
 msgid "Select the destination folder"
 msgstr "Выберите папку для сохранения"
 
-#: Options_UI.glade.h:62 Options_UI.glade-gtk4.h:62
+#: Options_UI.glade.h:61 Options_UI.glade-gtk4.h:61
 msgid "File container"
 msgstr "Контейнер видеофайла"
 
-#: Options_UI.glade.h:63 Options_UI.glade-gtk4.h:63
+#: Options_UI.glade.h:62 Options_UI.glade-gtk4.h:62
 msgid "File resolution"
 msgstr "Разрешение видеофайла"
 
-#: Options_UI.glade.h:64 Options_UI.glade-gtk4.h:65
+#: Options_UI.glade.h:63 Options_UI.glade-gtk4.h:64
 #, fuzzy
 msgid "Native area resolution"
 msgstr "Текущее разрешение экрана"
 
-#: Options_UI.glade.h:65 Options_UI.glade-gtk4.h:64
+#: Options_UI.glade.h:64 Options_UI.glade-gtk4.h:63
 msgid "Native"
 msgstr ""
 
-#: Options_UI.glade.h:66 Options_UI.glade-gtk4.h:67
+#: Options_UI.glade.h:65 Options_UI.glade-gtk4.h:66
 msgid "Preset helper"
 msgstr ""
 
-#: Options_UI.glade.h:67 Options_UI.glade-gtk4.h:68
+#: Options_UI.glade.h:66 Options_UI.glade-gtk4.h:67
 msgid "HD [720p] [16:9]"
 msgstr ""
 
-#: Options_UI.glade.h:68 Options_UI.glade-gtk4.h:69
+#: Options_UI.glade.h:67 Options_UI.glade-gtk4.h:68
 msgid "XGA [768p] [4:3]"
 msgstr ""
 
-#: Options_UI.glade.h:69 Options_UI.glade-gtk4.h:70
+#: Options_UI.glade.h:68 Options_UI.glade-gtk4.h:69
 msgid "HD ready [768p] [16:9]"
 msgstr ""
 
-#: Options_UI.glade.h:70 Options_UI.glade-gtk4.h:71
+#: Options_UI.glade.h:69 Options_UI.glade-gtk4.h:70
 msgid "SXGA [1024p] [5:4]"
 msgstr ""
 
-#: Options_UI.glade.h:71 Options_UI.glade-gtk4.h:72
+#: Options_UI.glade.h:70 Options_UI.glade-gtk4.h:71
 msgid "Full HD [1080p] [16:9]"
 msgstr ""
 
-#: Options_UI.glade.h:72 Options_UI.glade-gtk4.h:73
+#: Options_UI.glade.h:71 Options_UI.glade-gtk4.h:72
 msgid "UXGA [1200p] [4:3]"
 msgstr ""
 
-#: Options_UI.glade.h:73 Options_UI.glade-gtk4.h:74
+#: Options_UI.glade.h:72 Options_UI.glade-gtk4.h:73
 msgid "QHD [1440p] [16:9]"
 msgstr ""
 
-#: Options_UI.glade.h:74 Options_UI.glade-gtk4.h:75
+#: Options_UI.glade.h:73 Options_UI.glade-gtk4.h:74
 msgid "QSXGA [2048p] [5:4]"
 msgstr ""
 
-#: Options_UI.glade.h:75 Options_UI.glade-gtk4.h:76
+#: Options_UI.glade.h:74 Options_UI.glade-gtk4.h:75
 msgid "4K [2160p] [16:9]"
 msgstr ""
 
-#: Options_UI.glade.h:76 Options_UI.glade-gtk4.h:66
+#: Options_UI.glade.h:75 Options_UI.glade-gtk4.h:65
 msgid "Preset"
 msgstr ""
 
-#: Options_UI.glade.h:77 Options_UI.glade-gtk4.h:78
+#: Options_UI.glade.h:76 Options_UI.glade-gtk4.h:77
 msgid "keep original aspect ratio"
 msgstr ""
 
-#: Options_UI.glade.h:78 Options_UI.glade-gtk4.h:77
+#: Options_UI.glade.h:77 Options_UI.glade-gtk4.h:76
 msgid "Custom"
 msgstr ""
 
-#: Options_UI.glade.h:79 Options_UI.glade-gtk4.h:56
+#: Options_UI.glade.h:78 Options_UI.glade-gtk4.h:55
 msgid "File"
 msgstr "Файл"
 
-#: Options_UI.glade.h:80 Options_UI.glade-gtk4.h:80
+#: Options_UI.glade.h:79 Options_UI.glade-gtk4.h:79
 #, fuzzy
 msgid ""
 "This option enable more debug message, to view these run this command into a "
@@ -483,11 +479,11 @@ msgstr ""
 "$ journalctl /usr/bin/gnome-session --since=today --no-pager | grep js\n"
 "$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
 
-#: Options_UI.glade.h:83 Options_UI.glade-gtk4.h:83
+#: Options_UI.glade.h:82 Options_UI.glade-gtk4.h:82
 msgid "Enable verbose debug"
 msgstr "Включить подробную отладку"
 
-#: Options_UI.glade.h:84 Options_UI.glade-gtk4.h:84
+#: Options_UI.glade.h:83 Options_UI.glade-gtk4.h:83
 msgid ""
 "This option enable more debug message, to view these run this command into a "
 "terminal:\n"
@@ -499,78 +495,81 @@ msgstr ""
 "$ journalctl /usr/bin/gnome-session --since=today | grep js\n"
 "$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
 
-#: Options_UI.glade.h:87 Options_UI.glade-gtk4.h:87
+#: Options_UI.glade.h:86 Options_UI.glade-gtk4.h:86
 msgid "extension"
 msgstr ""
 
-#: Options_UI.glade.h:88 Options_UI.glade-gtk4.h:88
+#: Options_UI.glade.h:87 Options_UI.glade-gtk4.h:87
 #, fuzzy
 msgid "last Gstreamer pipeline"
 msgstr "Свои настройки GStreamer"
 
-#: Options_UI.glade.h:89 Options_UI.glade-gtk4.h:89
+#: Options_UI.glade.h:88 Options_UI.glade-gtk4.h:88
 msgid "gnome shell"
 msgstr ""
 
-#: Options_UI.glade.h:90 Options_UI.glade-gtk4.h:90
+#: Options_UI.glade.h:89 Options_UI.glade-gtk4.h:89
 msgid "Display the log of"
 msgstr ""
 
-#: Options_UI.glade.h:91 Options_UI.glade-gtk4.h:91
+#: Options_UI.glade.h:90 Options_UI.glade-gtk4.h:90
 msgid "Restore default options"
 msgstr "Сбросить настройки по умолчанию"
 
-#: Options_UI.glade.h:92 Options_UI.glade-gtk4.h:79
+#: Options_UI.glade.h:91 Options_UI.glade-gtk4.h:78
 msgid "Support"
 msgstr ""
 
-#: Options_UI.glade.h:93 Options_UI.glade-gtk4.h:93
+#: Options_UI.glade.h:92 Options_UI.glade-gtk4.h:92
 msgid "EasyScreenCast"
 msgstr ""
 
-#: Options_UI.glade.h:94 Options_UI.glade-gtk4.h:94
+#: Options_UI.glade.h:93 Options_UI.glade-gtk4.h:93
 msgid "N/A"
 msgstr ""
 
-#: Options_UI.glade.h:95
+#: Options_UI.glade.h:94
 msgid ""
 "This extension simplifies the use of the \n"
 "screen recorder  included in gnome shell"
 msgstr ""
 
-#: Options_UI.glade.h:97 Options_UI.glade-gtk4.h:97
+#: Options_UI.glade.h:96 Options_UI.glade-gtk4.h:96
 msgid "This software is licensed under GPL v3"
 msgstr ""
 
-#: Options_UI.glade.h:98 Options_UI.glade-gtk4.h:98
+#: Options_UI.glade.h:97 Options_UI.glade-gtk4.h:97
 msgid "Credits"
 msgstr ""
 
-#: Options_UI.glade.h:99 Options_UI.glade-gtk4.h:99
+#: Options_UI.glade.h:98 Options_UI.glade-gtk4.h:98
 msgid "How to contribute?"
 msgstr ""
 
-#: Options_UI.glade.h:100 Options_UI.glade-gtk4.h:100
+#: Options_UI.glade.h:99 Options_UI.glade-gtk4.h:99
 msgid "With a translation"
 msgstr ""
 
-#: Options_UI.glade.h:101 Options_UI.glade-gtk4.h:101
+#: Options_UI.glade.h:100 Options_UI.glade-gtk4.h:100
 msgid "Reporting bugs"
 msgstr ""
 
-#: Options_UI.glade.h:102 Options_UI.glade-gtk4.h:102
+#: Options_UI.glade.h:101 Options_UI.glade-gtk4.h:101
 msgid "Add code"
 msgstr ""
 
-#: Options_UI.glade.h:103 Options_UI.glade-gtk4.h:92
+#: Options_UI.glade.h:102 Options_UI.glade-gtk4.h:91
 msgid "Info"
 msgstr ""
 
-#: Options_UI.glade-gtk4.h:95
+#: Options_UI.glade-gtk4.h:94
 msgid ""
 "This extension simplifies the use of the\n"
 "screen recorder  included in gnome shell"
 msgstr ""
+
+#~ msgid "To activate the change of the shortcut restart the extension"
+#~ msgstr "Для активации клавиш быстрого доступа перезапустите расширение"
 
 #~ msgid "EasyScreenCast -> Finish Recording / Seconds : "
 #~ msgstr "EasyScreenCast -> Запись завершена / Продолжительность : "
