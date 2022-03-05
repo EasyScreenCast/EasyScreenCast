@@ -13,6 +13,7 @@ At least gnome-shell 3.38 is required. This version of EasyScreenCast is not com
 * [#308](https://github.com/EasyScreenCast/EasyScreenCast/pull/308): Fix [ESC] does not abort Window / Area Selection ([@meghprkh](https://github.com/meghprkh))
 * [#310](https://github.com/EasyScreenCast/EasyScreenCast/pull/310): Added Japanese translation ([@moru348](https://github.com/moru348))
 * [#312](https://github.com/EasyScreenCast/EasyScreenCast/pull/312): Add Vietnamese translation ([@lehien](https://github.com/lehien))
+* [#318](https://github.com/EasyScreenCast/EasyScreenCast/pull/318): Enable or disable keybinding immediately ([@adangel](https://github.com/adangel))
 
 **Fixes**
 
@@ -20,6 +21,7 @@ At least gnome-shell 3.38 is required. This version of EasyScreenCast is not com
 * [#188](https://github.com/EasyScreenCast/EasyScreenCast/issues/188): Improve filename template for the date and time format
 * [#299](https://github.com/EasyScreenCast/EasyScreenCast/issues/299): Review results from extensions.gnome.org
 * [#301](https://github.com/EasyScreenCast/EasyScreenCast/issues/301): Notification has been already disposed
+* [#311](https://github.com/EasyScreenCast/EasyScreenCast/issues/311): Key bindings always enabled. Not able to change.
 
 # v1.4.0 (42) (2021-10-22)
 
