@@ -2,6 +2,10 @@
 
 At least gnome-shell 3.38 is required. This version of EasyScreenCast is not compatible anymore with older versions.
 
+**Features**
+
+* [#288](https://github.com/EasyScreenCast/EasyScreenCast/issues/288): Whatsapp preset
+
 **Pull Requests**
 
 * [#297](https://github.com/EasyScreenCast/EasyScreenCast/pull/297): Add eslint rules ([@adangel](https://github.com/adangel))
@@ -13,6 +17,7 @@ At least gnome-shell 3.38 is required. This version of EasyScreenCast is not com
 * [#308](https://github.com/EasyScreenCast/EasyScreenCast/pull/308): Fix [ESC] does not abort Window / Area Selection ([@meghprkh](https://github.com/meghprkh))
 * [#310](https://github.com/EasyScreenCast/EasyScreenCast/pull/310): Added Japanese translation ([@moru348](https://github.com/moru348))
 * [#312](https://github.com/EasyScreenCast/EasyScreenCast/pull/312): Add Vietnamese translation ([@lehien](https://github.com/lehien))
+* [#320](https://github.com/EasyScreenCast/EasyScreenCast/pull/320): Add new file container and presets for mp4+aac ([@adangel](https://github.com/adangel))
 
 **Fixes**
 
