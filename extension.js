@@ -397,14 +397,6 @@ const EasyScreenCastIndicator = GObject.registerClass({
 
             // i === 0 is "No Webcam selected"
             if (i > 0) {
-                // FIXME
-                // Although the computer may have just one webcam connected to
-                // it, more than one GstDevice may be listed and all pointing to
-                // the same video device (for example /dev/video0. Each
-                // GstDevice is supposed to be used with a specific source, for
-                // example, a pipewiresrc or a v4l2src. For now, we are only
-                // using v4l2src. This means that even if we pick a Pipewire
-                // device, we will always open it with v4l2src.
                 const device = devices[i - 1];
                 devicePath = device.get_properties().get_string('device.path');
                 Lib.TalkativeLog(`-*-webcam i=${i} devicePath: ${devicePath}`);

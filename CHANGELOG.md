@@ -14,6 +14,7 @@ At least gnome-shell 3.38 is required. This version of EasyScreenCast is not com
 * [#310](https://github.com/EasyScreenCast/EasyScreenCast/pull/310): Added Japanese translation ([@moru348](https://github.com/moru348))
 * [#312](https://github.com/EasyScreenCast/EasyScreenCast/pull/312): Add Vietnamese translation ([@lehien](https://github.com/lehien))
 * [#313](https://github.com/EasyScreenCast/EasyScreenCast/pull/313): Improved German translation ([@adangel](https://github.com/adangel))
+* [#315](https://github.com/EasyScreenCast/EasyScreenCast/pull/315): Filter webcam devices list by devicePath property ([@adangel](https://github.com/adangel))
 
 **🐛 Fixed bugs:**
 
@@ -21,6 +22,7 @@ At least gnome-shell 3.38 is required. This version of EasyScreenCast is not com
 * [#188](https://github.com/EasyScreenCast/EasyScreenCast/issues/188): Improve filename template for the date and time format
 * [#299](https://github.com/EasyScreenCast/EasyScreenCast/issues/299): Review results from extensions.gnome.org
 * [#301](https://github.com/EasyScreenCast/EasyScreenCast/issues/301): Notification has been already disposed
+* [#314](https://github.com/EasyScreenCast/EasyScreenCast/issues/314): Webcam appears twice in the menu
 
 # v1.4.0 (42) (2021-10-22)
 
