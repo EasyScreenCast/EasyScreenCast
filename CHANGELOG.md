@@ -1,3 +1,13 @@
+# Next
+
+**🚀 Implemented enhancements:**
+
+**🎉 Merged pull requests:**
+
+**🐛 Fixed bugs:**
+
+**Full Changelog**: <https://github.com/EasyScreenCast/EasyScreenCast/compare/1.5.0...HEAD>
+
 # v1.5.0 (42) (2022-03-05)
 
 At least gnome-shell 3.38 is required. This version of EasyScreenCast is not compatible anymore with older versions.
@@ -33,6 +43,8 @@ At least gnome-shell 3.38 is required. This version of EasyScreenCast is not com
 * [#311](https://github.com/EasyScreenCast/EasyScreenCast/issues/311): Key bindings always enabled. Not able to change.
 * [#314](https://github.com/EasyScreenCast/EasyScreenCast/issues/314): Webcam appears twice in the menu
 * [#316](https://github.com/EasyScreenCast/EasyScreenCast/issues/316): No webcam recording with capability using image/jpeg
+
+**Full Changelog**: <https://github.com/EasyScreenCast/EasyScreenCast/compare/1.4.0...1.5.0>
 
 # v1.4.0 (42) (2021-10-22)
 
