@@ -79,16 +79,19 @@ const Capture = GObject.registerClass({
 
         Main.uiGroup.add_actor(this._areaResolution);
 
-        if (Main.pushModal(this._areaSelection)) {
-            this._signalCapturedEvent = global.stage.connect(
-                'captured-event',
-                this._onCaptureEvent.bind(this)
-            );
-
-            this._setCaptureCursor();
-        } else {
-            Lib.TalkativeLog('-£-Main.pushModal() === false');
+        this._signalCapturedEvent = global.stage.connect(
+            'captured-event',
+            this._onCaptureEvent.bind(this)
+        );
+        this._prevFocus = global.stage.get_key_focus();
+        if (this._prevFocus !== null) {
+            this._prevFocusDestroyId = this._prevFocus.connect('destroy', () => {
+                this._prevFocus = null;
+            });
         }
+        global.stage.set_key_focus(this._areaSelection);
+
+        this._setCaptureCursor();
 
         Main.sessionMode.connect('updated', () => this._updateDraw());
     }
@@ -122,6 +125,7 @@ const Capture = GObject.registerClass({
     _onCaptureEvent(actor, event) {
         if (event.type() === Clutter.EventType.KEY_PRESS) {
             if (event.get_key_symbol() === Clutter.KEY_Escape) {
+                Lib.TalkativeLog('-£-capture selection stop with KEY_Escape');
                 this._stop();
             }
         }
@@ -179,7 +183,11 @@ const Capture = GObject.registerClass({
         global.stage.disconnect(this._signalCapturedEvent);
         this._setDefaultCursor();
         Main.uiGroup.remove_actor(this._areaSelection);
-        Main.popModal(this._areaSelection);
+        if (this._prevFocus) {
+            this._prevFocus.disconnect(this._prevFocusDestroyId);
+            global.stage.set_key_focus(this._prevFocus);
+            this._prevFocus = null;
+        }
         Main.uiGroup.remove_actor(this._areaResolution);
         this._areaSelection.destroy();
         this.emit('stop');
