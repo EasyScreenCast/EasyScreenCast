@@ -196,6 +196,10 @@ const Capture = GObject.registerClass({
 
         Ext.Indicator._doDelayAction();
     }
+
+    toString() {
+        return this.GTypeName;
+    }
 });
 
 Signals.addSignalMethods(Capture.prototype);
@@ -244,6 +248,10 @@ var SelectionArea = GObject.registerClass({
                 this._capture._saveRect(rect.x, rect.y, rect.h, rect.w);
             }
         }
+    }
+
+    toString() {
+        return this.GTypeName;
     }
 });
 
@@ -340,6 +348,10 @@ var SelectionWindow = GObject.registerClass({
         Lib.TalkativeLog('-£-window highlight off');
         this._capture.clearSelection();
     }
+
+    toString() {
+        return this.GTypeName;
+    }
 });
 
 Signals.addSignalMethods(SelectionWindow.prototype);
@@ -394,6 +406,10 @@ var SelectionDesktop = GObject.registerClass({
 
             this._capture._saveRect(x, y, height, width);
         }
+    }
+
+    toString() {
+        return this.GTypeName;
     }
 });
 
@@ -473,6 +489,10 @@ var AreaRecording = GObject.registerClass({
      */
     isVisible() {
         return this._visible;
+    }
+
+    toString() {
+        return this.GTypeName;
     }
 });
 
