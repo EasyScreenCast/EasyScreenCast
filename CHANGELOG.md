@@ -1,9 +1,14 @@
 # Next
 
+At least gnome-shell 3.38 is required.
+
 **🚀 Implemented enhancements:**
+
+* [#323](https://github.com/EasyScreenCast/EasyScreenCast/issues/323): Gnome Shell 42 support
 
 **🎉 Merged pull requests:**
 
+* [#324](https://github.com/EasyScreenCast/EasyScreenCast/pull/324): Add Gnome Shell 42 support ([@adangel](https://github.com/adangel))
 * [#326](https://github.com/EasyScreenCast/EasyScreenCast/pull/326): Add missing toString methods in selection classes ([@adangel](https://github.com/adangel))
 
 **🐛 Fixed bugs:**
