@@ -4,7 +4,11 @@
 
 **🎉 Merged pull requests:**
 
+* [#326](https://github.com/EasyScreenCast/EasyScreenCast/pull/326): Add missing toString methods in selection classes ([@adangel](https://github.com/adangel))
+
 **🐛 Fixed bugs:**
+
+* [#325](https://github.com/EasyScreenCast/EasyScreenCast/issues/325): TypeError: GObject_Object.prototype.toString called on incompatible Object
 
 **Full Changelog**: <https://github.com/EasyScreenCast/EasyScreenCast/compare/1.5.0...HEAD>
 
