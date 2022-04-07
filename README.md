@@ -10,8 +10,17 @@ Copyright (C) 2013-16 Borsato Ivano.
 - [GNOME Shell Extensions Page](https://extensions.gnome.org/extension/690/easyscreencast/)
 - [Video](https://youtu.be/81E9AruraKU)
 
+----
+
+**Note:** Gnome Shell 42 brings in a new screenshot/screencast UI, which might already be all you need.
+Just run it via the default shortcut `Ctlr+Alt+Shift+R`.
+
+This extension provides more options to configure the screencast, e.g. quality settings and webcam support.
+
+----
+
 ## Requirements
-- Gnome Shell 3.12+ [ 3.16+ audio/webcam support ]
+- Gnome Shell 3.38+
 - Gstreamer 1.x [ common function/webcam support ]
 - gst plugins ugly [ x264 support ]
 - gst plugins base [ common function/theora support ]
@@ -23,29 +32,38 @@ EasyScreenCast is free software distributed under the GNU GPL. All files are und
 ## How to install
 there are several methods:
 
-1. From **gnome extension site**, just go on [this page](https://extensions.gnome.org/extension/690/easyscreencast/) and click/touch on the button ON, that's all.
+1.  From **github releases**. Just go to <https://github.com/EasyScreenCast/EasyScreenCast/releases/latest> and download
+    the latest zip file. Then install it (adjust the file name accordingly):
 
-2. By installing the Debian/Ubuntu package "gnome-shell-extension-easyscreencast":
+    ```
+    gnome-extensions install --force EasyScreenCast_1.5.0_42.zip
+    ```
+
+    And logout/login again to activate the extension.
+
+2.  From **gnome extension site**, just go on [this page](https://extensions.gnome.org/extension/690/easyscreencast/)
+    and click/touch on the button ON, that's all.
+
+3.  By installing the Debian/Ubuntu package "gnome-shell-extension-easyscreencast":
     
     ```
     sudo apt install gnome-shell-extension-easyscreencast
     ```
 
-3. From **github repo**, if you want the most up-to-date version, just do these simple steps
+4.  From **github repo**, if you want the most up-to-date version, just do these simple steps
 
+    ```
+    git clone https://github.com/EasyScreenCast/EasyScreenCast.git
+    cd EasyScreenCast
+    make
+    make install
+    ```
 
-```
-git clone https://github.com/EasyScreenCast/EasyScreenCast.git
-cd EasyScreenCast
-make
-make install
-```
+    Note: You'll need to install the following dev dependencies once:
 
-Note: You'll need to install the following dev dependencies once:
-
-```
-sudo apt install gettext jq intltool
-```
+    ```
+    sudo apt install gettext jq intltool
+    ```
 
 ## How to test changes
 
