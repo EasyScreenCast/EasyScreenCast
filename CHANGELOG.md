@@ -1,5 +1,15 @@
 # Next
 
+**🚀 Implemented enhancements:**
+
+**🎉 Merged pull requests:**
+
+**🐛 Fixed bugs:**
+
+**Full Changelog**: <https://github.com/EasyScreenCast/EasyScreenCast/compare/1.6.0...HEAD>
+
+# v1.6.0 (42) (2022-04-07)
+
 At least gnome-shell 3.38 is required.
 
 **🚀 Implemented enhancements:**
@@ -15,7 +25,7 @@ At least gnome-shell 3.38 is required.
 
 * [#325](https://github.com/EasyScreenCast/EasyScreenCast/issues/325): TypeError: GObject_Object.prototype.toString called on incompatible Object
 
-**Full Changelog**: <https://github.com/EasyScreenCast/EasyScreenCast/compare/1.5.0...HEAD>
+**Full Changelog**: <https://github.com/EasyScreenCast/EasyScreenCast/compare/1.5.0...1.6.0>
 
 # v1.5.0 (42) (2022-03-05)
 
