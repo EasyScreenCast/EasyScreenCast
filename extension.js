@@ -936,7 +936,7 @@ function init() {
     Lib.TalkativeLog('-*-initExtension called');
     Lib.TalkativeLog(`-*-version: ${Me.metadata.version}`);
     Lib.TalkativeLog(`-*-install path: ${Me.path}`);
-    Lib.TalkativeLog(`-*-version (package.json): ${Lib.loadPackageJson().fullversion}`);
+    Lib.TalkativeLog(`-*-version (package.json): ${Lib.getFullVersion()}`);
 
     ExtensionUtils.initTranslations('EasyScreenCast@iacopodeenosee.gmail.com');
 }

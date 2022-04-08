@@ -6,6 +6,8 @@
 
 **🐛 Fixed bugs:**
 
+* [#327](https://github.com/EasyScreenCast/EasyScreenCast/issues/327): Remove package.json from extension zip
+
 **Full Changelog**: <https://github.com/EasyScreenCast/EasyScreenCast/compare/1.6.0...HEAD>
 
 # v1.6.0 (42) (2022-04-07)

@@ -4,7 +4,7 @@ UUID = EasyScreenCast@iacopodeenosee.gmail.com
 NAME_EXTENSION = EasyScreenCast
 BASE_MODULES = convenience.js prefs.js prefs.css selection.js utilgsp.js utilwebcam.js COPYING extension.js \
                metadata.json README.md settings.js timer.js utilnotify.js Options_UI.glade Options_UI.glade-gtk4 \
-               package.json stylesheet.css utilaudio.js utilrecorder.js utilexecmd.js display_module.js
+               stylesheet.css utilaudio.js utilrecorder.js utilexecmd.js display_module.js
 IMG_MEDIA = icon_defaultSel.svg Icon_Info.png icon_recordingSel.svg icon_default.svg Icon_Performance.svg \
             Icon_Quality.svg  icon_recording.svg
 
@@ -106,7 +106,7 @@ _build: versioninfo all
 		cp $$l $$lf/LC_MESSAGES/$(UUID).mo; \
 	done
 	jq 'setpath(["version"]; "'$(NEXT_EXTENSION_VERSION)'")' metadata.json > _build/metadata.json
-	jq 'setpath(["fullversion"]; "'$(VERSION)'")' package.json > _build/package.json
+	sed '/FULL_VERSION/ s/dev/'$(VERSION)'/' convenience.js > _build/convenience.js
 
 .PHONY: local-test
 local-test: install

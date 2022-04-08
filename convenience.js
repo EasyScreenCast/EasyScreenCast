@@ -24,11 +24,10 @@
   SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-/* exported ESConGIcon,ESCoffGIcon,ESConGIconSel,ESCoffGIconSel,ESCimgPerformance,ESCimgQuality,ESCimgInfo,TalkativeLog,getSettings,initTranslations,loadPackageJson */
+/* exported ESConGIcon,ESCoffGIcon,ESConGIconSel,ESCoffGIconSel,ESCimgPerformance,ESCimgQuality,ESCimgInfo,TalkativeLog,getSettings,initTranslations,getFullVersion */
 'use strict';
 
 const Gio = imports.gi.Gio;
-const ByteArray = imports.byteArray;
 
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
@@ -45,15 +44,14 @@ function TalkativeLog(msg) {
 }
 
 /**
- * Loads the file package.json
+ * Gets the full (semantic) version of this extension.
  *
- * @returns {Object} package.json
+ * <p>Note: The actual value is added during build time.
+ *
+ * @returns {string} the version
  */
-function loadPackageJson() {
-    let packageJsonFile = Gio.File.new_for_path(Me.dir.get_child('package.json').get_path());
-    let [_, contents] = packageJsonFile.load_contents(null);
-    let packageJson = JSON.parse(ByteArray.toString(contents));
-    return packageJson;
+function getFullVersion() {
+    return 'dev'; // FULL_VERSION
 }
 
 var ESConGIcon = new Gio.FileIcon({
