@@ -393,10 +393,10 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
 
         // implements image for scale widget
         let refImagePerformance = gtkDB.get_object('img_Performance');
-        refImagePerformance.set_from_file(Lib.ESCimgPerformance);
+        refImagePerformance.set_from_file(Lib.getImagePath('Icon_Performance.svg'));
 
         let refImageQuality = gtkDB.get_object('img_Quality');
-        refImageQuality.set_from_file(Lib.ESCimgQuality);
+        refImageQuality.set_from_file(Lib.getImagePath('Icon_Quality.svg'));
 
         // implements custom GSPipeline option
         let refSwitchCustomGSP = gtkDB.get_object('swt_EnableCustomGSP');
@@ -971,7 +971,7 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
     _initTabInfo(ctx, gtkDB) {
         // implements info img extension
         let refImageEsc = gtkDB.get_object('img_ESC');
-        refImageEsc.set_from_file(Lib.ESCimgInfo);
+        refImageEsc.set_from_file(Lib.getImagePath('Icon_Info.png'));
 
         // implements info version label
         let refLabelVersion = gtkDB.get_object('lbl_Version');

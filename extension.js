@@ -76,6 +76,14 @@ const EasyScreenCastIndicator = GObject.registerClass({
         this.CtrlNotify = new UtilNotify.NotifyManager();
         this.CtrlExe = new UtilExeCmd.ExecuteStuff(this);
 
+        // load indicator icons
+        this._icons = {
+            on: Lib.loadIcon('icon_recording.svg'),
+            onSel: Lib.loadIcon('icon_recordingSel.svg'),
+            off: Lib.loadIcon('icon_default.svg'),
+            offSel: Lib.loadIcon('icon_defaultSel.svg'),
+        };
+
         // check audio
         if (!this.CtrlAudio.checkAudio()) {
             Lib.TalkativeLog('-*-disable audio recording');
@@ -104,7 +112,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
         // Add the title bar icon and label for time display
         this.indicatorBox = new St.BoxLayout();
         this.indicatorIcon = new St.Icon({
-            gicon: Lib.ESCoffGIcon,
+            gicon: this._icons.off,
             icon_size: 16,
         });
         this.timeLabel = new St.Label({
@@ -653,7 +661,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
                         Lib.TalkativeLog('-*-pre command ERROR');
                         this.CtrlNotify.createNotify(
                             _('ERROR PRE COMMAND - See logs for more info'),
-                            Lib.ESCoffGIcon
+                            this._icons.off
                         );
                     }
                 },
@@ -762,7 +770,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
                 // create counting notify
                 this.notifyCounting = this.CtrlNotify.createNotify(
                     _('Start Recording'),
-                    Lib.ESConGIcon
+                    this._icons.on
                 );
                 this.notifyCounting.connect('destroy', () => {
                     Lib.TalkativeLog('-*-notification destroyed');
@@ -788,7 +796,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
                 Lib.TalkativeLog('-*-show error notify');
                 this.CtrlNotify.createNotify(
                     _('ERROR RECORDER - See logs for more info'),
-                    Lib.ESCoffGIcon
+                    this._icons.off
                 );
             }
         }
@@ -805,14 +813,14 @@ const EasyScreenCastIndicator = GObject.registerClass({
                 this.CtrlNotify.updateNotify(
                     this.notifyCounting,
                     _(`EasyScreenCast -> Finish Recording / Seconds : ${sec}`),
-                    Lib.ESCoffGIcon,
+                    this._icons.off,
                     true
                 );
             } else {
                 this.CtrlNotify.updateNotify(
                     this.notifyCounting,
                     _('EasyScreenCast -> Recording in progress / Seconds passed : ') + sec,
-                    Lib.ESConGIcon,
+                    this._icons.on,
                     false
                 );
             }
@@ -851,24 +859,24 @@ const EasyScreenCastIndicator = GObject.registerClass({
         if (isActive === true) {
             if (indicators === 0 || indicators === 1) {
                 if (focus === true) {
-                    this.indicatorIcon.set_gicon(Lib.ESConGIconSel);
+                    this.indicatorIcon.set_gicon(this._icons.onSel);
                 } else {
-                    this.indicatorIcon.set_gicon(Lib.ESConGIcon);
+                    this.indicatorIcon.set_gicon(this._icons.on);
                 }
             } else if (this._settings.getOption('b', Settings.ACTIVE_SHORTCUT_SETTING_KEY)) {
                 this.indicatorIcon.set_gicon(null);
             } else if (focus === true) {
-                this.indicatorIcon.set_gicon(Lib.ESConGIconSel);
+                this.indicatorIcon.set_gicon(this._icons.onSel);
             } else {
-                this.indicatorIcon.set_gicon(Lib.ESConGIcon);
+                this.indicatorIcon.set_gicon(this._icons.on);
             }
 
             this.RecordingLabel.set_text(_('Stop recording'));
         } else {
             if (focus === true) {
-                this.indicatorIcon.set_gicon(Lib.ESCoffGIconSel);
+                this.indicatorIcon.set_gicon(this._icons.offSel);
             } else {
-                this.indicatorIcon.set_gicon(Lib.ESCoffGIcon);
+                this.indicatorIcon.set_gicon(this._icons.off);
             }
 
             this.RecordingLabel.set_text(_('Start recording'));
