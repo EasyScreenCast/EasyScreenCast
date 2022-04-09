@@ -6,6 +6,8 @@
     "42"
   ],
   "uuid": "EasyScreenCast@iacopodeenosee.gmail.com",
+  "gettext-domain": "EasyScreenCast@iacopodeenosee.gmail.com",
+  "settings-schema": "org.gnome.shell.extensions.EasyScreenCast",
   "url": "https://github.com/EasyScreenCast/EasyScreenCast",
   "name": "EasyScreenCast",
   "version": "42",

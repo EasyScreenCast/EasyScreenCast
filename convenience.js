@@ -24,21 +24,22 @@
   SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-/* exported ESConGIcon,ESCoffGIcon,ESConGIconSel,ESCoffGIconSel,ESCimgPerformance,ESCimgQuality,ESCimgInfo,TalkativeLog,getSettings,initTranslations,getFullVersion */
+/* exported TalkativeLog,getFullVersion,debugEnabled,loadIcon,getImagePath */
 'use strict';
 
 const Gio = imports.gi.Gio;
 
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
-const Settings = Me.imports.settings;
+
+var debugEnabled = false;
 
 /**
  * @param {string} msg the message to log
  * @class
  */
 function TalkativeLog(msg) {
-    if (Settings.getOption('b', Settings.VERBOSE_DEBUG_SETTING_KEY)) {
+    if (debugEnabled) {
         log(`[ESC]${msg}`);
     }
 }
@@ -54,34 +55,26 @@ function getFullVersion() {
     return 'dev'; // FULL_VERSION
 }
 
-var ESConGIcon = new Gio.FileIcon({
-    file: Gio.File.new_for_path(
-        Me.dir.get_child('images/icon_recording.svg').get_path()
-    ),
-});
+/**
+ * Loads an icon from the extention's subdirectory "images".
+ *
+ * @param {string} name filename of the image
+ * @returns {Gio.FileIcon} the icon
+ */
+function loadIcon(name) {
+    return new Gio.FileIcon({
+        file: Gio.File.new_for_path(
+            getImagePath(name)
+        ),
+    });
+}
 
-var ESCoffGIcon = new Gio.FileIcon({
-    file: Gio.File.new_for_path(
-        Me.dir.get_child('images/icon_default.svg').get_path()
-    ),
-});
-
-var ESConGIconSel = new Gio.FileIcon({
-    file: Gio.File.new_for_path(
-        Me.dir.get_child('images/icon_recordingSel.svg').get_path()
-    ),
-});
-
-var ESCoffGIconSel = new Gio.FileIcon({
-    file: Gio.File.new_for_path(
-        Me.dir.get_child('images/icon_defaultSel.svg').get_path()
-    ),
-});
-
-var ESCimgPerformance = Me.dir
-    .get_child('images/Icon_Performance.svg')
-    .get_path();
-
-var ESCimgQuality = Me.dir.get_child('images/Icon_Quality.svg').get_path();
-
-var ESCimgInfo = Me.dir.get_child('images/Icon_Info.png').get_path();
+/**
+ * Gets the path to the image from the extension's subdirectory "images".
+ *
+ * @param {string} name filename of the image
+ * @returns {string} the path
+ */
+function getImagePath(name) {
+    return Me.dir.get_child(`images/${name}`).get_path();
+}

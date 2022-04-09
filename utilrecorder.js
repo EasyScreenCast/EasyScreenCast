@@ -31,9 +31,6 @@ const Selection = Me.imports.selection;
 const UtilGSP = Me.imports.utilgsp;
 const Ext = Me.imports.extension;
 
-const ScreenCastProxy = Gio.DBusProxy.makeProxyWrapper(ScreencastIface);
-let ScreenCastService = null;
-
 /**
  * @type {CaptureVideo}
  */
@@ -49,7 +46,8 @@ var CaptureVideo = GObject.registerClass({
         this.AreaSelected = null;
 
         // connect to d-bus service
-        ScreenCastService = new ScreenCastProxy(
+        const ScreenCastProxy = Gio.DBusProxy.makeProxyWrapper(ScreencastIface);
+        this._screenCastService = new ScreenCastProxy(
             Gio.DBus.session,
             'org.gnome.Shell.Screencast',
             '/org/gnome/Shell/Screencast',
@@ -72,25 +70,25 @@ var CaptureVideo = GObject.registerClass({
 
         // prepare variable for screencast
         var fileRec =
-            Settings.getOption('s', Settings.FILE_NAME_SETTING_KEY) +
+            Ext.Indicator.getSettings().getOption('s', Settings.FILE_NAME_SETTING_KEY) +
             UtilGSP.getFileExtension(
-                Settings.getOption('i', Settings.FILE_CONTAINER_SETTING_KEY)
+                Ext.Indicator.getSettings().getOption('i', Settings.FILE_CONTAINER_SETTING_KEY)
             );
 
-        if (Settings.getOption('s', Settings.FILE_FOLDER_SETTING_KEY) !== '') {
-            fileRec = `${Settings.getOption('s', Settings.FILE_FOLDER_SETTING_KEY)}/${fileRec}`;
+        if (Ext.Indicator.getSettings().getOption('s', Settings.FILE_FOLDER_SETTING_KEY) !== '') {
+            fileRec = `${Ext.Indicator.getSettings().getOption('s', Settings.FILE_FOLDER_SETTING_KEY)}/${fileRec}`;
         }
 
         let pipelineRec = '';
 
-        if (Settings.getOption('b', Settings.ACTIVE_CUSTOM_GSP_SETTING_KEY)) {
-            pipelineRec = Settings.getOption(
+        if (Ext.Indicator.getSettings().getOption('b', Settings.ACTIVE_CUSTOM_GSP_SETTING_KEY)) {
+            pipelineRec = Ext.Indicator.getSettings().getOption(
                 's',
                 Settings.PIPELINE_REC_SETTING_KEY
             );
         } else {
             // compose GSP
-            pipelineRec = UtilGSP.composeGSP();
+            pipelineRec = UtilGSP.composeGSP(Ext.Indicator.getSettings(), Ext.Indicator.CtrlAudio);
         }
 
         Lib.TalkativeLog(`-&-path/file template : ${fileRec}`);
@@ -108,17 +106,17 @@ var CaptureVideo = GObject.registerClass({
         var optionsRec = {
             'draw-cursor': new GLib.Variant(
                 'b',
-                Settings.getOption('b', Settings.DRAW_CURSOR_SETTING_KEY)
+                Ext.Indicator.getSettings().getOption('b', Settings.DRAW_CURSOR_SETTING_KEY)
             ),
             framerate: new GLib.Variant(
                 'i',
-                Settings.getOption('i', Settings.FPS_SETTING_KEY)
+                Ext.Indicator.getSettings().getOption('i', Settings.FPS_SETTING_KEY)
             ),
             pipeline: new GLib.Variant('s', pipelineRec),
         };
 
-        if (Settings.getOption('i', Settings.AREA_SCREEN_SETTING_KEY) === 0) {
-            ScreenCastService.ScreencastRemote(
+        if (Ext.Indicator.getSettings().getOption('i', Settings.AREA_SCREEN_SETTING_KEY) === 0) {
+            this._screenCastService.ScreencastRemote(
                 fileRec,
                 optionsRec,
                 (result, error) => {
@@ -135,11 +133,11 @@ var CaptureVideo = GObject.registerClass({
                 }
             );
         } else {
-            ScreenCastService.ScreencastAreaRemote(
-                Settings.getOption('i', Settings.X_POS_SETTING_KEY),
-                Settings.getOption('i', Settings.Y_POS_SETTING_KEY),
-                Settings.getOption('i', Settings.WIDTH_SETTING_KEY),
-                Settings.getOption('i', Settings.HEIGHT_SETTING_KEY),
+            this._screenCastService.ScreencastAreaRemote(
+                Ext.Indicator.getSettings().getOption('i', Settings.X_POS_SETTING_KEY),
+                Ext.Indicator.getSettings().getOption('i', Settings.Y_POS_SETTING_KEY),
+                Ext.Indicator.getSettings().getOption('i', Settings.WIDTH_SETTING_KEY),
+                Ext.Indicator.getSettings().getOption('i', Settings.HEIGHT_SETTING_KEY),
                 fileRec,
                 optionsRec,
                 (result, error) => {
@@ -152,7 +150,7 @@ var CaptureVideo = GObject.registerClass({
                         Lib.TalkativeLog(`-&-screencast execute - ${result[0]} - ${result[1]}`);
 
                         // draw area recording
-                        if (Settings.getOption('b', Settings.SHOW_AREA_REC_SETTING_KEY)) {
+                        if (Ext.Indicator.getSettings().getOption('b', Settings.SHOW_AREA_REC_SETTING_KEY)) {
                             this.AreaSelected = new Selection.AreaRecording();
                         }
 
@@ -171,7 +169,7 @@ var CaptureVideo = GObject.registerClass({
     stop() {
         Lib.TalkativeLog('-&-stop video recording');
 
-        ScreenCastService.StopScreencastRemote((result, error) => {
+        this._screenCastService.StopScreencastRemote((result, error) => {
             if (error) {
                 Lib.TalkativeLog(`-&-ERROR(screencast stop) - ${error.message}`);
                 return false;

@@ -24,6 +24,7 @@ const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Lib = Me.imports.convenience;
 const Settings = Me.imports.settings;
+const Ext = Me.imports.extension;
 
 /**
  * @type {NotifyManager}
@@ -93,7 +94,7 @@ var NotifyManager = GObject.registerClass({
      */
     createAlert(msg) {
         Lib.TalkativeLog(`-°-show alert tweener : ${msg}`);
-        if (Settings.getOption('b', Settings.SHOW_NOTIFY_ALERT_SETTING_KEY)) {
+        if (Ext.Indicator.getSettings().getOption('b', Settings.SHOW_NOTIFY_ALERT_SETTING_KEY)) {
             var monitor = Main.layoutManager.focusMonitor;
 
             var text = new St.Label({

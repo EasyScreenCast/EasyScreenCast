@@ -10,7 +10,7 @@
     FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
 */
 
-/* exported MixerAudio,getInstance */
+/* exported MixerAudio */
 'use strict';
 
 const GObject = imports.gi.GObject;
@@ -25,22 +25,7 @@ const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Lib = Me.imports.convenience;
 const Settings = Me.imports.settings;
-
-let instance = null;
-let MixerControl = null;
-let isConnected = false;
-
-/**
- * Get single audio mixer instance
- *
- * @returns {MixerAudio} the singleton mixer
- */
-function getInstance() {
-    if (instance === null) {
-        instance = new MixerAudio();
-    }
-    return instance;
-}
+const Ext = Me.imports.extension;
 
 /**
  * @type {MixerAudio}
@@ -56,25 +41,20 @@ var MixerAudio = GObject.registerClass({
     _init() {
         Lib.TalkativeLog('-#-mixer _init');
 
-        MixerControl = this._getMixerControl();
+        this._mixerControl = this._createMixerControl();
+        this._isConnected = true;
+        this._mixerControl.connect('state-changed', () =>
+            this._onChangeStatePAC()
+        );
 
-        if (MixerControl) {
-            isConnected = true;
-            MixerControl.connect('state-changed', () =>
-                this._onChangeStatePAC()
-            );
-
-            // more log for debug
-            if (Settings.getOption('b', Settings.VERBOSE_DEBUG_SETTING_KEY)) {
-                MixerControl.connect('stream_added', (control, id) => {
-                    this._onStreamAdd(control, id);
-                });
-                MixerControl.connect('stream_removed', (control, id) => {
-                    this._onStreamRemove(control, id);
-                });
-            }
-        } else {
-            Lib.TalkativeLog('-#-Error lib pulse NOT present or NOT respond');
+        // more log for debug
+        if (Lib.debugEnabled) {
+            this._mixerControl.connect('stream_added', (control, id) => {
+                this._onStreamAdd(control, id);
+            });
+            this._mixerControl.connect('stream_removed', (control, id) => {
+                this._onStreamRemove(control, id);
+            });
         }
     }
 
@@ -82,55 +62,47 @@ var MixerAudio = GObject.registerClass({
      * @returns {Gvc.MixerControl}
      * @private
      */
-    _getMixerControl() {
-        var _mixerTmp;
+    _createMixerControl() {
+        Lib.TalkativeLog('-#-mixer create');
 
-        if (MixerControl) {
-            Lib.TalkativeLog(`-#-mixer exist -> ${MixerControl} state -> ${MixerControl.get_state()}`);
+        // https://gitlab.gnome.org/GNOME/libgnome-volume-control
+        var _mixerTmp = new Gvc.MixerControl({
+            name: 'ESC Mixer Control',
+        });
+        _mixerTmp.open();
 
-            return MixerControl;
-        } else {
-            Lib.TalkativeLog('-#-mixer create');
-
-            // https://gitlab.gnome.org/GNOME/libgnome-volume-control
-            _mixerTmp = new Gvc.MixerControl({
-                name: 'ESC Mixer Control',
-            });
-            _mixerTmp.open();
-
-            return _mixerTmp;
-        }
+        return _mixerTmp;
     }
 
     _onChangeStatePAC() {
         Lib.TalkativeLog('-#-mixer state changed');
 
-        switch (MixerControl.get_state()) {
+        switch (this._mixerControl.get_state()) {
         case Gvc.MixerControlState.CLOSED:
             Lib.TalkativeLog('-#-Mixer close');
-            isConnected = false;
+            this._isConnected = false;
             break;
         case Gvc.MixerControlState.CONNECTING:
             Lib.TalkativeLog('-#-Mixer connecting');
-            isConnected = false;
+            this._isConnected = false;
             break;
         case Gvc.MixerControlState.FAILED:
             Lib.TalkativeLog('-#-Mixer failed');
-            isConnected = false;
+            this._isConnected = false;
             break;
         case Gvc.MixerControlState.READY:
             Lib.TalkativeLog('-#-Mixer ready');
-            isConnected = true;
+            this._isConnected = true;
 
             // more log for debug
-            if (Settings.getOption('b', Settings.VERBOSE_DEBUG_SETTING_KEY)) {
+            if (Lib.debugEnabled) {
                 this._getInfoPA();
             }
 
             break;
         default:
             Lib.TalkativeLog('-#-Mixer UNK');
-            isConnected = false;
+            this._isConnected = false;
             break;
         }
     }
@@ -143,10 +115,10 @@ var MixerAudio = GObject.registerClass({
     getListInputAudio() {
         Lib.TalkativeLog('-#-get list input audio');
 
-        if (isConnected) {
+        if (this._isConnected) {
             var arrayTmp = [];
 
-            var tmpSinks = MixerControl.get_sinks();
+            var tmpSinks = this._mixerControl.get_sinks();
             Lib.TalkativeLog(`-#-Mixer sink -> ${tmpSinks.length}`);
             for (let x in tmpSinks) {
                 Lib.TalkativeLog(`-#-sink index: ${tmpSinks[x].index}`);
@@ -165,7 +137,7 @@ var MixerAudio = GObject.registerClass({
                 });
             }
 
-            var tmpSources = MixerControl.get_sources();
+            var tmpSources = this._mixerControl.get_sources();
             Lib.TalkativeLog(`-#-Mixer sources -> ${tmpSources.length}`);
             for (let x in tmpSources) {
                 Lib.TalkativeLog(`-#-source index: ${tmpSources[x].index}`);
@@ -201,15 +173,13 @@ var MixerAudio = GObject.registerClass({
         Lib.TalkativeLog('-#-get source audio choosen');
 
         var arrtmp = this.getListInputAudio();
-        var index =
-            Settings.getOption('i', Settings.INPUT_AUDIO_SOURCE_SETTING_KEY) -
-            2;
+        var index = Ext.Indicator.getSettings().getOption('i', Settings.INPUT_AUDIO_SOURCE_SETTING_KEY) - 2;
 
         if (index >= 0 && index < arrtmp.length) {
             return arrtmp[index].name;
         } else {
             Lib.TalkativeLog('-#-ERROR, audio source missing');
-            Settings.setOption(Settings.INPUT_AUDIO_SOURCE_SETTING_KEY, 0);
+            Ext.Indicator.getSettings().setOption(Settings.INPUT_AUDIO_SOURCE_SETTING_KEY, 0);
 
             return '';
         }
@@ -255,7 +225,7 @@ var MixerAudio = GObject.registerClass({
      * @private
      */
     _getInfoPA() {
-        var tmp = MixerControl.get_cards();
+        var tmp = this._mixerControl.get_cards();
         Lib.TalkativeLog(`#-# mixer cards -> ${tmp.length}`);
         for (let x in tmp) {
             Lib.TalkativeLog(`-#-card index: ${tmp[x].index}`);
@@ -265,7 +235,7 @@ var MixerAudio = GObject.registerClass({
             Lib.TalkativeLog(`-#-card human profile: ${tmp[x].human_profile}`);
         }
 
-        tmp = MixerControl.get_sources();
+        tmp = this._mixerControl.get_sources();
         Lib.TalkativeLog(`#-# mixer sources -> ${tmp.length}`);
         for (let x in tmp) {
             Lib.TalkativeLog(`-#-source index: ${tmp[x].index}`);
@@ -276,7 +246,7 @@ var MixerAudio = GObject.registerClass({
             Lib.TalkativeLog(`-#-source port: ${tmp[x].port}`);
         }
 
-        tmp = MixerControl.get_source_outputs();
+        tmp = this._mixerControl.get_source_outputs();
         Lib.TalkativeLog(`#-# mixer source output -> ${tmp.length}`);
         for (let x in tmp) {
             Lib.TalkativeLog(`-#-sourceouput index: ${tmp[x].index}`);
@@ -289,7 +259,7 @@ var MixerAudio = GObject.registerClass({
             Lib.TalkativeLog(`-#-sourceoutput port: ${tmp[x].port}`);
         }
 
-        tmp = MixerControl.get_sinks();
+        tmp = this._mixerControl.get_sinks();
         Lib.TalkativeLog(`#-# mixer sink -> ${tmp.length}`);
         for (let x in tmp) {
             Lib.TalkativeLog(`-#-sink index: ${tmp[x].index}`);
@@ -300,7 +270,7 @@ var MixerAudio = GObject.registerClass({
             Lib.TalkativeLog(`-#-sink port: ${tmp[x].port}`);
         }
 
-        tmp = MixerControl.get_sink_inputs();
+        tmp = this._mixerControl.get_sink_inputs();
         Lib.TalkativeLog(`#-# mixer sink input -> ${tmp.length}`);
         for (let x in tmp) {
             Lib.TalkativeLog(`-#-sink input index: ${tmp[x].index}`);
@@ -313,7 +283,7 @@ var MixerAudio = GObject.registerClass({
             Lib.TalkativeLog(`-#-sink input port: ${tmp[x].port}`);
         }
 
-        tmp = MixerControl.get_streams();
+        tmp = this._mixerControl.get_streams();
         Lib.TalkativeLog(`#-# mixer stream -> ${tmp.length}`);
         for (let x in tmp) {
             Lib.TalkativeLog(`-#-STREAM index: ${tmp[x].index}`);
@@ -340,17 +310,18 @@ var MixerAudio = GObject.registerClass({
      * @returns {boolean}
      */
     checkAudio() {
-        Lib.TalkativeLog(`-#-check GVC lib presence: ${isConnected}`);
+        Lib.TalkativeLog(`-#-check GVC lib presence: ${this._isConnected}`);
 
-        return isConnected;
+        return this._isConnected;
     }
 
     /**
      * Destroy mixer control
      */
     destroy() {
-        if (MixerControl) {
-            MixerControl.close();
+        if (this._mixerControl) {
+            this._mixerControl.close();
+            this._mixerControl = null;
         }
     }
 });
