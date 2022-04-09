@@ -32,11 +32,12 @@ const Layout = imports.ui.layout;
 
 const Main = imports.ui.main;
 
-const Gettext = imports.gettext.domain('EasyScreenCast@iacopodeenosee.gmail.com');
-const _ = Gettext.gettext;
-
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
+
+const Domain = imports.gettext.domain(Me.metadata.uuid);
+const _ = Domain.gettext;
+
 const Lib = Me.imports.convenience;
 const Settings = Me.imports.settings;
 const Ext = Me.imports.extension;

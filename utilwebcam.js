@@ -18,11 +18,12 @@ const GLib = imports.gi.GLib;
 imports.gi.versions.Gst = '1.0';
 const Gst = imports.gi.Gst;
 
-const Gettext = imports.gettext.domain('EasyScreenCast@iacopodeenosee.gmail.com');
-const _ = Gettext.gettext;
-
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
+
+const Domain = imports.gettext.domain(Me.metadata.uuid);
+const _ = Domain.gettext;
+
 const Lib = Me.imports.convenience;
 
 let ListDevices = null;

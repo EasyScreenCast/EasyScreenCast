@@ -24,11 +24,12 @@ const PopupMenu = imports.ui.popupMenu;
 const Slider = imports.ui.slider;
 const Main = imports.ui.main;
 
-const Gettext = imports.gettext.domain('EasyScreenCast@iacopodeenosee.gmail.com');
-const _ = Gettext.gettext;
-
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
+
+const Domain = imports.gettext.domain(Me.metadata.uuid);
+const _ = Domain.gettext;
+
 const Lib = Me.imports.convenience;
 const Settings = Me.imports.settings;
 const Time = Me.imports.timer;
@@ -938,7 +939,7 @@ function init() {
     Lib.TalkativeLog(`-*-install path: ${Me.path}`);
     Lib.TalkativeLog(`-*-version (package.json): ${Lib.getFullVersion()}`);
 
-    ExtensionUtils.initTranslations('EasyScreenCast@iacopodeenosee.gmail.com');
+    ExtensionUtils.initTranslations(Me.metadata.uuid);
 }
 
 /**

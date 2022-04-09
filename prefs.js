@@ -23,13 +23,12 @@ const Gtk = imports.gi.Gtk;
 const Gdk = imports.gi.Gdk;
 const Pango = imports.gi.Pango;
 
-const Gettext = imports.gettext.domain(
-    'EasyScreenCast@iacopodeenosee.gmail.com'
-);
-const _ = Gettext.gettext;
-
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
+
+const Domain = imports.gettext.domain(Me.metadata.uuid);
+const _ = Domain.gettext;
+
 const Lib = Me.imports.convenience;
 const UtilWebcam = Me.imports.utilwebcam;
 const UtilGSP = Me.imports.utilgsp;
@@ -40,7 +39,7 @@ const UtilExeCmd = Me.imports.utilexecmd;
  *
  */
 function init() {
-    ExtensionUtils.initTranslations('EasyScreenCast@iacopodeenosee.gmail.com');
+    ExtensionUtils.initTranslations(Me.metadata.uuid);
 }
 
 const EasyScreenCastSettingsWidget = GObject.registerClass({
@@ -80,7 +79,7 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
             uiFilePath = `${Me.path}/Options_UI.glade-gtk4`;
         }
         let builder = new Gtk.Builder();
-        builder.set_translation_domain('EasyScreenCast@iacopodeenosee.gmail.com');
+        builder.set_translation_domain(Me.metadata.uuid);
 
         if (builder.add_from_file(uiFilePath) === 0) {
             Lib.TalkativeLog(`-^-could not load the ui file: ${uiFilePath}`);

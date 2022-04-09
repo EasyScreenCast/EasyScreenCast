@@ -13,10 +13,12 @@
 /* exported setOption,getGSPstd,getOption,settings */
 'use strict';
 
-const Gettext = imports.gettext.domain('EasyScreenCast@iacopodeenosee.gmail.com');
-const _ = Gettext.gettext;
-
 const ExtensionUtils = imports.misc.extensionUtils;
+const Me = ExtensionUtils.getCurrentExtension();
+
+const Domain = imports.gettext.domain(Me.metadata.uuid);
+const _ = Domain.gettext;
+
 
 /* eslint-disable no-unused-vars */
 // these are exported constants
