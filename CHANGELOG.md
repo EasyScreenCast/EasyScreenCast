@@ -4,6 +4,14 @@
 
 **🎉 Merged pull requests:**
 
+**🐛 Fixed bugs:**
+
+**Full Changelog**: <https://github.com/EasyScreenCast/EasyScreenCast/compare/1.6.1...HEAD>
+
+# v1.6.1 (43) (2022-04-09)
+
+**🎉 Merged pull requests:**
+
 * [#329](https://github.com/EasyScreenCast/EasyScreenCast/pull/329): Remove global object instances ([@adangel](https://github.com/adangel))
 
 **🐛 Fixed bugs:**
@@ -11,7 +19,7 @@
 * [#327](https://github.com/EasyScreenCast/EasyScreenCast/issues/327): Remove package.json from extension zip
 * [#328](https://github.com/EasyScreenCast/EasyScreenCast/issues/328): Avoid creating objects in global scope
 
-**Full Changelog**: <https://github.com/EasyScreenCast/EasyScreenCast/compare/1.6.0...HEAD>
+**Full Changelog**: <https://github.com/EasyScreenCast/EasyScreenCast/compare/1.6.0...1.6.1>
 
 # v1.6.0 (42) (2022-04-07)
 
