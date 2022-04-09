@@ -910,7 +910,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
 
             Main.wm.addKeybinding(
                 Settings.SHORTCUT_KEY_SETTING_KEY,
-                this._settings,
+                this._settings._settings,
                 Meta.KeyBindingFlags.NONE,
                 Shell.ActionMode.NORMAL |
                     Shell.ActionMode.MESSAGE_TRAY |
