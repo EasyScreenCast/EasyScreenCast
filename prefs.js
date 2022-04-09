@@ -26,7 +26,7 @@ const Pango = imports.gi.Pango;
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 
-const Domain = imports.gettext.domain(Me.metadata.uuid);
+const Domain = imports.gettext.domain(Me.metadata['gettext-domain']);
 const _ = Domain.gettext;
 
 const Lib = Me.imports.convenience;
@@ -72,7 +72,7 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
             uiFilePath = `${Me.path}/Options_UI.glade-gtk4`;
         }
         let builder = new Gtk.Builder();
-        builder.set_translation_domain(Me.metadata.uuid);
+        builder.set_translation_domain(Me.metadata['gettext-domain']);
 
         if (builder.add_from_file(uiFilePath) === 0) {
             Lib.TalkativeLog(`-^-could not load the ui file: ${uiFilePath}`);

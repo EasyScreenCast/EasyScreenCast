@@ -17,7 +17,7 @@ const GObject = imports.gi.GObject;
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 
-const Domain = imports.gettext.domain(Me.metadata.uuid);
+const Domain = imports.gettext.domain(Me.metadata['gettext-domain']);
 const _ = Domain.gettext;
 
 
