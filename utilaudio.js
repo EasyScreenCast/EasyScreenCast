@@ -10,7 +10,7 @@
     FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
 */
 
-/* exported MixerAudio,getInstance */
+/* exported MixerAudio */
 'use strict';
 
 const GObject = imports.gi.GObject;
@@ -25,22 +25,10 @@ const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Lib = Me.imports.convenience;
 const Settings = Me.imports.settings;
+const Ext = Me.imports.extension;
 
-let instance = null;
 let MixerControl = null;
 let isConnected = false;
-
-/**
- * Get single audio mixer instance
- *
- * @returns {MixerAudio} the singleton mixer
- */
-function getInstance() {
-    if (instance === null) {
-        instance = new MixerAudio();
-    }
-    return instance;
-}
 
 /**
  * @type {MixerAudio}
@@ -65,7 +53,7 @@ var MixerAudio = GObject.registerClass({
             );
 
             // more log for debug
-            if (Settings.getOption('b', Settings.VERBOSE_DEBUG_SETTING_KEY)) {
+            if (Lib.debugEnabled) {
                 MixerControl.connect('stream_added', (control, id) => {
                     this._onStreamAdd(control, id);
                 });
@@ -123,7 +111,7 @@ var MixerAudio = GObject.registerClass({
             isConnected = true;
 
             // more log for debug
-            if (Settings.getOption('b', Settings.VERBOSE_DEBUG_SETTING_KEY)) {
+            if (Lib.debugEnabled) {
                 this._getInfoPA();
             }
 
@@ -201,15 +189,13 @@ var MixerAudio = GObject.registerClass({
         Lib.TalkativeLog('-#-get source audio choosen');
 
         var arrtmp = this.getListInputAudio();
-        var index =
-            Settings.getOption('i', Settings.INPUT_AUDIO_SOURCE_SETTING_KEY) -
-            2;
+        var index = Ext.Indicator.getSettings().getOption('i', Settings.INPUT_AUDIO_SOURCE_SETTING_KEY) - 2;
 
         if (index >= 0 && index < arrtmp.length) {
             return arrtmp[index].name;
         } else {
             Lib.TalkativeLog('-#-ERROR, audio source missing');
-            Settings.setOption(Settings.INPUT_AUDIO_SOURCE_SETTING_KEY, 0);
+            Ext.Indicator.getSettings().setOption(Settings.INPUT_AUDIO_SOURCE_SETTING_KEY, 0);
 
             return '';
         }
@@ -351,6 +337,7 @@ var MixerAudio = GObject.registerClass({
     destroy() {
         if (MixerControl) {
             MixerControl.close();
+            MixerControl = null;
         }
     }
 });

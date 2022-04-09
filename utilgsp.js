@@ -17,7 +17,6 @@ const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Lib = Me.imports.convenience;
 const Settings = Me.imports.settings;
-const UtilAudio = Me.imports.utilaudio;
 
 // CONST GSP - base
 const SCREEN =
@@ -320,23 +319,26 @@ const CONTAINER = [webmVP8, webmVP9, mp4, mkv, ogg, mp4Aac];
 /**
  * Compose GSP
  *
+ * @param {EasyScreenCastSettings} settings the extension's settings
+ * @param {MixerAudio} mixer the mixer
+ *
  * @returns {string}
  */
-function composeGSP() {
+function composeGSP(settings, mixer) {
     Lib.TalkativeLog('-§-COMPOSE GSP');
 
     let tmpGSP = '';
 
     // retrieve options
-    let deviceWebcam = Settings.getOption('s', Settings.DEVICE_WEBCAM_SETTING_KEY);
-    let deviceAudio = Settings.getOption('i', Settings.INPUT_AUDIO_SOURCE_SETTING_KEY);
-    let qualityGSP = Settings.getOption('i', Settings.QUALITY_SETTING_KEY);
-    let qualityWebcam = Settings.getOption('s', Settings.QUALITY_WEBCAM_SETTING_KEY);
-    let resolutionType = Settings.getOption('i', Settings.FILE_RESOLUTION_TYPE_SETTING_KEY);
-    let resolutionKAR = Settings.getOption('b', Settings.FILE_RESOLUTION_KAR_SETTING_KEY);
-    let resolutionHeight = Settings.getOption('i', Settings.FILE_RESOLUTION_HEIGHT_SETTING_KEY);
-    let resolutionWidth = Settings.getOption('i', Settings.FILE_RESOLUTION_WIDTH_SETTING_KEY);
-    let container = Settings.getOption('i', Settings.FILE_CONTAINER_SETTING_KEY);
+    let deviceWebcam = settings.getOption('s', Settings.DEVICE_WEBCAM_SETTING_KEY);
+    let deviceAudio = settings.getOption('i', Settings.INPUT_AUDIO_SOURCE_SETTING_KEY);
+    let qualityGSP = settings.getOption('i', Settings.QUALITY_SETTING_KEY);
+    let qualityWebcam = settings.getOption('s', Settings.QUALITY_WEBCAM_SETTING_KEY);
+    let resolutionType = settings.getOption('i', Settings.FILE_RESOLUTION_TYPE_SETTING_KEY);
+    let resolutionKAR = settings.getOption('b', Settings.FILE_RESOLUTION_KAR_SETTING_KEY);
+    let resolutionHeight = settings.getOption('i', Settings.FILE_RESOLUTION_HEIGHT_SETTING_KEY);
+    let resolutionWidth = settings.getOption('i', Settings.FILE_RESOLUTION_WIDTH_SETTING_KEY);
+    let container = settings.getOption('i', Settings.FILE_CONTAINER_SETTING_KEY);
 
     Lib.TalkativeLog(
         `-§-get option||devW: ${deviceWebcam}||devA: ${deviceAudio}||Qgsp: ${qualityGSP}||Qwc: ${qualityWebcam}||Res: ${resolutionType}||Cont: ${container}`
@@ -353,7 +355,8 @@ function composeGSP() {
             tmpGSP = _replaceWebcam(
                 tmpGSP,
                 deviceWebcam,
-                qualityWebcam
+                qualityWebcam,
+                settings
             );
 
             break;
@@ -364,10 +367,11 @@ function composeGSP() {
 
             // replace WEBCAM_DEVICE/WEBCAM_CAPS/ENCODER-AUDIO
             tmpGSP = _replaceAudio(
-                _replaceWebcam(tmpGSP, deviceWebcam, qualityWebcam),
+                _replaceWebcam(tmpGSP, deviceWebcam, qualityWebcam, settings),
                 true,
                 container,
-                qualityGSP
+                qualityGSP,
+                mixer
             );
 
             break;
@@ -378,10 +382,11 @@ function composeGSP() {
 
             // replace WEBCAM_DEVICE/WEBCAM_CAPS/ENCODER-AUDIO/AUDIO_DEVICE
             tmpGSP = _replaceAudio(
-                _replaceWebcam(tmpGSP, deviceWebcam, qualityWebcam),
+                _replaceWebcam(tmpGSP, deviceWebcam, qualityWebcam, settings),
                 false,
                 container,
-                qualityGSP
+                qualityGSP,
+                mixer
             );
         }
     } else {
@@ -402,7 +407,8 @@ function composeGSP() {
                 tmpGSP,
                 true,
                 container,
-                qualityGSP
+                qualityGSP,
+                mixer
             );
 
             break;
@@ -416,7 +422,8 @@ function composeGSP() {
                 tmpGSP,
                 false,
                 container,
-                qualityGSP
+                qualityGSP,
+                mixer
             );
         }
     }
@@ -455,9 +462,10 @@ function composeGSP() {
  * @param {boolean} defaultAudio whether to use the default audio device
  * @param {int} ConTMP selected output container. Used to determine correct audio encoder
  * @param {int} QGSPtmp quality setting
+ * @param {MixerAudio} mixer audio mixer
  * @returns {string} pipeline with audio
  */
-function _replaceAudio(gspRA, defaultAudio, ConTMP, QGSPtmp) {
+function _replaceAudio(gspRA, defaultAudio, ConTMP, QGSPtmp, mixer) {
     Lib.TalkativeLog(`-§-replace audio default->${defaultAudio}`);
     // replace device/encoder
     var aq = CONTAINER[ConTMP].quality[QGSPtmp].aq;
@@ -468,8 +476,7 @@ function _replaceAudio(gspRA, defaultAudio, ConTMP, QGSPtmp) {
         Lib.TalkativeLog('-§-default audio source');
         audioPipeline = gspRA.replace(/_ENCODER_AUDIO_/gi, aq);
     } else {
-        var audiosource = UtilAudio.getInstance().getAudioSource();
-
+        var audiosource = mixer.getAudioSource();
         if (audiosource === undefined) {
             Lib.TalkativeLog('-§-failure combination of array audio sources');
             audioPipeline = gspRA.replace(/_ENCODER_AUDIO_/gi, aq);
@@ -506,15 +513,16 @@ function _replaceAudio(gspRA, defaultAudio, ConTMP, QGSPtmp) {
  * @param {string} gspRW input pipeline to be modified
  * @param {string} device webcam device file (e.g. /dev/video0)
  * @param {string} caps quality options
+ * @param {EasyScreenCastSettings} settings the extension's settings
  * @returns {string} pipeline with webcam settings
  */
-function _replaceWebcam(gspRW, device, caps) {
+function _replaceWebcam(gspRW, device, caps, settings) {
     Lib.TalkativeLog(`-§-replace webcam -> ${device} caps: ${caps}`);
 
     // replace device/caps
     var reDev = `device=${device}`;
-    var reWCopt = _composeWebCamOption();
-    var [reWCwidth, reWCheight] = _getWebCamDimension();
+    var reWCopt = _composeWebCamOption(settings);
+    var [reWCwidth, reWCheight] = _getWebCamDimension(settings);
 
     Lib.TalkativeLog(`-§-pipeline pre-webcam:${gspRW}`);
 
@@ -591,17 +599,19 @@ function _composeResolution(tmpRes, h, w, kar) {
 /**
  * compose option webcam position
  *
+ * @param {EasyScreenCastSettings} settings the extension's settings
+ *
  * @returns {string}
  */
-function _composeWebCamOption() {
+function _composeWebCamOption(settings) {
     Lib.TalkativeLog('-§-compose webcam option');
 
     // retrieve option webcam
-    var webcamAlpha = Settings.getOption('d', Settings.ALPHA_CHANNEL_WEBCAM_SETTING_KEY);
-    var webcamMarginX = Settings.getOption('i', Settings.MARGIN_X_WEBCAM_SETTING_KEY);
-    var webcamMarginY = Settings.getOption('i', Settings.MARGIN_Y_WEBCAM_SETTING_KEY);
-    var webcamCornerPosition = Settings.getOption('i', Settings.CORNER_POSITION_WEBCAM_SETTING_KEY);
-    var [webcamWidth, webcamHeight, screenWidth, screenHeight] = _getWebCamDimension();
+    var webcamAlpha = settings.getOption('d', Settings.ALPHA_CHANNEL_WEBCAM_SETTING_KEY);
+    var webcamMarginX = settings.getOption('i', Settings.MARGIN_X_WEBCAM_SETTING_KEY);
+    var webcamMarginY = settings.getOption('i', Settings.MARGIN_Y_WEBCAM_SETTING_KEY);
+    var webcamCornerPosition = settings.getOption('i', Settings.CORNER_POSITION_WEBCAM_SETTING_KEY);
+    var [webcamWidth, webcamHeight, screenWidth, screenHeight] = _getWebCamDimension(settings);
 
     var posX = 0;
     var posY = 0;
@@ -658,18 +668,20 @@ function _composeWebCamOption() {
 /**
  * retrieve dimension webcam
  *
+ * @param {EasyScreenCastSettings} settings the extension's settings
+ *
  * @returns {*[]} array with webcam width,height,screen-width,screen-height
  */
-function _getWebCamDimension() {
+function _getWebCamDimension(settings) {
     Lib.TalkativeLog('-§-get webcam dimension');
 
-    var webcamWidth = Settings.getOption('i', Settings.WIDTH_WEBCAM_SETTING_KEY);
-    var webcamHeight = Settings.getOption('i', Settings.HEIGHT_WEBCAM_SETTING_KEY);
-    var webcamUnit = Settings.getOption('i', Settings.TYPE_UNIT_WEBCAM_SETTING_KEY);
-    var screenWidth = Settings.getOption('i', Settings.WIDTH_SETTING_KEY);
-    var screenHeight = Settings.getOption('i', Settings.HEIGHT_SETTING_KEY);
+    var webcamWidth = settings.getOption('i', Settings.WIDTH_WEBCAM_SETTING_KEY);
+    var webcamHeight = settings.getOption('i', Settings.HEIGHT_WEBCAM_SETTING_KEY);
+    var webcamUnit = settings.getOption('i', Settings.TYPE_UNIT_WEBCAM_SETTING_KEY);
+    var screenWidth = settings.getOption('i', Settings.WIDTH_SETTING_KEY);
+    var screenHeight = settings.getOption('i', Settings.HEIGHT_SETTING_KEY);
 
-    if (Settings.getOption('i', Settings.AREA_SCREEN_SETTING_KEY) === 0) {
+    if (settings.getOption('i', Settings.AREA_SCREEN_SETTING_KEY) === 0) {
         screenWidth = global.screen_width;
         screenHeight = global.screen_height;
     }

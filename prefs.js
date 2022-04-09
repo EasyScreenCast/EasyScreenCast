@@ -35,13 +35,6 @@ const UtilGSP = Me.imports.utilgsp;
 const Settings = Me.imports.settings;
 const UtilExeCmd = Me.imports.utilexecmd;
 
-/**
- *
- */
-function init() {
-    ExtensionUtils.initTranslations();
-}
-
 const EasyScreenCastSettingsWidget = GObject.registerClass({
     GTypeName: 'EasyScreenCast_SettingsWidget',
 }, class EasyScreenCastSettingsWidget extends Gtk.Box {
@@ -54,8 +47,8 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
     _init(params) {
         super._init(params);
 
-        // creates the settings
-        Settings.checkSettings();
+        this._settings = new Settings.Settings();
+        Lib.debugEnabled = this._settings.getOption('b', Settings.VERBOSE_DEBUG_SETTING_KEY);
         this.CtrlExe = new UtilExeCmd.ExecuteStuff(this);
         this.CtrlWebcam = new UtilWebcam.HelperWebcam();
 
@@ -106,19 +99,19 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
             }
 
             // setup tab options
-            this._initTabOptions(this, builder, Settings.settings);
+            this._initTabOptions(this, builder, this._settings._settings);
 
             // setup tab quality
-            this._initTabQuality(this, builder, Settings.settings);
+            this._initTabQuality(this, builder, this._settings._settings);
 
             // setup tab webcam
-            this._initTabWebcam(this, builder, Settings.settings);
+            this._initTabWebcam(this, builder, this._settings._settings);
 
             // setup tab file
-            this._initTabFile(this, builder, Settings.settings);
+            this._initTabFile(this, builder, this._settings._settings);
 
             // setup tab support
-            this._initTabSupport(this, builder, Settings.settings);
+            this._initTabSupport(this, builder, this._settings._settings);
 
             // setup tab info
             this._initTabInfo(this, builder);
@@ -127,19 +120,19 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
 
             // update GSP area
             this._setStateGSP(
-                !Settings.getOption('b', Settings.ACTIVE_CUSTOM_GSP_SETTING_KEY)
+                !this._settings.getOption('b', Settings.ACTIVE_CUSTOM_GSP_SETTING_KEY)
             );
 
             // update list view
             this._updateRowShortcut(
-                Settings.getOption('as', Settings.SHORTCUT_KEY_SETTING_KEY)[0]
+                this._settings.getOption('as', Settings.SHORTCUT_KEY_SETTING_KEY)[0]
             );
 
             // update webcam widget state
             this._updateStateWebcamOptions();
 
             // connect keywebcam signal
-            Settings.settings.connect(
+            this._settings._settings.connect(
                 `changed::${Settings.DEVICE_INDEX_WEBCAM_SETTING_KEY}`,
                 () => {
                     Lib.TalkativeLog('-^-webcam device changed');
@@ -224,7 +217,7 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
                 let accel = Gtk.accelerator_name(key, mods);
 
                 ctx._updateRowShortcut(accel);
-                Settings.setOption(Settings.SHORTCUT_KEY_SETTING_KEY, [accel]);
+                this._settings.setOption(Settings.SHORTCUT_KEY_SETTING_KEY, [accel]);
             }
         );
 
@@ -232,7 +225,7 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
             Lib.TalkativeLog('-^-cleared key accel');
 
             ctx._updateRowShortcut(null);
-            Settings.setOption(Settings.SHORTCUT_KEY_SETTING_KEY, []);
+            this._settings.setOption(Settings.SHORTCUT_KEY_SETTING_KEY, []);
         });
 
         let column = new Gtk.TreeViewColumn();
@@ -324,17 +317,17 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
         let refLabelDescGSP = gtkDB.get_object('lbl_GSP_Description');
         refLabelDescGSP.set_text(
             UtilGSP.getDescr(
-                Settings.getOption('i', Settings.QUALITY_SETTING_KEY),
-                Settings.getOption('i', Settings.FILE_CONTAINER_SETTING_KEY)
+                this._settings.getOption('i', Settings.QUALITY_SETTING_KEY),
+                this._settings.getOption('i', Settings.FILE_CONTAINER_SETTING_KEY)
             )
         );
         // update label description when container selection changed
-        Settings.settings.connect(`changed::${Settings.FILE_CONTAINER_SETTING_KEY}`, () => {
+        this._settings._settings.connect(`changed::${Settings.FILE_CONTAINER_SETTING_KEY}`, () => {
             Lib.TalkativeLog('-^- new setting for file container, update gps description');
             refLabelDescGSP.set_text(
                 UtilGSP.getDescr(
-                    Settings.getOption('i', Settings.QUALITY_SETTING_KEY),
-                    Settings.getOption('i', Settings.FILE_CONTAINER_SETTING_KEY)
+                    this._settings.getOption('i', Settings.QUALITY_SETTING_KEY),
+                    this._settings.getOption('i', Settings.FILE_CONTAINER_SETTING_KEY)
                 )
             );
         });
@@ -359,7 +352,7 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
 
 
         refScaleQuality.set_value(
-            Settings.getOption('i', Settings.QUALITY_SETTING_KEY)
+            this._settings.getOption('i', Settings.QUALITY_SETTING_KEY)
         );
 
         let oldQualityValue = refScaleQuality.get_value();
@@ -377,22 +370,22 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
             // only update labels for real changes
             if (oldQualityValue !== roundTmp) {
                 oldQualityValue = roundTmp;
-                Settings.setOption(Settings.QUALITY_SETTING_KEY, roundTmp);
+                this._settings.setOption(Settings.QUALITY_SETTING_KEY, roundTmp);
 
                 // update label descr GSP
                 refLabelDescGSP.set_text(
                     UtilGSP.getDescr(
                         roundTmp,
-                        Settings.getOption('i', Settings.FILE_CONTAINER_SETTING_KEY)
+                        this._settings.getOption('i', Settings.FILE_CONTAINER_SETTING_KEY)
                     )
                 );
 
                 // update fps
-                Settings.setOption(
+                this._settings.setOption(
                     Settings.FPS_SETTING_KEY,
                     UtilGSP.getFps(
                         roundTmp,
-                        Settings.getOption('i', Settings.FILE_CONTAINER_SETTING_KEY)
+                        this._settings.getOption('i', Settings.FILE_CONTAINER_SETTING_KEY)
                     )
                 );
             }
@@ -415,7 +408,7 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
         );
         refSwitchCustomGSP.connect('state-set', () => {
             // update GSP text area
-            ctx._setStateGSP(Settings.getOption('b', Settings.ACTIVE_CUSTOM_GSP_SETTING_KEY));
+            ctx._setStateGSP(this._settings.getOption('b', Settings.ACTIVE_CUSTOM_GSP_SETTING_KEY));
         });
 
         ctx.Ref_stack_Quality = gtkDB.get_object('stk_Quality');
@@ -456,7 +449,7 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
                 let Caps = ctx.Ref_ListStore_QualityWebCam.get_value(iter, 0);
                 Lib.TalkativeLog(`-^-treeview row selected : ${Caps}`);
 
-                Settings.setOption(Settings.QUALITY_WEBCAM_SETTING_KEY, Caps);
+                this._settings.setOption(Settings.QUALITY_WEBCAM_SETTING_KEY, Caps);
 
                 // update label webcam caps
                 ctx.Ref_Label_WebCamCaps.set_ellipsize(Pango.EllipsizeMode.END);
@@ -465,7 +458,7 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
         });
 
         // fill combobox with quality option webcam
-        ctx._updateWebCamCaps(Settings.getOption('i', Settings.DEVICE_INDEX_WEBCAM_SETTING_KEY));
+        ctx._updateWebCamCaps(this._settings.getOption('i', Settings.DEVICE_INDEX_WEBCAM_SETTING_KEY));
 
         // implements webcam corner position option
         let refComboboxCornerWebCam = gtkDB.get_object('cbt_WebCamCorner');
@@ -625,14 +618,14 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
                 var [h, w] = ctx._getResolutionPreset(activeRes);
 
                 // update width/height
-                Settings.setOption(Settings.FILE_RESOLUTION_HEIGHT_SETTING_KEY, h);
-                Settings.setOption(Settings.FILE_RESOLUTION_WIDTH_SETTING_KEY, w);
+                this._settings.setOption(Settings.FILE_RESOLUTION_HEIGHT_SETTING_KEY, h);
+                this._settings.setOption(Settings.FILE_RESOLUTION_WIDTH_SETTING_KEY, w);
                 Lib.TalkativeLog(`-^-Res changed h: ${h} w: ${w}`);
             }
         });
 
         // load file resolution pref and upadte UI
-        var tmpRes = Settings.getOption('i', Settings.FILE_RESOLUTION_TYPE_SETTING_KEY);
+        var tmpRes = this._settings.getOption('i', Settings.FILE_RESOLUTION_TYPE_SETTING_KEY);
         if (tmpRes < 0) {
             refStackFileResolution.set_visible_child_name('native');
         } else if (tmpRes === 999) {
@@ -650,13 +643,13 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
 
             if (page === 'native') {
                 // set option to -1
-                Settings.setOption(Settings.FILE_RESOLUTION_TYPE_SETTING_KEY, -1);
+                this._settings.setOption(Settings.FILE_RESOLUTION_TYPE_SETTING_KEY, -1);
             } else if (page === 'preset') {
                 // set option to fullHD 16:9
-                Settings.setOption(Settings.FILE_RESOLUTION_TYPE_SETTING_KEY, 8);
+                this._settings.setOption(Settings.FILE_RESOLUTION_TYPE_SETTING_KEY, 8);
             } else if (page === 'custom') {
                 // set option to 99
-                Settings.setOption(Settings.FILE_RESOLUTION_TYPE_SETTING_KEY, 999);
+                this._settings.setOption(Settings.FILE_RESOLUTION_TYPE_SETTING_KEY, 999);
             } else {
                 Lib.TalkativeLog('-^-page error');
             }
@@ -710,14 +703,14 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
         refScaleWidthRes.set_valign(Gtk.Align.START);
         refScaleWidthRes.set_adjustment(adjustmentResWidth);
         refScaleWidthRes.set_digits(0);
-        refScaleWidthRes.set_value(Settings.getOption('i', Settings.FILE_RESOLUTION_WIDTH_SETTING_KEY));
+        refScaleWidthRes.set_value(this._settings.getOption('i', Settings.FILE_RESOLUTION_WIDTH_SETTING_KEY));
 
         // implements resolution height scale option
         let refScaleHeightRes = gtkDB.get_object('scl_ResHeight');
         refScaleHeightRes.set_valign(Gtk.Align.START);
         refScaleHeightRes.set_adjustment(adjustmentResHeight);
         refScaleHeightRes.set_digits(0);
-        refScaleHeightRes.set_value(Settings.getOption('i', Settings.FILE_RESOLUTION_HEIGHT_SETTING_KEY));
+        refScaleHeightRes.set_value(this._settings.getOption('i', Settings.FILE_RESOLUTION_HEIGHT_SETTING_KEY));
 
         // add marks on width/height file resolution
         let ind = 0;
@@ -730,7 +723,7 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
         // implements file folder string rec option
         let refFilechooserFileFolder = gtkDB.get_object('fcb_FilePathRec');
         // check state initial value
-        var tmpFolder = Settings.getOption('s', Settings.FILE_FOLDER_SETTING_KEY);
+        var tmpFolder = this._settings.getOption('s', Settings.FILE_FOLDER_SETTING_KEY);
         Lib.TalkativeLog(`-^-folder for screencast: ${tmpFolder}`);
         if (tmpFolder === '' || tmpFolder === null || tmpFolder === undefined) {
             let result = null;
@@ -766,7 +759,7 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
             }
 
             // connect keywebcam signal
-            Settings.settings.connect(
+            this._settings._settings.connect(
                 `changed::${Settings.DEVICE_INDEX_WEBCAM_SETTING_KEY}`,
                 () => {
                     Lib.TalkativeLog('-^-webcam device changed');
@@ -791,7 +784,7 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
                     if (response === Gtk.ResponseType.ACCEPT) {
                         var tmpPathFolder = self.get_file().get_path();
                         Lib.TalkativeLog(`-^-file path get from widget : ${tmpPathFolder}`);
-                        Settings.setOption(
+                        this._settings.setOption(
                             Settings.FILE_FOLDER_SETTING_KEY,
                             tmpPathFolder
                         );
@@ -809,7 +802,7 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
                 var tmpPathFolder = self.get_filename();
                 Lib.TalkativeLog(`-^-file path get from widget : ${tmpPathFolder}`);
                 if (tmpPathFolder !== null) {
-                    Settings.setOption(
+                    this._settings.setOption(
                         Settings.FILE_FOLDER_SETTING_KEY,
                         tmpPathFolder
                     );
@@ -836,6 +829,12 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
             refSwitchVerboseDebug,
             'active',
             Gio.SettingsBindFlags.DEFAULT
+        );
+        this._settings._settings.connect(
+            `changed::${Settings.VERBOSE_DEBUG_SETTING_KEY}`,
+            () => {
+                Lib.debugEnabled = this._settings.getOption('b', Settings.VERBOSE_DEBUG_SETTING_KEY);
+            }
         );
 
         refSwitchVerboseDebug.connect('state-set', self => {
@@ -955,7 +954,7 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
         });
 
         // update state of get log
-        refComboboxLogChooser.sensistive = Settings.getOption('b', Settings.VERBOSE_DEBUG_SETTING_KEY);
+        refComboboxLogChooser.sensistive = this._settings.getOption('b', Settings.VERBOSE_DEBUG_SETTING_KEY);
 
         // implements default button action
         let refButtonSetDefaultSettings = gtkDB.get_object('btn_DefaultOption');
@@ -1002,12 +1001,12 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
             } else {
                 Lib.TalkativeLog('-^-NO List Caps Webcam');
                 this.Ref_ListStore_QualityWebCam.clear();
-                Settings.setOption(Settings.QUALITY_WEBCAM_SETTING_KEY, '');
+                this._settings.setOption(Settings.QUALITY_WEBCAM_SETTING_KEY, '');
             }
         } else {
             Lib.TalkativeLog('-^-NO Webcam recording');
             this.Ref_ListStore_QualityWebCam.clear();
-            Settings.setOption(Settings.QUALITY_WEBCAM_SETTING_KEY, '');
+            this._settings.setOption(Settings.QUALITY_WEBCAM_SETTING_KEY, '');
         }
     }
 
@@ -1021,7 +1020,7 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
         this._initializeWebcamHelper();
 
         // fill combobox with quality option webcam
-        this._updateWebCamCaps(Settings.getOption('i', Settings.DEVICE_INDEX_WEBCAM_SETTING_KEY));
+        this._updateWebCamCaps(this._settings.getOption('i', Settings.DEVICE_INDEX_WEBCAM_SETTING_KEY));
 
         // update webcam widget state
         this._updateStateWebcamOptions();
@@ -1086,11 +1085,11 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
             this.Ref_stack_Quality.set_visible_child_name('pg_Preset');
 
             var audio = false;
-            if (Settings.getOption('i', Settings.INPUT_AUDIO_SOURCE_SETTING_KEY) > 0) {
+            if (this._settings.getOption('i', Settings.INPUT_AUDIO_SOURCE_SETTING_KEY) > 0) {
                 audio = true;
             }
 
-            Settings.setOption(
+            this._settings.setOption(
                 Settings.PIPELINE_REC_SETTING_KEY,
                 Settings.getGSPstd(audio)
             );
@@ -1103,7 +1102,7 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
     _updateStateWebcamOptions() {
         Lib.TalkativeLog('-^-update webcam option widgets');
 
-        var tmpDev = Settings.getOption(
+        var tmpDev = this._settings.getOption(
             'i',
             Settings.DEVICE_INDEX_WEBCAM_SETTING_KEY
         );
@@ -1113,7 +1112,7 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
             this.Ref_Label_WebCam.set_text(arrDev[tmpDev - 1]);
 
             // setup label webcam caps
-            var tmpCaps = Settings.getOption(
+            var tmpCaps = this._settings.getOption(
                 's',
                 Settings.QUALITY_WEBCAM_SETTING_KEY
             );
@@ -1177,42 +1176,49 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
     _setDefaultsettings() {
         Lib.TalkativeLog('-^-restore default option');
 
-        Settings.setOption(Settings.SHOW_NOTIFY_ALERT_SETTING_KEY, true);
-        Settings.setOption(Settings.SHOW_AREA_REC_SETTING_KEY, false);
-        Settings.setOption(Settings.STATUS_INDICATORS_SETTING_KEY, 1);
-        Settings.setOption(Settings.DRAW_CURSOR_SETTING_KEY, true);
-        Settings.setOption(Settings.VERBOSE_DEBUG_SETTING_KEY, false);
-        Settings.setOption(Settings.ACTIVE_CUSTOM_GSP_SETTING_KEY, false);
+        this._settings.setOption(Settings.SHOW_NOTIFY_ALERT_SETTING_KEY, true);
+        this._settings.setOption(Settings.SHOW_AREA_REC_SETTING_KEY, false);
+        this._settings.setOption(Settings.STATUS_INDICATORS_SETTING_KEY, 1);
+        this._settings.setOption(Settings.DRAW_CURSOR_SETTING_KEY, true);
+        this._settings.setOption(Settings.VERBOSE_DEBUG_SETTING_KEY, false);
+        this._settings.setOption(Settings.ACTIVE_CUSTOM_GSP_SETTING_KEY, false);
 
-        Settings.setOption(Settings.FPS_SETTING_KEY, 30);
-        Settings.setOption(Settings.X_POS_SETTING_KEY, 0);
-        Settings.setOption(Settings.Y_POS_SETTING_KEY, 0);
-        Settings.setOption(Settings.WIDTH_SETTING_KEY, 600);
-        Settings.setOption(Settings.HEIGHT_SETTING_KEY, 400);
+        this._settings.setOption(Settings.FPS_SETTING_KEY, 30);
+        this._settings.setOption(Settings.X_POS_SETTING_KEY, 0);
+        this._settings.setOption(Settings.Y_POS_SETTING_KEY, 0);
+        this._settings.setOption(Settings.WIDTH_SETTING_KEY, 600);
+        this._settings.setOption(Settings.HEIGHT_SETTING_KEY, 400);
 
-        Settings.setOption(Settings.FILE_NAME_SETTING_KEY, 'Screencast_%d_%t');
-        Settings.setOption(Settings.FILE_FOLDER_SETTING_KEY, '');
-        Settings.setOption(Settings.ACTIVE_POST_CMD_SETTING_KEY, false);
-        Settings.setOption(Settings.ACTIVE_PRE_CMD_SETTING_KEY, false);
-        Settings.setOption(Settings.POST_CMD_SETTING_KEY, 'xdg-open _fpath &');
-        Settings.setOption(Settings.INPUT_AUDIO_SOURCE_SETTING_KEY, 0);
-        Settings.setOption(Settings.DEVICE_INDEX_WEBCAM_SETTING_KEY, 0);
-        Settings.setOption(Settings.DEVICE_WEBCAM_SETTING_KEY, '');
+        this._settings.setOption(Settings.FILE_NAME_SETTING_KEY, 'Screencast_%d_%t');
+        this._settings.setOption(Settings.FILE_FOLDER_SETTING_KEY, '');
+        this._settings.setOption(Settings.ACTIVE_POST_CMD_SETTING_KEY, false);
+        this._settings.setOption(Settings.ACTIVE_PRE_CMD_SETTING_KEY, false);
+        this._settings.setOption(Settings.POST_CMD_SETTING_KEY, 'xdg-open _fpath &');
+        this._settings.setOption(Settings.INPUT_AUDIO_SOURCE_SETTING_KEY, 0);
+        this._settings.setOption(Settings.DEVICE_INDEX_WEBCAM_SETTING_KEY, 0);
+        this._settings.setOption(Settings.DEVICE_WEBCAM_SETTING_KEY, '');
 
-        Settings.setOption(Settings.TIME_DELAY_SETTING_KEY, 0);
-        Settings.setOption(Settings.FILE_CONTAINER_SETTING_KEY, 0);
-        Settings.setOption(Settings.FILE_RESOLUTION_TYPE_SETTING_KEY, -1);
-        Settings.setOption(Settings.QUALITY_SETTING_KEY, 1);
-        Settings.setOption(Settings.QUALITY_WEBCAM_SETTING_KEY, '');
-        Settings.setOption(Settings.WIDTH_WEBCAM_SETTING_KEY, 20);
-        Settings.setOption(Settings.HEIGHT_WEBCAM_SETTING_KEY, 10);
-        Settings.setOption(Settings.TYPE_UNIT_WEBCAM_SETTING_KEY, 0);
-        Settings.setOption(Settings.MARGIN_X_WEBCAM_SETTING_KEY, 0);
-        Settings.setOption(Settings.MARGIN_Y_WEBCAM_SETTING_KEY, 0);
-        Settings.setOption(Settings.ALPHA_CHANNEL_WEBCAM_SETTING_KEY, 0.75);
-        Settings.setOption(Settings.CORNER_POSITION_WEBCAM_SETTING_KEY, 0);
+        this._settings.setOption(Settings.TIME_DELAY_SETTING_KEY, 0);
+        this._settings.setOption(Settings.FILE_CONTAINER_SETTING_KEY, 0);
+        this._settings.setOption(Settings.FILE_RESOLUTION_TYPE_SETTING_KEY, -1);
+        this._settings.setOption(Settings.QUALITY_SETTING_KEY, 1);
+        this._settings.setOption(Settings.QUALITY_WEBCAM_SETTING_KEY, '');
+        this._settings.setOption(Settings.WIDTH_WEBCAM_SETTING_KEY, 20);
+        this._settings.setOption(Settings.HEIGHT_WEBCAM_SETTING_KEY, 10);
+        this._settings.setOption(Settings.TYPE_UNIT_WEBCAM_SETTING_KEY, 0);
+        this._settings.setOption(Settings.MARGIN_X_WEBCAM_SETTING_KEY, 0);
+        this._settings.setOption(Settings.MARGIN_Y_WEBCAM_SETTING_KEY, 0);
+        this._settings.setOption(Settings.ALPHA_CHANNEL_WEBCAM_SETTING_KEY, 0.75);
+        this._settings.setOption(Settings.CORNER_POSITION_WEBCAM_SETTING_KEY, 0);
     }
 });
+
+/**
+ *
+ */
+function init() {
+    ExtensionUtils.initTranslations();
+}
 
 /**
  * @returns {EasyScreenCastSettingsWidget}

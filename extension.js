@@ -61,7 +61,16 @@ const EasyScreenCastIndicator = GObject.registerClass({
     _init() {
         super._init(null, 'EasyScreenCast_Indicator');
 
-        this.CtrlAudio = UtilAudio.getInstance();
+        this._settings = new Settings.Settings();
+        Lib.debugEnabled = this._settings.getOption('b', Settings.VERBOSE_DEBUG_SETTING_KEY);
+        this._settings._settings.connect(
+            `changed::${Settings.VERBOSE_DEBUG_SETTING_KEY}`,
+            () => {
+                Lib.debugEnabled = this._settings.getOption('b', Settings.VERBOSE_DEBUG_SETTING_KEY);
+            }
+        );
+
+        this.CtrlAudio = new UtilAudio.MixerAudio();
         this.CtrlWebcam = new UtilWebcam.HelperWebcam();
 
         this.CtrlNotify = new UtilNotify.NotifyManager();
@@ -70,8 +79,8 @@ const EasyScreenCastIndicator = GObject.registerClass({
         // check audio
         if (!this.CtrlAudio.checkAudio()) {
             Lib.TalkativeLog('-*-disable audio recording');
-            Settings.setOption(Settings.INPUT_AUDIO_SOURCE_SETTING_KEY, 0);
-            Settings.setOption(
+            this._settings.setOption(Settings.INPUT_AUDIO_SOURCE_SETTING_KEY, 0);
+            this._settings.setOption(
                 Settings.ACTIVE_CUSTOM_GSP_SETTING_KEY,
                 Settings.getGSPstd(false)
             );
@@ -85,7 +94,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
         );
 
         // prepare setting var
-        if (Settings.getOption('i', Settings.TIME_DELAY_SETTING_KEY) > 0) {
+        if (this._settings.getOption('i', Settings.TIME_DELAY_SETTING_KEY) > 0) {
             this.isDelayActive = true;
         } else {
             this.isDelayActive = false;
@@ -202,7 +211,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
                 this.menu.close();
             }
 
-            this.isShowNotify = Settings.getOption('b', Settings.SHOW_NOTIFY_ALERT_SETTING_KEY);
+            this.isShowNotify = this._settings.getOption('b', Settings.SHOW_NOTIFY_ALERT_SETTING_KEY);
             this._doRecording();
         }
     }
@@ -243,7 +252,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
             this.smWebCam.menu.addMenuItem(arrMI[element]);
         }
 
-        let i = Settings.getOption('i', Settings.DEVICE_INDEX_WEBCAM_SETTING_KEY);
+        let i = this._settings.getOption('i', Settings.DEVICE_INDEX_WEBCAM_SETTING_KEY);
         Lib.TalkativeLog(`-*-populated submenuwebcam. Settings i=${i}`);
 
         this.smWebCam.label.text = this.WebCamDevice[i];
@@ -266,7 +275,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
         this.imRecordAction.x_fill = true;
         this.imRecordAction.x_align = Clutter.ActorAlign.CENTER;
         this.imRecordAction.connect('activate', () => {
-            this.isShowNotify = Settings.getOption('b', Settings.SHOW_NOTIFY_ALERT_SETTING_KEY);
+            this.isShowNotify = this._settings.getOption('b', Settings.SHOW_NOTIFY_ALERT_SETTING_KEY);
             this._doRecording();
         });
 
@@ -310,7 +319,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
             this.sub_menu_area_recording.menu.addMenuItem(arrMI[ele]);
         }
 
-        this.sub_menu_area_recording.label.text = this.AreaType[Settings.getOption('i', Settings.AREA_SCREEN_SETTING_KEY)];
+        this.sub_menu_area_recording.label.text = this.AreaType[this._settings.getOption('i', Settings.AREA_SCREEN_SETTING_KEY)];
         this.menu.addMenuItem(this.sub_menu_area_recording);
     }
 
@@ -326,7 +335,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
             this.smDelayRec.menu.addMenuItem(arrMI[ele]);
         }
 
-        var secDelay = Settings.getOption('i', Settings.TIME_DELAY_SETTING_KEY);
+        var secDelay = this._settings.getOption('i', Settings.TIME_DELAY_SETTING_KEY);
         if (secDelay > 0) {
             this.smDelayRec.label.text =
                 secDelay + _(' sec. delay before recording');
@@ -362,11 +371,11 @@ const EasyScreenCastIndicator = GObject.registerClass({
                 }
             );
 
-            (function (areaSetting, arr, item) {
+            (function (areaSetting, arr, item, settings) {
                 this.connectMI = function () {
                     this.connect('activate', () => {
                         Lib.TalkativeLog(`-*-set area recording to ${areaSetting} ${arr[areaSetting]}`);
-                        Settings.setOption(Settings.AREA_SCREEN_SETTING_KEY, areaSetting);
+                        settings.setOption(Settings.AREA_SCREEN_SETTING_KEY, areaSetting);
 
                         item.label.text = arr[areaSetting];
                     });
@@ -376,7 +385,8 @@ const EasyScreenCastIndicator = GObject.registerClass({
                 this.AreaMenuItem[i],
                 i,
                 this.AreaType,
-                this.sub_menu_area_recording
+                this.sub_menu_area_recording,
+                this._settings
             ));
         }
 
@@ -416,12 +426,12 @@ const EasyScreenCastIndicator = GObject.registerClass({
                 }
             );
 
-            (function (index, devPath, arr, item) {
+            (function (index, devPath, arr, item, settings) {
                 this.connectMI = function () {
                     this.connect('activate', () => {
                         Lib.TalkativeLog(`-*-set webcam device to ${index} ${arr[index]} devicePath=${devPath}`);
-                        Settings.setOption(Settings.DEVICE_INDEX_WEBCAM_SETTING_KEY, index);
-                        Settings.setOption(Settings.DEVICE_WEBCAM_SETTING_KEY, devPath);
+                        settings.setOption(Settings.DEVICE_INDEX_WEBCAM_SETTING_KEY, index);
+                        settings.setOption(Settings.DEVICE_WEBCAM_SETTING_KEY, devPath);
                         item.label.text = arr[index];
                     });
                 };
@@ -431,7 +441,8 @@ const EasyScreenCastIndicator = GObject.registerClass({
                 i,
                 devicePath,
                 this.WebCamDevice,
-                this.smWebCam
+                this.smWebCam,
+                this._settings
             ));
         }
 
@@ -495,17 +506,17 @@ const EasyScreenCastIndicator = GObject.registerClass({
             );
 
             // update choice audio from pref
-            if (i === Settings.getOption('i', Settings.INPUT_AUDIO_SOURCE_SETTING_KEY)) {
+            if (i === this._settings.getOption('i', Settings.INPUT_AUDIO_SOURCE_SETTING_KEY)) {
                 Lib.TalkativeLog(`-*-get audio choice from pref ${i}`);
                 this.sub_menu_audio_recording.label.text = this.AudioChoice[i].desc;
             }
 
             // add action on menu item
-            (function (audioIndex, arr, item) {
+            (function (audioIndex, arr, item, settings) {
                 this.connectMI = function () {
                     this.connect('activate', () => {
                         Lib.TalkativeLog(`-*-set audio choice to ${audioIndex}`);
-                        Settings.setOption(Settings.INPUT_AUDIO_SOURCE_SETTING_KEY, audioIndex);
+                        settings.setOption(Settings.INPUT_AUDIO_SOURCE_SETTING_KEY, audioIndex);
                         item.label.text = arr[audioIndex].desc;
                     });
                 };
@@ -514,7 +525,8 @@ const EasyScreenCastIndicator = GObject.registerClass({
                 this.AudioMenuItem[i],
                 i,
                 this.AudioChoice,
-                this.sub_menu_audio_recording
+                this.sub_menu_audio_recording,
+                this._settings
             ));
         }
         return this.AudioMenuItem;
@@ -532,7 +544,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
         this.DelayTimeLabel = new St.Label({
             text:
                 Math.floor(
-                    Settings.getOption('i', Settings.TIME_DELAY_SETTING_KEY)
+                    this._settings.getOption('i', Settings.TIME_DELAY_SETTING_KEY)
                 ).toString() + _(' Sec'),
         });
         this.DelayTimeTitle.actor.add_child(this.DelayTimeLabel);
@@ -541,7 +553,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
         this.imSliderDelay = new PopupMenu.PopupBaseMenuItem({
             activate: false,
         });
-        this.TimeSlider = new Slider.Slider(Settings.getOption('i', Settings.TIME_DELAY_SETTING_KEY) / 100);
+        this.TimeSlider = new Slider.Slider(this._settings.getOption('i', Settings.TIME_DELAY_SETTING_KEY) / 100);
         this.TimeSlider.x_expand = true;
         this.TimeSlider.y_expand = true;
 
@@ -568,10 +580,10 @@ const EasyScreenCastIndicator = GObject.registerClass({
         // enable key binding
         this._enableKeybindings();
         // immediately activate/deactive shortcut on settings change
-        Settings.settings.connect(
+        this._settings._settings.connect(
             `changed::${Settings.ACTIVE_SHORTCUT_SETTING_KEY}`,
             () => {
-                if (Settings.getOption('b', Settings.ACTIVE_SHORTCUT_SETTING_KEY)) {
+                if (this._settings.getOption('b', Settings.ACTIVE_SHORTCUT_SETTING_KEY)) {
                     Lib.TalkativeLog('-^-shortcut changed - enabling');
                     this._enableKeybindings();
                 } else {
@@ -624,10 +636,10 @@ const EasyScreenCastIndicator = GObject.registerClass({
      * @private
      */
     _doPreCommand() {
-        if (Settings.getOption('b', Settings.ACTIVE_PRE_CMD_SETTING_KEY)) {
+        if (this._settings.getOption('b', Settings.ACTIVE_PRE_CMD_SETTING_KEY)) {
             Lib.TalkativeLog('-*-execute pre command');
 
-            const PreCmd = Settings.getOption('s', Settings.PRE_CMD_SETTING_KEY);
+            const PreCmd = this._settings.getOption('s', Settings.PRE_CMD_SETTING_KEY);
 
             this.CtrlExe.Execute(
                 PreCmd,
@@ -665,7 +677,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
             pathFile = '';
 
             // get selected area
-            const optArea = Settings.getOption('i', Settings.AREA_SCREEN_SETTING_KEY);
+            const optArea = this._settings.getOption('i', Settings.AREA_SCREEN_SETTING_KEY);
             if (optArea > 0) {
                 Lib.TalkativeLog(`-*-type of selection of the area to record: ${optArea}`);
                 switch (optArea) {
@@ -706,11 +718,11 @@ const EasyScreenCastIndicator = GObject.registerClass({
      * @private
      */
     _doPostCommand() {
-        if (Settings.getOption('b', Settings.ACTIVE_POST_CMD_SETTING_KEY)) {
+        if (this._settings.getOption('b', Settings.ACTIVE_POST_CMD_SETTING_KEY)) {
             Lib.TalkativeLog('-*-execute post command');
 
             // launch cmd after registration
-            const tmpCmd = `/usr/bin/sh -c "${Settings.getOption('s', Settings.POST_CMD_SETTING_KEY)}"`;
+            const tmpCmd = `/usr/bin/sh -c "${this._settings.getOption('s', Settings.POST_CMD_SETTING_KEY)}"`;
 
             const mapObj = {
                 _fpath: pathFile,
@@ -742,7 +754,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
 
             Lib.TalkativeLog('-*-record OK');
             // update indicator
-            const indicators = Settings.getOption('i', Settings.STATUS_INDICATORS_SETTING_KEY);
+            const indicators = this._settings.getOption('i', Settings.STATUS_INDICATORS_SETTING_KEY);
             this._replaceStdIndicator(indicators === 1 || indicators === 3);
 
             if (this.isShowNotify) {
@@ -820,7 +832,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
      */
     _onDelayTimeChanged() {
         const secDelay = Math.floor(this.TimeSlider.value * 100);
-        Settings.setOption(Settings.TIME_DELAY_SETTING_KEY, secDelay);
+        this._settings.setOption(Settings.TIME_DELAY_SETTING_KEY, secDelay);
         if (secDelay > 0) {
             this.smDelayRec.label.text = secDelay + _(' sec. delay before recording');
         } else {
@@ -834,7 +846,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
     refreshIndicator(focus) {
         Lib.TalkativeLog(`-*-refresh indicator -A ${isActive} -F ${focus}`);
 
-        const indicators = Settings.getOption('i', Settings.STATUS_INDICATORS_SETTING_KEY);
+        const indicators = this._settings.getOption('i', Settings.STATUS_INDICATORS_SETTING_KEY);
 
         if (isActive === true) {
             if (indicators === 0 || indicators === 1) {
@@ -843,7 +855,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
                 } else {
                     this.indicatorIcon.set_gicon(Lib.ESConGIcon);
                 }
-            } else if (Settings.getOption('b', Settings.ACTIVE_SHORTCUT_SETTING_KEY)) {
+            } else if (this._settings.getOption('b', Settings.ACTIVE_SHORTCUT_SETTING_KEY)) {
                 this.indicatorIcon.set_gicon(null);
             } else if (focus === true) {
                 this.indicatorIcon.set_gicon(Lib.ESConGIconSel);
@@ -885,12 +897,12 @@ const EasyScreenCastIndicator = GObject.registerClass({
      * @private
      */
     _enableKeybindings() {
-        if (Settings.getOption('b', Settings.ACTIVE_SHORTCUT_SETTING_KEY)) {
+        if (this._settings.getOption('b', Settings.ACTIVE_SHORTCUT_SETTING_KEY)) {
             Lib.TalkativeLog('-*-enable keybinding');
 
             Main.wm.addKeybinding(
                 Settings.SHORTCUT_KEY_SETTING_KEY,
-                Settings.settings,
+                this._settings,
                 Meta.KeyBindingFlags.NONE,
                 Shell.ActionMode.NORMAL |
                     Shell.ActionMode.MESSAGE_TRAY |
@@ -916,6 +928,29 @@ const EasyScreenCastIndicator = GObject.registerClass({
         }
     }
 
+    getSelectedRect() {
+        var recX = this._settings.getOption('i', Settings.X_POS_SETTING_KEY);
+        var recY = this._settings.getOption('i', Settings.Y_POS_SETTING_KEY);
+        var recW = this._settings.getOption('i', Settings.WIDTH_SETTING_KEY);
+        var recH = this._settings.getOption('i', Settings.HEIGHT_SETTING_KEY);
+        return [recX, recY, recW, recH];
+    }
+
+    saveSelectedRect(x, y, h, w) {
+        this._settings.setOption(Settings.X_POS_SETTING_KEY, x);
+        this._settings.setOption(Settings.Y_POS_SETTING_KEY, y);
+        this._settings.setOption(Settings.HEIGHT_SETTING_KEY, h);
+        this._settings.setOption(Settings.WIDTH_SETTING_KEY, w);
+    }
+
+    getSettings() {
+        return this._settings;
+    }
+
+    getAudioSource() {
+        return this.CtrlAudio.getAudioSource();
+    }
+
     /**
      * Destroy indicator
      */
@@ -924,6 +959,11 @@ const EasyScreenCastIndicator = GObject.registerClass({
 
         if (isActive) {
             isActive = false;
+        }
+
+        if (this._settings) {
+            this._settings.destory();
+            this._settings = null;
         }
 
         super.destroy();

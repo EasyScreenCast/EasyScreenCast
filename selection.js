@@ -39,7 +39,6 @@ const Domain = imports.gettext.domain(Me.metadata.uuid);
 const _ = Domain.gettext;
 
 const Lib = Me.imports.convenience;
-const Settings = Me.imports.settings;
 const Ext = Me.imports.extension;
 const UtilNotify = Me.imports.utilnotify;
 const DisplayApi = Me.imports.display_module.DisplayApi;
@@ -198,11 +197,7 @@ const Capture = GObject.registerClass({
     _saveRect(x, y, h, w) {
         Lib.TalkativeLog(`-£-selection x:${x} y:${y} height:${h} width:${w}`);
 
-        Settings.setOption(Settings.X_POS_SETTING_KEY, x);
-        Settings.setOption(Settings.Y_POS_SETTING_KEY, y);
-        Settings.setOption(Settings.HEIGHT_SETTING_KEY, h);
-        Settings.setOption(Settings.WIDTH_SETTING_KEY, w);
-
+        Ext.Indicator.saveSelectedRect(x, y, h, w);
         Ext.Indicator._doDelayAction();
     }
 
@@ -442,11 +437,7 @@ var AreaRecording = GObject.registerClass({
             y: -10,
         });
 
-        var recX = Settings.getOption('i', Settings.X_POS_SETTING_KEY);
-        var recY = Settings.getOption('i', Settings.Y_POS_SETTING_KEY);
-        var recW = Settings.getOption('i', Settings.WIDTH_SETTING_KEY);
-        var recH = Settings.getOption('i', Settings.HEIGHT_SETTING_KEY);
-
+        var [recX, recY, recW, recH] = Ext.Indicator.getSelectedRect();
         var tmpH = Main.layoutManager.currentMonitor.height;
         var tmpW = Main.layoutManager.currentMonitor.width;
 

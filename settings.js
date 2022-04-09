@@ -10,9 +10,10 @@
     FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
 */
 
-/* exported setOption,getGSPstd,getOption,settings */
+/* exported getGSPstd,Settings */
 'use strict';
 
+const GObject = imports.gi.GObject;
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 
@@ -70,33 +71,78 @@ var SHORTCUT_COLUMN_MODS = 1;
 /* eslint-enable no-unused-vars */
 
 
-var settings = null;
-
-/**
- * getter option
- *
- * @param {string} type value type of the option. one of 'b', 'i', 's', 'd', 'as'
- * @param {string} key option key
- * @returns {string}
- */
-function getOption(type, key) {
-    checkSettings();
-
-    switch (type) {
-    case 'b':
-        return settings.get_boolean(key);
-    case 'i':
-        return settings.get_int(key);
-    case 's':
-        return settings.get_string(key);
-    case 'd':
-        return settings.get_double(key);
-    case 'as':
-        return settings.get_strv(key);
+var Settings = GObject.registerClass(class EasyScreenCastSettings extends GObject.Object {
+    _init() {
+        this._settings = ExtensionUtils.getSettings();
     }
 
-    return '';
-}
+    /**
+     * getter option
+     *
+     * @param {string} type value type of the option. one of 'b', 'i', 's', 'd', 'as'
+     * @param {string} key option key
+     * @returns {string}
+     */
+    getOption(type, key) {
+        switch (type) {
+        case 'b':
+            return this._settings.get_boolean(key);
+        case 'i':
+            return this._settings.get_int(key);
+        case 's':
+            return this._settings.get_string(key);
+        case 'd':
+            return this._settings.get_double(key);
+        case 'as':
+            return this._settings.get_strv(key);
+        }
+
+        return '';
+    }
+
+    /**
+     * setter option
+     *
+     * @param {string} key option key
+     * @param {boolean|number|string|double|object} option option value
+     * @returns {string} empty string if successful, 'ERROR' otherwise
+     */
+    setOption(key, option) {
+        switch (typeof option) {
+        case 'boolean':
+            this._settings.set_boolean(key, option);
+            break;
+
+        case 'number':
+            this._settings.set_int(key, option);
+            break;
+
+        case 'string':
+            this._settings.set_string(key, option);
+            break;
+
+        case 'double':
+            this._settings.set_double(key, option);
+            break;
+
+        case 'object':
+            this._settings.set_strv(key, option);
+            break;
+
+        default:
+            return 'ERROR';
+        }
+        return '';
+    }
+
+    destroy() {
+        if (this._settings) {
+            this._settings.run_dispose();
+            this._settings = null;
+        }
+    }
+});
+
 
 /**
  * get a standard gsp pipeline
@@ -110,51 +156,5 @@ function getGSPstd(audio) {
         return 'queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! videorate ! vp8enc min_quantizer=0 max_quantizer=5 cpu-used=3 deadline=1000000 threads=%T ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mux. pulsesrc ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! audioconvert ! vorbisenc ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mux. webmmux name=mux ';
     } else {
         return 'vp9enc min_quantizer=0 max_quantizer=5 cpu-used=3 deadline=1000000 threads=%T ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! webmmux';
-    }
-}
-
-/**
- * setter option
- *
- * @param {string} key option key
- * @param {boolean|number|string|double|object} option option value
- * @returns {string} empty string if successful, 'ERROR' otherwise
- */
-function setOption(key, option) {
-    checkSettings();
-
-    switch (typeof option) {
-    case 'boolean':
-        settings.set_boolean(key, option);
-        break;
-
-    case 'number':
-        settings.set_int(key, option);
-        break;
-
-    case 'string':
-        settings.set_string(key, option);
-        break;
-
-    case 'double':
-        settings.set_double(key, option);
-        break;
-
-    case 'object':
-        settings.set_strv(key, option);
-        break;
-
-    default:
-        return 'ERROR';
-    }
-    return '';
-}
-
-/**
- *
- */
-function checkSettings() {
-    if (settings === null) {
-        settings = ExtensionUtils.getSettings('org.gnome.shell.extensions.EasyScreenCast');
     }
 }
