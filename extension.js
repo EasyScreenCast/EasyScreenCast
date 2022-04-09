@@ -982,11 +982,6 @@ const EasyScreenCastIndicator = GObject.registerClass({
  *
  */
 function init() {
-    Lib.TalkativeLog('-*-initExtension called');
-    Lib.TalkativeLog(`-*-version: ${Me.metadata.version}`);
-    Lib.TalkativeLog(`-*-install path: ${Me.path}`);
-    Lib.TalkativeLog(`-*-version (package.json): ${Lib.getFullVersion()}`);
-
     ExtensionUtils.initTranslations();
 }
 
@@ -995,6 +990,9 @@ function init() {
  */
 function enable() {
     Lib.TalkativeLog('-*-enableExtension called');
+    Lib.TalkativeLog(`-*-version: ${Me.metadata.version}`);
+    Lib.TalkativeLog(`-*-install path: ${Me.path}`);
+    Lib.TalkativeLog(`-*-version (package.json): ${Lib.getFullVersion()}`);
 
     if (Indicator === null || Indicator === undefined) {
         Lib.TalkativeLog('-*-create indicator');

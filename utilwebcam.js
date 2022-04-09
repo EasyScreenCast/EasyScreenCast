@@ -26,9 +26,6 @@ const _ = Domain.gettext;
 
 const Lib = Me.imports.convenience;
 
-let ListDevices = null;
-let ListCaps = null;
-
 var HelperWebcam = GObject.registerClass({
     GTypeName: 'EasyScreenCast_HelperWebcam',
 }, class HelperWebcam extends GObject.Object {
@@ -130,15 +127,15 @@ var HelperWebcam = GObject.registerClass({
     refreshAllInputVideo() {
         Lib.TalkativeLog('-@-refresh all video input');
 
-        ListDevices = this.getDevicesIV();
+        this._listDevices = this.getDevicesIV();
         // compose devices array
-        ListCaps = [];
-        for (var index in ListDevices) {
-            ListCaps[index] = this.getCapsForIV(ListDevices[index].caps);
+        this._listCaps = [];
+        for (var index in this._listDevices) {
+            this._listCaps[index] = this.getCapsForIV(this._listDevices[index].caps);
 
-            Lib.TalkativeLog(`-@-webcam /dev/video${index} name: ${ListDevices[index].display_name}`);
-            Lib.TalkativeLog(`-@-caps available: ${ListCaps[index].length}`);
-            Lib.TalkativeLog(`-@-ListCaps[${index}]: ${ListCaps[index]}`);
+            Lib.TalkativeLog(`-@-webcam /dev/video${index} name: ${this._listDevices[index].display_name}`);
+            Lib.TalkativeLog(`-@-caps available: ${this._listCaps[index].length}`);
+            Lib.TalkativeLog(`-@-ListCaps[${index}]: ${this._listCaps[index]}`);
         }
     }
 
@@ -271,11 +268,11 @@ var HelperWebcam = GObject.registerClass({
         Lib.TalkativeLog('-@-get name devices');
         let tmpArray = [];
 
-        for (var index in ListDevices) {
+        for (var index in this._listDevices) {
             var wcName = _('Unspecified webcam');
 
-            if (ListDevices[index].display_name !== '') {
-                wcName = ListDevices[index].display_name;
+            if (this._listDevices[index].display_name !== '') {
+                wcName = this._listDevices[index].display_name;
             }
 
             tmpArray.push(wcName);
@@ -292,7 +289,7 @@ var HelperWebcam = GObject.registerClass({
      * @returns {string[]}
      */
     getListCapsDevice(index) {
-        const tmpArray = ListCaps[index];
+        const tmpArray = this._listCaps[index];
         Lib.TalkativeLog(`-@-list caps of device: ${tmpArray}`);
         return tmpArray;
     }

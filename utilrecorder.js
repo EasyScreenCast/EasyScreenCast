@@ -31,9 +31,6 @@ const Selection = Me.imports.selection;
 const UtilGSP = Me.imports.utilgsp;
 const Ext = Me.imports.extension;
 
-const ScreenCastProxy = Gio.DBusProxy.makeProxyWrapper(ScreencastIface);
-let ScreenCastService = null;
-
 /**
  * @type {CaptureVideo}
  */
@@ -49,7 +46,8 @@ var CaptureVideo = GObject.registerClass({
         this.AreaSelected = null;
 
         // connect to d-bus service
-        ScreenCastService = new ScreenCastProxy(
+        const ScreenCastProxy = Gio.DBusProxy.makeProxyWrapper(ScreencastIface);
+        this._screenCastService = new ScreenCastProxy(
             Gio.DBus.session,
             'org.gnome.Shell.Screencast',
             '/org/gnome/Shell/Screencast',
@@ -118,7 +116,7 @@ var CaptureVideo = GObject.registerClass({
         };
 
         if (Ext.Indicator.getSettings().getOption('i', Settings.AREA_SCREEN_SETTING_KEY) === 0) {
-            ScreenCastService.ScreencastRemote(
+            this._screenCastService.ScreencastRemote(
                 fileRec,
                 optionsRec,
                 (result, error) => {
@@ -135,7 +133,7 @@ var CaptureVideo = GObject.registerClass({
                 }
             );
         } else {
-            ScreenCastService.ScreencastAreaRemote(
+            this._screenCastService.ScreencastAreaRemote(
                 Ext.Indicator.getSettings().getOption('i', Settings.X_POS_SETTING_KEY),
                 Ext.Indicator.getSettings().getOption('i', Settings.Y_POS_SETTING_KEY),
                 Ext.Indicator.getSettings().getOption('i', Settings.WIDTH_SETTING_KEY),
@@ -171,7 +169,7 @@ var CaptureVideo = GObject.registerClass({
     stop() {
         Lib.TalkativeLog('-&-stop video recording');
 
-        ScreenCastService.StopScreencastRemote((result, error) => {
+        this._screenCastService.StopScreencastRemote((result, error) => {
             if (error) {
                 Lib.TalkativeLog(`-&-ERROR(screencast stop) - ${error.message}`);
                 return false;
