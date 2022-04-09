@@ -39,7 +39,7 @@ const UtilExeCmd = Me.imports.utilexecmd;
  *
  */
 function init() {
-    ExtensionUtils.initTranslations(Me.metadata.uuid);
+    ExtensionUtils.initTranslations();
 }
 
 const EasyScreenCastSettingsWidget = GObject.registerClass({

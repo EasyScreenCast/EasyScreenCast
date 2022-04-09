@@ -939,7 +939,7 @@ function init() {
     Lib.TalkativeLog(`-*-install path: ${Me.path}`);
     Lib.TalkativeLog(`-*-version (package.json): ${Lib.getFullVersion()}`);
 
-    ExtensionUtils.initTranslations(Me.metadata.uuid);
+    ExtensionUtils.initTranslations();
 }
 
 /**

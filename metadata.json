@@ -6,6 +6,7 @@
     "42"
   ],
   "uuid": "EasyScreenCast@iacopodeenosee.gmail.com",
+  "gettext-domain": "EasyScreenCast@iacopodeenosee.gmail.com",
   "url": "https://github.com/EasyScreenCast/EasyScreenCast",
   "name": "EasyScreenCast",
   "version": "42",
