@@ -970,7 +970,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
         }
 
         if (this._settings) {
-            this._settings.destory();
+            this._settings.destroy();
             this._settings = null;
         }
 
