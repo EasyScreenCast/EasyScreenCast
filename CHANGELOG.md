@@ -6,9 +6,15 @@
 
 **🐛 Fixed bugs:**
 
+**Full Changelog**: <https://github.com/EasyScreenCast/EasyScreenCast/compare/1.6.2...HEAD>
+
+# v1.6.2 (44) (2022-04-11)
+
+**🐛 Fixed bugs:**
+
 * [#330](https://github.com/EasyScreenCast/EasyScreenCast/issues/330): TypeError: this._settings.destory is not a function
 
-**Full Changelog**: <https://github.com/EasyScreenCast/EasyScreenCast/compare/1.6.1...HEAD>
+**Full Changelog**: <https://github.com/EasyScreenCast/EasyScreenCast/compare/1.6.1...1.6.2>
 
 # v1.6.1 (43) (2022-04-09)
 
