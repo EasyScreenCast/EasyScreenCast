@@ -93,7 +93,7 @@ const Capture = GObject.registerClass({
 
         this._setCaptureCursor();
 
-        Main.sessionMode.connect('updated', () => this._updateDraw());
+        this._sessionId = Main.sessionMode.connect('updated', () => this._updateDraw());
     }
 
     /**
@@ -187,6 +187,10 @@ const Capture = GObject.registerClass({
             this._prevFocus.disconnect(this._prevFocusDestroyId);
             global.stage.set_key_focus(this._prevFocus);
             this._prevFocus = null;
+        }
+        if (this._sessionId) {
+            Main.sessionMode.disconnect(this._sessionId);
+            this._sessionId = null;
         }
         Main.uiGroup.remove_actor(this._areaResolution);
         this._areaSelection.destroy();
