@@ -79,8 +79,10 @@ const Capture = GObject.registerClass({
 
         Main.uiGroup.add_actor(this._areaResolution);
 
-        if (Main.pushModal(this._areaSelection)) {
-            this._signalCapturedEvent = global.stage.connect(
+        this._grab = Main.pushModal(this._areaSelection);
+
+        if (this._grab) {
+            this._signalCapturedEvent = this._areaSelection.connect(
                 'captured-event',
                 this._onCaptureEvent.bind(this)
             );
@@ -179,7 +181,7 @@ const Capture = GObject.registerClass({
         global.stage.disconnect(this._signalCapturedEvent);
         this._setDefaultCursor();
         Main.uiGroup.remove_actor(this._areaSelection);
-        Main.popModal(this._areaSelection);
+        Main.popModal(this._grab);
         Main.uiGroup.remove_actor(this._areaResolution);
         this._areaSelection.destroy();
         this.emit('stop');
