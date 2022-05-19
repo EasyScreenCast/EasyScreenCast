@@ -4,7 +4,11 @@
 
 **🎉 Merged pull requests:**
 
+* [#334](https://github.com/EasyScreenCast/EasyScreenCast/pull/334): Fix window and area selection ([@adangel](https://github.com/adangel))
+
 **🐛 Fixed bugs:**
+
+* [#333](https://github.com/EasyScreenCast/EasyScreenCast/issues/333): Window and area selections don't work in latest version of easyscreencast (v44)
 
 **Full Changelog**: <https://github.com/EasyScreenCast/EasyScreenCast/compare/1.6.2...HEAD>
 
