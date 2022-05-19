@@ -1,3 +1,13 @@
+# Next
+
+**🚀 Implemented enhancements:**
+
+**🎉 Merged pull requests:**
+
+**🐛 Fixed bugs:**
+
+**Full Changelog**: <https://github.com/EasyScreenCast/EasyScreenCast/compare/1.6.3...HEAD>
+
 # v1.6.3 (45) (2022-05-19)
 
 **🎉 Merged pull requests:**
