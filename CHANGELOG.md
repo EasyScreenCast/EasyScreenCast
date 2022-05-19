@@ -1,6 +1,4 @@
-# Next
-
-**🚀 Implemented enhancements:**
+# v1.6.3 (45) (2022-05-19)
 
 **🎉 Merged pull requests:**
 
@@ -10,7 +8,7 @@
 
 * [#333](https://github.com/EasyScreenCast/EasyScreenCast/issues/333): Window and area selections don't work in latest version of easyscreencast (v44)
 
-**Full Changelog**: <https://github.com/EasyScreenCast/EasyScreenCast/compare/1.6.2...HEAD>
+**Full Changelog**: <https://github.com/EasyScreenCast/EasyScreenCast/compare/1.6.2...1.6.3>
 
 # v1.6.2 (44) (2022-04-11)
 
