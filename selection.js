@@ -43,6 +43,9 @@ const Ext = Me.imports.extension;
 const UtilNotify = Me.imports.utilnotify;
 const DisplayApi = Me.imports.display_module.DisplayApi;
 
+const Config = imports.misc.config;
+const shellVersion = Number.parseInt(Config.PACKAGE_VERSION.split('.')[0]);
+
 /**
  * @type {Lang.Class}
  */
@@ -79,19 +82,28 @@ const Capture = GObject.registerClass({
 
         Main.uiGroup.add_actor(this._areaResolution);
 
-        this._signalCapturedEvent = global.stage.connect(
-            'captured-event',
-            this._onCaptureEvent.bind(this)
-        );
-        this._prevFocus = global.stage.get_key_focus();
-        if (this._prevFocus !== null) {
-            this._prevFocusDestroyId = this._prevFocus.connect('destroy', () => {
-                this._prevFocus = null;
-            });
-        }
-        global.stage.set_key_focus(this._areaSelection);
+        this._grab = Main.pushModal(this._areaSelection);
 
-        this._setCaptureCursor();
+        if (this._grab) {
+            if (shellVersion >= 42) {
+                this._signalCapturedEvent = this._areaSelection.connect(
+                    'captured-event',
+                    this._onCaptureEvent.bind(this)
+                );
+            } else {
+                this._grab = this._areaSelection;
+                this._signalCapturedEvent = global.stage.connect(
+                    'captured-event',
+                    this._onCaptureEvent.bind(this)
+                );
+            }
+
+
+
+            this._setCaptureCursor();
+        } else {
+            Lib.TalkativeLog('-£-Main.pushModal() === false');
+        }
 
         this._sessionId = Main.sessionMode.connect('updated', () => this._updateDraw());
     }
@@ -125,7 +137,6 @@ const Capture = GObject.registerClass({
     _onCaptureEvent(actor, event) {
         if (event.type() === Clutter.EventType.KEY_PRESS) {
             if (event.get_key_symbol() === Clutter.KEY_Escape) {
-                Lib.TalkativeLog('-£-capture selection stop with KEY_Escape');
                 this._stop();
             }
         }
@@ -180,18 +191,14 @@ const Capture = GObject.registerClass({
     _stop() {
         Lib.TalkativeLog('-£-capture selection stop');
 
-        global.stage.disconnect(this._signalCapturedEvent);
-        this._setDefaultCursor();
-        Main.uiGroup.remove_actor(this._areaSelection);
-        if (this._prevFocus) {
-            this._prevFocus.disconnect(this._prevFocusDestroyId);
-            global.stage.set_key_focus(this._prevFocus);
-            this._prevFocus = null;
-        }
         if (this._sessionId) {
             Main.sessionMode.disconnect(this._sessionId);
             this._sessionId = null;
         }
+        global.stage.disconnect(this._signalCapturedEvent);
+        this._setDefaultCursor();
+        Main.uiGroup.remove_actor(this._areaSelection);
+        Main.popModal(this._grab);
         Main.uiGroup.remove_actor(this._areaResolution);
         this._areaSelection.destroy();
         this.emit('stop');
