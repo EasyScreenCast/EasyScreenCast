@@ -104,15 +104,6 @@ const Capture = GObject.registerClass({
         } else {
             Lib.TalkativeLog('-£-Main.pushModal() === false');
         }
-
-        this._sessionId = Main.sessionMode.connect('updated', () => this._updateDraw());
-    }
-
-    /**
-     * @private
-     */
-    _updateDraw() {
-        Lib.TalkativeLog('-£-update draw capture');
     }
 
     /**
@@ -191,10 +182,6 @@ const Capture = GObject.registerClass({
     _stop() {
         Lib.TalkativeLog('-£-capture selection stop');
 
-        if (this._sessionId) {
-            Main.sessionMode.disconnect(this._sessionId);
-            this._sessionId = null;
-        }
         global.stage.disconnect(this._signalCapturedEvent);
         this._setDefaultCursor();
         Main.uiGroup.remove_actor(this._areaSelection);
