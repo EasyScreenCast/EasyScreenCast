@@ -50,7 +50,7 @@ msgstr ""
 
 #: extension.js:124 extension.js:456
 msgid "No audio source"
-msgstr "オーディオソースがありません"
+msgstr "オーディオソースなし"
 
 #: extension.js:135 Options_UI.glade.h:21 Options_UI.glade-gtk4.h:1
 msgid "Options"
@@ -62,7 +62,7 @@ msgstr "録画を開始"
 
 #: extension.js:331 extension.js:832
 msgid " sec. delay before recording"
-msgstr " 秒録画を開始してから経過しました"
+msgstr " 秒録画後に録画開始"
 
 #: extension.js:333 extension.js:834
 msgid "Start recording immediately"
@@ -74,7 +74,7 @@ msgstr "すべてのデスクトップを録画"
 
 #: extension.js:346
 msgid "Record a selected monitor"
-msgstr "選択したモニターを録画"
+msgstr "選択したデスクトップを録画"
 
 #: extension.js:347
 msgid "Record a selected window"
@@ -86,7 +86,7 @@ msgstr "選択範囲を録画"
 
 #: extension.js:390
 msgid "No WebCam recording"
-msgstr "ウェブカメラの録画が見つかりません"
+msgstr "ウェブカメラなし"
 
 #: extension.js:463
 msgid "Default audio source"
@@ -178,7 +178,7 @@ msgstr "デフォルトのみ"
 
 #: Options_UI.glade.h:8 Options_UI.glade-gtk4.h:9
 msgid "Not any"
-msgstr "何もありません"
+msgstr "なし"
 
 #: Options_UI.glade.h:9 Options_UI.glade-gtk4.h:10
 msgid ""
@@ -195,7 +195,7 @@ msgstr ""
 
 #: Options_UI.glade.h:13 Options_UI.glade-gtk4.h:14
 msgid "Command post-recording"
-msgstr "コマンドの後記録"
+msgstr "録画後のコマンド"
 
 #: Options_UI.glade.h:14 Options_UI.glade-gtk4.h:15
 msgid "Execute command after recording"
@@ -211,7 +211,7 @@ msgstr "有効なショートカット"
 
 #: Options_UI.glade.h:17 Options_UI.glade-gtk4.h:18
 msgid "Execute command before recording"
-msgstr "録画開始前に実行するコマンド"
+msgstr "録画開始時にコマンドを実行"
 
 #: Options_UI.glade.h:18 Options_UI.glade-gtk4.h:19
 msgid ""
@@ -224,7 +224,7 @@ msgstr ""
 
 #: Options_UI.glade.h:20 Options_UI.glade-gtk4.h:21
 msgid "Command pre-recording"
-msgstr "録画開始時のコマンド"
+msgstr "開始前のコマンド"
 
 #: Options_UI.glade.h:22 Options_UI.glade-gtk4.h:23
 msgid "Custom GStreamer Pipeline"
@@ -386,7 +386,7 @@ msgstr "ファイルの解像度"
 
 #: Options_UI.glade.h:63 Options_UI.glade-gtk4.h:64
 msgid "Native area resolution"
-msgstr "ネイティブエリアの解像度"
+msgstr "録画範囲のエリア解像度"
 
 #: Options_UI.glade.h:64 Options_UI.glade-gtk4.h:63
 msgid "Native"
@@ -455,14 +455,13 @@ msgid ""
 "$ journalctl --since=today --no-pager | grep js\n"
 "$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
 msgstr ""
-"This option enable more debug message, to view these run this command into a "
-"terminal:\n"
-"$ journalctl --since=today --no-pager | grep js\n"
+"より多くのデバックメッセージを表示するには、このコマンドをターミナルで実行してください:\n"
+"$ journalctl /usr/bin/gnome-session --since=today | grep js\n"
 "$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
 
 #: Options_UI.glade.h:82 Options_UI.glade-gtk4.h:82
 msgid "Enable verbose debug"
-msgstr ""
+msgstr "詳細なデバッグを有効にする"
 
 #: Options_UI.glade.h:83 Options_UI.glade-gtk4.h:83
 msgid ""
@@ -471,6 +470,9 @@ msgid ""
 "$ journalctl /usr/bin/gnome-session --since=today | grep js\n"
 "$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
 msgstr ""
+"より多くのデバックメッセージを表示するには、このコマンドをターミナルで実行してください:\n"
+"$ journalctl /usr/bin/gnome-session --since=today | grep js\n"
+"$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
 
 #: Options_UI.glade.h:86 Options_UI.glade-gtk4.h:86
 msgid "extension"
@@ -478,7 +480,7 @@ msgstr "拡張機能"
 
 #: Options_UI.glade.h:87 Options_UI.glade-gtk4.h:87
 msgid "last Gstreamer pipeline"
-msgstr "最後の Gstreamer pipeline"
+msgstr ""
 
 #: Options_UI.glade.h:88 Options_UI.glade-gtk4.h:88
 msgid "gnome shell"
