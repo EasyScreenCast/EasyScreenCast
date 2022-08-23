@@ -4,6 +4,8 @@
 
 **🎉 Merged pull requests:**
 
+* [#337](https://github.com/EasyScreenCast/EasyScreenCast/pull/337): Improved Japanese translation ([@moruch4nn](https://github.com/moruch4nn))
+
 **🐛 Fixed bugs:**
 
 **Full Changelog**: <https://github.com/EasyScreenCast/EasyScreenCast/compare/1.6.3...HEAD>
