@@ -104,15 +104,6 @@ const Capture = GObject.registerClass({
         } else {
             Lib.TalkativeLog('-£-Main.pushModal() === false');
         }
-
-        Main.sessionMode.connect('updated', () => this._updateDraw());
-    }
-
-    /**
-     * @private
-     */
-    _updateDraw() {
-        Lib.TalkativeLog('-£-update draw capture');
     }
 
     /**
