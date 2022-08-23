@@ -5,6 +5,7 @@
 **🎉 Merged pull requests:**
 
 * [#331](https://github.com/EasyScreenCast/EasyScreenCast/pull/331): Remove sessionMode updated signal in Capture class ([@meghprkh](https://github.com/meghprkh))
+* [#337](https://github.com/EasyScreenCast/EasyScreenCast/pull/337): Improved Japanese translation ([@moruch4nn](https://github.com/moruch4nn))
 
 **🐛 Fixed bugs:**
 
