@@ -9,6 +9,8 @@
 
 **🐛 Fixed bugs:**
 
+* [#267](https://github.com/EasyScreenCast/EasyScreenCast/issues/267): JS Warning: undefined property "MESSAGE_TRAY"
+
 **Full Changelog**: <https://github.com/EasyScreenCast/EasyScreenCast/compare/1.6.3...HEAD>
 
 # v1.6.3 (45) (2022-05-19)
