@@ -888,16 +888,29 @@ const EasyScreenCastIndicator = GObject.registerClass({
      * @private
      */
     _replaceStdIndicator(OPTtemp) {
-        if (Main.panel.statusArea['aggregateMenu']._screencast === undefined) {
+        if (Main.panel.statusArea === undefined) {
+            return;
+        }
+
+        var stdMenu;
+
+        if (Main.panel.statusArea.quickSettings) {
+            // since gnome 43: aggregateMenu -> quickSettings
+            stdMenu = Main.panel.statusArea.quickSettings;
+        } else {
+            stdMenu = Main.panel.statusArea.aggregateMenu;
+        }
+
+        if (stdMenu === undefined || stdMenu._screencast === undefined) {
             return;
         }
 
         if (OPTtemp) {
             Lib.TalkativeLog('-*-replace STD indicator');
-            Main.panel.statusArea['aggregateMenu']._screencast._indicator.visible = false;
+            stdMenu._screencast._indicator.visible = false;
         } else {
             Lib.TalkativeLog('-*-use STD indicator');
-            Main.panel.statusArea['aggregateMenu']._screencast._indicator.visible = isActive;
+            stdMenu._screencast._indicator.visible = isActive;
         }
     }
 
