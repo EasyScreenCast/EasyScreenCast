@@ -889,6 +889,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
      */
     _replaceStdIndicator(OPTtemp) {
         if (Main.panel.statusArea === undefined) {
+            Lib.TalkativeLog('-*-no Main.panel.statusArea found');
             return;
         }
 
@@ -901,16 +902,22 @@ const EasyScreenCastIndicator = GObject.registerClass({
             stdMenu = Main.panel.statusArea.aggregateMenu;
         }
 
-        if (stdMenu === undefined || stdMenu._screencast === undefined) {
+        if (stdMenu === undefined) {
+            Lib.TalkativeLog('-*-no quickSettings or aggregateMenu in Main.panel.statusArea');
+            return;
+        }
+        var indicator = stdMenu._screencast || stdMenu._remoteAccess;
+        if (indicator === undefined) {
+            Lib.TalkativeLog('-*-no _screencast or _remoteAccess indicator found');
             return;
         }
 
         if (OPTtemp) {
             Lib.TalkativeLog('-*-replace STD indicator');
-            stdMenu._screencast._indicator.visible = false;
+            indicator._indicator.visible = false;
         } else {
             Lib.TalkativeLog('-*-use STD indicator');
-            stdMenu._screencast._indicator.visible = isActive;
+            indicator._indicator.visible = isActive;
         }
     }
 
