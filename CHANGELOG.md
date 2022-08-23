@@ -9,6 +9,8 @@
 
 **🐛 Fixed bugs:**
 
+* [#336](https://github.com/EasyScreenCast/EasyScreenCast/issues/336): File path is incorrect
+
 **Full Changelog**: <https://github.com/EasyScreenCast/EasyScreenCast/compare/1.6.3...HEAD>
 
 # v1.6.3 (45) (2022-05-19)
