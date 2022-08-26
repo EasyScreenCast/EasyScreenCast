@@ -6,6 +6,7 @@
 
 * [#331](https://github.com/EasyScreenCast/EasyScreenCast/pull/331): Remove sessionMode updated signal in Capture class ([@meghprkh](https://github.com/meghprkh))
 * [#337](https://github.com/EasyScreenCast/EasyScreenCast/pull/337): Improved Japanese translation ([@moruch4nn](https://github.com/moruch4nn))
+* [#341](https://github.com/EasyScreenCast/EasyScreenCast/pull/341): Keybinding: Remove MESSAGE_TRAY, add SYSTEM_MODAL ([@adangel](https://github.com/adangel))
 
 **🐛 Fixed bugs:**
 
