@@ -1,4 +1,4 @@
-# Next
+# v1.7.0 (46) (2022-08-26)
 
 **🚀 Implemented enhancements:**
 
@@ -16,7 +16,7 @@
 * [#267](https://github.com/EasyScreenCast/EasyScreenCast/issues/267): JS Warning: undefined property "MESSAGE_TRAY"
 * [#336](https://github.com/EasyScreenCast/EasyScreenCast/issues/336): File path is incorrect
 
-**Full Changelog**: <https://github.com/EasyScreenCast/EasyScreenCast/compare/1.6.3...HEAD>
+**Full Changelog**: <https://github.com/EasyScreenCast/EasyScreenCast/compare/1.6.3...1.7.0>
 
 # v1.6.3 (45) (2022-05-19)
 
