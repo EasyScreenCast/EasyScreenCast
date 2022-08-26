@@ -119,3 +119,17 @@ ffmpeg -i _filepath -pix_fmt rgb24 _dirpath/_filename.gif
 For more information see for example:
 
  - [How do I convert a video to GIF using ffmpeg, with reasonable quality?](https://superuser.com/questions/556029/how-do-i-convert-a-video-to-gif-using-ffmpeg-with-reasonable-quality)
+
+
+## Test matrix
+
+| Distribution / gnome-shell           | Installation | Screen Recording | +Video Recording | +Audio Recording |
+|--------------------------------------|--------------|------------------|------------------|------------------|
+|Debian 11 Bullseye (gnome-shell 3.38) |  ✔           |  ✔              |  ✔               |  ✔               |
+|Ubuntu 22.04 LTS (gnome-shell 42.2)   |  ✔           |  ✔              |  ✔               |  ✔               |
+|Debian Experimental (gnome-shell 43)  |  ✔           |  ✔              |  ✔               |  ✔               |
+
+Note: Only wayland sessions, always a fresh install of the linux distribution. Screen cast was the whole screen.
+Quality setting: FPS 30, VP8, webm container.
+
+X11 session is not tested.
