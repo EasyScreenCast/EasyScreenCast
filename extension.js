@@ -937,10 +937,11 @@ const EasyScreenCastIndicator = GObject.registerClass({
                 Settings.SHORTCUT_KEY_SETTING_KEY,
                 this._settings._settings,
                 Meta.KeyBindingFlags.NONE,
+                // available modes: https://gitlab.gnome.org/GNOME/gnome-shell/-/blob/main/src/shell-action-modes.h
                 Shell.ActionMode.NORMAL |
-                    Shell.ActionMode.MESSAGE_TRAY |
                     Shell.ActionMode.OVERVIEW |
-                    Shell.ActionMode.POPUP,
+                    Shell.ActionMode.POPUP |
+                    Shell.ActionMode.SYSTEM_MODAL,
                 () => {
                     Lib.TalkativeLog('-*-intercept key combination');
                     this._doRecording();
