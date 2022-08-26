@@ -888,16 +888,41 @@ const EasyScreenCastIndicator = GObject.registerClass({
      * @private
      */
     _replaceStdIndicator(OPTtemp) {
-        if (Main.panel.statusArea['aggregateMenu']._screencast === undefined) {
+        if (Main.panel.statusArea === undefined) {
+            Lib.TalkativeLog('-*-no Main.panel.statusArea found');
+            return;
+        }
+
+        var stdMenu;
+
+        if (Main.panel.statusArea.quickSettings) {
+            // since gnome 43: aggregateMenu -> quickSettings
+            stdMenu = Main.panel.statusArea.quickSettings;
+        } else {
+            stdMenu = Main.panel.statusArea.aggregateMenu;
+        }
+
+        if (stdMenu === undefined) {
+            Lib.TalkativeLog('-*-no quickSettings or aggregateMenu in Main.panel.statusArea');
+            return;
+        }
+        if (stdMenu._remoteAccess === undefined) {
+            Lib.TalkativeLog('-*-no _remoteAccess indicator applet found');
+            return;
+        }
+        // since gnome 43: _recordingIndicator -> _indicator
+        var indicator = stdMenu._remoteAccess._indicator || stdMenu._remoteAccess._recordingIndicator;
+        if (indicator === undefined) {
+            Lib.TalkativeLog('-*-no _indicator or _recordingIndicator found');
             return;
         }
 
         if (OPTtemp) {
             Lib.TalkativeLog('-*-replace STD indicator');
-            Main.panel.statusArea['aggregateMenu']._screencast._indicator.visible = false;
+            indicator.visible = false;
         } else {
             Lib.TalkativeLog('-*-use STD indicator');
-            Main.panel.statusArea['aggregateMenu']._screencast._indicator.visible = isActive;
+            indicator.visible = isActive;
         }
     }
 

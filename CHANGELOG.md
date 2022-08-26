@@ -2,6 +2,8 @@
 
 **🚀 Implemented enhancements:**
 
+* [#340](https://github.com/EasyScreenCast/EasyScreenCast/pull/340): Add Gnome Shell 43 support ([@adangel](https://github.com/adangel))
+
 **🎉 Merged pull requests:**
 
 * [#331](https://github.com/EasyScreenCast/EasyScreenCast/pull/331): Remove sessionMode updated signal in Capture class ([@meghprkh](https://github.com/meghprkh))
