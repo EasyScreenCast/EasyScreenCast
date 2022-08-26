@@ -69,14 +69,15 @@ var CaptureVideo = GObject.registerClass({
         this.recordingActive = false;
 
         // prepare variable for screencast
-        var fileRec =
+        let fileRec =
             Ext.Indicator.getSettings().getOption('s', Settings.FILE_NAME_SETTING_KEY) +
             UtilGSP.getFileExtension(
                 Ext.Indicator.getSettings().getOption('i', Settings.FILE_CONTAINER_SETTING_KEY)
             );
 
+        let folderRec = '';
         if (Ext.Indicator.getSettings().getOption('s', Settings.FILE_FOLDER_SETTING_KEY) !== '') {
-            fileRec = `${Ext.Indicator.getSettings().getOption('s', Settings.FILE_FOLDER_SETTING_KEY)}/${fileRec}`;
+            folderRec = Ext.Indicator.getSettings().getOption('s', Settings.FILE_FOLDER_SETTING_KEY);
         }
 
         let pipelineRec = '';
@@ -91,9 +92,14 @@ var CaptureVideo = GObject.registerClass({
             pipelineRec = UtilGSP.composeGSP(Ext.Indicator.getSettings(), Ext.Indicator.CtrlAudio);
         }
 
-        Lib.TalkativeLog(`-&-path/file template : ${fileRec}`);
+        Lib.TalkativeLog(`-&-file template : ${fileRec}`);
         fileRec = this._generateFileName(fileRec);
-        Lib.TalkativeLog(`-&-path/file final : ${fileRec}`);
+        Lib.TalkativeLog(`-&-file final : ${fileRec}`);
+        const completeFileRecPath = folderRec !== ''
+            ? `${folderRec}/${fileRec}`
+            : fileRec;
+        Lib.TalkativeLog(`-&-file rec path complete : ${completeFileRecPath}`);
+
         if (shellVersion >= 40) {
             // prefix with a videoconvert element
             // see DEFAULT_PIPELINE in https://gitlab.gnome.org/GNOME/gnome-shell/-/blob/main/js/dbusServices/screencast/screencastService.js#L26
@@ -117,7 +123,7 @@ var CaptureVideo = GObject.registerClass({
 
         if (Ext.Indicator.getSettings().getOption('i', Settings.AREA_SCREEN_SETTING_KEY) === 0) {
             this._screenCastService.ScreencastRemote(
-                fileRec,
+                completeFileRecPath,
                 optionsRec,
                 (result, error) => {
                     if (error) {
@@ -138,7 +144,7 @@ var CaptureVideo = GObject.registerClass({
                 Ext.Indicator.getSettings().getOption('i', Settings.Y_POS_SETTING_KEY),
                 Ext.Indicator.getSettings().getOption('i', Settings.WIDTH_SETTING_KEY),
                 Ext.Indicator.getSettings().getOption('i', Settings.HEIGHT_SETTING_KEY),
-                fileRec,
+                completeFileRecPath,
                 optionsRec,
                 (result, error) => {
                     if (error) {

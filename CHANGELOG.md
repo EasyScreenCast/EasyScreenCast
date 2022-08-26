@@ -6,8 +6,11 @@
 
 * [#331](https://github.com/EasyScreenCast/EasyScreenCast/pull/331): Remove sessionMode updated signal in Capture class ([@meghprkh](https://github.com/meghprkh))
 * [#337](https://github.com/EasyScreenCast/EasyScreenCast/pull/337): Improved Japanese translation ([@moruch4nn](https://github.com/moruch4nn))
+* [#339](https://github.com/EasyScreenCast/EasyScreenCast/pull/339): Fix file folder selection ([@adangel](https://github.com/adangel))
 
 **🐛 Fixed bugs:**
+
+* [#336](https://github.com/EasyScreenCast/EasyScreenCast/issues/336): File path is incorrect
 
 **Full Changelog**: <https://github.com/EasyScreenCast/EasyScreenCast/compare/1.6.3...HEAD>
 

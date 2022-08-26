@@ -773,9 +773,10 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
 
             refFilechooserFileFolder.connect('clicked', () => {
                 Lib.TalkativeLog('-^- file chooser button clicked...');
+
                 let dialog = new Gtk.FileChooserNative({
                     'title': 'Select folder',
-                    'transient-for': null,
+                    'transient-for': refFilechooserFileFolder.get_root(),
                     'action': Gtk.FileChooserAction.SELECT_FOLDER,
                     'accept-label': 'Ok',
                     'cancel-label': 'Cancel',
