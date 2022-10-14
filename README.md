@@ -6,7 +6,7 @@ EasyScreenCast simplifies the use of the video recording function integrated in 
 allows quickly to change the various settings of the desktop recording.
 Copyright (C) 2013-16 Borsato Ivano.
 
-- [Web Page](http://iacopodeenosee.wordpress.com/)
+- [Web Page](https://iacopodeenosee.wordpress.com/projects/easyscreencast/)
 - [GNOME Shell Extensions Page](https://extensions.gnome.org/extension/690/easyscreencast/)
 - [Video](https://youtu.be/81E9AruraKU)
 
