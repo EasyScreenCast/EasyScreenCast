@@ -4,6 +4,10 @@
 
 * [#342](https://github.com/EasyScreenCast/EasyScreenCast/pull/342): Make link to web page for Easy Screen Cast more specific ([@ElijahLynn](https://github.com/ElijahLynn))
 
+**📦 Dependency updates:**
+
+* [#343](https://github.com/EasyScreenCast/EasyScreenCast/pull/343): Bump minimatch from 3.0.4 to 3.1.2 ([@dependabot](https://github.com/apps/dependabot))
+
 # v1.7.0 (46) (2022-08-26)
 
 **🚀 Implemented enhancements:**
