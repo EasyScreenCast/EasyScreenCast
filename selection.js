@@ -138,7 +138,7 @@ const Capture = GObject.registerClass({
     /**
      * Draws a on-screen rectangle showing the area that will be captured by screen cast.
      *
-     * @param {Object} rect rectangle
+     * @param {object} rect rectangle
      * @param {number} rect.x left position in pixels
      * @param {number} rect.y top position in pixels
      * @param {number} rect.w width in pixels
