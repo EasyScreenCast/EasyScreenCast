@@ -12,6 +12,8 @@
 
 * [#343](https://github.com/EasyScreenCast/EasyScreenCast/pull/343): Bump minimatch from 3.0.4 to 3.1.2 ([@dependabot](https://github.com/apps/dependabot))
 
+**Full Changelog**: <https://github.com/EasyScreenCast/EasyScreenCast/compare/1.7.0...1.7.1>
+
 # v1.7.0 (46) (2022-08-26)
 
 **🚀 Implemented enhancements:**
