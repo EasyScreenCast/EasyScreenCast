@@ -1,4 +1,4 @@
-# next
+# v1.7.1 (47) (2023-03-27)
 
 **🚀 Implemented enhancements:**
 
