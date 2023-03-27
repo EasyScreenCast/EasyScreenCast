@@ -1,5 +1,9 @@
 # next
 
+**🚀 Implemented enhancements:**
+
+* [#345](https://github.com/EasyScreenCast/EasyScreenCast/pull/345): Add Gnome Shell 44 support ([@adangel](https://github.com/adangel))
+
 **🎉 Merged pull requests:**
 
 * [#342](https://github.com/EasyScreenCast/EasyScreenCast/pull/342): Make link to web page for Easy Screen Cast more specific ([@ElijahLynn](https://github.com/ElijahLynn))
