@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-04 15:39+0100\n"
+"POT-Creation-Date: 2022-08-26 09:11+0200\n"
 "PO-Revision-Date: 2021-2-4 23:32+0900\n"
 "Last-Translator: moru3_48 <moru348@gmail.com>\n"
 "Language-Team: 日本語 <>\n"
@@ -16,23 +16,23 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: prefs.js:88
+#: prefs.js:80
 msgid "Could not load the preferences UI file"
 msgstr "UI設定ファイルの読み込みに失敗しました。"
 
-#: prefs.js:423
+#: prefs.js:433
 msgid "WebCam Caps"
 msgstr "ウェブカメラの録画"
 
-#: prefs.js:883
+#: prefs.js:900
 msgid "No Gstreamer pipeline found"
 msgstr "Gstreamer pipelineが 見つかりません。"
 
-#: prefs.js:962
+#: prefs.js:979
 msgid "Version: "
 msgstr "バージョン: "
 
-#: prefs.js:1106
+#: prefs.js:1124
 msgid ""
 "<span foreground=\"red\">No Caps selected, please select one from the caps "
 "list</span>"
@@ -40,111 +40,111 @@ msgstr ""
 "<span foreground=\"red\">録画が選択されていません。録画一覧から選択してくださ"
 "い。</span>"
 
-#: prefs.js:1117 Options_UI.glade.h:36 Options_UI.glade-gtk4.h:37
+#: prefs.js:1135 Options_UI.glade.h:36 Options_UI.glade-gtk4.h:37
 msgid "No webcam device selected"
 msgstr "ウェブカメラが選択されていません。"
 
-#: prefs.js:1119 Options_UI.glade.h:37 Options_UI.glade-gtk4.h:38
+#: prefs.js:1137 Options_UI.glade.h:37 Options_UI.glade-gtk4.h:38
 msgid "-"
 msgstr ""
 
-#: extension.js:124 extension.js:456
+#: extension.js:142 extension.js:468
 msgid "No audio source"
 msgstr "オーディオソースなし"
 
-#: extension.js:135 Options_UI.glade.h:21 Options_UI.glade-gtk4.h:1
+#: extension.js:153 Options_UI.glade.h:21 Options_UI.glade-gtk4.h:1
 msgid "Options"
 msgstr "設定"
 
-#: extension.js:257 extension.js:869
+#: extension.js:275 extension.js:882
 msgid "Start recording"
 msgstr "録画を開始"
 
-#: extension.js:331 extension.js:832
+#: extension.js:349 extension.js:845
 msgid " sec. delay before recording"
 msgstr " 秒録画後に録画開始"
 
-#: extension.js:333 extension.js:834
+#: extension.js:351 extension.js:847
 msgid "Start recording immediately"
 msgstr "すぐに録画を開始"
 
-#: extension.js:345
+#: extension.js:363
 msgid "Record all desktop"
 msgstr "すべてのデスクトップを録画"
 
-#: extension.js:346
+#: extension.js:364
 msgid "Record a selected monitor"
 msgstr "選択したデスクトップを録画"
 
-#: extension.js:347
+#: extension.js:365
 msgid "Record a selected window"
 msgstr "選択したウィンドウを録画"
 
-#: extension.js:348
+#: extension.js:366
 msgid "Record a selected area"
 msgstr "選択範囲を録画"
 
-#: extension.js:390
+#: extension.js:409
 msgid "No WebCam recording"
 msgstr "ウェブカメラなし"
 
-#: extension.js:463
+#: extension.js:475
 msgid "Default audio source"
 msgstr "デフォルトのオーディオソース"
 
-#: extension.js:483
+#: extension.js:495
 msgid ""
 "\n"
 " - Port: "
 msgstr ""
 
-#: extension.js:485
+#: extension.js:497
 msgid ""
 "\n"
 " - Name: "
 msgstr ""
 
-#: extension.js:535
+#: extension.js:548
 msgid "Delay Time"
 msgstr "経過時間"
 
-#: extension.js:543 extension.js:557
+#: extension.js:556 extension.js:570
 msgid " Sec"
 msgstr " 秒"
 
-#: extension.js:650
+#: extension.js:663
 msgid "ERROR PRE COMMAND - See logs for more info"
 msgstr "ERROR PRE COMMAND - ログで詳細を確認してください。"
 
-#: extension.js:759
+#: extension.js:772
 msgid "Start Recording"
 msgstr "録画を開始しました。"
 
-#: extension.js:785
+#: extension.js:798
 msgid "ERROR RECORDER - See logs for more info"
 msgstr "ERROR RECORDER - ログで詳細を確認してください。"
 
-#: extension.js:809
+#: extension.js:822
 msgid "EasyScreenCast -> Recording in progress / Seconds passed : "
 msgstr "EasyScreenCast -> 録画時間/秒経過"
 
-#: extension.js:861
+#: extension.js:874
 msgid "Stop recording"
 msgstr "録画を停止"
 
-#: selection.js:219
+#: selection.js:225
 msgid "Select an area for recording or press [ESC] to abort"
 msgstr "録画範囲を選択するか、[ESC]で中断してください"
 
-#: selection.js:268
+#: selection.js:278
 msgid "Select a window for recording or press [ESC] to abort"
 msgstr "録画するウィンドウを選択するか、[ESC]で中断してください"
 
-#: selection.js:372
+#: selection.js:386
 msgid "Select a desktop for recording or press [ESC] to abort"
 msgstr "録画するデスクトップを選択するか、[ESC]で中断してください"
 
-#: utilwebcam.js:226
+#: utilwebcam.js:272
 msgid "Unspecified webcam"
 msgstr "未定義のウェブカメラ"
 
@@ -455,7 +455,8 @@ msgid ""
 "$ journalctl --since=today --no-pager | grep js\n"
 "$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
 msgstr ""
-"より多くのデバックメッセージを表示するには、このコマンドをターミナルで実行してください:\n"
+"より多くのデバックメッセージを表示するには、このコマンドをターミナルで実行し"
+"てください:\n"
 "$ journalctl /usr/bin/gnome-session --since=today | grep js\n"
 "$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
 
@@ -470,7 +471,8 @@ msgid ""
 "$ journalctl /usr/bin/gnome-session --since=today | grep js\n"
 "$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
 msgstr ""
-"より多くのデバックメッセージを表示するには、このコマンドをターミナルで実行してください:\n"
+"より多くのデバックメッセージを表示するには、このコマンドをターミナルで実行し"
+"てください:\n"
 "$ journalctl /usr/bin/gnome-session --since=today | grep js\n"
 "$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
 
