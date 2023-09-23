@@ -2,6 +2,8 @@
 
 **🚀 Implemented enhancements:**
 
+* [#350](https://github.com/EasyScreenCast/EasyScreenCast/issues/350): Chinese translation ([@d2school](https://github.com/d2school))
+
 **🎉 Merged pull requests:**
 
 * [#347](https://github.com/EasyScreenCast/EasyScreenCast/pull/347): Add czech translation ([@Amereyeu](https://github.com/Amereyeu))
