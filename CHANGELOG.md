@@ -4,6 +4,8 @@
 
 **🎉 Merged pull requests:**
 
+* [#347](https://github.com/EasyScreenCast/EasyScreenCast/pull/347): Add czech translation ([@Amereyeu](https://github.com/Amereyeu))
+
 **🐛 Fixed bugs:**
 
 **📦 Dependency updates:**

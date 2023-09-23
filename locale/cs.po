@@ -1,49 +1,50 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# FIRST AUTHOR Amerey.eu <info@amerey.eu>, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-26 09:11+0200\n"
-"PO-Revision-Date: 2020-10-04 18:02+0200\n"
-"Last-Translator: cubells <vicent@vcubells.net>\n"
+"POT-Creation-Date: 2023-03-27 20:10+0200\n"
+"PO-Revision-Date: 2023-04-06 21:43+0200\n"
+"Last-Translator: Amerey.eu <info@amerey.eu>\n"
 "Language-Team: \n"
-"Language: ca\n"
+"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.1\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n>=2 && n<=4 ? 1 : 2);\n"
+"X-Generator: Poedit 3.1.1\n"
 
 #: prefs.js:80
 msgid "Could not load the preferences UI file"
-msgstr "No es pot carregar el fitxer de preferències de la IU"
+msgstr "Nelze načíst soubor předvoleb uživatelského rozhraní"
 
 #: prefs.js:433
 msgid "WebCam Caps"
-msgstr "Captures de la càmera web"
+msgstr "Předvolby webkamery"
 
 #: prefs.js:900
 msgid "No Gstreamer pipeline found"
-msgstr "No s'ha trobat cap canonada del GStreamer"
+msgstr "Nebyla nalezena žádná Gstreamer pipeline"
 
 #: prefs.js:979
 msgid "Version: "
-msgstr "Versió: "
+msgstr "Verze: "
 
 #: prefs.js:1124
 msgid ""
 "<span foreground=\"red\">No Caps selected, please select one from the caps "
 "list</span>"
 msgstr ""
-"<span foreground=\"red\">No s'ha seleccionat cap captura, selecciona una de "
-"la llista</span>"
+"<span foreground=\"red\">Není vybrána žádná možnost, vyberte prosím jednu ze "
+"seznamu</span>"
 
 #: prefs.js:1135 Options_UI.glade.h:36 Options_UI.glade-gtk4.h:37
 msgid "No webcam device selected"
-msgstr "No s'ha seleccionat cap càmera web"
+msgstr "Nebyla vybrána žádná webkamera"
 
 #: prefs.js:1137 Options_UI.glade.h:37 Options_UI.glade-gtk4.h:38
 msgid "-"
@@ -51,47 +52,47 @@ msgstr "-"
 
 #: extension.js:142 extension.js:468
 msgid "No audio source"
-msgstr "Cap origen d'àudio"
+msgstr "Žádný zdroj zvuku"
 
 #: extension.js:153 Options_UI.glade.h:21 Options_UI.glade-gtk4.h:1
 msgid "Options"
-msgstr "Opcions"
+msgstr "Možnosti"
 
 #: extension.js:275 extension.js:882
 msgid "Start recording"
-msgstr "Comença la gravació"
+msgstr "Začít nahrávat"
 
 #: extension.js:349 extension.js:845
 msgid " sec. delay before recording"
-msgstr " segons de retard en la gravació"
+msgstr " sekund zpoždění před nahráváním"
 
 #: extension.js:351 extension.js:847
 msgid "Start recording immediately"
-msgstr "Comença la gravació ja"
+msgstr "Začít okamžitě nahrávat"
 
 #: extension.js:363
 msgid "Record all desktop"
-msgstr "Grava tot l'escriptori"
+msgstr "Záznam celé plochy"
 
 #: extension.js:364
 msgid "Record a selected monitor"
-msgstr "Grava el monitor seleccionat"
+msgstr "Záznam vybraného monitoru"
 
 #: extension.js:365
 msgid "Record a selected window"
-msgstr "Grava la finestra seleccionada"
+msgstr "Záznam vybraného okna"
 
 #: extension.js:366
 msgid "Record a selected area"
-msgstr "Grava una àrea seleccionada"
+msgstr "Záznam vybrané oblasti"
 
 #: extension.js:409
 msgid "No WebCam recording"
-msgstr "Cap càmera web per a gravar"
+msgstr "Žádné nahrávání z webkamery"
 
 #: extension.js:475
 msgid "Default audio source"
-msgstr "Origen d'àudio predeterminat"
+msgstr "Výchozí zdroj zvuku"
 
 #: extension.js:495
 msgid ""
@@ -107,86 +108,83 @@ msgid ""
 " - Name: "
 msgstr ""
 "\n"
-" - Nom: "
+" - Název: "
 
 #: extension.js:548
 msgid "Delay Time"
-msgstr "Retard de temps"
+msgstr "Doba zpoždění"
 
 #: extension.js:556 extension.js:570
 msgid " Sec"
-msgstr " Seg"
+msgstr " sekund"
 
 #: extension.js:663
-#, fuzzy
 msgid "ERROR PRE COMMAND - See logs for more info"
-msgstr "ERROR DE GRAVACIÓ - Mireu els registres per a més informació"
+msgstr "ERROR PRE COMMAND - Další informace naleznete v protokolech"
 
 #: extension.js:772
 msgid "Start Recording"
-msgstr "Comença la gravació"
+msgstr "Začít nahrávání"
 
 #: extension.js:798
 msgid "ERROR RECORDER - See logs for more info"
-msgstr "ERROR DE GRAVACIÓ - Mireu els registres per a més informació"
+msgstr "ERROR RECORDER – Další informace naleznete v protokolech"
 
 #: extension.js:822
 msgid "EasyScreenCast -> Recording in progress / Seconds passed : "
-msgstr "EasyScreenCast -> Gravació en progrés / Segons en marxa : "
+msgstr "EasyScreenCast -> Probíhá nahrávání / Uběhlé sekundy: "
 
 #: extension.js:874
 msgid "Stop recording"
-msgstr "Atura la gravació"
+msgstr "Zastavit nahrávání"
 
 #: selection.js:225
 msgid "Select an area for recording or press [ESC] to abort"
-msgstr "Selecciona una àrea a gravar o prem [ESC] per avortar"
+msgstr "Vyberte oblast pro nahrávání nebo stiskněte [ESC] pro přerušení"
 
 #: selection.js:278
-#, fuzzy
 msgid "Select a window for recording or press [ESC] to abort"
-msgstr "Selecciona una finestra a gravar o prem [ESC] per avortar"
+msgstr "Vyberte okno pro nahrávání nebo stiskněte [ESC] pro přerušení"
 
 #: selection.js:386
-#, fuzzy
 msgid "Select a desktop for recording or press [ESC] to abort"
-msgstr "Selecciona un escriptori a gravar o prem [ESC] per avortar"
+msgstr "Vyberte plochu pro nahrávání nebo stiskněte [ESC] pro přerušení"
 
 #: utilwebcam.js:272
 msgid "Unspecified webcam"
-msgstr "Càmera web no especificada"
+msgstr "Nespecifikovaná webkamera"
 
 #: Options_UI.glade.h:1 Options_UI.glade-gtk4.h:2
 msgid "Recording status indicators"
-msgstr "Indicadors de l'estat de la gravació"
+msgstr "Indikátory stavu nahrávání"
 
 #: Options_UI.glade.h:2 Options_UI.glade-gtk4.h:3
 msgid "Show alerts and notifications"
-msgstr "Mostra les alertes i notificacions"
+msgstr "Zobrazovat upozornění a oznámení"
 
 #: Options_UI.glade.h:3 Options_UI.glade-gtk4.h:4
 msgid "Show a border around the area being recorded"
-msgstr "Mostra una vora al voltant de l'àrea que s'està gravant"
+msgstr "Zobrazit okraj kolem nahrávané oblasti"
 
 #: Options_UI.glade.h:4 Options_UI.glade-gtk4.h:5
 msgid "Enable keyboard shortcut"
-msgstr "Habilita la drecera de teclat"
+msgstr "Povolit klávesovou zkratku"
 
 #: Options_UI.glade.h:5 Options_UI.glade-gtk4.h:6
 msgid "Both  [ESC + Default]"
-msgstr "Ambdós [ESC + predeterminat]"
+msgstr "Obojí  [ESC + výchozí]"
 
 #: Options_UI.glade.h:6 Options_UI.glade-gtk4.h:7
 msgid "ESC only"
-msgstr "ESC solament"
+msgstr "Pouze ESC"
 
 #: Options_UI.glade.h:7 Options_UI.glade-gtk4.h:8
 msgid "Default only"
-msgstr "Predeterminat solament"
+msgstr "Pouze výchozí"
 
 #: Options_UI.glade.h:8 Options_UI.glade-gtk4.h:9
 msgid "Not any"
-msgstr "Cap"
+msgstr "Žádné"
 
 #: Options_UI.glade.h:9 Options_UI.glade-gtk4.h:10
 msgid ""
@@ -196,66 +194,59 @@ msgid ""
 "file.\n"
 "_fname = the name of the screencast video file."
 msgstr ""
-"Aquestes paraules s'han de reemplaçar\n"
-" _fpath = el camí absolut al fitxer de vídeo de la gravació.\n"
-"_dirpath = el camí absolut a la carpeta de destinació per al fitxer del "
-"vídeo de la gravació.\n"
-"_fname = el nom del fitxer del vídeo de la gravació."
+"Tato slova budou nahrazena\n"
+" _fpath = absolutní cesta k video souboru screencastu.\n"
+"_dirpath = absolutní cesta k cílové složce pro video soubor.\n"
+"_fname = název souboru videa se screencastem."
 
 #: Options_UI.glade.h:13 Options_UI.glade-gtk4.h:14
 msgid "Command post-recording"
-msgstr "Comanda per després de la gravació"
+msgstr "Příkaz"
 
 #: Options_UI.glade.h:14 Options_UI.glade-gtk4.h:15
 msgid "Execute command after recording"
-msgstr "Executa la comanda després de la gravació"
+msgstr "Po nahrávání provést příkaz"
 
 #: Options_UI.glade.h:15 Options_UI.glade-gtk4.h:16
 msgid "Draw cursor on screencast"
-msgstr "Dibuixa el cursor durant la gravació"
+msgstr "Při nahrávání zobrazit kurzor"
 
 #: Options_UI.glade.h:16 Options_UI.glade-gtk4.h:17
 msgid "Active shortcut"
-msgstr ""
+msgstr "Aktivní zkratka"
 
 #: Options_UI.glade.h:17 Options_UI.glade-gtk4.h:18
-#, fuzzy
 msgid "Execute command before recording"
-msgstr "Executa la comanda després de la gravació"
+msgstr "Před nahráváním provést příkaz"
 
 #: Options_UI.glade.h:18 Options_UI.glade-gtk4.h:19
-#, fuzzy
 msgid ""
 "These words will be replaced\n"
 "_dirpath = the absolute path of destination folder for the screencast video "
 "file."
 msgstr ""
-"Aquestes paraules s'han de reemplaçar\n"
-" _fpath = el camí absolut al fitxer de vídeo de la gravació.\n"
-"_dirpath = el camí absolut a la carpeta de destinació per al fitxer del "
-"vídeo de la gravació.\n"
-"_fname = el nom del fitxer del vídeo de la gravació."
+"Tato slova budou nahrazena\n"
+"_dirpath = absolutní cesta k cílové složce pro video soubor."
 
 #: Options_UI.glade.h:20 Options_UI.glade-gtk4.h:21
-#, fuzzy
 msgid "Command pre-recording"
-msgstr "Comanda per després de la gravació"
+msgstr "Příkaz"
 
 #: Options_UI.glade.h:22 Options_UI.glade-gtk4.h:23
 msgid "Custom GStreamer Pipeline"
-msgstr "Canonada del GStreamer personalitzada"
+msgstr "Vlastní GStreamer Pipeline"
 
 #: Options_UI.glade.h:23 Options_UI.glade-gtk4.h:25
 msgid "No GSP description\n"
-msgstr "No hi ha cap descripció GSP\n"
+msgstr "Bez popisu GSP\n"
 
 #: Options_UI.glade.h:25 Options_UI.glade-gtk4.h:24
 msgid "PagePreset"
-msgstr "ValorsPredefinitsDePàgina"
+msgstr "PagePreset"
 
 #: Options_UI.glade.h:26 Options_UI.glade-gtk4.h:28
 msgid "Frames Per Second"
-msgstr "Fotogrames per segon"
+msgstr "Snímků za sekundu"
 
 #: Options_UI.glade.h:27 Options_UI.glade-gtk4.h:29
 msgid "0"
@@ -263,91 +254,91 @@ msgstr "0"
 
 #: Options_UI.glade.h:28 Options_UI.glade-gtk4.h:30
 msgid "GStreamer Pipeline"
-msgstr "Canonada del GStreamer"
+msgstr "GStreamer Pipeline"
 
 #: Options_UI.glade.h:29 Options_UI.glade-gtk4.h:31
 msgid ""
 "The extension does NOT handle the webcam and audio when you use a custom "
 "gstreamer pipeline.\n"
 msgstr ""
-"Aquesta extensió no gestiona la càmera web i l'àudio quan useu una canonada "
-"del GStreamer personalitzat.\n"
+"Rozšíření NEzvládá webkameru a zvuk, když používáte vlastní gstreamer "
+"pipeline.\n"
 
 #: Options_UI.glade.h:31 Options_UI.glade-gtk4.h:33
 msgid "Official doc"
-msgstr "Documentació oficial"
+msgstr "Oficiální dokumentace"
 
 #: Options_UI.glade.h:32 Options_UI.glade-gtk4.h:34
 msgid "Wiki #1"
-msgstr "Wiki núm. 1"
+msgstr "Wiki #1"
 
 #: Options_UI.glade.h:33 Options_UI.glade-gtk4.h:35
 msgid "Wiki #2"
-msgstr "Wiki núm. 2"
+msgstr "Wiki #2"
 
 #: Options_UI.glade.h:34 Options_UI.glade-gtk4.h:27
 msgid "PageCustom"
-msgstr "PàginaPersonalitzada"
+msgstr "PageCustom"
 
 #: Options_UI.glade.h:35 Options_UI.glade-gtk4.h:22
 msgid "Quality"
-msgstr "Qualitat"
+msgstr "Kvalita"
 
 #: Options_UI.glade.h:38 Options_UI.glade-gtk4.h:40
 msgid "Type of unit of measure"
-msgstr "Tipus d'unitat de mesura"
+msgstr "Jednotky"
 
 #: Options_UI.glade.h:39 Options_UI.glade-gtk4.h:41
 msgid "Width"
-msgstr "Amplada"
+msgstr "Šířka"
 
 #: Options_UI.glade.h:40 Options_UI.glade-gtk4.h:42
 msgid "Height"
-msgstr "Alçada"
+msgstr "Výška"
 
 #: Options_UI.glade.h:41 Options_UI.glade-gtk4.h:43
 msgid "Percentage"
-msgstr "Percentatge"
+msgstr "Procenta"
 
 #: Options_UI.glade.h:42 Options_UI.glade-gtk4.h:44
 msgid "Pixel"
-msgstr "Píxel"
+msgstr "Pixely"
 
 #: Options_UI.glade.h:43 Options_UI.glade-gtk4.h:39
 msgid "Size"
-msgstr "Mida"
+msgstr "Velikost"
 
 #: Options_UI.glade.h:44 Options_UI.glade-gtk4.h:46
 msgid "Put the webcam in the corner"
-msgstr "Posa la càmera web a la cantonada"
+msgstr "Umístit webkameru do rohu"
 
 #: Options_UI.glade.h:45 Options_UI.glade-gtk4.h:47
 msgid "Right-Bottom"
-msgstr "Baix a la dreta"
+msgstr "Pravý dolní"
 
 #: Options_UI.glade.h:46 Options_UI.glade-gtk4.h:48
 msgid "Left-Bottom"
-msgstr "Baix a l'esquerra"
+msgstr "Levý dolní"
 
 #: Options_UI.glade.h:47 Options_UI.glade-gtk4.h:49
 msgid "Right-Top"
-msgstr "Dalt a la dreta"
+msgstr "Pravý horní"
 
 #: Options_UI.glade.h:48 Options_UI.glade-gtk4.h:50
 msgid "Left-Top"
-msgstr "Dalt a l'esquerra"
+msgstr "Levý horní"
 
 #: Options_UI.glade.h:49 Options_UI.glade-gtk4.h:51
 msgid "Margin X"
-msgstr "Marge X"
+msgstr "Margin X"
 
 #: Options_UI.glade.h:50 Options_UI.glade-gtk4.h:52
 msgid "Margin Y"
-msgstr "Marge Y"
+msgstr "Margin Y"
 
 #: Options_UI.glade.h:51 Options_UI.glade-gtk4.h:53
 msgid "Alpha channel"
-msgstr "Canal alfa"
+msgstr "Alpha kanál"
 
 #: Options_UI.glade.h:52 Options_UI.glade-gtk4.h:54
 msgid "0,00"
@@ -355,11 +346,11 @@ msgstr "0,00"
 
 #: Options_UI.glade.h:53 Options_UI.glade-gtk4.h:45
 msgid "Position"
-msgstr "Posició"
+msgstr "Umístění"
 
 #: Options_UI.glade.h:54 Options_UI.glade-gtk4.h:36
 msgid "WebCam"
-msgstr "Càmera web"
+msgstr "Webkamera"
 
 #: Options_UI.glade.h:55 Options_UI.glade-gtk4.h:56
 msgid ""
@@ -367,13 +358,12 @@ msgid ""
 "file will be saved in the $XDG_VIDEOS_DIR if it exists, or the home "
 "directory otherwise."
 msgstr ""
-"Selecciona la carpeta on es desarà el fitxer, si no s'especifica una "
-"carpeta, el fitxer es desarà a $XDG_VIDEOS_DIR si existeix, o al directori "
-"de l'usuari altrament."
+"Vyberte složku, kde je soubor uložen, pokud není konkrétní, soubor se uloží "
+"do $XDG_VIDEOS_DIR, pokud existuje, nebo do domovského adresáře."
 
 #: Options_UI.glade.h:56 Options_UI.glade-gtk4.h:57
 msgid "Destination folder"
-msgstr "Carpeta de destinació"
+msgstr "Cílová složka"
 
 #: Options_UI.glade.h:58 Options_UI.glade-gtk4.h:59
 #, no-c-format
@@ -381,36 +371,36 @@ msgid ""
 "The filename which may contain some escape sequences - %d and %t will be "
 "replaced by the start date and time of the recording."
 msgstr ""
-"El nom del fitxer que pot contenir algunes seqüències d'escapament - %d i %t "
-"es reemplaçaran per la data i hora de la gravació."
+"Název souboru, který může obsahovat nějaké escape sekvence – %d a %t bude "
+"nahrazen datem a časem začátku nahrávání."
 
 #: Options_UI.glade.h:59 Options_UI.glade-gtk4.h:60
 msgid "File name template"
-msgstr "Plantilla del nom del fitxer"
+msgstr "Šablona názvu souboru"
 
 #: Options_UI.glade.h:60
 msgid "Select the destination folder"
-msgstr "Selecciona la carpeta de destinació"
+msgstr "Vybrat cílovou složku"
 
 #: Options_UI.glade.h:61 Options_UI.glade-gtk4.h:61
 msgid "File container"
-msgstr "Contenidor d'arxius"
+msgstr "Formát"
 
 #: Options_UI.glade.h:62 Options_UI.glade-gtk4.h:62
 msgid "File resolution"
-msgstr "Resolució del fitxer"
+msgstr "Rozlišení"
 
 #: Options_UI.glade.h:63 Options_UI.glade-gtk4.h:64
 msgid "Native area resolution"
-msgstr "Resolució de l'àrea nadiua"
+msgstr "Nativní rozlišení oblasti"
 
 #: Options_UI.glade.h:64 Options_UI.glade-gtk4.h:63
 msgid "Native"
-msgstr "Nadiua"
+msgstr "Původní"
 
 #: Options_UI.glade.h:65 Options_UI.glade-gtk4.h:66
 msgid "Preset helper"
-msgstr "Auxiliar dels valors predefinits"
+msgstr "Předvolby"
 
 #: Options_UI.glade.h:66 Options_UI.glade-gtk4.h:67
 msgid "HD [720p] [16:9]"
@@ -450,19 +440,19 @@ msgstr "4K [2160p] [16:9]"
 
 #: Options_UI.glade.h:75 Options_UI.glade-gtk4.h:65
 msgid "Preset"
-msgstr "Valor predefinit"
+msgstr "Předvolby"
 
 #: Options_UI.glade.h:76 Options_UI.glade-gtk4.h:77
 msgid "keep original aspect ratio"
-msgstr "manté la proporció d'aspecte original"
+msgstr "zachovat původní poměr stran"
 
 #: Options_UI.glade.h:77 Options_UI.glade-gtk4.h:76
 msgid "Custom"
-msgstr "Personalitzada"
+msgstr "Vlastní"
 
 #: Options_UI.glade.h:78 Options_UI.glade-gtk4.h:55
 msgid "File"
-msgstr "Fitxer"
+msgstr "Soubor"
 
 #: Options_UI.glade.h:79 Options_UI.glade-gtk4.h:79
 msgid ""
@@ -471,14 +461,14 @@ msgid ""
 "$ journalctl --since=today --no-pager | grep js\n"
 "$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
 msgstr ""
-"Aquesta opció habilita més missatges de depuració, per a veure'ls executa "
-"aquesta comanda a una terminal:\n"
+"Tato možnost povolí další zprávy ladění, chcete-li je zobrazit, spusťte "
+"tento příkaz v terminálu:\n"
 "$ journalctl --since=today --no-pager | grep js\n"
 "$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
 
 #: Options_UI.glade.h:82 Options_UI.glade-gtk4.h:82
 msgid "Enable verbose debug"
-msgstr "Habilita la depuració detallada"
+msgstr "Povolit podrobné ladění"
 
 #: Options_UI.glade.h:83 Options_UI.glade-gtk4.h:83
 msgid ""
@@ -487,36 +477,34 @@ msgid ""
 "$ journalctl /usr/bin/gnome-session --since=today | grep js\n"
 "$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
 msgstr ""
-"Aquesta opció habilita més missatges de depuració, per a veure'ls, executa "
-"aquesta comanda a un terminal:\n"
+"Tato možnost povolí další zprávy ladění, chcete-li je zobrazit, spusťte "
+"tento příkaz v terminálu:\n"
 "$ journalctl /usr/bin/gnome-session --since=today | grep js\n"
 "$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
 
 #: Options_UI.glade.h:86 Options_UI.glade-gtk4.h:86
-#, fuzzy
 msgid "extension"
-msgstr "Aconsegueix el registre de l'extensió"
+msgstr "rozšíření"
 
 #: Options_UI.glade.h:87 Options_UI.glade-gtk4.h:87
-#, fuzzy
 msgid "last Gstreamer pipeline"
-msgstr "Canonada del GStreamer personalitzada"
+msgstr "poslední Gstreamer pipeline"
 
 #: Options_UI.glade.h:88 Options_UI.glade-gtk4.h:88
 msgid "gnome shell"
-msgstr ""
+msgstr "gnome shell"
 
 #: Options_UI.glade.h:89 Options_UI.glade-gtk4.h:89
 msgid "Display the log of"
-msgstr ""
+msgstr "Zobrazit protokol"
 
 #: Options_UI.glade.h:90 Options_UI.glade-gtk4.h:90
 msgid "Restore default options"
-msgstr "Restaura les opcions predeterminades"
+msgstr "Obnovit výchozí nastavení"
 
 #: Options_UI.glade.h:91 Options_UI.glade-gtk4.h:78
 msgid "Support"
-msgstr "Suport"
+msgstr "Podpora"
 
 #: Options_UI.glade.h:92 Options_UI.glade-gtk4.h:92
 msgid "EasyScreenCast"
@@ -524,75 +512,48 @@ msgstr "EasyScreenCast"
 
 #: Options_UI.glade.h:93 Options_UI.glade-gtk4.h:93
 msgid "N/A"
-msgstr "N/D"
+msgstr "Není k dispozici"
 
 #: Options_UI.glade.h:94
 msgid ""
 "This extension simplifies the use of the \n"
 "screen recorder  included in gnome shell"
 msgstr ""
-"Aquesta extensió simplifica l'ús de la \n"
-"gravadora de pantalla  inclosa al Gnome Shell"
+"Toto rozšíření zjednodušuje použití\n"
+"nahrávání obrazovky, které je součástí gnome shellu"
 
 #: Options_UI.glade.h:96 Options_UI.glade-gtk4.h:96
 msgid "This software is licensed under GPL v3"
-msgstr "Aquest programari està llicenciat sota la llicència GPL v3"
+msgstr "Tento software je licencován pod GPL v3"
 
 #: Options_UI.glade.h:97 Options_UI.glade-gtk4.h:97
 msgid "Credits"
-msgstr "Crèdits"
+msgstr "Zásluhy"
 
 #: Options_UI.glade.h:98 Options_UI.glade-gtk4.h:98
 msgid "How to contribute?"
-msgstr "Com podeu contribuir?"
+msgstr "Jak přispět?"
 
 #: Options_UI.glade.h:99 Options_UI.glade-gtk4.h:99
 msgid "With a translation"
-msgstr "Amb una traducció"
+msgstr "S překladem"
 
 #: Options_UI.glade.h:100 Options_UI.glade-gtk4.h:100
 msgid "Reporting bugs"
-msgstr "En informar d'errades"
+msgstr "Hlášení chyb"
 
 #: Options_UI.glade.h:101 Options_UI.glade-gtk4.h:101
 msgid "Add code"
-msgstr "En afegir codi"
+msgstr "Přidat kód"
 
 #: Options_UI.glade.h:102 Options_UI.glade-gtk4.h:91
 msgid "Info"
-msgstr "Informació"
+msgstr "Informace"
 
 #: Options_UI.glade-gtk4.h:94
-#, fuzzy
 msgid ""
 "This extension simplifies the use of the\n"
 "screen recorder  included in gnome shell"
 msgstr ""
-"Aquesta extensió simplifica l'ús de la \n"
-"gravadora de pantalla  inclosa al Gnome Shell"
-
-#~ msgid "To activate the change of the shortcut restart the extension"
-#~ msgstr "Per a activar el canvi de la drecera, reinicia l'extensió"
-
-#~ msgid "EasyScreenCast -> Finish Recording / Seconds : "
-#~ msgstr "EasyScreenCast -> S'està acabant la gravació / Segons : "
-
-#~ msgid "Shortcut combination"
-#~ msgstr "Combinació de drecera"
-
-#~ msgid "Get the logs of the extension of the last 15 minutes."
-#~ msgstr "Aconsegueix els registres de l'extensió dels darrers 15 minuts."
-
-#~ msgid "Get last GS pipeline"
-#~ msgstr "Aconsegueix la darrera canonada GS"
-
-#~ msgid "Get all complete Gstreamer pipeline of the last 15 minutes."
-#~ msgstr ""
-#~ "Aconsegueix la canonada completa de tot el GStreamer dels darrers 15 "
-#~ "minuts."
-
-#~ msgid "Get Gnome log"
-#~ msgstr "Aconsegueix el registre del Gnome"
-
-#~ msgid "Get the logs of gnome shell of the last 15 minutes."
-#~ msgstr "Aconsegueix els registres del Gnome Shell dels darrers 15 minuts."
+"Toto rozšíření zjednodušuje použití\n"
+"nahrávání obrazovky, které je součástí gnome shellu"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ESC\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-04 15:39+0100\n"
+"POT-Creation-Date: 2022-08-26 09:11+0200\n"
 "PO-Revision-Date: 2017-10-25 22:50-0400\n"
 "Last-Translator: Raphael Rochet <raphael@rri.fr>\n"
 "Language-Team: français <>\n"
@@ -18,23 +18,23 @@ msgstr ""
 "X-Generator: Poedit 2.0.3\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: prefs.js:88
+#: prefs.js:80
 msgid "Could not load the preferences UI file"
 msgstr "Impossible de charger le fichier de préférences de l'extension"
 
-#: prefs.js:423
+#: prefs.js:433
 msgid "WebCam Caps"
 msgstr "Capabilités de la webcam"
 
-#: prefs.js:883
+#: prefs.js:900
 msgid "No Gstreamer pipeline found"
 msgstr "Pipeline GStreamer"
 
-#: prefs.js:962
+#: prefs.js:979
 msgid "Version: "
 msgstr "Version : "
 
-#: prefs.js:1106
+#: prefs.js:1124
 msgid ""
 "<span foreground=\"red\">No Caps selected, please select one from the caps "
 "list</span>"
@@ -42,59 +42,59 @@ msgstr ""
 "<span foreground=\"red\">Aucune capabilité sélectionnée, veuillez en "
 "sélectionner une dans la liste des capabilités.</span>"
 
-#: prefs.js:1117 Options_UI.glade.h:36 Options_UI.glade-gtk4.h:37
+#: prefs.js:1135 Options_UI.glade.h:36 Options_UI.glade-gtk4.h:37
 msgid "No webcam device selected"
 msgstr "Aucun périphérique webcam sélectionné"
 
-#: prefs.js:1119 Options_UI.glade.h:37 Options_UI.glade-gtk4.h:38
+#: prefs.js:1137 Options_UI.glade.h:37 Options_UI.glade-gtk4.h:38
 msgid "-"
 msgstr "-"
 
-#: extension.js:124 extension.js:456
+#: extension.js:142 extension.js:468
 msgid "No audio source"
 msgstr "Aucune source audio"
 
-#: extension.js:135 Options_UI.glade.h:21 Options_UI.glade-gtk4.h:1
+#: extension.js:153 Options_UI.glade.h:21 Options_UI.glade-gtk4.h:1
 msgid "Options"
 msgstr "Options"
 
-#: extension.js:257 extension.js:869
+#: extension.js:275 extension.js:882
 msgid "Start recording"
 msgstr "Démarrer l'enregistrement"
 
-#: extension.js:331 extension.js:832
+#: extension.js:349 extension.js:845
 msgid " sec. delay before recording"
 msgstr " sec. de retardement avant enregistrement"
 
-#: extension.js:333 extension.js:834
+#: extension.js:351 extension.js:847
 msgid "Start recording immediately"
 msgstr "Démarrer l'enregistrement"
 
-#: extension.js:345
+#: extension.js:363
 msgid "Record all desktop"
 msgstr "Enregistrer tout le bureau"
 
-#: extension.js:346
+#: extension.js:364
 msgid "Record a selected monitor"
 msgstr "Enregistrer un écran spécifique"
 
-#: extension.js:347
+#: extension.js:365
 msgid "Record a selected window"
 msgstr "Enregistrer une fenêtre spécifique"
 
-#: extension.js:348
+#: extension.js:366
 msgid "Record a selected area"
 msgstr "Enregistrer un zone à l'écran"
 
-#: extension.js:390
+#: extension.js:409
 msgid "No WebCam recording"
 msgstr "Pas d'enregistrement de webcam"
 
-#: extension.js:463
+#: extension.js:475
 msgid "Default audio source"
 msgstr "Source audio par défaut"
 
-#: extension.js:483
+#: extension.js:495
 msgid ""
 "\n"
 " - Port: "
@@ -102,7 +102,7 @@ msgstr ""
 "\n"
 " - Port : "
 
-#: extension.js:485
+#: extension.js:497
 msgid ""
 "\n"
 " - Name: "
@@ -110,50 +110,50 @@ msgstr ""
 "\n"
 "- Nom : "
 
-#: extension.js:535
+#: extension.js:548
 msgid "Delay Time"
 msgstr "Délai"
 
-#: extension.js:543 extension.js:557
+#: extension.js:556 extension.js:570
 msgid " Sec"
 msgstr " secondes"
 
-#: extension.js:650
+#: extension.js:663
 #, fuzzy
 msgid "ERROR PRE COMMAND - See logs for more info"
 msgstr "ERREUR D'ENREGISTREMENT - Consultez les logs pour plus de détails"
 
-#: extension.js:759
+#: extension.js:772
 msgid "Start Recording"
 msgstr "Démarrer l'enregistrement"
 
-#: extension.js:785
+#: extension.js:798
 msgid "ERROR RECORDER - See logs for more info"
 msgstr "ERREUR D'ENREGISTREMENT - Consultez les logs pour plus de détails"
 
-#: extension.js:809
+#: extension.js:822
 msgid "EasyScreenCast -> Recording in progress / Seconds passed : "
 msgstr "EasyScreenCast -> Enregistrement en cours / Secondes écoulées : "
 
-#: extension.js:861
+#: extension.js:874
 msgid "Stop recording"
 msgstr "Arréter l'enregistrement"
 
-#: selection.js:219
+#: selection.js:225
 msgid "Select an area for recording or press [ESC] to abort"
 msgstr "Sélectionner une aire de capture ou appuyer sur [ESC] pour annuler"
 
-#: selection.js:268
+#: selection.js:278
 #, fuzzy
 msgid "Select a window for recording or press [ESC] to abort"
 msgstr "Sélectionner une fenêtre de capture ou appuyer sur [ESC] pour annuler"
 
-#: selection.js:372
+#: selection.js:386
 #, fuzzy
 msgid "Select a desktop for recording or press [ESC] to abort"
 msgstr "Sélectionner un bureau de capture ou appuyer sur [ESC] pour annuler"
 
-#: utilwebcam.js:226
+#: utilwebcam.js:272
 msgid "Unspecified webcam"
 msgstr "Webcam non spécifiée"
 
