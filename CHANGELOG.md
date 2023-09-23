@@ -10,6 +10,8 @@
 
 **📦 Dependency updates:**
 
+* [#348](https://github.com/EasyScreenCast/EasyScreenCast/pull/348): Bump word-wrap from 1.2.3 to 1.2.4 ([@dependabot](https://github.com/apps/dependabot))
+
 **Full Changelog**: <https://github.com/EasyScreenCast/EasyScreenCast/compare/1.7.1...HEAD>
 
 # v1.7.1 (47) (2023-03-27)
