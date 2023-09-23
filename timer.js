@@ -10,15 +10,11 @@
     FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
 */
 
-/* exported TimerDelay,TimerCounting */
 'use strict';
 
-const GObject = imports.gi.GObject;
-const GLib = imports.gi.GLib;
-
-const ExtensionUtils = imports.misc.extensionUtils;
-const Me = ExtensionUtils.getCurrentExtension();
-const Lib = Me.imports.convenience;
+import GObject from 'gi://GObject';
+import GLib from 'gi://GLib';
+import * as Lib from './convenience.js';
 
 /*
                 DELAY TIMER
@@ -261,3 +257,5 @@ var TimerCounting = GObject.registerClass({
         }
     }
 });
+
+export {TimerDelay, TimerCounting};

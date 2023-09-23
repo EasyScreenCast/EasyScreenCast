@@ -1,12 +1,5 @@
 {
-  "shell-version": [
-    "3.38",
-    "40",
-    "41",
-    "42",
-    "43",
-    "44"
-  ],
+  "shell-version": [ "45" ],
   "uuid": "EasyScreenCast@iacopodeenosee.gmail.com",
   "gettext-domain": "EasyScreenCast@iacopodeenosee.gmail.com",
   "settings-schema": "org.gnome.shell.extensions.EasyScreenCast",

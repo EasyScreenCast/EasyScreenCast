@@ -10,50 +10,44 @@
     FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
 */
 
-/* exported init,buildPrefsWidget */
 'use strict';
 
-const GIRepository = imports.gi.GIRepository;
+import GIRepository from 'gi://GIRepository';
 GIRepository.Repository.prepend_search_path('/usr/lib64/gnome-shell');
 GIRepository.Repository.prepend_library_path('/usr/lib64/gnome-shell');
 
-const GObject = imports.gi.GObject;
-const Gio = imports.gi.Gio;
-const Gtk = imports.gi.Gtk;
-const Gdk = imports.gi.Gdk;
-const Pango = imports.gi.Pango;
+import Adw from 'gi://Adw';
+import GObject from 'gi://GObject';
+import Gio from 'gi://Gio';
+import Gtk from 'gi://Gtk';
+import Gdk from 'gi://Gdk';
+import Pango from 'gi://Pango';
 
-const ExtensionUtils = imports.misc.extensionUtils;
-const Me = ExtensionUtils.getCurrentExtension();
+import {ExtensionPreferences, gettext as _} from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
-const Domain = imports.gettext.domain(Me.metadata['gettext-domain']);
-const _ = Domain.gettext;
-
-const Lib = Me.imports.convenience;
-const UtilWebcam = Me.imports.utilwebcam;
-const UtilGSP = Me.imports.utilgsp;
-const Settings = Me.imports.settings;
-const UtilExeCmd = Me.imports.utilexecmd;
+import * as Lib from './convenience.js';
+import * as UtilWebcam from './utilwebcam.js';
+import * as UtilGSP from './utilgsp.js';
+import * as Settings from './settings.js';
+import * as UtilExeCmd from './utilexecmd.js';
 
 const EasyScreenCastSettingsWidget = GObject.registerClass({
     GTypeName: 'EasyScreenCast_SettingsWidget',
 }, class EasyScreenCastSettingsWidget extends Gtk.Box {
     /**
-     * Init class
-     *
-     * @param {Array} params parameters
-     * @private
+     * @param {ExtensionPreferences} prefs the prefs instance
      */
-    _init(params) {
-        super._init(params);
+    constructor(prefs) {
+        super();
 
-        this._settings = new Settings.Settings();
-        Lib.debugEnabled = this._settings.getOption('b', Settings.VERBOSE_DEBUG_SETTING_KEY);
+        this._prefs = prefs;
+        this._settings = new Settings.Settings(this._prefs.getSettings());
+        Lib.setDebugEnabled(this._settings.getOption('b', Settings.VERBOSE_DEBUG_SETTING_KEY));
         this.CtrlExe = new UtilExeCmd.ExecuteStuff(this);
-        this.CtrlWebcam = new UtilWebcam.HelperWebcam();
+        this.CtrlWebcam = new UtilWebcam.HelperWebcam(_('Unspecified webcam'));
 
         let cssProvider = new Gtk.CssProvider();
-        cssProvider.load_from_path(`${Me.path}/prefs.css`);
+        cssProvider.load_from_path(`${prefs.path}/prefs.css`);
         if (this._isGtk4()) {
             Gtk.StyleContext.add_provider_for_display(
                 Gdk.Display.get_default(),
@@ -67,12 +61,12 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
         }
 
         // creates the ui builder and add the main resource file
-        let uiFilePath = `${Me.path}/Options_UI.glade`;
+        let uiFilePath = `${this._prefs.path}/Options_UI.glade`;
         if (this._isGtk4()) {
-            uiFilePath = `${Me.path}/Options_UI.glade-gtk4`;
+            uiFilePath = `${this._prefs.path}/Options_UI.glade-gtk4`;
         }
         let builder = new Gtk.Builder();
-        builder.set_translation_domain(Me.metadata['gettext-domain']);
+        builder.set_translation_domain(this._prefs.metadata['gettext-domain']);
 
         if (builder.add_from_file(uiFilePath) === 0) {
             Lib.TalkativeLog(`-^-could not load the ui file: ${uiFilePath}`);
@@ -393,10 +387,10 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
 
         // implements image for scale widget
         let refImagePerformance = gtkDB.get_object('img_Performance');
-        refImagePerformance.set_from_file(Lib.getImagePath('Icon_Performance.svg'));
+        refImagePerformance.set_from_file(Lib.getImagePath(this._prefs.dir, 'Icon_Performance.svg'));
 
         let refImageQuality = gtkDB.get_object('img_Quality');
-        refImageQuality.set_from_file(Lib.getImagePath('Icon_Quality.svg'));
+        refImageQuality.set_from_file(Lib.getImagePath(this._prefs.dir, 'Icon_Quality.svg'));
 
         // implements custom GSPipeline option
         let refSwitchCustomGSP = gtkDB.get_object('swt_EnableCustomGSP');
@@ -834,7 +828,7 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
         this._settings._settings.connect(
             `changed::${Settings.VERBOSE_DEBUG_SETTING_KEY}`,
             () => {
-                Lib.debugEnabled = this._settings.getOption('b', Settings.VERBOSE_DEBUG_SETTING_KEY);
+                Lib.setDebugEnabled(this._settings.getOption('b', Settings.VERBOSE_DEBUG_SETTING_KEY));
             }
         );
 
@@ -972,11 +966,11 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
     _initTabInfo(ctx, gtkDB) {
         // implements info img extension
         let refImageEsc = gtkDB.get_object('img_ESC');
-        refImageEsc.set_from_file(Lib.getImagePath('Icon_Info.png'));
+        refImageEsc.set_from_file(Lib.getImagePath(this._prefs.dir, 'Icon_Info.png'));
 
         // implements info version label
         let refLabelVersion = gtkDB.get_object('lbl_Version');
-        refLabelVersion.set_markup(`${_('Version: ')}<span color="blue">${Me.metadata.version}</span> (${Lib.getFullVersion()})`);
+        refLabelVersion.set_markup(`${_('Version: ')}<span color="blue">${this._prefs.metadata.version}</span> (${Lib.getFullVersion()})`);
     }
 
     /**
@@ -1034,7 +1028,7 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
      */
     _initializeWebcamHelper() {
         if (this.CtrlWebcam === null) {
-            this.CtrlWebcam = new UtilWebcam.HelperWebcam();
+            this.CtrlWebcam = new UtilWebcam.HelperWebcam(_('Unspecified webcam'));
         }
     }
 
@@ -1214,24 +1208,27 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
     }
 });
 
-/**
- *
- */
-function init() {
-    ExtensionUtils.initTranslations();
-}
 
-/**
- * @returns {EasyScreenCastSettingsWidget}
- */
-function buildPrefsWidget() {
-    Lib.TalkativeLog('-^-Init pref widget');
+export default class EasyScreenCastPreferences extends ExtensionPreferences {
+    /**
+     * @param {Adw.PreferencesWindow} window preferences window?
+     * @returns {EasyScreenCastSettingsWidget}
+     */
+    fillPreferencesWindow(window) {
+        window._settings = this.getSettings();
 
-    let widget = new EasyScreenCastSettingsWidget();
+        Lib.TalkativeLog('-^-Init pref widget');
 
-    if (!widget._isGtk4()) {
-        widget.show_all();
+        const page = new Adw.PreferencesPage();
+
+        const group = new Adw.PreferencesGroup({
+            title: _('EasyScreenCast'),
+        });
+        page.add(group);
+
+        const widget = new EasyScreenCastSettingsWidget(this);
+        group.add(widget);
+
+        window.add(page);
     }
-
-    return widget;
 }

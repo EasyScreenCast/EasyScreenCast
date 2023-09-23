@@ -20,30 +20,23 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-/* exported SelectionArea,SelectionWindow,SelectionDesktop,AreaRecording */
 'use strict';
 
-const GObject = imports.gi.GObject;
-const Signals = imports.signals;
-const Meta = imports.gi.Meta;
-const Clutter = imports.gi.Clutter;
-const St = imports.gi.St;
-const Layout = imports.ui.layout;
+import GObject from 'gi://GObject';
+import Meta from 'gi://Meta';
+import Clutter from 'gi://Clutter';
+import St from 'gi://St';
+import * as Layout from 'resource:///org/gnome/shell/ui/layout.js';
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
-const Main = imports.ui.main;
+import {gettext as _} from 'resource:///org/gnome/shell/extensions/extension.js';
 
-const ExtensionUtils = imports.misc.extensionUtils;
-const Me = ExtensionUtils.getCurrentExtension();
+import * as Lib from './convenience.js';
+import * as Ext from './extension.js';
+import * as UtilNotify from './utilnotify.js';
+import {DisplayApi} from './display_module.js';
 
-const Domain = imports.gettext.domain(Me.metadata['gettext-domain']);
-const _ = Domain.gettext;
-
-const Lib = Me.imports.convenience;
-const Ext = Me.imports.extension;
-const UtilNotify = Me.imports.utilnotify;
-const DisplayApi = Me.imports.display_module.DisplayApi;
-
-const Config = imports.misc.config;
+import * as Config from 'resource:///org/gnome/shell/misc/config.js';
 const shellVersion = Number.parseInt(Config.PACKAGE_VERSION.split('.')[0]);
 
 /**
@@ -145,7 +138,7 @@ const Capture = GObject.registerClass({
      * @param {number} rect.h height in pixels
      * @param {boolean} showResolution whether to display the size of the selected area
      */
-    drawSelection({ x, y, w, h }, showResolution) {
+    drawSelection({x, y, w, h}, showResolution) {
         this._areaSelection.set_position(x, y);
         this._areaSelection.set_size(w, h);
 
@@ -204,8 +197,6 @@ const Capture = GObject.registerClass({
     }
 });
 
-Signals.addSignalMethods(Capture.prototype);
-
 var SelectionArea = GObject.registerClass({
     GTypeName: 'EasyScreenCast_SelectionArea',
 }, class SelectionArea extends GObject.Object {
@@ -256,8 +247,6 @@ var SelectionArea = GObject.registerClass({
         return this.GTypeName;
     }
 });
-
-Signals.addSignalMethods(SelectionArea.prototype);
 
 var SelectionWindow = GObject.registerClass({
     GTypeName: 'EasyScreenCast_SelectionWindow',
@@ -356,8 +345,6 @@ var SelectionWindow = GObject.registerClass({
     }
 });
 
-Signals.addSignalMethods(SelectionWindow.prototype);
-
 var SelectionDesktop = GObject.registerClass({
     GTypeName: 'EasyScreenCast_SelectionDesktop',
 }, class SelectionDesktop extends GObject.Object {
@@ -414,8 +401,6 @@ var SelectionDesktop = GObject.registerClass({
         return this.GTypeName;
     }
 });
-
-Signals.addSignalMethods(SelectionDesktop.prototype);
 
 var AreaRecording = GObject.registerClass({
     GTypeName: 'EasyScreenCast_AreaRecording',
@@ -494,8 +479,6 @@ var AreaRecording = GObject.registerClass({
     }
 });
 
-Signals.addSignalMethods(AreaRecording.prototype);
-
 /**
  * @param {number} x1 left position
  * @param {number} y1 top position
@@ -561,3 +544,5 @@ function _selectWindow(windows, x, y) {
 
     return filtered[0];
 }
+
+export {SelectionArea, SelectionWindow, SelectionDesktop, AreaRecording};

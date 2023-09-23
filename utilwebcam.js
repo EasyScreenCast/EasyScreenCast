@@ -10,29 +10,24 @@
     FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
 */
 
-/* exported HelperWebcam */
 'use strict';
 
-const GObject = imports.gi.GObject;
-const GLib = imports.gi.GLib;
-imports.gi.versions.Gst = '1.0';
-const Gst = imports.gi.Gst;
-
-const ExtensionUtils = imports.misc.extensionUtils;
-const Me = ExtensionUtils.getCurrentExtension();
-
-const Domain = imports.gettext.domain(Me.metadata['gettext-domain']);
-const _ = Domain.gettext;
-
-const Lib = Me.imports.convenience;
+import GObject from 'gi://GObject';
+import GLib from 'gi://GLib';
+import Gst from 'gi://Gst?version=1.0';
+import * as Lib from './convenience.js';
 
 var HelperWebcam = GObject.registerClass({
     GTypeName: 'EasyScreenCast_HelperWebcam',
 }, class HelperWebcam extends GObject.Object {
     /**
      * Create a device monitor inputvideo
+     *
+     * @param {string} unspecifiedWebcamText localized text for "Unspecified Webcam"
      */
-    _init() {
+    constructor(unspecifiedWebcamText) {
+        super();
+        this._unspecified_webcam_text = unspecifiedWebcamText;
         Lib.TalkativeLog('-@-init webcam');
 
         Gst.init(null);
@@ -269,7 +264,7 @@ var HelperWebcam = GObject.registerClass({
         let tmpArray = [];
 
         for (var index in this._listDevices) {
-            var wcName = _('Unspecified webcam');
+            var wcName = this._unspecified_webcam_text;
 
             if (this._listDevices[index].display_name !== '') {
                 wcName = this._listDevices[index].display_name;
@@ -321,3 +316,5 @@ var HelperWebcam = GObject.registerClass({
         }
     }
 });
+
+export {HelperWebcam};

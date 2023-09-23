@@ -10,26 +10,22 @@
     FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
 */
 
-/* exported CaptureVideo */
 'use strict';
 
-const GObject = imports.gi.GObject;
-const Gio = imports.gi.Gio;
-const GLib = imports.gi.GLib;
-const { loadInterfaceXML, _ } = imports.misc.fileUtils;
+import GObject from 'gi://GObject';
+import Gio from 'gi://Gio';
+import GLib from 'gi://GLib';
+import {loadInterfaceXML} from 'resource:///org/gnome/shell/misc/dbusUtils.js';
 const ScreencastIface = loadInterfaceXML('org.gnome.Shell.Screencast');
 
-const ExtensionUtils = imports.misc.extensionUtils;
-
-const Config = imports.misc.config;
+import * as Config from 'resource:///org/gnome/shell/misc/config.js';
 const shellVersion = Number.parseInt(Config.PACKAGE_VERSION.split('.')[0]);
 
-const Me = ExtensionUtils.getCurrentExtension();
-const Lib = Me.imports.convenience;
-const Settings = Me.imports.settings;
-const Selection = Me.imports.selection;
-const UtilGSP = Me.imports.utilgsp;
-const Ext = Me.imports.extension;
+import * as Lib from './convenience.js';
+import * as Settings from './settings.js';
+import * as Selection from './selection.js';
+import * as UtilGSP from './utilgsp.js';
+import * as Ext from './extension.js';
 
 /**
  * @type {CaptureVideo}
@@ -201,3 +197,5 @@ var CaptureVideo = GObject.registerClass({
         return result;
     }
 });
+
+export {CaptureVideo};

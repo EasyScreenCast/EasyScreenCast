@@ -10,19 +10,9 @@
     FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
 */
 
-/* exported getGSPstd,Settings */
 'use strict';
 
-const GObject = imports.gi.GObject;
-const ExtensionUtils = imports.misc.extensionUtils;
-const Me = ExtensionUtils.getCurrentExtension();
-
-const Domain = imports.gettext.domain(Me.metadata['gettext-domain']);
-const _ = Domain.gettext;
-
-
-/* eslint-disable no-unused-vars */
-// these are exported constants
+import GObject from 'gi://GObject';
 
 // setting keys
 var INPUT_AUDIO_SOURCE_SETTING_KEY = 'input-audio-source';
@@ -68,12 +58,11 @@ var CORNER_POSITION_WEBCAM_SETTING_KEY = 'corner-position-webcam';
 // shortcut tree view columns
 var SHORTCUT_COLUMN_KEY = 0;
 var SHORTCUT_COLUMN_MODS = 1;
-/* eslint-enable no-unused-vars */
-
 
 var Settings = GObject.registerClass(class EasyScreenCastSettings extends GObject.Object {
-    _init() {
-        this._settings = ExtensionUtils.getSettings();
+    constructor(settings) {
+        super();
+        this._settings = settings;
     }
 
     /**
@@ -158,3 +147,49 @@ function getGSPstd(audio) {
         return 'vp9enc min_quantizer=0 max_quantizer=5 cpu-used=3 deadline=1000000 threads=%T ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! webmmux';
     }
 }
+
+export {
+    getGSPstd,
+    Settings,
+    INPUT_AUDIO_SOURCE_SETTING_KEY,
+    ACTIVE_POST_CMD_SETTING_KEY,
+    POST_CMD_SETTING_KEY,
+    ACTIVE_PRE_CMD_SETTING_KEY,
+    PRE_CMD_SETTING_KEY,
+    ACTIVE_CUSTOM_GSP_SETTING_KEY,
+    ACTIVE_SHORTCUT_SETTING_KEY,
+    SHORTCUT_KEY_SETTING_KEY,
+    TIME_DELAY_SETTING_KEY,
+    SHOW_NOTIFY_ALERT_SETTING_KEY,
+    SHOW_AREA_REC_SETTING_KEY,
+    VERBOSE_DEBUG_SETTING_KEY,
+    PIPELINE_REC_SETTING_KEY,
+    FPS_SETTING_KEY,
+    STATUS_INDICATORS_SETTING_KEY,
+    X_POS_SETTING_KEY,
+    Y_POS_SETTING_KEY,
+    WIDTH_SETTING_KEY,
+    HEIGHT_SETTING_KEY,
+    DRAW_CURSOR_SETTING_KEY,
+    AREA_SCREEN_SETTING_KEY,
+    FILE_NAME_SETTING_KEY,
+    FILE_FOLDER_SETTING_KEY,
+    FILE_CONTAINER_SETTING_KEY,
+    FILE_RESOLUTION_TYPE_SETTING_KEY,
+    FILE_RESOLUTION_KAR_SETTING_KEY,
+    FILE_RESOLUTION_WIDTH_SETTING_KEY,
+    FILE_RESOLUTION_HEIGHT_SETTING_KEY,
+    QUALITY_SETTING_KEY,
+    DEVICE_INDEX_WEBCAM_SETTING_KEY,
+    DEVICE_WEBCAM_SETTING_KEY,
+    QUALITY_WEBCAM_SETTING_KEY,
+    WIDTH_WEBCAM_SETTING_KEY,
+    HEIGHT_WEBCAM_SETTING_KEY,
+    TYPE_UNIT_WEBCAM_SETTING_KEY,
+    MARGIN_X_WEBCAM_SETTING_KEY,
+    MARGIN_Y_WEBCAM_SETTING_KEY,
+    ALPHA_CHANNEL_WEBCAM_SETTING_KEY,
+    CORNER_POSITION_WEBCAM_SETTING_KEY,
+    SHORTCUT_COLUMN_KEY,
+    SHORTCUT_COLUMN_MODS
+};

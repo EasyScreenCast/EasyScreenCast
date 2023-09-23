@@ -1,4 +1,3 @@
-/* exported DisplayApi */
 'use strict';
 
 /**
@@ -37,3 +36,5 @@ var DisplayApi = {
         this._display().set_cursor(cursor);
     },
 };
+
+export {DisplayApi};

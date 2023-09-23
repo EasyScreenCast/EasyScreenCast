@@ -10,13 +10,10 @@
     FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
 */
 
-/* exported composeGSP,getDescr,getFps,getFileExtension */
 'use strict';
 
-const ExtensionUtils = imports.misc.extensionUtils;
-const Me = ExtensionUtils.getCurrentExtension();
-const Lib = Me.imports.convenience;
-const Settings = Me.imports.settings;
+import * as Lib from './convenience.js';
+import * as Settings from './settings.js';
 
 // CONST GSP - base
 const SCREEN =
@@ -737,3 +734,5 @@ function getFileExtension(container) {
 
     return CONTAINER[container].fileExt;
 }
+
+export {composeGSP, getDescr, getFps, getFileExtension};

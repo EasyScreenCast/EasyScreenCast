@@ -10,21 +10,18 @@
     FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
 */
 
-/* exported NotifyManager */
 'use strict';
 
-const GObject = imports.gi.GObject;
-const Main = imports.ui.main;
+import GObject from 'gi://GObject';
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 // https://gitlab.gnome.org/GNOME/gnome-shell/-/blob/main/js/ui/messageTray.js
-const MessageTray = imports.ui.messageTray;
-const Clutter = imports.gi.Clutter;
-const St = imports.gi.St;
+import * as MessageTray from 'resource:///org/gnome/shell/ui/messageTray.js';
+import Clutter from 'gi://Clutter';
+import St from 'gi://St';
 
-const ExtensionUtils = imports.misc.extensionUtils;
-const Me = ExtensionUtils.getCurrentExtension();
-const Lib = Me.imports.convenience;
-const Settings = Me.imports.settings;
-const Ext = Me.imports.extension;
+import * as Lib from './convenience.js';
+import * as Settings from './settings.js';
+import * as Ext from './extension.js';
 
 /**
  * @type {NotifyManager}
@@ -121,3 +118,5 @@ var NotifyManager = GObject.registerClass({
         }
     }
 });
+
+export {NotifyManager};
