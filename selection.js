@@ -166,7 +166,7 @@ const Capture = GObject.registerClass({
     _stop() {
         Lib.TalkativeLog('-£-capture selection stop');
 
-        global.stage.disconnect(this._signalCapturedEvent);
+        this._areaSelection.disconnect(this._signalCapturedEvent);
         this._setDefaultCursor();
         Main.uiGroup.remove_actor(this._areaSelection);
         Main.popModal(this._grab);
@@ -200,10 +200,13 @@ var SelectionArea = GObject.registerClass({
         this._mouseDown = false;
         this._capture = new Capture();
         this._capture.connect('captured-event', this._onEvent.bind(this));
-        this._capture.connect('stop', () => this.emit('stop'));
+        this._capture.connect('stop', () => {
+            this._ctrlNotify.resetAlert();
+            this.emit('stop');
+        });
 
-        let CtrlNotify = new UtilNotify.NotifyManager();
-        CtrlNotify.createAlert(
+        this._ctrlNotify = new UtilNotify.NotifyManager();
+        this._ctrlNotify.createAlert(
             _('Select an area for recording or press [ESC] to abort')
         );
     }
@@ -252,10 +255,13 @@ var SelectionWindow = GObject.registerClass({
         this._windows = global.get_window_actors();
         this._capture = new Capture();
         this._capture.connect('captured-event', this._onEvent.bind(this));
-        this._capture.connect('stop', () => this.emit('stop'));
+        this._capture.connect('stop', () => {
+            this._ctrlNotify.resetAlert();
+            this.emit('stop');
+        });
 
-        let CtrlNotify = new UtilNotify.NotifyManager();
-        CtrlNotify.createAlert(
+        this._ctrlNotify = new UtilNotify.NotifyManager();
+        this._ctrlNotify.createAlert(
             _('Select a window for recording or press [ESC] to abort')
         );
     }
@@ -356,10 +362,13 @@ var SelectionDesktop = GObject.registerClass({
 
         this._capture = new Capture();
         this._capture.connect('captured-event', this._onEvent.bind(this));
-        this._capture.connect('stop', () => this.emit('stop'));
+        this._capture.connect('stop', () => {
+            this._ctrlNotify.resetAlert();
+            this.emit('stop');
+        });
 
-        let CtrlNotify = new UtilNotify.NotifyManager();
-        CtrlNotify.createAlert(
+        this._ctrlNotify = new UtilNotify.NotifyManager();
+        this._ctrlNotify.createAlert(
             _('Select a desktop for recording or press [ESC] to abort')
         );
     }
