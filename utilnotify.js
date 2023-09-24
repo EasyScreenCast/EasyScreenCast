@@ -32,7 +32,8 @@ var NotifyManager = GObject.registerClass({
     /**
      * Create a notify manager
      */
-    _init() {
+    constructor() {
+        super();
         Lib.TalkativeLog('-°-init notify manager');
     }
 

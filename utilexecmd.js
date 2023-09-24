@@ -27,7 +27,8 @@ var ExecuteStuff = GObject.registerClass({
      * @param {EasyScreenCastSettingsWidget|EasyScreenCastIndicator} scope the scope for executing callback methods
      * @private
      */
-    _init(scope) {
+    constructor(scope) {
+        super();
         Lib.TalkativeLog(`-¶-init scope:${scope}`);
 
         this.Scope = scope;

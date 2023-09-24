@@ -45,10 +45,8 @@ const shellVersion = Number.parseInt(Config.PACKAGE_VERSION.split('.')[0]);
 const Capture = GObject.registerClass({
     GTypeName: 'EasyScreenCast_Capture',
 }, class Capture extends GObject.Object {
-    /**
-     * @private
-     */
-    _init() {
+    constructor() {
+        super();
         Lib.TalkativeLog('-£-capture selection init');
 
         this._mouseDown = false;
@@ -200,10 +198,8 @@ const Capture = GObject.registerClass({
 var SelectionArea = GObject.registerClass({
     GTypeName: 'EasyScreenCast_SelectionArea',
 }, class SelectionArea extends GObject.Object {
-    /**
-     * @private
-     */
-    _init() {
+    constructor() {
+        super();
         Lib.TalkativeLog('-£-area selection init');
 
         this._mouseDown = false;
@@ -251,10 +247,8 @@ var SelectionArea = GObject.registerClass({
 var SelectionWindow = GObject.registerClass({
     GTypeName: 'EasyScreenCast_SelectionWindow',
 }, class SelectionWindow extends GObject.Object {
-    /**
-     * @private
-     */
-    _init() {
+    constructor() {
+        super();
         Lib.TalkativeLog('-£-window selection init');
 
         this._windows = global.get_window_actors();
@@ -348,10 +342,8 @@ var SelectionWindow = GObject.registerClass({
 var SelectionDesktop = GObject.registerClass({
     GTypeName: 'EasyScreenCast_SelectionDesktop',
 }, class SelectionDesktop extends GObject.Object {
-    /**
-     * @private
-     */
-    _init() {
+    constructor() {
+        super();
         Lib.TalkativeLog('-£-desktop selection init');
         const displayCount = DisplayApi.number_displays();
         Lib.TalkativeLog(`-£-Number of monitor ${displayCount}`);
@@ -405,10 +397,8 @@ var SelectionDesktop = GObject.registerClass({
 var AreaRecording = GObject.registerClass({
     GTypeName: 'EasyScreenCast_AreaRecording',
 }, class AreaRecording extends GObject.Object {
-    /**
-     * @private
-     */
-    _init() {
+    constructor() {
+        super();
         Lib.TalkativeLog('-£-area recording init');
 
         this._areaRecording = new St.Widget({

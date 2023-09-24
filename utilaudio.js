@@ -30,13 +30,9 @@ import * as Ext from './extension.js';
 var MixerAudio = GObject.registerClass({
     GTypeName: 'EasyScreenCast_MixerAudio',
 }, class MixerAudio extends GObject.Object {
-    /**
-     * Init Lang class
-     *
-     * @private
-     */
-    _init() {
-        Lib.TalkativeLog('-#-mixer _init');
+    constructor() {
+        super();
+        Lib.TalkativeLog('-#-mixer constructor');
 
         this._mixerControl = this._createMixerControl();
         this._isConnected = true;

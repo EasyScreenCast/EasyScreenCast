@@ -36,7 +36,8 @@ var CaptureVideo = GObject.registerClass({
     /**
      * Create a video recorder
      */
-    _init() {
+    constructor() {
+        super();
         Lib.TalkativeLog('-&-init recorder');
 
         this.AreaSelected = null;
