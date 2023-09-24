@@ -350,11 +350,8 @@ var SelectionDesktop = GObject.registerClass({
         Lib.TalkativeLog(`-£-Number of monitor ${displayCount}`);
 
         for (var i = 0; i < displayCount; i++) {
-            var tmpM = new Layout.Monitor(
-                i,
-                DisplayApi.display_geometry_for_index(i)
-            );
-            Lib.TalkativeLog(`-£-monitor geometry x=${tmpM.x} y=${tmpM.y} w=${tmpM.width} h=${tmpM.height}`);
+            var tmpM = DisplayApi.display_geometry_for_index(i);
+            Lib.TalkativeLog(`-£-monitor ${i} geometry x=${tmpM.x} y=${tmpM.y} w=${tmpM.width} h=${tmpM.height}`);
         }
 
         this._capture = new Capture();
