@@ -48,23 +48,13 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
 
         let cssProvider = new Gtk.CssProvider();
         cssProvider.load_from_path(`${prefs.path}/prefs.css`);
-        if (this._isGtk4()) {
-            Gtk.StyleContext.add_provider_for_display(
-                Gdk.Display.get_default(),
-                cssProvider,
-                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-        } else {
-            Gtk.StyleContext.add_provider_for_screen(
-                Gdk.Screen.get_default(),
-                cssProvider,
-                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-        }
+        Gtk.StyleContext.add_provider_for_display(
+            Gdk.Display.get_default(),
+            cssProvider,
+            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
         // creates the ui builder and add the main resource file
         let uiFilePath = `${this._prefs.path}/Options_UI.glade`;
-        if (this._isGtk4()) {
-            uiFilePath = `${this._prefs.path}/Options_UI.glade-gtk4`;
-        }
         let builder = new Gtk.Builder();
         builder.set_translation_domain(this._prefs.metadata['gettext-domain']);
 
@@ -75,22 +65,13 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
                 vexpand: true,
             });
 
-            if (this._isGtk4()) {
-                this.append(label);
-            } else {
-                this.pack_start(label, true, true, 0);
-            }
+            this.append(label);
         } else {
             Lib.TalkativeLog(`-^-UI file receive and load: ${uiFilePath}`);
 
             // gets the interesting builder objects
             let refBoxMainContainer = builder.get_object('Main_Container');
-            if (this._isGtk4()) {
-                this.append(refBoxMainContainer);
-            } else {
-                // packs the main table
-                this.pack_start(refBoxMainContainer, true, true, 0);
-            }
+            this.append(refBoxMainContainer);
 
             // setup tab options
             this._initTabOptions(this, builder, this._settings._settings);
@@ -135,11 +116,6 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
                 }
             );
         }
-    }
-
-    _isGtk4() {
-        const gtkVersion = Gtk.get_major_version();
-        return gtkVersion >= 4;
     }
 
     /**
@@ -762,48 +738,33 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
             );
         }
 
-        if (this._isGtk4()) {
-            refFilechooserFileFolder.set_label(`Selected: ${tmpFolder}`);
+        refFilechooserFileFolder.set_label(`Selected: ${tmpFolder}`);
 
-            refFilechooserFileFolder.connect('clicked', () => {
-                Lib.TalkativeLog('-^- file chooser button clicked...');
+        refFilechooserFileFolder.connect('clicked', () => {
+            Lib.TalkativeLog('-^- file chooser button clicked...');
 
-                let dialog = new Gtk.FileChooserNative({
-                    'title': 'Select folder',
-                    'transient-for': refFilechooserFileFolder.get_root(),
-                    'action': Gtk.FileChooserAction.SELECT_FOLDER,
-                    'accept-label': 'Ok',
-                    'cancel-label': 'Cancel',
-                });
-                dialog.connect('response', (self, response) => {
-                    if (response === Gtk.ResponseType.ACCEPT) {
-                        var tmpPathFolder = self.get_file().get_path();
-                        Lib.TalkativeLog(`-^-file path get from widget : ${tmpPathFolder}`);
-                        this._settings.setOption(
-                            Settings.FILE_FOLDER_SETTING_KEY,
-                            tmpPathFolder
-                        );
-                        refFilechooserFileFolder.set_label(`Selected: ${tmpPathFolder}`);
-                    }
-                    ctx.fileChooserDialog = null;
-                });
-                dialog.show();
-                ctx.fileChooserDialog = dialog; // keep a reference to the dialog alive
+            let dialog = new Gtk.FileChooserNative({
+                'title': 'Select folder',
+                'transient-for': refFilechooserFileFolder.get_root(),
+                'action': Gtk.FileChooserAction.SELECT_FOLDER,
+                'accept-label': 'Ok',
+                'cancel-label': 'Cancel',
             });
-        } else {
-            refFilechooserFileFolder.set_filename(tmpFolder);
-
-            refFilechooserFileFolder.connect('file_set', self => {
-                var tmpPathFolder = self.get_filename();
-                Lib.TalkativeLog(`-^-file path get from widget : ${tmpPathFolder}`);
-                if (tmpPathFolder !== null) {
+            dialog.connect('response', (self, response) => {
+                if (response === Gtk.ResponseType.ACCEPT) {
+                    var tmpPathFolder = self.get_file().get_path();
+                    Lib.TalkativeLog(`-^-file path get from widget : ${tmpPathFolder}`);
                     this._settings.setOption(
                         Settings.FILE_FOLDER_SETTING_KEY,
                         tmpPathFolder
                     );
+                    refFilechooserFileFolder.set_label(`Selected: ${tmpPathFolder}`);
                 }
+                ctx.fileChooserDialog = null;
             });
-        }
+            dialog.show();
+            ctx.fileChooserDialog = dialog; // keep a reference to the dialog alive
+        });
     }
 
     /**
@@ -1042,17 +1003,13 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
         let [key, mods] = [0, 0];
 
         if (accel !== null && accel !== undefined) {
-            if (this._isGtk4()) {
-                let ok;
-                [ok, key, mods] = Gtk.accelerator_parse(accel);
+            let ok;
+            [ok, key, mods] = Gtk.accelerator_parse(accel);
 
-                if (ok !== true) {
-                    Lib.TalkativeLog('-^-couldn\'t parse accel');
-                    key = 0;
-                    mods = 0;
-                }
-            } else {
-                [key, mods] = Gtk.accelerator_parse(accel);
+            if (ok !== true) {
+                Lib.TalkativeLog('-^-couldn\'t parse accel');
+                key = 0;
+                mods = 0;
             }
         }
 

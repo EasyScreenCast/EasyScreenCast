@@ -36,9 +36,6 @@ import * as Ext from './extension.js';
 import * as UtilNotify from './utilnotify.js';
 import {DisplayApi} from './display_module.js';
 
-import * as Config from 'resource:///org/gnome/shell/misc/config.js';
-const shellVersion = Number.parseInt(Config.PACKAGE_VERSION.split('.')[0]);
-
 /**
  * @type {Lang.Class}
  */
@@ -76,20 +73,10 @@ const Capture = GObject.registerClass({
         this._grab = Main.pushModal(this._areaSelection);
 
         if (this._grab) {
-            if (shellVersion >= 42) {
-                this._signalCapturedEvent = this._areaSelection.connect(
-                    'captured-event',
-                    this._onCaptureEvent.bind(this)
-                );
-            } else {
-                this._grab = this._areaSelection;
-                this._signalCapturedEvent = global.stage.connect(
-                    'captured-event',
-                    this._onCaptureEvent.bind(this)
-                );
-            }
-
-
+            this._signalCapturedEvent = this._areaSelection.connect(
+                'captured-event',
+                this._onCaptureEvent.bind(this)
+            );
 
             this._setCaptureCursor();
         } else {

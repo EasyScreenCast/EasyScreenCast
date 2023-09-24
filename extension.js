@@ -890,15 +890,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
             return;
         }
 
-        var stdMenu;
-
-        if (Main.panel.statusArea.quickSettings) {
-            // since gnome 43: aggregateMenu -> quickSettings
-            stdMenu = Main.panel.statusArea.quickSettings;
-        } else {
-            stdMenu = Main.panel.statusArea.aggregateMenu;
-        }
-
+        var stdMenu = Main.panel.statusArea.quickSettings;
         if (stdMenu === undefined) {
             Lib.TalkativeLog('-*-no quickSettings or aggregateMenu in Main.panel.statusArea');
             return;
@@ -907,8 +899,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
             Lib.TalkativeLog('-*-no _remoteAccess indicator applet found');
             return;
         }
-        // since gnome 43: _recordingIndicator -> _indicator
-        var indicator = stdMenu._remoteAccess._indicator || stdMenu._remoteAccess._recordingIndicator;
+        var indicator = stdMenu._remoteAccess._indicator;
         if (indicator === undefined) {
             Lib.TalkativeLog('-*-no _indicator or _recordingIndicator found');
             return;

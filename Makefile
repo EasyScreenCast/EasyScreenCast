@@ -3,7 +3,7 @@
 UUID = EasyScreenCast@iacopodeenosee.gmail.com
 NAME_EXTENSION = EasyScreenCast
 BASE_MODULES = convenience.js prefs.js prefs.css selection.js utilgsp.js utilwebcam.js extension.js \
-               metadata.json settings.js timer.js utilnotify.js Options_UI.glade Options_UI.glade-gtk4 \
+               metadata.json settings.js timer.js utilnotify.js Options_UI.glade \
                stylesheet.css utilaudio.js utilrecorder.js utilexecmd.js display_module.js
 IMG_MEDIA = icon_defaultSel.svg Icon_Info.png icon_recordingSel.svg icon_default.svg Icon_Performance.svg \
             Icon_Quality.svg  icon_recording.svg
@@ -56,15 +56,12 @@ mergepo: potfile
 		msgmerge -U $$l ./locale/easyscreencast.pot; \
 	done;
 
-./locale/easyscreencast.pot: $(TOLOCALIZE) Options_UI.glade Options_UI.glade-gtk4
+./locale/easyscreencast.pot: $(TOLOCALIZE) Options_UI.glade
 	mkdir -p locale
 	xgettext -k --keyword=_ --keyword=N_ --from-code=UTF-8 --add-comments='Translators:' -o locale/easyscreencast.pot --package-name "EasyScreenCast" $(TOLOCALIZE)
 	intltool-extract --type=gettext/glade Options_UI.glade
 	xgettext -k --keyword=_ --keyword=N_ --from-code=UTF-8 --join-existing -o locale/easyscreencast.pot Options_UI.glade.h
 	rm Options_UI.glade.h
-	intltool-extract --type=gettext/glade Options_UI.glade-gtk4
-	xgettext -k --keyword=_ --keyword=N_ --from-code=UTF-8 --join-existing -o locale/easyscreencast.pot Options_UI.glade-gtk4.h
-	rm Options_UI.glade-gtk4.h
 
 ./locale/%.mo: ./locale/%.po
 	msgfmt -c $< -o $@
