@@ -41,6 +41,12 @@ import {DisplayApi} from './display_module.js';
  */
 const Capture = GObject.registerClass({
     GTypeName: 'EasyScreenCast_Capture',
+    Signals: {
+        'captured-event': {
+            param_types: [Clutter.Event.$gtype],
+        },
+        'stop': {},
+    },
 }, class Capture extends GObject.Object {
     constructor() {
         super();
@@ -167,7 +173,6 @@ const Capture = GObject.registerClass({
         Main.uiGroup.remove_actor(this._areaResolution);
         this._areaSelection.destroy();
         this.emit('stop');
-        this.disconnectAll();
     }
 
     _saveRect(x, y, h, w) {
@@ -184,6 +189,9 @@ const Capture = GObject.registerClass({
 
 var SelectionArea = GObject.registerClass({
     GTypeName: 'EasyScreenCast_SelectionArea',
+    Signals: {
+        'stop': {},
+    },
 }, class SelectionArea extends GObject.Object {
     constructor() {
         super();
@@ -192,7 +200,7 @@ var SelectionArea = GObject.registerClass({
         this._mouseDown = false;
         this._capture = new Capture();
         this._capture.connect('captured-event', this._onEvent.bind(this));
-        this._capture.connect('stop', this.emit.bind(this, 'stop'));
+        this._capture.connect('stop', () => this.emit('stop'));
 
         let CtrlNotify = new UtilNotify.NotifyManager();
         CtrlNotify.createAlert(
@@ -233,6 +241,9 @@ var SelectionArea = GObject.registerClass({
 
 var SelectionWindow = GObject.registerClass({
     GTypeName: 'EasyScreenCast_SelectionWindow',
+    Signals: {
+        'stop': {},
+    },
 }, class SelectionWindow extends GObject.Object {
     constructor() {
         super();
@@ -241,7 +252,7 @@ var SelectionWindow = GObject.registerClass({
         this._windows = global.get_window_actors();
         this._capture = new Capture();
         this._capture.connect('captured-event', this._onEvent.bind(this));
-        this._capture.connect('stop', this.emit.bind(this, 'stop'));
+        this._capture.connect('stop', () => this.emit('stop'));
 
         let CtrlNotify = new UtilNotify.NotifyManager();
         CtrlNotify.createAlert(
@@ -328,6 +339,9 @@ var SelectionWindow = GObject.registerClass({
 
 var SelectionDesktop = GObject.registerClass({
     GTypeName: 'EasyScreenCast_SelectionDesktop',
+    Signals: {
+        'stop': {},
+    },
 }, class SelectionDesktop extends GObject.Object {
     constructor() {
         super();
@@ -345,7 +359,7 @@ var SelectionDesktop = GObject.registerClass({
 
         this._capture = new Capture();
         this._capture.connect('captured-event', this._onEvent.bind(this));
-        this._capture.connect('stop', this.emit.bind(this, 'stop'));
+        this._capture.connect('stop', () => this.emit('stop'));
 
         let CtrlNotify = new UtilNotify.NotifyManager();
         CtrlNotify.createAlert(
