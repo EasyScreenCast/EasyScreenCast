@@ -26,7 +26,6 @@ import GObject from 'gi://GObject';
 import Meta from 'gi://Meta';
 import Clutter from 'gi://Clutter';
 import St from 'gi://St';
-import * as Layout from 'resource:///org/gnome/shell/ui/layout.js';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import {gettext as _} from 'resource:///org/gnome/shell/extensions/extension.js';

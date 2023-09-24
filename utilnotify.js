@@ -16,7 +16,6 @@ import GObject from 'gi://GObject';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 // https://gitlab.gnome.org/GNOME/gnome-shell/-/blob/main/js/ui/messageTray.js
 import * as MessageTray from 'resource:///org/gnome/shell/ui/messageTray.js';
-import Clutter from 'gi://Clutter';
 import St from 'gi://St';
 
 import * as Lib from './convenience.js';
@@ -115,6 +114,7 @@ var NotifyManager = GObject.registerClass({
             // TODO: for some reason, no transition is created, so the onComplete
             // callback is called _immediately_
             /*
+            import Clutter from 'gi://Clutter';
             this._alertWidget.ease({
                 opacity: 0,
                 duration: 400,
