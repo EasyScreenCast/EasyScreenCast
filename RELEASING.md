@@ -1,19 +1,18 @@
 # Releasing
 
-1.  Set the correct version in `package.json` and increase the extension
-    version in `metadata.json`.
-    
+1.  increase the extension version in `metadata.json`.
+    and run `npm --no-git-tag-version version 1.8.0`.
     Run `npm install`.
 
 2.  Update `CHANGELOG.md` with version and release date. Make sure all
     issues / PRs are listed. Update the link for "full changelog".
 
 3.  Commit `metadata.json`, `package.json` and `package-lock.json` and
-    `CHANGELOG.md` ("Prepare release 1.7.1").
+    `CHANGELOG.md` ("Prepare release 1.8.0").
 
-4.  Rename current "next" milestone, create a new "next" one: <https://github.com/EasyScreenCast/EasyScreenCast/milestones>
+4.  Rename current "next" milestone to "1.8.0", create a new "next" one: <https://github.com/EasyScreenCast/EasyScreenCast/milestones>
 
-5.  Create a tag and push: e.g. `git tag 1.4.0 && git push origin tag 1.4.0`
+5.  Create a tag and push: e.g. `git tag 1.8.0 && git push origin tag 1.8.0`
 
 6.  Build locally `make zip-file`
 
@@ -27,7 +26,8 @@
 
     If the extension is rejected, you can move the tag and start over.
 
-10. Update and commit `CHANGELOG.md` - add new version:
+10. Run `npm --no-git-tag-version version 1.8.1-snapshot`.
+    Update and commit `CHANGELOG.md` - add new version:
 
     ```
     # next
@@ -40,7 +40,7 @@
 
     **📦 Dependency updates:**
 
-    **Full Changelog**: <https://github.com/EasyScreenCast/EasyScreenCast/compare/1.7.1...HEAD>
+    **Full Changelog**: <https://github.com/EasyScreenCast/EasyScreenCast/compare/1.8.0...HEAD>
     ```
 
 11. Push master branch.
