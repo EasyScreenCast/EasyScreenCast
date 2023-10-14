@@ -12,25 +12,32 @@ Copyright (C) 2013-16 Borsato Ivano.
 
 ----
 
-**Note:** Gnome Shell 42 brings in a new screenshot/screencast UI, which might already be all you need.
-Just run it via the default shortcut `Ctlr+Alt+Shift+R`.
+**Note:** Since Gnome Shell 42 a new built-in [screenshot/screencast UI](https://help.gnome.org/users/gnome-help/stable/screen-shot-record.html.en)
+is available, which might already be all you need.
+Just run it via the default shortcut <kbd>Ctlr</kbd>+<kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>R</kbd>.
 
-This extension provides more options to configure the screencast, e.g. quality settings and webcam support.
+This extension provides more options to configure the screencast:
+- include audio channel
+- include video stream from webcam
+- various quality settings and formats for the resulting video
+
+This extension is a simple ad-hoc solution for recording screencasts. For more sophisticated screencasts,
+I'd recommend [OBS Studio](https://obsproject.com/).
 
 ----
 
 ## Requirements
-- Gnome Shell 3.38+
+- Gnome Shell 45 (EasyScreenCast 1.8.0; EasyScreenCast 1.7.1: Gnome Shell 3.38 - 44)
 - Gstreamer 1.x [ common function/webcam support ]
 - gst plugins ugly [ x264 support ]
 - gst plugins base [ common function/theora support ]
 - gst plugins good [ mp4/mkv/webm/vp8/vp9 support ]
 
 ## License Info
-EasyScreenCast is free software distributed under the GNU GPL. All files are under GPL v3. read [COPYING](COPYING.md) for more information about license.
+EasyScreenCast is free software distributed under the GNU GPL. All files are under GPL v3. Read [COPYING](COPYING.md) for more information about license.
 
 ## How to install
-there are several methods:
+There are several methods:
 
 1.  From **github releases**. Just go to <https://github.com/EasyScreenCast/EasyScreenCast/releases/latest> and download
     the latest zip file. Then install it (adjust the file name accordingly):
