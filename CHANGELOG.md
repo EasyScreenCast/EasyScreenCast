@@ -12,8 +12,11 @@ need to be used.
 
 * [#347](https://github.com/EasyScreenCast/EasyScreenCast/pull/347): Add czech translation ([@Amereyeu](https://github.com/Amereyeu))
 * [#353](https://github.com/EasyScreenCast/EasyScreenCast/pull/353): Support Gnome 45 ([@adangel](https://github.com/adangel))
+* [#354](https://github.com/EasyScreenCast/EasyScreenCast/pull/354): Unregister Mixer Control when extension is disabled ([@adangel](https://github.com/adangel))
 
 **🐛 Fixed bugs:**
+
+* [#349](https://github.com/EasyScreenCast/EasyScreenCast/issues/349): With no pipewire, "ESC Mixer Control" may fill up all pulseaudio connections in seconds and break sound for all apps ([@ell1e](https://github.com/ell1e))
 
 **📦 Dependency updates:**
 
