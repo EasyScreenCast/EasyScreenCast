@@ -20,6 +20,9 @@
     Use the info from `CHANGELOG.md` to for the release notes. Upload the zipfile as a release artifact.
 
 8.  Upload zip file on <https://extensions.gnome.org>.
+    The new version will be reviewed, which can take a while, but is usually very quick. You
+    can have a look at <https://extensions.gnome.org/review/> to see, how many reviews are currently in the
+    queue.
 
 9.  Once the extension is activated on <https://extensions.gnome.org/extension/690/easyscreencast/>
     publish the release on github: <https://github.com/EasyScreenCast/EasyScreenCast/releases>.
@@ -27,7 +30,7 @@
     If the extension is rejected, you can move the tag and start over.
 
 10. Run `npm --no-git-tag-version version 1.8.1-snapshot`.
-    Update and commit `CHANGELOG.md` - add new version:
+    Update `CHANGELOG.md` - add new version:
 
     ```
     # next
@@ -42,5 +45,8 @@
 
     **Full Changelog**: <https://github.com/EasyScreenCast/EasyScreenCast/compare/1.8.0...HEAD>
     ```
+
+    Commit `package.json` and `package-lock.json` and
+    `CHANGELOG.md` ("Prepare next development version").
 
 11. Push master branch.
