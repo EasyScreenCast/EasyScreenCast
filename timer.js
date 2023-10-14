@@ -10,15 +10,11 @@
     FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
 */
 
-/* exported TimerDelay,TimerCounting */
 'use strict';
 
-const GObject = imports.gi.GObject;
-const GLib = imports.gi.GLib;
-
-const ExtensionUtils = imports.misc.extensionUtils;
-const Me = ExtensionUtils.getCurrentExtension();
-const Lib = Me.imports.convenience;
+import GObject from 'gi://GObject';
+import GLib from 'gi://GLib';
+import * as Lib from './convenience.js';
 
 /*
                 DELAY TIMER
@@ -41,7 +37,8 @@ const TimerDelay = GObject.registerClass({
      * @param {Function} callback callback function that is called after delay seconds (without arguments)
      * @param {*} scope scope for the callback
      */
-    _init(delay, callback, scope) {
+    constructor(delay, callback, scope) {
+        super();
         if (isNaN(delay)) {
             Lib.TalkativeLog(`-%-delay is NOT a number :${delay}`);
         } else {
@@ -166,7 +163,8 @@ var TimerCounting = GObject.registerClass({
      * @param {TimerCounting~callback} callback callback function that is called every second
      * @param {EasyScreenCast_Indicator} scope scope for the callback function. This is also used to updateTimeLabel.
      */
-    _init(callback, scope) {
+    constructor(callback, scope) {
+        super();
         Lib.TalkativeLog('-%-init TimerCounting called');
 
         this.setCallback(callback);
@@ -261,3 +259,5 @@ var TimerCounting = GObject.registerClass({
         }
     }
 });
+
+export {TimerDelay, TimerCounting};

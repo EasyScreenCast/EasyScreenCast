@@ -20,42 +20,35 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-/* exported SelectionArea,SelectionWindow,SelectionDesktop,AreaRecording */
 'use strict';
 
-const GObject = imports.gi.GObject;
-const Signals = imports.signals;
-const Meta = imports.gi.Meta;
-const Clutter = imports.gi.Clutter;
-const St = imports.gi.St;
-const Layout = imports.ui.layout;
+import GObject from 'gi://GObject';
+import Meta from 'gi://Meta';
+import Clutter from 'gi://Clutter';
+import St from 'gi://St';
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
-const Main = imports.ui.main;
+import {gettext as _} from 'resource:///org/gnome/shell/extensions/extension.js';
 
-const ExtensionUtils = imports.misc.extensionUtils;
-const Me = ExtensionUtils.getCurrentExtension();
-
-const Domain = imports.gettext.domain(Me.metadata['gettext-domain']);
-const _ = Domain.gettext;
-
-const Lib = Me.imports.convenience;
-const Ext = Me.imports.extension;
-const UtilNotify = Me.imports.utilnotify;
-const DisplayApi = Me.imports.display_module.DisplayApi;
-
-const Config = imports.misc.config;
-const shellVersion = Number.parseInt(Config.PACKAGE_VERSION.split('.')[0]);
+import * as Lib from './convenience.js';
+import * as Ext from './extension.js';
+import * as UtilNotify from './utilnotify.js';
+import {DisplayApi} from './display_module.js';
 
 /**
  * @type {Lang.Class}
  */
 const Capture = GObject.registerClass({
     GTypeName: 'EasyScreenCast_Capture',
+    Signals: {
+        'captured-event': {
+            param_types: [Clutter.Event.$gtype],
+        },
+        'stop': {},
+    },
 }, class Capture extends GObject.Object {
-    /**
-     * @private
-     */
-    _init() {
+    constructor() {
+        super();
         Lib.TalkativeLog('-£-capture selection init');
 
         this._mouseDown = false;
@@ -85,20 +78,10 @@ const Capture = GObject.registerClass({
         this._grab = Main.pushModal(this._areaSelection);
 
         if (this._grab) {
-            if (shellVersion >= 42) {
-                this._signalCapturedEvent = this._areaSelection.connect(
-                    'captured-event',
-                    this._onCaptureEvent.bind(this)
-                );
-            } else {
-                this._grab = this._areaSelection;
-                this._signalCapturedEvent = global.stage.connect(
-                    'captured-event',
-                    this._onCaptureEvent.bind(this)
-                );
-            }
-
-
+            this._signalCapturedEvent = this._areaSelection.connect(
+                'captured-event',
+                this._onCaptureEvent.bind(this)
+            );
 
             this._setCaptureCursor();
         } else {
@@ -145,7 +128,7 @@ const Capture = GObject.registerClass({
      * @param {number} rect.h height in pixels
      * @param {boolean} showResolution whether to display the size of the selected area
      */
-    drawSelection({ x, y, w, h }, showResolution) {
+    drawSelection({x, y, w, h}, showResolution) {
         this._areaSelection.set_position(x, y);
         this._areaSelection.set_size(w, h);
 
@@ -182,14 +165,13 @@ const Capture = GObject.registerClass({
     _stop() {
         Lib.TalkativeLog('-£-capture selection stop');
 
-        global.stage.disconnect(this._signalCapturedEvent);
+        this._areaSelection.disconnect(this._signalCapturedEvent);
         this._setDefaultCursor();
         Main.uiGroup.remove_actor(this._areaSelection);
         Main.popModal(this._grab);
         Main.uiGroup.remove_actor(this._areaResolution);
         this._areaSelection.destroy();
         this.emit('stop');
-        this.disconnectAll();
     }
 
     _saveRect(x, y, h, w) {
@@ -204,24 +186,26 @@ const Capture = GObject.registerClass({
     }
 });
 
-Signals.addSignalMethods(Capture.prototype);
-
 var SelectionArea = GObject.registerClass({
     GTypeName: 'EasyScreenCast_SelectionArea',
+    Signals: {
+        'stop': {},
+    },
 }, class SelectionArea extends GObject.Object {
-    /**
-     * @private
-     */
-    _init() {
+    constructor() {
+        super();
         Lib.TalkativeLog('-£-area selection init');
 
         this._mouseDown = false;
         this._capture = new Capture();
         this._capture.connect('captured-event', this._onEvent.bind(this));
-        this._capture.connect('stop', this.emit.bind(this, 'stop'));
+        this._capture.connect('stop', () => {
+            this._ctrlNotify.resetAlert();
+            this.emit('stop');
+        });
 
-        let CtrlNotify = new UtilNotify.NotifyManager();
-        CtrlNotify.createAlert(
+        this._ctrlNotify = new UtilNotify.NotifyManager();
+        this._ctrlNotify.createAlert(
             _('Select an area for recording or press [ESC] to abort')
         );
     }
@@ -257,24 +241,26 @@ var SelectionArea = GObject.registerClass({
     }
 });
 
-Signals.addSignalMethods(SelectionArea.prototype);
-
 var SelectionWindow = GObject.registerClass({
     GTypeName: 'EasyScreenCast_SelectionWindow',
+    Signals: {
+        'stop': {},
+    },
 }, class SelectionWindow extends GObject.Object {
-    /**
-     * @private
-     */
-    _init() {
+    constructor() {
+        super();
         Lib.TalkativeLog('-£-window selection init');
 
         this._windows = global.get_window_actors();
         this._capture = new Capture();
         this._capture.connect('captured-event', this._onEvent.bind(this));
-        this._capture.connect('stop', this.emit.bind(this, 'stop'));
+        this._capture.connect('stop', () => {
+            this._ctrlNotify.resetAlert();
+            this.emit('stop');
+        });
 
-        let CtrlNotify = new UtilNotify.NotifyManager();
-        CtrlNotify.createAlert(
+        this._ctrlNotify = new UtilNotify.NotifyManager();
+        this._ctrlNotify.createAlert(
             _('Select a window for recording or press [ESC] to abort')
         );
     }
@@ -356,33 +342,32 @@ var SelectionWindow = GObject.registerClass({
     }
 });
 
-Signals.addSignalMethods(SelectionWindow.prototype);
-
 var SelectionDesktop = GObject.registerClass({
     GTypeName: 'EasyScreenCast_SelectionDesktop',
+    Signals: {
+        'stop': {},
+    },
 }, class SelectionDesktop extends GObject.Object {
-    /**
-     * @private
-     */
-    _init() {
+    constructor() {
+        super();
         Lib.TalkativeLog('-£-desktop selection init');
         const displayCount = DisplayApi.number_displays();
         Lib.TalkativeLog(`-£-Number of monitor ${displayCount}`);
 
         for (var i = 0; i < displayCount; i++) {
-            var tmpM = new Layout.Monitor(
-                i,
-                DisplayApi.display_geometry_for_index(i)
-            );
-            Lib.TalkativeLog(`-£-monitor geometry x=${tmpM.x} y=${tmpM.y} w=${tmpM.width} h=${tmpM.height}`);
+            var tmpM = DisplayApi.display_geometry_for_index(i);
+            Lib.TalkativeLog(`-£-monitor ${i} geometry x=${tmpM.x} y=${tmpM.y} w=${tmpM.width} h=${tmpM.height}`);
         }
 
         this._capture = new Capture();
         this._capture.connect('captured-event', this._onEvent.bind(this));
-        this._capture.connect('stop', this.emit.bind(this, 'stop'));
+        this._capture.connect('stop', () => {
+            this._ctrlNotify.resetAlert();
+            this.emit('stop');
+        });
 
-        let CtrlNotify = new UtilNotify.NotifyManager();
-        CtrlNotify.createAlert(
+        this._ctrlNotify = new UtilNotify.NotifyManager();
+        this._ctrlNotify.createAlert(
             _('Select a desktop for recording or press [ESC] to abort')
         );
     }
@@ -415,15 +400,11 @@ var SelectionDesktop = GObject.registerClass({
     }
 });
 
-Signals.addSignalMethods(SelectionDesktop.prototype);
-
 var AreaRecording = GObject.registerClass({
     GTypeName: 'EasyScreenCast_AreaRecording',
 }, class AreaRecording extends GObject.Object {
-    /**
-     * @private
-     */
-    _init() {
+    constructor() {
+        super();
         Lib.TalkativeLog('-£-area recording init');
 
         this._areaRecording = new St.Widget({
@@ -494,8 +475,6 @@ var AreaRecording = GObject.registerClass({
     }
 });
 
-Signals.addSignalMethods(AreaRecording.prototype);
-
 /**
  * @param {number} x1 left position
  * @param {number} y1 top position
@@ -561,3 +540,5 @@ function _selectWindow(windows, x, y) {
 
     return filtered[0];
 }
+
+export {SelectionArea, SelectionWindow, SelectionDesktop, AreaRecording};

@@ -10,22 +10,19 @@
     FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
 */
 
-/* exported MixerAudio */
 'use strict';
 
-const GObject = imports.gi.GObject;
-const GIRepository = imports.gi.GIRepository;
+import GObject from 'gi://GObject';
+import GIRepository from 'gi://GIRepository';
 GIRepository.Repository.prepend_search_path('/usr/lib/gnome-shell');
 GIRepository.Repository.prepend_library_path('/usr/lib/gnome-shell');
 GIRepository.Repository.prepend_search_path('/usr/lib64/gnome-shell');
 GIRepository.Repository.prepend_library_path('/usr/lib64/gnome-shell');
-const Gvc = imports.gi.Gvc;
+import Gvc from 'gi://Gvc';
 
-const ExtensionUtils = imports.misc.extensionUtils;
-const Me = ExtensionUtils.getCurrentExtension();
-const Lib = Me.imports.convenience;
-const Settings = Me.imports.settings;
-const Ext = Me.imports.extension;
+import * as Lib from './convenience.js';
+import * as Settings from './settings.js';
+import * as Ext from './extension.js';
 
 /**
  * @type {MixerAudio}
@@ -33,13 +30,9 @@ const Ext = Me.imports.extension;
 var MixerAudio = GObject.registerClass({
     GTypeName: 'EasyScreenCast_MixerAudio',
 }, class MixerAudio extends GObject.Object {
-    /**
-     * Init Lang class
-     *
-     * @private
-     */
-    _init() {
-        Lib.TalkativeLog('-#-mixer _init');
+    constructor() {
+        super();
+        Lib.TalkativeLog('-#-mixer constructor');
 
         this._mixerControl = this._createMixerControl();
         this._isConnected = true;
@@ -325,3 +318,5 @@ var MixerAudio = GObject.registerClass({
         }
     }
 });
+
+export {MixerAudio};

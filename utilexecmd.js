@@ -10,17 +10,12 @@
     FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
 */
 
-/* exported ExecuteStuff */
 'use strict';
 
-const GObject = imports.gi.GObject;
-const ByteArray = imports.byteArray;
-const GLib = imports.gi.GLib;
-const Gio = imports.gi.Gio;
-
-const ExtensionUtils = imports.misc.extensionUtils;
-const Me = ExtensionUtils.getCurrentExtension();
-const Lib = Me.imports.convenience;
+import GObject from 'gi://GObject';
+import GLib from 'gi://GLib';
+import Gio from 'gi://Gio';
+import * as Lib from './convenience.js';
 
 /**
  * @type {ExecuteStuff}
@@ -32,7 +27,8 @@ var ExecuteStuff = GObject.registerClass({
      * @param {EasyScreenCastSettingsWidget|EasyScreenCastIndicator} scope the scope for executing callback methods
      * @private
      */
-    _init(scope) {
+    constructor(scope) {
+        super();
         Lib.TalkativeLog(`-¶-init scope:${scope}`);
 
         this.Scope = scope;
@@ -152,6 +148,7 @@ var ExecuteStuff = GObject.registerClass({
                 return null;
             }
         }
+        return null;
     }
 
     /**
@@ -160,6 +157,7 @@ var ExecuteStuff = GObject.registerClass({
      */
     _syncCmd(cmd) {
         let [successP, argv] = this._parseCmd(cmd);
+        let decoder = new TextDecoder();
         if (successP) {
             Lib.TalkativeLog(`-¶-argv: ${argv}`);
             let successS, stdOut, stdErr, exit;
@@ -177,15 +175,15 @@ var ExecuteStuff = GObject.registerClass({
             }
             if (successS) {
                 Lib.TalkativeLog(`-¶-argv: ${argv}`);
-                Lib.TalkativeLog(`-¶-stdOut: ${ByteArray.toString(stdOut)}`);
-                Lib.TalkativeLog(`-¶-stdErr: ${ByteArray.toString(stdErr)}`);
+                Lib.TalkativeLog(`-¶-stdOut: ${decoder.decode(stdOut)}`);
+                Lib.TalkativeLog(`-¶-stdErr: ${decoder.decode(stdErr)}`);
                 Lib.TalkativeLog(`-¶-exit: ${exit}`);
 
                 Lib.TalkativeLog('-¶-exe RC');
                 if (this.Callback !== null) {
                     this.Callback.apply(this.Scope, [
                         true,
-                        ByteArray.toString(stdOut),
+                        decoder.decode(stdOut),
                     ]);
                 }
             } else {
@@ -203,6 +201,7 @@ var ExecuteStuff = GObject.registerClass({
      */
     _asyncCmd(cmd) {
         let [successP, argv] = this._parseCmd(cmd);
+        let decoder = new TextDecoder();
         if (successP) {
             Lib.TalkativeLog(`-¶-argv: ${argv}`);
             let successS, pid, stdIn, stdOut, stdErr;
@@ -247,7 +246,7 @@ var ExecuteStuff = GObject.registerClass({
                 let [out] = outReader.read_line(null);
                 while (out !== null) {
                     if (this.lineCallback !== null) {
-                        this.lineCallback.apply(this.Scope, [ByteArray.toString(out)]);
+                        this.lineCallback.apply(this.Scope, [decoder.decode(out)]);
                     }
 
                     [out] = outReader.read_line(null);
@@ -266,3 +265,5 @@ var ExecuteStuff = GObject.registerClass({
         }
     }
 });
+
+export {ExecuteStuff};

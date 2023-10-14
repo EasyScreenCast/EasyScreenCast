@@ -1,12 +1,17 @@
 # next
 
+At least Gnome Shell 45 is required. To use this extension in an older Gnome Shell version, older releases (&lt; 1.8.0)
+need to be used.
+
 **🚀 Implemented enhancements:**
 
 * [#350](https://github.com/EasyScreenCast/EasyScreenCast/issues/350): Chinese translation ([@d2school](https://github.com/d2school))
+* [#352](https://github.com/EasyScreenCast/EasyScreenCast/issues/352): Support Gnome 45 ([@adangel](https://github.com/adangel))
 
 **🎉 Merged pull requests:**
 
 * [#347](https://github.com/EasyScreenCast/EasyScreenCast/pull/347): Add czech translation ([@Amereyeu](https://github.com/Amereyeu))
+* [#353](https://github.com/EasyScreenCast/EasyScreenCast/pull/353): Support Gnome 45 ([@adangel](https://github.com/adangel))
 
 **🐛 Fixed bugs:**
 

@@ -10,21 +10,17 @@
     FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
 */
 
-/* exported NotifyManager */
 'use strict';
 
-const GObject = imports.gi.GObject;
-const Main = imports.ui.main;
+import GObject from 'gi://GObject';
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 // https://gitlab.gnome.org/GNOME/gnome-shell/-/blob/main/js/ui/messageTray.js
-const MessageTray = imports.ui.messageTray;
-const Clutter = imports.gi.Clutter;
-const St = imports.gi.St;
+import * as MessageTray from 'resource:///org/gnome/shell/ui/messageTray.js';
+import St from 'gi://St';
 
-const ExtensionUtils = imports.misc.extensionUtils;
-const Me = ExtensionUtils.getCurrentExtension();
-const Lib = Me.imports.convenience;
-const Settings = Me.imports.settings;
-const Ext = Me.imports.extension;
+import * as Lib from './convenience.js';
+import * as Settings from './settings.js';
+import * as Ext from './extension.js';
 
 /**
  * @type {NotifyManager}
@@ -35,8 +31,10 @@ var NotifyManager = GObject.registerClass({
     /**
      * Create a notify manager
      */
-    _init() {
+    constructor() {
+        super();
         Lib.TalkativeLog('-°-init notify manager');
+        this._alertWidget = null;
     }
 
     /**
@@ -97,27 +95,47 @@ var NotifyManager = GObject.registerClass({
         if (Ext.Indicator.getSettings().getOption('b', Settings.SHOW_NOTIFY_ALERT_SETTING_KEY)) {
             var monitor = Main.layoutManager.focusMonitor;
 
-            var text = new St.Label({
+            this.resetAlert();
+            this._alertWidget = new St.Label({
                 style_class: 'alert-msg',
+                opacity: 255,
                 text: msg,
             });
-            text.opacity = 255;
-            Main.uiGroup.add_actor(text);
+            Main.uiGroup.add_child(this._alertWidget);
 
-            text.set_position(
-                Math.floor(monitor.width / 2 - text.width / 2),
-                Math.floor(monitor.height / 2 - text.height / 2)
+            this._alertWidget.set_position(
+                Math.floor(monitor.width / 2 - this._alertWidget.width / 2),
+                Math.floor(monitor.height / 2 - this._alertWidget.height / 2)
             );
 
-            text.ease({
+            Lib.TalkativeLog(`-°-show alert tweener : opacity=${this._alertWidget.opacity}`);
+
+            // see org/gnome/shell/ui/environment.js#_easeActor
+            // TODO: for some reason, no transition is created, so the onComplete
+            // callback is called _immediately_
+            /*
+            import Clutter from 'gi://Clutter';
+            this._alertWidget.ease({
                 opacity: 0,
+                duration: 400,
                 mode: Clutter.AnimationMode.EASE_OUT_QUAD,
-                duration: 4000,
                 onComplete: () => {
-                    Main.uiGroup.remove_actor(text);
-                    text = null;
+                    Lib.TalkativeLog(`-°-show alert tweener completed: opacity=${this._alertWidget.opacity}`);
+                    Main.uiGroup.remove_child(this._alertWidget);
+                    this._alertWidget = null;
                 },
             });
+            */
+        }
+    }
+
+    resetAlert() {
+        if (this._alertWidget !== null) {
+            this._alertWidget.hide();
+            Main.uiGroup.remove_child(this._alertWidget);
+            this._alertWidget = null;
         }
     }
 });
+
+export {NotifyManager};

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-26 09:11+0200\n"
+"POT-Creation-Date: 2023-09-23 16:39+0200\n"
 "PO-Revision-Date: 2020-10-04 18:02+0200\n"
 "Last-Translator: cubells <vicent@vcubells.net>\n"
 "Language-Team: \n"
@@ -17,23 +17,27 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.4.1\n"
 
-#: prefs.js:80
+#: prefs.js:47 prefs.js:1031 extension.js:68 extension.js:236
+msgid "Unspecified webcam"
+msgstr "Càmera web no especificada"
+
+#: prefs.js:74
 msgid "Could not load the preferences UI file"
 msgstr "No es pot carregar el fitxer de preferències de la IU"
 
-#: prefs.js:433
+#: prefs.js:427
 msgid "WebCam Caps"
 msgstr "Captures de la càmera web"
 
-#: prefs.js:900
+#: prefs.js:894
 msgid "No Gstreamer pipeline found"
 msgstr "No s'ha trobat cap canonada del GStreamer"
 
-#: prefs.js:979
+#: prefs.js:973
 msgid "Version: "
 msgstr "Versió: "
 
-#: prefs.js:1124
+#: prefs.js:1118
 msgid ""
 "<span foreground=\"red\">No Caps selected, please select one from the caps "
 "list</span>"
@@ -41,59 +45,63 @@ msgstr ""
 "<span foreground=\"red\">No s'ha seleccionat cap captura, selecciona una de "
 "la llista</span>"
 
-#: prefs.js:1135 Options_UI.glade.h:36 Options_UI.glade-gtk4.h:37
+#: prefs.js:1129 Options_UI.glade.h:36 Options_UI.glade-gtk4.h:37
 msgid "No webcam device selected"
 msgstr "No s'ha seleccionat cap càmera web"
 
-#: prefs.js:1137 Options_UI.glade.h:37 Options_UI.glade-gtk4.h:38
+#: prefs.js:1131 Options_UI.glade.h:37 Options_UI.glade-gtk4.h:38
 msgid "-"
 msgstr "-"
 
-#: extension.js:142 extension.js:468
+#: prefs.js:1225 Options_UI.glade.h:92 Options_UI.glade-gtk4.h:92
+msgid "EasyScreenCast"
+msgstr "EasyScreenCast"
+
+#: extension.js:136 extension.js:462
 msgid "No audio source"
 msgstr "Cap origen d'àudio"
 
-#: extension.js:153 Options_UI.glade.h:21 Options_UI.glade-gtk4.h:1
+#: extension.js:147 Options_UI.glade.h:21 Options_UI.glade-gtk4.h:1
 msgid "Options"
 msgstr "Opcions"
 
-#: extension.js:275 extension.js:882
+#: extension.js:269 extension.js:879
 msgid "Start recording"
 msgstr "Comença la gravació"
 
-#: extension.js:349 extension.js:845
+#: extension.js:343 extension.js:842
 msgid " sec. delay before recording"
 msgstr " segons de retard en la gravació"
 
-#: extension.js:351 extension.js:847
+#: extension.js:345 extension.js:844
 msgid "Start recording immediately"
 msgstr "Comença la gravació ja"
 
-#: extension.js:363
+#: extension.js:357
 msgid "Record all desktop"
 msgstr "Grava tot l'escriptori"
 
-#: extension.js:364
+#: extension.js:358
 msgid "Record a selected monitor"
 msgstr "Grava el monitor seleccionat"
 
-#: extension.js:365
+#: extension.js:359
 msgid "Record a selected window"
 msgstr "Grava la finestra seleccionada"
 
-#: extension.js:366
+#: extension.js:360
 msgid "Record a selected area"
 msgstr "Grava una àrea seleccionada"
 
-#: extension.js:409
+#: extension.js:403
 msgid "No WebCam recording"
 msgstr "Cap càmera web per a gravar"
 
-#: extension.js:475
+#: extension.js:469
 msgid "Default audio source"
 msgstr "Origen d'àudio predeterminat"
 
-#: extension.js:495
+#: extension.js:489
 msgid ""
 "\n"
 " - Port: "
@@ -101,7 +109,7 @@ msgstr ""
 "\n"
 " - Port: "
 
-#: extension.js:497
+#: extension.js:491
 msgid ""
 "\n"
 " - Name: "
@@ -109,52 +117,48 @@ msgstr ""
 "\n"
 " - Nom: "
 
-#: extension.js:548
+#: extension.js:542
 msgid "Delay Time"
 msgstr "Retard de temps"
 
-#: extension.js:556 extension.js:570
+#: extension.js:550 extension.js:564
 msgid " Sec"
 msgstr " Seg"
 
-#: extension.js:663
+#: extension.js:657
 #, fuzzy
 msgid "ERROR PRE COMMAND - See logs for more info"
 msgstr "ERROR DE GRAVACIÓ - Mireu els registres per a més informació"
 
-#: extension.js:772
+#: extension.js:766
 msgid "Start Recording"
 msgstr "Comença la gravació"
 
-#: extension.js:798
+#: extension.js:792
 msgid "ERROR RECORDER - See logs for more info"
 msgstr "ERROR DE GRAVACIÓ - Mireu els registres per a més informació"
 
-#: extension.js:822
+#: extension.js:816
 msgid "EasyScreenCast -> Recording in progress / Seconds passed : "
 msgstr "EasyScreenCast -> Gravació en progrés / Segons en marxa : "
 
-#: extension.js:874
+#: extension.js:871
 msgid "Stop recording"
 msgstr "Atura la gravació"
 
-#: selection.js:225
+#: selection.js:216
 msgid "Select an area for recording or press [ESC] to abort"
 msgstr "Selecciona una àrea a gravar o prem [ESC] per avortar"
 
-#: selection.js:278
+#: selection.js:267
 #, fuzzy
 msgid "Select a window for recording or press [ESC] to abort"
 msgstr "Selecciona una finestra a gravar o prem [ESC] per avortar"
 
-#: selection.js:386
+#: selection.js:373
 #, fuzzy
 msgid "Select a desktop for recording or press [ESC] to abort"
 msgstr "Selecciona un escriptori a gravar o prem [ESC] per avortar"
-
-#: utilwebcam.js:272
-msgid "Unspecified webcam"
-msgstr "Càmera web no especificada"
 
 #: Options_UI.glade.h:1 Options_UI.glade-gtk4.h:2
 msgid "Recording status indicators"
@@ -517,10 +521,6 @@ msgstr "Restaura les opcions predeterminades"
 #: Options_UI.glade.h:91 Options_UI.glade-gtk4.h:78
 msgid "Support"
 msgstr "Suport"
-
-#: Options_UI.glade.h:92 Options_UI.glade-gtk4.h:92
-msgid "EasyScreenCast"
-msgstr "EasyScreenCast"
 
 #: Options_UI.glade.h:93 Options_UI.glade-gtk4.h:93
 msgid "N/A"

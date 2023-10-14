@@ -10,26 +10,19 @@
     FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
 */
 
-/* exported CaptureVideo */
 'use strict';
 
-const GObject = imports.gi.GObject;
-const Gio = imports.gi.Gio;
-const GLib = imports.gi.GLib;
-const { loadInterfaceXML, _ } = imports.misc.fileUtils;
+import GObject from 'gi://GObject';
+import Gio from 'gi://Gio';
+import GLib from 'gi://GLib';
+import {loadInterfaceXML} from 'resource:///org/gnome/shell/misc/dbusUtils.js';
 const ScreencastIface = loadInterfaceXML('org.gnome.Shell.Screencast');
 
-const ExtensionUtils = imports.misc.extensionUtils;
-
-const Config = imports.misc.config;
-const shellVersion = Number.parseInt(Config.PACKAGE_VERSION.split('.')[0]);
-
-const Me = ExtensionUtils.getCurrentExtension();
-const Lib = Me.imports.convenience;
-const Settings = Me.imports.settings;
-const Selection = Me.imports.selection;
-const UtilGSP = Me.imports.utilgsp;
-const Ext = Me.imports.extension;
+import * as Lib from './convenience.js';
+import * as Settings from './settings.js';
+import * as Selection from './selection.js';
+import * as UtilGSP from './utilgsp.js';
+import * as Ext from './extension.js';
 
 /**
  * @type {CaptureVideo}
@@ -40,7 +33,8 @@ var CaptureVideo = GObject.registerClass({
     /**
      * Create a video recorder
      */
-    _init() {
+    constructor() {
+        super();
         Lib.TalkativeLog('-&-init recorder');
 
         this.AreaSelected = null;
@@ -100,14 +94,12 @@ var CaptureVideo = GObject.registerClass({
             : fileRec;
         Lib.TalkativeLog(`-&-file rec path complete : ${completeFileRecPath}`);
 
-        if (shellVersion >= 40) {
-            // prefix with a videoconvert element
-            // see DEFAULT_PIPELINE in https://gitlab.gnome.org/GNOME/gnome-shell/-/blob/main/js/dbusServices/screencast/screencastService.js#L26
-            // this videoconvert element was added always previously and needs to be added now explicitly
-            // https://gitlab.gnome.org/GNOME/gnome-shell/-/commit/51bf7ec17617a9ed056dd563afdb98e17da07373
-            pipelineRec = `videoconvert chroma-mode=GST_VIDEO_CHROMA_MODE_NONE dither=GST_VIDEO_DITHER_NONE matrix-mode=GST_VIDEO_MATRIX_MODE_OUTPUT_ONLY n-threads=%T ! queue ! ${pipelineRec}`;
-            Lib.TalkativeLog(`-&-pipeline : gnome-shell-version=${shellVersion} pipeline: ${pipelineRec}`);
-        }
+        // prefix with a videoconvert element
+        // see DEFAULT_PIPELINE in https://gitlab.gnome.org/GNOME/gnome-shell/-/blob/main/js/dbusServices/screencast/screencastService.js#L26
+        // this videoconvert element was added always previously (< Gnome 40) and needs to be added now explicitly
+        // https://gitlab.gnome.org/GNOME/gnome-shell/-/commit/51bf7ec17617a9ed056dd563afdb98e17da07373
+        pipelineRec = `videoconvert chroma-mode=GST_VIDEO_CHROMA_MODE_NONE dither=GST_VIDEO_DITHER_NONE matrix-mode=GST_VIDEO_MATRIX_MODE_OUTPUT_ONLY n-threads=%T ! queue ! ${pipelineRec}`;
+        Lib.TalkativeLog(`-&-pipeline : pipeline: ${pipelineRec}`);
 
         var optionsRec = {
             'draw-cursor': new GLib.Variant(
@@ -201,3 +193,5 @@ var CaptureVideo = GObject.registerClass({
         return result;
     }
 });
+
+export {CaptureVideo};

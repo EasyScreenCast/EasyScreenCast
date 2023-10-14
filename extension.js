@@ -10,35 +10,31 @@
     FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
 */
 
-/* exported init,enable,disable,Indicator */
+
 'use strict';
 
-const GObject = imports.gi.GObject;
-const St = imports.gi.St;
-const Meta = imports.gi.Meta;
-const Shell = imports.gi.Shell;
+import GObject from 'gi://GObject';
+import St from 'gi://St';
+import Meta from 'gi://Meta';
+import Shell from 'gi://Shell';
 // https://gitlab.gnome.org/GNOME/gnome-shell/-/blob/main/js/ui/panelMenu.js
-const PanelMenu = imports.ui.panelMenu;
-const Clutter = imports.gi.Clutter;
-const PopupMenu = imports.ui.popupMenu;
-const Slider = imports.ui.slider;
-const Main = imports.ui.main;
+import * as PanelMenu from 'resource:///org/gnome/shell/ui/panelMenu.js';
+import Clutter from 'gi://Clutter';
+import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
+import * as Slider from 'resource:///org/gnome/shell/ui/slider.js';
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
-const ExtensionUtils = imports.misc.extensionUtils;
-const Me = ExtensionUtils.getCurrentExtension();
+import {Extension, gettext as _} from 'resource:///org/gnome/shell/extensions/extension.js';
 
-const Domain = imports.gettext.domain(Me.metadata['gettext-domain']);
-const _ = Domain.gettext;
-
-const Lib = Me.imports.convenience;
-const Settings = Me.imports.settings;
-const Time = Me.imports.timer;
-const UtilRecorder = Me.imports.utilrecorder;
-const UtilAudio = Me.imports.utilaudio;
-const UtilWebcam = Me.imports.utilwebcam;
-const UtilNotify = Me.imports.utilnotify;
-const Selection = Me.imports.selection;
-const UtilExeCmd = Me.imports.utilexecmd;
+import * as Lib from './convenience.js';
+import * as Settings from './settings.js';
+import * as Time from './timer.js';
+import * as UtilRecorder from './utilrecorder.js';
+import * as UtilAudio from './utilaudio.js';
+import * as UtilWebcam from './utilwebcam.js';
+import * as UtilNotify from './utilnotify.js';
+import * as Selection from './selection.js';
+import * as UtilExeCmd from './utilexecmd.js';
 
 var Indicator;
 let timerD = null;
@@ -55,33 +51,31 @@ let keybindingConfigured = false;
 const EasyScreenCastIndicator = GObject.registerClass({
     GTypeName: 'EasyScreenCast_Indicator',
 }, class EasyScreenCastIndicator extends PanelMenu.Button {
-    /**
-     * @private
-     */
-    _init() {
-        super._init(null, 'EasyScreenCast_Indicator');
+    constructor(extension) {
+        super(null, 'EasyScreenCast_Indicator');
 
-        this._settings = new Settings.Settings();
-        Lib.debugEnabled = this._settings.getOption('b', Settings.VERBOSE_DEBUG_SETTING_KEY);
+        this._extension = extension;
+        this._settings = new Settings.Settings(this._extension.getSettings());
+        Lib.setDebugEnabled(this._settings.getOption('b', Settings.VERBOSE_DEBUG_SETTING_KEY));
         this._settings._settings.connect(
             `changed::${Settings.VERBOSE_DEBUG_SETTING_KEY}`,
             () => {
-                Lib.debugEnabled = this._settings.getOption('b', Settings.VERBOSE_DEBUG_SETTING_KEY);
+                Lib.setDebugEnabled(this._settings.getOption('b', Settings.VERBOSE_DEBUG_SETTING_KEY));
             }
         );
 
         this.CtrlAudio = new UtilAudio.MixerAudio();
-        this.CtrlWebcam = new UtilWebcam.HelperWebcam();
+        this.CtrlWebcam = new UtilWebcam.HelperWebcam(_('Unspecified webcam'));
 
         this.CtrlNotify = new UtilNotify.NotifyManager();
         this.CtrlExe = new UtilExeCmd.ExecuteStuff(this);
 
         // load indicator icons
         this._icons = {
-            on: Lib.loadIcon('icon_recording.svg'),
-            onSel: Lib.loadIcon('icon_recordingSel.svg'),
-            off: Lib.loadIcon('icon_default.svg'),
-            offSel: Lib.loadIcon('icon_defaultSel.svg'),
+            on: Lib.loadIcon(this._extension.dir, 'icon_recording.svg'),
+            onSel: Lib.loadIcon(this._extension.dir, 'icon_recordingSel.svg'),
+            off: Lib.loadIcon(this._extension.dir, 'icon_default.svg'),
+            offSel: Lib.loadIcon(this._extension.dir, 'icon_defaultSel.svg'),
         };
 
         // check audio
@@ -239,7 +233,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
      */
     _addWebcamSubMenu() {
         if (this.CtrlWebcam === null) {
-            this.CtrlWebcam = new UtilWebcam.HelperWebcam();
+            this.CtrlWebcam = new UtilWebcam.HelperWebcam(_('Unspecified webcam'));
         }
 
         // add sub menu webcam recording
@@ -556,7 +550,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
                 ).toString() + _(' Sec'),
         });
         this.DelayTimeTitle.actor.add_child(this.DelayTimeLabel);
-        this.DelayTimeTitle.align = St.Align.END;
+        // TODO this.DelayTimeTitle.align = St.Align.END;
 
         this.imSliderDelay = new PopupMenu.PopupBaseMenuItem({
             activate: false,
@@ -831,8 +825,11 @@ const EasyScreenCastIndicator = GObject.registerClass({
      * @private
      */
     _openExtensionPreferences() {
-        // openPrefs is available since Gnome Shell 3.36.2
-        ExtensionUtils.openPrefs();
+        try {
+            this._extension.openPreferences();
+        } catch (e) {
+            Lib.TalkativeLog(`Failed to open preferences: ${e}`);
+        }
     }
 
     /**
@@ -893,15 +890,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
             return;
         }
 
-        var stdMenu;
-
-        if (Main.panel.statusArea.quickSettings) {
-            // since gnome 43: aggregateMenu -> quickSettings
-            stdMenu = Main.panel.statusArea.quickSettings;
-        } else {
-            stdMenu = Main.panel.statusArea.aggregateMenu;
-        }
-
+        var stdMenu = Main.panel.statusArea.quickSettings;
         if (stdMenu === undefined) {
             Lib.TalkativeLog('-*-no quickSettings or aggregateMenu in Main.panel.statusArea');
             return;
@@ -910,8 +899,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
             Lib.TalkativeLog('-*-no _remoteAccess indicator applet found');
             return;
         }
-        // since gnome 43: _recordingIndicator -> _indicator
-        var indicator = stdMenu._remoteAccess._indicator || stdMenu._remoteAccess._recordingIndicator;
+        var indicator = stdMenu._remoteAccess._indicator;
         if (indicator === undefined) {
             Lib.TalkativeLog('-*-no _indicator or _recordingIndicator found');
             return;
@@ -1004,48 +992,45 @@ const EasyScreenCastIndicator = GObject.registerClass({
     }
 });
 
-/**
- *
- */
-function init() {
-    ExtensionUtils.initTranslations();
-}
+export default class EasyScreenCast extends Extension {
+    /**
+     *
+     */
+    enable() {
+        Lib.TalkativeLog('-*-enableExtension called');
+        Lib.TalkativeLog(`-*-version: ${this.metadata.version}`);
+        Lib.TalkativeLog(`-*-install path: ${this.path}`);
+        Lib.TalkativeLog(`-*-version (package.json): ${Lib.getFullVersion()}`);
 
-/**
- *
- */
-function enable() {
-    Lib.TalkativeLog('-*-enableExtension called');
-    Lib.TalkativeLog(`-*-version: ${Me.metadata.version}`);
-    Lib.TalkativeLog(`-*-install path: ${Me.path}`);
-    Lib.TalkativeLog(`-*-version (package.json): ${Lib.getFullVersion()}`);
+        if (Indicator === null || Indicator === undefined) {
+            Lib.TalkativeLog('-*-create indicator');
 
-    if (Indicator === null || Indicator === undefined) {
-        Lib.TalkativeLog('-*-create indicator');
+            Indicator = new EasyScreenCastIndicator(this);
+            Main.panel.addToStatusArea('EasyScreenCast-indicator', Indicator);
+        }
 
-        Indicator = new EasyScreenCastIndicator();
-        Main.panel.addToStatusArea('EasyScreenCast-indicator', Indicator);
+        Indicator._enable();
     }
 
-    Indicator._enable();
-}
+    /**
+     *
+     */
+    disable() {
+        Lib.TalkativeLog('-*-disableExtension called');
 
-/**
- *
- */
-function disable() {
-    Lib.TalkativeLog('-*-disableExtension called');
+        if (timerD !== null) {
+            Lib.TalkativeLog('-*-timerD stoped');
+            timerD.stop();
+        }
 
-    if (timerD !== null) {
-        Lib.TalkativeLog('-*-timerD stoped');
-        timerD.stop();
-    }
+        if (Indicator !== null) {
+            Lib.TalkativeLog('-*-indicator call destroy');
 
-    if (Indicator !== null) {
-        Lib.TalkativeLog('-*-indicator call destroy');
-
-        Indicator._disable();
-        Indicator.destroy();
-        Indicator = null;
+            Indicator._disable();
+            Indicator.destroy();
+            Indicator = null;
+        }
     }
 }
+
+export {Indicator};

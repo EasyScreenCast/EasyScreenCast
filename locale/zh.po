@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-23 10:54+0200\n"
+"POT-Creation-Date: 2023-09-23 16:39+0200\n"
 "PO-Revision-Date: 2023-07-29 19:38+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -18,81 +18,89 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 3.0.1\n"
 
-#: prefs.js:80
+#: prefs.js:47 prefs.js:1031 extension.js:68 extension.js:236
+msgid "Unspecified webcam"
+msgstr "未指定摄像头"
+
+#: prefs.js:74
 msgid "Could not load the preferences UI file"
 msgstr "无法加载界面偏好配置文件"
 
-#: prefs.js:433
+#: prefs.js:427
 msgid "WebCam Caps"
 msgstr "摄像头"
 
-#: prefs.js:900
+#: prefs.js:894
 msgid "No Gstreamer pipeline found"
 msgstr "未发现 Gstreamer 媒体流"
 
-#: prefs.js:979
+#: prefs.js:973
 msgid "Version: "
 msgstr "版本： "
 
-#: prefs.js:1124
+#: prefs.js:1118
 msgid ""
 "<span foreground=\"red\">No Caps selected, please select one from the caps "
 "list</span>"
 msgstr "<span foreground=\"red\">未选择摄像头，请从列表中选取</span>"
 
-#: prefs.js:1135 Options_UI.glade.h:36 Options_UI.glade-gtk4.h:37
+#: prefs.js:1129 Options_UI.glade.h:36 Options_UI.glade-gtk4.h:37
 msgid "No webcam device selected"
 msgstr "未选择摄像头"
 
-#: prefs.js:1137 Options_UI.glade.h:37 Options_UI.glade-gtk4.h:38
+#: prefs.js:1131 Options_UI.glade.h:37 Options_UI.glade-gtk4.h:38
 msgid "-"
 msgstr "-"
 
-#: extension.js:142 extension.js:468
+#: prefs.js:1225 Options_UI.glade.h:92 Options_UI.glade-gtk4.h:92
+msgid "EasyScreenCast"
+msgstr "EasyScreenCast"
+
+#: extension.js:136 extension.js:462
 msgid "No audio source"
 msgstr "未选择音频源"
 
-#: extension.js:153 Options_UI.glade.h:21 Options_UI.glade-gtk4.h:1
+#: extension.js:147 Options_UI.glade.h:21 Options_UI.glade-gtk4.h:1
 msgid "Options"
 msgstr "选项"
 
-#: extension.js:275 extension.js:882
+#: extension.js:269 extension.js:879
 msgid "Start recording"
 msgstr "开始录制"
 
-#: extension.js:349 extension.js:845
+#: extension.js:343 extension.js:842
 msgid " sec. delay before recording"
 msgstr " 秒延迟后再录制"
 
-#: extension.js:351 extension.js:847
+#: extension.js:345 extension.js:844
 msgid "Start recording immediately"
 msgstr "立即录制"
 
-#: extension.js:363
+#: extension.js:357
 msgid "Record all desktop"
 msgstr "录制所有桌面"
 
-#: extension.js:364
+#: extension.js:358
 msgid "Record a selected monitor"
 msgstr "录制指定的桌面"
 
-#: extension.js:365
+#: extension.js:359
 msgid "Record a selected window"
 msgstr "录制指定的应用窗口"
 
-#: extension.js:366
+#: extension.js:360
 msgid "Record a selected area"
 msgstr "录制指定的显示区域"
 
-#: extension.js:409
+#: extension.js:403
 msgid "No WebCam recording"
 msgstr "不录制摄像头"
 
-#: extension.js:475
+#: extension.js:469
 msgid "Default audio source"
 msgstr "默认的音频源"
 
-#: extension.js:495
+#: extension.js:489
 msgid ""
 "\n"
 " - Port: "
@@ -100,7 +108,7 @@ msgstr ""
 "\n"
 "- 端口： "
 
-#: extension.js:497
+#: extension.js:491
 msgid ""
 "\n"
 " - Name: "
@@ -108,49 +116,45 @@ msgstr ""
 "\n"
 "名字： "
 
-#: extension.js:548
+#: extension.js:542
 msgid "Delay Time"
 msgstr "延迟时长"
 
-#: extension.js:556 extension.js:570
+#: extension.js:550 extension.js:564
 msgid " Sec"
 msgstr " 秒"
 
-#: extension.js:663
+#: extension.js:657
 msgid "ERROR PRE COMMAND - See logs for more info"
 msgstr "错误的预处理指令 - 详见日志"
 
-#: extension.js:772
+#: extension.js:766
 msgid "Start Recording"
 msgstr "开始录制"
 
-#: extension.js:798
+#: extension.js:792
 msgid "ERROR RECORDER - See logs for more info"
 msgstr "错误的录制器-详见日志"
 
-#: extension.js:822
+#: extension.js:816
 msgid "EasyScreenCast -> Recording in progress / Seconds passed : "
 msgstr "EasyScreenCast -> 正在录制中 / 已处理时长（秒）： "
 
-#: extension.js:874
+#: extension.js:871
 msgid "Stop recording"
 msgstr "停止录制"
 
-#: selection.js:225
+#: selection.js:216
 msgid "Select an area for recording or press [ESC] to abort"
 msgstr "选择待录制区域，或按ESC键中止"
 
-#: selection.js:278
+#: selection.js:267
 msgid "Select a window for recording or press [ESC] to abort"
 msgstr "选择一个待录制窗口，或按ESC键中止"
 
-#: selection.js:386
+#: selection.js:373
 msgid "Select a desktop for recording or press [ESC] to abort"
 msgstr "选择待录制桌面，或按ESC键中止"
-
-#: utilwebcam.js:272
-msgid "Unspecified webcam"
-msgstr "未指定摄像头"
 
 #: Options_UI.glade.h:1 Options_UI.glade-gtk4.h:2
 msgid "Recording status indicators"
@@ -499,10 +503,6 @@ msgstr "恢复默认选项"
 #: Options_UI.glade.h:91 Options_UI.glade-gtk4.h:78
 msgid "Support"
 msgstr "支持"
-
-#: Options_UI.glade.h:92 Options_UI.glade-gtk4.h:92
-msgid "EasyScreenCast"
-msgstr "EasyScreenCast"
 
 #: Options_UI.glade.h:93 Options_UI.glade-gtk4.h:93
 msgid "N/A"

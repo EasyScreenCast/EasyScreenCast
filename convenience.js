@@ -24,15 +24,18 @@
   SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-/* exported TalkativeLog,getFullVersion,debugEnabled,loadIcon,getImagePath */
 'use strict';
 
-const Gio = imports.gi.Gio;
-
-const ExtensionUtils = imports.misc.extensionUtils;
-const Me = ExtensionUtils.getCurrentExtension();
+import Gio from 'gi://Gio';
 
 var debugEnabled = false;
+
+/**
+ * @param {boolean} d Enable/Disable debug logging
+ */
+function setDebugEnabled(d) {
+    debugEnabled = d;
+}
 
 /**
  * @param {string} msg the message to log
@@ -56,15 +59,16 @@ function getFullVersion() {
 }
 
 /**
- * Loads an icon from the extention's subdirectory "images".
+ * Loads an icon from the extension's subdirectory "images".
  *
+ * @param {Gio.File} extensionDir dir of the extension
  * @param {string} name filename of the image
  * @returns {Gio.FileIcon} the icon
  */
-function loadIcon(name) {
+function loadIcon(extensionDir, name) {
     return new Gio.FileIcon({
         file: Gio.File.new_for_path(
-            getImagePath(name)
+            getImagePath(extensionDir, name)
         ),
     });
 }
@@ -72,9 +76,12 @@ function loadIcon(name) {
 /**
  * Gets the path to the image from the extension's subdirectory "images".
  *
+ * @param {Gio.File} extensionDir dir of the extension
  * @param {string} name filename of the image
  * @returns {string} the path
  */
-function getImagePath(name) {
-    return Me.dir.get_child(`images/${name}`).get_path();
+function getImagePath(extensionDir, name) {
+    return extensionDir.get_child(`images/${name}`).get_path();
 }
+
+export {TalkativeLog, getFullVersion, setDebugEnabled, loadIcon, getImagePath};
