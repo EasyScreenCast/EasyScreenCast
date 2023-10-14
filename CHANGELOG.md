@@ -1,4 +1,4 @@
-# next
+# v1.8.0 (48) (2023-10-14)
 
 At least Gnome Shell 45 is required. To use this extension in an older Gnome Shell version, older releases (&lt; 1.8.0)
 need to be used.
@@ -22,7 +22,7 @@ need to be used.
 
 * [#348](https://github.com/EasyScreenCast/EasyScreenCast/pull/348): Bump word-wrap from 1.2.3 to 1.2.4 ([@dependabot](https://github.com/apps/dependabot))
 
-**Full Changelog**: <https://github.com/EasyScreenCast/EasyScreenCast/compare/1.7.1...HEAD>
+**Full Changelog**: <https://github.com/EasyScreenCast/EasyScreenCast/compare/1.7.1...1.8.0>
 
 # v1.7.1 (47) (2023-03-27)
 
