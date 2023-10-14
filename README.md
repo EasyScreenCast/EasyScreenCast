@@ -130,11 +130,12 @@ For more information see for example:
 
 ## Test matrix
 
-| Distribution / gnome-shell           | Installation | Screen Recording | +Video Recording | +Audio Recording |
-|--------------------------------------|--------------|------------------|------------------|------------------|
-|Debian 11 Bullseye (gnome-shell 3.38) |  ✔           |  ✔              |  ✔               |  ✔               |
-|Ubuntu 22.04 LTS (gnome-shell 42.2)   |  ✔           |  ✔              |  ✔               |  ✔               |
-|Debian Experimental (gnome-shell 43)  |  ✔           |  ✔              |  ✔               |  ✔               |
+| Distribution / gnome-shell           | ESC Version | Installation | Screen Recording | +Video Recording | +Audio Recording |
+|--------------------------------------|-------------|--------------|------------------|------------------|------------------|
+|Gnome OS latest (gnome-shell 45)      | 1.8.0       |  ✔           |  ✔               |  ✔               |  ✔               |
+|Debian 11 Bullseye (gnome-shell 3.38) | 1.7.0       |  ✔           |  ✔               |  ✔               |  ✔               |
+|Ubuntu 22.04 LTS (gnome-shell 42.2)   | 1.7.0       |  ✔           |  ✔               |  ✔               |  ✔               |
+|Debian Experimental (gnome-shell 43)  | 1.7.0       |  ✔           |  ✔               |  ✔               |  ✔               |
 
 Note: Only wayland sessions, always a fresh install of the linux distribution. Screen cast was the whole screen.
 Quality setting: FPS 30, VP8, webm container.
