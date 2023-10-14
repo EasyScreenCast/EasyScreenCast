@@ -1,3 +1,15 @@
+# next
+
+**🚀 Implemented enhancements:**
+
+**🎉 Merged pull requests:**
+
+**🐛 Fixed bugs:**
+
+**📦 Dependency updates:**
+
+**Full Changelog**: <https://github.com/EasyScreenCast/EasyScreenCast/compare/1.8.0...HEAD>
+
 # v1.8.0 (49) (2023-10-17)
 
 At least Gnome Shell 45 is required. To use this extension in an older Gnome Shell version, older releases (&lt; 1.8.0)
