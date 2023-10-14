@@ -7,6 +7,7 @@
 **🎉 Merged pull requests:**
 
 * [#347](https://github.com/EasyScreenCast/EasyScreenCast/pull/347): Add czech translation ([@Amereyeu](https://github.com/Amereyeu))
+* [#354](https://github.com/EasyScreenCast/EasyScreenCast/pull/354): Unregister Mixer Control when extension is disabled ([@adangel](https://github.com/adangel))
 
 **🐛 Fixed bugs:**
 
