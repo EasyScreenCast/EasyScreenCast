@@ -10,6 +10,8 @@
 
 **🐛 Fixed bugs:**
 
+* [#349](https://github.com/EasyScreenCast/EasyScreenCast/issues/349): With no pipewire, "ESC Mixer Control" may fill up all pulseaudio connections in seconds and break sound for all apps ([@ell1e](https://github.com/ell1e))
+
 **📦 Dependency updates:**
 
 * [#348](https://github.com/EasyScreenCast/EasyScreenCast/pull/348): Bump word-wrap from 1.2.3 to 1.2.4 ([@dependabot](https://github.com/apps/dependabot))

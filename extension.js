@@ -616,6 +616,8 @@ const EasyScreenCastIndicator = GObject.registerClass({
         this._removeKeybindings();
         // stop monitoring inputvideo
         this.CtrlWebcam.stopMonitor();
+        // unregister mixer control
+        this.CtrlAudio.destroy();
 
         // remove indicator
         this.remove_actor(this.indicatorBox);
