@@ -1,4 +1,4 @@
-# v1.8.0 (48) (2023-10-14)
+# v1.8.0 (49) (2023-10-17)
 
 At least Gnome Shell 45 is required. To use this extension in an older Gnome Shell version, older releases (&lt; 1.8.0)
 need to be used.
