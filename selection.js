@@ -36,7 +36,7 @@ import * as UtilNotify from './utilnotify.js';
 import {DisplayApi} from './display_module.js';
 
 /**
- * @type {Lang.Class}
+ * @type {Capture}
  */
 const Capture = GObject.registerClass({
     GTypeName: 'EasyScreenCast_Capture',

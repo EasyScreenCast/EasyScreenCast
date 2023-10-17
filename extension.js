@@ -1021,9 +1021,18 @@ export default class EasyScreenCast extends Extension {
         Lib.TalkativeLog('-*-disableExtension called');
 
         if (timerD !== null) {
-            Lib.TalkativeLog('-*-timerD stoped');
+            Lib.TalkativeLog('-*-timerD stopped');
             timerD.stop();
+            timerD = null;
         }
+
+        // this might happen, if the extension is disabled during recording
+        if (timerC !== null) {
+            // stop counting rec
+            timerC.halt();
+            timerC = null;
+        }
+
 
         if (Indicator !== null) {
             Lib.TalkativeLog('-*-indicator call destroy');

@@ -126,7 +126,6 @@ var Settings = GObject.registerClass(class EasyScreenCastSettings extends GObjec
 
     destroy() {
         if (this._settings) {
-            this._settings.run_dispose();
             this._settings = null;
         }
     }
