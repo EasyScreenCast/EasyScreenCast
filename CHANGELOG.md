@@ -8,6 +8,8 @@
 
 **📦 Dependency updates:**
 
+* [#357](https://github.com/EasyScreenCast/EasyScreenCast/pull/357): Update actions and use node 20 ([@adangel](https://github.com/adangel))
+
 **Full Changelog**: <https://github.com/EasyScreenCast/EasyScreenCast/compare/1.8.0...HEAD>
 
 # v1.8.0 (49) (2023-10-17)
