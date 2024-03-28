@@ -47,7 +47,9 @@ var NotifyManager = GObject.registerClass({
      */
     createNotify(msg, icon, sound) {
         Lib.TalkativeLog(`-°-create notify :${msg}`);
-        var source = new MessageTray.Source();
+        var source = new MessageTray.Source({
+            title: 'Easy Screen Cast'
+        });
         var notify = new MessageTray.Notification({
             source,
             title: msg,

@@ -808,14 +808,14 @@ const EasyScreenCastIndicator = GObject.registerClass({
             if (alertEnd) {
                 this.CtrlNotify.updateNotify(
                     this.notifyCounting,
-                    _(`EasyScreenCast -> Finish Recording / Seconds : ${sec}`),
+                    _(`Finish Recording / Seconds : ${sec}`),
                     this._icons.off,
                     true
                 );
             } else {
                 this.CtrlNotify.updateNotify(
                     this.notifyCounting,
-                    _('EasyScreenCast -> Recording in progress / Seconds passed : ') + sec,
+                    _('Recording ... / Seconds passed : ') + sec,
                     this._icons.on,
                     false
                 );
