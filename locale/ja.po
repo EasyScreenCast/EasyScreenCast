@@ -7,36 +7,37 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-23 16:39+0200\n"
-"PO-Revision-Date: 2021-2-4 23:32+0900\n"
+"POT-Creation-Date: 2024-03-28 15:28+0100\n"
+"PO-Revision-Date: 2024-03-28 16:09+0100\n"
 "Last-Translator: moru3_48 <moru348@gmail.com>\n"
 "Language-Team: 日本語 <>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.4.2\n"
 
-#: prefs.js:47 prefs.js:1031 extension.js:68 extension.js:236
+#: prefs.js:47 prefs.js:992 extension.js:68 extension.js:236
 msgid "Unspecified webcam"
 msgstr "未定義のウェブカメラ"
 
-#: prefs.js:74
+#: prefs.js:64
 msgid "Could not load the preferences UI file"
 msgstr "UI設定ファイルの読み込みに失敗しました。"
 
-#: prefs.js:427
+#: prefs.js:403
 msgid "WebCam Caps"
 msgstr "ウェブカメラの録画"
 
-#: prefs.js:894
+#: prefs.js:855
 msgid "No Gstreamer pipeline found"
 msgstr "Gstreamer pipelineが 見つかりません。"
 
-#: prefs.js:973
+#: prefs.js:934
 msgid "Version: "
 msgstr "バージョン: "
 
-#: prefs.js:1118
+#: prefs.js:1075
 msgid ""
 "<span foreground=\"red\">No Caps selected, please select one from the caps "
 "list</span>"
@@ -44,15 +45,15 @@ msgstr ""
 "<span foreground=\"red\">録画が選択されていません。録画一覧から選択してくださ"
 "い。</span>"
 
-#: prefs.js:1129 Options_UI.glade.h:36 Options_UI.glade-gtk4.h:37
+#: prefs.js:1086 Options_UI.glade.h:37
 msgid "No webcam device selected"
 msgstr "ウェブカメラが選択されていません。"
 
-#: prefs.js:1131 Options_UI.glade.h:37 Options_UI.glade-gtk4.h:38
+#: prefs.js:1088 Options_UI.glade.h:38
 msgid "-"
 msgstr ""
 
-#: prefs.js:1225 Options_UI.glade.h:92 Options_UI.glade-gtk4.h:92
+#: prefs.js:1182 Options_UI.glade.h:92
 msgid "EasyScreenCast"
 msgstr ""
 
@@ -60,19 +61,19 @@ msgstr ""
 msgid "No audio source"
 msgstr "オーディオソースなし"
 
-#: extension.js:147 Options_UI.glade.h:21 Options_UI.glade-gtk4.h:1
+#: extension.js:147 Options_UI.glade.h:1
 msgid "Options"
 msgstr "設定"
 
-#: extension.js:269 extension.js:879
+#: extension.js:269 extension.js:881
 msgid "Start recording"
 msgstr "録画を開始"
 
-#: extension.js:343 extension.js:842
+#: extension.js:343 extension.js:844
 msgid " sec. delay before recording"
 msgstr " 秒録画後に録画開始"
 
-#: extension.js:345 extension.js:844
+#: extension.js:345 extension.js:846
 msgid "Start recording immediately"
 msgstr "すぐに録画を開始"
 
@@ -120,71 +121,71 @@ msgstr "経過時間"
 msgid " Sec"
 msgstr " 秒"
 
-#: extension.js:657
+#: extension.js:659
 msgid "ERROR PRE COMMAND - See logs for more info"
 msgstr "ERROR PRE COMMAND - ログで詳細を確認してください。"
 
-#: extension.js:766
+#: extension.js:768
 msgid "Start Recording"
 msgstr "録画を開始しました。"
 
-#: extension.js:792
+#: extension.js:794
 msgid "ERROR RECORDER - See logs for more info"
 msgstr "ERROR RECORDER - ログで詳細を確認してください。"
 
-#: extension.js:816
-msgid "EasyScreenCast -> Recording in progress / Seconds passed : "
-msgstr "EasyScreenCast -> 録画時間/秒経過"
+#: extension.js:818
+msgid "Recording ... / Seconds passed : "
+msgstr "録画時間/秒経過"
 
-#: extension.js:871
+#: extension.js:873
 msgid "Stop recording"
 msgstr "録画を停止"
 
-#: selection.js:216
+#: selection.js:209
 msgid "Select an area for recording or press [ESC] to abort"
 msgstr "録画範囲を選択するか、[ESC]で中断してください"
 
-#: selection.js:267
+#: selection.js:264
 msgid "Select a window for recording or press [ESC] to abort"
 msgstr "録画するウィンドウを選択するか、[ESC]で中断してください"
 
-#: selection.js:373
+#: selection.js:371
 msgid "Select a desktop for recording or press [ESC] to abort"
 msgstr "録画するデスクトップを選択するか、[ESC]で中断してください"
 
-#: Options_UI.glade.h:1 Options_UI.glade-gtk4.h:2
+#: Options_UI.glade.h:2
 msgid "Recording status indicators"
 msgstr "録画状況の表示"
 
-#: Options_UI.glade.h:2 Options_UI.glade-gtk4.h:3
+#: Options_UI.glade.h:3
 msgid "Show alerts and notifications"
 msgstr "アラートと通知に表示"
 
-#: Options_UI.glade.h:3 Options_UI.glade-gtk4.h:4
+#: Options_UI.glade.h:4
 msgid "Show a border around the area being recorded"
 msgstr "録画する範囲に枠線を表示する"
 
-#: Options_UI.glade.h:4 Options_UI.glade-gtk4.h:5
+#: Options_UI.glade.h:5
 msgid "Enable keyboard shortcut"
 msgstr "キーボードショートカットを有効にする"
 
-#: Options_UI.glade.h:5 Options_UI.glade-gtk4.h:6
+#: Options_UI.glade.h:6
 msgid "Both  [ESC + Default]"
 msgstr "両方 [ESC + Default]"
 
-#: Options_UI.glade.h:6 Options_UI.glade-gtk4.h:7
+#: Options_UI.glade.h:7
 msgid "ESC only"
 msgstr "ESC のみ"
 
-#: Options_UI.glade.h:7 Options_UI.glade-gtk4.h:8
+#: Options_UI.glade.h:8
 msgid "Default only"
 msgstr "デフォルトのみ"
 
-#: Options_UI.glade.h:8 Options_UI.glade-gtk4.h:9
+#: Options_UI.glade.h:9
 msgid "Not any"
 msgstr "なし"
 
-#: Options_UI.glade.h:9 Options_UI.glade-gtk4.h:10
+#: Options_UI.glade.h:10
 msgid ""
 "These words will be replaced\n"
 " _fpath = the absolute path of the screencast video file.\n"
@@ -197,27 +198,27 @@ msgstr ""
 "_dirpath = 動画ファイルの保存先フォルダーの絶対パス。\n"
 "_fname = 録画した動画のファイル名。"
 
-#: Options_UI.glade.h:13 Options_UI.glade-gtk4.h:14
+#: Options_UI.glade.h:14
 msgid "Command post-recording"
 msgstr "録画後のコマンド"
 
-#: Options_UI.glade.h:14 Options_UI.glade-gtk4.h:15
+#: Options_UI.glade.h:15
 msgid "Execute command after recording"
 msgstr "録画終了後に実行するコマンド"
 
-#: Options_UI.glade.h:15 Options_UI.glade-gtk4.h:16
+#: Options_UI.glade.h:16
 msgid "Draw cursor on screencast"
 msgstr "カーソルを録画"
 
-#: Options_UI.glade.h:16 Options_UI.glade-gtk4.h:17
+#: Options_UI.glade.h:17
 msgid "Active shortcut"
 msgstr "有効なショートカット"
 
-#: Options_UI.glade.h:17 Options_UI.glade-gtk4.h:18
+#: Options_UI.glade.h:18
 msgid "Execute command before recording"
 msgstr "録画開始時にコマンドを実行"
 
-#: Options_UI.glade.h:18 Options_UI.glade-gtk4.h:19
+#: Options_UI.glade.h:19
 msgid ""
 "These words will be replaced\n"
 "_dirpath = the absolute path of destination folder for the screencast video "
@@ -226,35 +227,43 @@ msgstr ""
 "次の単語を置き換えます。\n"
 "_dirpath = 動画ファイルの保存先フォルダーの絶対パス。"
 
-#: Options_UI.glade.h:20 Options_UI.glade-gtk4.h:21
+#: Options_UI.glade.h:21
 msgid "Command pre-recording"
 msgstr "開始前のコマンド"
 
-#: Options_UI.glade.h:22 Options_UI.glade-gtk4.h:23
+#: Options_UI.glade.h:22
+msgid "Quality"
+msgstr "品質"
+
+#: Options_UI.glade.h:23
 msgid "Custom GStreamer Pipeline"
 msgstr ""
 
-#: Options_UI.glade.h:23 Options_UI.glade-gtk4.h:25
-msgid "No GSP description\n"
-msgstr "GSPの説明がありません\n"
-
-#: Options_UI.glade.h:25 Options_UI.glade-gtk4.h:24
+#: Options_UI.glade.h:24
 msgid "PagePreset"
 msgstr ""
 
-#: Options_UI.glade.h:26 Options_UI.glade-gtk4.h:28
+#: Options_UI.glade.h:25
+msgid "No GSP description\n"
+msgstr "GSPの説明がありません\n"
+
+#: Options_UI.glade.h:27
+msgid "PageCustom"
+msgstr ""
+
+#: Options_UI.glade.h:28
 msgid "Frames Per Second"
 msgstr "フレーム/秒"
 
-#: Options_UI.glade.h:27 Options_UI.glade-gtk4.h:29
+#: Options_UI.glade.h:29
 msgid "0"
 msgstr ""
 
-#: Options_UI.glade.h:28 Options_UI.glade-gtk4.h:30
+#: Options_UI.glade.h:30
 msgid "GStreamer Pipeline"
 msgstr ""
 
-#: Options_UI.glade.h:29 Options_UI.glade-gtk4.h:31
+#: Options_UI.glade.h:31
 msgid ""
 "The extension does NOT handle the webcam and audio when you use a custom "
 "gstreamer pipeline.\n"
@@ -262,95 +271,91 @@ msgstr ""
 "GStreamer Custom Pipelineを使用した場合、この拡張機能はカメラとオーディオを処"
 "理しません。\n"
 
-#: Options_UI.glade.h:31 Options_UI.glade-gtk4.h:33
+#: Options_UI.glade.h:33
 msgid "Official doc"
 msgstr "公式ドキュメント"
 
-#: Options_UI.glade.h:32 Options_UI.glade-gtk4.h:34
+#: Options_UI.glade.h:34
 msgid "Wiki #1"
 msgstr ""
 
-#: Options_UI.glade.h:33 Options_UI.glade-gtk4.h:35
+#: Options_UI.glade.h:35
 msgid "Wiki #2"
 msgstr ""
 
-#: Options_UI.glade.h:34 Options_UI.glade-gtk4.h:27
-msgid "PageCustom"
-msgstr ""
-
-#: Options_UI.glade.h:35 Options_UI.glade-gtk4.h:22
-msgid "Quality"
-msgstr "品質"
-
-#: Options_UI.glade.h:38 Options_UI.glade-gtk4.h:40
-msgid "Type of unit of measure"
-msgstr "測定単位の種類"
-
-#: Options_UI.glade.h:39 Options_UI.glade-gtk4.h:41
-msgid "Width"
-msgstr "幅"
-
-#: Options_UI.glade.h:40 Options_UI.glade-gtk4.h:42
-msgid "Height"
-msgstr "縦"
-
-#: Options_UI.glade.h:41 Options_UI.glade-gtk4.h:43
-msgid "Percentage"
-msgstr "比率"
-
-#: Options_UI.glade.h:42 Options_UI.glade-gtk4.h:44
-msgid "Pixel"
-msgstr "ピクセル"
-
-#: Options_UI.glade.h:43 Options_UI.glade-gtk4.h:39
-msgid "Size"
-msgstr "サイズ"
-
-#: Options_UI.glade.h:44 Options_UI.glade-gtk4.h:46
-msgid "Put the webcam in the corner"
-msgstr "ウェブカメラを隅に置く"
-
-#: Options_UI.glade.h:45 Options_UI.glade-gtk4.h:47
-msgid "Right-Bottom"
-msgstr "右下"
-
-#: Options_UI.glade.h:46 Options_UI.glade-gtk4.h:48
-msgid "Left-Bottom"
-msgstr "左下"
-
-#: Options_UI.glade.h:47 Options_UI.glade-gtk4.h:49
-msgid "Right-Top"
-msgstr "右上"
-
-#: Options_UI.glade.h:48 Options_UI.glade-gtk4.h:50
-msgid "Left-Top"
-msgstr "左上"
-
-#: Options_UI.glade.h:49 Options_UI.glade-gtk4.h:51
-msgid "Margin X"
-msgstr ""
-
-#: Options_UI.glade.h:50 Options_UI.glade-gtk4.h:52
-msgid "Margin Y"
-msgstr ""
-
-#: Options_UI.glade.h:51 Options_UI.glade-gtk4.h:53
-msgid "Alpha channel"
-msgstr ""
-
-#: Options_UI.glade.h:52 Options_UI.glade-gtk4.h:54
-msgid "0,00"
-msgstr ""
-
-#: Options_UI.glade.h:53 Options_UI.glade-gtk4.h:45
-msgid "Position"
-msgstr "位置"
-
-#: Options_UI.glade.h:54 Options_UI.glade-gtk4.h:36
+#: Options_UI.glade.h:36
 msgid "WebCam"
 msgstr "ウェブカメラ"
 
-#: Options_UI.glade.h:55 Options_UI.glade-gtk4.h:56
+#: Options_UI.glade.h:39
+msgid "Size"
+msgstr "サイズ"
+
+#: Options_UI.glade.h:40
+msgid "Type of unit of measure"
+msgstr "測定単位の種類"
+
+#: Options_UI.glade.h:41
+msgid "Width"
+msgstr "幅"
+
+#: Options_UI.glade.h:42
+msgid "Height"
+msgstr "縦"
+
+#: Options_UI.glade.h:43
+msgid "Percentage"
+msgstr "比率"
+
+#: Options_UI.glade.h:44
+msgid "Pixel"
+msgstr "ピクセル"
+
+#: Options_UI.glade.h:45
+msgid "Position"
+msgstr "位置"
+
+#: Options_UI.glade.h:46
+msgid "Put the webcam in the corner"
+msgstr "ウェブカメラを隅に置く"
+
+#: Options_UI.glade.h:47
+msgid "Right-Bottom"
+msgstr "右下"
+
+#: Options_UI.glade.h:48
+msgid "Left-Bottom"
+msgstr "左下"
+
+#: Options_UI.glade.h:49
+msgid "Right-Top"
+msgstr "右上"
+
+#: Options_UI.glade.h:50
+msgid "Left-Top"
+msgstr "左上"
+
+#: Options_UI.glade.h:51
+msgid "Margin X"
+msgstr ""
+
+#: Options_UI.glade.h:52
+msgid "Margin Y"
+msgstr ""
+
+#: Options_UI.glade.h:53
+msgid "Alpha channel"
+msgstr ""
+
+#: Options_UI.glade.h:54
+msgid "0,00"
+msgstr ""
+
+#: Options_UI.glade.h:55
+msgid "File"
+msgstr "ファイル"
+
+#: Options_UI.glade.h:56
 msgid ""
 "Select the folder where the file is saved, if not specific a folder  the "
 "file will be saved in the $XDG_VIDEOS_DIR if it exists, or the home "
@@ -359,11 +364,11 @@ msgstr ""
 "ファイルを保存するフォルダを選択します。指定しない場合、$XDG_VIDEOS_DIR が存"
 "在する場合はそこに、存在しない場合はホームディレクトリに保存します。"
 
-#: Options_UI.glade.h:56 Options_UI.glade-gtk4.h:57
+#: Options_UI.glade.h:57
 msgid "Destination folder"
 msgstr "保存先フォルダ"
 
-#: Options_UI.glade.h:58 Options_UI.glade-gtk4.h:59
+#: Options_UI.glade.h:59
 #, no-c-format
 msgid ""
 "The filename which may contain some escape sequences - %d and %t will be "
@@ -372,87 +377,83 @@ msgstr ""
 "エスケープシーケンスを含むファイル名 - %d と %t は 録画の開始日時に置き換わり"
 "ます。"
 
-#: Options_UI.glade.h:59 Options_UI.glade-gtk4.h:60
+#: Options_UI.glade.h:60
 msgid "File name template"
 msgstr "ファイル名のテンプレート"
 
-#: Options_UI.glade.h:60
-msgid "Select the destination folder"
-msgstr "保存先フォルダを選択"
-
-#: Options_UI.glade.h:61 Options_UI.glade-gtk4.h:61
+#: Options_UI.glade.h:61
 msgid "File container"
 msgstr "ファイルコンテナ"
 
-#: Options_UI.glade.h:62 Options_UI.glade-gtk4.h:62
+#: Options_UI.glade.h:62
 msgid "File resolution"
 msgstr "ファイルの解像度"
 
-#: Options_UI.glade.h:63 Options_UI.glade-gtk4.h:64
-msgid "Native area resolution"
-msgstr "録画範囲のエリア解像度"
-
-#: Options_UI.glade.h:64 Options_UI.glade-gtk4.h:63
+#: Options_UI.glade.h:63
 msgid "Native"
 msgstr "ネイティブ"
 
-#: Options_UI.glade.h:65 Options_UI.glade-gtk4.h:66
-msgid "Preset helper"
-msgstr "プリセットヘルパー"
+#: Options_UI.glade.h:64
+msgid "Native area resolution"
+msgstr "録画範囲のエリア解像度"
 
-#: Options_UI.glade.h:66 Options_UI.glade-gtk4.h:67
-msgid "HD [720p] [16:9]"
-msgstr ""
-
-#: Options_UI.glade.h:67 Options_UI.glade-gtk4.h:68
-msgid "XGA [768p] [4:3]"
-msgstr ""
-
-#: Options_UI.glade.h:68 Options_UI.glade-gtk4.h:69
-msgid "HD ready [768p] [16:9]"
-msgstr ""
-
-#: Options_UI.glade.h:69 Options_UI.glade-gtk4.h:70
-msgid "SXGA [1024p] [5:4]"
-msgstr ""
-
-#: Options_UI.glade.h:70 Options_UI.glade-gtk4.h:71
-msgid "Full HD [1080p] [16:9]"
-msgstr ""
-
-#: Options_UI.glade.h:71 Options_UI.glade-gtk4.h:72
-msgid "UXGA [1200p] [4:3]"
-msgstr ""
-
-#: Options_UI.glade.h:72 Options_UI.glade-gtk4.h:73
-msgid "QHD [1440p] [16:9]"
-msgstr ""
-
-#: Options_UI.glade.h:73 Options_UI.glade-gtk4.h:74
-msgid "QSXGA [2048p] [5:4]"
-msgstr ""
-
-#: Options_UI.glade.h:74 Options_UI.glade-gtk4.h:75
-msgid "4K [2160p] [16:9]"
-msgstr ""
-
-#: Options_UI.glade.h:75 Options_UI.glade-gtk4.h:65
+#: Options_UI.glade.h:65
 msgid "Preset"
 msgstr "プリセット"
 
-#: Options_UI.glade.h:76 Options_UI.glade-gtk4.h:77
-msgid "keep original aspect ratio"
-msgstr "オリジナルのアスペクト比を保つ"
+#: Options_UI.glade.h:66
+msgid "Preset helper"
+msgstr "プリセットヘルパー"
 
-#: Options_UI.glade.h:77 Options_UI.glade-gtk4.h:76
+#: Options_UI.glade.h:67
+msgid "HD [720p] [16:9]"
+msgstr ""
+
+#: Options_UI.glade.h:68
+msgid "XGA [768p] [4:3]"
+msgstr ""
+
+#: Options_UI.glade.h:69
+msgid "HD ready [768p] [16:9]"
+msgstr ""
+
+#: Options_UI.glade.h:70
+msgid "SXGA [1024p] [5:4]"
+msgstr ""
+
+#: Options_UI.glade.h:71
+msgid "Full HD [1080p] [16:9]"
+msgstr ""
+
+#: Options_UI.glade.h:72
+msgid "UXGA [1200p] [4:3]"
+msgstr ""
+
+#: Options_UI.glade.h:73
+msgid "QHD [1440p] [16:9]"
+msgstr ""
+
+#: Options_UI.glade.h:74
+msgid "QSXGA [2048p] [5:4]"
+msgstr ""
+
+#: Options_UI.glade.h:75
+msgid "4K [2160p] [16:9]"
+msgstr ""
+
+#: Options_UI.glade.h:76
 msgid "Custom"
 msgstr "カスタム"
 
-#: Options_UI.glade.h:78 Options_UI.glade-gtk4.h:55
-msgid "File"
-msgstr "ファイル"
+#: Options_UI.glade.h:77
+msgid "keep original aspect ratio"
+msgstr "オリジナルのアスペクト比を保つ"
 
-#: Options_UI.glade.h:79 Options_UI.glade-gtk4.h:79
+#: Options_UI.glade.h:78
+msgid "Support"
+msgstr "サポート"
+
+#: Options_UI.glade.h:79
 msgid ""
 "This option enable more debug message, to view these run this command into a "
 "terminal:\n"
@@ -464,11 +465,11 @@ msgstr ""
 "$ journalctl /usr/bin/gnome-session --since=today | grep js\n"
 "$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
 
-#: Options_UI.glade.h:82 Options_UI.glade-gtk4.h:82
+#: Options_UI.glade.h:82
 msgid "Enable verbose debug"
 msgstr "詳細なデバッグを有効にする"
 
-#: Options_UI.glade.h:83 Options_UI.glade-gtk4.h:83
+#: Options_UI.glade.h:83
 msgid ""
 "This option enable more debug message, to view these run this command into a "
 "terminal:\n"
@@ -480,77 +481,75 @@ msgstr ""
 "$ journalctl /usr/bin/gnome-session --since=today | grep js\n"
 "$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
 
-#: Options_UI.glade.h:86 Options_UI.glade-gtk4.h:86
+#: Options_UI.glade.h:86
 msgid "extension"
 msgstr "拡張機能"
 
-#: Options_UI.glade.h:87 Options_UI.glade-gtk4.h:87
+#: Options_UI.glade.h:87
 msgid "last Gstreamer pipeline"
 msgstr ""
 
-#: Options_UI.glade.h:88 Options_UI.glade-gtk4.h:88
+#: Options_UI.glade.h:88
 msgid "gnome shell"
 msgstr ""
 
-#: Options_UI.glade.h:89 Options_UI.glade-gtk4.h:89
+#: Options_UI.glade.h:89
 msgid "Display the log of"
 msgstr ""
 
-#: Options_UI.glade.h:90 Options_UI.glade-gtk4.h:90
+#: Options_UI.glade.h:90
 msgid "Restore default options"
 msgstr "デフォルトの設定を復元"
 
-#: Options_UI.glade.h:91 Options_UI.glade-gtk4.h:78
-msgid "Support"
-msgstr "サポート"
+#: Options_UI.glade.h:91
+msgid "Info"
+msgstr "情報"
 
-#: Options_UI.glade.h:93 Options_UI.glade-gtk4.h:93
+#: Options_UI.glade.h:93
 msgid "N/A"
 msgstr ""
 
 #: Options_UI.glade.h:94
-msgid ""
-"This extension simplifies the use of the \n"
-"screen recorder  included in gnome shell"
-msgstr ""
-"この拡張機能は、gnome shellに含まれるスクリーンレコーダーの使用をより簡単にし"
-"ます。"
-
-#: Options_UI.glade.h:96 Options_UI.glade-gtk4.h:96
-msgid "This software is licensed under GPL v3"
-msgstr "このソフトウェアのライセンスは、GPL v3に基づいています。"
-
-#: Options_UI.glade.h:97 Options_UI.glade-gtk4.h:97
-msgid "Credits"
-msgstr "クレジット"
-
-#: Options_UI.glade.h:98 Options_UI.glade-gtk4.h:98
-msgid "How to contribute?"
-msgstr "貢献するには？"
-
-#: Options_UI.glade.h:99 Options_UI.glade-gtk4.h:99
-msgid "With a translation"
-msgstr "翻訳する"
-
-#: Options_UI.glade.h:100 Options_UI.glade-gtk4.h:100
-msgid "Reporting bugs"
-msgstr "バグを報告する"
-
-#: Options_UI.glade.h:101 Options_UI.glade-gtk4.h:101
-msgid "Add code"
-msgstr "コードを追加する"
-
-#: Options_UI.glade.h:102 Options_UI.glade-gtk4.h:91
-msgid "Info"
-msgstr "情報"
-
-#: Options_UI.glade-gtk4.h:94
 msgid ""
 "This extension simplifies the use of the\n"
 "screen recorder  included in gnome shell"
 msgstr ""
 "この拡張機能は、gnome shellに含まれる\n"
 "スクリーンレコーダーの使用をより簡単にします。"
+
+#: Options_UI.glade.h:96
+msgid "This software is licensed under GPL v3"
+msgstr "このソフトウェアのライセンスは、GPL v3に基づいています。"
+
+#: Options_UI.glade.h:97
+msgid "Credits"
+msgstr "クレジット"
+
+#: Options_UI.glade.h:98
+msgid "How to contribute?"
+msgstr "貢献するには？"
+
+#: Options_UI.glade.h:99
+msgid "With a translation"
+msgstr "翻訳する"
+
+#: Options_UI.glade.h:100
+msgid "Reporting bugs"
+msgstr "バグを報告する"
+
+#: Options_UI.glade.h:101
+msgid "Add code"
+msgstr "コードを追加する"
+
+#~ msgid "Select the destination folder"
+#~ msgstr "保存先フォルダを選択"
+
+#~ msgid ""
+#~ "This extension simplifies the use of the \n"
+#~ "screen recorder  included in gnome shell"
+#~ msgstr ""
+#~ "この拡張機能は、gnome shellに含まれるスクリーンレコーダーの使用をより簡単"
+#~ "にします。"
 
 #~ msgid "To activate the change of the shortcut restart the extension"
 #~ msgstr "ショートカットの変更を反映にするには、拡張機能を再起動します。"

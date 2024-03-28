@@ -22,6 +22,8 @@ import * as Lib from './convenience.js';
 import * as Settings from './settings.js';
 import * as Ext from './extension.js';
 
+import {gettext as _} from 'resource:///org/gnome/shell/extensions/extension.js';
+
 /**
  * @type {NotifyManager}
  */
@@ -48,7 +50,7 @@ var NotifyManager = GObject.registerClass({
     createNotify(msg, icon, sound) {
         Lib.TalkativeLog(`-°-create notify :${msg}`);
         var source = new MessageTray.Source({
-            title: 'Easy Screen Cast'
+            title: _('EasyScreenCast')
         });
         var notify = new MessageTray.Notification({
             source,

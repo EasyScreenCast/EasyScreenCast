@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-23 16:39+0200\n"
-"PO-Revision-Date: 2023-04-06 21:43+0200\n"
+"POT-Creation-Date: 2024-03-28 15:28+0100\n"
+"PO-Revision-Date: 2024-03-28 16:07+0100\n"
 "Last-Translator: Amerey.eu <info@amerey.eu>\n"
 "Language-Team: \n"
 "Language: cs\n"
@@ -16,29 +16,29 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n>=2 && n<=4 ? 1 : 2);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.4.2\n"
 
-#: prefs.js:47 prefs.js:1031 extension.js:68 extension.js:236
+#: prefs.js:47 prefs.js:992 extension.js:68 extension.js:236
 msgid "Unspecified webcam"
 msgstr "Nespecifikovaná webkamera"
 
-#: prefs.js:74
+#: prefs.js:64
 msgid "Could not load the preferences UI file"
 msgstr "Nelze načíst soubor předvoleb uživatelského rozhraní"
 
-#: prefs.js:427
+#: prefs.js:403
 msgid "WebCam Caps"
 msgstr "Předvolby webkamery"
 
-#: prefs.js:894
+#: prefs.js:855
 msgid "No Gstreamer pipeline found"
 msgstr "Nebyla nalezena žádná Gstreamer pipeline"
 
-#: prefs.js:973
+#: prefs.js:934
 msgid "Version: "
 msgstr "Verze: "
 
-#: prefs.js:1118
+#: prefs.js:1075
 msgid ""
 "<span foreground=\"red\">No Caps selected, please select one from the caps "
 "list</span>"
@@ -46,15 +46,15 @@ msgstr ""
 "<span foreground=\"red\">Není vybrána žádná možnost, vyberte prosím jednu ze "
 "seznamu</span>"
 
-#: prefs.js:1129 Options_UI.glade.h:36 Options_UI.glade-gtk4.h:37
+#: prefs.js:1086 Options_UI.glade.h:37
 msgid "No webcam device selected"
 msgstr "Nebyla vybrána žádná webkamera"
 
-#: prefs.js:1131 Options_UI.glade.h:37 Options_UI.glade-gtk4.h:38
+#: prefs.js:1088 Options_UI.glade.h:38
 msgid "-"
 msgstr "-"
 
-#: prefs.js:1225 Options_UI.glade.h:92 Options_UI.glade-gtk4.h:92
+#: prefs.js:1182 Options_UI.glade.h:92
 msgid "EasyScreenCast"
 msgstr "EasyScreenCast"
 
@@ -62,19 +62,19 @@ msgstr "EasyScreenCast"
 msgid "No audio source"
 msgstr "Žádný zdroj zvuku"
 
-#: extension.js:147 Options_UI.glade.h:21 Options_UI.glade-gtk4.h:1
+#: extension.js:147 Options_UI.glade.h:1
 msgid "Options"
 msgstr "Možnosti"
 
-#: extension.js:269 extension.js:879
+#: extension.js:269 extension.js:881
 msgid "Start recording"
 msgstr "Začít nahrávat"
 
-#: extension.js:343 extension.js:842
+#: extension.js:343 extension.js:844
 msgid " sec. delay before recording"
 msgstr " sekund zpoždění před nahráváním"
 
-#: extension.js:345 extension.js:844
+#: extension.js:345 extension.js:846
 msgid "Start recording immediately"
 msgstr "Začít okamžitě nahrávat"
 
@@ -126,71 +126,71 @@ msgstr "Doba zpoždění"
 msgid " Sec"
 msgstr " sekund"
 
-#: extension.js:657
+#: extension.js:659
 msgid "ERROR PRE COMMAND - See logs for more info"
 msgstr "ERROR PRE COMMAND - Další informace naleznete v protokolech"
 
-#: extension.js:766
+#: extension.js:768
 msgid "Start Recording"
 msgstr "Začít nahrávání"
 
-#: extension.js:792
+#: extension.js:794
 msgid "ERROR RECORDER - See logs for more info"
 msgstr "ERROR RECORDER – Další informace naleznete v protokolech"
 
-#: extension.js:816
-msgid "EasyScreenCast -> Recording in progress / Seconds passed : "
-msgstr "EasyScreenCast -> Probíhá nahrávání / Uběhlé sekundy: "
+#: extension.js:818
+msgid "Recording ... / Seconds passed : "
+msgstr "Probíhá nahrávání / Uběhlé sekundy: "
 
-#: extension.js:871
+#: extension.js:873
 msgid "Stop recording"
 msgstr "Zastavit nahrávání"
 
-#: selection.js:216
+#: selection.js:209
 msgid "Select an area for recording or press [ESC] to abort"
 msgstr "Vyberte oblast pro nahrávání nebo stiskněte [ESC] pro přerušení"
 
-#: selection.js:267
+#: selection.js:264
 msgid "Select a window for recording or press [ESC] to abort"
 msgstr "Vyberte okno pro nahrávání nebo stiskněte [ESC] pro přerušení"
 
-#: selection.js:373
+#: selection.js:371
 msgid "Select a desktop for recording or press [ESC] to abort"
 msgstr "Vyberte plochu pro nahrávání nebo stiskněte [ESC] pro přerušení"
 
-#: Options_UI.glade.h:1 Options_UI.glade-gtk4.h:2
+#: Options_UI.glade.h:2
 msgid "Recording status indicators"
 msgstr "Indikátory stavu nahrávání"
 
-#: Options_UI.glade.h:2 Options_UI.glade-gtk4.h:3
+#: Options_UI.glade.h:3
 msgid "Show alerts and notifications"
 msgstr "Zobrazovat upozornění a oznámení"
 
-#: Options_UI.glade.h:3 Options_UI.glade-gtk4.h:4
+#: Options_UI.glade.h:4
 msgid "Show a border around the area being recorded"
 msgstr "Zobrazit okraj kolem nahrávané oblasti"
 
-#: Options_UI.glade.h:4 Options_UI.glade-gtk4.h:5
+#: Options_UI.glade.h:5
 msgid "Enable keyboard shortcut"
 msgstr "Povolit klávesovou zkratku"
 
-#: Options_UI.glade.h:5 Options_UI.glade-gtk4.h:6
+#: Options_UI.glade.h:6
 msgid "Both  [ESC + Default]"
 msgstr "Obojí  [ESC + výchozí]"
 
-#: Options_UI.glade.h:6 Options_UI.glade-gtk4.h:7
+#: Options_UI.glade.h:7
 msgid "ESC only"
 msgstr "Pouze ESC"
 
-#: Options_UI.glade.h:7 Options_UI.glade-gtk4.h:8
+#: Options_UI.glade.h:8
 msgid "Default only"
 msgstr "Pouze výchozí"
 
-#: Options_UI.glade.h:8 Options_UI.glade-gtk4.h:9
+#: Options_UI.glade.h:9
 msgid "Not any"
 msgstr "Žádné"
 
-#: Options_UI.glade.h:9 Options_UI.glade-gtk4.h:10
+#: Options_UI.glade.h:10
 msgid ""
 "These words will be replaced\n"
 " _fpath = the absolute path of the screencast video file.\n"
@@ -203,27 +203,27 @@ msgstr ""
 "_dirpath = absolutní cesta k cílové složce pro video soubor.\n"
 "_fname = název souboru videa se screencastem."
 
-#: Options_UI.glade.h:13 Options_UI.glade-gtk4.h:14
+#: Options_UI.glade.h:14
 msgid "Command post-recording"
 msgstr "Příkaz"
 
-#: Options_UI.glade.h:14 Options_UI.glade-gtk4.h:15
+#: Options_UI.glade.h:15
 msgid "Execute command after recording"
 msgstr "Po nahrávání provést příkaz"
 
-#: Options_UI.glade.h:15 Options_UI.glade-gtk4.h:16
+#: Options_UI.glade.h:16
 msgid "Draw cursor on screencast"
 msgstr "Při nahrávání zobrazit kurzor"
 
-#: Options_UI.glade.h:16 Options_UI.glade-gtk4.h:17
+#: Options_UI.glade.h:17
 msgid "Active shortcut"
 msgstr "Aktivní zkratka"
 
-#: Options_UI.glade.h:17 Options_UI.glade-gtk4.h:18
+#: Options_UI.glade.h:18
 msgid "Execute command before recording"
 msgstr "Před nahráváním provést příkaz"
 
-#: Options_UI.glade.h:18 Options_UI.glade-gtk4.h:19
+#: Options_UI.glade.h:19
 msgid ""
 "These words will be replaced\n"
 "_dirpath = the absolute path of destination folder for the screencast video "
@@ -232,35 +232,43 @@ msgstr ""
 "Tato slova budou nahrazena\n"
 "_dirpath = absolutní cesta k cílové složce pro video soubor."
 
-#: Options_UI.glade.h:20 Options_UI.glade-gtk4.h:21
+#: Options_UI.glade.h:21
 msgid "Command pre-recording"
 msgstr "Příkaz"
 
-#: Options_UI.glade.h:22 Options_UI.glade-gtk4.h:23
+#: Options_UI.glade.h:22
+msgid "Quality"
+msgstr "Kvalita"
+
+#: Options_UI.glade.h:23
 msgid "Custom GStreamer Pipeline"
 msgstr "Vlastní GStreamer Pipeline"
 
-#: Options_UI.glade.h:23 Options_UI.glade-gtk4.h:25
-msgid "No GSP description\n"
-msgstr "Bez popisu GSP\n"
-
-#: Options_UI.glade.h:25 Options_UI.glade-gtk4.h:24
+#: Options_UI.glade.h:24
 msgid "PagePreset"
 msgstr "PagePreset"
 
-#: Options_UI.glade.h:26 Options_UI.glade-gtk4.h:28
+#: Options_UI.glade.h:25
+msgid "No GSP description\n"
+msgstr "Bez popisu GSP\n"
+
+#: Options_UI.glade.h:27
+msgid "PageCustom"
+msgstr "PageCustom"
+
+#: Options_UI.glade.h:28
 msgid "Frames Per Second"
 msgstr "Snímků za sekundu"
 
-#: Options_UI.glade.h:27 Options_UI.glade-gtk4.h:29
+#: Options_UI.glade.h:29
 msgid "0"
 msgstr "0"
 
-#: Options_UI.glade.h:28 Options_UI.glade-gtk4.h:30
+#: Options_UI.glade.h:30
 msgid "GStreamer Pipeline"
 msgstr "GStreamer Pipeline"
 
-#: Options_UI.glade.h:29 Options_UI.glade-gtk4.h:31
+#: Options_UI.glade.h:31
 msgid ""
 "The extension does NOT handle the webcam and audio when you use a custom "
 "gstreamer pipeline.\n"
@@ -268,95 +276,91 @@ msgstr ""
 "Rozšíření NEzvládá webkameru a zvuk, když používáte vlastní gstreamer "
 "pipeline.\n"
 
-#: Options_UI.glade.h:31 Options_UI.glade-gtk4.h:33
+#: Options_UI.glade.h:33
 msgid "Official doc"
 msgstr "Oficiální dokumentace"
 
-#: Options_UI.glade.h:32 Options_UI.glade-gtk4.h:34
+#: Options_UI.glade.h:34
 msgid "Wiki #1"
 msgstr "Wiki #1"
 
-#: Options_UI.glade.h:33 Options_UI.glade-gtk4.h:35
+#: Options_UI.glade.h:35
 msgid "Wiki #2"
 msgstr "Wiki #2"
 
-#: Options_UI.glade.h:34 Options_UI.glade-gtk4.h:27
-msgid "PageCustom"
-msgstr "PageCustom"
-
-#: Options_UI.glade.h:35 Options_UI.glade-gtk4.h:22
-msgid "Quality"
-msgstr "Kvalita"
-
-#: Options_UI.glade.h:38 Options_UI.glade-gtk4.h:40
-msgid "Type of unit of measure"
-msgstr "Jednotky"
-
-#: Options_UI.glade.h:39 Options_UI.glade-gtk4.h:41
-msgid "Width"
-msgstr "Šířka"
-
-#: Options_UI.glade.h:40 Options_UI.glade-gtk4.h:42
-msgid "Height"
-msgstr "Výška"
-
-#: Options_UI.glade.h:41 Options_UI.glade-gtk4.h:43
-msgid "Percentage"
-msgstr "Procenta"
-
-#: Options_UI.glade.h:42 Options_UI.glade-gtk4.h:44
-msgid "Pixel"
-msgstr "Pixely"
-
-#: Options_UI.glade.h:43 Options_UI.glade-gtk4.h:39
-msgid "Size"
-msgstr "Velikost"
-
-#: Options_UI.glade.h:44 Options_UI.glade-gtk4.h:46
-msgid "Put the webcam in the corner"
-msgstr "Umístit webkameru do rohu"
-
-#: Options_UI.glade.h:45 Options_UI.glade-gtk4.h:47
-msgid "Right-Bottom"
-msgstr "Pravý dolní"
-
-#: Options_UI.glade.h:46 Options_UI.glade-gtk4.h:48
-msgid "Left-Bottom"
-msgstr "Levý dolní"
-
-#: Options_UI.glade.h:47 Options_UI.glade-gtk4.h:49
-msgid "Right-Top"
-msgstr "Pravý horní"
-
-#: Options_UI.glade.h:48 Options_UI.glade-gtk4.h:50
-msgid "Left-Top"
-msgstr "Levý horní"
-
-#: Options_UI.glade.h:49 Options_UI.glade-gtk4.h:51
-msgid "Margin X"
-msgstr "Margin X"
-
-#: Options_UI.glade.h:50 Options_UI.glade-gtk4.h:52
-msgid "Margin Y"
-msgstr "Margin Y"
-
-#: Options_UI.glade.h:51 Options_UI.glade-gtk4.h:53
-msgid "Alpha channel"
-msgstr "Alpha kanál"
-
-#: Options_UI.glade.h:52 Options_UI.glade-gtk4.h:54
-msgid "0,00"
-msgstr "0,00"
-
-#: Options_UI.glade.h:53 Options_UI.glade-gtk4.h:45
-msgid "Position"
-msgstr "Umístění"
-
-#: Options_UI.glade.h:54 Options_UI.glade-gtk4.h:36
+#: Options_UI.glade.h:36
 msgid "WebCam"
 msgstr "Webkamera"
 
-#: Options_UI.glade.h:55 Options_UI.glade-gtk4.h:56
+#: Options_UI.glade.h:39
+msgid "Size"
+msgstr "Velikost"
+
+#: Options_UI.glade.h:40
+msgid "Type of unit of measure"
+msgstr "Jednotky"
+
+#: Options_UI.glade.h:41
+msgid "Width"
+msgstr "Šířka"
+
+#: Options_UI.glade.h:42
+msgid "Height"
+msgstr "Výška"
+
+#: Options_UI.glade.h:43
+msgid "Percentage"
+msgstr "Procenta"
+
+#: Options_UI.glade.h:44
+msgid "Pixel"
+msgstr "Pixely"
+
+#: Options_UI.glade.h:45
+msgid "Position"
+msgstr "Umístění"
+
+#: Options_UI.glade.h:46
+msgid "Put the webcam in the corner"
+msgstr "Umístit webkameru do rohu"
+
+#: Options_UI.glade.h:47
+msgid "Right-Bottom"
+msgstr "Pravý dolní"
+
+#: Options_UI.glade.h:48
+msgid "Left-Bottom"
+msgstr "Levý dolní"
+
+#: Options_UI.glade.h:49
+msgid "Right-Top"
+msgstr "Pravý horní"
+
+#: Options_UI.glade.h:50
+msgid "Left-Top"
+msgstr "Levý horní"
+
+#: Options_UI.glade.h:51
+msgid "Margin X"
+msgstr "Margin X"
+
+#: Options_UI.glade.h:52
+msgid "Margin Y"
+msgstr "Margin Y"
+
+#: Options_UI.glade.h:53
+msgid "Alpha channel"
+msgstr "Alpha kanál"
+
+#: Options_UI.glade.h:54
+msgid "0,00"
+msgstr "0,00"
+
+#: Options_UI.glade.h:55
+msgid "File"
+msgstr "Soubor"
+
+#: Options_UI.glade.h:56
 msgid ""
 "Select the folder where the file is saved, if not specific a folder  the "
 "file will be saved in the $XDG_VIDEOS_DIR if it exists, or the home "
@@ -365,11 +369,11 @@ msgstr ""
 "Vyberte složku, kde je soubor uložen, pokud není konkrétní, soubor se uloží "
 "do $XDG_VIDEOS_DIR, pokud existuje, nebo do domovského adresáře."
 
-#: Options_UI.glade.h:56 Options_UI.glade-gtk4.h:57
+#: Options_UI.glade.h:57
 msgid "Destination folder"
 msgstr "Cílová složka"
 
-#: Options_UI.glade.h:58 Options_UI.glade-gtk4.h:59
+#: Options_UI.glade.h:59
 #, no-c-format
 msgid ""
 "The filename which may contain some escape sequences - %d and %t will be "
@@ -378,182 +382,176 @@ msgstr ""
 "Název souboru, který může obsahovat nějaké escape sekvence – %d a %t bude "
 "nahrazen datem a časem začátku nahrávání."
 
-#: Options_UI.glade.h:59 Options_UI.glade-gtk4.h:60
+#: Options_UI.glade.h:60
 msgid "File name template"
 msgstr "Šablona názvu souboru"
 
-#: Options_UI.glade.h:60
-msgid "Select the destination folder"
-msgstr "Vybrat cílovou složku"
-
-#: Options_UI.glade.h:61 Options_UI.glade-gtk4.h:61
+#: Options_UI.glade.h:61
 msgid "File container"
 msgstr "Formát"
 
-#: Options_UI.glade.h:62 Options_UI.glade-gtk4.h:62
+#: Options_UI.glade.h:62
 msgid "File resolution"
 msgstr "Rozlišení"
 
-#: Options_UI.glade.h:63 Options_UI.glade-gtk4.h:64
-msgid "Native area resolution"
-msgstr "Nativní rozlišení oblasti"
-
-#: Options_UI.glade.h:64 Options_UI.glade-gtk4.h:63
+#: Options_UI.glade.h:63
 msgid "Native"
 msgstr "Původní"
 
-#: Options_UI.glade.h:65 Options_UI.glade-gtk4.h:66
-msgid "Preset helper"
-msgstr "Předvolby"
+#: Options_UI.glade.h:64
+msgid "Native area resolution"
+msgstr "Nativní rozlišení oblasti"
 
-#: Options_UI.glade.h:66 Options_UI.glade-gtk4.h:67
-msgid "HD [720p] [16:9]"
-msgstr "HD [720p] [16:9]"
-
-#: Options_UI.glade.h:67 Options_UI.glade-gtk4.h:68
-msgid "XGA [768p] [4:3]"
-msgstr "XGA [768p] [4:3]"
-
-#: Options_UI.glade.h:68 Options_UI.glade-gtk4.h:69
-msgid "HD ready [768p] [16:9]"
-msgstr "HD ready [768p] [16:9]"
-
-#: Options_UI.glade.h:69 Options_UI.glade-gtk4.h:70
-msgid "SXGA [1024p] [5:4]"
-msgstr "SXGA [1024p] [5:4]"
-
-#: Options_UI.glade.h:70 Options_UI.glade-gtk4.h:71
-msgid "Full HD [1080p] [16:9]"
-msgstr "Full HD [1080p] [16:9]"
-
-#: Options_UI.glade.h:71 Options_UI.glade-gtk4.h:72
-msgid "UXGA [1200p] [4:3]"
-msgstr "UXGA [1200p] [4:3]"
-
-#: Options_UI.glade.h:72 Options_UI.glade-gtk4.h:73
-msgid "QHD [1440p] [16:9]"
-msgstr "QHD [1440p] [16:9]"
-
-#: Options_UI.glade.h:73 Options_UI.glade-gtk4.h:74
-msgid "QSXGA [2048p] [5:4]"
-msgstr "QSXGA [2048p] [5:4]"
-
-#: Options_UI.glade.h:74 Options_UI.glade-gtk4.h:75
-msgid "4K [2160p] [16:9]"
-msgstr "4K [2160p] [16:9]"
-
-#: Options_UI.glade.h:75 Options_UI.glade-gtk4.h:65
+#: Options_UI.glade.h:65
 msgid "Preset"
 msgstr "Předvolby"
 
-#: Options_UI.glade.h:76 Options_UI.glade-gtk4.h:77
-msgid "keep original aspect ratio"
-msgstr "zachovat původní poměr stran"
+#: Options_UI.glade.h:66
+msgid "Preset helper"
+msgstr "Předvolby"
 
-#: Options_UI.glade.h:77 Options_UI.glade-gtk4.h:76
+#: Options_UI.glade.h:67
+msgid "HD [720p] [16:9]"
+msgstr "HD [720p] [16:9]"
+
+#: Options_UI.glade.h:68
+msgid "XGA [768p] [4:3]"
+msgstr "XGA [768p] [4:3]"
+
+#: Options_UI.glade.h:69
+msgid "HD ready [768p] [16:9]"
+msgstr "HD ready [768p] [16:9]"
+
+#: Options_UI.glade.h:70
+msgid "SXGA [1024p] [5:4]"
+msgstr "SXGA [1024p] [5:4]"
+
+#: Options_UI.glade.h:71
+msgid "Full HD [1080p] [16:9]"
+msgstr "Full HD [1080p] [16:9]"
+
+#: Options_UI.glade.h:72
+msgid "UXGA [1200p] [4:3]"
+msgstr "UXGA [1200p] [4:3]"
+
+#: Options_UI.glade.h:73
+msgid "QHD [1440p] [16:9]"
+msgstr "QHD [1440p] [16:9]"
+
+#: Options_UI.glade.h:74
+msgid "QSXGA [2048p] [5:4]"
+msgstr "QSXGA [2048p] [5:4]"
+
+#: Options_UI.glade.h:75
+msgid "4K [2160p] [16:9]"
+msgstr "4K [2160p] [16:9]"
+
+#: Options_UI.glade.h:76
 msgid "Custom"
 msgstr "Vlastní"
 
-#: Options_UI.glade.h:78 Options_UI.glade-gtk4.h:55
-msgid "File"
-msgstr "Soubor"
+#: Options_UI.glade.h:77
+msgid "keep original aspect ratio"
+msgstr "zachovat původní poměr stran"
 
-#: Options_UI.glade.h:79 Options_UI.glade-gtk4.h:79
-msgid ""
-"This option enable more debug message, to view these run this command into a "
-"terminal:\n"
-"$ journalctl --since=today --no-pager | grep js\n"
-"$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
-msgstr ""
-"Tato možnost povolí další zprávy ladění, chcete-li je zobrazit, spusťte "
-"tento příkaz v terminálu:\n"
-"$ journalctl --since=today --no-pager | grep js\n"
-"$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
-
-#: Options_UI.glade.h:82 Options_UI.glade-gtk4.h:82
-msgid "Enable verbose debug"
-msgstr "Povolit podrobné ladění"
-
-#: Options_UI.glade.h:83 Options_UI.glade-gtk4.h:83
-msgid ""
-"This option enable more debug message, to view these run this command into a "
-"terminal:\n"
-"$ journalctl /usr/bin/gnome-session --since=today | grep js\n"
-"$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
-msgstr ""
-"Tato možnost povolí další zprávy ladění, chcete-li je zobrazit, spusťte "
-"tento příkaz v terminálu:\n"
-"$ journalctl /usr/bin/gnome-session --since=today | grep js\n"
-"$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
-
-#: Options_UI.glade.h:86 Options_UI.glade-gtk4.h:86
-msgid "extension"
-msgstr "rozšíření"
-
-#: Options_UI.glade.h:87 Options_UI.glade-gtk4.h:87
-msgid "last Gstreamer pipeline"
-msgstr "poslední Gstreamer pipeline"
-
-#: Options_UI.glade.h:88 Options_UI.glade-gtk4.h:88
-msgid "gnome shell"
-msgstr "gnome shell"
-
-#: Options_UI.glade.h:89 Options_UI.glade-gtk4.h:89
-msgid "Display the log of"
-msgstr "Zobrazit protokol"
-
-#: Options_UI.glade.h:90 Options_UI.glade-gtk4.h:90
-msgid "Restore default options"
-msgstr "Obnovit výchozí nastavení"
-
-#: Options_UI.glade.h:91 Options_UI.glade-gtk4.h:78
+#: Options_UI.glade.h:78
 msgid "Support"
 msgstr "Podpora"
 
-#: Options_UI.glade.h:93 Options_UI.glade-gtk4.h:93
+#: Options_UI.glade.h:79
+msgid ""
+"This option enable more debug message, to view these run this command into a "
+"terminal:\n"
+"$ journalctl --since=today --no-pager | grep js\n"
+"$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
+msgstr ""
+"Tato možnost povolí další zprávy ladění, chcete-li je zobrazit, spusťte "
+"tento příkaz v terminálu:\n"
+"$ journalctl --since=today --no-pager | grep js\n"
+"$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
+
+#: Options_UI.glade.h:82
+msgid "Enable verbose debug"
+msgstr "Povolit podrobné ladění"
+
+#: Options_UI.glade.h:83
+msgid ""
+"This option enable more debug message, to view these run this command into a "
+"terminal:\n"
+"$ journalctl /usr/bin/gnome-session --since=today | grep js\n"
+"$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
+msgstr ""
+"Tato možnost povolí další zprávy ladění, chcete-li je zobrazit, spusťte "
+"tento příkaz v terminálu:\n"
+"$ journalctl /usr/bin/gnome-session --since=today | grep js\n"
+"$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
+
+#: Options_UI.glade.h:86
+msgid "extension"
+msgstr "rozšíření"
+
+#: Options_UI.glade.h:87
+msgid "last Gstreamer pipeline"
+msgstr "poslední Gstreamer pipeline"
+
+#: Options_UI.glade.h:88
+msgid "gnome shell"
+msgstr "gnome shell"
+
+#: Options_UI.glade.h:89
+msgid "Display the log of"
+msgstr "Zobrazit protokol"
+
+#: Options_UI.glade.h:90
+msgid "Restore default options"
+msgstr "Obnovit výchozí nastavení"
+
+#: Options_UI.glade.h:91
+msgid "Info"
+msgstr "Informace"
+
+#: Options_UI.glade.h:93
 msgid "N/A"
 msgstr "Není k dispozici"
 
 #: Options_UI.glade.h:94
-msgid ""
-"This extension simplifies the use of the \n"
-"screen recorder  included in gnome shell"
-msgstr ""
-"Toto rozšíření zjednodušuje použití\n"
-"nahrávání obrazovky, které je součástí gnome shellu"
-
-#: Options_UI.glade.h:96 Options_UI.glade-gtk4.h:96
-msgid "This software is licensed under GPL v3"
-msgstr "Tento software je licencován pod GPL v3"
-
-#: Options_UI.glade.h:97 Options_UI.glade-gtk4.h:97
-msgid "Credits"
-msgstr "Zásluhy"
-
-#: Options_UI.glade.h:98 Options_UI.glade-gtk4.h:98
-msgid "How to contribute?"
-msgstr "Jak přispět?"
-
-#: Options_UI.glade.h:99 Options_UI.glade-gtk4.h:99
-msgid "With a translation"
-msgstr "S překladem"
-
-#: Options_UI.glade.h:100 Options_UI.glade-gtk4.h:100
-msgid "Reporting bugs"
-msgstr "Hlášení chyb"
-
-#: Options_UI.glade.h:101 Options_UI.glade-gtk4.h:101
-msgid "Add code"
-msgstr "Přidat kód"
-
-#: Options_UI.glade.h:102 Options_UI.glade-gtk4.h:91
-msgid "Info"
-msgstr "Informace"
-
-#: Options_UI.glade-gtk4.h:94
 msgid ""
 "This extension simplifies the use of the\n"
 "screen recorder  included in gnome shell"
 msgstr ""
 "Toto rozšíření zjednodušuje použití\n"
 "nahrávání obrazovky, které je součástí gnome shellu"
+
+#: Options_UI.glade.h:96
+msgid "This software is licensed under GPL v3"
+msgstr "Tento software je licencován pod GPL v3"
+
+#: Options_UI.glade.h:97
+msgid "Credits"
+msgstr "Zásluhy"
+
+#: Options_UI.glade.h:98
+msgid "How to contribute?"
+msgstr "Jak přispět?"
+
+#: Options_UI.glade.h:99
+msgid "With a translation"
+msgstr "S překladem"
+
+#: Options_UI.glade.h:100
+msgid "Reporting bugs"
+msgstr "Hlášení chyb"
+
+#: Options_UI.glade.h:101
+msgid "Add code"
+msgstr "Přidat kód"
+
+#~ msgid "Select the destination folder"
+#~ msgstr "Vybrat cílovou složku"
+
+#~ msgid ""
+#~ "This extension simplifies the use of the \n"
+#~ "screen recorder  included in gnome shell"
+#~ msgstr ""
+#~ "Toto rozšíření zjednodušuje použití\n"
+#~ "nahrávání obrazovky, které je součástí gnome shellu"
