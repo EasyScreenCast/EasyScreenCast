@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         fetch-depth: 0
     - name: Use Node.js 16.x
@@ -28,7 +28,7 @@ jobs:
     - run: npm ci
     - run: npm run lint
     - run: make zip-file
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v4
       with:
         name: EasyScreenCast
         path: EasyScreenCast_*.zip
