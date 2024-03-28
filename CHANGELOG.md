@@ -9,6 +9,7 @@
 **📦 Dependency updates:**
 
 * [#357](https://github.com/EasyScreenCast/EasyScreenCast/pull/357): Update actions and use node 20 ([@adangel](https://github.com/adangel))
+* [#358](https://github.com/EasyScreenCast/EasyScreenCast/pull/358): Update eslint ([@adangel](https://github.com/adangel))
 
 **Full Changelog**: <https://github.com/EasyScreenCast/EasyScreenCast/compare/1.8.0...HEAD>
 
