@@ -7,38 +7,38 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-23 16:39+0200\n"
-"PO-Revision-Date: 2022-02-27 09:27+0900\n"
+"POT-Creation-Date: 2024-03-28 15:28+0100\n"
+"PO-Revision-Date: 2024-03-28 16:09+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: vi_VN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.3\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.4.2\n"
 
-#: prefs.js:47 prefs.js:1031 extension.js:68 extension.js:236
+#: prefs.js:47 prefs.js:992 extension.js:68 extension.js:236
 msgid "Unspecified webcam"
 msgstr "Webcam không xác định"
 
-#: prefs.js:74
+#: prefs.js:64
 msgid "Could not load the preferences UI file"
 msgstr "Không tải được tập tin cài đặt UI"
 
-#: prefs.js:427
+#: prefs.js:403
 msgid "WebCam Caps"
 msgstr "Quay bằng webcam"
 
-#: prefs.js:894
+#: prefs.js:855
 msgid "No Gstreamer pipeline found"
 msgstr "Không tìm thấy Gstreamer pipeline"
 
-#: prefs.js:973
+#: prefs.js:934
 msgid "Version: "
 msgstr "Phiên bản: "
 
-#: prefs.js:1118
+#: prefs.js:1075
 msgid ""
 "<span foreground=\"red\">No Caps selected, please select one from the caps "
 "list</span>"
@@ -46,15 +46,15 @@ msgstr ""
 "<span foreground=\"red\">Chưa chọn mục để quay, vui lòng chọn một mục trong "
 "danh sách</span>"
 
-#: prefs.js:1129 Options_UI.glade.h:36 Options_UI.glade-gtk4.h:37
+#: prefs.js:1086 Options_UI.glade.h:37
 msgid "No webcam device selected"
 msgstr "Không có thiết bị webcam nào được chọn"
 
-#: prefs.js:1131 Options_UI.glade.h:37 Options_UI.glade-gtk4.h:38
+#: prefs.js:1088 Options_UI.glade.h:38
 msgid "-"
 msgstr "-"
 
-#: prefs.js:1225 Options_UI.glade.h:92 Options_UI.glade-gtk4.h:92
+#: prefs.js:1182 Options_UI.glade.h:92
 msgid "EasyScreenCast"
 msgstr ""
 
@@ -62,19 +62,19 @@ msgstr ""
 msgid "No audio source"
 msgstr "Không có nguồn âm thanh"
 
-#: extension.js:147 Options_UI.glade.h:21 Options_UI.glade-gtk4.h:1
+#: extension.js:147 Options_UI.glade.h:1
 msgid "Options"
 msgstr "Cài đặt"
 
-#: extension.js:269 extension.js:879
+#: extension.js:269 extension.js:881
 msgid "Start recording"
 msgstr "Bắt đầu quay"
 
-#: extension.js:343 extension.js:842
+#: extension.js:343 extension.js:844
 msgid " sec. delay before recording"
 msgstr "Đếm ngược giây trước khi bắt đầu quay"
 
-#: extension.js:345 extension.js:844
+#: extension.js:345 extension.js:846
 msgid "Start recording immediately"
 msgstr "Quay màn hình ngay"
 
@@ -126,71 +126,71 @@ msgstr "Thời gian đếm ngược"
 msgid " Sec"
 msgstr " Giây"
 
-#: extension.js:657
+#: extension.js:659
 msgid "ERROR PRE COMMAND - See logs for more info"
 msgstr "ERROR PRE COMMAND - Xem log để biết thêm thông tin"
 
-#: extension.js:766
+#: extension.js:768
 msgid "Start Recording"
 msgstr "Bắt đầu quay"
 
-#: extension.js:792
+#: extension.js:794
 msgid "ERROR RECORDER - See logs for more info"
 msgstr "ERROR RECORDER - Xem log để biết thêm thông tin"
 
-#: extension.js:816
-msgid "EasyScreenCast -> Recording in progress / Seconds passed : "
-msgstr "EasyScreenCast -> Đang quay / Giây đã qua : "
+#: extension.js:818
+msgid "Recording ... / Seconds passed : "
+msgstr "Đang quay / Giây đã qua : "
 
-#: extension.js:871
+#: extension.js:873
 msgid "Stop recording"
 msgstr "Dừng quay"
 
-#: selection.js:216
+#: selection.js:209
 msgid "Select an area for recording or press [ESC] to abort"
 msgstr "Chọn một vùng để quay hoặc nhấn [ESC] để hủy bỏ"
 
-#: selection.js:267
+#: selection.js:264
 msgid "Select a window for recording or press [ESC] to abort"
 msgstr "Chọn một cửa sổ để quay hoặc nhấn [ESC] để hủy bỏ"
 
-#: selection.js:373
+#: selection.js:371
 msgid "Select a desktop for recording or press [ESC] to abort"
 msgstr "Chọn một màn hình để quay hoặc nhấn [ESC] để hủy bỏ"
 
-#: Options_UI.glade.h:1 Options_UI.glade-gtk4.h:2
+#: Options_UI.glade.h:2
 msgid "Recording status indicators"
 msgstr "Hiển thị trạng thái quay"
 
-#: Options_UI.glade.h:2 Options_UI.glade-gtk4.h:3
+#: Options_UI.glade.h:3
 msgid "Show alerts and notifications"
 msgstr "Hiển thị cảnh báo và thông báo"
 
-#: Options_UI.glade.h:3 Options_UI.glade-gtk4.h:4
+#: Options_UI.glade.h:4
 msgid "Show a border around the area being recorded"
 msgstr "Hiển thị đường viền xung quanh vùng đang được quay"
 
-#: Options_UI.glade.h:4 Options_UI.glade-gtk4.h:5
+#: Options_UI.glade.h:5
 msgid "Enable keyboard shortcut"
 msgstr "Cho phép dùng phím tắt"
 
-#: Options_UI.glade.h:5 Options_UI.glade-gtk4.h:6
+#: Options_UI.glade.h:6
 msgid "Both  [ESC + Default]"
 msgstr "Cả hai  [ESC + Mặc định]"
 
-#: Options_UI.glade.h:6 Options_UI.glade-gtk4.h:7
+#: Options_UI.glade.h:7
 msgid "ESC only"
 msgstr "Chỉ ESC"
 
-#: Options_UI.glade.h:7 Options_UI.glade-gtk4.h:8
+#: Options_UI.glade.h:8
 msgid "Default only"
 msgstr "Chỉ mặc định"
 
-#: Options_UI.glade.h:8 Options_UI.glade-gtk4.h:9
+#: Options_UI.glade.h:9
 msgid "Not any"
 msgstr "Không dùng"
 
-#: Options_UI.glade.h:9 Options_UI.glade-gtk4.h:10
+#: Options_UI.glade.h:10
 msgid ""
 "These words will be replaced\n"
 " _fpath = the absolute path of the screencast video file.\n"
@@ -203,27 +203,27 @@ msgstr ""
 "_dirpath = đường dẫn tuyệt đối tới thư mục lưu tập tin video quay màn hình.\n"
 "_fname = tên của tập tin video quay màn hình."
 
-#: Options_UI.glade.h:13 Options_UI.glade-gtk4.h:14
+#: Options_UI.glade.h:14
 msgid "Command post-recording"
 msgstr "Lệnh sau khi quay"
 
-#: Options_UI.glade.h:14 Options_UI.glade-gtk4.h:15
+#: Options_UI.glade.h:15
 msgid "Execute command after recording"
 msgstr "Thực thi lệnh sau khi quay"
 
-#: Options_UI.glade.h:15 Options_UI.glade-gtk4.h:16
+#: Options_UI.glade.h:16
 msgid "Draw cursor on screencast"
 msgstr "Hiển thị con trỏ chuột khi quay"
 
-#: Options_UI.glade.h:16 Options_UI.glade-gtk4.h:17
+#: Options_UI.glade.h:17
 msgid "Active shortcut"
 msgstr "Kích  hoạt phím tắt"
 
-#: Options_UI.glade.h:17 Options_UI.glade-gtk4.h:18
+#: Options_UI.glade.h:18
 msgid "Execute command before recording"
 msgstr "Thực thi lệnh trước khi quay"
 
-#: Options_UI.glade.h:18 Options_UI.glade-gtk4.h:19
+#: Options_UI.glade.h:19
 msgid ""
 "These words will be replaced\n"
 "_dirpath = the absolute path of destination folder for the screencast video "
@@ -232,35 +232,43 @@ msgstr ""
 "Những từ sau sẽ được thay thế\n"
 "_dirpath = đường dẫn tuyệt đối tới thư mục lưu tập tin video quay màn hình."
 
-#: Options_UI.glade.h:20 Options_UI.glade-gtk4.h:21
+#: Options_UI.glade.h:21
 msgid "Command pre-recording"
 msgstr "Lệnh trước khi quay"
 
-#: Options_UI.glade.h:22 Options_UI.glade-gtk4.h:23
+#: Options_UI.glade.h:22
+msgid "Quality"
+msgstr "Chất lượng"
+
+#: Options_UI.glade.h:23
 msgid "Custom GStreamer Pipeline"
 msgstr "Tùy chỉnh GStreamer Pipeline"
 
-#: Options_UI.glade.h:23 Options_UI.glade-gtk4.h:25
-msgid "No GSP description\n"
-msgstr "Không có mô tả GSP\n"
-
-#: Options_UI.glade.h:25 Options_UI.glade-gtk4.h:24
+#: Options_UI.glade.h:24
 msgid "PagePreset"
 msgstr ""
 
-#: Options_UI.glade.h:26 Options_UI.glade-gtk4.h:28
+#: Options_UI.glade.h:25
+msgid "No GSP description\n"
+msgstr "Không có mô tả GSP\n"
+
+#: Options_UI.glade.h:27
+msgid "PageCustom"
+msgstr ""
+
+#: Options_UI.glade.h:28
 msgid "Frames Per Second"
 msgstr "Khung hình mỗi giây"
 
-#: Options_UI.glade.h:27 Options_UI.glade-gtk4.h:29
+#: Options_UI.glade.h:29
 msgid "0"
 msgstr ""
 
-#: Options_UI.glade.h:28 Options_UI.glade-gtk4.h:30
+#: Options_UI.glade.h:30
 msgid "GStreamer Pipeline"
 msgstr ""
 
-#: Options_UI.glade.h:29 Options_UI.glade-gtk4.h:31
+#: Options_UI.glade.h:31
 msgid ""
 "The extension does NOT handle the webcam and audio when you use a custom "
 "gstreamer pipeline.\n"
@@ -268,95 +276,91 @@ msgstr ""
 "Khi sử dụng gstreamer pipeline tùy chỉnh thì extension sẽ không xử lý webcam "
 "và âm thanh.\n"
 
-#: Options_UI.glade.h:31 Options_UI.glade-gtk4.h:33
+#: Options_UI.glade.h:33
 msgid "Official doc"
 msgstr "Tài liệu chính thức"
 
-#: Options_UI.glade.h:32 Options_UI.glade-gtk4.h:34
+#: Options_UI.glade.h:34
 msgid "Wiki #1"
 msgstr ""
 
-#: Options_UI.glade.h:33 Options_UI.glade-gtk4.h:35
+#: Options_UI.glade.h:35
 msgid "Wiki #2"
 msgstr ""
 
-#: Options_UI.glade.h:34 Options_UI.glade-gtk4.h:27
-msgid "PageCustom"
-msgstr ""
-
-#: Options_UI.glade.h:35 Options_UI.glade-gtk4.h:22
-msgid "Quality"
-msgstr "Chất lượng"
-
-#: Options_UI.glade.h:38 Options_UI.glade-gtk4.h:40
-msgid "Type of unit of measure"
-msgstr "Loại đơn vị đo"
-
-#: Options_UI.glade.h:39 Options_UI.glade-gtk4.h:41
-msgid "Width"
-msgstr "Rộng"
-
-#: Options_UI.glade.h:40 Options_UI.glade-gtk4.h:42
-msgid "Height"
-msgstr "Cao"
-
-#: Options_UI.glade.h:41 Options_UI.glade-gtk4.h:43
-msgid "Percentage"
-msgstr "Phần trăm"
-
-#: Options_UI.glade.h:42 Options_UI.glade-gtk4.h:44
-msgid "Pixel"
-msgstr "Điểm ảnh"
-
-#: Options_UI.glade.h:43 Options_UI.glade-gtk4.h:39
-msgid "Size"
-msgstr "Kích thước"
-
-#: Options_UI.glade.h:44 Options_UI.glade-gtk4.h:46
-msgid "Put the webcam in the corner"
-msgstr "Để webcam ở góc"
-
-#: Options_UI.glade.h:45 Options_UI.glade-gtk4.h:47
-msgid "Right-Bottom"
-msgstr "Dưới bên phải"
-
-#: Options_UI.glade.h:46 Options_UI.glade-gtk4.h:48
-msgid "Left-Bottom"
-msgstr "Dưới bên trái"
-
-#: Options_UI.glade.h:47 Options_UI.glade-gtk4.h:49
-msgid "Right-Top"
-msgstr "Trên bên phải"
-
-#: Options_UI.glade.h:48 Options_UI.glade-gtk4.h:50
-msgid "Left-Top"
-msgstr "Trên bên trái"
-
-#: Options_UI.glade.h:49 Options_UI.glade-gtk4.h:51
-msgid "Margin X"
-msgstr "Lề ngang"
-
-#: Options_UI.glade.h:50 Options_UI.glade-gtk4.h:52
-msgid "Margin Y"
-msgstr "Lề dọc"
-
-#: Options_UI.glade.h:51 Options_UI.glade-gtk4.h:53
-msgid "Alpha channel"
-msgstr ""
-
-#: Options_UI.glade.h:52 Options_UI.glade-gtk4.h:54
-msgid "0,00"
-msgstr ""
-
-#: Options_UI.glade.h:53 Options_UI.glade-gtk4.h:45
-msgid "Position"
-msgstr "Vị trí"
-
-#: Options_UI.glade.h:54 Options_UI.glade-gtk4.h:36
+#: Options_UI.glade.h:36
 msgid "WebCam"
 msgstr ""
 
-#: Options_UI.glade.h:55 Options_UI.glade-gtk4.h:56
+#: Options_UI.glade.h:39
+msgid "Size"
+msgstr "Kích thước"
+
+#: Options_UI.glade.h:40
+msgid "Type of unit of measure"
+msgstr "Loại đơn vị đo"
+
+#: Options_UI.glade.h:41
+msgid "Width"
+msgstr "Rộng"
+
+#: Options_UI.glade.h:42
+msgid "Height"
+msgstr "Cao"
+
+#: Options_UI.glade.h:43
+msgid "Percentage"
+msgstr "Phần trăm"
+
+#: Options_UI.glade.h:44
+msgid "Pixel"
+msgstr "Điểm ảnh"
+
+#: Options_UI.glade.h:45
+msgid "Position"
+msgstr "Vị trí"
+
+#: Options_UI.glade.h:46
+msgid "Put the webcam in the corner"
+msgstr "Để webcam ở góc"
+
+#: Options_UI.glade.h:47
+msgid "Right-Bottom"
+msgstr "Dưới bên phải"
+
+#: Options_UI.glade.h:48
+msgid "Left-Bottom"
+msgstr "Dưới bên trái"
+
+#: Options_UI.glade.h:49
+msgid "Right-Top"
+msgstr "Trên bên phải"
+
+#: Options_UI.glade.h:50
+msgid "Left-Top"
+msgstr "Trên bên trái"
+
+#: Options_UI.glade.h:51
+msgid "Margin X"
+msgstr "Lề ngang"
+
+#: Options_UI.glade.h:52
+msgid "Margin Y"
+msgstr "Lề dọc"
+
+#: Options_UI.glade.h:53
+msgid "Alpha channel"
+msgstr ""
+
+#: Options_UI.glade.h:54
+msgid "0,00"
+msgstr ""
+
+#: Options_UI.glade.h:55
+msgid "File"
+msgstr "Tập tin"
+
+#: Options_UI.glade.h:56
 msgid ""
 "Select the folder where the file is saved, if not specific a folder  the "
 "file will be saved in the $XDG_VIDEOS_DIR if it exists, or the home "
@@ -365,11 +369,11 @@ msgstr ""
 "Chọn thư mục để lưu tập tin, nếu không chọn thì  tập tin sẽ được lưu vào "
 "$XDG_VIDEOS_DIR nếu tồn tại, hoặc lưu vào thư mục home."
 
-#: Options_UI.glade.h:56 Options_UI.glade-gtk4.h:57
+#: Options_UI.glade.h:57
 msgid "Destination folder"
 msgstr "Thư mục lưu"
 
-#: Options_UI.glade.h:58 Options_UI.glade-gtk4.h:59
+#: Options_UI.glade.h:59
 #, no-c-format
 msgid ""
 "The filename which may contain some escape sequences - %d and %t will be "
@@ -378,185 +382,179 @@ msgstr ""
 "Tên tập tin có thể chứa một số kí tự như - %d và %t sẽ được thay thế bằng "
 "ngày và giờ khi quay."
 
-#: Options_UI.glade.h:59 Options_UI.glade-gtk4.h:60
+#: Options_UI.glade.h:60
 msgid "File name template"
 msgstr "Mẫu tên tập tin"
 
-#: Options_UI.glade.h:60
-msgid "Select the destination folder"
-msgstr "Chọn thư mục để lưu"
-
-#: Options_UI.glade.h:61 Options_UI.glade-gtk4.h:61
+#: Options_UI.glade.h:61
 msgid "File container"
 msgstr "Định dạng tập tin"
 
-#: Options_UI.glade.h:62 Options_UI.glade-gtk4.h:62
+#: Options_UI.glade.h:62
 msgid "File resolution"
 msgstr "Độ phân giải"
 
-#: Options_UI.glade.h:63 Options_UI.glade-gtk4.h:64
-msgid "Native area resolution"
-msgstr "Độ phân giải gốc của vùng được chọn"
-
-#: Options_UI.glade.h:64 Options_UI.glade-gtk4.h:63
+#: Options_UI.glade.h:63
 msgid "Native"
 msgstr ""
 
-#: Options_UI.glade.h:65 Options_UI.glade-gtk4.h:66
-msgid "Preset helper"
-msgstr "Trợ giúp thiết lập trước"
+#: Options_UI.glade.h:64
+msgid "Native area resolution"
+msgstr "Độ phân giải gốc của vùng được chọn"
 
-#: Options_UI.glade.h:66 Options_UI.glade-gtk4.h:67
-msgid "HD [720p] [16:9]"
-msgstr ""
-
-#: Options_UI.glade.h:67 Options_UI.glade-gtk4.h:68
-msgid "XGA [768p] [4:3]"
-msgstr ""
-
-#: Options_UI.glade.h:68 Options_UI.glade-gtk4.h:69
-msgid "HD ready [768p] [16:9]"
-msgstr ""
-
-#: Options_UI.glade.h:69 Options_UI.glade-gtk4.h:70
-msgid "SXGA [1024p] [5:4]"
-msgstr ""
-
-#: Options_UI.glade.h:70 Options_UI.glade-gtk4.h:71
-msgid "Full HD [1080p] [16:9]"
-msgstr ""
-
-#: Options_UI.glade.h:71 Options_UI.glade-gtk4.h:72
-msgid "UXGA [1200p] [4:3]"
-msgstr ""
-
-#: Options_UI.glade.h:72 Options_UI.glade-gtk4.h:73
-msgid "QHD [1440p] [16:9]"
-msgstr ""
-
-#: Options_UI.glade.h:73 Options_UI.glade-gtk4.h:74
-msgid "QSXGA [2048p] [5:4]"
-msgstr ""
-
-#: Options_UI.glade.h:74 Options_UI.glade-gtk4.h:75
-msgid "4K [2160p] [16:9]"
-msgstr ""
-
-#: Options_UI.glade.h:75 Options_UI.glade-gtk4.h:65
+#: Options_UI.glade.h:65
 msgid "Preset"
 msgstr "Thiết lập trước"
 
-#: Options_UI.glade.h:76 Options_UI.glade-gtk4.h:77
-msgid "keep original aspect ratio"
-msgstr "giữ tỉ lệ khung hình ban đầu"
+#: Options_UI.glade.h:66
+msgid "Preset helper"
+msgstr "Trợ giúp thiết lập trước"
 
-#: Options_UI.glade.h:77 Options_UI.glade-gtk4.h:76
+#: Options_UI.glade.h:67
+msgid "HD [720p] [16:9]"
+msgstr ""
+
+#: Options_UI.glade.h:68
+msgid "XGA [768p] [4:3]"
+msgstr ""
+
+#: Options_UI.glade.h:69
+msgid "HD ready [768p] [16:9]"
+msgstr ""
+
+#: Options_UI.glade.h:70
+msgid "SXGA [1024p] [5:4]"
+msgstr ""
+
+#: Options_UI.glade.h:71
+msgid "Full HD [1080p] [16:9]"
+msgstr ""
+
+#: Options_UI.glade.h:72
+msgid "UXGA [1200p] [4:3]"
+msgstr ""
+
+#: Options_UI.glade.h:73
+msgid "QHD [1440p] [16:9]"
+msgstr ""
+
+#: Options_UI.glade.h:74
+msgid "QSXGA [2048p] [5:4]"
+msgstr ""
+
+#: Options_UI.glade.h:75
+msgid "4K [2160p] [16:9]"
+msgstr ""
+
+#: Options_UI.glade.h:76
 msgid "Custom"
 msgstr "Tùy chỉnh"
 
-#: Options_UI.glade.h:78 Options_UI.glade-gtk4.h:55
-msgid "File"
-msgstr "Tập tin"
+#: Options_UI.glade.h:77
+msgid "keep original aspect ratio"
+msgstr "giữ tỉ lệ khung hình ban đầu"
 
-#: Options_UI.glade.h:79 Options_UI.glade-gtk4.h:79
-msgid ""
-"This option enable more debug message, to view these run this command into a "
-"terminal:\n"
-"$ journalctl --since=today --no-pager | grep js\n"
-"$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
-msgstr ""
-"Tùy chọn này cho phép nhiều tin nhắn gỡ lỗi hơn, chạy lệnh sau trong "
-"terminal để xem:\n"
-"$ journalctl --since=today --no-pager | grep js\n"
-"$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
-
-#: Options_UI.glade.h:82 Options_UI.glade-gtk4.h:82
-msgid "Enable verbose debug"
-msgstr "Cho phép gỡ lỗi chi tiết"
-
-#: Options_UI.glade.h:83 Options_UI.glade-gtk4.h:83
-msgid ""
-"This option enable more debug message, to view these run this command into a "
-"terminal:\n"
-"$ journalctl /usr/bin/gnome-session --since=today | grep js\n"
-"$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
-msgstr ""
-"Tùy chọn này cho phép nhiều tin nhắn gỡ lỗi hơn, chạy lệnh sau trong "
-"terminal để xem:\n"
-"$ journalctl /usr/bin/gnome-session --since=today | grep js\n"
-"$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
-
-#: Options_UI.glade.h:86 Options_UI.glade-gtk4.h:86
-msgid "extension"
-msgstr ""
-
-#: Options_UI.glade.h:87 Options_UI.glade-gtk4.h:87
-msgid "last Gstreamer pipeline"
-msgstr "Gstreamer pipeline sau cùng"
-
-#: Options_UI.glade.h:88 Options_UI.glade-gtk4.h:88
-msgid "gnome shell"
-msgstr ""
-
-#: Options_UI.glade.h:89 Options_UI.glade-gtk4.h:89
-msgid "Display the log of"
-msgstr "Hiển thị log của"
-
-#: Options_UI.glade.h:90 Options_UI.glade-gtk4.h:90
-msgid "Restore default options"
-msgstr "Khôi phục cài đặt gốc"
-
-#: Options_UI.glade.h:91 Options_UI.glade-gtk4.h:78
+#: Options_UI.glade.h:78
 msgid "Support"
 msgstr "Hỗ trợ"
 
-#: Options_UI.glade.h:93 Options_UI.glade-gtk4.h:93
+#: Options_UI.glade.h:79
+msgid ""
+"This option enable more debug message, to view these run this command into a "
+"terminal:\n"
+"$ journalctl --since=today --no-pager | grep js\n"
+"$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
+msgstr ""
+"Tùy chọn này cho phép nhiều tin nhắn gỡ lỗi hơn, chạy lệnh sau trong "
+"terminal để xem:\n"
+"$ journalctl --since=today --no-pager | grep js\n"
+"$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
+
+#: Options_UI.glade.h:82
+msgid "Enable verbose debug"
+msgstr "Cho phép gỡ lỗi chi tiết"
+
+#: Options_UI.glade.h:83
+msgid ""
+"This option enable more debug message, to view these run this command into a "
+"terminal:\n"
+"$ journalctl /usr/bin/gnome-session --since=today | grep js\n"
+"$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
+msgstr ""
+"Tùy chọn này cho phép nhiều tin nhắn gỡ lỗi hơn, chạy lệnh sau trong "
+"terminal để xem:\n"
+"$ journalctl /usr/bin/gnome-session --since=today | grep js\n"
+"$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
+
+#: Options_UI.glade.h:86
+msgid "extension"
+msgstr ""
+
+#: Options_UI.glade.h:87
+msgid "last Gstreamer pipeline"
+msgstr "Gstreamer pipeline sau cùng"
+
+#: Options_UI.glade.h:88
+msgid "gnome shell"
+msgstr ""
+
+#: Options_UI.glade.h:89
+msgid "Display the log of"
+msgstr "Hiển thị log của"
+
+#: Options_UI.glade.h:90
+msgid "Restore default options"
+msgstr "Khôi phục cài đặt gốc"
+
+#: Options_UI.glade.h:91
+msgid "Info"
+msgstr "Thông tin"
+
+#: Options_UI.glade.h:93
 msgid "N/A"
 msgstr ""
 
 #: Options_UI.glade.h:94
-msgid ""
-"This extension simplifies the use of the \n"
-"screen recorder  included in gnome shell"
-msgstr ""
-"Extension này giúp đơn giản hóa việc \n"
-"quay phim màn hình  trong gnome shell"
-
-#: Options_UI.glade.h:96 Options_UI.glade-gtk4.h:96
-msgid "This software is licensed under GPL v3"
-msgstr "Phần mềm này được cấp phép dưới giấy phép GPL v3"
-
-#: Options_UI.glade.h:97 Options_UI.glade-gtk4.h:97
-msgid "Credits"
-msgstr ""
-
-#: Options_UI.glade.h:98 Options_UI.glade-gtk4.h:98
-msgid "How to contribute?"
-msgstr "Làm sao để đóng góp?"
-
-#: Options_UI.glade.h:99 Options_UI.glade-gtk4.h:99
-msgid "With a translation"
-msgstr "Dịch"
-
-#: Options_UI.glade.h:100 Options_UI.glade-gtk4.h:100
-msgid "Reporting bugs"
-msgstr "Báo lỗi"
-
-#: Options_UI.glade.h:101 Options_UI.glade-gtk4.h:101
-msgid "Add code"
-msgstr "Thêm mã"
-
-#: Options_UI.glade.h:102 Options_UI.glade-gtk4.h:91
-msgid "Info"
-msgstr "Thông tin"
-
-#: Options_UI.glade-gtk4.h:94
 msgid ""
 "This extension simplifies the use of the\n"
 "screen recorder  included in gnome shell"
 msgstr ""
 "Extension này giúp đơn giản hóa việc\n"
 "quay phim màn hình  trong gnome shell"
+
+#: Options_UI.glade.h:96
+msgid "This software is licensed under GPL v3"
+msgstr "Phần mềm này được cấp phép dưới giấy phép GPL v3"
+
+#: Options_UI.glade.h:97
+msgid "Credits"
+msgstr ""
+
+#: Options_UI.glade.h:98
+msgid "How to contribute?"
+msgstr "Làm sao để đóng góp?"
+
+#: Options_UI.glade.h:99
+msgid "With a translation"
+msgstr "Dịch"
+
+#: Options_UI.glade.h:100
+msgid "Reporting bugs"
+msgstr "Báo lỗi"
+
+#: Options_UI.glade.h:101
+msgid "Add code"
+msgstr "Thêm mã"
+
+#~ msgid "Select the destination folder"
+#~ msgstr "Chọn thư mục để lưu"
+
+#~ msgid ""
+#~ "This extension simplifies the use of the \n"
+#~ "screen recorder  included in gnome shell"
+#~ msgstr ""
+#~ "Extension này giúp đơn giản hóa việc \n"
+#~ "quay phim màn hình  trong gnome shell"
 
 #~ msgid "To activate the change of the shortcut restart the extension"
 #~ msgstr "Để kích hoạt thay đổi của phím tắt, khởi động lại extension"

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-23 16:39+0200\n"
-"PO-Revision-Date: 2023-07-29 19:38+0800\n"
+"POT-Creation-Date: 2024-03-28 15:28+0100\n"
+"PO-Revision-Date: 2024-03-28 16:10+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh\n"
@@ -16,43 +16,43 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.4.2\n"
 
-#: prefs.js:47 prefs.js:1031 extension.js:68 extension.js:236
+#: prefs.js:47 prefs.js:992 extension.js:68 extension.js:236
 msgid "Unspecified webcam"
 msgstr "未指定摄像头"
 
-#: prefs.js:74
+#: prefs.js:64
 msgid "Could not load the preferences UI file"
 msgstr "无法加载界面偏好配置文件"
 
-#: prefs.js:427
+#: prefs.js:403
 msgid "WebCam Caps"
 msgstr "摄像头"
 
-#: prefs.js:894
+#: prefs.js:855
 msgid "No Gstreamer pipeline found"
 msgstr "未发现 Gstreamer 媒体流"
 
-#: prefs.js:973
+#: prefs.js:934
 msgid "Version: "
 msgstr "版本： "
 
-#: prefs.js:1118
+#: prefs.js:1075
 msgid ""
 "<span foreground=\"red\">No Caps selected, please select one from the caps "
 "list</span>"
 msgstr "<span foreground=\"red\">未选择摄像头，请从列表中选取</span>"
 
-#: prefs.js:1129 Options_UI.glade.h:36 Options_UI.glade-gtk4.h:37
+#: prefs.js:1086 Options_UI.glade.h:37
 msgid "No webcam device selected"
 msgstr "未选择摄像头"
 
-#: prefs.js:1131 Options_UI.glade.h:37 Options_UI.glade-gtk4.h:38
+#: prefs.js:1088 Options_UI.glade.h:38
 msgid "-"
 msgstr "-"
 
-#: prefs.js:1225 Options_UI.glade.h:92 Options_UI.glade-gtk4.h:92
+#: prefs.js:1182 Options_UI.glade.h:92
 msgid "EasyScreenCast"
 msgstr "EasyScreenCast"
 
@@ -60,19 +60,19 @@ msgstr "EasyScreenCast"
 msgid "No audio source"
 msgstr "未选择音频源"
 
-#: extension.js:147 Options_UI.glade.h:21 Options_UI.glade-gtk4.h:1
+#: extension.js:147 Options_UI.glade.h:1
 msgid "Options"
 msgstr "选项"
 
-#: extension.js:269 extension.js:879
+#: extension.js:269 extension.js:881
 msgid "Start recording"
 msgstr "开始录制"
 
-#: extension.js:343 extension.js:842
+#: extension.js:343 extension.js:844
 msgid " sec. delay before recording"
 msgstr " 秒延迟后再录制"
 
-#: extension.js:345 extension.js:844
+#: extension.js:345 extension.js:846
 msgid "Start recording immediately"
 msgstr "立即录制"
 
@@ -124,71 +124,71 @@ msgstr "延迟时长"
 msgid " Sec"
 msgstr " 秒"
 
-#: extension.js:657
+#: extension.js:659
 msgid "ERROR PRE COMMAND - See logs for more info"
 msgstr "错误的预处理指令 - 详见日志"
 
-#: extension.js:766
+#: extension.js:768
 msgid "Start Recording"
 msgstr "开始录制"
 
-#: extension.js:792
+#: extension.js:794
 msgid "ERROR RECORDER - See logs for more info"
 msgstr "错误的录制器-详见日志"
 
-#: extension.js:816
-msgid "EasyScreenCast -> Recording in progress / Seconds passed : "
-msgstr "EasyScreenCast -> 正在录制中 / 已处理时长（秒）： "
+#: extension.js:818
+msgid "Recording ... / Seconds passed : "
+msgstr "正在录制中 / 已处理时长（秒）： "
 
-#: extension.js:871
+#: extension.js:873
 msgid "Stop recording"
 msgstr "停止录制"
 
-#: selection.js:216
+#: selection.js:209
 msgid "Select an area for recording or press [ESC] to abort"
 msgstr "选择待录制区域，或按ESC键中止"
 
-#: selection.js:267
+#: selection.js:264
 msgid "Select a window for recording or press [ESC] to abort"
 msgstr "选择一个待录制窗口，或按ESC键中止"
 
-#: selection.js:373
+#: selection.js:371
 msgid "Select a desktop for recording or press [ESC] to abort"
 msgstr "选择待录制桌面，或按ESC键中止"
 
-#: Options_UI.glade.h:1 Options_UI.glade-gtk4.h:2
+#: Options_UI.glade.h:2
 msgid "Recording status indicators"
 msgstr "录制状态指示器"
 
-#: Options_UI.glade.h:2 Options_UI.glade-gtk4.h:3
+#: Options_UI.glade.h:3
 msgid "Show alerts and notifications"
 msgstr "显示警告等通知信息"
 
-#: Options_UI.glade.h:3 Options_UI.glade-gtk4.h:4
+#: Options_UI.glade.h:4
 msgid "Show a border around the area being recorded"
 msgstr "在选定区域四周显示边框"
 
-#: Options_UI.glade.h:4 Options_UI.glade-gtk4.h:5
+#: Options_UI.glade.h:5
 msgid "Enable keyboard shortcut"
 msgstr "启用快捷键"
 
-#: Options_UI.glade.h:5 Options_UI.glade-gtk4.h:6
+#: Options_UI.glade.h:6
 msgid "Both  [ESC + Default]"
 msgstr "ESC键 + 默认项"
 
-#: Options_UI.glade.h:6 Options_UI.glade-gtk4.h:7
+#: Options_UI.glade.h:7
 msgid "ESC only"
 msgstr "仅 ESC 键"
 
-#: Options_UI.glade.h:7 Options_UI.glade-gtk4.h:8
+#: Options_UI.glade.h:8
 msgid "Default only"
 msgstr "仅默认项"
 
-#: Options_UI.glade.h:8 Options_UI.glade-gtk4.h:9
+#: Options_UI.glade.h:9
 msgid "Not any"
 msgstr "无"
 
-#: Options_UI.glade.h:9 Options_UI.glade-gtk4.h:10
+#: Options_UI.glade.h:10
 msgid ""
 "These words will be replaced\n"
 " _fpath = the absolute path of the screencast video file.\n"
@@ -201,27 +201,27 @@ msgstr ""
 "_dirpath =屏幕录制目标文件所在绝对路径；\n"
 "_fname = 屏幕视频文件名。"
 
-#: Options_UI.glade.h:13 Options_UI.glade-gtk4.h:14
+#: Options_UI.glade.h:14
 msgid "Command post-recording"
 msgstr "在录制后运行的命令"
 
-#: Options_UI.glade.h:14 Options_UI.glade-gtk4.h:15
+#: Options_UI.glade.h:15
 msgid "Execute command after recording"
 msgstr "开始录制后执行的命令"
 
-#: Options_UI.glade.h:15 Options_UI.glade-gtk4.h:16
+#: Options_UI.glade.h:16
 msgid "Draw cursor on screencast"
 msgstr "在录制视频中显示鼠标"
 
-#: Options_UI.glade.h:16 Options_UI.glade-gtk4.h:17
+#: Options_UI.glade.h:17
 msgid "Active shortcut"
 msgstr "激活快捷键"
 
-#: Options_UI.glade.h:17 Options_UI.glade-gtk4.h:18
+#: Options_UI.glade.h:18
 msgid "Execute command before recording"
 msgstr "在录制前执行的命令"
 
-#: Options_UI.glade.h:18 Options_UI.glade-gtk4.h:19
+#: Options_UI.glade.h:19
 msgid ""
 "These words will be replaced\n"
 "_dirpath = the absolute path of destination folder for the screencast video "
@@ -230,130 +230,134 @@ msgstr ""
 "这些用词将被取代\n"
 "_dirpath = 屏幕录制文件所在目标文件夹的绝对路径。"
 
-#: Options_UI.glade.h:20 Options_UI.glade-gtk4.h:21
+#: Options_UI.glade.h:21
 msgid "Command pre-recording"
 msgstr "在录制前执行的命令"
 
-#: Options_UI.glade.h:22 Options_UI.glade-gtk4.h:23
+#: Options_UI.glade.h:22
+msgid "Quality"
+msgstr "质量"
+
+#: Options_UI.glade.h:23
 msgid "Custom GStreamer Pipeline"
 msgstr "定制 GStream 媒体流"
 
-#: Options_UI.glade.h:23 Options_UI.glade-gtk4.h:25
-msgid "No GSP description\n"
-msgstr "没有 GSP 描述\n"
-
-#: Options_UI.glade.h:25 Options_UI.glade-gtk4.h:24
+#: Options_UI.glade.h:24
 msgid "PagePreset"
 msgstr "页面预设"
 
-#: Options_UI.glade.h:26 Options_UI.glade-gtk4.h:28
+#: Options_UI.glade.h:25
+msgid "No GSP description\n"
+msgstr "没有 GSP 描述\n"
+
+#: Options_UI.glade.h:27
+msgid "PageCustom"
+msgstr "页面定制"
+
+#: Options_UI.glade.h:28
 msgid "Frames Per Second"
 msgstr "帧每秒"
 
-#: Options_UI.glade.h:27 Options_UI.glade-gtk4.h:29
+#: Options_UI.glade.h:29
 msgid "0"
 msgstr "0"
 
-#: Options_UI.glade.h:28 Options_UI.glade-gtk4.h:30
+#: Options_UI.glade.h:30
 msgid "GStreamer Pipeline"
 msgstr "GStreamer 媒体流"
 
-#: Options_UI.glade.h:29 Options_UI.glade-gtk4.h:31
+#: Options_UI.glade.h:31
 msgid ""
 "The extension does NOT handle the webcam and audio when you use a custom "
 "gstreamer pipeline.\n"
 msgstr ""
 "该的扩展未能处理指定的摄像头和音频，当你使用定制的 gstreamer 媒体流时。\n"
 
-#: Options_UI.glade.h:31 Options_UI.glade-gtk4.h:33
+#: Options_UI.glade.h:33
 msgid "Official doc"
 msgstr "官方文档"
 
-#: Options_UI.glade.h:32 Options_UI.glade-gtk4.h:34
+#: Options_UI.glade.h:34
 msgid "Wiki #1"
 msgstr "Wiki #1"
 
-#: Options_UI.glade.h:33 Options_UI.glade-gtk4.h:35
+#: Options_UI.glade.h:35
 msgid "Wiki #2"
 msgstr "Wiki #2"
 
-#: Options_UI.glade.h:34 Options_UI.glade-gtk4.h:27
-msgid "PageCustom"
-msgstr "页面定制"
-
-#: Options_UI.glade.h:35 Options_UI.glade-gtk4.h:22
-msgid "Quality"
-msgstr "质量"
-
-#: Options_UI.glade.h:38 Options_UI.glade-gtk4.h:40
-msgid "Type of unit of measure"
-msgstr "度量单位的类型"
-
-#: Options_UI.glade.h:39 Options_UI.glade-gtk4.h:41
-msgid "Width"
-msgstr "宽"
-
-#: Options_UI.glade.h:40 Options_UI.glade-gtk4.h:42
-msgid "Height"
-msgstr "高"
-
-#: Options_UI.glade.h:41 Options_UI.glade-gtk4.h:43
-msgid "Percentage"
-msgstr "百分比"
-
-#: Options_UI.glade.h:42 Options_UI.glade-gtk4.h:44
-msgid "Pixel"
-msgstr "像素"
-
-#: Options_UI.glade.h:43 Options_UI.glade-gtk4.h:39
-msgid "Size"
-msgstr "尺寸"
-
-#: Options_UI.glade.h:44 Options_UI.glade-gtk4.h:46
-msgid "Put the webcam in the corner"
-msgstr "将镜头置于角落"
-
-#: Options_UI.glade.h:45 Options_UI.glade-gtk4.h:47
-msgid "Right-Bottom"
-msgstr "右下角"
-
-#: Options_UI.glade.h:46 Options_UI.glade-gtk4.h:48
-msgid "Left-Bottom"
-msgstr "左下角"
-
-#: Options_UI.glade.h:47 Options_UI.glade-gtk4.h:49
-msgid "Right-Top"
-msgstr "右上角"
-
-#: Options_UI.glade.h:48 Options_UI.glade-gtk4.h:50
-msgid "Left-Top"
-msgstr "左上角"
-
-#: Options_UI.glade.h:49 Options_UI.glade-gtk4.h:51
-msgid "Margin X"
-msgstr "横向边距"
-
-#: Options_UI.glade.h:50 Options_UI.glade-gtk4.h:52
-msgid "Margin Y"
-msgstr "纵向边距"
-
-#: Options_UI.glade.h:51 Options_UI.glade-gtk4.h:53
-msgid "Alpha channel"
-msgstr "Alpha 通道"
-
-#: Options_UI.glade.h:52 Options_UI.glade-gtk4.h:54
-msgid "0,00"
-msgstr "0,00"
-
-#: Options_UI.glade.h:53 Options_UI.glade-gtk4.h:45
-msgid "Position"
-msgstr "位置"
-
-#: Options_UI.glade.h:54 Options_UI.glade-gtk4.h:36
+#: Options_UI.glade.h:36
 msgid "WebCam"
 msgstr "摄像头"
 
-#: Options_UI.glade.h:55 Options_UI.glade-gtk4.h:56
+#: Options_UI.glade.h:39
+msgid "Size"
+msgstr "尺寸"
+
+#: Options_UI.glade.h:40
+msgid "Type of unit of measure"
+msgstr "度量单位的类型"
+
+#: Options_UI.glade.h:41
+msgid "Width"
+msgstr "宽"
+
+#: Options_UI.glade.h:42
+msgid "Height"
+msgstr "高"
+
+#: Options_UI.glade.h:43
+msgid "Percentage"
+msgstr "百分比"
+
+#: Options_UI.glade.h:44
+msgid "Pixel"
+msgstr "像素"
+
+#: Options_UI.glade.h:45
+msgid "Position"
+msgstr "位置"
+
+#: Options_UI.glade.h:46
+msgid "Put the webcam in the corner"
+msgstr "将镜头置于角落"
+
+#: Options_UI.glade.h:47
+msgid "Right-Bottom"
+msgstr "右下角"
+
+#: Options_UI.glade.h:48
+msgid "Left-Bottom"
+msgstr "左下角"
+
+#: Options_UI.glade.h:49
+msgid "Right-Top"
+msgstr "右上角"
+
+#: Options_UI.glade.h:50
+msgid "Left-Top"
+msgstr "左上角"
+
+#: Options_UI.glade.h:51
+msgid "Margin X"
+msgstr "横向边距"
+
+#: Options_UI.glade.h:52
+msgid "Margin Y"
+msgstr "纵向边距"
+
+#: Options_UI.glade.h:53
+msgid "Alpha channel"
+msgstr "Alpha 通道"
+
+#: Options_UI.glade.h:54
+msgid "0,00"
+msgstr "0,00"
+
+#: Options_UI.glade.h:55
+msgid "File"
+msgstr "文件"
+
+#: Options_UI.glade.h:56
 msgid ""
 "Select the folder where the file is saved, if not specific a folder  the "
 "file will be saved in the $XDG_VIDEOS_DIR if it exists, or the home "
@@ -362,11 +366,11 @@ msgstr ""
 "选择用于保存文件的文件夹，如不指定，文件将被保存至 $XDG_VIDEOS_DIR （如果存"
 "在），否保存到用户主目录。"
 
-#: Options_UI.glade.h:56 Options_UI.glade-gtk4.h:57
+#: Options_UI.glade.h:57
 msgid "Destination folder"
 msgstr "目标文件夹"
 
-#: Options_UI.glade.h:58 Options_UI.glade-gtk4.h:59
+#: Options_UI.glade.h:59
 #, no-c-format
 msgid ""
 "The filename which may contain some escape sequences - %d and %t will be "
@@ -374,178 +378,172 @@ msgid ""
 msgstr ""
 "该文件名可能包含某些转义字符 - %d and %t 将使用录制起始日期及时间取代。"
 
-#: Options_UI.glade.h:59 Options_UI.glade-gtk4.h:60
+#: Options_UI.glade.h:60
 msgid "File name template"
 msgstr "文件名模板"
 
-#: Options_UI.glade.h:60
-msgid "Select the destination folder"
-msgstr "选择目标文件夹"
-
-#: Options_UI.glade.h:61 Options_UI.glade-gtk4.h:61
+#: Options_UI.glade.h:61
 msgid "File container"
 msgstr "文件容器"
 
-#: Options_UI.glade.h:62 Options_UI.glade-gtk4.h:62
+#: Options_UI.glade.h:62
 msgid "File resolution"
 msgstr "文件分辨率"
 
-#: Options_UI.glade.h:63 Options_UI.glade-gtk4.h:64
-msgid "Native area resolution"
-msgstr "原生区域分辨率"
-
-#: Options_UI.glade.h:64 Options_UI.glade-gtk4.h:63
+#: Options_UI.glade.h:63
 msgid "Native"
 msgstr "原生"
 
-#: Options_UI.glade.h:65 Options_UI.glade-gtk4.h:66
-msgid "Preset helper"
-msgstr "预置助手"
+#: Options_UI.glade.h:64
+msgid "Native area resolution"
+msgstr "原生区域分辨率"
 
-#: Options_UI.glade.h:66 Options_UI.glade-gtk4.h:67
-msgid "HD [720p] [16:9]"
-msgstr "HD [720p] [16:9]"
-
-#: Options_UI.glade.h:67 Options_UI.glade-gtk4.h:68
-msgid "XGA [768p] [4:3]"
-msgstr "XGA [768p] [4:3]"
-
-#: Options_UI.glade.h:68 Options_UI.glade-gtk4.h:69
-msgid "HD ready [768p] [16:9]"
-msgstr "HD ready [768p] [16:9]"
-
-#: Options_UI.glade.h:69 Options_UI.glade-gtk4.h:70
-msgid "SXGA [1024p] [5:4]"
-msgstr "SXGA [1024p] [5:4]"
-
-#: Options_UI.glade.h:70 Options_UI.glade-gtk4.h:71
-msgid "Full HD [1080p] [16:9]"
-msgstr "Full HD [1080p] [16:9]"
-
-#: Options_UI.glade.h:71 Options_UI.glade-gtk4.h:72
-msgid "UXGA [1200p] [4:3]"
-msgstr "UXGA [1200p] [4:3]"
-
-#: Options_UI.glade.h:72 Options_UI.glade-gtk4.h:73
-msgid "QHD [1440p] [16:9]"
-msgstr "QHD [1440p] [16:9]"
-
-#: Options_UI.glade.h:73 Options_UI.glade-gtk4.h:74
-msgid "QSXGA [2048p] [5:4]"
-msgstr "QSXGA [2048p] [5:4]"
-
-#: Options_UI.glade.h:74 Options_UI.glade-gtk4.h:75
-msgid "4K [2160p] [16:9]"
-msgstr "4K [2160p] [16:9]"
-
-#: Options_UI.glade.h:75 Options_UI.glade-gtk4.h:65
+#: Options_UI.glade.h:65
 msgid "Preset"
 msgstr "预置"
 
-#: Options_UI.glade.h:76 Options_UI.glade-gtk4.h:77
-msgid "keep original aspect ratio"
-msgstr "保持初始长宽比"
+#: Options_UI.glade.h:66
+msgid "Preset helper"
+msgstr "预置助手"
 
-#: Options_UI.glade.h:77 Options_UI.glade-gtk4.h:76
+#: Options_UI.glade.h:67
+msgid "HD [720p] [16:9]"
+msgstr "HD [720p] [16:9]"
+
+#: Options_UI.glade.h:68
+msgid "XGA [768p] [4:3]"
+msgstr "XGA [768p] [4:3]"
+
+#: Options_UI.glade.h:69
+msgid "HD ready [768p] [16:9]"
+msgstr "HD ready [768p] [16:9]"
+
+#: Options_UI.glade.h:70
+msgid "SXGA [1024p] [5:4]"
+msgstr "SXGA [1024p] [5:4]"
+
+#: Options_UI.glade.h:71
+msgid "Full HD [1080p] [16:9]"
+msgstr "Full HD [1080p] [16:9]"
+
+#: Options_UI.glade.h:72
+msgid "UXGA [1200p] [4:3]"
+msgstr "UXGA [1200p] [4:3]"
+
+#: Options_UI.glade.h:73
+msgid "QHD [1440p] [16:9]"
+msgstr "QHD [1440p] [16:9]"
+
+#: Options_UI.glade.h:74
+msgid "QSXGA [2048p] [5:4]"
+msgstr "QSXGA [2048p] [5:4]"
+
+#: Options_UI.glade.h:75
+msgid "4K [2160p] [16:9]"
+msgstr "4K [2160p] [16:9]"
+
+#: Options_UI.glade.h:76
 msgid "Custom"
 msgstr "定制"
 
-#: Options_UI.glade.h:78 Options_UI.glade-gtk4.h:55
-msgid "File"
-msgstr "文件"
+#: Options_UI.glade.h:77
+msgid "keep original aspect ratio"
+msgstr "保持初始长宽比"
 
-#: Options_UI.glade.h:79 Options_UI.glade-gtk4.h:79
-msgid ""
-"This option enable more debug message, to view these run this command into a "
-"terminal:\n"
-"$ journalctl --since=today --no-pager | grep js\n"
-"$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
-msgstr ""
-"该选项允许展现更多调试信息，如需查看，请在终端运行下述命令：\n"
-"$ journalctl --since=today --no-pager | grep js\n"
-"$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
-
-#: Options_UI.glade.h:82 Options_UI.glade-gtk4.h:82
-msgid "Enable verbose debug"
-msgstr "显示详细的调试信息"
-
-#: Options_UI.glade.h:83 Options_UI.glade-gtk4.h:83
-msgid ""
-"This option enable more debug message, to view these run this command into a "
-"terminal:\n"
-"$ journalctl /usr/bin/gnome-session --since=today | grep js\n"
-"$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
-msgstr ""
-"该选项允许展现更多调试信息，如需查看，请在终端运行下述命令：\n"
-"$ journalctl /usr/bin/gnome-session --since=today | grep js\n"
-"$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
-
-#: Options_UI.glade.h:86 Options_UI.glade-gtk4.h:86
-msgid "extension"
-msgstr "扩展"
-
-#: Options_UI.glade.h:87 Options_UI.glade-gtk4.h:87
-msgid "last Gstreamer pipeline"
-msgstr "末端Gstreamer流媒体"
-
-#: Options_UI.glade.h:88 Options_UI.glade-gtk4.h:88
-msgid "gnome shell"
-msgstr "gnome shell"
-
-#: Options_UI.glade.h:89 Options_UI.glade-gtk4.h:89
-msgid "Display the log of"
-msgstr "显示日志源于"
-
-#: Options_UI.glade.h:90 Options_UI.glade-gtk4.h:90
-msgid "Restore default options"
-msgstr "恢复默认选项"
-
-#: Options_UI.glade.h:91 Options_UI.glade-gtk4.h:78
+#: Options_UI.glade.h:78
 msgid "Support"
 msgstr "支持"
 
-#: Options_UI.glade.h:93 Options_UI.glade-gtk4.h:93
+#: Options_UI.glade.h:79
+msgid ""
+"This option enable more debug message, to view these run this command into a "
+"terminal:\n"
+"$ journalctl --since=today --no-pager | grep js\n"
+"$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
+msgstr ""
+"该选项允许展现更多调试信息，如需查看，请在终端运行下述命令：\n"
+"$ journalctl --since=today --no-pager | grep js\n"
+"$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
+
+#: Options_UI.glade.h:82
+msgid "Enable verbose debug"
+msgstr "显示详细的调试信息"
+
+#: Options_UI.glade.h:83
+msgid ""
+"This option enable more debug message, to view these run this command into a "
+"terminal:\n"
+"$ journalctl /usr/bin/gnome-session --since=today | grep js\n"
+"$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
+msgstr ""
+"该选项允许展现更多调试信息，如需查看，请在终端运行下述命令：\n"
+"$ journalctl /usr/bin/gnome-session --since=today | grep js\n"
+"$ dbus-monitor \"interface=org.gnome.Shell.Screencast\""
+
+#: Options_UI.glade.h:86
+msgid "extension"
+msgstr "扩展"
+
+#: Options_UI.glade.h:87
+msgid "last Gstreamer pipeline"
+msgstr "末端Gstreamer流媒体"
+
+#: Options_UI.glade.h:88
+msgid "gnome shell"
+msgstr "gnome shell"
+
+#: Options_UI.glade.h:89
+msgid "Display the log of"
+msgstr "显示日志源于"
+
+#: Options_UI.glade.h:90
+msgid "Restore default options"
+msgstr "恢复默认选项"
+
+#: Options_UI.glade.h:91
+msgid "Info"
+msgstr "信息"
+
+#: Options_UI.glade.h:93
 msgid "N/A"
 msgstr "N/A"
 
 #: Options_UI.glade.h:94
-msgid ""
-"This extension simplifies the use of the \n"
-"screen recorder  included in gnome shell"
-msgstr "本扩展为 简化 screen recorder 使用而制，可用于 gnome shell 环境"
-
-#: Options_UI.glade.h:96 Options_UI.glade-gtk4.h:96
-msgid "This software is licensed under GPL v3"
-msgstr "本软件使用 GPL v3 许可协议"
-
-#: Options_UI.glade.h:97 Options_UI.glade-gtk4.h:97
-msgid "Credits"
-msgstr "荣誉"
-
-#: Options_UI.glade.h:98 Options_UI.glade-gtk4.h:98
-msgid "How to contribute?"
-msgstr "如何参与贡献？"
-
-#: Options_UI.glade.h:99 Options_UI.glade-gtk4.h:99
-msgid "With a translation"
-msgstr "提供翻译"
-
-#: Options_UI.glade.h:100 Options_UI.glade-gtk4.h:100
-msgid "Reporting bugs"
-msgstr "上报错误"
-
-#: Options_UI.glade.h:101 Options_UI.glade-gtk4.h:101
-msgid "Add code"
-msgstr "添加代码"
-
-#: Options_UI.glade.h:102 Options_UI.glade-gtk4.h:91
-msgid "Info"
-msgstr "信息"
-
-#: Options_UI.glade-gtk4.h:94
 msgid ""
 "This extension simplifies the use of the\n"
 "screen recorder  included in gnome shell"
 msgstr ""
 "本扩展为 简化 screen recorder 使用而制\n"
 "可用于 gnome shell 环境"
+
+#: Options_UI.glade.h:96
+msgid "This software is licensed under GPL v3"
+msgstr "本软件使用 GPL v3 许可协议"
+
+#: Options_UI.glade.h:97
+msgid "Credits"
+msgstr "荣誉"
+
+#: Options_UI.glade.h:98
+msgid "How to contribute?"
+msgstr "如何参与贡献？"
+
+#: Options_UI.glade.h:99
+msgid "With a translation"
+msgstr "提供翻译"
+
+#: Options_UI.glade.h:100
+msgid "Reporting bugs"
+msgstr "上报错误"
+
+#: Options_UI.glade.h:101
+msgid "Add code"
+msgstr "添加代码"
+
+#~ msgid "Select the destination folder"
+#~ msgstr "选择目标文件夹"
+
+#~ msgid ""
+#~ "This extension simplifies the use of the \n"
+#~ "screen recorder  included in gnome shell"
+#~ msgstr "本扩展为 简化 screen recorder 使用而制，可用于 gnome shell 环境"
