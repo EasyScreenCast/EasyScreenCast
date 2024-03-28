@@ -96,11 +96,10 @@ const EasyScreenCastIndicator = GObject.registerClass({
         );
 
         // prepare setting var
-        if (this._settings.getOption('i', Settings.TIME_DELAY_SETTING_KEY) > 0) {
+        if (this._settings.getOption('i', Settings.TIME_DELAY_SETTING_KEY) > 0)
             this.isDelayActive = true;
-        } else {
+        else
             this.isDelayActive = false;
-        }
 
 
         // Add the title bar icon and label for time display
@@ -169,9 +168,8 @@ const EasyScreenCastIndicator = GObject.registerClass({
          * @param {number} number a number
          */
         function padZeros(number) {
-            if (number < 10) {
+            if (number < 10)
                 number = `0${number}`;
-            }
 
             return number.toString();
         }
@@ -209,9 +207,8 @@ const EasyScreenCastIndicator = GObject.registerClass({
         } else {
             Lib.TalkativeLog('-*-right click indicator');
 
-            if (this.menu.isOpen) {
+            if (this.menu.isOpen)
                 this.menu.close();
-            }
 
             this.isShowNotify = this._settings.getOption('b', Settings.SHOW_NOTIFY_ALERT_SETTING_KEY);
             this._doRecording();
@@ -232,9 +229,8 @@ const EasyScreenCastIndicator = GObject.registerClass({
      * null.
      */
     _addWebcamSubMenu() {
-        if (this.CtrlWebcam === null) {
+        if (this.CtrlWebcam === null)
             this.CtrlWebcam = new UtilWebcam.HelperWebcam(_('Unspecified webcam'));
-        }
 
         // add sub menu webcam recording
         this._populateSubMenuWebcam();
@@ -250,9 +246,8 @@ const EasyScreenCastIndicator = GObject.registerClass({
         let arrMI = this._createMIWebCam();
 
         this.smWebCam.menu.removeAll();
-        for (let element in arrMI) {
+        for (let element in arrMI)
             this.smWebCam.menu.addMenuItem(arrMI[element]);
-        }
 
         let i = this._settings.getOption('i', Settings.DEVICE_INDEX_WEBCAM_SETTING_KEY);
         Lib.TalkativeLog(`-*-populated submenuwebcam. Settings i=${i}`);
@@ -294,9 +289,8 @@ const EasyScreenCastIndicator = GObject.registerClass({
 
         Lib.TalkativeLog('-*-add new items to sub menu audio');
         var arrMI = this._createMIAudioRec();
-        for (var ele in arrMI) {
+        for (var ele in arrMI)
             this.sub_menu_audio_recording.menu.addMenuItem(arrMI[ele]);
-        }
     }
 
     /**
@@ -317,9 +311,8 @@ const EasyScreenCastIndicator = GObject.registerClass({
         this.sub_menu_area_recording.icon.icon_name = 'view-fullscreen-symbolic';
 
         var arrMI = this._createMIAreaRec();
-        for (var ele in arrMI) {
+        for (var ele in arrMI)
             this.sub_menu_area_recording.menu.addMenuItem(arrMI[ele]);
-        }
 
         this.sub_menu_area_recording.label.text = this.AreaType[this._settings.getOption('i', Settings.AREA_SCREEN_SETTING_KEY)];
         this.menu.addMenuItem(this.sub_menu_area_recording);
@@ -333,9 +326,8 @@ const EasyScreenCastIndicator = GObject.registerClass({
         this.smDelayRec.icon.icon_name = 'alarm-symbolic';
 
         var arrMI = this._createMIInfoDelayRec();
-        for (var ele in arrMI) {
+        for (var ele in arrMI)
             this.smDelayRec.menu.addMenuItem(arrMI[ele]);
-        }
 
         var secDelay = this._settings.getOption('i', Settings.TIME_DELAY_SETTING_KEY);
         if (secDelay > 0) {
@@ -475,9 +467,8 @@ const EasyScreenCastIndicator = GObject.registerClass({
         ];
         // add menu item audio source from PA
         var audioList = this.CtrlAudio.getListInputAudio();
-        for (var index in audioList) {
+        for (var index in audioList)
             this.AudioChoice.push(audioList[index]);
-        }
 
         this.AudioMenuItem = new Array(this.AudioChoice.length);
 
@@ -840,11 +831,10 @@ const EasyScreenCastIndicator = GObject.registerClass({
     _onDelayTimeChanged() {
         const secDelay = Math.floor(this.TimeSlider.value * 100);
         this._settings.setOption(Settings.TIME_DELAY_SETTING_KEY, secDelay);
-        if (secDelay > 0) {
+        if (secDelay > 0)
             this.smDelayRec.label.text = secDelay + _(' sec. delay before recording');
-        } else {
+        else
             this.smDelayRec.label.text = _('Start recording immediately');
-        }
     }
 
     /**
@@ -857,11 +847,10 @@ const EasyScreenCastIndicator = GObject.registerClass({
 
         if (isActive === true) {
             if (indicators === 0 || indicators === 1) {
-                if (focus === true) {
+                if (focus === true)
                     this.indicatorIcon.set_gicon(this._icons.onSel);
-                } else {
+                else
                     this.indicatorIcon.set_gicon(this._icons.on);
-                }
             } else if (this._settings.getOption('b', Settings.ACTIVE_SHORTCUT_SETTING_KEY)) {
                 this.indicatorIcon.set_gicon(null);
             } else if (focus === true) {
@@ -872,11 +861,10 @@ const EasyScreenCastIndicator = GObject.registerClass({
 
             this.RecordingLabel.set_text(_('Stop recording'));
         } else {
-            if (focus === true) {
+            if (focus === true)
                 this.indicatorIcon.set_gicon(this._icons.offSel);
-            } else {
+            else
                 this.indicatorIcon.set_gicon(this._icons.off);
-            }
 
             this.RecordingLabel.set_text(_('Start recording'));
         }
@@ -981,9 +969,8 @@ const EasyScreenCastIndicator = GObject.registerClass({
     destroy() {
         Lib.TalkativeLog('-*-destroy indicator called');
 
-        if (isActive) {
+        if (isActive)
             isActive = false;
-        }
 
         if (this._settings) {
             this._settings.destroy();

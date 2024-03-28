@@ -88,9 +88,8 @@ var MixerAudio = GObject.registerClass({
             this._isConnected = true;
 
             // more log for debug
-            if (Lib.debugEnabled) {
+            if (Lib.debugEnabled)
                 this._getInfoPA();
-            }
 
             break;
         default:

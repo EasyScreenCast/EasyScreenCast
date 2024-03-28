@@ -46,11 +46,10 @@ var CaptureVideo = GObject.registerClass({
             'org.gnome.Shell.Screencast',
             '/org/gnome/Shell/Screencast',
             (proxy, error) => {
-                if (error) {
+                if (error)
                     Lib.TalkativeLog(`-&-ERROR(d-bus proxy connected) - ${error.message}`);
-                } else {
+                else
                     Lib.TalkativeLog('-&-d-bus proxy connected');
-                }
             }
         );
     }
@@ -70,9 +69,8 @@ var CaptureVideo = GObject.registerClass({
             );
 
         let folderRec = '';
-        if (Ext.Indicator.getSettings().getOption('s', Settings.FILE_FOLDER_SETTING_KEY) !== '') {
+        if (Ext.Indicator.getSettings().getOption('s', Settings.FILE_FOLDER_SETTING_KEY) !== '')
             folderRec = Ext.Indicator.getSettings().getOption('s', Settings.FILE_FOLDER_SETTING_KEY);
-        }
 
         let pipelineRec = '';
 
@@ -148,9 +146,8 @@ var CaptureVideo = GObject.registerClass({
                         Lib.TalkativeLog(`-&-screencast execute - ${result[0]} - ${result[1]}`);
 
                         // draw area recording
-                        if (Ext.Indicator.getSettings().getOption('b', Settings.SHOW_AREA_REC_SETTING_KEY)) {
+                        if (Ext.Indicator.getSettings().getOption('b', Settings.SHOW_AREA_REC_SETTING_KEY))
                             this.AreaSelected = new Selection.AreaRecording();
-                        }
 
                         Ext.Indicator.doRecResult(result[0], result[1]);
                     }
@@ -176,9 +173,8 @@ var CaptureVideo = GObject.registerClass({
             }
 
             // clear area recording
-            if (this.AreaSelected !== null && this.AreaSelected.isVisible()) {
+            if (this.AreaSelected !== null && this.AreaSelected.isVisible())
                 this.AreaSelected.clearArea();
-            }
 
             return true;
         });

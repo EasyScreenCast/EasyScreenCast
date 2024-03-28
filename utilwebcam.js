@@ -160,21 +160,17 @@ var HelperWebcam = GObject.registerClass({
                 let tmpStr = 'video/x-raw';
                 let result, number, fraction;
                 result = capsStructure.get_string('format');
-                if (result !== null) {
+                if (result !== null)
                     tmpStr += `, format=(string)${result}`;
-                }
                 [result, number] = capsStructure.get_int('width');
-                if (result === true) {
+                if (result === true)
                     tmpStr += `, width=(int)${number}`;
-                }
                 [result, number] = capsStructure.get_int('height');
-                if (result === true) {
+                if (result === true)
                     tmpStr += `, height=(int)${number}`;
-                }
                 [result, number, fraction] = capsStructure.get_fraction('pixel-aspect-ratio');
-                if (result === true) {
+                if (result === true)
                     tmpStr += `, pixel-aspect-ratio=(fraction)${number}/${fraction}`;
-                }
 
 
                 if (capsStructure.has_field('framerate')) {
@@ -266,9 +262,8 @@ var HelperWebcam = GObject.registerClass({
         for (var index in this._listDevices) {
             var wcName = this._unspecified_webcam_text;
 
-            if (this._listDevices[index].display_name !== '') {
+            if (this._listDevices[index].display_name !== '')
                 wcName = this._listDevices[index].display_name;
-            }
 
             tmpArray.push(wcName);
         }

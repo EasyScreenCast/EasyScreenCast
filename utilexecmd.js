@@ -188,9 +188,8 @@ var ExecuteStuff = GObject.registerClass({
                 }
             } else {
                 Lib.TalkativeLog(`-¶-ERROR exe WC - exit status: ${exit}`);
-                if (this.Callback !== null) {
+                if (this.Callback !== null)
                     this.Callback.apply(this.Scope, [false]);
-                }
             }
         }
     }
@@ -245,9 +244,8 @@ var ExecuteStuff = GObject.registerClass({
 
                 let [out] = outReader.read_line(null);
                 while (out !== null) {
-                    if (this.lineCallback !== null) {
+                    if (this.lineCallback !== null)
                         this.lineCallback.apply(this.Scope, [decoder.decode(out)]);
-                    }
 
                     [out] = outReader.read_line(null);
                 }
@@ -258,9 +256,8 @@ var ExecuteStuff = GObject.registerClass({
                 }
             } else {
                 Lib.TalkativeLog('-¶-ERROR exe WC');
-                if (this.Callback !== null) {
+                if (this.Callback !== null)
                     this.Callback.apply(this.Scope, [false]);
-                }
             }
         }
     }

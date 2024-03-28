@@ -64,9 +64,8 @@ const TimerDelay = GObject.registerClass({
             callback === undefined ||
             callback === null ||
             typeof callback !== 'function'
-        ) {
+        )
             throw TypeError("'callback' needs to be a function.");
-        }
 
         CallbackFuncDelay = callback;
     }
@@ -184,9 +183,8 @@ var TimerCounting = GObject.registerClass({
             callback === undefined ||
             callback === null ||
             typeof callback !== 'function'
-        ) {
+        )
             throw TypeError("'callback' needs to be a function.");
-        }
 
         CallbackFuncCounting = callback;
     }
@@ -197,9 +195,8 @@ var TimerCounting = GObject.registerClass({
     begin() {
         Lib.TalkativeLog('-%-start TimerCounting called');
 
-        if (isRunning) {
+        if (isRunning)
             this.stop();
-        }
 
         isRunning = true;
 
@@ -216,9 +213,8 @@ var TimerCounting = GObject.registerClass({
 
         isRunning = false;
 
-        if (timerCountingId !== null && GLib.source_remove(timerCountingId)) {
+        if (timerCountingId !== null && GLib.source_remove(timerCountingId))
             timerCountingId = null;
-        }
     }
 
     /**

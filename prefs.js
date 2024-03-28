@@ -316,9 +316,8 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
         refScaleQuality.set_adjustment(adjustment2);
         refScaleQuality.set_digits(1);
         let ind = 0;
-        for (; ind < 4; ind++) {
+        for (; ind < 4; ind++)
             refScaleQuality.add_mark(ind, Gtk.PositionType.BOTTOM, '');
-        }
 
 
         refScaleQuality.set_value(
@@ -596,13 +595,12 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
 
         // load file resolution pref and upadte UI
         var tmpRes = this._settings.getOption('i', Settings.FILE_RESOLUTION_TYPE_SETTING_KEY);
-        if (tmpRes < 0) {
+        if (tmpRes < 0)
             refStackFileResolution.set_visible_child_name('native');
-        } else if (tmpRes === 999) {
+        else if (tmpRes === 999)
             refStackFileResolution.set_visible_child_name('custom');
-        } else {
+        else
             refStackFileResolution.set_visible_child_name('preset');
-        }
 
 
         // setup event on stack switcher
@@ -702,9 +700,8 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
                 true,
                 (success, out) => {
                     Lib.TalkativeLog(`-^-CALLBACK sync S: ${success} out: ${out}`);
-                    if (success && out !== '' && out !== undefined) {
+                    if (success && out !== '' && out !== undefined)
                         result = out.replace(/(\n)/g, '');
-                    }
                 },
                 null
             );
@@ -720,9 +717,8 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
                     true,
                     (success, out) => {
                         Lib.TalkativeLog(`-^-CALLBACK sync S: ${success} out: ${out}`);
-                        if (success && out !== '' && out !== undefined) {
+                        if (success && out !== '' && out !== undefined)
                             tmpFolder = out.replace(/(\n)/g, '');
-                        }
                     },
                     null
                 );
@@ -988,9 +984,8 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
      * @private
      */
     _initializeWebcamHelper() {
-        if (this.CtrlWebcam === null) {
+        if (this.CtrlWebcam === null)
             this.CtrlWebcam = new UtilWebcam.HelperWebcam(_('Unspecified webcam'));
-        }
     }
 
     /**
@@ -1037,9 +1032,8 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
             this.Ref_stack_Quality.set_visible_child_name('pg_Preset');
 
             var audio = false;
-            if (this._settings.getOption('i', Settings.INPUT_AUDIO_SOURCE_SETTING_KEY) > 0) {
+            if (this._settings.getOption('i', Settings.INPUT_AUDIO_SOURCE_SETTING_KEY) > 0)
                 audio = true;
-            }
 
             this._settings.setOption(
                 Settings.PIPELINE_REC_SETTING_KEY,
@@ -1113,11 +1107,10 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
             [2048, 2560],
             [2160, 3840],
         ];
-        if (index >= 0 && index < arrRes.length) {
+        if (index >= 0 && index < arrRes.length)
             return arrRes[index];
-        } else {
+        else
             return null;
-        }
     }
 
     /**

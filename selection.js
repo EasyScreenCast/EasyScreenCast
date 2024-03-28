@@ -110,9 +110,8 @@ const Capture = GObject.registerClass({
      */
     _onCaptureEvent(actor, event) {
         if (event.type() === Clutter.EventType.KEY_PRESS) {
-            if (event.get_key_symbol() === Clutter.KEY_Escape) {
+            if (event.get_key_symbol() === Clutter.KEY_Escape)
                 this._stop();
-            }
         }
 
         this.emit('captured-event', event);
@@ -276,11 +275,10 @@ var SelectionWindow = GObject.registerClass({
 
         this._selectedWindow = _selectWindow(this._windows, x, y);
 
-        if (this._selectedWindow) {
+        if (this._selectedWindow)
             this._highlightWindow(this._selectedWindow);
-        } else {
+        else
             this._clearHighlight();
-        }
 
 
         if (type === Clutter.EventType.BUTTON_PRESS) {
@@ -296,21 +294,14 @@ var SelectionWindow = GObject.registerClass({
 
                 Lib.TalkativeLog(`-£-windows pre wx: ${wx} wy: ${wy} height: ${h}  width: ${w}`);
 
-                if (wx < 0) {
+                if (wx < 0)
                     wx = 0;
-                }
-
-                if (wy < 0) {
+                if (wy < 0)
                     wy = 0;
-                }
-
-                if (wx + w > maxWidth) {
+                if (wx + w > maxWidth)
                     w = maxWidth - wx;
-                }
-
-                if (wy + h > maxHeight) {
+                if (wy + h > maxHeight)
                     h = maxHeight - wy;
-                }
 
                 Lib.TalkativeLog(`-£-windows post wx: ${wx} wy: ${wy} height: ${h} width: ${w}`);
 
@@ -434,9 +425,8 @@ var AreaRecording = GObject.registerClass({
             Main.uiGroup.add_actor(this._areaRecording);
         });
 
-        if (recX + recW <= tmpW - 5 && recY + recH <= tmpH - 5) {
+        if (recX + recW <= tmpW - 5 && recY + recH <= tmpH - 5)
             this.drawArea(recX - 2, recY - 2, recW + 4, recH + 4);
-        }
     }
 
     /**

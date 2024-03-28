@@ -125,9 +125,8 @@ var Settings = GObject.registerClass(class EasyScreenCastSettings extends GObjec
     }
 
     destroy() {
-        if (this._settings) {
+        if (this._settings)
             this._settings = null;
-        }
     }
 });
 
@@ -140,11 +139,10 @@ var Settings = GObject.registerClass(class EasyScreenCastSettings extends GObjec
  */
 function getGSPstd(audio) {
     // TODO update gsp
-    if (audio) {
+    if (audio)
         return 'queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! videorate ! vp8enc min_quantizer=0 max_quantizer=5 cpu-used=3 deadline=1000000 threads=%T ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mux. pulsesrc ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! audioconvert ! vorbisenc ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mux. webmmux name=mux ';
-    } else {
+    else
         return 'vp9enc min_quantizer=0 max_quantizer=5 cpu-used=3 deadline=1000000 threads=%T ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! webmmux';
-    }
 }
 
 export {

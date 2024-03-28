@@ -58,9 +58,8 @@ var NotifyManager = GObject.registerClass({
         Main.messageTray.add(source);
         source.showNotification(notify);
 
-        if (sound) {
+        if (sound)
             notify.playSound();
-        }
 
         return notify;
     }
@@ -80,9 +79,8 @@ var NotifyManager = GObject.registerClass({
             gicon: icon,
         });
 
-        if (sound) {
+        if (sound)
             notify.playSound();
-        }
     }
 
     /**
