@@ -47,16 +47,18 @@ var NotifyManager = GObject.registerClass({
      */
     createNotify(msg, icon, sound) {
         Lib.TalkativeLog(`-°-create notify :${msg}`);
-        var source = new MessageTray.SystemNotificationSource();
-        var notify = new MessageTray.Notification(source, msg, null, {
+        var source = new MessageTray.Source();
+        var notify = new MessageTray.Notification({
+            source,
+            title: msg,
+            body: null,
             gicon: icon,
+            isTransient: false,
+            resident: true
         });
 
-        notify.setTransient(false);
-        notify.setResident(true);
-
         Main.messageTray.add(source);
-        source.showNotification(notify);
+        source.addNotification(notify);
 
         if (sound) {
             notify.playSound();
@@ -76,8 +78,10 @@ var NotifyManager = GObject.registerClass({
     updateNotify(notify, msg, icon, sound) {
         Lib.TalkativeLog('-°-update notify');
 
-        notify.update(msg, null, {
-            gicon: icon,
+        notify.set({
+            title: msg,
+            body: null,
+            gicon: icon
         });
 
         if (sound) {
