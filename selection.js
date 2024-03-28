@@ -167,9 +167,9 @@ const Capture = GObject.registerClass({
 
         this._areaSelection.disconnect(this._signalCapturedEvent);
         this._setDefaultCursor();
-        Main.uiGroup.remove_actor(this._areaSelection);
+        Main.uiGroup.remove_child(this._areaSelection);
         Main.popModal(this._grab);
-        Main.uiGroup.remove_actor(this._areaResolution);
+        Main.uiGroup.remove_child(this._areaResolution);
         this._areaSelection.destroy();
         this.emit('stop');
     }
@@ -425,7 +425,7 @@ var AreaRecording = GObject.registerClass({
         Main.overview.connect('showing', () => {
             Lib.TalkativeLog('-£-overview opening');
 
-            Main.uiGroup.remove_actor(this._areaRecording);
+            Main.uiGroup.remove_child(this._areaRecording);
         });
 
         Main.overview.connect('hidden', () => {

@@ -614,7 +614,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
         this.CtrlAudio.destroy();
 
         // remove indicator
-        this.remove_actor(this.indicatorBox);
+        this.remove_child(this.indicatorBox);
     }
 
     /**
