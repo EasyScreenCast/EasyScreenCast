@@ -63,8 +63,8 @@ var CaptureVideo = GObject.registerClass({
         this.recordingActive = false;
 
         let fileExt = UtilGSP.getFileExtension(
-                Ext.Indicator.getSettings().getOption('i', Settings.FILE_CONTAINER_SETTING_KEY)
-            );
+            Ext.Indicator.getSettings().getOption('i', Settings.FILE_CONTAINER_SETTING_KEY)
+        );
         // prepare variable for screencast
         let fileRec = Ext.Indicator.getSettings().getOption('s', Settings.FILE_NAME_SETTING_KEY);
 

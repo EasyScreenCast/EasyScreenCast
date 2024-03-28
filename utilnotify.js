@@ -50,7 +50,7 @@ var NotifyManager = GObject.registerClass({
     createNotify(msg, icon, sound) {
         Lib.TalkativeLog(`-°-create notify :${msg}`);
         var source = new MessageTray.Source({
-            title: _('EasyScreenCast')
+            title: _('EasyScreenCast'),
         });
         var notify = new MessageTray.Notification({
             source,
@@ -58,7 +58,7 @@ var NotifyManager = GObject.registerClass({
             body: null,
             gicon: icon,
             isTransient: false,
-            resident: true
+            resident: true,
         });
 
         Main.messageTray.add(source);
@@ -85,7 +85,7 @@ var NotifyManager = GObject.registerClass({
         notify.set({
             title: msg,
             body: null,
-            gicon: icon
+            gicon: icon,
         });
 
         if (sound) {
