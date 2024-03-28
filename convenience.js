@@ -42,9 +42,8 @@ function setDebugEnabled(d) {
  * @class
  */
 function TalkativeLog(msg) {
-    if (debugEnabled) {
+    if (debugEnabled)
         log(`[ESC]${msg}`);
-    }
 }
 
 /**

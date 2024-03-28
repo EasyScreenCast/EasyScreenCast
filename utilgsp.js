@@ -479,9 +479,8 @@ function _replaceAudio(gspRA, defaultAudio, ConTMP, QGSPtmp, mixer) {
             audioPipeline = gspRA.replace(/_ENCODER_AUDIO_/gi, aq);
         } else {
             Lib.TalkativeLog('-§-correct audio source assignment');
-            if (audiosource.indexOf('output') !== -1) {
+            if (audiosource.indexOf('output') !== -1)
                 audiosource += '.monitor';
-            }
 
             var reDev = `pulsesrc device="${audiosource}"`;
 

@@ -41,7 +41,8 @@ rules:
   computed-property-spacing: error
   curly:
     - error
-    - all
+    - multi-or-nest
+    - consistent
   dot-location:
     - error
     - property
