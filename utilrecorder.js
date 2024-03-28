@@ -62,12 +62,11 @@ var CaptureVideo = GObject.registerClass({
         Lib.TalkativeLog('-&-start video recording');
         this.recordingActive = false;
 
-        // prepare variable for screencast
-        let fileRec =
-            Ext.Indicator.getSettings().getOption('s', Settings.FILE_NAME_SETTING_KEY) +
-            UtilGSP.getFileExtension(
+        let fileExt = UtilGSP.getFileExtension(
                 Ext.Indicator.getSettings().getOption('i', Settings.FILE_CONTAINER_SETTING_KEY)
             );
+        // prepare variable for screencast
+        let fileRec = Ext.Indicator.getSettings().getOption('s', Settings.FILE_NAME_SETTING_KEY);
 
         let folderRec = '';
         if (Ext.Indicator.getSettings().getOption('s', Settings.FILE_FOLDER_SETTING_KEY) !== '') {
@@ -92,7 +91,7 @@ var CaptureVideo = GObject.registerClass({
         const completeFileRecPath = folderRec !== ''
             ? `${folderRec}/${fileRec}`
             : fileRec;
-        Lib.TalkativeLog(`-&-file rec path complete : ${completeFileRecPath}`);
+        Lib.TalkativeLog(`-&-file rec path complete : ${completeFileRecPath}${fileExt}`);
 
         // prefix with a videoconvert element
         // see DEFAULT_PIPELINE in https://gitlab.gnome.org/GNOME/gnome-shell/-/blob/main/js/dbusServices/screencast/screencastService.js#L26
@@ -125,9 +124,17 @@ var CaptureVideo = GObject.registerClass({
                         Ext.Indicator.doRecResult(false);
                     } else {
                         Lib.TalkativeLog(`-&-screencast execute - ${result[0]} - ${result[1]}`);
-                    }
 
-                    Ext.Indicator.doRecResult(result[0], result[1]);
+                        let resultingFilePath = result[1];
+                        if (resultingFilePath.endsWith('.undefined')) {
+                            resultingFilePath = resultingFilePath.substring(0, resultingFilePath.length - '.undefined'.length);
+                            resultingFilePath = `${resultingFilePath}${fileExt}`;
+                        }
+                        this._originalFilePath = result[1];
+                        this._filePathWithExtension = resultingFilePath;
+
+                        Ext.Indicator.doRecResult(result[0], resultingFilePath);
+                    }
                 }
             );
         } else {
@@ -152,7 +159,15 @@ var CaptureVideo = GObject.registerClass({
                             this.AreaSelected = new Selection.AreaRecording();
                         }
 
-                        Ext.Indicator.doRecResult(result[0], result[1]);
+                        let resultingFilePath = result[1];
+                        if (resultingFilePath.endsWith('.undefined')) {
+                            resultingFilePath = resultingFilePath.substring(0, resultingFilePath.length - '.undefined'.length);
+                            resultingFilePath = `${resultingFilePath}${fileExt}`;
+                        }
+                        this._originalFilePath = result[1];
+                        this._filePathWithExtension = resultingFilePath;
+
+                        Ext.Indicator.doRecResult(result[0], resultingFilePath);
                     }
                 }
             );
@@ -173,6 +188,13 @@ var CaptureVideo = GObject.registerClass({
                 return false;
             } else {
                 Lib.TalkativeLog(`-&-screencast stop - ${result[0]}`);
+
+
+                // rename the file...
+                Lib.TalkativeLog(`-&-screencast: rename ${this._originalFilePath} to ${this._filePathWithExtension}`);
+                const sourceFile = Gio.File.new_for_path(this._originalFilePath);
+                const destFile = Gio.File.new_for_path(this._filePathWithExtension);
+                sourceFile.move(destFile, 0, null, null);
             }
 
             // clear area recording
@@ -184,6 +206,7 @@ var CaptureVideo = GObject.registerClass({
         });
     }
 
+    // without file extension
     _generateFileName(template) {
         template = template.replaceAll('%d', '%0x').replaceAll('%t', '%0X');
         const datetime = GLib.DateTime.new_now_local();
