@@ -22,6 +22,8 @@ import * as Lib from './convenience.js';
 import * as Settings from './settings.js';
 import * as Ext from './extension.js';
 
+import {gettext as _} from 'resource:///org/gnome/shell/extensions/extension.js';
+
 /**
  * @type {NotifyManager}
  */
@@ -47,16 +49,20 @@ var NotifyManager = GObject.registerClass({
      */
     createNotify(msg, icon, sound) {
         Lib.TalkativeLog(`-°-create notify :${msg}`);
-        var source = new MessageTray.SystemNotificationSource();
-        var notify = new MessageTray.Notification(source, msg, null, {
+        var source = new MessageTray.Source({
+            title: _('EasyScreenCast'),
+        });
+        var notify = new MessageTray.Notification({
+            source,
+            title: msg,
+            body: null,
             gicon: icon,
+            isTransient: false,
+            resident: true,
         });
 
-        notify.setTransient(false);
-        notify.setResident(true);
-
         Main.messageTray.add(source);
-        source.showNotification(notify);
+        source.addNotification(notify);
 
         if (sound)
             notify.playSound();
@@ -75,7 +81,9 @@ var NotifyManager = GObject.registerClass({
     updateNotify(notify, msg, icon, sound) {
         Lib.TalkativeLog('-°-update notify');
 
-        notify.update(msg, null, {
+        notify.set({
+            title: msg,
+            body: null,
             gicon: icon,
         });
 

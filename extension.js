@@ -115,8 +115,8 @@ const EasyScreenCastIndicator = GObject.registerClass({
             y_align: Clutter.ActorAlign.CENTER,
         });
 
-        this.indicatorBox.add_actor(this.timeLabel);
-        this.indicatorBox.add_actor(this.indicatorIcon);
+        this.indicatorBox.add_child(this.timeLabel);
+        this.indicatorBox.add_child(this.indicatorIcon);
 
         // init var
         this.recorder = new UtilRecorder.CaptureVideo();
@@ -561,7 +561,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
             this._onDelayTimeChanged()
         );
 
-        this.imSliderDelay.add(this.TimeSlider);
+        this.imSliderDelay.actor.add_child(this.TimeSlider);
 
         return [this.DelayTimeTitle, this.imSliderDelay];
     }
@@ -590,7 +590,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
         this.CtrlWebcam.startMonitor();
 
         // add indicator
-        this.add_actor(this.indicatorBox);
+        this.add_child(this.indicatorBox);
     }
 
     /**
@@ -605,7 +605,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
         this.CtrlAudio.destroy();
 
         // remove indicator
-        this.remove_actor(this.indicatorBox);
+        this.remove_child(this.indicatorBox);
     }
 
     /**
@@ -799,14 +799,14 @@ const EasyScreenCastIndicator = GObject.registerClass({
             if (alertEnd) {
                 this.CtrlNotify.updateNotify(
                     this.notifyCounting,
-                    _(`EasyScreenCast -> Finish Recording / Seconds : ${sec}`),
+                    _(`Finish Recording / Seconds : ${sec}`),
                     this._icons.off,
                     true
                 );
             } else {
                 this.CtrlNotify.updateNotify(
                     this.notifyCounting,
-                    _('EasyScreenCast -> Recording in progress / Seconds passed : ') + sec,
+                    _('Recording ... / Seconds passed : ') + sec,
                     this._icons.on,
                     false
                 );

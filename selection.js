@@ -64,7 +64,7 @@ const Capture = GObject.registerClass({
             y: -10,
         });
 
-        Main.uiGroup.add_actor(this._areaSelection);
+        Main.uiGroup.add_child(this._areaSelection);
 
         this._areaResolution = new St.Label({
             style_class: 'area-resolution',
@@ -73,7 +73,7 @@ const Capture = GObject.registerClass({
         this._areaResolution.opacity = 255;
         this._areaResolution.set_position(0, 0);
 
-        Main.uiGroup.add_actor(this._areaResolution);
+        Main.uiGroup.add_child(this._areaResolution);
 
         this._grab = Main.pushModal(this._areaSelection);
 
@@ -166,9 +166,9 @@ const Capture = GObject.registerClass({
 
         this._areaSelection.disconnect(this._signalCapturedEvent);
         this._setDefaultCursor();
-        Main.uiGroup.remove_actor(this._areaSelection);
+        Main.uiGroup.remove_child(this._areaSelection);
         Main.popModal(this._grab);
-        Main.uiGroup.remove_actor(this._areaResolution);
+        Main.uiGroup.remove_child(this._areaResolution);
         this._areaSelection.destroy();
         this.emit('stop');
     }
@@ -411,18 +411,18 @@ var AreaRecording = GObject.registerClass({
         var tmpH = Main.layoutManager.currentMonitor.height;
         var tmpW = Main.layoutManager.currentMonitor.width;
 
-        Main.uiGroup.add_actor(this._areaRecording);
+        Main.uiGroup.add_child(this._areaRecording);
 
         Main.overview.connect('showing', () => {
             Lib.TalkativeLog('-£-overview opening');
 
-            Main.uiGroup.remove_actor(this._areaRecording);
+            Main.uiGroup.remove_child(this._areaRecording);
         });
 
         Main.overview.connect('hidden', () => {
             Lib.TalkativeLog('-£-overview closed');
 
-            Main.uiGroup.add_actor(this._areaRecording);
+            Main.uiGroup.add_child(this._areaRecording);
         });
 
         if (recX + recW <= tmpW - 5 && recY + recH <= tmpH - 5)
