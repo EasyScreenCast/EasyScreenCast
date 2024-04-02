@@ -1,3 +1,15 @@
+# next
+
+**🚀 Implemented enhancements:**
+
+**🎉 Merged pull requests:**
+
+**🐛 Fixed bugs:**
+
+**📦 Dependency updates:**
+
+**Full Changelog**: <https://github.com/EasyScreenCast/EasyScreenCast/compare/1.9.0...HEAD>
+
 # v1.9.0 (50) (2024-04-02)
 
 **🚀 Implemented enhancements:**
@@ -13,7 +25,7 @@
 * [#357](https://github.com/EasyScreenCast/EasyScreenCast/pull/357): Update actions and use node 20 ([@adangel](https://github.com/adangel))
 * [#358](https://github.com/EasyScreenCast/EasyScreenCast/pull/358): Update eslint ([@adangel](https://github.com/adangel))
 
-**Full Changelog**: <https://github.com/EasyScreenCast/EasyScreenCast/compare/1.8.0...HEAD>
+**Full Changelog**: <https://github.com/EasyScreenCast/EasyScreenCast/compare/1.8.0...1.9.0>
 
 # v1.8.0 (49) (2023-10-17)
 
