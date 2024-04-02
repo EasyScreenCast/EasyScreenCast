@@ -3,8 +3,10 @@
 **🚀 Implemented enhancements:**
 
 **🎉 Merged pull requests:**
+* [#356](https://github.com/EasyScreenCast/EasyScreenCast/pull/356): Support Gnome 46 ([@adangel](https://github.com/adangel))
 
 **🐛 Fixed bugs:**
+* [#355](https://github.com/EasyScreenCast/EasyScreenCast/issues/355): Support Gnome 46 ([@bartoszek](https://github.com/bartoszek))
 
 **📦 Dependency updates:**
 
