@@ -27,6 +27,7 @@ import Meta from 'gi://Meta';
 import Clutter from 'gi://Clutter';
 import St from 'gi://St';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+import * as Signals from 'resource:///org/gnome/shell/misc/signals.js';
 
 import {gettext as _} from 'resource:///org/gnome/shell/extensions/extension.js';
 
@@ -38,15 +39,7 @@ import {DisplayApi} from './display_module.js';
 /**
  * @type {Capture}
  */
-const Capture = GObject.registerClass({
-    GTypeName: 'EasyScreenCast_Capture',
-    Signals: {
-        'captured-event': {
-            param_types: [Clutter.Event.$gtype],
-        },
-        'stop': {},
-    },
-}, class Capture extends GObject.Object {
+class Capture extends Signals.EventEmitter {
     constructor() {
         super();
         Lib.TalkativeLog('-£-capture selection init');
@@ -183,14 +176,9 @@ const Capture = GObject.registerClass({
     toString() {
         return this.GTypeName;
     }
-});
+}
 
-var SelectionArea = GObject.registerClass({
-    GTypeName: 'EasyScreenCast_SelectionArea',
-    Signals: {
-        'stop': {},
-    },
-}, class SelectionArea extends GObject.Object {
+export class SelectionArea extends Signals.EventEmitter {
     constructor() {
         super();
         Lib.TalkativeLog('-£-area selection init');
@@ -238,14 +226,9 @@ var SelectionArea = GObject.registerClass({
     toString() {
         return this.GTypeName;
     }
-});
+}
 
-var SelectionWindow = GObject.registerClass({
-    GTypeName: 'EasyScreenCast_SelectionWindow',
-    Signals: {
-        'stop': {},
-    },
-}, class SelectionWindow extends GObject.Object {
+export class SelectionWindow extends Signals.EventEmitter {
     constructor() {
         super();
         Lib.TalkativeLog('-£-window selection init');
@@ -285,12 +268,12 @@ var SelectionWindow = GObject.registerClass({
             if (this._selectedWindow) {
                 this._capture._stop();
 
-                var maxHeight = global.screen_height;
-                var maxWidth = global.screen_width;
+                let maxHeight = global.screen_height;
+                let maxWidth = global.screen_width;
                 Lib.TalkativeLog(`-£-global screen area H: ${maxHeight} W: ${maxWidth}`);
 
-                var [w, h] = this._selectedWindow.get_size();
-                var [wx, wy] = this._selectedWindow.get_position();
+                let [w, h] = this._selectedWindow.get_size();
+                let [wx, wy] = this._selectedWindow.get_position();
 
                 Lib.TalkativeLog(`-£-windows pre wx: ${wx} wy: ${wy} height: ${h}  width: ${w}`);
 
@@ -331,22 +314,17 @@ var SelectionWindow = GObject.registerClass({
     toString() {
         return this.GTypeName;
     }
-});
+}
 
-var SelectionDesktop = GObject.registerClass({
-    GTypeName: 'EasyScreenCast_SelectionDesktop',
-    Signals: {
-        'stop': {},
-    },
-}, class SelectionDesktop extends GObject.Object {
+export class SelectionDesktop extends Signals.EventEmitter {
     constructor() {
         super();
         Lib.TalkativeLog('-£-desktop selection init');
         const displayCount = DisplayApi.number_displays();
         Lib.TalkativeLog(`-£-Number of monitor ${displayCount}`);
 
-        for (var i = 0; i < displayCount; i++) {
-            var tmpM = DisplayApi.display_geometry_for_index(i);
+        for (let i = 0; i < displayCount; i++) {
+            let tmpM = DisplayApi.display_geometry_for_index(i);
             Lib.TalkativeLog(`-£-monitor ${i} geometry x=${tmpM.x} y=${tmpM.y} w=${tmpM.width} h=${tmpM.height}`);
         }
 
@@ -376,10 +354,10 @@ var SelectionDesktop = GObject.registerClass({
 
             let tmpM = Main.layoutManager.currentMonitor;
 
-            var x = tmpM.x;
-            var y = tmpM.y;
-            var height = tmpM.height;
-            var width = tmpM.width;
+            let x = tmpM.x;
+            let y = tmpM.y;
+            let height = tmpM.height;
+            let width = tmpM.width;
             Lib.TalkativeLog(`-£-desktop x: ${x} y: ${y} height: ${height} width: ${width}`);
 
             this._capture._saveRect(x, y, height, width);
@@ -389,11 +367,9 @@ var SelectionDesktop = GObject.registerClass({
     toString() {
         return this.GTypeName;
     }
-});
+}
 
-var AreaRecording = GObject.registerClass({
-    GTypeName: 'EasyScreenCast_AreaRecording',
-}, class AreaRecording extends GObject.Object {
+export class AreaRecording extends GObject.Object {
     constructor() {
         super();
         Lib.TalkativeLog('-£-area recording init');
@@ -407,9 +383,9 @@ var AreaRecording = GObject.registerClass({
             y: -10,
         });
 
-        var [recX, recY, recW, recH] = Ext.Indicator.getSelectedRect();
-        var tmpH = Main.layoutManager.currentMonitor.height;
-        var tmpW = Main.layoutManager.currentMonitor.width;
+        let [recX, recY, recW, recH] = Ext.Indicator.getSelectedRect();
+        let tmpH = Main.layoutManager.currentMonitor.height;
+        let tmpW = Main.layoutManager.currentMonitor.width;
 
         Main.uiGroup.add_child(this._areaRecording);
 
@@ -463,7 +439,7 @@ var AreaRecording = GObject.registerClass({
     toString() {
         return this.GTypeName;
     }
-});
+}
 
 /**
  * @param {number} x1 left position
@@ -530,5 +506,3 @@ function _selectWindow(windows, x, y) {
 
     return filtered[0];
 }
-
-export {SelectionArea, SelectionWindow, SelectionDesktop, AreaRecording};
