@@ -20,7 +20,7 @@ import * as Lib from './convenience.js';
 /**
  * @type {ExecuteStuff}
  */
-var ExecuteStuff = GObject.registerClass({
+export const ExecuteStuff = GObject.registerClass({
     GTypeName: 'EasyScreenCast_ExecuteStuff',
 }, class ExecuteStuff extends GObject.Object {
     /**
@@ -262,5 +262,3 @@ var ExecuteStuff = GObject.registerClass({
         }
     }
 });
-
-export {ExecuteStuff};

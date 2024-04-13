@@ -27,7 +27,7 @@ import * as Ext from './extension.js';
 /**
  * @type {CaptureVideo}
  */
-var CaptureVideo = GObject.registerClass({
+export const CaptureVideo = GObject.registerClass({
     GTypeName: 'EasyScreenCast_CaptureVideo',
 }, class CaptureVideo extends GObject.Object {
     /**
@@ -212,5 +212,3 @@ var CaptureVideo = GObject.registerClass({
         return result;
     }
 });
-
-export {CaptureVideo};

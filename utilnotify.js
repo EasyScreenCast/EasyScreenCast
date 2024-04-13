@@ -27,7 +27,7 @@ import {gettext as _} from 'resource:///org/gnome/shell/extensions/extension.js'
 /**
  * @type {NotifyManager}
  */
-var NotifyManager = GObject.registerClass({
+export const NotifyManager = GObject.registerClass({
     GTypeName: 'EasyScreenCast_NotifyManager',
 }, class NotifyManager extends GObject.Object {
     /**
@@ -143,5 +143,3 @@ var NotifyManager = GObject.registerClass({
         }
     }
 });
-
-export {NotifyManager};

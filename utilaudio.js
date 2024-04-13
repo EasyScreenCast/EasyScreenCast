@@ -27,7 +27,7 @@ import * as Ext from './extension.js';
 /**
  * @type {MixerAudio}
  */
-var MixerAudio = GObject.registerClass({
+export const MixerAudio = GObject.registerClass({
     GTypeName: 'EasyScreenCast_MixerAudio',
 }, class MixerAudio extends GObject.Object {
     constructor() {
@@ -317,5 +317,3 @@ var MixerAudio = GObject.registerClass({
         }
     }
 });
-
-export {MixerAudio};
