@@ -132,7 +132,8 @@ For more information see for example:
 
 | Distribution / gnome-shell           | ESC Version | Installation | Screen Recording | +Video Recording | +Audio Recording |
 |--------------------------------------|-------------|--------------|------------------|------------------|------------------|
-|Gnome OS latest (gnome-shell 45)      | 1.8.0       |  ✔           |  ✔               |  ✔               |  ✔               |
+|Gnome OS (gnome-shell 46)             | 1.9.0       |  ✔           |  ✔               |  ?               |  ?               |
+|Gnome OS (gnome-shell 45)             | 1.8.0       |  ✔           |  ✔               |  ✔               |  ✔               |
 |Debian 11 Bullseye (gnome-shell 3.38) | 1.7.0       |  ✔           |  ✔               |  ✔               |  ✔               |
 |Ubuntu 22.04 LTS (gnome-shell 42.2)   | 1.7.0       |  ✔           |  ✔               |  ✔               |  ✔               |
 |Debian Experimental (gnome-shell 43)  | 1.7.0       |  ✔           |  ✔               |  ✔               |  ✔               |
