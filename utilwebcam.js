@@ -17,7 +17,7 @@ import GLib from 'gi://GLib';
 import Gst from 'gi://Gst?version=1.0';
 import * as Lib from './convenience.js';
 
-var HelperWebcam = GObject.registerClass({
+export const HelperWebcam = GObject.registerClass({
     GTypeName: 'EasyScreenCast_HelperWebcam',
 }, class HelperWebcam extends GObject.Object {
     /**
@@ -311,5 +311,3 @@ var HelperWebcam = GObject.registerClass({
         }
     }
 });
-
-export {HelperWebcam};

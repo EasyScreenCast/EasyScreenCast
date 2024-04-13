@@ -33,7 +33,7 @@ var debugEnabled = false;
 /**
  * @param {boolean} d Enable/Disable debug logging
  */
-function setDebugEnabled(d) {
+export function setDebugEnabled(d) {
     debugEnabled = d;
 }
 
@@ -41,9 +41,9 @@ function setDebugEnabled(d) {
  * @param {string} msg the message to log
  * @class
  */
-function TalkativeLog(msg) {
+export function TalkativeLog(msg) {
     if (debugEnabled)
-        log(`[ESC]${msg}`);
+        console.log(`[ESC]${msg}`);
 }
 
 /**
@@ -53,7 +53,7 @@ function TalkativeLog(msg) {
  *
  * @returns {string} the version
  */
-function getFullVersion() {
+export function getFullVersion() {
     return 'dev'; // FULL_VERSION
 }
 
@@ -64,7 +64,7 @@ function getFullVersion() {
  * @param {string} name filename of the image
  * @returns {Gio.FileIcon} the icon
  */
-function loadIcon(extensionDir, name) {
+export function loadIcon(extensionDir, name) {
     return new Gio.FileIcon({
         file: Gio.File.new_for_path(
             getImagePath(extensionDir, name)
@@ -79,8 +79,6 @@ function loadIcon(extensionDir, name) {
  * @param {string} name filename of the image
  * @returns {string} the path
  */
-function getImagePath(extensionDir, name) {
+export function getImagePath(extensionDir, name) {
     return extensionDir.get_child(`images/${name}`).get_path();
 }
-
-export {TalkativeLog, getFullVersion, setDebugEnabled, loadIcon, getImagePath};

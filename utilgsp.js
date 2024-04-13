@@ -321,7 +321,7 @@ const CONTAINER = [webmVP8, webmVP9, mp4, mkv, ogg, mp4Aac];
  *
  * @returns {string}
  */
-function composeGSP(settings, mixer) {
+export function composeGSP(settings, mixer) {
     Lib.TalkativeLog('-§-COMPOSE GSP');
 
     let tmpGSP = '';
@@ -703,7 +703,7 @@ function _getWebCamDimension(settings) {
  * @param {int} container selected container format
  * @returns {string}
  */
-function getDescr(quality, container) {
+export function getDescr(quality, container) {
     Lib.TalkativeLog(`-§-get description Q-> ${quality} C-> ${container}`);
 
     return CONTAINER[container].quality[quality].descr;
@@ -716,7 +716,7 @@ function getDescr(quality, container) {
  * @param {int} container selected container format
  * @returns {number}
  */
-function getFps(quality, container) {
+export function getFps(quality, container) {
     Lib.TalkativeLog(`-§-get fps Q-> ${quality} C-> ${container}`);
 
     return CONTAINER[container].quality[quality].fps;
@@ -728,10 +728,8 @@ function getFps(quality, container) {
  * @param {int} container selected container format
  * @returns {string}
  */
-function getFileExtension(container) {
+export function getFileExtension(container) {
     Lib.TalkativeLog(`-§-get file extension C-> ${container}`);
 
     return CONTAINER[container].fileExt;
 }
-
-export {composeGSP, getDescr, getFps, getFileExtension};

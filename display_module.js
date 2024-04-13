@@ -3,7 +3,7 @@
 /**
  * @type {{_display(): Meta_Display, number_of_displays(): int}}
  */
-var DisplayApi = {
+export const DisplayApi = {
     /**
      * Returns the Wayland display or screen
      *
@@ -36,5 +36,3 @@ var DisplayApi = {
         this._display().set_cursor(cursor);
     },
 };
-
-export {DisplayApi};

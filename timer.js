@@ -27,7 +27,7 @@ let ElapsedSec;
 /**
  * @type {TimerDelay}
  */
-const TimerDelay = GObject.registerClass({
+export const TimerDelay = GObject.registerClass({
     GTypeName: 'EasyScreenCast_TimerDelay',
 }, class TimerDelay extends GObject.Object {
     /**
@@ -145,7 +145,7 @@ let secpassed = 0;
 /**
  * @type {TimerCounting}
  */
-var TimerCounting = GObject.registerClass({
+export const TimerCounting = GObject.registerClass({
     GTypeName: 'EasyScreenCast_TimerCounting',
 }, class TimerCounting extends GObject.Object {
     /**
@@ -255,5 +255,3 @@ var TimerCounting = GObject.registerClass({
         }
     }
 });
-
-export {TimerDelay, TimerCounting};

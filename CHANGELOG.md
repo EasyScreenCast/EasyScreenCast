@@ -4,6 +4,8 @@
 
 **🎉 Merged pull requests:**
 
+* [#361](https://github.com/EasyScreenCast/EasyScreenCast/pull/361): Make some things more es6 ([@meghprkh](https://github.com/meghprkh))
+
 **🐛 Fixed bugs:**
 
 **📦 Dependency updates:**
