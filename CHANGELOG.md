@@ -8,6 +8,8 @@
 
 **🐛 Fixed bugs:**
 
+* [#362](https://github.com/EasyScreenCast/EasyScreenCast/issues/362): Unable to install since I updated to Ubuntu 24.04 (device.get_properties() is null) ([@greguti](https://github.com/greguti))
+
 **📦 Dependency updates:**
 
 **Full Changelog**: <https://github.com/EasyScreenCast/EasyScreenCast/compare/1.9.0...HEAD>
