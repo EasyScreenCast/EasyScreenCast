@@ -1,4 +1,4 @@
-# next
+# v1.10.0 (51) (2024-09-14)
 
 This extension works with GNOME Shell 46 and 47.
 
