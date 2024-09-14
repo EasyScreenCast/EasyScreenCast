@@ -1,11 +1,16 @@
 # next
 
+This extension works with GNOME Shell 46 and 47.
+
 **🚀 Implemented enhancements:**
+
+* [#364](https://github.com/EasyScreenCast/EasyScreenCast/pull/364): Support GNOME Shell 47 ([@jbicha](https://github.com/jbicha))
 
 **🎉 Merged pull requests:**
 
 * [#361](https://github.com/EasyScreenCast/EasyScreenCast/pull/361): Make some things more es6 ([@meghprkh](https://github.com/meghprkh))
 * [#363](https://github.com/EasyScreenCast/EasyScreenCast/pull/363): Fix device.get_properties() is null ([@adangel](https://github.com/adangel))
+* [#364](https://github.com/EasyScreenCast/EasyScreenCast/pull/364): Support GNOME Shell 47 ([@jbicha](https://github.com/jbicha))
 
 **🐛 Fixed bugs:**
 
