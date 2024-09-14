@@ -5,8 +5,11 @@
 **🎉 Merged pull requests:**
 
 * [#361](https://github.com/EasyScreenCast/EasyScreenCast/pull/361): Make some things more es6 ([@meghprkh](https://github.com/meghprkh))
+* [#363](https://github.com/EasyScreenCast/EasyScreenCast/pull/363): Fix device.get_properties() is null ([@adangel](https://github.com/adangel))
 
 **🐛 Fixed bugs:**
+
+* [#362](https://github.com/EasyScreenCast/EasyScreenCast/issues/362): Unable to install since I updated to Ubuntu 24.04 (device.get_properties() is null) ([@greguti](https://github.com/greguti))
 
 **📦 Dependency updates:**
 

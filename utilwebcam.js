@@ -241,10 +241,18 @@ export const HelperWebcam = GObject.registerClass({
         // example, a pipewiresrc or a v4l2src. For now, we are only
         // using v4l2src.
         // See also: Gst.DeviceMonitor.get_providers: pipewiredeviceprovider,decklinkdeviceprovider,v4l2deviceprovider
+        // CLI: "/usr/bin/gst-device-monitor-1.0 Video/Source"
         //
         // So, here we filter the devices, that have a device.path property, which
         // means, these are only v4l2 devices
-        var filtered = list.filter(device => device.get_properties().get_string('device.path') !== null);
+
+        var filtered = list.filter(device => {
+            let props = device.get_properties();
+            let hasDevice = props != null && props.get_string('device.path') !== null;
+            if (props != null)
+                props.free();
+            return hasDevice;
+        });
         Lib.TalkativeLog(`-@-devices number after filtering for v4l2: ${filtered.length}`);
 
         return filtered;
