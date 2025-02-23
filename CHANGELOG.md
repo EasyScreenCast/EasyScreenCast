@@ -1,8 +1,14 @@
 # next
 
+This extension works with GNOME Shell 46, 47 and 48.
+
 **🚀 Implemented enhancements:**
 
+* [#369](https://github.com/EasyScreenCast/EasyScreenCast/pull/369): Support GNOME Shell 48 ([@jbicha](https://github.com/jbicha))
+
 **🎉 Merged pull requests:**
+
+* [#369](https://github.com/EasyScreenCast/EasyScreenCast/pull/369): Support GNOME Shell 48 ([@jbicha](https://github.com/jbicha))
 
 **🐛 Fixed bugs:**
 
