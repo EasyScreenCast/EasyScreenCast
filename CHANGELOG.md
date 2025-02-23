@@ -1,4 +1,4 @@
-# next
+# v1.11.0 (52) (2025-02-23)
 
 This extension works with GNOME Shell 46, 47 and 48.
 
@@ -10,11 +10,7 @@ This extension works with GNOME Shell 46, 47 and 48.
 
 * [#369](https://github.com/EasyScreenCast/EasyScreenCast/pull/369): Support GNOME Shell 48 ([@jbicha](https://github.com/jbicha))
 
-**🐛 Fixed bugs:**
-
-**📦 Dependency updates:**
-
-**Full Changelog**: <https://github.com/EasyScreenCast/EasyScreenCast/compare/1.10.0...HEAD>
+**Full Changelog**: <https://github.com/EasyScreenCast/EasyScreenCast/compare/1.10.0...1.11.0>
 
 # v1.10.0 (51) (2024-09-14)
 
