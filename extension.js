@@ -588,9 +588,8 @@ const EasyScreenCastIndicator = GObject.registerClass({
         );
 
         // start monitoring inputvideo
-        if (this.CtrlWebcam !== null) {
+        if (this.CtrlWebcam !== null)
             this.CtrlWebcam.startMonitor();
-        }
 
         // add indicator
         this.add_child(this.indicatorBox);
@@ -603,9 +602,8 @@ const EasyScreenCastIndicator = GObject.registerClass({
         // remove key binding
         this._removeKeybindings();
         // stop monitoring inputvideo
-        if (this.CtrlWebcam !== null) {
+        if (this.CtrlWebcam !== null)
             this.CtrlWebcam.stopMonitor();
-        }
         // unregister mixer control
         this.CtrlAudio.destroy();
 
