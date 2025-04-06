@@ -5,6 +5,7 @@
 **🎉 Merged pull requests:**
 
 **🐛 Fixed bugs:**
+* [#368](https://github.com/EasyScreenCast/EasyScreenCast/issues/368): Wayland session freezes after login (Xorg all work ok) ([@AlbertoVelazquez](https://github.com/AlbertoVelazquez))
 
 **📦 Dependency updates:**
 
