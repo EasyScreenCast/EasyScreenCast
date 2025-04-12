@@ -107,6 +107,9 @@ _build: versioninfo all
 
 .PHONY: local-test
 local-test: install
+	#export G_MESSAGES_DEBUG=all; \
+	export MUTTER_DEBUG_DUMMY_MODE_SPECS=1280x800; \
+	export SHELL_DEBUG=all; \
 	dbus-run-session -- gnome-shell --nested
 
 .PHONY: lint

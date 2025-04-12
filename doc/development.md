@@ -127,3 +127,31 @@ gst-launch-1.0 -e videotestsrc \
 ```
 
 *   See also file `test_GSP_webcam_pip` for pipelines
+
+
+# Debugging
+
+## Gnome shell
+https://gjs.guide/extensions/development/debugging.html
+
+set environment variables, in /etc/environment, to be available for main gnome-shell process at startup/login
+
+SHELL_DEBUG=all
+
+#many messages from G_MESSAGES_DEBUG
+#G_MESSAGES_DEBUG=all
+
+
+## Gstreamer
+https://gstreamer.freedesktop.org/documentation/application-development/appendix/checklist-element.html?gi-language=c#debugging
+
+GStreamer: set environment variable
+GST_DEBUG
+              Comma-separated list of debug categories and levels (e.g.  GST_DEBUG=totem:4,typefind:5). '*' is allowed as a wildcard  as  part  of  debug  category  names  (e.g.  GST_DE‐
+              BUG=*sink:6,*audio*:6).  Since  1.2.0  it  is  also  possible  to specify the log level by name (1=ERROR, 2=WARN, 3=FIXME, 4=INFO, 5=DEBUG, 6=LOG, 7=TRACE, 9=MEMDUMP) (e.g.
+              GST_DEBUG=*audio*:LOG)
+
+e.g. GST_DEBUG=*:6
+
+set it in /etc/environment to be available for the main gnome-shell process at startup/login
+
