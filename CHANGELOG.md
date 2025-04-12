@@ -1,4 +1,20 @@
+# next
+
+This extension works with GNOME Shell 46, 47 and 48.
+
+**🚀 Implemented enhancements:**
+
+**🎉 Merged pull requests:**
+
+**🐛 Fixed bugs:**
+
+**📦 Dependency updates:**
+
+**Full Changelog**: <https://github.com/EasyScreenCast/EasyScreenCast/compare/1.11.1...HEAD>
+
 # v1.11.1 (53) (2025-04-12)
+
+This extension works with GNOME Shell 46, 47 and 48.
 
 **🎉 Merged pull requests:**
 * [#371](https://github.com/EasyScreenCast/EasyScreenCast/pull/371): Initialize Gst/CtrlWebcam lazily ([@adangel](https://github.com/adangel))
