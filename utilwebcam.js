@@ -30,7 +30,12 @@ export const HelperWebcam = GObject.registerClass({
         this._unspecified_webcam_text = unspecifiedWebcamText;
         Lib.TalkativeLog('-@-init webcam');
 
-        Gst.init(null);
+        var [result, _] = Gst.init_check(null);
+        Lib.TalkativeLog(`-@-gstreamer init result: ${result}`);
+        if (!result) {
+            Lib.TalkativeLog('-@-gstreamer init failed');
+            throw new Error('GStreamer init failed');
+        }
 
         // get gstreamer lib version
         var [M, m, micro, nano] = Gst.version();

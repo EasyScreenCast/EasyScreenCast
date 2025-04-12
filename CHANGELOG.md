@@ -3,8 +3,10 @@
 **🚀 Implemented enhancements:**
 
 **🎉 Merged pull requests:**
+* [#371](https://github.com/EasyScreenCast/EasyScreenCast/pull/371): Initialize Gst/CtrlWebcam lazily ([@adangel](https://github.com/adangel))
 
 **🐛 Fixed bugs:**
+* [#368](https://github.com/EasyScreenCast/EasyScreenCast/issues/368): Wayland session freezes after login (Xorg all work ok) ([@AlbertoVelazquez](https://github.com/AlbertoVelazquez))
 
 **📦 Dependency updates:**
 

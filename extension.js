@@ -65,7 +65,8 @@ const EasyScreenCastIndicator = GObject.registerClass({
         );
 
         this.CtrlAudio = new UtilAudio.MixerAudio();
-        this.CtrlWebcam = new UtilWebcam.HelperWebcam(_('Unspecified webcam'));
+        // CtrlWebcam is initialized lazy to avoid problems like #368
+        this.CtrlWebcam = null;
 
         this.CtrlNotify = new UtilNotify.NotifyManager();
         this.CtrlExe = new UtilExeCmd.ExecuteStuff(this);
@@ -587,7 +588,8 @@ const EasyScreenCastIndicator = GObject.registerClass({
         );
 
         // start monitoring inputvideo
-        this.CtrlWebcam.startMonitor();
+        if (this.CtrlWebcam !== null)
+            this.CtrlWebcam.startMonitor();
 
         // add indicator
         this.add_child(this.indicatorBox);
@@ -600,7 +602,8 @@ const EasyScreenCastIndicator = GObject.registerClass({
         // remove key binding
         this._removeKeybindings();
         // stop monitoring inputvideo
-        this.CtrlWebcam.stopMonitor();
+        if (this.CtrlWebcam !== null)
+            this.CtrlWebcam.stopMonitor();
         // unregister mixer control
         this.CtrlAudio.destroy();
 
