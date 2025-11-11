@@ -12,10 +12,6 @@
 
 'use strict';
 
-import GIRepository from 'gi://GIRepository';
-GIRepository.Repository.prepend_search_path('/usr/lib64/gnome-shell');
-GIRepository.Repository.prepend_library_path('/usr/lib64/gnome-shell');
-
 import Adw from 'gi://Adw';
 import GObject from 'gi://GObject';
 import Gio from 'gi://Gio';
