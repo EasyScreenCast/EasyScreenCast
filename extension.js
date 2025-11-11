@@ -95,6 +95,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
         this.connect('button_press_event', (actor, event) =>
             this._onButtonPress(actor, event)
         );
+        this.remove_action(this._clickGesture);
 
         // prepare setting var
         if (this._settings.getOption('i', Settings.TIME_DELAY_SETTING_KEY) > 0)
@@ -205,6 +206,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
             Lib.TalkativeLog('-*-left click indicator');
 
             this._setupExtensionMenu();
+            this.menu.toggle();
         } else {
             Lib.TalkativeLog('-*-right click indicator');
 
