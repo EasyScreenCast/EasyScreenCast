@@ -1,6 +1,6 @@
 # next
 
-This version of the extension works only with GNOME Shell 49.
+This version of the extension works only with GNOME Shell 48 and 49.
 To use this extension in an older Gnome Shell version, older releases need to be used.
 
 **🚀 Implemented enhancements:**
