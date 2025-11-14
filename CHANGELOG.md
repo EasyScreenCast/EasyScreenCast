@@ -1,4 +1,4 @@
-# next
+# v1.12.0 (54) (2025-11-14)
 
 This version of the extension works only with GNOME Shell 48 and 49.
 To use this extension in an older Gnome Shell version, older releases need to be used.
@@ -12,9 +12,7 @@ To use this extension in an older Gnome Shell version, older releases need to be
 **🐛 Fixed bugs:**
 * [#360](https://github.com/EasyScreenCast/EasyScreenCast/issues/360): Preferences window is too small ([@adangel](https://github.com/adangel))
 
-**📦 Dependency updates:**
-
-**Full Changelog**: <https://github.com/EasyScreenCast/EasyScreenCast/compare/1.11.1...HEAD>
+**Full Changelog**: <https://github.com/EasyScreenCast/EasyScreenCast/compare/1.11.1...1.12.0>
 
 # v1.11.1 (53) (2025-04-12)
 
