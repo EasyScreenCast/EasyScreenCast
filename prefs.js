@@ -1176,5 +1176,7 @@ export default class EasyScreenCastPreferences extends ExtensionPreferences {
         group.add(widget);
 
         window.add(page);
+        // fix for #360 - make it a bit wider to show the "X" to close the window
+        window.set_default_size(window['default-width'] + 50, window['default-height']);
     }
 }

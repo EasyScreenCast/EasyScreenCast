@@ -10,6 +10,7 @@ To use this extension in an older Gnome Shell version, older releases need to be
 * [#377](https://github.com/EasyScreenCast/EasyScreenCast/pull/377): Support GNOME Shell 49 ([@adangel](https://github.com/adangel))
 
 **🐛 Fixed bugs:**
+* [#360](https://github.com/EasyScreenCast/EasyScreenCast/issues/360): Preferences window is too small ([@adangel](https://github.com/adangel))
 
 **📦 Dependency updates:**
 
