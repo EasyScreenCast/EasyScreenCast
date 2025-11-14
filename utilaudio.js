@@ -13,11 +13,6 @@
 'use strict';
 
 import GObject from 'gi://GObject';
-import GIRepository from 'gi://GIRepository';
-GIRepository.Repository.prepend_search_path('/usr/lib/gnome-shell');
-GIRepository.Repository.prepend_library_path('/usr/lib/gnome-shell');
-GIRepository.Repository.prepend_search_path('/usr/lib64/gnome-shell');
-GIRepository.Repository.prepend_library_path('/usr/lib64/gnome-shell');
 import Gvc from 'gi://Gvc';
 
 import * as Lib from './convenience.js';

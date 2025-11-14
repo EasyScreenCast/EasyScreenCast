@@ -1,12 +1,16 @@
 # next
 
-This extension works with GNOME Shell 46, 47 and 48.
+This version of the extension works only with GNOME Shell 48 and 49.
+To use this extension in an older Gnome Shell version, older releases need to be used.
 
 **🚀 Implemented enhancements:**
+* [#376](https://github.com/EasyScreenCast/EasyScreenCast/issues/376): Update for GNOME 49 ([@gfl43r9nd](https://github.com/gfl43r9nd))
 
 **🎉 Merged pull requests:**
+* [#377](https://github.com/EasyScreenCast/EasyScreenCast/pull/377): Support GNOME Shell 49 ([@adangel](https://github.com/adangel))
 
 **🐛 Fixed bugs:**
+* [#360](https://github.com/EasyScreenCast/EasyScreenCast/issues/360): Preferences window is too small ([@adangel](https://github.com/adangel))
 
 **📦 Dependency updates:**
 
