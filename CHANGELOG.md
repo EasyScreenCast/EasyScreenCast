@@ -1,3 +1,15 @@
+# next
+
+**🚀 Implemented enhancements:**
+
+**🎉 Merged pull requests:**
+
+**🐛 Fixed bugs:**
+
+**📦 Dependency updates:**
+
+**Full Changelog**: <https://github.com/EasyScreenCast/EasyScreenCast/compare/1.12.0...HEAD>
+
 # v1.12.0 (54) (2025-11-14)
 
 This version of the extension works only with GNOME Shell 48 and 49.
