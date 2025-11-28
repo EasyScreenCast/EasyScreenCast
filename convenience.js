@@ -1,4 +1,3 @@
-/* -*- mode: js; js-basic-offset: 4; indent-tabs-mode: nil -*- */
 /*
   Copyright (c) 2011-2012, Giovanni Campagna <scampa.giovanni@gmail.com>
 
@@ -25,93 +24,61 @@
   SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-const Gettext = imports.gettext;
-const Gio = imports.gi.Gio;
+'use strict';
 
-const Config = imports.misc.config;
-const ExtensionUtils = imports.misc.extensionUtils;
-const Me = ExtensionUtils.getCurrentExtension();
-const Pref = Me.imports.prefs;
+import Gio from 'gi://Gio';
+
+var debugEnabled = false;
 
 /**
- * initTranslations:
- * @domain: (optional): the gettext domain to use
- *
- * Initialize Gettext to load translations from extensionsdir/locale.
- * If @domain is not provided, it will be taken from metadata['gettext-domain']
+ * @param {boolean} d Enable/Disable debug logging
  */
-function initTranslations(domain) {
-
-    domain = domain || Me.metadata['gettext-domain'];
-
-    // check if this extension was built with "make zip-file", and thus
-    // has the locale files in a subfolder
-    // otherwise assume that extension has been installed in the
-    // same prefix as gnome-shell
-    let localeDir = Me.dir.get_child('locale');
-    if (localeDir.query_exists(null))
-        Gettext.bindtextdomain(domain, localeDir.get_path());
-    else
-        Gettext.bindtextdomain(domain, Config.LOCALEDIR);
+export function setDebugEnabled(d) {
+    debugEnabled = d;
 }
 
 /**
- * getSettings:
- * @schema: (optional): the GSettings schema id
- *
- * Builds and return a GSettings schema for @schema, using schema files
- * in extensionsdir/schemas. If @schema is not provided, it is taken from
- * metadata['settings-schema'].
+ * @param {string} msg the message to log
+ * @class
  */
-function getSettings(schema) {
-    //schema = schema || extension.metadata['settings-schema'];
+export function TalkativeLog(msg) {
+    if (debugEnabled)
+        console.log(`[ESC]${msg}`);
+}
 
-    const GioSSS = Gio.SettingsSchemaSource;
+/**
+ * Gets the full (semantic) version of this extension.
+ *
+ * <p>Note: The actual value is added during build time.
+ *
+ * @returns {string} the version
+ */
+export function getFullVersion() {
+    return 'dev'; // FULL_VERSION
+}
 
-    // check if this extension was built with "make zip-file", and thus
-    // has the schema files in a subfolder
-    // otherwise assume that extension has been installed in the
-    // same prefix as gnome-shell (and therefore schemas are available
-    // in the standard folders)
-    let schemaDir = Me.dir.get_child('schemas');
-    let schemaSource;
-    if (schemaDir.query_exists(null))
-        schemaSource = GioSSS.new_from_directory(schemaDir.get_path(), GioSSS.get_default(), false);
-    else
-        schemaSource = GioSSS.get_default();
-
-    let schemaObj = schemaSource.lookup(schema, true);
-    if (!schemaObj)
-        throw new Error('Schema ' + schema + ' could not be found for extension ' + Me.metadata.uuid + '. Please check your installation.');
-
-    return new Gio.Settings({
-        settings_schema: schemaObj
+/**
+ * Loads an icon from the extension's subdirectory "images".
+ *
+ * @param {Gio.File} extensionDir dir of the extension
+ * @param {string} name filename of the image
+ * @returns {Gio.FileIcon} the icon
+ */
+export function loadIcon(extensionDir, name) {
+    return new Gio.FileIcon({
+        file: Gio.File.new_for_path(
+            getImagePath(extensionDir, name)
+        ),
     });
 }
 
-/*
-////////////////////////////////////////////////////////////////////////////////
-*/
-function TalkativeLog(msg) {
-    if (Pref.getOption('b', Pref.VERBOSE_DEBUG_SETTING_KEY)) {
-        global.log('ESC > ' + msg);
-    }
-};
-
-const ESConGIcon = new Gio.FileIcon({
-    file: Gio.File.new_for_path(Me.dir.get_child('images/icon_recording.svg').get_path())
-});
-
-const ESCoffGIcon = new Gio.FileIcon({
-    file: Gio.File.new_for_path(Me.dir.get_child('images/icon_default.svg').get_path())
-});
-
-const ESConGIconSel = new Gio.FileIcon({
-    file: Gio.File.new_for_path(Me.dir.get_child('images/icon_recordingSel.svg').get_path())
-});
-
-const ESCoffGIconSel = new Gio.FileIcon({
-    file: Gio.File.new_for_path(Me.dir.get_child('images/icon_defaultSel.svg').get_path())
-});
-
-const ESCimgScreen = Me.dir.get_child('images/screen.svg').get_path();
+/**
+ * Gets the path to the image from the extension's subdirectory "images".
+ *
+ * @param {Gio.File} extensionDir dir of the extension
+ * @param {string} name filename of the image
+ * @returns {string} the path
+ */
+export function getImagePath(extensionDir, name) {
+    return extensionDir.get_child(`images/${name}`).get_path();
+}

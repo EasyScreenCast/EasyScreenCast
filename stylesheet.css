@@ -28,3 +28,9 @@
     color: #ffffff;
     background-color: rgba(0, 0, 0, 0.0);
 }
+
+.time-label {
+    font-size: 14px;
+    padding-right: 5px;
+    color: #ff0000;
+}

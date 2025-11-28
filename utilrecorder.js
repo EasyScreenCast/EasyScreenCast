@@ -1,5 +1,3 @@
-/* -*- mode: js; js-basic-offset: 4; indent-tabs-mode: nil -*- */
-
 /*
     Copyright (C) 2013  Borsato Ivano
 
@@ -12,169 +10,205 @@
     FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
 */
 
-const Lang = imports.lang;
-const Shell = imports.gi.Shell;
-const Main = imports.ui.main;
-const Gio = imports.gi.Gio;
-const GLib = imports.gi.GLib;
-const LibRecorder = imports.ui.screencast;
+'use strict';
 
-const ExtensionUtils = imports.misc.extensionUtils;
-const Me = ExtensionUtils.getCurrentExtension();
-const Lib = Me.imports.convenience;
-const Pref = Me.imports.prefs;
-const Selection = Me.imports.selection;
-const UtilAudio = Me.imports.utilaudio;
-const Ext = Me.imports.extension;
+import GObject from 'gi://GObject';
+import Gio from 'gi://Gio';
+import GLib from 'gi://GLib';
+import {loadInterfaceXML} from 'resource:///org/gnome/shell/misc/dbusUtils.js';
+const ScreencastIface = loadInterfaceXML('org.gnome.Shell.Screencast');
 
-const ScreenCastProxy = Gio.DBusProxy.makeProxyWrapper(
-    LibRecorder.ScreencastIface);
-let ScreenCastService = null;
+import * as Lib from './convenience.js';
+import * as Settings from './settings.js';
+import * as Selection from './selection.js';
+import * as UtilGSP from './utilgsp.js';
+import * as Ext from './extension.js';
 
-const CaptureVideo = new Lang.Class({
-    Name: "RecordVideo",
-    /*
+/**
+ * @type {CaptureVideo}
+ */
+export const CaptureVideo = GObject.registerClass({
+    GTypeName: 'EasyScreenCast_CaptureVideo',
+}, class CaptureVideo extends GObject.Object {
+    /**
      * Create a video recorder
      */
-    _init: function () {
-        Lib.TalkativeLog('init recorder');
+    constructor() {
+        super();
+        Lib.TalkativeLog('-&-init recorder');
 
         this.AreaSelected = null;
 
-        this.CtrlAudio = new UtilAudio.MixerAudio();
-
-        //connect to d-bus service
-        ScreenCastService = new ScreenCastProxy(
-            Gio.DBus.session, 'org.gnome.Shell.Screencast',
+        // connect to d-bus service
+        const ScreenCastProxy = Gio.DBusProxy.makeProxyWrapper(ScreencastIface);
+        this._screenCastService = new ScreenCastProxy(
+            Gio.DBus.session,
+            'org.gnome.Shell.Screencast',
             '/org/gnome/Shell/Screencast',
-            Lang.bind(this, function (proxy, error) {
-                if (error) {
-                    Lib.TalkativeLog('ERROR(d-bus proxy connected) - ' + error.message);
-                    return;
-                } else
-                    Lib.TalkativeLog('d-bus proxy connected');
-            }));
-    },
-    /*
+            (proxy, error) => {
+                if (error)
+                    Lib.TalkativeLog(`-&-ERROR(d-bus proxy connected) - ${error.message}`);
+                else
+                    Lib.TalkativeLog('-&-d-bus proxy connected');
+            }
+        );
+    }
+
+    /**
      * start recording
      */
-    start: function () {
-        Lib.TalkativeLog('start video recording');
+    start() {
+        Lib.TalkativeLog('-&-start video recording');
         this.recordingActive = false;
 
-        //prepare variable for screencast
-        var fileRec = Pref.getOption('s', Pref.FILE_NAME_SETTING_KEY);
-        if (Pref.getOption('s', Pref.FILE_FOLDER_SETTING_KEY) !== '')
-            fileRec = Pref.getOption('s', Pref.FILE_FOLDER_SETTING_KEY) +
-            '/' + fileRec;
+        let fileExt = UtilGSP.getFileExtension(
+            Ext.Indicator.getSettings().getOption('i', Settings.FILE_CONTAINER_SETTING_KEY)
+        );
+        // prepare variable for screencast
+        let fileRec = Ext.Indicator.getSettings().getOption('s', Settings.FILE_NAME_SETTING_KEY);
+
+        let folderRec = '';
+        if (Ext.Indicator.getSettings().getOption('s', Settings.FILE_FOLDER_SETTING_KEY) !== '')
+            folderRec = Ext.Indicator.getSettings().getOption('s', Settings.FILE_FOLDER_SETTING_KEY);
 
         let pipelineRec = '';
 
-        if (Pref.getOption('b', Pref.ACTIVE_CUSTOM_GSP_SETTING_KEY)) {
-            pipelineRec = Pref.getOption('s', Pref.PIPELINE_REC_SETTING_KEY);
+        if (Ext.Indicator.getSettings().getOption('b', Settings.ACTIVE_CUSTOM_GSP_SETTING_KEY)) {
+            pipelineRec = Ext.Indicator.getSettings().getOption(
+                's',
+                Settings.PIPELINE_REC_SETTING_KEY
+            );
         } else {
-            let audioChoice = Pref.getOption(
-                'i', Pref.INPUT_AUDIO_SOURCE_SETTING_KEY);
-            if (audioChoice > 1) {
-                //custom audio source
-                var tmpGSP = Pref.getGSPstd(true);
-
-                //change device source
-                var re = /pulsesrc/gi;
-                var audiosource = this.CtrlAudio.getAudioSource();
-                if (audiosource.indexOf('output') !== -1) {
-                    audiosource += '.monitor';
-                }
-                var strReplace = 'pulsesrc device="' + audiosource + '"';
-
-                Lib.TalkativeLog('pipeline pre-audio:' + tmpGSP);
-
-                var audioPipeline = tmpGSP.replace(re, strReplace);
-                Lib.TalkativeLog('pipeline post-audio:' + audioPipeline);
-
-                pipelineRec = audioPipeline;
-            } else if (audioChoice === 1) {
-                //default audio source
-                pipelineRec = Pref.getGSPstd(true);
-            } else {
-                //no audio source
-                pipelineRec = Pref.getGSPstd(false);
-            }
+            // compose GSP
+            pipelineRec = UtilGSP.composeGSP(Ext.Indicator.getSettings(), Ext.Indicator.CtrlAudio);
         }
 
-        Lib.TalkativeLog('path/file template : ' + fileRec);
+        Lib.TalkativeLog(`-&-file template : ${fileRec}`);
+        fileRec = this._generateFileName(fileRec);
+        Lib.TalkativeLog(`-&-file final : ${fileRec}`);
+        const completeFileRecPath = folderRec !== ''
+            ? `${folderRec}/${fileRec}`
+            : fileRec;
+        Lib.TalkativeLog(`-&-file rec path complete : ${completeFileRecPath}${fileExt}`);
+
+        // prefix with a videoconvert element
+        // see DEFAULT_PIPELINE in https://gitlab.gnome.org/GNOME/gnome-shell/-/blob/main/js/dbusServices/screencast/screencastService.js#L26
+        // this videoconvert element was added always previously (< Gnome 40) and needs to be added now explicitly
+        // https://gitlab.gnome.org/GNOME/gnome-shell/-/commit/51bf7ec17617a9ed056dd563afdb98e17da07373
+        pipelineRec = `videoconvert chroma-mode=GST_VIDEO_CHROMA_MODE_NONE dither=GST_VIDEO_DITHER_NONE matrix-mode=GST_VIDEO_MATRIX_MODE_OUTPUT_ONLY n-threads=%T ! queue ! ${pipelineRec}`;
+        Lib.TalkativeLog(`-&-pipeline : pipeline: ${pipelineRec}`);
 
         var optionsRec = {
             'draw-cursor': new GLib.Variant(
-                'b', Pref.getOption('b', Pref.DRAW_CURSOR_SETTING_KEY)),
-            'framerate': new GLib.Variant(
-                'i', Pref.getOption('i', Pref.FPS_SETTING_KEY)),
-            'pipeline': new GLib.Variant(
-                's', pipelineRec)
+                'b',
+                Ext.Indicator.getSettings().getOption('b', Settings.DRAW_CURSOR_SETTING_KEY)
+            ),
+            framerate: new GLib.Variant(
+                'i',
+                Ext.Indicator.getSettings().getOption('i', Settings.FPS_SETTING_KEY)
+            ),
+            pipeline: new GLib.Variant('s', pipelineRec),
         };
 
-        if (Pref.getOption('i', Pref.AREA_SCREEN_SETTING_KEY) === 0) {
-            ScreenCastService.ScreencastRemote(fileRec, optionsRec,
-                Lang.bind(this, function (result, error) {
+        if (Ext.Indicator.getSettings().getOption('i', Settings.AREA_SCREEN_SETTING_KEY) === 0) {
+            this._screenCastService.ScreencastRemote(
+                completeFileRecPath,
+                optionsRec,
+                (result, error) => {
                     if (error) {
-                        Lib.TalkativeLog('ERROR(screencast execute) - ' + error.message);
-
-                        this.stop();
-                        Ext.Indicator.doRecResult(false);
-                    } else
-                        Lib.TalkativeLog('screencast execute - ' + result[0] + ' - ' + result[1]);
-
-                    Ext.Indicator.doRecResult(result[0], result[1]);
-                }));
-        } else {
-            ScreenCastService.ScreencastAreaRemote(Pref.getOption(
-                    'i', Pref.X_POS_SETTING_KEY), Pref.getOption(
-                    'i', Pref.Y_POS_SETTING_KEY), Pref.getOption(
-                    'i', Pref.WIDTH_SETTING_KEY), Pref.getOption(
-                    'i', Pref.HEIGHT_SETTING_KEY),
-                fileRec, optionsRec,
-                Lang.bind(this, function (result, error) {
-                    if (error) {
-                        Lib.TalkativeLog('ERROR(screencast execute) - ' + error.message);
+                        Lib.TalkativeLog(`-&-ERROR(screencast execute) - ${error.message}`);
 
                         this.stop();
                         Ext.Indicator.doRecResult(false);
                     } else {
-                        Lib.TalkativeLog('screencast execute - ' + result[0] + ' - ' + result[1]);
+                        Lib.TalkativeLog(`-&-screencast execute - ${result[0]} - ${result[1]}`);
 
-                        //draw area recording
-                        if (Pref.getOption(
-                                'b', Pref.SHOW_AREA_REC_SETTING_KEY)) {
-                            this.AreaSelected = new Selection.AreaRecording();
+                        let resultingFilePath = result[1];
+                        if (resultingFilePath.endsWith('.undefined')) {
+                            resultingFilePath = resultingFilePath.substring(0, resultingFilePath.length - '.undefined'.length);
+                            resultingFilePath = `${resultingFilePath}${fileExt}`;
                         }
+                        this._originalFilePath = result[1];
+                        this._filePathWithExtension = resultingFilePath;
 
-                        Ext.Indicator.doRecResult(result[0], result[1]);
+                        Ext.Indicator.doRecResult(result[0], resultingFilePath);
                     }
-                }));
-        }
-    },
-    /*
-     * Stop recording
-     */
-    stop: function () {
-        Lib.TalkativeLog('stop video recording');
-
-        ScreenCastService.StopScreencastRemote(Lang.bind(
-            this,
-            function (result, error) {
-                if (error) {
-                    Lib.TalkativeLog('ERROR(screencast stop) - ' + error.message);
-                    return false;
-                } else
-                    Lib.TalkativeLog('screencast stop - ' + result[0]);
-
-                //clear area recording
-                if (this.AreaSelected !== null &&
-                    this.AreaSelected.isVisible()) {
-                    this.AreaSelected.clearArea();
                 }
+            );
+        } else {
+            this._screenCastService.ScreencastAreaRemote(
+                Ext.Indicator.getSettings().getOption('i', Settings.X_POS_SETTING_KEY),
+                Ext.Indicator.getSettings().getOption('i', Settings.Y_POS_SETTING_KEY),
+                Ext.Indicator.getSettings().getOption('i', Settings.WIDTH_SETTING_KEY),
+                Ext.Indicator.getSettings().getOption('i', Settings.HEIGHT_SETTING_KEY),
+                completeFileRecPath,
+                optionsRec,
+                (result, error) => {
+                    if (error) {
+                        Lib.TalkativeLog(`-&-ERROR(screencast execute) - ${error.message}`);
 
-                return true;
-            }));
+                        this.stop();
+                        Ext.Indicator.doRecResult(false);
+                    } else {
+                        Lib.TalkativeLog(`-&-screencast execute - ${result[0]} - ${result[1]}`);
+
+                        // draw area recording
+                        if (Ext.Indicator.getSettings().getOption('b', Settings.SHOW_AREA_REC_SETTING_KEY))
+                            this.AreaSelected = new Selection.AreaRecording();
+
+                        let resultingFilePath = result[1];
+                        if (resultingFilePath.endsWith('.undefined')) {
+                            resultingFilePath = resultingFilePath.substring(0, resultingFilePath.length - '.undefined'.length);
+                            resultingFilePath = `${resultingFilePath}${fileExt}`;
+                        }
+                        this._originalFilePath = result[1];
+                        this._filePathWithExtension = resultingFilePath;
+
+                        Ext.Indicator.doRecResult(result[0], resultingFilePath);
+                    }
+                }
+            );
+        }
+    }
+
+    /**
+     * Stop recording
+     *
+     * @returns {boolean}
+     */
+    stop() {
+        Lib.TalkativeLog('-&-stop video recording');
+
+        this._screenCastService.StopScreencastRemote((result, error) => {
+            if (error) {
+                Lib.TalkativeLog(`-&-ERROR(screencast stop) - ${error.message}`);
+                return false;
+            } else {
+                Lib.TalkativeLog(`-&-screencast stop - ${result[0]}`);
+
+
+                // rename the file...
+                Lib.TalkativeLog(`-&-screencast: rename ${this._originalFilePath} to ${this._filePathWithExtension}`);
+                const sourceFile = Gio.File.new_for_path(this._originalFilePath);
+                const destFile = Gio.File.new_for_path(this._filePathWithExtension);
+                sourceFile.move(destFile, 0, null, null);
+            }
+
+            // clear area recording
+            if (this.AreaSelected !== null && this.AreaSelected.isVisible())
+                this.AreaSelected.clearArea();
+
+            return true;
+        });
+    }
+
+    // without file extension
+    _generateFileName(template) {
+        template = template.replaceAll('%d', '%0x').replaceAll('%t', '%0X');
+        const datetime = GLib.DateTime.new_now_local();
+        let result = datetime.format(template);
+        result = result.replaceAll(' ', '_'); // remove white space
+        result = result.replaceAll('/', '_'); // remove path separators
+        return result;
     }
 });

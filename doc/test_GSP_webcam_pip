@@ -1,0 +1,704 @@
+#################
+
+gst init & res
+
+#################
+
+//links
+https://developer.gnome.org/gstreamer/stable/
+https://developer.gnome.org/gst-plugins-libs/stable/
+https://developer.gnome.org/gstreamer-libs/stable/
+http://www.roojs.org/seed/gir-1.2-gtk-3.0/seed/Gst.html
+http://www.roojs.org/seed/gir-1.2-gtk-3.0/seed/GstVideo.html
+http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer-plugins/html/gstreamer-plugins-queue2.html
+http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer-plugins/html/gstreamer-plugins-queue.html
+http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer-plugins/html/gstreamer-plugins-tee.html
+http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gst-plugins-bad-plugins/html/gst-plugins-bad-plugins-compositor.html
+
+
+
+//videotest pattern
+gst-launch-1.0 videotestsrc pattern=snow ! ximagesink
+gst-launch-1.0 videotestsrc ! ximagesink
+gst-launch-1.0 -v videotestsrc pattern=snow ! video/x-raw,width=1280,height=720 ! autovideosink
+gst-launch-1.0 -v videotestsrc  ! video/x-raw,width=820,height=640 ! ximagesink
+gst-launch-1.0 -v videotestsrc ! video/x-raw,format=BGRx,width=640, height=360 ! ximagesink
+
+
+
+
+
+//list of video input
+for VIDEO_DEVICE in /dev/video* ; do echo ; echo ; echo $VIDEO_DEVICE ; echo ; v4l2-ctl --device=$VIDEO_DEVICE --list-inputs ; done
+
+
+//list of setting of video of webcam
+gst-launch-0.10 --gst-debug=v4l2src:3 v4l2src device=/dev/video0 ! fakesink 2>&1 | grep 'probed caps:'
+
+
+
+//list caps webcam
+probed caps: video/x-raw-yuv, format=(fourcc)YUY2, width=(int)1600, height=(int)1200, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 5/1 };
+video/x-raw-yuv, format=(fourcc)YUY2, width=(int)1280, height=(int)1024, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 15/2 };
+video/x-raw-yuv, format=(fourcc)YUY2, width=(int)1024, height=(int)768, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 12/1 };
+video/x-raw-yuv, format=(fourcc)YUY2, width=(int)800, height=(int)600, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 15/1 };
+video/x-raw-yuv, format=(fourcc)YUY2, width=(int)640, height=(int)480, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 };
+video/x-raw-yuv, format=(fourcc)YUY2, width=(int)352, height=(int)288, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 };
+video/x-raw-yuv, format=(fourcc)YUY2, width=(int)320, height=(int)240, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 };
+video/x-raw-yuv, format=(fourcc)YUY2, width=(int)176, height=(int)144, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 };
+video/x-raw-yuv, format=(fourcc)YUY2, width=(int)160, height=(int)120, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 };
+image/jpeg, width=(int)1600, height=(int)1200, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 12/1 };
+image/jpeg, width=(int)1280, height=(int)1024, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 15/1 };
+image/jpeg, width=(int)1024, height=(int)768, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 15/1 };
+image/jpeg, width=(int)800, height=(int)600, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 15/1 };
+image/jpeg, width=(int)640, height=(int)480, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 };
+image/jpeg, width=(int)352, height=(int)288, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 };
+image/jpeg, width=(int)320, height=(int)240, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 };
+image/jpeg, width=(int)176, height=(int)144, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 };
+image/jpeg, width=(int)160, height=(int)120, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 };
+video/x-raw-yuv, format=(fourcc)I420, width=(int)1600, height=(int)1200, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 12/1 };
+video/x-raw-yuv, format=(fourcc)I420, width=(int)1280, height=(int)1024, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 15/1 };
+video/x-raw-yuv, format=(fourcc)I420, width=(int)1024, height=(int)768, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 15/1 };
+video/x-raw-yuv, format=(fourcc)I420, width=(int)800, height=(int)600, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 15/1 };
+video/x-raw-yuv, format=(fourcc)I420, width=(int)640, height=(int)480, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 };
+video/x-raw-yuv, format=(fourcc)I420, width=(int)352, height=(int)288, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 };
+video/x-raw-yuv, format=(fourcc)I420, width=(int)320, height=(int)240, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 };
+video/x-raw-yuv, format=(fourcc)I420, width=(int)176, height=(int)144, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 };
+video/x-raw-yuv, format=(fourcc)I420, width=(int)160, height=(int)120, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 };
+video/x-raw-yuv, format=(fourcc)YV12, width=(int)1600, height=(int)1200, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 12/1 };
+video/x-raw-yuv, format=(fourcc)YV12, width=(int)1280, height=(int)1024, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 15/1 };
+video/x-raw-yuv, format=(fourcc)YV12, width=(int)1024, height=(int)768, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 15/1 };
+video/x-raw-yuv, format=(fourcc)YV12, width=(int)800, height=(int)600, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 15/1 };
+video/x-raw-yuv, format=(fourcc)YV12, width=(int)640, height=(int)480, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 };
+video/x-raw-yuv, format=(fourcc)YV12, width=(int)352, height=(int)288, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 };
+video/x-raw-yuv, format=(fourcc)YV12, width=(int)320, height=(int)240, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 };
+video/x-raw-yuv, format=(fourcc)YV12, width=(int)176, height=(int)144, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 };
+video/x-raw-yuv, format=(fourcc)YV12, width=(int)160, height=(int)120, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 };
+video/x-raw-rgb, bpp=(int)24, depth=(int)24, red_mask=(int)255, green_mask=(int)65280, blue_mask=(int)16711680, endianness=(int)4321, width=(int)1600, height=(int)1200, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 12/1 };
+video/x-raw-rgb, bpp=(int)24, depth=(int)24, red_mask=(int)255, green_mask=(int)65280, blue_mask=(int)16711680, endianness=(int)4321, width=(int)1280, height=(int)1024, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 15/1 };
+video/x-raw-rgb, bpp=(int)24, depth=(int)24, red_mask=(int)255, green_mask=(int)65280, blue_mask=(int)16711680, endianness=(int)4321, width=(int)1024, height=(int)768, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 15/1 };
+video/x-raw-rgb, bpp=(int)24, depth=(int)24, red_mask=(int)255, green_mask=(int)65280, blue_mask=(int)16711680, endianness=(int)4321, width=(int)800, height=(int)600, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 15/1 };
+video/x-raw-rgb, bpp=(int)24, depth=(int)24, red_mask=(int)255, green_mask=(int)65280, blue_mask=(int)16711680, endianness=(int)4321, width=(int)640, height=(int)480, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 };
+video/x-raw-rgb, bpp=(int)24, depth=(int)24, red_mask=(int)255, green_mask=(int)65280, blue_mask=(int)16711680, endianness=(int)4321, width=(int)352, height=(int)288, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 };
+video/x-raw-rgb, bpp=(int)24, depth=(int)24, red_mask=(int)255, green_mask=(int)65280, blue_mask=(int)16711680, endianness=(int)4321, width=(int)320, height=(int)240, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 };
+video/x-raw-rgb, bpp=(int)24, depth=(int)24, red_mask=(int)255, green_mask=(int)65280, blue_mask=(int)16711680, endianness=(int)4321, width=(int)176, height=(int)144, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 };
+video/x-raw-rgb, bpp=(int)24, depth=(int)24, red_mask=(int)255, green_mask=(int)65280, blue_mask=(int)16711680, endianness=(int)4321, width=(int)160, height=(int)120, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 };
+video/x-raw-rgb, bpp=(int)24, depth=(int)24, red_mask=(int)16711680, green_mask=(int)65280, blue_mask=(int)255, endianness=(int)4321, width=(int)1600, height=(int)1200, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 12/1 };
+video/x-raw-rgb, bpp=(int)24, depth=(int)24, red_mask=(int)16711680, green_mask=(int)65280, blue_mask=(int)255, endianness=(int)4321, width=(int)1280, height=(int)1024, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 15/1 };
+video/x-raw-rgb, bpp=(int)24, depth=(int)24, red_mask=(int)16711680, green_mask=(int)65280, blue_mask=(int)255, endianness=(int)4321, width=(int)1024, height=(int)768, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 15/1 };
+video/x-raw-rgb, bpp=(int)24, depth=(int)24, red_mask=(int)16711680, green_mask=(int)65280, blue_mask=(int)255, endianness=(int)4321, width=(int)800, height=(int)600, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 15/1 };
+video/x-raw-rgb, bpp=(int)24, depth=(int)24, red_mask=(int)16711680, green_mask=(int)65280, blue_mask=(int)255, endianness=(int)4321, width=(int)640, height=(int)480, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 };
+video/x-raw-rgb, bpp=(int)24, depth=(int)24, red_mask=(int)16711680, green_mask=(int)65280, blue_mask=(int)255, endianness=(int)4321, width=(int)352, height=(int)288, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 };
+video/x-raw-rgb, bpp=(int)24, depth=(int)24, red_mask=(int)16711680, green_mask=(int)65280, blue_mask=(int)255, endianness=(int)4321, width=(int)320, height=(int)240, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 };
+video/x-raw-rgb, bpp=(int)24, depth=(int)24, red_mask=(int)16711680, green_mask=(int)65280, blue_mask=(int)255, endianness=(int)4321, width=(int)176, height=(int)144, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 };
+video/x-raw-rgb, bpp=(int)24, depth=(int)24, red_mask=(int)16711680, green_mask=(int)65280, blue_mask=(int)255, endianness=(int)4321, width=(int)160, height=(int)120, interlaced=(boolean)false, pixel-aspect-ratio=(fraction)1/1, framerate=(fraction){ 30/1 }
+
+-------------------------------------------------------------------------------
+
+@@@ extesion pipeline NO SOUND @@@
+videoscale ! video/x-raw, width=1920, height=1080, framerate=30/1 , add-borders=true ! vp9enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! webmmux
+
+@@@ extesion pipeline WITH SOUND@@@
+queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 \
+! videoscale \
+! video/x-raw, width=1920, height=1080, framerate=30/1 , add-borders=true  \
+! vp8enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T \
+! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 \
+! mux. pulsesrc \
+! audioconvert \
+! vorbisenc \
+! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0  \
+! mux. webmmux name=mux
+
+@@@ extesion pipeline WITH SOUND AND WEBCAM @@@
+queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 \
+! videomixer name=mix \
+! videoconvert \
+! videoscale \
+! video/x-raw, width=1920, height=1080, framerate=30/1 , add-borders=true  \
+! vp8enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T \
+! mux. v4l2src do-timestamp=true \
+! video/x-raw,format=YUY2,width=320, height=240, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 \
+! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 \
+! mix. pulsesrc \
+! audioconvert \
+! vorbisenc \
+! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 \
+! mux. webmmux name=mux
+
+
+-------------------------------------------------------------------------------
+
+#################
+
+gst 1.0
+
+#################
+
+//test
+gst-launch-1.0 -v videotestsrc pattern="snow"  ! video/x-raw,format=YUY2 ! videoconvert ! autovideosink
+
+
+//pip
+gst-launch-1.0  videotestsrc ! video/x-raw,format=AYUV,framerate=5/1,width=320,height=240 ! videomixer name=mix sink_0::alpha=0.7 sink_1::alpha=0.5 ! videoconvert ! xvimagesink videotestsrc pattern=2 ! video/x-raw,format=AYUV,framerate=\(fraction\)10/1,width=100,height=100 ! videobox border-alpha=0 top=-70  bottom=-70 right=-220 ! mix.
+
+
+//pip2
+gst-launch-1.0 videotestsrc pattern=1 ! video/x-raw, framerate=10/1, width=200, height=200 ! videomixer name=mix ! videoconvert ! ximagesink videotestsrc ! video/x-raw, framerate=5/1, width=100, height=100 ! mix.
+
+
+//pip3
+gst-launch-1.0  videotestsrc ! video/x-raw,format=I420, framerate=5/1, width=320, height=240 ! videomixer name=mix ! videoconvert ! ximagesink videotestsrc pattern=1 ! video/x-raw,format =I420, framerate=10/1, width=100, height=100 ! mix.
+
+
+//pip 4
+gst-launch-1.0 videomixer name=mixer sink_1::alpha=0.5 sink_1::xpos=50 sink_1::ypos=50 ! videoconvert ! ximagesink videotestsrc pattern=smpte ! "video/x-raw,format=AYUV,width=800,height=600,framerate=10/1" ! timeoverlay ! queue2 ! mixer. videotestsrc pattern=snow timestamp-offset=3000000000 ! "video/x-raw,format=AYUV,width=640,height=480,framerate=30/1" ! timeoverlay ! queue2 ! mixer.
+
+
+
+// webcam
+gst-launch-1.0 -v v4l2src  ! video/x-raw,format=YUY2,width=640, height=480, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 ! videoconvert ! xvimagesink
+
+//webcam into test pattern
+gst-launch-1.0 -v videotestsrc ! video/x-raw, format=YUY2, framerate=10/1, width=940, height=600 ! videoconvert ! videomixer name=mix !  xvimagesink  v4l2src ! video/x-raw,format=YUY2,width=640, height=480, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 ! videoconvert ! mix.
+
+
+// webcam to file AVI
+gst-launch-1.0 v4l2src do-timestamp=true ! video/x-raw,format=YUY2,width=640, height=480, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 ! avimux ! filesink location=test-webcam.avi
+
+// webcam to file WEBM
+gst-launch-1.0 --gst-debug=3 \
+v4l2src do-timestamp=true ! video/x-raw,format=YUY2,width=640, height=480, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 \
+! videoconvert ! queue ! videorate ! vp8enc  min_quantizer=10 max_quantizer=10 cpu-used=2 deadline=1000000  threads=2 \
+! queue ! mux. pulsesrc \
+! queue ! audioconvert ! vorbisenc \
+! queue ! mux. webmmux name=mux \
+! filesink location=screencast.webm
+
+// test pattern SNOW to file WEBM
+gst-launch-1.0 -v videotestsrc pattern="snow"  ! video/x-raw,format=YUY2 !  videoconvert ! queue ! videorate ! vp8enc  min_quantizer=10 max_quantizer=10 cpu-used=2 deadline=1000000  threads=2 ! queue ! mux. pulsesrc ! queue !  audioconvert ! vorbisenc ! queue ! mux. webmmux name=mux ! filesink location=screencastSNOW.webm
+
+// webcam into test pattern to file WEBM
+gst-launch-1.0  --gst-debug=3 \
+videotestsrc \
+! video/x-raw,format=AYUV,framerate=5/1,width=920,height=640 \
+! videomixer name=mix \
+! videoconvert \
+! queue \
+! videorate \
+! vp8enc  min_quantizer=10 max_quantizer=10 cpu-used=2 deadline=1000000  threads=2 \
+! queue \
+! mux. pulsesrc \
+! queue \
+! audioconvert \
+! vorbisenc \
+! queue \
+! mux. webmmux name=mux \
+! filesink location=screencast.webm v4l2src do-timestamp=true \
+! video/x-raw,format=YUY2,width=640, height=480, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 \
+! mix.
+
+
+// webcam into test pattern to file WEBM [fixed position] <- BAD
+gst-launch-1.0  --gst-debug=3 \
+videomixer name=mix \
+! videoconvert \
+! queue \
+! videorate \
+! vp8enc  min_quantizer=10 max_quantizer=10 cpu-used=2 deadline=1000000  threads=2 \
+! queue \
+! mux. pulsesrc \
+! queue \
+! audioconvert \
+! vorbisenc \
+! queue \
+! mux. webmmux name=mux \
+! filesink location=screencast.webm videotestsrc \
+! video/x-raw,format=AYUV,framerate=5/1,width=920,height=640 \
+! mix. v4l2src do-timestamp=true \
+! video/x-raw,format=YUY2,width=640, height=480, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 \
+! videobox border-alpha=0 top=-20 left=-25 \
+! mix.
+
+// webcam into screencast to file WEBM [fixed position] <- BAD PERFORMANCE
+gst-launch-1.0  --gst-debug=3 \
+videomixer name=mix sink_0::alpha=0.7 sink_1::alpha=0.5\
+! videoconvert \
+! queue \
+! videorate \
+! vp8enc  min_quantizer=10 max_quantizer=10 cpu-used=2 deadline=1000000  threads=2 \
+! queue \
+! mux. pulsesrc \
+! queue \
+! audioconvert \
+! vorbisenc \
+! queue \
+! mux. webmmux name=mux \
+! filesink location=screencast.webm ximagesrc \
+! mix. v4l2src do-timestamp=true \
+! video/x-raw,format=YUY2,width=640, height=480, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 \
+! videobox border-alpha=0 top=-20 left=-25 \
+! mix.
+
+
+
+// webcam into screencast to file WEBM [fixed position] <- BAD PERFORMANCE
+gst-launch-1.0  --gst-debug=3 \
+videomixer name=mix sink_1::alpha=0.5 sink_1::xpos=50 sink_1::ypos=50 \
+! videoconvert \
+! queue \
+! videorate \
+! vp8enc  min_quantizer=10 max_quantizer=10 cpu-used=2 deadline=1000000  threads=2 \
+! queue \
+! mux. pulsesrc \
+! queue \
+! audioconvert \
+! vorbisenc \
+! queue \
+! mux. webmmux name=mux \
+! filesink location=screencast.webm ximagesrc \
+! mix. v4l2src do-timestamp=true \
+! video/x-raw,format=YUY2,width=640, height=480, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 \
+! videobox border-alpha=0 top=-20 left=-25 \
+! mix.
+
+
+// webcam into screencast to file WEBM [fixed position] <- COMPOSITOR better performance
+gst-launch-1.0  --gst-debug=3 \
+compositor name=comp sink_1::alpha=0.5 sink_1::xpos=50 sink_1::ypos=50 \
+! videoconvert \
+! queue \
+! videorate \
+! vp8enc  min_quantizer=13 max_quantizer=13 cpu-used=2 deadline=1000000  threads=2 \
+! queue \
+! mux. pulsesrc \
+! queue \
+! audioconvert \
+! vorbisenc \
+! queue \
+! mux. webmmux name=mux \
+! filesink location=screencast.webm ximagesrc \
+! queue \
+! comp. v4l2src \
+! queue \
+! video/x-raw,format=YUY2,width=160, height=120, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 \
+! videobox border-alpha=0 top=-20 left=-25 \
+! comp.
+
+
+// webcam into screencast to file WEBM <- COMPOSITOR
+gst-launch-1.0  --gst-debug=3 \
+compositor name=comp \
+! videoconvert \
+! queue min-threshold-time=10000000000 max-size-time=30000000000 \
+! videorate \
+! vp8enc  min_quantizer=10 max_quantizer=10 cpu-used=2 deadline=1000000  threads=2 \
+! queue min-threshold-time=10000000000 max-size-time=30000000000 \
+! mux. pulsesrc \
+! queue min-threshold-time=10000000000 max-size-time=30000000000 \
+! audioconvert \
+! vorbisenc \
+! queue min-threshold-time=10000000000 max-size-time=30000000000 \
+! mux. webmmux name=mux \
+! filesink location=screencast.webm ximagesrc \
+! queue min-threshold-time=10000000000 max-size-time=30000000000 \
+! comp. v4l2src \
+! queue min-threshold-time=10000000000 max-size-time=30000000000 \
+! video/x-raw,format=YUY2,width=640, height=480, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 \
+! comp.
+
+
+// webcam into screencast to file WEBM <- COMPOSITOR & queue2
+gst-launch-1.0  --gst-debug=3 \
+compositor name=comp \
+! queue2 \
+! videoconvert \
+! vp8enc  min_quantizer=10 max_quantizer=10 cpu-used=2 deadline=1000000  threads=2 \
+! mux. pulsesrc \
+! queue2 \
+! audioconvert \
+! vorbisenc \
+! mux. webmmux name=mux \
+! filesink location=screencast.webm ximagesrc \
+! comp. v4l2src \
+! queue2 \
+! video/x-raw,format=YUY2,width=640, height=480, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 \
+! comp.
+
+
+// webcam into screencast to file WEBM <- new composition
+gst-launch-1.0  --gst-debug=3 \
+compositor name=comp \
+! queue \
+! videoconvert \
+! videorate \
+! vp8enc  min_quantizer=13 max_quantizer=13 cpu-used=2 deadline=1000000  threads=2 \
+! mux. pulsesrc \
+! queue \
+! audioconvert \
+! vorbisenc \
+! mux. webmmux name=mux \
+! filesink location=screencast.webm ximagesrc \
+! queue \
+! comp. v4l2src \
+! video/x-raw,format=YUY2,width=640, height=480, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 \
+! comp.
+
+
+//GOOD incemption -> screencast into screencast into screencast into sc....
+gst-launch-1.0  --gst-debug=3 ximagesrc \
+! videoscale \
+! video/x-raw,width=640,height=480,framerate=10/1 \
+! videoconvert \
+! xvimagesink
+
+
+###########################################
+// WEBM - VP8 - DESKTOP RECORDING QUALITY 1
+gst-launch-1.0  --gst-debug=3 \
+ximagesrc \
+! videoconvert \
+! vp8enc min_quantizer=13 max_quantizer=20 cpu-used=5 deadline=1000000 sharpness=2 target-bitrate=10000 threads=5 \
+! webmmux name=mux \
+! filesink location=scr.webm
+
+// WEBM - VP8 - DESKTOP RECORDING QUALITY 2
+gst-launch-1.0  --gst-debug=3 \
+ximagesrc \
+! videoconvert \
+! vp8enc min_quantizer=4 max_quantizer=13 cpu-used=2 deadline=500000 sharpness=0 target-bitrate=15000 threads=5  \
+! webmmux name=mux \
+! filesink location=scr.webm
+
+// WEBM - VP8 - DESKTOP RECORDING QUALITY 3
+gst-launch-1.0  --gst-debug=3 \
+ximagesrc \
+! videoconvert \
+! vp8enc min_quantizer=0 max_quantizer=7 cpu-used=1 deadline=500000 sharpness=0 target-bitrate=25000 threads=5  \
+! webmmux name=mux \
+! filesink location=scr.webm
+
+// WEBM - VP8 - DESKTOP RECORDING QUALITY 4
+gst-launch-1.0  --gst-debug=3 \
+ximagesrc \
+! videoconvert \
+! vp8enc min_quantizer=0 max_quantizer=0 cpu-used=0 deadline=100000 sharpness=0 target-bitrate=40000 threads=5  \
+! webmmux name=mux \
+! filesink location=scr.webm
+
+###########################################
+// MKV - X264 - DESKTOP RECORDING QUALITY 1
+gst-launch-1.0  --gst-debug=3 \
+ximagesrc \
+! videoconvert \
+! x264enc tune="fastdecode" speed-preset="superfast" subme=1 qp-min=28 qp-max=40 \
+! mp4mux name=mux \
+! filesink location=scr.mp4
+
+// MKV - X264 - DESKTOP RECORDING QUALITY 2
+gst-launch-1.0  --gst-debug=3 \
+ximagesrc \
+! videoconvert \
+! x264enc tune="animation" speed-preset="fast" subme=5 qp-min=18 qp-max=28 \
+! mp4mux name=mux \
+! filesink location=scr.mp4
+
+// MKV - X264 - DESKTOP RECORDING QUALITY 3
+gst-launch-1.0  --gst-debug=3 \
+ximagesrc \
+! videoconvert \
+! x264enc tune="animation" speed-preset="medium" subme=8 qp-min=10 qp-max=18 \
+! mp4mux name=mux \
+! filesink location=scr.mp4
+
+// MKV - X264 - DESKTOP RECORDING QUALITY 4
+gst-launch-1.0  --gst-debug=3 \
+ximagesrc \
+! videoconvert \
+! x264enc tune="animation" speed-preset="slower" subme=10 qp-min=0 qp-max=10 \
+! mp4mux name=mux \
+! filesink location=scr.mp4
+
+###########################################
+// OGG - THEORA - DESKTOP RECORDING QUALITY 1
+gst-launch-1.0  --gst-debug=3 \
+ximagesrc \
+! videoconvert \
+! theoraenc speed-level=3 vp3-compatible=true quality=10 bitrate=10000 \
+! oggmux name=mux \
+! filesink location=scr.ogg
+
+// OGG - THEORA - DESKTOP RECORDING QUALITY 2
+gst-launch-1.0  --gst-debug=3 \
+ximagesrc \
+! videoconvert \
+! theoraenc speed-level=1 vp3-compatible=false quality=30 bitrate=25000 \
+! oggmux name=mux \
+! filesink location=scr.ogg
+
+// OGG - THEORA - DESKTOP RECORDING QUALITY 3
+gst-launch-1.0  --gst-debug=3 \
+ximagesrc \
+! videoconvert \
+! theoraenc speed-level=0 vp3-compatible=false quality=50 bitrate=50000 \
+! oggmux name=mux \
+! filesink location=scr.ogg
+
+// OGG - THEORA - DESKTOP RECORDING QUALITY 4
+gst-launch-1.0  --gst-debug=3 \
+ximagesrc \
+! videoconvert \
+! theoraenc speed-level=0 vp3-compatible=false quality=60 bitrate=100000 \
+! oggmux name=mux \
+! filesink location=scr.ogg
+
+
+
+
+
+
+//ONLY DESKTOP RECORDING
+gst-launch-1.0  --gst-debug=3 \
+ximagesrc \
+! videoconvert \
+! videoscale \
+! video/x-raw, width=1920, height=1080, framerate=30/1 , add-borders=true \
+! vp8enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=5  \
+! webmmux name=mux \
+! filesink location=screencast.webm
+
+
+
+//DESKTOP RECORDING WITH AUDIO
+gst-launch-1.0  --gst-debug=3 \
+ximagesrc \
+! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0  \
+! videoconvert \
+! vp8enc min_quantizer=4 max_quantizer=13 cpu-used=2 deadline=500000 sharpness=0 target-bitrate=15000 threads=2  \
+! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0  \
+! mux. pulsesrc  \
+! audioconvert  \
+! vorbisenc  \
+! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0  \
+! mux. webmmux name=mux \
+! filesink location=screencast.webm
+
+
+
+//ONLY WEBCAM RECORDING
+gst-launch-1.0  --gst-debug=3 \
+v4l2src do-timestamp=true \
+! video/x-raw,format=YUY2,width=160, height=120, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 \
+! videoconvert \
+! videoscale \
+! video/x-raw, width=1920, height=1080, framerate=30/1 , add-borders=true \
+! vp8enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=5  \
+! webmmux name=mux \
+! filesink location=screencast.webm
+
+
+
+//DESKTOP RECORDING WITH WEBCAM WITH SOUND
+gst-launch-1.0  --gst-debug=3 \
+ximagesrc \
+! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 \
+! videomixer name=mix \
+! videoconvert \
+! videorate \
+! vp8enc  min_quantizer=10 max_quantizer=10 cpu-used=2 deadline=1000000  threads=2 \
+! mux. pulsesrc \
+! audioconvert \
+! vorbisenc \
+! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 \
+! mux. webmmux name=mux \
+! filesink location=screencast.webm v4l2src do-timestamp=true \
+! video/x-raw,format=YUY2,width=640, height=480, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 \
+! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 \
+! mix.
+
+//convert to esc
+queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! videomixer name=mix ! videoconvert ! videorate ! vp8enc  min_quantizer=10 max_quantizer=10 cpu-used=2 deadline=1000000  threads=2 ! mux. pulsesrc ! audioconvert ! vorbisenc ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mux. webmmux name=mux ! filesink location=screencast.webm v4l2src do-timestamp=true ! video/x-raw,format=YUY2,width=640, height=480, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mix.
+
+
+//DESKTOP RECORDING WITH WEBCAM WITH SOUND - 2
+gst-launch-1.0  --gst-debug=3 \
+ximagesrc \
+! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 \
+! videomixer name=mix \
+! videoconvert \
+! videoscale \
+! video/x-raw, width=1920, height=1080, framerate=30/1 , add-borders=true \
+! vp8enc  min_quantizer=10 max_quantizer=10 cpu-used=2 deadline=1000000  threads=2 \
+! mux. v4l2src do-timestamp=true \
+! video/x-raw,format=YUY2,width=640, height=480, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 \
+! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 \
+! mix. pulsesrc \
+! audioconvert \
+! vorbisenc \
+! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 \
+! mux. webmmux name=mux \
+! filesink location=screencast.webm
+
+
+//convert to esc
+queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! videomixer name=mix  ! videoconvert ! videoscale ! video/x-raw, width=1920, height=1080, framerate=30/1 , add-borders=true ! vp8enc  min_quantizer=10 max_quantizer=10 cpu-used=2 deadline=1000000  threads=2 ! mux. v4l2src do-timestamp=true !  video/x-raw,format=YUY2,width=640, height=480, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mix. pulsesrc ! audioconvert ! vorbisenc ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mux. webmmux name=mux
+
+
+//DESKTOP RECORDING WITH WEBCAM NO SOUND
+gst-launch-1.0  --gst-debug=3 \
+ximagesrc \
+! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 \
+! videomixer name=mix \
+! videoconvert \
+! videoscale \
+! video/x-raw, width=1920, height=1080, framerate=30/1 , add-borders=true \
+! vp8enc  min_quantizer=10 max_quantizer=10 cpu-used=2 deadline=1000000  threads=2 \
+! mux. v4l2src do-timestamp=true \
+! video/x-raw,format=YUY2,width=640, height=480, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 \
+! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 \
+! mix. webmmux name=mux
+
+
+//convert to esc
+queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! videomixer name=mix  ! videoconvert ! videoscale ! video/x-raw, width=1920, height=1080, framerate=30/1 , add-borders=true ! vp8enc  min_quantizer=10 max_quantizer=10 cpu-used=2 deadline=1000000  threads=2 ! mux. v4l2src do-timestamp=true ! video/x-raw,format=YUY2,width=640, height=480, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mix. webmmux name=mux
+
+
+//DESKTOP RECORDING WITH WEBCAM INTO VIDEOBOX WITH SOUND
+gst-launch-1.0  --gst-debug=3 \
+ximagesrc \
+! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 \
+! videomixer name=mix \
+! videoconvert \
+! videoscale \
+! video/x-raw, width=1920, height=1080, framerate=30/1 , add-borders=true  \
+! vp8enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=2 \
+! mux. v4l2src do-timestamp=true \
+! video/x-raw,format=YUY2,width=320, height=240, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 \
+! videobox border-alpha=0.5 top=-50 left=-80 \
+! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 \
+! mix. pulsesrc \
+! audioconvert \
+! vorbisenc \
+! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 \
+! mux. webmmux name=mux
+
+
+//convert to ESC
+queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! videomixer name=mix ! videoconvert ! videoscale ! video/x-raw, width=1920, height=1080, framerate=30/1 , add-borders=true  ! vp8enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=%T ! mux. v4l2src do-timestamp=true ! video/x-raw,format=YUY2,width=320, height=240, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 ! videobox border-alpha=0.5 top=-50 left=-80 ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mix. pulsesrc ! audioconvert ! vorbisenc ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mux. webmmux name=mux
+
+
+//DESKTOP RECORDING WITH WEBCAM INTO VIDEOMIXER OPTION WITH SOUND
+gst-launch-1.0  --gst-debug=3 \
+ximagesrc \
+! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 \
+! videomixer name=mix sink_0::alpha=1 sink_1::alpha=0.5 sink_1::xpos=30 sink_1::ypos=30 \
+! videoconvert \
+! videoscale \
+! video/x-raw, width=1920, height=1080, framerate=30/1 , add-borders=true  \
+! vp8enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=2 \
+! mux. v4l2src do-timestamp=true \
+! video/x-raw,format=YUY2,width=320, height=240, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 \
+! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 \
+! mix. pulsesrc \
+! audioconvert \
+! vorbisenc \
+! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 \
+! mux. webmmux name=mux
+
+
+//convert to ESC
+queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! videomixer name=mix sink_0::alpha=1 sink_1::alpha=0.5 sink_1::xpos=30 sink_1::ypos=30 ! videoconvert ! videoscale ! video/x-raw, width=1920, height=1080, framerate=30/1 , add-borders=true ! vp8enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=2 ! mux. v4l2src do-timestamp=true ! video/x-raw,format=YUY2,width=320, height=240, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mix. pulsesrc ! audioconvert ! vorbisenc ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mux. webmmux name=mux
+
+
+//DESKTOP RECORDING WITH WEBCAM INTO VIDEOMIXER OPTION AND SCALE WITH SOUND
+gst-launch-1.0  --gst-debug=3 \
+ximagesrc \
+! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 \
+! videomixer name=mix sink_0::alpha=1 sink_1::alpha=0.5 sink_1::xpos=30 sink_1::ypos=30 \
+! videoconvert \
+! videoscale \
+! video/x-raw, width=1920, height=1080, framerate=30/1 , add-borders=true  \
+! vp8enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=2 \
+! mux. v4l2src do-timestamp=true \
+! video/x-raw,format=YUY2,width=320, height=240, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 \
+! videoscale \
+! video/x-raw, width=250, height=300, framerate=30/1 , add-borders=false  \
+! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 \
+! mix. pulsesrc \
+! audioconvert \
+! vorbisenc \
+! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 \
+! mux. webmmux name=mux
+
+
+//convert to ESC
+queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! videomixer name=mix sink_0::alpha=1 sink_1::alpha=0.5 sink_1::xpos=30 sink_1::ypos=30 ! videoconvert ! videoscale ! video/x-raw, width=1920, height=1080,  add-borders=true ! vp8enc min_quantizer=13 max_quantizer=13 cpu-used=5 deadline=1000000 threads=2 ! mux. v4l2src do-timestamp=true ! video/x-raw,format=YUY2,width=320, height=240, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 ! videoscale ! video/x-raw, width=250, height=300, add-borders=false ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mix. pulsesrc ! audioconvert ! vorbisenc ! queue max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! mux. webmmux name=mux
+
+
+#################
+
+gst 0.1
+
+#################
+
+
+//test video
+gst-launch-0.10 videotestsrc ! video/x-raw-rgb, framerate=25/1, width=640, height=360 ! ximagesink
+
+//test pip
+gst-launch-0.10 -e videotestsrc pattern="snow" ! video/x-raw-yuv, framerate=10/1, width=200, height=150 ! videomixer name=mix ! ffmpegcolorspace ! xvimagesink videotestsrc ! video/x-raw-yuv, framerate=10/1, width=640, height=360 ! mix.
+
+//test pip2
+gst-launch-0.10 videotestsrc pattern="snow" ! video/x-raw-yuv, framerate=10/1, width=200, height=150 ! videomixer name=mix sink_1::xpos=20 sink_1::ypos=20 sink_1::alpha=0.5 sink_1::zorder=3 sink_2::xpos=100 sink_2::ypos=100 sink_2::zorder=2 ! ffmpegcolorspace ! xvimagesink videotestsrc pattern=13 ! video/x-raw-yuv, framerate=10/1, width=200, height=150 ! mix. videotestsrc ! video/x-raw-yuv, framerate=10/1, width=640, height=360 ! mix.
+
+//test pip3
+gst-launch-0.10 videomixer name=mix sink_1::xpos=20 sink_1::ypos=20 sink_1::alpha=0.5 sink_1::zorder=3 sink_2::xpos=100 sink_2::ypos=100 sink_2::zorder=2 ! ffmpegcolorspace ! xvimagesink videotestsrc ! video/x-raw-yuv, framerate=10/1, width=640, height=360 ! mix.sink_0 videotestsrc pattern="snow" ! video/x-raw-yuv, framerate=10/1, width=200, height=150 ! mix.sink_1 videotestsrc pattern=13 ! video/x-raw-yuv, framerate=10/1, width=200, height=150 ! mix.sink_2
+
+//test videobox border
+gst-launch-0.10 -e videotestsrc pattern="snow" ! video/x-raw-yuv, framerate=10/1, width=200, height=150 ! videobox border-alpha=0 top=-20 left=-25 ! videomixer name=mix ! ffmpegcolorspace ! xvimagesink videotestsrc ! video/x-raw-yuv, framerate=10/1, width=640, height=360 ! mix.
+
+//test videobox 2 content semitrasparent
+gst-launch-0.10 -e videotestsrc pattern="snow" ! video/x-raw-yuv, framerate=10/1, width=200, height=150 ! videobox border-alpha=0 alpha=0.6 top=-20 left=-25 ! videomixer name=mix ! ffmpegcolorspace ! xvimagesink videotestsrc ! video/x-raw-yuv, framerate=10/1, width=640, height=360 ! mix.
+
+//test video box 3 border with border
+gst-launch-0.10 -e videotestsrc pattern="snow" ! video/x-raw-yuv, framerate=10/1, width=200, height=150 ! videobox border-alpha=1.0 top=-2 bottom=-2 left=-2 right=-2 ! videobox border-alpha=0 alpha=0.6 top=-20 left=-25 ! videomixer name=mix ! ffmpegcolorspace ! xvimagesink videotestsrc ! video/x-raw-yuv, framerate=10/1, width=640, height=360 ! mix.
+
+//test 4 five streams
+gst-launch-0.10 -e videomixer name=mix ! ffmpegcolorspace ! xvimagesink videotestsrc pattern=1 ! video/x-raw-yuv, framerate=5/1, width=320, height=180 ! videobox border-alpha=0 top=0 left=0 ! mix. videotestsrc pattern=15 ! video/x-raw-yuv, framerate=5/1, width=320, height=180 ! videobox border-alpha=0 top=0 left=-320 ! mix. videotestsrc pattern=13 ! video/x-raw-yuv, framerate=5/1, width=320, height=180 ! videobox border-alpha=0 top=-180 left=0 ! mix. videotestsrc pattern=0 ! video/x-raw-yuv, framerate=5/1, width=320, height=180 ! videobox border-alpha=0 top=-180 left=-320 ! mix. videotestsrc pattern=3 ! video/x-raw-yuv, framerate=5/1, width=640, height=360 ! mix.
+
+
+
+//text overlay
+gst-launch-0.10 videotestsrc ! timeoverlay ! xvimagesink
+
+//text overlay 2
+gst-launch-0.10 -v videotestsrc ! video/x-raw-yuv, framerate=25/1, width=640, height=360 ! timeoverlay halign=left valign=bottom text="Stream time:" shaded-background=true ! xvimagesink
+
+//text overlay 3
+gst-launch-0.10 videotestsrc ! clockoverlay ! xvimagesink
+
+//text overlay 4
+gst-launch-0.10 videotestsrc ! clockoverlay halign=right valign=bottom shaded-background=true time-format="%Y.%m.%D" ! ffmpegcolorspace ! ximagesink
+
+
+
+
+//webcam
+gst-launch-0.10 v4l2src ! xvimagesink
+
+//webcam 2
+gst-launch-0.10 v4l2src ! videorate ! video/x-raw-yuv,width=320,height=240,framerate=20/1 ! xvimagesink
+
+//webcam 3
+gst-launch-0.10 v4l2src ! videorate ! video/x-raw-yuv, format=\(fourcc\)YUY2, width=160, height=120, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 ! xvimagesink
+
+//webcam 4
+gst-launch-0.10 v4l2src ! videorate ! video/x-raw-yuv,width=320,height=240,framerate=20/1 ! aspectratiocrop aspect-ratio=16/9 ! ffmpegcolorspace ! xvimagesink
+
+//webcam 5
+gst-launch-0.10 v4l2src ! video/x-raw-yuv, format=\(fourcc\)YUY2, width=160, height=120, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 ! aspectratiocrop aspect-ratio=16/9 ! ffmpegcolorspace ! xvimagesink
+
+
+
+//webcam into test pattern
+gst-launch-0.10 -e v4l2src ! videorate ! video/x-raw-yuv, format=\(fourcc\)YUY2, width=160, height=120, interlaced=false, pixel-aspect-ratio=1/1, framerate=30/1 ! ffmpegcolorspace ! videomixer name=mix ! xvimagesink videotestsrc ! video/x-raw-yuv, framerate=10/1, width=640, height=360 ! mix.

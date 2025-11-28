@@ -1,0 +1,10 @@
+locale/*.mo
+*~
+
+# IDE files
+.idea/
+
+node_modules/
+
+# some temporary space
+ignore/

@@ -1,0 +1,24 @@
+# SPDX-FileCopyrightText: 2019 Florian Müllner <fmuellner@gnome.org>
+#
+# SPDX-License-Identifier: MIT OR LGPL-2.0-or-later
+
+rules:
+  camelcase:
+    - error
+    - properties: never
+      allow: [^vfunc_, ^on_]
+  consistent-return: error
+  eqeqeq:
+    - error
+    - smart
+  prefer-arrow-callback: error
+  jsdoc/require-param-description: off
+  jsdoc/require-jsdoc:
+    - error
+    - exemptEmptyFunctions: true
+      publicOnly:
+        esm: true
+globals:
+  global: readonly
+parserOptions:
+  sourceType: module
