@@ -28,11 +28,4 @@ export const DisplayApi = {
     display_geometry_for_index(displayIndex) {
         return this._display().get_monitor_geometry(displayIndex);
     },
-
-    /**
-     * @param {Meta.Cursor} cursor the new cursor to set
-     */
-    set_cursor(cursor) {
-        this._display().set_cursor(cursor);
-    },
 };
