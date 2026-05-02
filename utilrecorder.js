@@ -191,7 +191,7 @@ export const CaptureVideo = GObject.registerClass({
      *
      * @returns {boolean}
      */
-    stop() {
+    stop(callback) {
         Lib.TalkativeLog('-&-stop video recording');
 
         this._screenCastService.StopScreencastRemote((result, error) => {
@@ -213,6 +213,9 @@ export const CaptureVideo = GObject.registerClass({
             if (this.AreaSelected !== null && this.AreaSelected.isVisible())
                 this.AreaSelected.clearArea();
 
+            if (callback) {
+                callback();
+            }
             return true;
         });
     }

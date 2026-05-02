@@ -713,16 +713,16 @@ const EasyScreenCastIndicator = GObject.registerClass({
             Lib.TalkativeLog('-*-stop recording');
             isActive = false;
 
-            this.recorder.stop();
+            this.recorder.stop(() => {
+                // execute post-command after recorder fully stopped and file is available
+                this._doPostCommand();
+            });
 
             if (timerC !== null) {
                 // stop counting rec
                 timerC.halt();
                 timerC = null;
             }
-
-            // execute post-command
-            this._doPostCommand();
         }
 
         this.refreshIndicator(false);
