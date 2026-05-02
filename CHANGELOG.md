@@ -1,4 +1,4 @@
-# next
+# 1.13.0 (55) (2026-05-02)
 
 **🚀 Implemented enhancements:**
 * [#384](https://github.com/EasyScreenCast/EasyScreenCast/issues/384): Support GNOME 50 ([@meghprkh](https://github.com/meghprkh))
@@ -7,11 +7,10 @@
 * [#385](https://github.com/EasyScreenCast/EasyScreenCast/pull/385): Initial GNOME 50 support ([@meghprkh](https://github.com/meghprkh))
 * [#386](https://github.com/EasyScreenCast/EasyScreenCast/pull/386): Support GNOME 50 ([@adangel](https://github.com/adangel))
 
-**🐛 Fixed bugs:**
-
 **📦 Dependency updates:**
+* [#378](https://github.com/EasyScreenCast/EasyScreenCast/pull/378): Bump js-yaml from 4.1.0 to 4.1.1
 
-**Full Changelog**: <https://github.com/EasyScreenCast/EasyScreenCast/compare/1.12.0...HEAD>
+**Full Changelog**: <https://github.com/EasyScreenCast/EasyScreenCast/compare/1.12.0...1.13.0>
 
 # v1.12.0 (54) (2025-11-14)
 
