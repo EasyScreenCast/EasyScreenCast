@@ -189,6 +189,7 @@ export const CaptureVideo = GObject.registerClass({
     /**
      * Stop recording
      *
+     * @param {*} callback called after recording is stopped and the video file is available
      * @returns {boolean}
      */
     stop(callback) {
@@ -213,9 +214,9 @@ export const CaptureVideo = GObject.registerClass({
             if (this.AreaSelected !== null && this.AreaSelected.isVisible())
                 this.AreaSelected.clearArea();
 
-            if (callback) {
+            if (callback)
                 callback();
-            }
+
             return true;
         });
     }

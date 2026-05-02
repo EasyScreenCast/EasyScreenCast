@@ -673,7 +673,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
                             this._icons.off
                         );
                     }
-                },
+                }
             );
         } else {
             this.recorder.start();
