@@ -89,12 +89,18 @@ const EasyScreenCastIndicator = GObject.registerClass({
             );
         }
 
-        // add enter/leave/click event
+        // add enter/leave event
         this.connect('enter_event', () => this.refreshIndicator(true));
         this.connect('leave_event', () => this.refreshIndicator(false));
-        this.connect('button_press_event', (actor, event) =>
-            this._onButtonPress(actor, event)
-        );
+        // click event
+        this.clear_actions(); // remove the default gesture added by PanelMenu.Button
+        let gesture = new Clutter.ClickGesture();
+        gesture.set_recognize_on_press(true);
+        gesture.connect('recognize', () => {
+            this._onButtonPress(gesture);
+        });
+        gesture.set_enabled(true);
+        this.add_action(gesture);
 
         // prepare setting var
         if (this._settings.getOption('i', Settings.TIME_DELAY_SETTING_KEY) > 0)
@@ -195,16 +201,17 @@ const EasyScreenCastIndicator = GObject.registerClass({
      * Some submenus are refreshed to account for new
      * sources.
      *
-     * @param {Clutter.Actor} actor the actor
-     * @param {Clutter.Event} event a Clutter.Event
+     * @param {Clutter.ClickGesture} gesture the gesture
      */
-    _onButtonPress(actor, event) {
-        let button = event.get_button();
+    _onButtonPress(gesture) {
+        let button = gesture.get_button();
 
         if (button === 1) {
             Lib.TalkativeLog('-*-left click indicator');
 
             this._setupExtensionMenu();
+
+            this.menu?.toggle();
         } else {
             Lib.TalkativeLog('-*-right click indicator');
 
@@ -220,6 +227,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
      * Sets up the menu when the user opens it.
      */
     _setupExtensionMenu() {
+        Lib.TalkativeLog('-*-_setupExtensionMenu');
         this._addAudioRecordingSubMenu();
         this._addWebcamSubMenu();
     }
@@ -230,6 +238,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
      * null.
      */
     _addWebcamSubMenu() {
+        Lib.TalkativeLog('-*-_addWebcamSubMenu');
         if (this.CtrlWebcam === null)
             this.CtrlWebcam = new UtilWebcam.HelperWebcam(_('Unspecified webcam'));
 
@@ -244,6 +253,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
      * Adds individual webcam items to the webcam menu.
      */
     _populateSubMenuWebcam() {
+        Lib.TalkativeLog('-*-_populateSubMenuWebcam');
         let arrMI = this._createMIWebCam();
 
         this.smWebCam.menu.removeAll();
@@ -393,6 +403,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
      * @private
      */
     _createMIWebCam() {
+        Lib.TalkativeLog('-*-_createMIWebCam');
         this.WebCamDevice = [_('No WebCam recording')];
         // add menu item webcam device from GST
         const devices = this.CtrlWebcam.getDevicesIV();
@@ -637,11 +648,19 @@ const EasyScreenCastIndicator = GObject.registerClass({
         if (this._settings.getOption('b', Settings.ACTIVE_PRE_CMD_SETTING_KEY)) {
             Lib.TalkativeLog('-*-execute pre command');
 
-            const PreCmd = this._settings.getOption('s', Settings.PRE_CMD_SETTING_KEY);
+            const tmpCmd = this._settings.getOption('s', Settings.PRE_CMD_SETTING_KEY);
 
+            const mapObj = {
+                _dirpath: this.recorder.getRecordFolder(),
+            };
+            const PreCmd = tmpCmd.replace(/_dirpath/gi, match => {
+                return mapObj[match];
+            });
+
+            Lib.TalkativeLog(`-*-pre command:${PreCmd}`);
             this.CtrlExe.Execute(
                 PreCmd,
-                false,
+                true,
                 res => {
                     Lib.TalkativeLog(`-*-pre command final: ${res}`);
                     if (res === true) {
@@ -654,9 +673,6 @@ const EasyScreenCastIndicator = GObject.registerClass({
                             this._icons.off
                         );
                     }
-                },
-                line => {
-                    Lib.TalkativeLog(`-*-pre command output: ${line}`);
                 }
             );
         } else {
@@ -697,16 +713,16 @@ const EasyScreenCastIndicator = GObject.registerClass({
             Lib.TalkativeLog('-*-stop recording');
             isActive = false;
 
-            this.recorder.stop();
+            this.recorder.stop(() => {
+                // execute post-command after recorder fully stopped and file is available
+                this._doPostCommand();
+            });
 
             if (timerC !== null) {
                 // stop counting rec
                 timerC.halt();
                 timerC = null;
             }
-
-            // execute post-command
-            this._doPostCommand();
         }
 
         this.refreshIndicator(false);

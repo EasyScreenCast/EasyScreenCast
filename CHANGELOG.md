@@ -1,8 +1,11 @@
 # next
 
 **🚀 Implemented enhancements:**
+* [#384](https://github.com/EasyScreenCast/EasyScreenCast/issues/384): Support GNOME 50 ([@meghprkh](https://github.com/meghprkh))
 
 **🎉 Merged pull requests:**
+* [#385](https://github.com/EasyScreenCast/EasyScreenCast/pull/385): Initial GNOME 50 support ([@meghprkh](https://github.com/meghprkh))
+* [#386](https://github.com/EasyScreenCast/EasyScreenCast/pull/386): Support GNOME 50 ([@adangel](https://github.com/adangel))
 
 **🐛 Fixed bugs:**
 

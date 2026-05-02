@@ -23,7 +23,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 'use strict';
 
 import GObject from 'gi://GObject';
-import Meta from 'gi://Meta';
 import Clutter from 'gi://Clutter';
 import St from 'gi://St';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
@@ -86,14 +85,14 @@ class Capture extends Signals.EventEmitter {
      * @private
      */
     _setDefaultCursor() {
-        DisplayApi.set_cursor(Meta.Cursor.DEFAULT);
+        this._areaSelection.set_cursor_type(Clutter.CursorType.DEFAULT);
     }
 
     /**
      * @private
      */
     _setCaptureCursor() {
-        DisplayApi.set_cursor(Meta.Cursor.CROSSHAIR);
+        this._areaSelection.set_cursor_type(Clutter.CursorType.CROSSHAIR);
     }
 
     /**
