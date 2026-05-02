@@ -182,7 +182,7 @@ export const ExecuteStuff = GObject.registerClass({
                 Lib.TalkativeLog('-¶-exe RC');
                 if (this.Callback !== null) {
                     this.Callback.apply(this.Scope, [
-                        true,
+                        exit === 0,
                         decoder.decode(stdOut),
                     ]);
                 }

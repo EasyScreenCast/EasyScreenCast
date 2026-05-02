@@ -55,6 +55,25 @@ export const CaptureVideo = GObject.registerClass({
     }
 
     /**
+     * Determines the video folder
+     *
+     * @returns {string}
+     */
+    getRecordFolder() {
+        const defaultVideoDir =
+            GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_VIDEOS) ||
+            GLib.get_home_dir();
+        Lib.TalkativeLog(`-&-getRecordFolder() defaultVideoDir: ${defaultVideoDir}`);
+
+        let folderRec = defaultVideoDir;
+        if (Ext.Indicator.getSettings().getOption('s', Settings.FILE_FOLDER_SETTING_KEY) !== '')
+            folderRec = Ext.Indicator.getSettings().getOption('s', Settings.FILE_FOLDER_SETTING_KEY);
+
+        Lib.TalkativeLog(`-&-getRecordFolder() => ${folderRec}`);
+        return folderRec;
+    }
+
+    /**
      * start recording
      */
     start() {
@@ -67,9 +86,7 @@ export const CaptureVideo = GObject.registerClass({
         // prepare variable for screencast
         let fileRec = Ext.Indicator.getSettings().getOption('s', Settings.FILE_NAME_SETTING_KEY);
 
-        let folderRec = '';
-        if (Ext.Indicator.getSettings().getOption('s', Settings.FILE_FOLDER_SETTING_KEY) !== '')
-            folderRec = Ext.Indicator.getSettings().getOption('s', Settings.FILE_FOLDER_SETTING_KEY);
+        let folderRec = this.getRecordFolder();
 
         let pipelineRec = '';
 
@@ -86,9 +103,7 @@ export const CaptureVideo = GObject.registerClass({
         Lib.TalkativeLog(`-&-file template : ${fileRec}`);
         fileRec = this._generateFileName(fileRec);
         Lib.TalkativeLog(`-&-file final : ${fileRec}`);
-        const completeFileRecPath = folderRec !== ''
-            ? `${folderRec}/${fileRec}`
-            : fileRec;
+        const completeFileRecPath = `${folderRec}/${fileRec}`;
         Lib.TalkativeLog(`-&-file rec path complete : ${completeFileRecPath}${fileExt}`);
 
         // prefix with a videoconvert element

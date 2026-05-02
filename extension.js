@@ -648,11 +648,19 @@ const EasyScreenCastIndicator = GObject.registerClass({
         if (this._settings.getOption('b', Settings.ACTIVE_PRE_CMD_SETTING_KEY)) {
             Lib.TalkativeLog('-*-execute pre command');
 
-            const PreCmd = this._settings.getOption('s', Settings.PRE_CMD_SETTING_KEY);
+            const tmpCmd = this._settings.getOption('s', Settings.PRE_CMD_SETTING_KEY);
 
+            const mapObj = {
+                _dirpath: this.recorder.getRecordFolder(),
+            };
+            const PreCmd = tmpCmd.replace(/_dirpath/gi, match => {
+                return mapObj[match];
+            });
+
+            Lib.TalkativeLog(`-*-pre command:${PreCmd}`);
             this.CtrlExe.Execute(
                 PreCmd,
-                false,
+                true,
                 res => {
                     Lib.TalkativeLog(`-*-pre command final: ${res}`);
                     if (res === true) {
@@ -666,9 +674,6 @@ const EasyScreenCastIndicator = GObject.registerClass({
                         );
                     }
                 },
-                line => {
-                    Lib.TalkativeLog(`-*-pre command output: ${line}`);
-                }
             );
         } else {
             this.recorder.start();
