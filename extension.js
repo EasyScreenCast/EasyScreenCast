@@ -658,23 +658,19 @@ const EasyScreenCastIndicator = GObject.registerClass({
             });
 
             Lib.TalkativeLog(`-*-pre command:${PreCmd}`);
-            this.CtrlExe.Execute(
-                PreCmd,
-                true,
-                res => {
-                    Lib.TalkativeLog(`-*-pre command final: ${res}`);
-                    if (res === true) {
-                        Lib.TalkativeLog('-*-pre command OK');
-                        this.recorder.start();
-                    } else {
-                        Lib.TalkativeLog('-*-pre command ERROR');
-                        this.CtrlNotify.createNotify(
-                            _('ERROR PRE COMMAND - See logs for more info'),
-                            this._icons.off
-                        );
-                    }
+            this.CtrlExe.Execute(PreCmd, res => {
+                Lib.TalkativeLog(`-*-pre command final: ${res}`);
+                if (res === true) {
+                    Lib.TalkativeLog('-*-pre command OK');
+                    this.recorder.start();
+                } else {
+                    Lib.TalkativeLog('-*-pre command ERROR');
+                    this.CtrlNotify.createNotify(
+                        _('ERROR PRE COMMAND - See logs for more info'),
+                        this._icons.off
+                    );
                 }
-            );
+            });
         } else {
             this.recorder.start();
         }
