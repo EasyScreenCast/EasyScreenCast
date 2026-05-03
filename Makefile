@@ -46,7 +46,7 @@ clean:
 
 extension: ./schemas/gschemas.compiled $(MSGSRC:.po=.mo)
 
-./schemas/gschemas.compiled: ./schemas/org.gnome.shell.extensions.easyscreencast.gschema.xml
+./schemas/gschemas.compiled: ./schemas/org.gnome.shell.extensions.EasyScreenCast.gschema.xml
 	glib-compile-schemas ./schemas/
 
 potfile: ./locale/easyscreencast.pot
