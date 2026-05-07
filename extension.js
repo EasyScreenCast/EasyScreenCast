@@ -57,7 +57,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
         this._extension = extension;
         this._settings = new Settings.Settings(this._extension.getSettings());
         Lib.setDebugEnabled(this._settings.getOption('b', Settings.VERBOSE_DEBUG_SETTING_KEY));
-        this._settings._settings.connect(
+        this._handlerIdDebugSetting = this._settings._settings.connect(
             `changed::${Settings.VERBOSE_DEBUG_SETTING_KEY}`,
             () => {
                 Lib.setDebugEnabled(this._settings.getOption('b', Settings.VERBOSE_DEBUG_SETTING_KEY));
@@ -562,14 +562,13 @@ const EasyScreenCastIndicator = GObject.registerClass({
         this.TimeSlider.x_expand = true;
         this.TimeSlider.y_expand = true;
 
-        this.TimeSlider.connect('notify::value', item => {
+        this._handlerIdTimeSliderValue = this.TimeSlider.connect('notify::value', item => {
             this.DelayTimeLabel.set_text(
                 Math.floor(item.value * 100).toString() + _(' Sec')
             );
         });
-
-        this.TimeSlider.connect('drag-end', () => this._onDelayTimeChanged());
-        this.TimeSlider.connect('scroll-event', () =>
+        this._handlerIdTimeSliderDragEnd = this.TimeSlider.connect('drag-end', () => this._onDelayTimeChanged());
+        this._handlerIdTimeSliderScrollEnd = this.TimeSlider.connect('scroll-event', () =>
             this._onDelayTimeChanged()
         );
 
@@ -987,7 +986,29 @@ const EasyScreenCastIndicator = GObject.registerClass({
         if (isActive)
             isActive = false;
 
+        if (this.TimeSlider) {
+            if (this._handlerIdTimeSliderValue) {
+                this.TimeSlider.disconnect(this._handlerIdTimeSliderValue);
+                this._handlerIdTimeSliderValue = null;
+            }
+            if (this._handlerIdTimeSliderDragEnd) {
+                this.TimeSlider.disconnect(this._handlerIdTimeSliderDragEnd);
+                this._handlerIdTimeSliderDragEnd = null;
+            }
+            if (this._handlerIdTimeSliderScrollEnd) {
+                this.TimeSlider.disconnect(this._handlerIdTimeSliderScrollEnd);
+                this._handlerIdTimeSliderScrollEnd = null;
+            }
+            this.TimeSlider.destroy();
+            this.TimeSlider = null;
+        }
+
         if (this._settings) {
+            if (this._handlerIdDebugSetting) {
+                this._settings._settings.disconnect(this._handlerIdDebugSetting);
+                this._handlerIdDebugSetting = null;
+            }
+
             this._settings.destroy();
             this._settings = null;
         }

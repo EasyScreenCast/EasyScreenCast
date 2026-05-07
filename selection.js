@@ -154,7 +154,10 @@ class Capture extends Signals.EventEmitter {
     _stop() {
         Lib.TalkativeLog('-£-capture selection stop');
 
-        this._areaSelection.disconnect(this._signalCapturedEvent);
+        if (this._signalCapturedEvent) {
+            this._areaSelection.disconnect(this._signalCapturedEvent);
+            this._signalCapturedEvent = null;
+        }
         this._setDefaultCursor();
         Main.uiGroup.remove_child(this._areaSelection);
         Main.popModal(this._grab);
