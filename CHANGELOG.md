@@ -3,6 +3,7 @@
 **🚀 Implemented enhancements:**
 
 **🎉 Merged pull requests:**
+* [#387](https://github.com/EasyScreenCast/EasyScreenCast/pull/387): chore: fix shexli issues ([@adangel](https://github.com/adangel))
 
 **🐛 Fixed bugs:**
 
