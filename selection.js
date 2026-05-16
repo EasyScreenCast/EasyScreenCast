@@ -101,10 +101,8 @@ class Capture extends Signals.EventEmitter {
      * @private
      */
     _onCaptureEvent(actor, event) {
-        if (event.type() === Clutter.EventType.KEY_PRESS) {
-            if (event.get_key_symbol() === Clutter.KEY_Escape)
-                this._stop();
-        }
+        if (event.type() === Clutter.EventType.KEY_PRESS && event.get_key_symbol() === Clutter.KEY_Escape)
+            this._stop();
 
         this.emit('captured-event', event);
     }
@@ -156,12 +154,18 @@ class Capture extends Signals.EventEmitter {
     _stop() {
         Lib.TalkativeLog('-£-capture selection stop');
 
-        this._areaSelection.disconnect(this._signalCapturedEvent);
+        if (this._signalCapturedEvent) {
+            this._areaSelection.disconnect(this._signalCapturedEvent);
+            this._signalCapturedEvent = null;
+        }
         this._setDefaultCursor();
         Main.uiGroup.remove_child(this._areaSelection);
         Main.popModal(this._grab);
         Main.uiGroup.remove_child(this._areaResolution);
         this._areaSelection.destroy();
+        this._areaSelection = null;
+        this._areaResolution.destroy();
+        this._areaResolution = null;
         this.emit('stop');
     }
 

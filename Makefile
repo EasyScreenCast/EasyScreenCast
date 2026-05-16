@@ -46,8 +46,8 @@ clean:
 
 extension: ./schemas/gschemas.compiled $(MSGSRC:.po=.mo)
 
-./schemas/gschemas.compiled: ./schemas/org.gnome.shell.extensions.easyscreencast.gschema.xml
-	glib-compile-schemas ./schemas/
+./schemas/gschemas.compiled: ./schemas/org.gnome.shell.extensions.EasyScreenCast.gschema.xml
+	glib-compile-schemas --strict ./schemas/
 
 potfile: ./locale/easyscreencast.pot
 
@@ -66,12 +66,15 @@ mergepo: potfile
 ./locale/%.mo: ./locale/%.po
 	msgfmt -c $< -o $@
 
+.PHONY: install
 install: install-local
 
+.PHONY: install-local
 install-local: _build
 	rm -rf $(INSTALLBASE)/$(INSTALLNAME)
 	mkdir -p $(INSTALLBASE)/$(INSTALLNAME)
 	cp -r ./_build/* $(INSTALLBASE)/$(INSTALLNAME)/
+	cp schemas/gschemas.compiled $(INSTALLBASE)/$(INSTALLNAME)/schemas/
 	-rm -fR _build
 	echo done
 
@@ -94,7 +97,6 @@ _build: versioninfo all
 	cd images ; cp $(IMG_MEDIA) ../_build/images/
 	mkdir -p _build/schemas
 	cp schemas/*.xml _build/schemas/
-	cp schemas/gschemas.compiled _build/schemas/
 	mkdir -p _build/locale
 	for l in $(MSGSRC:.po=.mo) ; do \
 		lf=_build/locale/`basename $$l .mo`; \

@@ -14,6 +14,7 @@
 
 import Adw from 'gi://Adw';
 import GObject from 'gi://GObject';
+import GLib from 'gi://GLib';
 import Gio from 'gi://Gio';
 import Gtk from 'gi://Gtk';
 import Gdk from 'gi://Gdk';
@@ -690,34 +691,13 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
         var tmpFolder = this._settings.getOption('s', Settings.FILE_FOLDER_SETTING_KEY);
         Lib.TalkativeLog(`-^-folder for screencast: ${tmpFolder}`);
         if (tmpFolder === '' || tmpFolder === null || tmpFolder === undefined) {
-            let result = null;
-            ctx.CtrlExe.Execute(
-                'xdg-user-dir VIDEOS',
-                true,
-                (success, out) => {
-                    Lib.TalkativeLog(`-^-CALLBACK sync S: ${success} out: ${out}`);
-                    if (success && out !== '' && out !== undefined)
-                        result = out.replace(/(\n)/g, '');
-                },
-                null
-            );
-
+            let result = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_VIDEOS);
             if (result !== null) {
                 Lib.TalkativeLog(`-^-xdg-user video: ${result}`);
                 tmpFolder = result;
             } else {
-                Lib.TalkativeLog('-^-NOT SET xdg-user video');
-
-                ctx.CtrlExe.Execute(
-                    '/usr/bin/sh -c "echo $HOME"',
-                    true,
-                    (success, out) => {
-                        Lib.TalkativeLog(`-^-CALLBACK sync S: ${success} out: ${out}`);
-                        if (success && out !== '' && out !== undefined)
-                            tmpFolder = out.replace(/(\n)/g, '');
-                    },
-                    null
-                );
+                tmpFolder = GLib.get_home_dir();
+                Lib.TalkativeLog(`-^-NOT SET xdg-user video, user homedir instead: ${tmpFolder}`);
             }
 
             // connect keywebcam signal
@@ -800,99 +780,64 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
             Lib.TalkativeLog(`-^-log combobox changed: ${activeLog}`);
             switch (activeLog) {
             case 0:
+                // extension log, every line with "[ESC]" in it
+
                 // clear buffer
-                refBufferLog.delete(
-                    refBufferLog.get_start_iter(),
-                    refBufferLog.get_end_iter()
-                );
+                refBufferLog.text = '';
 
                 ctx.CtrlExe.Execute(
                     'journalctl --since "15 min ago" --output=cat --no-pager',
-                    false,
-                    success => {
-                        Lib.TalkativeLog(`-^-CALLBACK async S= ${success}`);
-                    },
-                    line => {
-                        let esc = line.indexOf('[ESC]');
-                        if (
-                            line !== '' &&
-                                line !== undefined &&
-                                esc !== -1
-                        ) {
-                            line += '\n';
-                            refBufferLog.insert(
-                                refBufferLog.get_end_iter(),
-                                line,
-                                line.length
-                            );
-                        }
+                    (result, stdout) => {
+                        Lib.TalkativeLog(`-^-CALLBACK S= ${result}`);
+                        let newText = '';
+                        stdout.split(/\n/).forEach(line => {
+                            let esc = line.indexOf('[ESC]');
+                            if (esc !== -1)
+                                newText += `${line}\n`;
+                        });
+                        refBufferLog.text = newText;
                     }
                 );
+
                 break;
             case 1:
+                // last GStreamer pipeline
+
                 // clear buffer
-                refBufferLog.delete(
-                    refBufferLog.get_start_iter(),
-                    refBufferLog.get_end_iter()
-                );
+                refBufferLog.text = '';
 
                 ctx.CtrlExe.Execute(
                     'journalctl --since "15 min ago" --output=cat --no-pager',
-                    false,
-                    success => {
-                        Lib.TalkativeLog(`-^-CALLBACK async S= ${success}`);
-                        if (success) {
-                            if (refBufferLog.get_line_count() > 0) {
-                                let strNOgsp = _(
-                                    'No Gstreamer pipeline found'
-                                );
-                                refBufferLog.insert(
-                                    refBufferLog.get_end_iter(),
-                                    strNOgsp,
-                                    strNOgsp.length
-                                );
-                            }
-                        }
-                    },
-                    line => {
-                        let esc = line.indexOf('-§-final GSP :');
-                        if (
-                            line !== '' &&
-                                line !== undefined &&
-                                esc !== -1
-                        ) {
-                            line += '\n';
-                            refBufferLog.insert(
-                                refBufferLog.get_end_iter(),
-                                line,
-                                line.length
+                    (result, stdout) => {
+                        Lib.TalkativeLog(`-^-CALLBACK async S= ${result}`);
+                        let newText = '';
+                        stdout.split(/\n/).forEach(line => {
+                            let esc = line.indexOf('-§-final GSP :');
+                            if (esc !== -1)
+                                newText += `${line}\n`;
+                        });
+                        refBufferLog.text = newText;
+                        if (newText === '') {
+                            let strNOgsp = _(
+                                'No Gstreamer pipeline found'
                             );
+                            refBufferLog.text = strNOgsp;
                         }
                     }
                 );
+
                 break;
             case 2:
+                // gnome shell log
+
                 // clear buffer
-                refBufferLog.delete(
-                    refBufferLog.get_start_iter(),
-                    refBufferLog.get_end_iter()
-                );
+                refBufferLog.text = '';
 
                 ctx.CtrlExe.Execute(
                     'journalctl /usr/bin/gnome-shell --since "15 min ago" --output=cat --no-pager',
-                    false,
-                    success => {
-                        Lib.TalkativeLog(`-^-CALLBACK async S= ${success}`);
-                    },
-                    line => {
-                        if (line !== '' && line !== undefined) {
-                            line += '\n';
-                            refBufferLog.insert(
-                                refBufferLog.get_end_iter(),
-                                line,
-                                line.length
-                            );
-                        }
+                    (result, stdout) => {
+                        Lib.TalkativeLog(`-^-CALLBACK async S= ${result}`);
+                        refBufferLog.text = stdout;
                     }
                 );
                 break;
