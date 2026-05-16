@@ -6,6 +6,7 @@
 * [#387](https://github.com/EasyScreenCast/EasyScreenCast/pull/387): chore: fix shexli issues ([@adangel](https://github.com/adangel))
 
 **🐛 Fixed bugs:**
+* [#388](https://github.com/EasyScreenCast/EasyScreenCast/issues/388): Crashes on Wayland when "show a border around the area being recorded" is on ([@sepsol](https://github.com/sepsol))
 
 **📦 Dependency updates:**
 
