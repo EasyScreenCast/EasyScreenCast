@@ -372,7 +372,8 @@ export class SelectionDesktop extends Signals.EventEmitter {
     }
 }
 
-export class AreaRecording extends GObject.Object {
+export const AreaRecording = GObject.registerClass({
+}, class AreaRecording extends GObject.Object {
     constructor() {
         super();
         Lib.TalkativeLog('-£-area recording init');
@@ -442,7 +443,7 @@ export class AreaRecording extends GObject.Object {
     toString() {
         return this.GTypeName;
     }
-}
+});
 
 /**
  * @param {number} x1 left position
