@@ -66,12 +66,15 @@ mergepo: potfile
 ./locale/%.mo: ./locale/%.po
 	msgfmt -c $< -o $@
 
+.PHONY: install
 install: install-local
 
+.PHONY: install-local
 install-local: _build
 	rm -rf $(INSTALLBASE)/$(INSTALLNAME)
 	mkdir -p $(INSTALLBASE)/$(INSTALLNAME)
 	cp -r ./_build/* $(INSTALLBASE)/$(INSTALLNAME)/
+	cp schemas/gschemas.compiled $(INSTALLBASE)/$(INSTALLNAME)/schemas/
 	-rm -fR _build
 	echo done
 
