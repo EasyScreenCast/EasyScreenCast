@@ -1,6 +1,4 @@
-# next
-
-**🚀 Implemented enhancements:**
+# 1.13.1 (56) (2026-05-16)
 
 **🎉 Merged pull requests:**
 * [#387](https://github.com/EasyScreenCast/EasyScreenCast/pull/387): chore: fix shexli issues ([@adangel](https://github.com/adangel))
@@ -10,8 +8,10 @@
 * [#388](https://github.com/EasyScreenCast/EasyScreenCast/issues/388): Crashes on Wayland when "show a border around the area being recorded" is on ([@sepsol](https://github.com/sepsol))
 
 **📦 Dependency updates:**
+* [#382](https://github.com/EasyScreenCast/EasyScreenCast/pull/382): Bump minimatch from 3.1.2 to 3.1.5
+* [#383](https://github.com/EasyScreenCast/EasyScreenCast/pull/383): Bump flatted from 3.3.1 to 3.4.2
 
-**Full Changelog**: <https://github.com/EasyScreenCast/EasyScreenCast/compare/1.13.0...HEAD>
+**Full Changelog**: <https://github.com/EasyScreenCast/EasyScreenCast/compare/1.13.0...1.13.1>
 
 # 1.13.0 (55) (2026-05-02)
 
