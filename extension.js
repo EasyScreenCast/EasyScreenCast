@@ -41,6 +41,10 @@ let timerD = null;
 let timerC = null;
 
 let isActive = false;
+// True from when a recording start is initiated (selection overlay open or the
+// start awaiting its result) until it resolves. Used to ignore repeated hotkey
+// presses so they can't stack multiple selection overlays / start attempts.
+let isStartPending = false;
 let pathFile = '';
 
 let keybindingConfigured = false;
@@ -681,6 +685,17 @@ const EasyScreenCastIndicator = GObject.registerClass({
     _doRecording() {
         // start/stop record screen
         if (isActive === false) {
+            // Reentrancy guard: ignore the hotkey while a start is already in
+            // progress (selection overlay open, or start awaiting its result).
+            // Without this, repeated presses stack multiple selection overlays /
+            // start attempts. Cleared when the selection ends (finish or abort)
+            // and in doRecResult().
+            if (isStartPending) {
+                Lib.TalkativeLog('-*-start already pending - ignoring hotkey press');
+                return;
+            }
+            isStartPending = true;
+
             Lib.TalkativeLog('-*-start recording');
 
             pathFile = '';
@@ -689,16 +704,25 @@ const EasyScreenCastIndicator = GObject.registerClass({
             const optArea = this._settings.getOption('i', Settings.AREA_SCREEN_SETTING_KEY);
             if (optArea > 0) {
                 Lib.TalkativeLog(`-*-type of selection of the area to record: ${optArea}`);
+                let areaSelection = null;
                 switch (optArea) {
                 case 3:
-                    new Selection.SelectionArea();
+                    areaSelection = new Selection.SelectionArea();
                     break;
                 case 2:
-                    new Selection.SelectionWindow();
+                    areaSelection = new Selection.SelectionWindow();
                     break;
                 case 1:
-                    new Selection.SelectionDesktop();
+                    areaSelection = new Selection.SelectionDesktop();
                     break;
+                }
+                // Clear the pending guard once the selection overlay closes
+                // (whether the user finished selecting or aborted with ESC), so
+                // the guard can never get stuck and block future presses.
+                if (areaSelection) {
+                    areaSelection.connect('stop', () => {
+                        isStartPending = false;
+                    });
                 }
             } else {
                 Lib.TalkativeLog('-*-recording full area');
@@ -758,6 +782,9 @@ const EasyScreenCastIndicator = GObject.registerClass({
      * @param {string} file file path of the recorded file
      */
     doRecResult(result, file) {
+        // The start has resolved (success or failure): release the reentrancy guard.
+        isStartPending = false;
+
         if (result) {
             isActive = true;
 
