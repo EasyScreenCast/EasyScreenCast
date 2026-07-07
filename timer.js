@@ -15,6 +15,8 @@
 import GObject from 'gi://GObject';
 import GLib from 'gi://GLib';
 import * as Lib from './convenience.js';
+import St from 'gi://St';
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 /*
                 DELAY TIMER
@@ -23,6 +25,7 @@ let DelaySec = 0;
 let timerDelayId = null;
 let CallbackFuncDelay = null;
 let ElapsedSec;
+let visualCountdownLabel = null;
 
 /**
  * @type {TimerDelay}
@@ -82,11 +85,39 @@ export const TimerDelay = GObject.registerClass({
     }
 
     /**
+     * Helper to show or update the huge text label on screen
+     */
+    _showVisualCountdown(text) {
+        if (visualCountdownLabel) {
+            Main.uiGroup.remove_child(visualCountdownLabel);
+            visualCountdownLabel = null;
+        }
+
+        if (!text || text <= 0) return;
+        visualCountdownLabel = new St.Label({
+            text: text.toString(),
+            style: 'font-size: 160px; font-weight: bold; color: #ff3333; text-shadow: 3px 3px 6px rgba(0,0,0,0.8);'
+        });
+
+        Main.uiGroup.add_child(visualCountdownLabel);
+
+        // Center on screen
+        let monitor = Main.layoutManager.primaryMonitor;
+        visualCountdownLabel.set_position(
+            monitor.x + (monitor.width - visualCountdownLabel.width) / 2,
+            monitor.y + (monitor.height - visualCountdownLabel.height) / 2
+        );
+    }
+
+    /**
      * Start or restart a new timer
      */
     begin() {
         Lib.TalkativeLog('-%-start TimerDelay called');
         this.stop();
+
+        let remaining = DelaySec - ElapsedSec + 1;
+        this._showVisualCountdown(remaining);
 
         timerDelayId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 1000, () =>
             this._callbackInternal()
@@ -98,6 +129,10 @@ export const TimerDelay = GObject.registerClass({
      */
     stop() {
         Lib.TalkativeLog('-%-stop TimerDelay called');
+
+        //Clear visual countdown
+        this._showVisualCountdown(0);
+
         if (timerDelayId !== null) {
             if (GLib.source_remove(timerDelayId)) {
                 timerDelayId = null;
@@ -124,11 +159,18 @@ export const TimerDelay = GObject.registerClass({
     _callbackInternal() {
         Lib.TalkativeLog(`-%-internalFunction TimerDelay called | Sec = ${ElapsedSec} Sec delay = ${DelaySec}`);
         if (ElapsedSec >= DelaySec) {
+            this._showVisualCountdown(0);
+
             CallbackFuncDelay.apply(this.Scope, []);
             ElapsedSec = 1;
             return false;
         } else {
             ElapsedSec++;
+
+            // Update visual countdown
+            let remaining = DelaySec - ElapsedSec + 1;
+            this._showVisualCountdown(remaining);
+
             return true;
         }
     }
