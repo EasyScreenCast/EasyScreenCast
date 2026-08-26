@@ -193,13 +193,15 @@ export const CaptureVideo = GObject.registerClass({
                     } else {
                         Lib.TalkativeLog(`-&-screencast execute - ${result[0]} - ${result[1]}`);
 
-                        // draw area recording
-                        if (Ext.Indicator.getSettings().getOption('b', Settings.SHOW_AREA_REC_SETTING_KEY)) {
-                            // Remove any stale frame first so a second start can
-                            // never orphan a previous instance's actors.
-                            this.clearAreaRecording();
+                        const recordingStarted = result[0];
+
+                        // A start that reported failure must never leave a frame
+                        // on screen, and a start that succeeded must never
+                        // inherit the previous attempt's actors.
+                        this.clearAreaRecording();
+
+                        if (recordingStarted && Ext.Indicator.getSettings().getOption('b', Settings.SHOW_AREA_REC_SETTING_KEY))
                             this.AreaSelected = new Selection.AreaRecording();
-                        }
 
                         let resultingFilePath = result[1];
                         if (resultingFilePath.endsWith('.undefined')) {

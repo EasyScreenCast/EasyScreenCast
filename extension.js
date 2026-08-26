@@ -826,6 +826,10 @@ const EasyScreenCastIndicator = GObject.registerClass({
 
             pathFile = '';
 
+            // Fail-safe: whatever path drew a frame, a reported recording
+            // failure means no recording owns it any more.
+            this.recorder.clearAreaRecording();
+
             if (this.isShowNotify) {
                 Lib.TalkativeLog('-*-show error notify');
                 this.CtrlNotify.createNotify(
