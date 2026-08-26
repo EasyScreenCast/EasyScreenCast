@@ -52,6 +52,32 @@ export const CaptureVideo = GObject.registerClass({
                     Lib.TalkativeLog('-&-d-bus proxy connected');
             }
         );
+
+        // Fail-safe for an abnormal backend death: if the screencast service
+        // process disappears (crash/kill) no Stop call ever reaches us, so the
+        // recording-area frame would stay stuck on screen. Watch the D-Bus name;
+        // when it vanishes while a frame is shown, tear the frame down.
+        this._screencastWatchId = Gio.bus_watch_name(
+            Gio.BusType.SESSION,
+            'org.gnome.Shell.Screencast',
+            Gio.BusNameWatcherFlags.NONE,
+            null,
+            () => {
+                Lib.TalkativeLog('-&-screencast bus name vanished -> clear frame');
+                this.clearAreaRecording();
+            }
+        );
+    }
+
+    /**
+     * Fail-safe removal of the recording-area frame. Idempotent: safe to call
+     * when no frame exists, and safe to call repeatedly.
+     */
+    clearAreaRecording() {
+        if (this.AreaSelected !== null) {
+            this.AreaSelected.destroy();
+            this.AreaSelected = null;
+        }
     }
 
     /**
@@ -167,8 +193,14 @@ export const CaptureVideo = GObject.registerClass({
                     } else {
                         Lib.TalkativeLog(`-&-screencast execute - ${result[0]} - ${result[1]}`);
 
-                        // draw area recording
-                        if (Ext.Indicator.getSettings().getOption('b', Settings.SHOW_AREA_REC_SETTING_KEY))
+                        const recordingStarted = result[0];
+
+                        // A start that reported failure must never leave a frame
+                        // on screen, and a start that succeeded must never
+                        // inherit the previous attempt's actors.
+                        this.clearAreaRecording();
+
+                        if (recordingStarted && Ext.Indicator.getSettings().getOption('b', Settings.SHOW_AREA_REC_SETTING_KEY))
                             this.AreaSelected = new Selection.AreaRecording();
 
                         let resultingFilePath = result[1];
@@ -198,10 +230,8 @@ export const CaptureVideo = GObject.registerClass({
         this._screenCastService.StopScreencastRemote((result, error) => {
             if (error) {
                 Lib.TalkativeLog(`-&-ERROR(screencast stop) - ${error.message}`);
-                return false;
             } else {
                 Lib.TalkativeLog(`-&-screencast stop - ${result[0]}`);
-
 
                 // rename the file...
                 Lib.TalkativeLog(`-&-screencast: rename ${this._originalFilePath} to ${this._filePathWithExtension}`);
@@ -210,15 +240,16 @@ export const CaptureVideo = GObject.registerClass({
                 sourceFile.move(destFile, 0, null, null);
             }
 
-            // clear area recording
-            if (this.AreaSelected !== null && this.AreaSelected.isVisible())
-                this.AreaSelected.clearArea();
+            // Always clear the recording-area frame, on success OR error.
+            this.clearAreaRecording();
 
             if (callback)
                 callback();
-
-            return true;
         });
+
+        // Also clear synchronously, in case the async StopScreencast callback
+        // never fires (e.g. the screencast service has gone away). Idempotent.
+        this.clearAreaRecording();
     }
 
     // without file extension
