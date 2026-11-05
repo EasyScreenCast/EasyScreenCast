@@ -181,23 +181,41 @@ class Capture extends Signals.EventEmitter {
     }
 }
 
-class SelectionArea extends Signals.EventEmitter {
-    constructor() {
+/**
+ * Lifecycle shared by the area, window and desktop selections: the Capture
+ * (highlight rectangle, modal grab and captured-event signal) and the alert
+ * label telling the user what to do.
+ *
+ * The subclasses only pass their log tag and gettext alert message here, and
+ * keep the fields and the event handling that differ between them.
+ */
+class SelectionBase extends Signals.EventEmitter {
+    /**
+     * @param {string} kind short tag used in the debug log
+     * @param {string} alert message shown to the user while selecting
+     */
+    constructor(kind, alert) {
         super();
-        Lib.TalkativeLog('-£-area selection init');
+        Lib.TalkativeLog(`-£-${kind} selection init`);
 
-        this._mouseDown = false;
+        this._kind = kind;
         this._capture = new Capture();
         this._capture.connect('captured-event', this._onEvent.bind(this));
         this._capture.connect('stop', () => {
-            this._ctrlNotify.resetAlert();
+            this._ctrlNotify?.resetAlert();
             this.emit('stop');
         });
 
         this._ctrlNotify = new UtilNotify.NotifyManager();
-        this._ctrlNotify.createAlert(
-            _('Select an area for recording or press [ESC] to abort')
-        );
+        this._ctrlNotify.createAlert(alert);
+    }
+}
+
+class SelectionArea extends SelectionBase {
+    constructor() {
+        super('area', _('Select an area for recording or press [ESC] to abort'));
+
+        this._mouseDown = false;
     }
 
     /**
@@ -231,23 +249,11 @@ class SelectionArea extends Signals.EventEmitter {
     }
 }
 
-class SelectionWindow extends Signals.EventEmitter {
+class SelectionWindow extends SelectionBase {
     constructor() {
-        super();
-        Lib.TalkativeLog('-£-window selection init');
+        super('window', _('Select a window for recording or press [ESC] to abort'));
 
         this._windows = global.get_window_actors();
-        this._capture = new Capture();
-        this._capture.connect('captured-event', this._onEvent.bind(this));
-        this._capture.connect('stop', () => {
-            this._ctrlNotify.resetAlert();
-            this.emit('stop');
-        });
-
-        this._ctrlNotify = new UtilNotify.NotifyManager();
-        this._ctrlNotify.createAlert(
-            _('Select a window for recording or press [ESC] to abort')
-        );
     }
 
     /**
@@ -319,10 +325,10 @@ class SelectionWindow extends Signals.EventEmitter {
     }
 }
 
-class SelectionDesktop extends Signals.EventEmitter {
+class SelectionDesktop extends SelectionBase {
     constructor() {
-        super();
-        Lib.TalkativeLog('-£-desktop selection init');
+        super('desktop', _('Select a desktop for recording or press [ESC] to abort'));
+
         const displayCount = DisplayApi.number_displays();
         Lib.TalkativeLog(`-£-Number of monitor ${displayCount}`);
 
@@ -330,18 +336,6 @@ class SelectionDesktop extends Signals.EventEmitter {
             let tmpM = DisplayApi.display_geometry_for_index(i);
             Lib.TalkativeLog(`-£-monitor ${i} geometry x=${tmpM.x} y=${tmpM.y} w=${tmpM.width} h=${tmpM.height}`);
         }
-
-        this._capture = new Capture();
-        this._capture.connect('captured-event', this._onEvent.bind(this));
-        this._capture.connect('stop', () => {
-            this._ctrlNotify.resetAlert();
-            this.emit('stop');
-        });
-
-        this._ctrlNotify = new UtilNotify.NotifyManager();
-        this._ctrlNotify.createAlert(
-            _('Select a desktop for recording or press [ESC] to abort')
-        );
     }
 
     /**
