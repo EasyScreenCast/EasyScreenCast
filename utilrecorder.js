@@ -168,8 +168,11 @@ export const CaptureVideo = GObject.registerClass({
                         Lib.TalkativeLog(`-&-screencast execute - ${result[0]} - ${result[1]}`);
 
                         // draw area recording
-                        if (Ext.Indicator.getSettings().getOption('b', Settings.SHOW_AREA_REC_SETTING_KEY))
+                        if (Ext.Indicator.getSettings().getOption('b', Settings.SHOW_AREA_REC_SETTING_KEY)) {
+                            // never leave a previous area frame behind
+                            this.AreaSelected?.destroy();
                             this.AreaSelected = new Selection.AreaRecording();
+                        }
 
                         let resultingFilePath = result[1];
                         if (resultingFilePath.endsWith('.undefined')) {
@@ -210,9 +213,14 @@ export const CaptureVideo = GObject.registerClass({
                 sourceFile.move(destFile, 0, null, null);
             }
 
-            // clear area recording
-            if (this.AreaSelected !== null && this.AreaSelected.isVisible())
-                this.AreaSelected.clearArea();
+            // clear area recording and release the actors it created
+            if (this.AreaSelected !== null) {
+                if (this.AreaSelected.isVisible())
+                    this.AreaSelected.clearArea();
+
+                this.AreaSelected.destroy();
+                this.AreaSelected = null;
+            }
 
             if (callback)
                 callback();
