@@ -181,7 +181,7 @@ class Capture extends Signals.EventEmitter {
     }
 }
 
-export class SelectionArea extends Signals.EventEmitter {
+class SelectionArea extends Signals.EventEmitter {
     constructor() {
         super();
         Lib.TalkativeLog('-£-area selection init');
@@ -231,7 +231,7 @@ export class SelectionArea extends Signals.EventEmitter {
     }
 }
 
-export class SelectionWindow extends Signals.EventEmitter {
+class SelectionWindow extends Signals.EventEmitter {
     constructor() {
         super();
         Lib.TalkativeLog('-£-window selection init');
@@ -319,7 +319,7 @@ export class SelectionWindow extends Signals.EventEmitter {
     }
 }
 
-export class SelectionDesktop extends Signals.EventEmitter {
+class SelectionDesktop extends Signals.EventEmitter {
     constructor() {
         super();
         Lib.TalkativeLog('-£-desktop selection init');
@@ -372,7 +372,7 @@ export class SelectionDesktop extends Signals.EventEmitter {
     }
 }
 
-export const AreaRecording = GObject.registerClass({
+const AreaRecording = GObject.registerClass({
 }, class AreaRecording extends GObject.Object {
     constructor() {
         super();
@@ -543,3 +543,10 @@ function _selectWindow(windows, x, y) {
 
     return filtered[0];
 }
+
+export {
+    SelectionArea,
+    SelectionWindow,
+    SelectionDesktop,
+    AreaRecording
+};
