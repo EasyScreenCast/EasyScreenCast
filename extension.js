@@ -128,6 +128,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
         // init var
         this.recorder = new UtilRecorder.CaptureVideo();
         this.AreaSelected = null;
+        this._selection = null;
         this.TimeSlider = null;
 
         this._initMainMenu();
@@ -617,6 +618,10 @@ const EasyScreenCastIndicator = GObject.registerClass({
         // unregister mixer control
         this.CtrlAudio.destroy();
 
+        // tear down a possibly active area selection
+        this._selection?.destroy();
+        this._selection = null;
+
         // remove indicator
         this.remove_child(this.indicatorBox);
     }
@@ -689,15 +694,19 @@ const EasyScreenCastIndicator = GObject.registerClass({
             const optArea = this._settings.getOption('i', Settings.AREA_SCREEN_SETTING_KEY);
             if (optArea > 0) {
                 Lib.TalkativeLog(`-*-type of selection of the area to record: ${optArea}`);
+
+                // never leave a previous selection (and its modal grab) behind
+                this._selection?.destroy();
+
                 switch (optArea) {
                 case 3:
-                    new Selection.SelectionArea();
+                    this._selection = new Selection.SelectionArea();
                     break;
                 case 2:
-                    new Selection.SelectionWindow();
+                    this._selection = new Selection.SelectionWindow();
                     break;
                 case 1:
-                    new Selection.SelectionDesktop();
+                    this._selection = new Selection.SelectionDesktop();
                     break;
                 }
             } else {
@@ -985,6 +994,10 @@ const EasyScreenCastIndicator = GObject.registerClass({
 
         if (isActive)
             isActive = false;
+
+        // tear down a possibly active area selection
+        this._selection?.destroy();
+        this._selection = null;
 
         if (this.TimeSlider) {
             if (this._handlerIdTimeSliderValue) {

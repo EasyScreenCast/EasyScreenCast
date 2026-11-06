@@ -43,6 +43,7 @@ class Capture extends Signals.EventEmitter {
         super();
         Lib.TalkativeLog('-£-capture selection init');
 
+        this._destroyed = false;
         this._mouseDown = false;
 
         this.monitor = Main.layoutManager.focusMonitor;
@@ -101,8 +102,10 @@ class Capture extends Signals.EventEmitter {
      * @private
      */
     _onCaptureEvent(actor, event) {
-        if (event.type() === Clutter.EventType.KEY_PRESS && event.get_key_symbol() === Clutter.KEY_Escape)
-            this._stop();
+        if (event.type() === Clutter.EventType.KEY_PRESS && event.get_key_symbol() === Clutter.KEY_Escape) {
+            this.destroy();
+            return;
+        }
 
         this.emit('captured-event', event);
     }
@@ -118,6 +121,9 @@ class Capture extends Signals.EventEmitter {
      * @param {boolean} showResolution whether to display the size of the selected area
      */
     drawSelection({x, y, w, h}, showResolution) {
+        if (this._destroyed)
+            return;
+
         this._areaSelection.set_position(x, y);
         this._areaSelection.set_size(w, h);
 
@@ -149,10 +155,17 @@ class Capture extends Signals.EventEmitter {
     }
 
     /**
-     * @private
+     * Removes the actors and the modal grab created by this capture, and
+     * disconnects the signal handlers it is emitting to.
+     *
+     * Safe to call more than once: only the first call does the teardown.
      */
-    _stop() {
-        Lib.TalkativeLog('-£-capture selection stop');
+    destroy() {
+        if (this._destroyed)
+            return;
+
+        this._destroyed = true;
+        Lib.TalkativeLog('-£-capture selection destroy');
 
         if (this._signalCapturedEvent) {
             this._areaSelection.disconnect(this._signalCapturedEvent);
@@ -160,13 +173,21 @@ class Capture extends Signals.EventEmitter {
         }
         this._setDefaultCursor();
         Main.uiGroup.remove_child(this._areaSelection);
-        Main.popModal(this._grab);
+
+        if (this._grab) {
+            Main.popModal(this._grab);
+            this._grab = null;
+        }
+
         Main.uiGroup.remove_child(this._areaResolution);
         this._areaSelection.destroy();
         this._areaSelection = null;
         this._areaResolution.destroy();
         this._areaResolution = null;
+        this.monitor = null;
+
         this.emit('stop');
+        this.disconnectAll();
     }
 
     _saveRect(x, y, h, w) {
@@ -181,23 +202,99 @@ class Capture extends Signals.EventEmitter {
     }
 }
 
-export class SelectionArea extends Signals.EventEmitter {
-    constructor() {
+/**
+ * Lifecycle shared by the area, window and desktop selections: the Capture
+ * (highlight rectangle, modal grab and captured-event signal) and the alert
+ * label telling the user what to do.
+ *
+ * The teardown is split in two: destroy() releases the shared objects exactly
+ * once, and the subclasses release the fields they own in _releaseFields().
+ */
+class SelectionBase extends Signals.EventEmitter {
+    /**
+     * @param {string} kind short tag used in the debug log
+     * @param {string} alert message shown to the user while selecting
+     */
+    constructor(kind, alert) {
         super();
-        Lib.TalkativeLog('-£-area selection init');
+        Lib.TalkativeLog(`-£-${kind} selection init`);
 
-        this._mouseDown = false;
+        this._destroyed = false;
+        this._kind = kind;
         this._capture = new Capture();
-        this._capture.connect('captured-event', this._onEvent.bind(this));
-        this._capture.connect('stop', () => {
-            this._ctrlNotify.resetAlert();
-            this.emit('stop');
-        });
+        this._signalCaptureEvent = this._capture.connect(
+            'captured-event',
+            this._onEvent.bind(this)
+        );
+        this._signalCaptureStop = this._capture.connect('stop', () => this.destroy());
 
         this._ctrlNotify = new UtilNotify.NotifyManager();
-        this._ctrlNotify.createAlert(
-            _('Select an area for recording or press [ESC] to abort')
-        );
+        this._ctrlNotify.createAlert(alert);
+    }
+
+    /**
+     * Tears down the selection: disconnects the capture signals, destroys the
+     * capture (highlight rectangle, modal grab), removes the alert shown to the
+     * user and releases the fields owned by the subclass.
+     *
+     * Safe to call more than once: only the first call does the teardown.
+     */
+    destroy() {
+        if (this._destroyed)
+            return;
+
+        this._destroyed = true;
+        Lib.TalkativeLog(`-£-${this._kind} selection destroy`);
+
+        // disconnect before destroying the capture, so that its 'stop' emission
+        // cannot re-enter this method
+        if (this._signalCaptureEvent) {
+            this._capture?.disconnect(this._signalCaptureEvent);
+            this._signalCaptureEvent = null;
+        }
+        if (this._signalCaptureStop) {
+            this._capture?.disconnect(this._signalCaptureStop);
+            this._signalCaptureStop = null;
+        }
+
+        this._capture?.destroy();
+        this._capture = null;
+
+        this._ctrlNotify?.resetAlert();
+        this._ctrlNotify = null;
+
+        this._releaseFields();
+
+        this.emit('stop');
+        this.disconnectAll();
+    }
+
+    /**
+     * Releases the fields owned by the subclass; called once from destroy().
+     *
+     * @private
+     */
+    _releaseFields() {
+        // the base selection owns no other field
+    }
+}
+
+class SelectionArea extends SelectionBase {
+    constructor() {
+        super('area', _('Select an area for recording or press [ESC] to abort'));
+
+        this._mouseDown = false;
+        this._startX = 0;
+        this._startY = 0;
+    }
+
+    /**
+     * @private
+     */
+    _releaseFields() {
+        this._startX = 0;
+        this._startY = 0;
+        this._mouseDown = false;
     }
 
     /**
@@ -206,6 +303,9 @@ export class SelectionArea extends Signals.EventEmitter {
      * @private
      */
     _onEvent(capture, event) {
+        if (this._destroyed)
+            return;
+
         let type = event.type();
         let [x, y] = global.get_pointer();
 
@@ -217,11 +317,13 @@ export class SelectionArea extends Signals.EventEmitter {
             if (type === Clutter.EventType.MOTION) {
                 this._capture.drawSelection(rect, true);
             } else if (type === Clutter.EventType.BUTTON_RELEASE) {
-                this._capture._stop();
-
                 Lib.TalkativeLog(`-£-area x: ${rect.x} y: ${rect.y} height: ${rect.h} width: ${rect.w}`);
 
+                // the settings write has to happen before the teardown, as it
+                // nulls the capture it goes through
                 this._capture._saveRect(rect.x, rect.y, rect.h, rect.w);
+
+                this.destroy();
             }
         }
     }
@@ -231,23 +333,20 @@ export class SelectionArea extends Signals.EventEmitter {
     }
 }
 
-export class SelectionWindow extends Signals.EventEmitter {
+class SelectionWindow extends SelectionBase {
     constructor() {
-        super();
-        Lib.TalkativeLog('-£-window selection init');
+        super('window', _('Select a window for recording or press [ESC] to abort'));
 
+        this._selectedWindow = null;
         this._windows = global.get_window_actors();
-        this._capture = new Capture();
-        this._capture.connect('captured-event', this._onEvent.bind(this));
-        this._capture.connect('stop', () => {
-            this._ctrlNotify.resetAlert();
-            this.emit('stop');
-        });
+    }
 
-        this._ctrlNotify = new UtilNotify.NotifyManager();
-        this._ctrlNotify.createAlert(
-            _('Select a window for recording or press [ESC] to abort')
-        );
+    /**
+     * @private
+     */
+    _releaseFields() {
+        this._selectedWindow = null;
+        this._windows = null;
     }
 
     /**
@@ -256,6 +355,9 @@ export class SelectionWindow extends Signals.EventEmitter {
      * @private
      */
     _onEvent(capture, event) {
+        if (this._destroyed)
+            return;
+
         let type = event.type();
         let [x, y] = global.get_pointer();
 
@@ -269,8 +371,6 @@ export class SelectionWindow extends Signals.EventEmitter {
 
         if (type === Clutter.EventType.BUTTON_PRESS) {
             if (this._selectedWindow) {
-                this._capture._stop();
-
                 let maxHeight = global.screen_height;
                 let maxWidth = global.screen_width;
                 Lib.TalkativeLog(`-£-global screen area H: ${maxHeight} W: ${maxWidth}`);
@@ -291,7 +391,11 @@ export class SelectionWindow extends Signals.EventEmitter {
 
                 Lib.TalkativeLog(`-£-windows post wx: ${wx} wy: ${wy} height: ${h} width: ${w}`);
 
+                // the settings write has to happen before the teardown, as it
+                // nulls the capture it goes through
                 this._capture._saveRect(wx, wy, h, w);
+
+                this.destroy();
             }
         }
     }
@@ -319,10 +423,10 @@ export class SelectionWindow extends Signals.EventEmitter {
     }
 }
 
-export class SelectionDesktop extends Signals.EventEmitter {
+class SelectionDesktop extends SelectionBase {
     constructor() {
-        super();
-        Lib.TalkativeLog('-£-desktop selection init');
+        super('desktop', _('Select a desktop for recording or press [ESC] to abort'));
+
         const displayCount = DisplayApi.number_displays();
         Lib.TalkativeLog(`-£-Number of monitor ${displayCount}`);
 
@@ -330,18 +434,6 @@ export class SelectionDesktop extends Signals.EventEmitter {
             let tmpM = DisplayApi.display_geometry_for_index(i);
             Lib.TalkativeLog(`-£-monitor ${i} geometry x=${tmpM.x} y=${tmpM.y} w=${tmpM.width} h=${tmpM.height}`);
         }
-
-        this._capture = new Capture();
-        this._capture.connect('captured-event', this._onEvent.bind(this));
-        this._capture.connect('stop', () => {
-            this._ctrlNotify.resetAlert();
-            this.emit('stop');
-        });
-
-        this._ctrlNotify = new UtilNotify.NotifyManager();
-        this._ctrlNotify.createAlert(
-            _('Select a desktop for recording or press [ESC] to abort')
-        );
     }
 
     /**
@@ -350,11 +442,12 @@ export class SelectionDesktop extends Signals.EventEmitter {
      * @private
      */
     _onEvent(capture, event) {
+        if (this._destroyed)
+            return;
+
         let type = event.type();
 
         if (type === Clutter.EventType.BUTTON_PRESS) {
-            this._capture._stop();
-
             let tmpM = Main.layoutManager.currentMonitor;
 
             let x = tmpM.x;
@@ -363,7 +456,11 @@ export class SelectionDesktop extends Signals.EventEmitter {
             let width = tmpM.width;
             Lib.TalkativeLog(`-£-desktop x: ${x} y: ${y} height: ${height} width: ${width}`);
 
+            // the settings write has to happen before the teardown, as it
+            // nulls the capture it goes through
             this._capture._saveRect(x, y, height, width);
+
+            this.destroy();
         }
     }
 
@@ -372,12 +469,13 @@ export class SelectionDesktop extends Signals.EventEmitter {
     }
 }
 
-export const AreaRecording = GObject.registerClass({
+const AreaRecording = GObject.registerClass({
 }, class AreaRecording extends GObject.Object {
     constructor() {
         super();
         Lib.TalkativeLog('-£-area recording init');
 
+        this._destroyed = false;
         // The recording-area indicator is drawn as a hollow frame made of four
         // thin edge strips (top/bottom/left/right) rather than a single widget
         // covering the whole recorded rectangle. A single widget would swallow
@@ -404,13 +502,13 @@ export const AreaRecording = GObject.registerClass({
         let tmpH = Main.layoutManager.currentMonitor.height;
         let tmpW = Main.layoutManager.currentMonitor.width;
 
-        Main.overview.connect('showing', () => {
+        this._overviewShowingId = Main.overview.connect('showing', () => {
             Lib.TalkativeLog('-£-overview opening');
 
             this._edges.forEach(edge => Main.uiGroup.remove_child(edge));
         });
 
-        Main.overview.connect('hidden', () => {
+        this._overviewHiddenId = Main.overview.connect('hidden', () => {
             Lib.TalkativeLog('-£-overview closed');
 
             this._edges.forEach(edge => Main.uiGroup.add_child(edge));
@@ -421,12 +519,47 @@ export const AreaRecording = GObject.registerClass({
     }
 
     /**
+     * Removes the edge strips from the uiGroup and disconnects the overview
+     * signal handlers this area recording is listening to.
+     *
+     * Safe to call more than once: only the first call does the teardown.
+     */
+    destroy() {
+        if (this._destroyed)
+            return;
+
+        this._destroyed = true;
+        Lib.TalkativeLog('-£-area recording destroy');
+
+        if (this._overviewShowingId) {
+            Main.overview.disconnect(this._overviewShowingId);
+            this._overviewShowingId = null;
+        }
+        if (this._overviewHiddenId) {
+            Main.overview.disconnect(this._overviewHiddenId);
+            this._overviewHiddenId = null;
+        }
+
+        this._edges.forEach(edge => {
+            // the overview handlers may have detached the strip already
+            if (edge.get_parent())
+                Main.uiGroup.remove_child(edge);
+            edge.destroy();
+        });
+        this._edges = null;
+        this._visible = false;
+    }
+
+    /**
      * @param {number} x left position
      * @param {number} y top position
      * @param {number} w width
      * @param {number} h height
      */
     drawArea(x, y, w, h) {
+        if (this._destroyed)
+            return;
+
         Lib.TalkativeLog('-£-draw area recording');
 
         this._visible = true;
@@ -460,6 +593,9 @@ export const AreaRecording = GObject.registerClass({
      * Clears the drawing area
      */
     clearArea() {
+        if (this._destroyed)
+            return;
+
         Lib.TalkativeLog('-£-hide area recording');
 
         this._visible = false;
@@ -470,6 +606,9 @@ export const AreaRecording = GObject.registerClass({
      * @returns {boolean}
      */
     isVisible() {
+        if (this._destroyed)
+            return false;
+
         return this._visible;
     }
 
@@ -543,3 +682,10 @@ function _selectWindow(windows, x, y) {
 
     return filtered[0];
 }
+
+export {
+    SelectionArea,
+    SelectionWindow,
+    SelectionDesktop,
+    AreaRecording
+};
