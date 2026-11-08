@@ -617,6 +617,12 @@ const EasyScreenCastIndicator = GObject.registerClass({
         // unregister mixer control
         this.CtrlAudio.destroy();
 
+        // Fail-safe: tear down any recording-area frame so disabling the
+        // extension (or GNOME Shell unloading it) can never leave stuck red
+        // border artifacts on screen.
+        if (this.recorder)
+            this.recorder.clearAreaRecording();
+
         // remove indicator
         this.remove_child(this.indicatorBox);
     }

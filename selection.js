@@ -404,13 +404,16 @@ export const AreaRecording = GObject.registerClass({
         let tmpH = Main.layoutManager.currentMonitor.height;
         let tmpW = Main.layoutManager.currentMonitor.width;
 
-        Main.overview.connect('showing', () => {
+        // Keep the handler IDs so destroy() can disconnect them; otherwise the
+        // handlers (and the actors they capture) leak and can fire against
+        // already-destroyed actors.
+        this._overviewShowingId = Main.overview.connect('showing', () => {
             Lib.TalkativeLog('-£-overview opening');
 
             this._edges.forEach(edge => Main.uiGroup.remove_child(edge));
         });
 
-        Main.overview.connect('hidden', () => {
+        this._overviewHiddenId = Main.overview.connect('hidden', () => {
             Lib.TalkativeLog('-£-overview closed');
 
             this._edges.forEach(edge => Main.uiGroup.add_child(edge));
@@ -457,13 +460,45 @@ export const AreaRecording = GObject.registerClass({
     }
 
     /**
-     * Clears the drawing area
+     * Fully removes the recording-area frame and releases its resources:
+     * disconnects the overview signal handlers and removes + destroys every
+     * edge actor. Idempotent and fail-safe (safe to call repeatedly and whether
+     * or not the frame is shown). Prevents stuck red-border artifacts when a
+     * recording ends abnormally or the extension is disabled mid-recording.
+     */
+    destroy() {
+        Lib.TalkativeLog('-£-destroy area recording');
+
+        this._visible = false;
+
+        if (this._overviewShowingId) {
+            Main.overview.disconnect(this._overviewShowingId);
+            this._overviewShowingId = null;
+        }
+        if (this._overviewHiddenId) {
+            Main.overview.disconnect(this._overviewHiddenId);
+            this._overviewHiddenId = null;
+        }
+
+        if (this._edges) {
+            this._edges.forEach(edge => {
+                if (edge.get_parent() !== null)
+                    Main.uiGroup.remove_child(edge);
+
+                edge.destroy();
+            });
+            this._edges = [];
+        }
+    }
+
+    /**
+     * Clears the drawing area. Delegates to destroy() so the frame actors are
+     * actually removed, not just hidden offscreen.
      */
     clearArea() {
         Lib.TalkativeLog('-£-hide area recording');
 
-        this._visible = false;
-        this.drawArea(-10, -10, 0, 0);
+        this.destroy();
     }
 
     /**
