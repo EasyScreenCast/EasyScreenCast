@@ -27,7 +27,24 @@ jobs:
 
     - run: npm ci
     - run: npm run lint
-    - run: make zip-file
+
+    - name: Build the extension zip
+      run: make zip-file
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@v7
+      with:
+        python-version: '3.12'
+        enable-cache: true
+
+    # EGO's review linter, fed the zip above: a bare checkout trips EGO-P-005/006
+    # on files that never ship (COPYING, package-lock.json, Makefile). Advisory:
+    # continue-on-error, so it reports without blocking. tree-sitter >= 0.26
+    # segfaults this shexli on our files - bump the two together.
+    - name: shexli
+      continue-on-error: true
+      run: uvx --with 'tree-sitter<0.26' shexli --format text EasyScreenCast_*.zip
+
     - uses: actions/upload-artifact@v7
       with:
         name: EasyScreenCast
